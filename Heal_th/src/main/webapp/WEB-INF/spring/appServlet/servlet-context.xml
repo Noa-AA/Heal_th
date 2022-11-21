@@ -21,11 +21,6 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-<<<<<<< HEAD
-	<context:component-scan base-package="com.heal_th.www, daeyeon.controller, daeyeon.service" />
-	
-	
-=======
 	<context:component-scan base-package="com.heal_th.www,
 	 changmin.controller, changmin.service,
 	 daeyeon.controller, daeyeon.service,
@@ -35,6 +30,5 @@
 	 saebyeol.controller, saebyeol.service,
 	 unhak.controller, unhak.service,
 	 yerim.controller, yerim.service" />
->>>>>>> refs/remotes/origin/terminal
 	
 </beans:beans>
