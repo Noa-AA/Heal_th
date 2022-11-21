@@ -21,8 +21,14 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.heal_th.www" />
-	
-	
+	<context:component-scan base-package="com.heal_th.www,
+	 changmin.controller, changmin.service,
+	 daeyeon.controller, daeyeon.service,
+	 hyanghee.controller, hyanghee.service,
+	 hyunkyung.controller, hyunkyung.service,
+	 jucheol.controller, jucheol.service,
+	 saebyeol.controller, saebyeol.service,
+	 unhak.controller, unhak.service,
+	 yerim.controller, yerim.service" />
 	
 </beans:beans>
