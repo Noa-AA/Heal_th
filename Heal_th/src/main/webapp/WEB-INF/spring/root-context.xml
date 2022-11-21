@@ -24,7 +24,15 @@
 			<array>
 				<!-- ** : 모든 폴더 구조 -->
 				<!-- * : 모든 단어 -->
-				<value>classpath:/web/dao/*/*Mapper.xml</value>
+				<value>classpath:/web/dao/**/*Mapper.xml</value>
+				<value>classpath:/changmin/dao/**/*Mapper.xml</value>
+				<value>classpath:/daeyeon/dao/**/*Mapper.xml</value>
+				<value>classpath:/hyanghee/dao/**/*Mapper.xml</value>
+				<value>classpath:/hyunkyung/dao/**/*Mapper.xml</value>
+				<value>classpath:/jucheol/dao/**/*Mapper.xml</value>
+				<value>classpath:/saebyeol/dao/**/*Mapper.xml</value>
+				<value>classpath:/unhak/dao/**/*Mapper.xml</value>
+				<value>classpath:/yerim/dao/**/*Mapper.xml</value>
 			</array>
 		</property>
 	</bean>
@@ -32,6 +40,8 @@
 	<!-- 마이바티스를 이용하는 인터페이스 설정( DAO 설정 ) -->
 	<!-- 	-> Mapper XML의 namespace속성과 일치하는 인터페이스를 찾는다. -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="web.dao"/>
+		<property name="basePackage" value="web.dao,
+		changmin.dao, daeyeon.dao, hyanghee.dao, hyunkyung.dao,
+		jucheol.dao, saebyeol.dao, unhak.dao, yerim.dao"/>
 	</bean>
 </beans>
