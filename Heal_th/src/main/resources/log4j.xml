@@ -14,6 +14,9 @@
 	<logger name="com.heal_th.www">
 		<level value="info" />
 	</logger>
+	<logger name="yerim">
+		<level value="info" />
+	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
