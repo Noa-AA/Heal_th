@@ -14,6 +14,30 @@
 	<logger name="com.heal_th.www">
 		<level value="info" />
 	</logger>
+	<logger name="changmin">
+		<level value="info" />
+	</logger>
+	<logger name="daeyeon">
+		<level value="info" />
+	</logger>
+	<logger name="hyanghee">
+		<level value="info" />
+	</logger>
+	<logger name="hyunkyung">
+		<level value="info" />
+	</logger>
+	<logger name="jucheol">
+		<level value="info" />
+	</logger>
+	<logger name="saebyeol">
+		<level value="info" />
+	</logger>
+	<logger name="unhak">
+		<level value="info" />
+	</logger>
+	<logger name="yerim">
+		<level value="info" />
+	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
