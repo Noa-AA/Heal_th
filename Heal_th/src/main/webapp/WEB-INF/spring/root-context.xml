@@ -18,6 +18,9 @@
 	
 		<!-- dataSource 스프링빈으로 설정한 DB정보 입력하기 -->
 		<property name="dataSource" ref="dataSource" />
+				
+		<!-- 마이바티스 설정파일(XML)의 위치 지정하기 -->
+		<property name="configLocation" value="classpath:/mybatis-config.xml"/>
 		
 		<!-- Mapper XML 파일의 위치 설정하기 -->
 		<property name="mapperLocations">
