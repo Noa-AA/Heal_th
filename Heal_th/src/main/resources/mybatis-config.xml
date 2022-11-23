@@ -20,7 +20,7 @@
 <!-- 		<package name="jucheol"/> -->
 <!-- 		<package name="saebyeol"/> -->
 <!-- 		<package name="unhak"/> -->
-<!-- 		<package name="yerim"/> -->
+		<package name="yerim"/> 
 	</typeAliases>
 
 </configuration>

@@ -14,6 +14,8 @@
 	<logger name="com.heal_th.www">
 		<level value="info" />
 	</logger>
+<<<<<<< HEAD
+=======
 	<logger name="changmin">
 		<level value="info" />
 	</logger>
@@ -35,6 +37,7 @@
 	<logger name="unhak">
 		<level value="info" />
 	</logger>
+>>>>>>> refs/remotes/origin/terminal
 	<logger name="yerim">
 		<level value="info" />
 	</logger>
