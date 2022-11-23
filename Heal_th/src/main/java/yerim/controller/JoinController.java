@@ -9,8 +9,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import yerim.service.face.LoginService;
 
 @Controller
-public class LoginController {
- private final Logger logger = LoggerFactory.getLogger(this.getClass());
+public class JoinController {
+	
+	@Autowired LoginService loginService;
+	 private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	 
+	 @GetMapping("/login/join")
+	 	public void join() { //회원가입 폼 보여주기
+		 logger.info("/login/join [GET]");
+		 
+		 
+		 
+		 
+		 
+	 }
 
 }

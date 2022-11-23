@@ -35,6 +35,7 @@
 				<value>classpath:/jucheol/dao/**/*Mapper.xml</value>
 				<value>classpath:/saebyeol/dao/**/*Mapper.xml</value>
 				<value>classpath:/unhak/dao/**/*Mapper.xml</value>
+				<value>classpath:/yerim/dao/**/*Mapper.xml</value>
 			</array>
 		</property>
 	</bean>
