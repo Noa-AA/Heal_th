@@ -7,4 +7,8 @@
 
 <mapper namespace="changmin.dao.face.DgHelperDao">
 
+	<insert id="insertRecord" parameterType="string">
+		INSERT INTO healthrecord (record_no, record_con, user_no)
+		VALUES (healthrecord_seq.nextval, #{recordcon}, 1)
+	</insert>
 </mapper>

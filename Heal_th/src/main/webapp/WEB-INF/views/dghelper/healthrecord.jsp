@@ -20,8 +20,8 @@
 <div class="bigContainer">
 <h1>운동 기록장</h1>
 <span id="healthcount">2022년 운동 횟수 : x회</span>
-	<form>
-		<textarea rows="" cols=""></textarea>
+	<form action="./healthrecord" method="post">
+		<textarea rows="" cols="" name="recordcon"></textarea>
 		<button>저장</button>
 	</form>
 </div>
