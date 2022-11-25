@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import hyanghee.service.BoardService;
+import hyanghee.service.face.BoardService;
 
 @Controller
 public class DietBoardController {
