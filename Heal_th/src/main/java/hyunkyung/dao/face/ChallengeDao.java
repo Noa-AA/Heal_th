@@ -1,5 +1,5 @@
 package hyunkyung.dao.face;
 
-public class TestDao {
+public interface ChallengeDao {
 
 }

@@ -1,5 +1,5 @@
 package hyunkyung.dto;
 
-public class TestDto {
+public class Challenge {
 
 }

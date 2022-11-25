@@ -1,8 +1,8 @@
-package unhak.controller;
+package daeyeon.controller;
 
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class shopController {
+public class ChatController {
 
 }

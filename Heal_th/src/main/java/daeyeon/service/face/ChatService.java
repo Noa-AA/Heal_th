@@ -1,5 +1,5 @@
 package daeyeon.service.face;
 
-public interface Service {
+public interface ChatService {
 
 }

@@ -1,5 +1,5 @@
 package hyunkyung.service.face;
 
-public class TestService {
+public interface ChallengeService {
 
 }

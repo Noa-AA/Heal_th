@@ -14,12 +14,12 @@
 	
 	<typeAliases>
 		<package name="changmin"/>
-<!-- 		<package name="daeyeon"/> -->
-<!-- 		<package name="hyanghee"/> -->
-<!-- 		<package name="hyunkyung"/> -->
-<!-- 		<package name="jucheol"/> -->
-<!-- 		<package name="saebyeol"/> -->
-<!-- 		<package name="unhak"/> -->
+ 		<package name="daeyeon"/>
+ 		<package name="hyanghee"/>
+		<package name="hyunkyung"/>
+		<package name="jucheol"/>
+ 		<package name="saebyeol"/>
+		<package name="unhak"/>
 		<package name="yerim"/> 
 	</typeAliases>
 
