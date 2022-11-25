@@ -19,9 +19,7 @@ public class JoinController {
 	 	public void join() { //회원가입 폼 보여주기
 		 logger.info("/login/join [GET]");
 		 
-		 
-		 
-		 
+		
 		 
 	 }
 
