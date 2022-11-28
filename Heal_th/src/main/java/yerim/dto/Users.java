@@ -10,7 +10,7 @@ public class Users {
 	private String userNick;
 	private String userPhone;
 	private String userAddress;
-	private String userEamil;
+	private String userEmail;
 	private String userName;
 	private String userIntro;
 	private String userJob;
@@ -25,7 +25,7 @@ public class Users {
 	public Users() {}
 
 	public Users(String userNo, String userId, String userPw, String userNick, String userPhone, String userAddress,
-			String userEamil, String userName, String userIntro, String userJob, String userPhoto, Date userJoinDate,
+			String userEmail, String userName, String userIntro, String userJob, String userPhoto, Date userJoinDate,
 			int dgMoney, int point, int rankingNo, int kakaNo, int naverNo) {
 		super();
 		this.userNo = userNo;
@@ -34,7 +34,7 @@ public class Users {
 		this.userNick = userNick;
 		this.userPhone = userPhone;
 		this.userAddress = userAddress;
-		this.userEamil = userEamil;
+		this.userEmail = userEmail;
 		this.userName = userName;
 		this.userIntro = userIntro;
 		this.userJob = userJob;
@@ -50,7 +50,7 @@ public class Users {
 	@Override
 	public String toString() {
 		return "Users [userNo=" + userNo + ", userId=" + userId + ", userPw=" + userPw + ", userNick=" + userNick
-				+ ", userPhone=" + userPhone + ", userAddress=" + userAddress + ", userEamil=" + userEamil
+				+ ", userPhone=" + userPhone + ", userAddress=" + userAddress + ", userEmail=" + userEmail
 				+ ", userName=" + userName + ", userIntro=" + userIntro + ", userJob=" + userJob + ", userPhoto="
 				+ userPhoto + ", userJoinDate=" + userJoinDate + ", dgMoney=" + dgMoney + ", point=" + point
 				+ ", rankingNo=" + rankingNo + ", kakaNo=" + kakaNo + ", naverNo=" + naverNo + "]";
@@ -104,12 +104,12 @@ public class Users {
 		this.userAddress = userAddress;
 	}
 
-	public String getUserEamil() {
-		return userEamil;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setUserEamil(String userEamil) {
-		this.userEamil = userEamil;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 	public String getUserName() {
@@ -191,6 +191,6 @@ public class Users {
 	public void setNaverNo(int naverNo) {
 		this.naverNo = naverNo;
 	}
-	
+
 	
 }
