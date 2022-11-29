@@ -5,24 +5,24 @@ import java.util.Date;
 public class HealthRecord {
 
 	private int recordNo;
-	private Date recordDate;
+	private String recordDate;
 	private String recordCon;
 	private int userNo;
 	
 	public HealthRecord() {}
 
-	@Override
-	public String toString() {
-		return "HealthRecord [recordNo=" + recordNo + ", recordDate=" + recordDate + ", recordCon=" + recordCon
-				+ ", userNo=" + userNo + "]";
-	}
-
-	public HealthRecord(int recordNo, Date recordDate, String recordCon, int userNo) {
+	public HealthRecord(int recordNo, String recordDate, String recordCon, int userNo) {
 		super();
 		this.recordNo = recordNo;
 		this.recordDate = recordDate;
 		this.recordCon = recordCon;
 		this.userNo = userNo;
+	}
+
+	@Override
+	public String toString() {
+		return "HealthRecord [recordNo=" + recordNo + ", recordDate=" + recordDate + ", recordCon=" + recordCon
+				+ ", userNo=" + userNo + "]";
 	}
 
 	public int getRecordNo() {
@@ -33,11 +33,11 @@ public class HealthRecord {
 		this.recordNo = recordNo;
 	}
 
-	public Date getRecordDate() {
+	public String getRecordDate() {
 		return recordDate;
 	}
 
-	public void setRecordDate(Date recordDate) {
+	public void setRecordDate(String recordDate) {
 		this.recordDate = recordDate;
 	}
 
@@ -56,6 +56,7 @@ public class HealthRecord {
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
+
 	
 	
 }
