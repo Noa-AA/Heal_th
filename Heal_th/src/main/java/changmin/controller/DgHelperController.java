@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import changmin.dto.BodyInfo;
 import changmin.dto.HealthRecord;
 import changmin.service.face.DgHelperService;
 import changmin.util.Paging;
@@ -57,10 +58,17 @@ public class DgHelperController {
 	
 	
 	@RequestMapping(value="/dghelper/healthguide", method=RequestMethod.GET)
-	public void guideView() {
+	public void guideView(HttpSession session, Model model) {
 		logger.info("/dghelper/healthguide [GET]");
 		
+		session.setAttribute("userno", 7777);
+		int userno = (int) session.getAttribute("userno");
+		logger.info("userno : {}", userno);
 		
+		BodyInfo bodyInfo = dgHelperService.getBodyInfo(userno);
+		logger.info("bodyInfo : {}", bodyInfo);
+		
+		model.addAttribute("bodyInfo",bodyInfo);
 	}
 	
 }

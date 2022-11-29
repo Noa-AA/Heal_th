@@ -2,12 +2,15 @@ package changmin.service.impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import changmin.dao.face.DgHelperDao;
+import changmin.dto.BodyInfo;
 import changmin.dto.HealthRecord;
 import changmin.service.face.DgHelperService;
 import changmin.util.Paging;
@@ -47,6 +50,12 @@ public class DgHelperServiceImpl implements DgHelperService {
 	public List<HealthRecord> getRecordList(Paging paging, int userno) {
 		
 		return dgHelperDao.selectRecord(paging);
+	}
+
+	@Override
+	public BodyInfo getBodyInfo(int userno) {
+
+		return dgHelperDao.selectBodyInfo(userno);
 	}
 
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,9 @@
 </head>
 <body>
 <span>운동 가이드</span>
-<span>나의 기초대사량 : xxx칼로리</span>
+
+<c:set var="bmr" value="${66.47 +(13.75 * bodyInfo.weight) +(5 * bodyInfo.height) - (6.76 * 30) }" />
+<span>나의 기초대사량 : <c:out value="${bmr }"/>칼로리</span>
 
 <p>오늘 먹은 음식을 입력하세요 !</p>
 
