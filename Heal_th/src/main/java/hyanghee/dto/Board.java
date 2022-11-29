@@ -13,8 +13,8 @@ public class Board {
 	private int weight;
 	private String bf_exercise;
 	private String g_weight;
-	private Date s_date;
-	private Date e_date;
+	private String s_date;
+	private String e_date;
 	private String sele_exercise;
 	private String before_con;
 	private String c_weight;
@@ -77,7 +77,7 @@ public class Board {
 
 
 	public Board(int bf_no, Date bf_inst_date, String bf_title, int height, String gender, int weight,
-			String bf_exercise, String g_weight, Date s_date, Date e_date, String sele_exercise, String before_con,
+			String bf_exercise, String g_weight, String s_date, String e_date, String sele_exercise, String before_con,
 			String c_weight, String g_result, String after_con, Date bf_upt_date, Date bf_delete_date, int bf_hit,
 			int bf_thumbs, int diet_no, Date d_inst_date, String d_title, String prod_classification, String d_content,
 			Date d_upt_date, Date d_delete_date, int d_hit, int d_thumbs, int review_no, Date r_inst_date,
@@ -245,22 +245,22 @@ public class Board {
 	}
 
 
-	public Date getS_date() {
+	public String getS_date() {
 		return s_date;
 	}
 
 
-	public void setS_date(Date s_date) {
+	public void setS_date(String s_date) {
 		this.s_date = s_date;
 	}
 
 
-	public Date getE_date() {
+	public String getE_date() {
 		return e_date;
 	}
 
 
-	public void setE_date(Date e_date) {
+	public void setE_date(String e_date) {
 		this.e_date = e_date;
 	}
 
@@ -713,6 +713,8 @@ public class Board {
 	public void setCategory_no(int category_no) {
 		this.category_no = category_no;
 	}
+
+	
 	
 	
 	

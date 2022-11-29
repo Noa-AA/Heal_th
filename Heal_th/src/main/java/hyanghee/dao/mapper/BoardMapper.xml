@@ -5,8 +5,46 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="hyanghee.dao.BoardDao">
+<mapper namespace="hyanghee.dao.face.BoardDao">
 
+<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM verifyboard
+	</select>
+	
+	<insert id="insertBfBoard" parameterType="hyanghee.dto.Board">
+		INSERT INTO board ( 
+			bf_no, bf_inst_date, bf_title, height, gender
+			   , weight, bf_exercise, g_weight, s_date
+			   , e_date, sele_exercise, before_con
+			   , c_weight, g_result, after_con
+			   , bf_upt_date, bf_delete_date, bf_hit
+			   , bf_thumbs, user_no, category_no )
+		
+		VALUES ( beforeafter_seq.nextval, to_char(sysdate,'YYYY-MM-DD'), #{bf_title}, #{height}, #{gender}
+				   , #{weight}, #{bf_exercise}, #{g_weight}, #{s_date}
+				   , #{e_date}, #{sele_exercise}, #{before_con}
+				   , #{c_weight}, #{g_result}, #{after_con}
+				   , to_char(sysdate,'YYYY-MM-DD'), to_char(sysdate,'YYYY-MM-DD'), 0
+				   , 0, #{user_no}, #{category_no} )
+	</insert>
+
+<!-- 	<select id="selectList" resultType="Board" parameterType="Paging"> -->
+<!-- 		SELECT * FROM ( -->
+<!-- 			SELECT rownum rnum, B.* FROM ( -->
+<!-- 				SELECT -->
+<!-- 					verify_no, category_no, v_title, user_no, -->
+<!-- 					writer_nick, v_hit, v_inst_date -->
+<!-- 				FROM board -->
+<!-- 				ORDER BY board_no DESC -->
+<!-- 			) B -->
+<!-- 		) BOARD -->
+<!-- 		WHERE rnum BETWEEN #{startNo } AND #{endNo } -->
+<!-- 	</select> -->
+
+<!-- 	<delete id="deleteBfArticle"> -->
+<!-- 		DELETE FROM beforeafter -->
+<!-- 		WHERE user_id = #{userid} -->
+<!-- 	</delete> -->
 	
 </mapper>
   
