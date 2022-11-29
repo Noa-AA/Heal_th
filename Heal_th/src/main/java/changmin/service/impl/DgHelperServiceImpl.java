@@ -20,12 +20,12 @@ public class DgHelperServiceImpl implements DgHelperService {
 	@Autowired private DgHelperDao dgHelperDao;
 	
 	@Override
-	public void insertRecord(String recordcon) {
+	public void addRecord(String recordcon, int userno) {
 		dgHelperDao.insertRecord(recordcon);
 	}
 
 	@Override
-	public Paging getPaging(String curPage) {
+	public Paging getPaging(String curPage, int userno) {
 		//총 게시글 수 조회하기
 		int totalCount = dgHelperDao.selectCntAll();
 		
@@ -44,7 +44,7 @@ public class DgHelperServiceImpl implements DgHelperService {
 	}
 
 	@Override
-	public List<HealthRecord> getRecordList(Paging paging) {
+	public List<HealthRecord> getRecordList(Paging paging, int userno) {
 		
 		return dgHelperDao.selectRecord(paging);
 	}

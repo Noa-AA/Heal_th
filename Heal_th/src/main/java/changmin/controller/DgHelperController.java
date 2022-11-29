@@ -2,6 +2,8 @@ package changmin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,15 @@ public class DgHelperController {
 	@Autowired private DgHelperService dgHelperService;
 	
 	@RequestMapping(value="/dghelper/healthrecord", method=RequestMethod.GET)
-	public void recordView(Model model,String curPage) {
+	public void recordView(Model model,String curPage, HttpSession session) {
 		logger.info("/dghelper/healthrecord [GET]");
 		
-		Paging paging = dgHelperService.getPaging(curPage);
-		List<HealthRecord> recordList = dgHelperService.getRecordList(paging);
+		session.setAttribute("userno", 7777);
+		int userno = (int) session.getAttribute("userno");
+		logger.info("userno : {}", userno);
+		
+		Paging paging = dgHelperService.getPaging(curPage, userno);
+		List<HealthRecord> recordList = dgHelperService.getRecordList(paging, userno);
 		
 		model.addAttribute("list",recordList);
 		
@@ -34,12 +40,16 @@ public class DgHelperController {
 	}
 	
 	@RequestMapping(value="/dghelper/healthrecord", method=RequestMethod.POST)
-	public void recordAdd(String recordcon) {
+	public void recordAdd(String recordcon, HttpSession session) {
 		logger.info("/dghelper/healthrecord [POST]");
+		
+		session.setAttribute("userno", 7777);
+		int userno = (int) session.getAttribute("userno");
+		logger.info("userno : {}", userno);
 		
 		logger.info("recordcon : {}", recordcon);
 	
-		dgHelperService.insertRecord(recordcon);
+		dgHelperService.addRecord(recordcon, userno);
 		
 	}
 	

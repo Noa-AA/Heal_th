@@ -1,7 +1,5 @@
 package changmin.dto;
 
-import java.util.Date;
-
 public class MmoneyPay {
 
 	private int mmoneypayNo;
@@ -12,7 +10,7 @@ public class MmoneyPay {
 	private String buyerEmail;
 	private String buyerName;
 	private String buyerTel;
-	private Date payDate;
+	private String payDate;
 	private int userNo; 
 	
 	public MmoneyPay() {}
@@ -25,7 +23,7 @@ public class MmoneyPay {
 	}
 
 	public MmoneyPay(int mmoneypayNo, String payMethod, String merchant_uid, String prodName, int amount,
-			String buyerEmail, String buyerName, String buyerTel, Date payDate, int userNo) {
+			String buyerEmail, String buyerName, String buyerTel, String payDate, int userNo) {
 		super();
 		this.mmoneypayNo = mmoneypayNo;
 		this.payMethod = payMethod;
@@ -103,11 +101,11 @@ public class MmoneyPay {
 		this.buyerTel = buyerTel;
 	}
 
-	public Date getPayDate() {
+	public String getPayDate() {
 		return payDate;
 	}
 
-	public void setPayDate(Date payDate) {
+	public void setPayDate(String payDate) {
 		this.payDate = payDate;
 	}
 
@@ -118,6 +116,6 @@ public class MmoneyPay {
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-	
+
 	
 }

@@ -11,12 +11,13 @@ public interface DgHelperService {
 	 * 운동기록 저장하기
 	 * 
 	 * @param recordcon - 저장할 운동기록
+	 * @param userno 
 	 */
-	public void insertRecord(String recordcon);
+	public void addRecord(String recordcon, int userno);
 
-	public List<HealthRecord> getRecordList(Paging paging);
+	public List<HealthRecord> getRecordList(Paging paging, int userno);
 
-	public Paging getPaging(String curPage);
+	public Paging getPaging(String curPage, int userno);
 
 
 }
