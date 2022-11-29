@@ -16,6 +16,8 @@ public class Users {
 	private String userJob;
 	private String userPhoto;
 	private Date userJoinDate;
+	private String userBirth;
+	private String userGender;
 	private int dgMoney;
 	private int point;
 	private int rankingNo;
@@ -47,9 +49,30 @@ public class Users {
 		this.kakaNo = kakaNo;
 		this.naverNo = naverNo;
 	}
-	
-	public Users(String userId) {
+
+	public Users(String userNo, String userId, String userPw, String userNick, String userPhone, String userAddress,
+			String userEmail, String userName, String userIntro, String userJob, String userPhoto, Date userJoinDate,
+			String userBirth, String userGender, int dgMoney, int point, int rankingNo, int kakaNo, int naverNo) {
+		super();
+		this.userNo = userNo;
 		this.userId = userId;
+		this.userPw = userPw;
+		this.userNick = userNick;
+		this.userPhone = userPhone;
+		this.userAddress = userAddress;
+		this.userEmail = userEmail;
+		this.userName = userName;
+		this.userIntro = userIntro;
+		this.userJob = userJob;
+		this.userPhoto = userPhoto;
+		this.userJoinDate = userJoinDate;
+		this.userBirth = userBirth;
+		this.userGender = userGender;
+		this.dgMoney = dgMoney;
+		this.point = point;
+		this.rankingNo = rankingNo;
+		this.kakaNo = kakaNo;
+		this.naverNo = naverNo;
 	}
 
 	@Override
@@ -57,11 +80,10 @@ public class Users {
 		return "Users [userNo=" + userNo + ", userId=" + userId + ", userPw=" + userPw + ", userNick=" + userNick
 				+ ", userPhone=" + userPhone + ", userAddress=" + userAddress + ", userEmail=" + userEmail
 				+ ", userName=" + userName + ", userIntro=" + userIntro + ", userJob=" + userJob + ", userPhoto="
-				+ userPhoto + ", userJoinDate=" + userJoinDate + ", dgMoney=" + dgMoney + ", point=" + point
-				+ ", rankingNo=" + rankingNo + ", kakaNo=" + kakaNo + ", naverNo=" + naverNo + "]";
+				+ userPhoto + ", userJoinDate=" + userJoinDate + ", userBirth=" + userBirth + ", userGender="
+				+ userGender + ", dgMoney=" + dgMoney + ", point=" + point + ", rankingNo=" + rankingNo + ", kakaNo="
+				+ kakaNo + ", naverNo=" + naverNo + "]";
 	}
-	
-	
 
 	public String getUserNo() {
 		return userNo;
@@ -159,6 +181,22 @@ public class Users {
 		this.userJoinDate = userJoinDate;
 	}
 
+	public String getUserBirth() {
+		return userBirth;
+	}
+
+	public void setUserBirth(String userBirth) {
+		this.userBirth = userBirth;
+	}
+
+	public String getUserGender() {
+		return userGender;
+	}
+
+	public void setUserGender(String userGender) {
+		this.userGender = userGender;
+	}
+
 	public int getDgMoney() {
 		return dgMoney;
 	}
@@ -198,6 +236,8 @@ public class Users {
 	public void setNaverNo(int naverNo) {
 		this.naverNo = naverNo;
 	}
+	
+
 
 	
 }
