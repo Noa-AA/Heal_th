@@ -5,8 +5,18 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
     <mapper namespace="yerim.dao.face.LoginDao">
-    
-    
+    	<insert id="insertJoinInfo" parameterType="Users">
+    	
+    		INSERT INTO users (user_no,user_id,user_pw,user_nick,user_phone,user_address,user_email,user_name,user_job,user_birth,user_gender,user_joindate,ranking_no,point)
+    		VALUES(users_seq.nextval,#{userId},#{userPw},#{userNick},#{userPhone},#{userAddress},#{userEmail},#{userName},#{userJob},#{userBirth},#{userGender},sysdate,1,1000)
+    	
+    	</insert>
+    	
+    	<select id="selectBychkId" resultType="int"  parameterType="Users">
+    		SELECT count(*) cnt FROM USERS
+    		WHERE user_id = #{userId}
+    	
+    	</select>
     
     
     </mapper>
