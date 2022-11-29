@@ -22,4 +22,12 @@ public class LoginServiceImpl implements LoginService {
 
 	}
 	
+	@Override
+	public int checkById(Users chkId) {
+
+		int chkResult = loginDao.selectBychkId(chkId);
+		
+		return chkResult;
+	}
+	
 }

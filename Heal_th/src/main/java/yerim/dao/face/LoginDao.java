@@ -13,6 +13,13 @@ public interface LoginDao {
 	 */
 	
 	public void insertJoinInfo(Users joinInfo);
+
+	
+	/**
+	 * 중복조회아이디 체크
+	 * @param chkId -체크할 아이디
+	 */
+	public int selectBychkId(Users chkId);
 	
 	
 }

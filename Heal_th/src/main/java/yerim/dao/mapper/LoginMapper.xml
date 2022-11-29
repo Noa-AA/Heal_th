@@ -12,7 +12,11 @@
     	
     	</insert>
     	
+    	<select id="selectBychkId" resultType="int"  parameterType="Users">
+    		SELECT count(*) cnt FROM USERS
+    		WHERE user_id = #{userId}
     	
+    	</select>
     
     
     </mapper>

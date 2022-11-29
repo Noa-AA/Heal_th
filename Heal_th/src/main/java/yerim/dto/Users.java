@@ -22,6 +22,7 @@ public class Users {
 	private int kakaNo;
 	private int naverNo;
 	
+
 	public Users() {}
 
 	public Users(String userNo, String userId, String userPw, String userNick, String userPhone, String userAddress,
@@ -46,6 +47,10 @@ public class Users {
 		this.kakaNo = kakaNo;
 		this.naverNo = naverNo;
 	}
+	
+	public Users(String userId) {
+		this.userId = userId;
+	}
 
 	@Override
 	public String toString() {
@@ -55,6 +60,8 @@ public class Users {
 				+ userPhoto + ", userJoinDate=" + userJoinDate + ", dgMoney=" + dgMoney + ", point=" + point
 				+ ", rankingNo=" + rankingNo + ", kakaNo=" + kakaNo + ", naverNo=" + naverNo + "]";
 	}
+	
+	
 
 	public String getUserNo() {
 		return userNo;

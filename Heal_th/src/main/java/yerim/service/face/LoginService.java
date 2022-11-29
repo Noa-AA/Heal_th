@@ -10,4 +10,12 @@ public interface LoginService {
 	 */
 	public void setJoinInfo(Users joinInfo);
 
+	
+	
+	/**
+	 * 입력된 아이디 중복 확인하기 
+	 * @param chkId-중복확인할 아이디
+	 */
+	public int checkById(Users userId);
+
 }

@@ -1,11 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+ <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+ <script type="text/javascript">
+ 
+  $(document).ready(function(){
+
+			  $("#btn_checkId").click(function(){
+				
+				  	console.log("checkId 클릭")
+				
+				  	$.ajax({
+				  		
+				  		type:"post"
+				  		,url:"/login/checkId"
+				  		,data:{
+				  			userId : $("#userId").val()
+				  			}
+				  		,dataType:"json"
+				  		,success:function(res){
+// 				  			
+				  			console.log(res)
+				  			if(res ==0) {	
+				  			$("#checkId").html("사용가능한 아이디입니다.")
+				  			$("#checkId").css("color","green")
+				  			
+				  			} else {
+				  				$("#checkId").html("사용할 수 없는  아이디입니다.")
+				  				$("#checkId"). css("color","red")
+				  			}
+				  		}
+				  		,error: function(){
+				  			console.log("중복확인 실패")
+				  			
+				  		}
+				  	})
+			  })
+			  
+  })
+  
+ 
+ </script>
 </head>
+
+
 <body>
 
 
@@ -26,6 +69,10 @@
 			<label for="userId">아이디</label>
 			<input type="text" name="userId" id="userId">
 		</div>
+		<div id="btn_checkId">
+			<button type="button">중복확인</button>
+		</div>
+		<div id="checkId"></div>
 	
 		<div id="pw">
 			<label for="userPw">비밀번호</label>
