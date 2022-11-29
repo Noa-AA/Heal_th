@@ -28,4 +28,10 @@
 		FROM users
 		WHERE user_no = #{userno }
 	</select>
+	
+	<insert id="insertWithDraw" parameterType="WithDraw">
+		INSERT INTO withdraw(wd_no, wd_amount, wd_process, wd_account, wd_username, bank_name, user_no)
+		VALUES (withdraw_seq.nextval, #{wdAmount},'미처리', #{wdAccount}, #{wdUsername}, #{bankName}, #{userNo})
+	</insert>
+	
 </mapper>

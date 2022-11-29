@@ -1,6 +1,7 @@
 package changmin.service.face;
 
 import changmin.dto.MmoneyPay;
+import changmin.dto.WithDraw;
 import yerim.dto.Users;
 
 public interface DgMoneyService {
@@ -30,5 +31,11 @@ public interface DgMoneyService {
 	 * @param mmoneyPay
 	 */
 	public void chargeMmoney(MmoneyPay mmoneyPay);
+
+	/**
+	 * 인출신청내역 DB에 저장
+	 * @param withDraw
+	 */
+	public void addWithDraw(WithDraw withDraw);
 
 }

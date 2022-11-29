@@ -17,14 +17,14 @@ IMP.init('imp88224386');  // 가맹점 식별코드
 
 // IMP.request_pay(param, callback) 결제창 호출
 $(document).ready(function(){
-	$("#paydo").click(function(){
+	$("#charge").click(function(){
 	    IMP.request_pay({ // param
 	 
           pg: "html5_inicis",
           pay_method: "card",
           merchant_uid: $("#userNo").val() + new Date().getTime(),
           name: "득근머니",
-          amount: 100,
+          amount: $("#amount").val(),
           buyer_email: $("#userEmail").val(),
           buyer_name: $("#userName").val(),
           buyer_tel: $("#userPhone").val(),
@@ -54,7 +54,16 @@ $(document).ready(function(){
 	     });
 	    
 	});
+	
+	$("#discharge").click(function(){
+		if(${mmoney }>=$("#wdAmount").val()){
+			window.open("/dgmoney/discharge?wdAmount="+$("#wdAmount").val(),"discharge","width=700,height=500, left=600, top=200");
+		} else {
+			alert("보유중인 금액이 충분한지 확인해주세요.");
+		}
+	})
 });
+
 </script>
 </head>
 <body>
@@ -64,14 +73,21 @@ $(document).ready(function(){
 <input type="hidden" id="userPhone" value="${user.userPhone }">
 <input type="hidden" id="userEmail" value="${user.userEamil }">
 <input type="hidden" id="userNo" value="${user.userNo }">
-<input type="hidden" id="amount" value="100">
 
-<h1>득근머니 잔액</h1>
 
-<span>${mmoney }</span>
+<h1>득근머니</h1>
+
+
+<span>득근머니 잔액 </span><span>${mmoney }원</span>
 <form action="./charge" method="post">
-
-	<button id="paydo" type="button">충전하기</button>
+	<p>득근머니 충전</p>
+	<input type="text" id="amount" placeholder="충전할 금액을 입력해주세요">
+	<button id="charge" type="button">충전하기</button>
+</form>
+<form action="./discharge" method="get">
+	<p>득근머니 인출</p>
+	<input type="text" id="wdAmount" placeholder="인출할 금액을 입력해주세요">
+	<button id="discharge" type="button">인출신청</button>
 </form>
 </body>
 </html>

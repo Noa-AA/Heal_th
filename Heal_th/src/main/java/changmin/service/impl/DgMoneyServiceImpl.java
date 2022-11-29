@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import changmin.dao.face.DgMoneyDao;
 import changmin.dto.MmoneyPay;
+import changmin.dto.WithDraw;
 import changmin.service.face.DgMoneyService;
 import yerim.dto.Users;
 
@@ -39,6 +40,13 @@ public class DgMoneyServiceImpl implements DgMoneyService{
 	public void chargeMmoney(MmoneyPay mmoneyPay) {
 
 		dgMoneyDao.updateDgmoney(mmoneyPay);
+	}
+
+
+	@Override
+	public void addWithDraw(WithDraw withDraw) {
+
+		dgMoneyDao.insertWithDraw(withDraw);
 	}
 
 }

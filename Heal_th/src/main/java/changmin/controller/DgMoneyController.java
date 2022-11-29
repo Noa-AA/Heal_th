@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import changmin.dto.MmoneyPay;
+import changmin.dto.WithDraw;
 import changmin.service.face.DgMoneyService;
 import yerim.dto.Users;
 
@@ -49,6 +50,30 @@ public class DgMoneyController {
 		
 		dgMoneyService.chargeMmoney(mmoneyPay);
 	}
+	
+	@RequestMapping(value = "/dgmoney/discharge", method = RequestMethod.GET)
+	public void moneyDisCharge(HttpSession session, Model model) {
+		logger.info("/dgmoney/dischage [GET]");
+		
+		session.setAttribute("userno", 7777);
+		int userno = (int) session.getAttribute("userno");
+		logger.info("userno : {}", userno);
+		
+		model.addAttribute("userno", userno);
+		
+	}
+
+	@RequestMapping(value = "/dgmoney/dischargeProc", method = RequestMethod.POST)
+	public void moneyDisChargeProc(WithDraw withDraw) {
+		logger.info("/dgmoney/dischargeProc [POST]");
+		
+
+		
+		logger.info("인출신청 정보 : {}", withDraw);
+		
+		dgMoneyService.addWithDraw(withDraw);
+	}
+	
 	
 	
 }
