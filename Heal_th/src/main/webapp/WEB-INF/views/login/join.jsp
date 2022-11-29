@@ -37,6 +37,7 @@
 				  		}
 				  		,error: function(){
 				  			console.log("중복확인 실패")
+				  			alert("시스템 오류: 관리자에게 문의하세요")
 				  			
 				  		}
 				  	})
