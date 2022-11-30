@@ -2,11 +2,9 @@ package changmin.service.face;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import changmin.dto.BodyInfo;
 import changmin.dto.HealthRecord;
-import changmin.util.Paging;
+import changmin.util.ChangMinPaging;
 
 public interface DgHelperService {
 
@@ -18,9 +16,9 @@ public interface DgHelperService {
 	 */
 	public void addRecord(String recordcon, int userno);
 
-	public List<HealthRecord> getRecordList(Paging paging, int userno);
+	public List<HealthRecord> getRecordList(ChangMinPaging ChangMinPaging, int userno);
 
-	public Paging getPaging(String curPage, int userno);
+	public ChangMinPaging getChangMinPaging(String curPage, int userno);
 
 	public BodyInfo getBodyInfo(int userno);
 
