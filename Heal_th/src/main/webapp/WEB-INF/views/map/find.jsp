@@ -1,11 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<jsp:include page="../layout/header.jsp" />
 <body>
 <style>
 #map{left:280px;}
@@ -48,7 +43,7 @@
 
 </style>
 <!-- appkey=5398ad247816ce4ac9d9a7374d499494 -->
-<h1>찾기</h1>
+<h1>주변 시설찾기</h1>
 <hr>
 <div class="map_wrap">
         <div class="option">
