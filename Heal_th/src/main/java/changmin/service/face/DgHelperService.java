@@ -24,5 +24,7 @@ public interface DgHelperService {
 
 	public BodyInfo getBodyInfo(int userno);
 
+	public int getCntRecord(List<HealthRecord> recordList);
+
 
 }
