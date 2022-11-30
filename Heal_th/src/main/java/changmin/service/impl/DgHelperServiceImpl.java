@@ -2,8 +2,6 @@ package changmin.service.impl;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,7 @@ import changmin.dao.face.DgHelperDao;
 import changmin.dto.BodyInfo;
 import changmin.dto.HealthRecord;
 import changmin.service.face.DgHelperService;
-import changmin.util.Paging;
+import changmin.util.ChangMinPaging;
 
 @Service
 public class DgHelperServiceImpl implements DgHelperService {
@@ -28,7 +26,7 @@ public class DgHelperServiceImpl implements DgHelperService {
 	}
 
 	@Override
-	public Paging getPaging(String curPage, int userno) {
+	public ChangMinPaging getChangMinPaging(String curPage, int userno) {
 		//총 게시글 수 조회하기
 		int totalCount = dgHelperDao.selectCntAll();
 		
@@ -40,16 +38,16 @@ public class DgHelperServiceImpl implements DgHelperService {
 			curPage2 = Integer.parseInt(param);
 		}
 		
-		//Paging객체 생성
-		Paging paging = new Paging(totalCount, curPage2);
+		//ChangMinPaging객체 생성
+		ChangMinPaging ChangMinPaging = new ChangMinPaging(totalCount, curPage2);
 		
-		return paging;
+		return ChangMinPaging;
 	}
 
 	@Override
-	public List<HealthRecord> getRecordList(Paging paging, int userno) {
+	public List<HealthRecord> getRecordList(ChangMinPaging ChangMinPaging, int userno) {
 		
-		return dgHelperDao.selectRecord(paging);
+		return dgHelperDao.selectRecord(ChangMinPaging);
 	}
 
 	@Override

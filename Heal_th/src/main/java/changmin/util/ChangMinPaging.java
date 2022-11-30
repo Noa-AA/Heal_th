@@ -1,6 +1,6 @@
 package changmin.util;
 
-public class Paging {
+public class ChangMinPaging {
 
 	private int curPage; //현재 페이지 번호
 	
@@ -17,17 +17,17 @@ public class Paging {
 
 	
 	//디폴트 생성자 - 페이징 로직이 처리되지 않는다
-	public Paging() {}
+	public ChangMinPaging() {}
 
 	
-	public Paging(int totalCount, int curPage) {
+	public ChangMinPaging(int totalCount, int curPage) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);
 		
 		makePaging();		
 	}
 
-	public Paging(int totalCount, int curPage, int listCount, int pageCount) {
+	public ChangMinPaging(int totalCount, int curPage, int listCount, int pageCount) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);
 
