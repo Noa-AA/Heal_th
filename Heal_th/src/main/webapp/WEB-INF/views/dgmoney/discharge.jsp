@@ -23,6 +23,7 @@ input{
 	<div class="discharge">
 		<form action="./dischargeProc" method="post">
 			<h1>인출신청</h1>
+			<input type="hidden" name="userNo" value="${userno }">
 			<p>은행명</p>
 			<input type="text" name="bankName" placeholder="은행명을 입력해주세요">
 			<p>예금주</p>
@@ -30,9 +31,10 @@ input{
 			<p>계좌번호</p>
 			<input type="text" name="wdAccount" placeholder="계좌번호를 입력해주세요">
 			<p>인출금액</p>
-			<input type="hidden" name="userNo" value="${userno }">
+			<input type="hidden" name="wdAmount" value=${param.wdAmount }>
 			<p>${param.wdAmount }원</p>
 			<p><button>인출신청</button></p>
+			<p style="color: red">인출신청시 영업일기준 2~3일내 환불계좌로 입금됩니다.</p>
 		</form>
 	</div>
 </body>

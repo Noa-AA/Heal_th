@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="../layout/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,7 +56,7 @@ $(document).ready(function(){
 	});
 	
 	$("#discharge").click(function(){
-		if(${mmoney }>=$("#wdAmount").val()){
+		if(${mmoney }>=$("#wdAmount").val()&&$("#wdAmount").val()!=''){
 			window.open("/dgmoney/discharge?wdAmount="+$("#wdAmount").val(),"discharge","width=700,height=500, left=600, top=200");
 		} else {
 			alert("보유중인 금액이 충분한지 확인해주세요.");
@@ -65,29 +65,35 @@ $(document).ready(function(){
 });
 
 </script>
+<style type="text/css">
+.container{
+	margin: 0 auto;
+	text-align: center;
+}
+</style>
 </head>
 <body>
 
 <!-- 결제시 사용될 정보 -->
 <input type="hidden" id="userName" value="${user.userName }">
 <input type="hidden" id="userPhone" value="${user.userPhone }">
-<input type="hidden" id="userEmail" value="${user.userEamil }">
+<input type="hidden" id="userEmail" value="${user.userEmail }">
 <input type="hidden" id="userNo" value="${user.userNo }">
 
-
-<h1>득근머니</h1>
-
-
-<span>득근머니 잔액 </span><span>${mmoney }원</span>
-<form action="./charge" method="post">
-	<p>득근머니 충전</p>
-	<input type="text" id="amount" placeholder="충전할 금액을 입력해주세요">
-	<button id="charge" type="button">충전하기</button>
-</form>
-<form action="./discharge" method="get">
-	<p>득근머니 인출</p>
-	<input type="text" id="wdAmount" placeholder="인출할 금액을 입력해주세요">
-	<button id="discharge" type="button">인출신청</button>
-</form>
+<div class=container>
+	<h1>득근머니</h1>
+	
+	<span>득근머니 잔액 </span><span>${mmoney }원</span>
+	<form action="./charge" method="post">
+		<p>득근머니 충전</p>
+		<input type="text" id="amount" placeholder="충전할 금액을 입력해주세요">
+		<button id="charge" type="button">충전하기</button>
+	</form>
+	<form action="./discharge" method="get">
+		<p>득근머니 인출</p>
+		<input type="text" id="wdAmount" placeholder="인출할 금액을 입력해주세요">
+		<button id="discharge" type="button">인출신청</button>
+	</form>
+</div>
 </body>
 </html>
