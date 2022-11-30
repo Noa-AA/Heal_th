@@ -10,22 +10,25 @@ public class Users {
 	private String userNick;
 	private String userPhone;
 	private String userAddress;
-	private String userEamil;
+	private String userEmail;
 	private String userName;
 	private String userIntro;
 	private String userJob;
 	private String userPhoto;
 	private Date userJoinDate;
+	private String userBirth;
+	private String userGender;
 	private int dgMoney;
 	private int point;
 	private int rankingNo;
 	private int kakaNo;
 	private int naverNo;
 	
+
 	public Users() {}
 
 	public Users(String userNo, String userId, String userPw, String userNick, String userPhone, String userAddress,
-			String userEamil, String userName, String userIntro, String userJob, String userPhoto, Date userJoinDate,
+			String userEmail, String userName, String userIntro, String userJob, String userPhoto, Date userJoinDate,
 			int dgMoney, int point, int rankingNo, int kakaNo, int naverNo) {
 		super();
 		this.userNo = userNo;
@@ -34,7 +37,7 @@ public class Users {
 		this.userNick = userNick;
 		this.userPhone = userPhone;
 		this.userAddress = userAddress;
-		this.userEamil = userEamil;
+		this.userEmail = userEmail;
 		this.userName = userName;
 		this.userIntro = userIntro;
 		this.userJob = userJob;
@@ -47,13 +50,39 @@ public class Users {
 		this.naverNo = naverNo;
 	}
 
+	public Users(String userNo, String userId, String userPw, String userNick, String userPhone, String userAddress,
+			String userEmail, String userName, String userIntro, String userJob, String userPhoto, Date userJoinDate,
+			String userBirth, String userGender, int dgMoney, int point, int rankingNo, int kakaNo, int naverNo) {
+		super();
+		this.userNo = userNo;
+		this.userId = userId;
+		this.userPw = userPw;
+		this.userNick = userNick;
+		this.userPhone = userPhone;
+		this.userAddress = userAddress;
+		this.userEmail = userEmail;
+		this.userName = userName;
+		this.userIntro = userIntro;
+		this.userJob = userJob;
+		this.userPhoto = userPhoto;
+		this.userJoinDate = userJoinDate;
+		this.userBirth = userBirth;
+		this.userGender = userGender;
+		this.dgMoney = dgMoney;
+		this.point = point;
+		this.rankingNo = rankingNo;
+		this.kakaNo = kakaNo;
+		this.naverNo = naverNo;
+	}
+
 	@Override
 	public String toString() {
 		return "Users [userNo=" + userNo + ", userId=" + userId + ", userPw=" + userPw + ", userNick=" + userNick
-				+ ", userPhone=" + userPhone + ", userAddress=" + userAddress + ", userEamil=" + userEamil
+				+ ", userPhone=" + userPhone + ", userAddress=" + userAddress + ", userEmail=" + userEmail
 				+ ", userName=" + userName + ", userIntro=" + userIntro + ", userJob=" + userJob + ", userPhoto="
-				+ userPhoto + ", userJoinDate=" + userJoinDate + ", dgMoney=" + dgMoney + ", point=" + point
-				+ ", rankingNo=" + rankingNo + ", kakaNo=" + kakaNo + ", naverNo=" + naverNo + "]";
+				+ userPhoto + ", userJoinDate=" + userJoinDate + ", userBirth=" + userBirth + ", userGender="
+				+ userGender + ", dgMoney=" + dgMoney + ", point=" + point + ", rankingNo=" + rankingNo + ", kakaNo="
+				+ kakaNo + ", naverNo=" + naverNo + "]";
 	}
 
 	public String getUserNo() {
@@ -104,12 +133,12 @@ public class Users {
 		this.userAddress = userAddress;
 	}
 
-	public String getUserEamil() {
-		return userEamil;
+	public String getUserEmail() {
+		return userEmail;
 	}
 
-	public void setUserEamil(String userEamil) {
-		this.userEamil = userEamil;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 	public String getUserName() {
@@ -152,6 +181,22 @@ public class Users {
 		this.userJoinDate = userJoinDate;
 	}
 
+	public String getUserBirth() {
+		return userBirth;
+	}
+
+	public void setUserBirth(String userBirth) {
+		this.userBirth = userBirth;
+	}
+
+	public String getUserGender() {
+		return userGender;
+	}
+
+	public void setUserGender(String userGender) {
+		this.userGender = userGender;
+	}
+
 	public int getDgMoney() {
 		return dgMoney;
 	}
@@ -192,5 +237,7 @@ public class Users {
 		this.naverNo = naverNo;
 	}
 	
+
+
 	
 }
