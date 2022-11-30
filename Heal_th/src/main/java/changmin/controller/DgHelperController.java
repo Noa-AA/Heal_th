@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import changmin.dto.BodyInfo;
 import changmin.dto.HealthRecord;
 import changmin.service.face.DgHelperService;
-import changmin.util.Paging;
+import changmin.util.ChangMinPaging;
 
 @Controller
 public class DgHelperController {
@@ -43,8 +43,8 @@ public class DgHelperController {
 		int userno = (int) session.getAttribute("userno");
 		logger.info("userno : {}", userno);
 		
-		Paging paging = dgHelperService.getPaging(curPage, userno);
-		List<HealthRecord> recordList = dgHelperService.getRecordList(paging, userno);
+		ChangMinPaging ChangMinPaging = dgHelperService.getChangMinPaging(curPage, userno);
+		List<HealthRecord> recordList = dgHelperService.getRecordList(ChangMinPaging, userno);
 	
 		int cnt = dgHelperService.getCntRecord(recordList);
 		logger.info("운동기록 횟수 : {}", cnt);
