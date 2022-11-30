@@ -1,5 +1,7 @@
 package changmin.service.face;
 
+import java.util.List;
+
 import changmin.dto.MmoneyPay;
 import changmin.dto.WithDraw;
 import yerim.dto.Users;
@@ -37,5 +39,11 @@ public interface DgMoneyService {
 	 * @param withDraw
 	 */
 	public void addWithDraw(WithDraw withDraw);
+
+	/**
+	 * 관리자 - 인출신청리스트 불러오기
+	 * @return
+	 */
+	public List<WithDraw> getWithDrawList();
 
 }

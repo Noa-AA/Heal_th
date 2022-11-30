@@ -1,5 +1,7 @@
 package daeyeon.service.impl;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -11,15 +13,29 @@ import daeyeon.dao.face.ChatDao;
 import daeyeon.dto.RoomList;
 import daeyeon.dto.Userss;
 import daeyeon.service.face.ChatService;
+import yerim.dto.Users;
 
 @Service
 public class ChatServiceImpl implements ChatService {
 
-@Autowired private ChatDao chatDao;
+@Autowired ChatDao chatDao;
 	
 	//로그 객체
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	
+	@Override
+	public List<Users> userlist() {
+		
+		//게시글 목록 조회 - ChatDao 이용
+		List<Users> userList = chatDao.selectUsers(); 
+		logger.trace("boardList 조회 결과"); 
+		for( Users d : userList )	logger.info("{}", d);
+		
+		return userList;
+	}
+	
+	
 	
 	@Override
 	public RoomList selectRoomNoByUserNo(HttpSession session) {
@@ -50,12 +66,12 @@ public class ChatServiceImpl implements ChatService {
 //	}
 	
 	
-	@Override
-		public void insertChat() {
-			logger.info("insertChat()");
-		
-			chatDao.insertChat(); 
-			
-		}
+//	@Override
+//		public void insertChat() {
+//			logger.info("insertChat()");
+//		
+//			chatDao.insertChat(); 
+//			
+//		}
 	
 }

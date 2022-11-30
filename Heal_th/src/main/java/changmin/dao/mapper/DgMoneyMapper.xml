@@ -34,4 +34,8 @@
 		VALUES (withdraw_seq.nextval, #{wdAmount},'미처리', #{wdAccount}, #{wdUsername}, #{bankName}, #{userNo})
 	</insert>
 	
+	<select id="selectWithDrawList" resultType="WithDraw">
+		SELECT * FROM withdraw
+	</select>
+	
 </mapper>

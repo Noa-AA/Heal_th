@@ -20,6 +20,28 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$("#menu > ul ").mouseover(function(){ 
+		$('#dropMenu').slideDown('500'); 
+		
+	});
+	
+	$("#dropMenu").mouseleave(function(){ 
+		$('#dropMenu').slideUp('500'); 
+		
+	});
+	
+	
+})
+
+
+
+</script>
+
+
+
 <style type="text/css">
 
 @import url('https://webfontworld.github.io/sunn/SUIT.css');
@@ -36,30 +58,32 @@ a {
     text-decoration: none;
 }
 
-header {
+header{
+	margin-bottom: 180px;
+}
+
+#topMenu {
 	display: flex;
     align-items: center;
     justify-content: space-between;
     height: 80px;
     background-color: #fff;
-    position: relative;
+    position: fixed;
     z-index: 999;
     padding-left: 160px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 8%);
+    top: 0;
+    left: 0;
+ 	right: 0;
 }
 
-#background {
-	width: 100%;
-	height: 80px;
-/* 	background: linear-gradient(-270deg, #00c3cc, #2d8cd6, #5c52e0, #7d2ae8); */
 
-}
-
-#header .logo { 
+#topMenu .logo { 
  	width: 180px; 
  	height: 38px; 
 } 
 
-#header .logo a {
+#topMenu .logo a {
     height: 100%;
     display: flex;
     align-items: center;
@@ -68,14 +92,10 @@ header {
 
 #menu {
 	margin: 0 auto;
-	height: 80px;
 	width: 900px;
 	display: flex;
     justify-content: center;
-}
-
-#menu {
-	height: 100%;
+    height: 100%;
     position: absolute;
     left: 50%;
     top: 0;
@@ -92,7 +112,7 @@ header {
 
 #menu > ul > li {
 	height: 100%;
-    width: 140px;
+    width: 150px;
 }
 
 #menu > ul > li > a {
@@ -102,7 +122,6 @@ header {
     align-items: center;
     white-space: nowrap;
     position: relative;
-/*     transition: all .3s; */
 }
 
 
@@ -150,63 +169,197 @@ header {
 }
 
 
+
+/* 드롭다운 메뉴~~ */
+
+.hover {
+	box-shadow: 0 0 0px rgb(0 0 0 / 0%) !important;;
+	border-bottom: 1px solid #eeeeee;
+}
+
+
+#dropMenu {
+	display: none;
+	margin: 0 auto;
+	height: 270px;
+	width: 100%;
+	background-color: #fff;
+	position: fixed;
+	box-shadow: 0 0 10px rgb(0 0 0 / 8%);
+	top: 0;
+}
+
+#dropMenu > ul {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#dropMenu > ul:nth-child(1) {
+	padding-top: 80px;
+	margin-top: 34px;
+}
+
+#dropMenu > ul:last-child {
+	margin-bottom: 34px;
+}
+
+#dropMenu > ul > li {
+    width: 150px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #eaeaea;
+}
+
+#dropMenu > ul > li:last-child {
+	border-right: 1px solid #eaeaea;
+}
+
+#dropMenu > ul > li > a {
+	height: 20px;
+    color: #666;
+    font-weight: 400;
+}
+
 </style>
 
 </head>
-<body>
 
-<header id="header">
-	
-	<h1 class="logo">
-		<a href="">
-			<img src="/resources/img/logo.png" alt="득근득근">
-		</a>		
-	</h1>
-			
-	<div id="menu">
-	<ul>
-		<li>
-			<a href="">챌린지</a>
-		</li>
-		<li>
-			<a href="">운동질문</a>
-		</li>
-		<li>
-			<a href="">운동도우미</a>
-		</li>
-		<li>
-			<a href="">출석체크</a>
-		</li>
-		<li>
-			<a href="">상점</a>
-		</li>
-		<li>
-			<a href="">커뮤니티</a>
-		</li>
-	</ul>
-	</div> <!-- menu -->
+<header class="hover">
 
-	
-	<div id="right">
+	<div id="dropMenu" >
 		<ul>
-			<li id="login">
-				<img src="/resources/img/loginicon.png">
-				<a href="">
-					로그인
-				</a>
+			<li>
+				<a href="">2-1depth</a>
+			</li>
+			<li>
+				<a href="">2-1depth</a>
+			</li>
+			<li>
+				<a href="">2-1depth</a>
+			</li>
+			<li>
+				<a href="">2-1depth</a>
+			</li>
+			<li>
+				<a href="">2-1depth</a>
+			</li>
+			<li>
+				<a href="">2-1depth</a>
 			</li>
 			
-			<li id="join">
-				<img src="/resources/img/joinicon.png">
-				<a href="">
-				회원가입
-				</a>
+		</ul>
+		
+		<ul>
+			<li>
+				<a href="">2-2depth</a>
+			</li>
+			<li>
+				<a href="">2-2depth</a>
+			</li>
+			<li>
+				<a href="">2-2depth</a>
+			</li>
+			<li>
+				<a href="">2-2depth</a>
+			</li>
+			<li>
+				<a href="">2-2depth</a>
+			</li>
+			<li>
+				<a href="">2-2depth</a>
+			</li>
+			
+		</ul>
+		
+		<ul>
+			<li>
+				<a href="">2-3depth</a>
+			</li>
+			<li>
+				<a href="">2-3depth</a>
+			</li>
+			<li>
+				<a href="">2-3depth</a>
+			</li>
+			<li>
+				<a href="">2-3depth</a>
+			</li>
+			<li>
+				<a href="">2-3depth</a>
+			</li>
+			<li>
+				<a href="">2-3depth</a>
+			</li>
+			
+		</ul>
+		
+		
+	</div>
+
+	<div id="topMenu" class="">	
+		<h1 class="logo">
+			<a href="">
+				<img src="/resources/img/logo.png" alt="득근득근">
+			</a>		
+		</h1>
+				
+		<div id="menu">
+		<ul>
+			<li>
+				<a href="">챌린지</a>
+			</li>
+			<li>
+				<a href="">운동질문</a>
+			</li>
+			<li>
+				<a href="">운동도우미</a>
+			</li>
+			<li>
+				<a href="">출석체크</a>
+			</li>
+			<li>
+				<a href="">득근상점</a>
+			</li>
+			<li>
+				<a href="">커뮤니티</a>
 			</li>
 		</ul>
-	</div>
+		</div> <!-- menu -->
+	
+		
+		<div id="right">
+			<ul>
+				<li id="login">
+					<img src="/resources/img/loginicon.png">
+					<a href="">
+						로그인
+					</a>
+				</li>
+				
+				<li id="join">
+					<img src="/resources/img/joinicon.png">
+					<a href="">
+					회원가입
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>	<!-- topMenu -->
+
 	
 </header>
 
 
-</body>
-</html>
+
+
+
+
+
+
+
+
+
+
