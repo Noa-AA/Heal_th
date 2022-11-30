@@ -6,11 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import yerim.service.face.LoginService;
+import yerim.service.face.JoinService;
 
 @Controller
 public class LoginController {
  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+ @Autowired JoinService loginService;
+ 
+ @GetMapping("/login/login")
+ public void login() {
+	 //로그인 화면 
+	 logger.info("/login/login [GET]");
+ }
+ 
 
 }

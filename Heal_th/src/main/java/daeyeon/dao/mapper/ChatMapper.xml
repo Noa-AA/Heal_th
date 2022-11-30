@@ -1,10 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 마이바티스 3 Mapper DTD -->
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
-<mapper namespace="daeyeon.dao.face.Dao">
+
+<mapper namespace="daeyeon.dao.face.ChatDao"> 
+	
+	
+	<select id="selectUsers" resultType="yerim.dto.Users" >
+		SELECT user_no, user_name, user_job, user_intro, user_gender, ranking_no
+		FROM USERS
+		WHERE ranking_no >= 3
+	</select> 
+	
+	
+	<select id="selectRoomNoByUserNo"  resultType="daeyeon.dto.RoomList" parameterType="daeyeon.dto.Userss">
+		SELECT * FROM room_list
+		WHERE user_no = #{userNo }
+	</select>
+	
+	
+<!-- 	<insert id="insertChatRoom" parameterType="int"  > -->
+<!-- 		INSERT INTO chat_room ( room_no, create_date  ) -->
+<!-- 		VALUES ( 1 , sysdate )   -->
+<!-- 	</insert> -->
+
+	
+<!-- 	<insert id="insertroomList" parameterType="int"  > -->
+<!-- 		INSERT INTO room_list ( chat_list_no, user_no, room_no  ) -->
+<!-- 		VALUES ( 1 ,10, 1 )  -->
+		 <!-- lost_no 는 시퀀스 userNo는 가져올꺼고 room_no도 위에서 가져올꺼임 } -->
+<!-- 	</insert> -->
+
+<!-- 	<insert id="insertChat" parameterType="int"> -->
+<!-- 		INSERT INTO chat( chat_no, chat_time, chat_contents, ) -->
+<!-- 		VALUES () -->
+<!-- 	</insert> -->
 
 </mapper>

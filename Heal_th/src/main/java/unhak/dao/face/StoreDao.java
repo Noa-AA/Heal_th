@@ -1,5 +1,5 @@
 package unhak.dao.face;
 
-public interface Testdao  {
+public interface StoreDao  {
 
 }
