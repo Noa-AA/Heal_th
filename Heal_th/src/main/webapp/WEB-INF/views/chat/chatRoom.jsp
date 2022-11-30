@@ -36,8 +36,14 @@ $(document).ready(function() {
     // 서버로부터 메시지를 받았을 때
     function onMessage(msg) {
         var data = msg.data;
-        console.log(data);
-        $("#messages").append(data + "<br/>");
+        var id = data.split(":");
+        
+        if(id[0] == ${userId }){
+        	$("#messages").append( data + "<br/>" );
+        }
+        
+//         console.log(data);
+//         $("#messages").append( data + "<br/>" );
     }
     
     // 서버와 연결을 끊었을 때
@@ -48,25 +54,35 @@ $(document).ready(function() {
 
 </script>
 
+<style type="text/css">
+
+#chatArea {
+	width: 300px;
+	height: 300px;
+	border: 1px solid #ccc;
+	
+}
+
+</style>
+
 </head>
 
 <body>
-<!--     <div> -->
-<!--         <input type="button" id="connBtn" value="연결하기"> -->
-<!--         <input type="button" id="disconnBtn" value="연결끊기"> -->
-<!--     </div> -->
+<h1></h1>
     
     <div>
-   		유저 아이디 :${userId }
-    	<input type="text" id="msgInput" /> 
+   		유저 아이디 :${userId }<br>
+    	<input type="text" id="msgInput" />
     	<input type="button" id="sendBtn" value="메세지 전송" /> 
 <!--         <button onclick="openSocket();">Open</button> -->
 <!--         <button onclick="send();">Send</button> -->
 <!--         <button onclick="closeSocket();">close</button> -->
     </div>
     
-    <div id="messages"></div>
     
+<div id="chatArea">
+    <div id="messages"></div>
+</div>
         
 	
 	

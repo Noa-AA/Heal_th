@@ -1,5 +1,7 @@
 package daeyeon.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,23 +16,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import daeyeon.dto.ChatRoom;
 import daeyeon.dto.Userss;
 import daeyeon.service.face.ChatService;
+import hyanghee.dto.Board;
+import yerim.dto.Users;
 
 @Controller
 @RequestMapping("/chat")
 public class ChatController {
 
 	
-	//로그 객체
+		//로그 객체
 		private final Logger logger = LoggerFactory.getLogger(this.getClass());
 		
-		@Autowired private ChatService chatService;
-			
+		@Autowired ChatService chatService;
 		
 		//테스트용 헤더~~~~
 		@RequestMapping("/header")
 		public void header() {
 			
 		}
+		
+		//멘토 리스트
+		@RequestMapping("/intro")
+		public void intro(Model model) {
+		logger.info("/chat/intro");
+			
+		//회원등급 3이상 회원 조회
+		List<Users> userList = chatService.userlist();
+			
+		//모델값 전달 - Model객체 이용
+		model.addAttribute("userList", userList);
+			
+		}
+		
 		
 		
 		@GetMapping("/login")
