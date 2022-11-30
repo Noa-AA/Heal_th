@@ -24,7 +24,7 @@ public class ChatHandler extends TextWebSocketHandler {
 	
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 	
-	@Autowired private ChatService chatService;
+//	@Autowired private ChatService chatService;
 	
 	
 	// afterConnectionEstablished : 웹소켓이 연결되면 호출되는 함수
@@ -46,6 +46,7 @@ public class ChatHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage( WebSocketSession session, TextMessage message) throws Exception {
     	String Id = (String)session.getAttributes().get("userId");
+    	int userNo = (Integer)session.getAttributes().get("userNo");
     	
     	logger.info( "{}로 부터 {} 받음", Id, message.getPayload() );
     	
@@ -53,8 +54,7 @@ public class ChatHandler extends TextWebSocketHandler {
     		sess.sendMessage(new TextMessage(Id + " : " + message.getPayload()));
     	}
     	
-    	chatService.insertChat();
-    	
+//    	chatService.insertChat();
     	
     	
     }
