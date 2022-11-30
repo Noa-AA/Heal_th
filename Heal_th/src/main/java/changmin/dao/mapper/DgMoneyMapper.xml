@@ -7,4 +7,35 @@
 
 <mapper namespace="changmin.dao.face.DgMoneyDao">
 
+	<select id="selectDgmoney" resultType="int" parameterType="int">
+		SELECT dg_money
+		FROM users
+		WHERE user_no = #{userno }
+	</select>
+	
+	<insert id="insertDgmoney" parameterType="MmoneyPay">
+		INSERT INTO mmoney_pay(mmoneypay_no, amount, user_no)
+		VALUES(mmoney_pay_seq.nextval, #{amount }, #{userNo } )
+	</insert>
+	
+	<update id="updateDgmoney" parameterType="MmoneyPay">
+		UPDATE users SET dg_money=(dg_money+#{amount})
+		WHERE user_no = #{userNo }
+	</update>
+	
+	<select id="selectUserInfo" resultType="Users" parameterType="int">
+		SELECT *
+		FROM users
+		WHERE user_no = #{userno }
+	</select>
+	
+	<insert id="insertWithDraw" parameterType="WithDraw">
+		INSERT INTO withdraw(wd_no, wd_amount, wd_process, wd_account, wd_username, bank_name, user_no)
+		VALUES (withdraw_seq.nextval, #{wdAmount},'미처리', #{wdAccount}, #{wdUsername}, #{bankName}, #{userNo})
+	</insert>
+	
+	<select id="selectWithDrawList" resultType="WithDraw">
+		SELECT * FROM withdraw
+	</select>
+	
 </mapper>

@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import yerim.dto.Users;
 
-public interface LoginDao {
+public interface JoinDao {
 	
 	/**
 	 * 회원가입 정보 DB에 저장하기

@@ -2,12 +2,15 @@ package changmin.service.impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import changmin.dao.face.DgHelperDao;
+import changmin.dto.BodyInfo;
 import changmin.dto.HealthRecord;
 import changmin.service.face.DgHelperService;
 import changmin.util.Paging;
@@ -20,12 +23,12 @@ public class DgHelperServiceImpl implements DgHelperService {
 	@Autowired private DgHelperDao dgHelperDao;
 	
 	@Override
-	public void insertRecord(String recordcon) {
+	public void addRecord(String recordcon, int userno) {
 		dgHelperDao.insertRecord(recordcon);
 	}
 
 	@Override
-	public Paging getPaging(String curPage) {
+	public Paging getPaging(String curPage, int userno) {
 		//총 게시글 수 조회하기
 		int totalCount = dgHelperDao.selectCntAll();
 		
@@ -44,9 +47,24 @@ public class DgHelperServiceImpl implements DgHelperService {
 	}
 
 	@Override
-	public List<HealthRecord> getRecordList(Paging paging) {
+	public List<HealthRecord> getRecordList(Paging paging, int userno) {
 		
 		return dgHelperDao.selectRecord(paging);
+	}
+
+	@Override
+	public BodyInfo getBodyInfo(int userno) {
+
+		return dgHelperDao.selectBodyInfo(userno);
+	}
+
+	@Override
+	public int getCntRecord(List<HealthRecord> recordList) {
+		
+		int cnt = 0;
+		cnt = recordList.size();
+
+		return cnt;
 	}
 
 }

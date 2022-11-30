@@ -27,4 +27,12 @@
 	<select id="selectCntAll" resultType="int">
 		SELECT count(*) FROM healthrecord 
 	</select>
+	
+	<select id="selectBodyInfo" resultType="BodyInfo" parameterType="int">
+		SELECT weight, height
+		FROM body_info
+		WHERE body_no IN(SELECT max(body_no)
+						 FROM body_info
+						 WHERE user_no=#{userno })
+	</select>
 </mapper>
