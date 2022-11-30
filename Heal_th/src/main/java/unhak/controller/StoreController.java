@@ -22,6 +22,7 @@ public class StoreController {
 	}
 
 
+
 	@RequestMapping("/store/view")
 	public void storeview() {
 		logger.info("store/view[GET]");
