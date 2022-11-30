@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import hyanghee.service.face.BoardService;
+import hyanghee.service.face.BfBoardService;
 
 @Controller
 public class DietBoardController {
@@ -16,7 +16,7 @@ public class DietBoardController {
 		private final Logger logger = LoggerFactory.getLogger(this.getClass());
 				
 		//서비스 객체
-		@Autowired private BoardService boardService;	
+		@Autowired private BfBoardService boardService;	
 		
 		
 		@RequestMapping("/board/dietBoard")

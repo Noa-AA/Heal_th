@@ -5,10 +5,11 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
-import hyanghee.dto.Board;
-import hyanghee.util.Paging;
+import hyanghee.dto.Beforeafter;
+import hyanghee.util.BoardPaging;
+import yerim.dto.Users;
 
-public interface BoardService {
+public interface BfBoardService {
 
 	/**
 	 * 게시글 목록을 위한 페이징 객체를 생성한다
@@ -20,15 +21,27 @@ public interface BoardService {
 	 * @param curPage - 요청 페이지 번호
 	 * @return 계산이 완료된 Paging객체
 	 */
-	public Paging getPaging(int curPage);
+	public BoardPaging getPaging(int curPage);
 
-	/**
-	 * 비포 애프터 게시글 insert
-	 * @param board
-	 */
-	public void insertBfBoard(Board board);
+	//게시글 목록
+	public List<Beforeafter> list(BoardPaging paging);
 
-//	public Map<String, Object> deleteBfArticle(@Param("userid") int userid);
+	//게시글 작성
+	public void insertBfBoard(Beforeafter bfBoard);
+
+	//유저 정보 찾기
+	public Users getUserInfo(int userno);
+	
+	
+
+
+
+
+
+
+	
+
+
 
 	
 

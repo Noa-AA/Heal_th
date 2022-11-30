@@ -1,6 +1,6 @@
 package hyanghee.util;
 
-public class Paging {
+public class BoardPaging {
 
 		private int curPage; // 현재 페이지 번호
 		
@@ -17,23 +17,23 @@ public class Paging {
 		
 		
 		//디폴트 생성자 - 페이징 로직이 처리되지 않는다
-		public Paging() {}
+		public BoardPaging() {}
 		
 		
-		public Paging(int totalCount, int curPage) {
+		public BoardPaging(int totalCount, int curPage) {
 			setTotalCount(totalCount);
 			setCurPage(curPage);
 			
 			makePaging();
 		}
 		
-		public Paging(int totalCount) {
+		public BoardPaging(int totalCount) {
 			setTotalCount(totalCount);
 			
 			makePaging();
 		}
 		
-		public Paging(int totalCount, int curPage, int listCount) {
+		public BoardPaging(int totalCount, int curPage, int listCount) {
 			setTotalCount(totalCount);
 			setCurPage(curPage);
 			setListCount(listCount);	//화면에 보여질 게시글 개수 지정하기
@@ -41,7 +41,7 @@ public class Paging {
 			makePaging();
 		}
 		
-		public Paging(int totalCount, int curPage, int listCount, int pageCount) {
+		public BoardPaging(int totalCount, int curPage, int listCount, int pageCount) {
 			setTotalCount(totalCount);
 			setCurPage(curPage);
 			setListCount(listCount);	//화면에 보여질 게시글 개수 지정하기

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스 3 Configuration DTD -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="hyanghee.dao.face.BfBoardDao">
+
+	<select id="selectCntAll" resultType="int" parameterType="BoardPaging">
+		SELECT count(*) FROM beforeafter
+	</select>
+	
+	<select id="selectList" resultType="Beforeafter" parameterType="BoardPaging">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* FROM (
+				SELECT
+					bf_no, category_no, bf_title, user_no,
+					bf_hit, bf_thumbs, bf_inst_date
+				FROM beforeafter
+				ORDER BY bf_no DESC
+			) B
+		) Beforeafter
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	
+	<select id="getUserInfo" resultType="int" parameterType="Users">
+		SELECT FROM users
+		WHERE user_no = #{userNo}
+	</select>
+	
+	<insert id="insertBfBoard">
+		INSERT INTO beforeafter ( 
+			bf_no, bf_inst_date, bf_title, height, gender
+			   , weight, bf_exercise, g_weight, s_date
+			   , e_date, sele_exercise, before_con
+			   , c_weight, g_result, after_con
+			   , bf_upt_date, bf_delete_date, bf_hit
+			   , bf_thumbs, user_no, category_no )
+		
+		VALUES ( beforeafter_seq.nextval, to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), #{bf_title}, #{height}, #{gender}
+				   , #{weight}, #{bf_exercise}, #{g_weight}, #{s_date}
+				   , #{e_date}, #{sele_exercise}, #{before_con}
+				   , #{c_weight}, #{g_result}, #{after_con}
+				   ,  to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 0
+				   , 0, #{user_no}, 1 )
+	</insert>
+
+
+
+<!-- 	<delete id="deleteBf"> -->
+<!-- 		DELETE FROM beforeafter -->
+<!-- 		WHERE user_id = #{userid} -->
+<!-- 	</delete> -->
+	
+</mapper>
+  

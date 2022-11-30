@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import hyanghee.dto.Board;
-import hyanghee.service.face.BoardService;
-import hyanghee.util.Paging;
+import hyanghee.dto.VerifyBoard;
+import hyanghee.service.face.VerifyBoardService;
+import hyanghee.util.BoardPaging;
 
 @Controller
 public class VerifyBoardController {
@@ -24,7 +24,7 @@ public class VerifyBoardController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	//서비스 객체
-	@Autowired private BoardService boardService;	
+	@Autowired private VerifyBoardService verifyBoardService;	
 	
 	//운동인증 게시판 목록
 	@RequestMapping("board/verifyBoard")
@@ -32,13 +32,13 @@ public class VerifyBoardController {
 			@RequestParam(defaultValue = "0") int curPage
 			, Model model ) {
 		
-		Paging paging = boardService.getPaging(curPage);
-		logger.debug("{}", paging);
-		model.addAttribute("paging", paging);
+		BoardPaging boardPaging = verifyBoardService.getPaging(curPage);
+		logger.debug("{}", boardPaging);
+		model.addAttribute("boardPaging", boardPaging);
 		
-//		List<Board> list = boardService.list(paging);
-//		for( Board b : list )	logger.debug("{}", b);
-//		model.addAttribute("list", list);
+		List<VerifyBoard> list = verifyBoardService.list(boardPaging);
+		for( VerifyBoard v : list )	logger.debug("{}", v);
+		model.addAttribute("list", list);
 
 	}
 	

@@ -1,9 +1,8 @@
 package hyanghee.controller;
 
-import java.util.Map;
+import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,11 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import hyanghee.dto.Board;
-import hyanghee.service.face.BoardService;
+import hyanghee.dto.Beforeafter;
+import hyanghee.service.face.BfBoardService;
+import hyanghee.util.BoardPaging;
+import yerim.dto.Users;
+import yerim.service.face.LoginService;
 
 
 @Controller
@@ -28,93 +30,105 @@ public class BfBoardController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 			
 	//서비스 객체
-	@Autowired private BoardService boardService;	
+	@Autowired private BfBoardService bfBoardService;	
+	
+	@Autowired private LoginService loginService;
 	
 	
+	//게시글 리스트
 	@RequestMapping("/board/bfBoard")
-	public void main() {
+	public void list(
+			@RequestParam(defaultValue = "0") int curPage
+			, Model model ) {
 		
-		logger.info("/board/bfBoard");
+		BoardPaging boardPaging = bfBoardService.getPaging(curPage);
+		logger.info("{}", boardPaging);
+		model.addAttribute("BoardPaging", boardPaging);
+		
+		List<Beforeafter> list = bfBoardService.list(boardPaging);
+		for( Beforeafter b : list )	logger.info("{}", b);
+		model.addAttribute("list", list);
 		
 	}
 	
-	
-	//게시글 작성 폼
-//	@RequestMapping("/board/bf_write")
-//	public void bf_write() {
+
+	//로그인 화면
+//	@GetMapping("/login/login")
+//	public ModelAndView index(RedirectAttributes redirect) {
 //		
-//		logger.info("/board/bf_write");
+//		ModelAndView mv = new ModelAndView("/login/login");
+//		if(redirect.getAttribute("msg") != null ) {
+//			mv.addObject("msg", redirect.getAttribute("msg"));
+//		}
 //		
-//	}
+//	
+//	 }
+//	
+//	@PostMapping("/login/login")
+//	
 	
-	//게시글 작성 성공 (insert 완료)
-	@RequestMapping("/board/bf_write")
-	public String insertBfBoard(Board board) {
+
+	
+	
+	
+	//게시글 작성
+	@GetMapping("/board/bf_write")
+	public void insertBfBoard() {	}
+	
+	@PostMapping("/board/bf_write")
+	public String insertBfBoardProc(Beforeafter bfBoard, Model model, HttpSession session) {
 		
-		boardService.insertBfBoard(board);
+		logger.info("/board/bfBoard [GET]");
+
+		session.setAttribute("userno", 7777);
+		int userno = (int) session.getAttribute("userno");
+		logger.info("userno : {}", userno);
+		
+		Users user = bfBoardService.getUserInfo(userno);
+		logger.info("userInfo : {}", user);
+		model.addAttribute("user", user);
+		
+		
+		//작성자, 카테고리 정보 추가
+		bfBoard.setUserNo( (int) session.getAttribute("userNo") );
+		bfBoard.setCategoryNo( (int) session.getAttribute("categoryNo") );
+		
+		bfBoardService.insertBfBoard(bfBoard);
 		
 		return "redirect:/board/bfBoard";
 	}
-	
 
-	   /** 게시판 - 작성 페이지 이동 */
-//    @RequestMapping("/board/bf_write")
-//    public String boardWrite(HttpServletRequest request, HttpServletResponse response) throws Exception{
-//        
-//        return "board/boardWrite";
-//    }
-    
-//    /** 게시판 - 등록 */
-//    @RequestMapping("/board/bf_write")
-//    public Board insertBoard(HttpServletRequest request, HttpServletResponse response, bfForm bfForm) throws Exception{
-//        
-//        Board boardDto = boardService.insertBoard(bfForm);
-//        
-//        return boardDto;
-//    }
-    
-//    /** 게시판 - 삭제 */
-//    @RequestMapping( value = "/deleteBoard")
-//    public Board deleteBoard(HttpServletRequest request, HttpServletResponse response, BoardForm boardForm) throws Exception{
-//        
-//        Board board = boardService.deleteBoard(boardForm);
-//        
-//        return board;
-//    }
-//    
-//    /** 게시판 - 수정 페이지 이동 */
-//    @RequestMapping( value = "/boardUpdate")
-//    public String boardUpdate(HttpServletRequest request, HttpServletResponse response) throws Exception{
-//        
-//        return "board/boardUpdate";
-//    }
-//    
-//    /** 게시판 - 수정 */
-//    @RequestMapping( value = "/updateBoard")
-//    public Board updateBoard(HttpServletRequest request, HttpServletResponse response, BoardForm boardForm) throws Exception{
-//        
-//        Board board = boardService.updateBoard(boardForm);
-//        
-//        return board;
-//    }
 
 	
-//	//게시글 삭제
-//	@RequestMapping("/board/bfDelete")
-//	public String bfDelete(int id, Model model) {
+//	@RequestMapping(value = "/bfBoard", method = RequestMethod.GET)
+//	public String bfBoardView(Model model, HttpSession session) {
+//		logger.info("/board/bfBoard [GET]");
+//
+//		session.setAttribute("userno", 7777);
+//		int userno = (int) session.getAttribute("userno");
+//		logger.info("userno : {}", userno);
 //		
-////		Board board = BoardService.findArticleByNickname(nickName)
+//		Users user = bfBoardService.getUserInfo(userno);
+//		logger.info("userInfo : {}", user);
+//		model.addAttribute("user", user);
 //		
-//		Map<String, Object> rs = boardService.deleteBfArticle(id);
 //		
-//		model.addAttribute("alertMsg", rs.get("msg"));
-//		model.addAttribute("redirectUrl", "/board/bfBoard?writer=" + writer);
-//		
-//		boardService.deleteBfArticle(id);
+//		return "/board/bfBoard";
 //	}
 	
-	
-	
-	
+//	@RequestMapping(value = "/board/bf_write", method = RequestMethod.POST)
+//	public String insertBfBoard(BfBoard bfBoard) {
+//		logger.info("/board/bf_write [POST]");
+//		
+//		logger.info("bfBoard : {} ", bfBoard);
+//		
+//		bfBoardService.insertBfBoard(bfBoard);
+//		
+//		return "redirect:/board/bfBoard";
+//		
+//	}
 
 }
+
+
+

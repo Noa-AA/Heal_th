@@ -9,35 +9,57 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import hyanghee.dao.face.BoardDao;
-import hyanghee.dto.Board;
-import hyanghee.service.face.BoardService;
-import hyanghee.util.Paging;
+import hyanghee.dao.face.BfBoardDao;
+import hyanghee.dto.Beforeafter;
+import hyanghee.service.face.BfBoardService;
+import hyanghee.util.BoardPaging;
+import yerim.dto.Users;
 
 @Service
-public class BoardServiceImpl implements BoardService {
+public class BfBoardServiceImpl implements BfBoardService {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	@Autowired BoardDao boardDao;
+	@Autowired BfBoardDao bfBoardDao;
 
 	@Override
-	public Paging getPaging(int curPage) {
+	public BoardPaging getPaging(int curPage) {
 		//총 게시글 수 조회
-		int totalCount = boardDao.selectCntAll();
+		int totalCount = bfBoardDao.selectCntAll();
 				
 		//페이징 계산
-		Paging paging = new Paging(totalCount, curPage);
+		BoardPaging paging = new BoardPaging(totalCount, curPage);
 				
 		return paging;
 	}
 
+
 	//비포 애프터 게시글 생성
 	@Override
-	public void insertBfBoard(Board board) {
-		boardDao.insertBfBoard(board);
+	public void insertBfBoard(Beforeafter bfBoard) {
+		
+		bfBoardDao.insertBfBoard(bfBoard);
 		
 	}
+
+	//게시글
+	@Override
+	public List<Beforeafter> list(BoardPaging boardPaging) {
+
+		return bfBoardDao.selectList(boardPaging);
+	}
+
+
+
+
+	//유저 정보 찾기
+	@Override
+	public Users getUserInfo(int userno) {
+		
+		return bfBoardDao.getUserInfo(userno);
+	}
+
+	
 
 //	//비포 애프터 게시글 삭제
 //	@Override

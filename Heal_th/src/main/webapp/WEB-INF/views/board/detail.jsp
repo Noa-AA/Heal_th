@@ -1,14 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>비포 애프터 게시글 작성</title>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!-- jQuery 2.2.4 -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-
+<jsp:include page="../layout/header.jsp" />
 
 <style type="text/css">
 
@@ -26,7 +22,7 @@ input { border-radius: 3px; }
 $(document).ready(function() {
 	
 	//등록 버튼
-	$("#btnInsert").click(function() {
+	$("#btnUpdate").click(function() {
 		$(this).parents("form").submit();
 	})
 	
@@ -42,14 +38,22 @@ $(document).ready(function() {
 
 </script>
 
-</head>
-<body>
 
-<form action="./bf_write" method="post">
+
+<form action="./bfBoard" method="post">
 
 <br><br><br>
 
+<h1>게시글 상세보기</h1>
+<table>
+	<tr>
+		<td>작성일자</td>
+		<td><fmt:formatDate value="${board.bf_inst_date}" pattern="yyyy-MM-dd" /></td>
+	</tr>
+</table>
+
 <h1>Before (운동 시작 전)</h1>
+
 
 <div class="before" style="margin-bottom: 100px;">
 
@@ -214,13 +218,10 @@ $(document).ready(function() {
 <div id="button" style="float: right;">
 <button id="btnDelete" style="margin-right: 10px;"><a class="btn block" onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) { return false; }" href="/board/bfDelete">삭제</a></button>
 
-<button type="button" class="btn btn-primary" id="btnInsert">등록</button>
+<button type="button" class="btn btn-primary" id="btnUpdate">수정</button>
 
 </div>
 
 <br><br><br><br><br><br><br>
 
 </form>
-
-</body>
-</html>
