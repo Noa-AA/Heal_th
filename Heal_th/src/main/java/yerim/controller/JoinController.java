@@ -1,26 +1,23 @@
 package yerim.controller;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.net.http.HttpResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import yerim.dto.Request;
+import yerim.dto.SmsResponse;
 import yerim.dto.Users;
-import yerim.service.face.LoginService;
+import yerim.service.face.JoinService;
 
 @Controller
 public class JoinController {
 	
-	@Autowired LoginService loginService;
+	@Autowired JoinService joinService;
 	 private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	 
@@ -36,7 +33,7 @@ public class JoinController {
 		 logger.info("{}",joinInfo);
 		 
 		 //전달된 회원가입 정보 insert 하기 
-		 loginService.setJoinInfo(joinInfo);
+		 joinService.setJoinInfo(joinInfo);
 		 
 		 return "redirect:/login/login";
 		 
@@ -50,9 +47,17 @@ public class JoinController {
 		 logger.info("{}",chkId);
 		 
 		 //중복확인 
-		 int chkIdResult = loginService.checkById(chkId);
+		 int chkIdResult = joinService.checkById(chkId);
 		 
 		 return chkIdResult;
 	
 	 }
+	 
+	 @PostMapping("/login/sms")
+	 public void userchk (Request request) {
+		 
+		 SmsResponse data = joinService.sendSms(request.getRecivedPhoneNumber(),request.getContent());
+		 
+	 }
+	 
 }

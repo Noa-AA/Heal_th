@@ -29,7 +29,7 @@
 				<!-- * : 모든 단어 -->
 				<value>classpath:/web/dao/**/*Mapper.xml</value>
 				<value>classpath:/changmin/dao/**/*Mapper.xml</value>
-				<value>classpath:/daeyeon/dao/**/*per.xmMapl</value>
+				<value>classpath:/daeyeon/dao/**/*Mapper.xml</value>
 				<value>classpath:/hyanghee/dao/**/*Mapper.xml</value>
 				<value>classpath:/hyunkyung/dao/**/*Mapper.xml</value>
 				<value>classpath:/jucheol/dao/**/*Mapper.xml</value>
