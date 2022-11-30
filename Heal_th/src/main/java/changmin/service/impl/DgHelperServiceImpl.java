@@ -58,4 +58,13 @@ public class DgHelperServiceImpl implements DgHelperService {
 		return dgHelperDao.selectBodyInfo(userno);
 	}
 
+	@Override
+	public int getCntRecord(List<HealthRecord> recordList) {
+		
+		int cnt = 0;
+		cnt = recordList.size();
+
+		return cnt;
+	}
+
 }
