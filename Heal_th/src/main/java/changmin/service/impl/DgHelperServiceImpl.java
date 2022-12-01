@@ -59,18 +59,15 @@ public class DgHelperServiceImpl implements DgHelperService {
 	}
 
 	@Override
-	public int getCntRecord(List<HealthRecord> recordList) {
-		
-		int cnt = 0;
-		cnt = recordList.size();
-
-		return cnt;
-	}
-
-	@Override
 	public Users getUserInfo(int userno) {
 
 		return dgHelperDao.selectUserInfo(userno);
+	}
+
+	@Override
+	public void removeRecord(int recordNo) {
+
+		dgHelperDao.deleteRecord(recordNo);
 	}
 
 

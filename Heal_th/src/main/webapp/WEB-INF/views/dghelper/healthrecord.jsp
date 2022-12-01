@@ -25,8 +25,22 @@ $(document).ready(function(){
 					console.log("AJAX 성공")
 					
 					console.log(res)
-					
-					$("#result").html(res)
+					$.ajax({
+						type: "get"
+						, url: "/dghelper/healthrecordlist"
+						, data: {}
+						, dataType: "html"
+						, success: function(res){
+							console.log("AJAX 성공")
+							$("#recordCon").val('')
+							
+							$("#recordlist").html(res)
+						}
+						, error: function(){
+							console.log("AJAX 실패")
+						}
+					})
+					$("#recordlist").html(res)
 				}
 				, error: function(){
 					console.log("AJAX 실패")
@@ -35,6 +49,10 @@ $(document).ready(function(){
 		} else {
 			alert("최소 5자 이상 입력해주세요")	
 		}
+	})
+	
+	$("#delete").click(function(){
+		console.log($("#deleteval").val())
 	})
 	
 
@@ -46,12 +64,16 @@ $(document).ready(function(){
 	margin: 0 auto;
 	text-align: center;
 }
-#id {
+#id, #save {
 	float:right;
 }
 
 textarea {
+	width: 100%;
+	height: 200px;
+	padding: 10px;
 	resize: none;
+	margin: 20px 0 20px 0;
 }
 
 ul {
@@ -64,11 +86,23 @@ body {
 
 .record {
 	width: 800px;
+	height: 200px;
 	margin: 0 auto;
 	text-align: center;
 	border: 1px solid silver;
 }
 
+#delete {
+	float: right;
+}
+
+#recordDate {
+	float: left;
+}
+
+button {
+	width: 150px;
+}
 
 </style> 
 <body>
@@ -94,20 +128,25 @@ body {
 
 <div class="big-container">
 	<h1>운동 일기장</h1>
-	<span id="healthcount">나의 운동 횟수 : ${cnt }회</span>
-	<table>
+	<div id="recordlist">
+	<span id="healthcount">나의 운동 횟수 : ${paging.totalCount }회</span><br>
 		<c:forEach items="${list }" var="i">
-		<tr>
-			<td class="record">기록번호 : ${i.recordNo }</td>
-			<td class="record">내용 : ${i.recordCon }</td>
-			<td class="record">날짜 : ${i.recordDate }</td>
-			<td class="record"><button id="delete" type="button">삭제</button><br></td>
-		</tr>
+		<span id="recordDate">작성일 ${i.recordDate}</span><br>
+			<table>
+				<tr class="record">
+					<td class="record">내용 : ${i.recordCon }</td>
+				</tr>
+			</table>
+			<br>
+				<a href="/dghelper/deleterecord?recordNo=${i.recordNo }">
+					<button id="delete" type="button" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</button>
+				</a>
+			<br>
 		</c:forEach>
-	</table>
+	</div>
 		<form action="./healthrecord" method="post">
 			<textarea id="recordCon" name="recordCon"></textarea>
-			<p><button id="save" type="button">저장</button></p>
+			<p><button id="save" type="button">운동일기 추가</button></p>
 		</form>
 	
 	

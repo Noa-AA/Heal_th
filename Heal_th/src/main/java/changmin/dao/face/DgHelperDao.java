@@ -19,4 +19,6 @@ public interface DgHelperDao {
 
 	public Users selectUserInfo(int userno);
 
+	public void deleteRecord(int recordNo);
+
 }

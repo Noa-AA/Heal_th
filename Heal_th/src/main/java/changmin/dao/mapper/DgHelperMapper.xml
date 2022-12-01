@@ -42,4 +42,9 @@
 		WHERE user_no = #{userno }
 	</select>
 	
+	<delete id="deleteRecord" parameterType="int">
+		DELETE FROM healthrecord
+		WHERE record_no = #{recordNo }
+	</delete>
+	
 </mapper>
