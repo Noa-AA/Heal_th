@@ -1,5 +1,7 @@
 package yerim.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,12 +60,15 @@ public class JoinController {
 	 
 	 @ResponseBody
 	 @PostMapping("/login/userChk")
-	 public String sendMsg(Users userPhone) {
+	 public String sendMsg(Users userPhone,HttpSession session) {
 		 logger.info("문자 요청 {}",userPhone.getUserPhone());
 		 
 		 String message = joinService.sendRan(userPhone);
 		 
-		 return null;
+		 //세션에 인증번호 저장하기
+		 session.setAttribute("message", message);
+	
+		 return message;
 	 }
 }
 	

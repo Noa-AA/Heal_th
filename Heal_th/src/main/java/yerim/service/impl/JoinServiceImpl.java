@@ -3,6 +3,7 @@ package yerim.service.impl;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Random;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -51,10 +52,21 @@ public class JoinServiceImpl implements JoinService {
 	public String sendRan(Users userPhone) {
 		
 		//난수 생성하기
+		Random ran = new Random();
+		String numMsg ="";
+		//6자리의 난수 생성하기
+		for(int i=0;i<6;i++) {
+			//0~9사의 난수값을 numMsg에 추가하기
+			numMsg += Integer.toString(ran.nextInt(10));
+		}
+		logger.info("회원 문자 인증 숫자 " + numMsg);
+		
+		//네이버 클라우드 플랫폼 API 연결하기
 		
 		
 		
-		return null;
+		
+		return numMsg;
 	}
 	
 
