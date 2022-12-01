@@ -3,10 +3,12 @@ package yerim.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import yerim.dto.Request;
@@ -48,16 +50,20 @@ public class JoinController {
 		 
 		 //중복확인 
 		 int chkIdResult = joinService.checkById(chkId);
-		 
+//		 @ResponseBody를 붙인 메소드에서 return한 값은 그대로 AJAX succes함수의 파라미터로 전달
 		 return chkIdResult;
 	
 	 }
+
 	 
-	 @PostMapping("/login/sms")
-	 public void userchk (Request request) {
+	 @ResponseBody
+	 @PostMapping("/login/userChk")
+	 public String sendMsg(Users userPhone) {
+		 logger.info("문자 요청 {}",userPhone.getUserPhone());
 		 
-		 SmsResponse data = joinService.sendSms(request.getRecivedPhoneNumber(),request.getContent());
+		 String message = joinService.sendRan(userPhone);
 		 
+		 return null;
 	 }
-	 
 }
+	
