@@ -110,14 +110,6 @@ public class ChatController {
 		}
 		
 		
-//		@RequestMapping("/chat/addMessage")
-//		public Map doAddMesssage(int roomId, String writer, String body) {
-//			
-//			
-//			return rs;
-//		}
-	
-		
 	
 }
 
