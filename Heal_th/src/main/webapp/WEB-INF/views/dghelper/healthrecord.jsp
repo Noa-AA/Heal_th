@@ -137,7 +137,7 @@ button {
 					<td class="record">내용 : ${i.recordCon }</td>
 				</tr>
 			</table>
-			<br>
+			<br>d
 				<a href="/dghelper/deleterecord?recordNo=${i.recordNo }">
 					<button id="delete" type="button" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</button>
 				</a>
