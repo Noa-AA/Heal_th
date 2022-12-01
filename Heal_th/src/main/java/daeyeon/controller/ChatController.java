@@ -1,6 +1,8 @@
 package daeyeon.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,10 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import daeyeon.dto.ChatRoom;
 import daeyeon.dto.Userss;
 import daeyeon.service.face.ChatService;
-import hyanghee.dto.Board;
 import yerim.dto.Users;
 
 @Controller
@@ -36,9 +36,9 @@ public class ChatController {
 		}
 		
 		//멘토 리스트
-		@RequestMapping("/intro")
-		public void intro(Model model) {
-		logger.info("/chat/intro");
+		@RequestMapping("/mentorList")
+		public void mentorList(Model model) {
+		logger.info("/chat/mentorList");
 			
 		//회원등급 3이상 회원 조회
 		List<Users> userList = chatService.userlist();
@@ -67,13 +67,22 @@ public class ChatController {
 			if( id.equals("aaa") ) {
 				users.setUserNo(10);
 				session.setAttribute("userNo", 10);
+				session.setAttribute("roomNo", 1);
 				
 			} else if(id.equals("bbb")) {
 				users.setUserNo(20);
 				session.setAttribute("userNo", 20);
+				session.setAttribute("roomNo", 1);
+			} else if(id.equals("ccc")) {
+				users.setUserNo(30);
+				session.setAttribute("userNo", 30);
+				session.setAttribute("roomNo", 2);
 			} else {
-				users.setUserNo(0);
+				users.setUserNo(40);
+				session.setAttribute("userNo", 40);
+				session.setAttribute("roomNo", 2);
 			}
+				
 			
 			System.out.println( "유저번호 : " + session.getAttribute("userNo") );
 			//테스트용~~
@@ -85,20 +94,35 @@ public class ChatController {
 			
 		
 		@RequestMapping("/chatRoom")
-		public void goChat(Model model, HttpSession session, ChatRoom chatRoom, Userss users) {
-			logger.info("/goChat");
+		public String goChat(Model model, HttpSession session, int roomNo, Userss users) {
+			logger.info("/chatRoom");
 			
-			//테스트~~
-			chatService.selectRoomNoByUserNo(session);
-			
+			//유저번호로 방번호 불러오기
+//			chatService.selectRoomNoByUserNo(session);
 			
 //			socketService.createRoom();
-			String userId = (String) session.getAttribute("userId");
 			
 //			logger.info( "채팅방 번호 : {}", chatRoom );
 			
-			model.addAttribute("userId", userId);
+			model.addAttribute("roomNo", roomNo);
+			return ("/chat/chatRoom");
+			
 		}
-	
+		
+		
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
