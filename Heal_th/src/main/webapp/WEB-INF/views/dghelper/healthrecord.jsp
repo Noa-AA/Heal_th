@@ -12,12 +12,16 @@ $(document).ready(function(){
 </script>
 <style type="text/css">
 .big-container {
-	width: 1440px;
+	width: 800px;
 	margin: 0 auto;
 	text-align: center;
 }
 #id {
 	float:right;
+}
+
+textarea {
+	resize: none;
 }
 
 ul {
@@ -26,6 +30,13 @@ ul {
 
 body {
 	height: 2000px;
+}
+
+.record {
+	width: 800px;
+	margin: 0 auto;
+	text-align: center;
+	border: 1px solid silver;
 }
 
 
@@ -57,16 +68,16 @@ body {
 	<table>
 		<c:forEach items="${list }" var="i">
 		<tr>
-			<td>기록번호 : ${i.recordNo }</td>
-			<td>내용 : ${i.recordCon }</td>
-			<td>날짜 : ${i.recordDate }</td>
-			<td><button>삭제</button></td>
+			<td class="record">기록번호 : ${i.recordNo }</td>
+			<td class="record">내용 : ${i.recordCon }</td>
+			<td class="record">날짜 : ${i.recordDate }</td>
+			<td class="record"><button>삭제</button><br></td>
 		</tr>
 		</c:forEach>
 	</table>
 		<form action="./healthrecord" method="post">
-			<textarea rows="" cols="" name="recordcon"></textarea>
-			<button>저장</button>
+			<textarea name="recordcon"></textarea>
+			<p><button>저장</button></p>
 		</form>
 	
 	

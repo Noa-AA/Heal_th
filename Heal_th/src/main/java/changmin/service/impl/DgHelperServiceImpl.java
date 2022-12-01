@@ -11,7 +11,8 @@ import changmin.dao.face.DgHelperDao;
 import changmin.dto.BodyInfo;
 import changmin.dto.HealthRecord;
 import changmin.service.face.DgHelperService;
-import changmin.util.ChangMinPaging;
+import changmin.util.DgHelperPaging;
+import yerim.dto.Users;
 
 @Service
 public class DgHelperServiceImpl implements DgHelperService {
@@ -26,7 +27,7 @@ public class DgHelperServiceImpl implements DgHelperService {
 	}
 
 	@Override
-	public ChangMinPaging getChangMinPaging(String curPage, int userno) {
+	public DgHelperPaging getDgHelperPaging(String curPage, int userno) {
 		//총 게시글 수 조회하기
 		int totalCount = dgHelperDao.selectCntAll();
 		
@@ -38,16 +39,16 @@ public class DgHelperServiceImpl implements DgHelperService {
 			curPage2 = Integer.parseInt(param);
 		}
 		
-		//ChangMinPaging객체 생성
-		ChangMinPaging ChangMinPaging = new ChangMinPaging(totalCount, curPage2);
+		//DgHelperPaging객체 생성
+		DgHelperPaging DgHelperPaging = new DgHelperPaging(totalCount, curPage2);
 		
-		return ChangMinPaging;
+		return DgHelperPaging;
 	}
 
 	@Override
-	public List<HealthRecord> getRecordList(ChangMinPaging ChangMinPaging, int userno) {
+	public List<HealthRecord> getRecordList(DgHelperPaging DgHelperPaging, int userno) {
 		
-		return dgHelperDao.selectRecord(ChangMinPaging);
+		return dgHelperDao.selectRecord(DgHelperPaging);
 	}
 
 	@Override
@@ -64,5 +65,12 @@ public class DgHelperServiceImpl implements DgHelperService {
 
 		return cnt;
 	}
+
+	@Override
+	public Users getUserInfo(int userno) {
+
+		return dgHelperDao.selectUserInfo(userno);
+	}
+
 
 }
