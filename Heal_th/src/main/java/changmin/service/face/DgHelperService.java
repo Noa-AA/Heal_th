@@ -4,7 +4,8 @@ import java.util.List;
 
 import changmin.dto.BodyInfo;
 import changmin.dto.HealthRecord;
-import changmin.util.ChangMinPaging;
+import changmin.util.DgHelperPaging;
+import yerim.dto.Users;
 
 public interface DgHelperService {
 
@@ -16,13 +17,15 @@ public interface DgHelperService {
 	 */
 	public void addRecord(String recordcon, int userno);
 
-	public List<HealthRecord> getRecordList(ChangMinPaging ChangMinPaging, int userno);
+	public List<HealthRecord> getRecordList(DgHelperPaging DgHelperPaging, int userno);
 
-	public ChangMinPaging getChangMinPaging(String curPage, int userno);
+	public DgHelperPaging getDgHelperPaging(String curPage, int userno);
 
 	public BodyInfo getBodyInfo(int userno);
 
 	public int getCntRecord(List<HealthRecord> recordList);
+
+	public Users getUserInfo(int userno);
 
 
 }

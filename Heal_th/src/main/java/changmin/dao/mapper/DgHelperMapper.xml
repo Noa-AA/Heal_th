@@ -12,7 +12,7 @@
 		VALUES (healthrecord_seq.nextval, sysdate, #{recordcon}, 1)
 	</insert>
 	
-	<select id="selectRecord" resultType="HealthRecord" parameterType="Paging">
+	<select id="selectRecord" resultType="HealthRecord" parameterType="DgHelperPaging">
 		SELECT * FROM (
 		   SELECT rownum rnum, R.* FROM (
 		      SELECT
@@ -35,4 +35,11 @@
 						 FROM body_info
 						 WHERE user_no=#{userno })
 	</select>
+	
+	<select id="selectUserInfo" resultType="Users" parameterType="int">
+		SELECT *
+		FROM users
+		WHERE user_no = #{userno }
+	</select>
+	
 </mapper>

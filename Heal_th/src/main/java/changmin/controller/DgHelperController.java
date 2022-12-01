@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import changmin.dto.BodyInfo;
 import changmin.dto.HealthRecord;
 import changmin.service.face.DgHelperService;
-import changmin.util.ChangMinPaging;
+import changmin.util.DgHelperPaging;
+import yerim.dto.Users;
 
 @Controller
 public class DgHelperController {
@@ -43,8 +44,8 @@ public class DgHelperController {
 		int userno = (int) session.getAttribute("userno");
 		logger.info("userno : {}", userno);
 		
-		ChangMinPaging ChangMinPaging = dgHelperService.getChangMinPaging(curPage, userno);
-		List<HealthRecord> recordList = dgHelperService.getRecordList(ChangMinPaging, userno);
+		DgHelperPaging DgHelperPaging = dgHelperService.getDgHelperPaging(curPage, userno);
+		List<HealthRecord> recordList = dgHelperService.getRecordList(DgHelperPaging, userno);
 	
 		int cnt = dgHelperService.getCntRecord(recordList);
 		logger.info("운동기록 횟수 : {}", cnt);
@@ -81,10 +82,24 @@ public class DgHelperController {
 		int userno = (int) session.getAttribute("userno");
 		logger.info("userno : {}", userno);
 		
+		Users user = dgHelperService.getUserInfo(userno);
+		logger.info("user : {}", user);
+		model.addAttribute("user", user);
+		
+		//나이 계산
+		String str = "";
+		for(int i=0; i<4; i++) {
+			str += user.getUserBirth().charAt(i);
+		}
+		int age = 0;
+		for(int j=0; j<str.length(); j++) {
+			age = (2022-Integer.parseInt(str))+1;
+		}
+		model.addAttribute("age", age);
+		
 		BodyInfo bodyInfo = dgHelperService.getBodyInfo(userno);
 		logger.info("bodyInfo : {}", bodyInfo);
-		
-		model.addAttribute("bodyInfo",bodyInfo);
+		model.addAttribute("bodyInfo", bodyInfo);
 
 	}
 	
@@ -101,14 +116,17 @@ public class DgHelperController {
 		try {
 			
 			Document doc = Jsoup.connect(URL).get();
-			Elements elem = doc.select("#0");
-			String[] str = elem.text().split(" ");
+			Elements serving = doc.select("SERVING_SIZE");
+			Elements kcal = doc.select("NUTR_CONT1");
+			Elements food = doc.select("DESC_KOR"); 
 			
-	        logger.info("칼로리 : {}", str[7]);
-	        logger.info("음식명 : {}", str[17]);
-	        
-	        model.addAttribute("cal", str[7]);
-	        model.addAttribute("food", str[17]);
+			logger.info("1회 제공량 : {}", serving);
+			logger.info("칼로리 : {}", kcal);
+	        logger.info("음식명 : {}", food);
+	
+	        model.addAttribute("serving", serving);
+	        model.addAttribute("cal", kcal);
+	        model.addAttribute("food", food);
 	        
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -124,3 +142,4 @@ public class DgHelperController {
 	}
 	
 }
+
