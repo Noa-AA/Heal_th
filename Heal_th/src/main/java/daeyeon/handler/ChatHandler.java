@@ -5,16 +5,12 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-
-import daeyeon.dto.ChatRoom;
-import daeyeon.service.face.ChatService;
 
 @RequestMapping(value = "/chat", method = RequestMethod.GET)
 public class ChatHandler extends TextWebSocketHandler {

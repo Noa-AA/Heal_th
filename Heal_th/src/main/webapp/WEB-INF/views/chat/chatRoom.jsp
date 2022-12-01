@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 })
 
-	var ws = new WebSocket("ws://localhost:8888/chat");
+	var ws = new WebSocket("ws://localhost:8888/chat?roomNo=${roomNo }");
 		
 	ws.onmessage = onMessage;
 	ws.onclose = onClose;
@@ -36,10 +36,12 @@ $(document).ready(function() {
     // 서버로부터 메시지를 받았을 때
     function onMessage(msg) {
         var data = msg.data;
-        var id = data.split(":");
+        var id = data.split(" : ");
         
-        if(id[0] == ${userId }){
-        	$("#messages").append( data + "<br/>" );
+        if( id[0] == "${userId }" ){
+        	$("#messages").append("<div id='senderMsg'><a>" + data + "</a></div>");
+        } else {
+        	$("#messages").append("<div id='receiverMsg'><a>" + data + "</a></div>");
         }
         
 //         console.log(data);
@@ -57,22 +59,61 @@ $(document).ready(function() {
 <style type="text/css">
 
 #chatArea {
-	width: 300px;
-	height: 300px;
+	width: 500px;
+	height: 500px;
 	border: 1px solid #ccc;
+	padding-top: 26px;
 	
 }
+
+#senderMsg {
+	text-align: right;
+	margin-right: 20px;
+	height: 40px;
+	margin-bottom: 8px;
+}
+
+#senderMsg > a {
+/* 	line-height: 50px; */
+	padding: 8px 16px;
+	border-radius: 30px 2px 30px 30px;
+	background-color: #0b90f5;
+	color: #fff;
+	font-weight: 500;
+	line-height: 40px;
+}
+
+#receiverMsg {
+	text-align: left;
+	margin-left: 20px;
+	height: 40px;
+	margin-bottom: 8px;
+}
+
+#receiverMsg > a {
+	padding: 8px 16px;
+	border-radius: 2px 30px 30px 30px;
+	background-color: #eeeeee;
+	color: #222222;
+	font-weight: 500;
+	line-height: 40px;
+}
+
 
 </style>
 
 </head>
 
 <body>
+
+<h1>${roomNo }번방</h1>
+<hr>
+
 <h1></h1>
     
     <div>
    		유저 아이디 :${userId }<br>
-    	<input type="text" id="msgInput" />
+    	<input type="text" id="msgInput" autocapitalize="off"/>
     	<input type="button" id="sendBtn" value="메세지 전송" /> 
 <!--         <button onclick="openSocket();">Open</button> -->
 <!--         <button onclick="send();">Send</button> -->
