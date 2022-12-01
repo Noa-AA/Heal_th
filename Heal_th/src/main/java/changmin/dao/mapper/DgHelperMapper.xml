@@ -9,10 +9,10 @@
 
 	<insert id="insertRecord" parameterType="string">
 		INSERT INTO healthrecord (record_no, record_date, record_con, user_no)
-		VALUES (healthrecord_seq.nextval, sysdate, #{recordcon}, 1)
+		VALUES (healthrecord_seq.nextval, sysdate, #{recordCon}, 1)
 	</insert>
 	
-	<select id="selectRecord" resultType="HealthRecord" parameterType="Paging">
+	<select id="selectRecord" resultType="HealthRecord" parameterType="DgHelperPaging">
 		SELECT * FROM (
 		   SELECT rownum rnum, R.* FROM (
 		      SELECT
@@ -35,4 +35,16 @@
 						 FROM body_info
 						 WHERE user_no=#{userno })
 	</select>
+	
+	<select id="selectUserInfo" resultType="Users" parameterType="int">
+		SELECT *
+		FROM users
+		WHERE user_no = #{userno }
+	</select>
+	
+	<delete id="deleteRecord" parameterType="int">
+		DELETE FROM healthrecord
+		WHERE record_no = #{recordNo }
+	</delete>
+	
 </mapper>

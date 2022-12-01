@@ -1,6 +1,6 @@
 package changmin.util;
 
-public class ChangMinPaging {
+public class DgHelperPaging {
 
 	private int curPage; //현재 페이지 번호
 	
@@ -17,17 +17,17 @@ public class ChangMinPaging {
 
 	
 	//디폴트 생성자 - 페이징 로직이 처리되지 않는다
-	public ChangMinPaging() {}
+	public DgHelperPaging() {}
 
 	
-	public ChangMinPaging(int totalCount, int curPage) {
+	public DgHelperPaging(int totalCount, int curPage) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);
 		
 		makePaging();		
 	}
 
-	public ChangMinPaging(int totalCount, int curPage, int listCount, int pageCount) {
+	public DgHelperPaging(int totalCount, int curPage, int listCount, int pageCount) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);
 
@@ -46,7 +46,7 @@ public class ChangMinPaging {
 
 		//기본값 설정
 		if(curPage == 0)		setCurPage(1); //첫 페이지를 기본 페이지로 설정한다
-		if(listCount == 0)		setListCount(10); //화면에 보여질 게시글 수를 10개로 기본 설정한다
+		if(listCount == 0)		setListCount(3); //화면에 보여질 게시글 수를 10개로 기본 설정한다
 		if(pageCount == 0)		setPageCount(10); //화면에 보여질 페이지 수를 10개로 기본 설정한다
 		
 		//-----------------------------------------------------------

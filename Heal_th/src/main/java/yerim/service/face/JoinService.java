@@ -1,5 +1,6 @@
 package yerim.service.face;
 
+import yerim.dto.Request;
 import yerim.dto.SmsResponse;
 import yerim.dto.Users;
 
@@ -19,14 +20,14 @@ public interface JoinService {
 	 */
 	public int checkById(Users userId);
 
-/**
- * 본인인증을 위한 문자 보내기
- * @param recivedPhoneNumber -입력된 전화번호
- * @param title -제목
- * @param content -내용
- * @return
- */
 
-	public SmsResponse sendSms(String recivedPhoneNumber,String content);
+	/**
+	 * 본인인증 요청 메시지 보내기 -API연결
+	 * @param userPhone - 입력한 전화번호 
+	 * @return -보낸 랜덤 난수 
+	 */
+
+	public String sendRan(Users userPhone);
+
 
 }
