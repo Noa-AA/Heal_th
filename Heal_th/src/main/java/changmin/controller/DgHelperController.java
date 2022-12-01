@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import changmin.dto.BodyInfo;
 import changmin.dto.HealthRecord;
@@ -57,18 +58,20 @@ public class DgHelperController {
 	}
 	
 	//개별회원의 운동기록 추가
+	@ResponseBody
 	@RequestMapping(value="/dghelper/healthrecord", method=RequestMethod.POST)
-	public void recordAdd(String recordcon, HttpSession session) {
+	public int recordAdd(String recordCon, HttpSession session) {
 		logger.info("/dghelper/healthrecord [POST]");
 		
 		session.setAttribute("userno", 7777);
 		int userno = (int) session.getAttribute("userno");
 		logger.info("userno : {}", userno);
 		
-		logger.info("recordcon : {}", recordcon);
+		logger.info("recordCon : {}", recordCon);
 	
-		dgHelperService.addRecord(recordcon, userno);
+		int result = dgHelperService.addRecord(recordCon, userno);
 		
+		return result; 
 	}
 	
 	//------------------------------------------------------------------
@@ -131,6 +134,11 @@ public class DgHelperController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping(value="/dghelper/calorieProc", method=RequestMethod.GET)
+	public void calorieProc() {
+		
 	}
 	
 	//--------------------------------------------------------------------

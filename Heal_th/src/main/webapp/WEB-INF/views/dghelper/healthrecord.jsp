@@ -6,7 +6,37 @@ $(document).ready(function(){
 	$(window).scroll(function(){  //스크롤이 움직일때마다 이벤트 발생
 	      var position = $(window).scrollTop()+300; // 현재 스크롤바의 위치값을 반환
 	      $(".Quick").stop().animate({top:position+"px"}, 400); //해당 오브젝트 위치값 재설정
-   });
+	});
+	
+	$("#save").click(function(){
+		console.log("#save click")
+		
+		var str = $("#recordCon").val()
+		
+		if(str.length>=5){
+			$.ajax({
+				type: "post"
+				, url: "/dghelper/healthrecord"
+				, data: {
+					recordCon: $("#recordCon").val()
+				}
+				, dataType: "json"
+				, success: function(res){
+					console.log("AJAX 성공")
+					
+					console.log(res)
+					
+					$("#result").html(res)
+				}
+				, error: function(){
+					console.log("AJAX 실패")
+				}
+			})
+		} else {
+			alert("최소 5자 이상 입력해주세요")	
+		}
+	})
+	
 
 });
 </script>
@@ -71,13 +101,13 @@ body {
 			<td class="record">기록번호 : ${i.recordNo }</td>
 			<td class="record">내용 : ${i.recordCon }</td>
 			<td class="record">날짜 : ${i.recordDate }</td>
-			<td class="record"><button>삭제</button><br></td>
+			<td class="record"><button id="delete" type="button">삭제</button><br></td>
 		</tr>
 		</c:forEach>
 	</table>
 		<form action="./healthrecord" method="post">
-			<textarea name="recordcon"></textarea>
-			<p><button>저장</button></p>
+			<textarea id="recordCon" name="recordCon"></textarea>
+			<p><button id="save" type="button">저장</button></p>
 		</form>
 	
 	

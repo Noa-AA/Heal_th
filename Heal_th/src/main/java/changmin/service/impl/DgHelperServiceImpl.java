@@ -22,8 +22,9 @@ public class DgHelperServiceImpl implements DgHelperService {
 	@Autowired private DgHelperDao dgHelperDao;
 	
 	@Override
-	public void addRecord(String recordcon, int userno) {
-		dgHelperDao.insertRecord(recordcon);
+	public int addRecord(String recordCon, int userno) {
+		
+		return dgHelperDao.insertRecord(recordCon); 
 	}
 
 	@Override
