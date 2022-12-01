@@ -10,8 +10,8 @@ $(document).ready(function(){
 	});
 	
 	$("#search").click(function(){		
-		console.log("#ajax click")	
-		
+		console.log("#search click")	
+		$("#result").html("- L O A D I N G -")
 		$.ajax({
 			type: "get"
 			, url: "/dghelper/calorie?foodname=" + $("#foodname").val()
@@ -31,6 +31,33 @@ $(document).ready(function(){
 		})
 		
 	})
+
+	$("#save").click(function(){		
+		console.log("#save click")	
+		
+		if(!$.isNumeric($("#kcal").val())){
+			alert("숫자만 입력해주세요 !")
+		} else {
+		
+			$.ajax({
+				type: "get"
+				, url: "/dghelper/calorieProc?kcal=" + $("#kcal").val() + "&bmr=" +$("#bmrvalue").val()
+				, data: {}
+				, dataType: "html"
+				, success: function(res){
+					console.log("AJAX 성공")
+					
+					console.log(res)
+					
+					$("#resultkcal").html(res)
+				}
+				, error: function(){
+					console.log("AJAX 실패")
+					
+				}
+			})
+		}
+	})
 });
 
 </script>
@@ -45,14 +72,17 @@ $(document).ready(function(){
 .small-container {
 	position: relative;
 	height: 100px;
+	border: 1px solid silver;
 }
 .small-container2 {
 	position: relative;
+	border: 1px solid silver;
 }
 
 .cal, .food {
 	margin: 5px;
 	text-align: center;
+	border: 1px solid silver;
 }
 
 input {
@@ -90,6 +120,7 @@ input {
 			<div id="bmr">
 				<p>성별 : 남성</p>
 				<p>나이 : ${age }세</p>
+				<input type="hidden" id="bmrvalue" value="${bmr }">
 				<span>기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
 			</div>
 		</c:if>
@@ -100,6 +131,7 @@ input {
 			<div id="bmr">
 				<p>성별 : 여성</p>
 				<p>나이 : ${age }세</p>
+				<input type="hidden" id="bmrvalue" value="${bmr }">
 				<span>기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
 			</div>
 		</c:if>
@@ -115,11 +147,9 @@ input {
 		
 		<div class=food>
 			<p>오늘 얼마나 드셨어요 ?</p>
-			<p><input type="text" placeholder="섭취한 칼로리를 입력해주세요."></p>	
-			<button>저장</button>
-			
-			<p>섭취한 칼로리 : </p>
-			<p>소모해야할 칼로리 : </p>
+			<p><input type="text" id="kcal" placeholder="섭취한 칼로리를 입력해주세요."></p>	
+			<button id="save">저장</button>
+			<div id="resultkcal"></div>
 		</div>
 	</div>
 </div>

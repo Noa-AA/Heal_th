@@ -9,7 +9,7 @@ import yerim.dto.Users;
 
 public interface DgHelperDao {
 
-	public void insertRecord(String recordcon);
+	public int insertRecord(String recordCon);
 
 	public List<HealthRecord> selectRecord(DgHelperPaging DgHelperPaging);
 
@@ -18,5 +18,7 @@ public interface DgHelperDao {
 	public BodyInfo selectBodyInfo(int userno);
 
 	public Users selectUserInfo(int userno);
+
+	public void deleteRecord(int recordNo);
 
 }
