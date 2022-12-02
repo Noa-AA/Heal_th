@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/map")
-public class mapController {
+public class MapController {
 
 	//로그 객체
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
