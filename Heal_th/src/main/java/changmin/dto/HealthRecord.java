@@ -1,7 +1,5 @@
 package changmin.dto;
 
-import java.util.Date;
-
 public class HealthRecord {
 
 	private int recordNo;

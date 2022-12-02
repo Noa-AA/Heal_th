@@ -13,10 +13,9 @@ public interface DgHelperService {
 	 * 운동기록 저장하기
 	 * 
 	 * @param recordcon - 저장할 운동기록
-	 * @param userno 
 	 * @return 
 	 */
-	public int addRecord(String recordCon, int userno);
+	public int addRecord(HealthRecord healthRecord);
 
 	public List<HealthRecord> getRecordList(DgHelperPaging DgHelperPaging, int userno);
 

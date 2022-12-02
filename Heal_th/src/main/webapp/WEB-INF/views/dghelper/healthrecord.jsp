@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
+<link rel="icon" href="<c:url value='/resources/favicon.ico'/>" type="image/x-icon"/>
 <script type="text/javascript">
 $(document).ready(function(){
 	$(window).scroll(function(){  //스크롤이 움직일때마다 이벤트 발생
@@ -11,14 +12,15 @@ $(document).ready(function(){
 	$("#save").click(function(){
 		console.log("#save click")
 		
-		var str = $("#recordCon").val()
+		var str = $("#recordCon").val().replaceAll(/\n/g, "<br>").replaceAll(" ","&nbsp")
+		
 		
 		if(str.length>=5){
 			$.ajax({
 				type: "post"
 				, url: "/dghelper/healthrecord"
 				, data: {
-					recordCon: $("#recordCon").val()
+					recordCon: str
 				}
 				, dataType: "json"
 				, success: function(res){
@@ -35,6 +37,7 @@ $(document).ready(function(){
 							$("#recordCon").val('')
 							
 							$("#recordlist").html(res)
+							alert("일기작성 완료 !")
 						}
 						, error: function(){
 							console.log("AJAX 실패")
@@ -62,7 +65,6 @@ $(document).ready(function(){
 .big-container {
 	width: 800px;
 	margin: 0 auto;
-	text-align: center;
 }
 #id, #save {
 	float:right;
@@ -100,6 +102,13 @@ body {
 	float: left;
 }
 
+#content {
+	width: 100%;
+	border: 1px solid silver;
+	min-height: 200px;
+	padding: 5px;
+}
+
 button {
 	width: 150px;
 }
@@ -125,27 +134,30 @@ button {
 </div>
 <!-- 퀵메뉴 끝 -->   
 
-
+ 
 <div class="big-container">
-	<h1>운동 일기장</h1>
+	<h1>운동 일기장<img src="/resources/img/diary.png" style="width: 8%;"></h1>
 	<div id="recordlist">
 	<span id="healthcount">나의 운동 횟수 : ${paging.totalCount }회</span><br>
 		<c:forEach items="${list }" var="i">
 		<span id="recordDate">작성일 ${i.recordDate}</span><br>
-			<table>
-				<tr class="record">
-					<td class="record">내용 : ${i.recordCon }</td>
-				</tr>
-			</table>
-			<br>d
-				<a href="/dghelper/deleterecord?recordNo=${i.recordNo }">
-					<button id="delete" type="button" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</button>
-				</a>
+		<div id="content">
+			<span>${i.recordCon }</span>
+		</div>
+			<br>
+			<form action="/dghelper/deleterecord?recordNo=${i.recordNo }" method="post">
+				
+				<button id="delete" type="button" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</button>
+			</form>
 			<br>
 		</c:forEach>
 	</div>
 		<form action="./healthrecord" method="post">
-			<textarea id="recordCon" name="recordCon"></textarea>
+<textarea id="recordCon" name="recordCon">
+섭취한 칼로리 : [  ] kcal
+소모한 칼로리 : [  ] kcal
+오늘의 운동 일기 : 
+</textarea>
 			<p><button id="save" type="button">운동일기 추가</button></p>
 		</form>
 	

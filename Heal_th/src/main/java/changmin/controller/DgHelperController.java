@@ -58,16 +58,16 @@ public class DgHelperController {
 	//개별회원의 운동기록 추가
 	@ResponseBody
 	@RequestMapping(value="/dghelper/healthrecord", method=RequestMethod.POST)
-	public int recordAdd(String recordCon, HttpSession session) {
+	public int recordAdd(HealthRecord healthRecord, HttpSession session) {
 		logger.info("/dghelper/healthrecord [POST]");
 		
 		session.setAttribute("userno", 7777);
-		int userno = (int) session.getAttribute("userno");
-		logger.info("userno : {}", userno);
+		healthRecord.setUserNo((int)session.getAttribute("userno"));
+
+		logger.info("recordCon : {}", healthRecord.getRecordCon());
+		logger.info("HealthUserno : {}", healthRecord.getUserNo());
 		
-		logger.info("recordCon : {}", recordCon);
-	
-		int result = dgHelperService.addRecord(recordCon, userno);
+		int result = dgHelperService.addRecord(healthRecord);
 		
 		return result; 
 	}
@@ -91,8 +91,8 @@ public class DgHelperController {
 		logger.info("페이징 : {}", DgHelperPaging);
 	}
 	
-	//운동일기 삭제하고 운동일기 갱신
-	@RequestMapping(value="/dghelper/deleterecord", method=RequestMethod.GET)
+	//운동일기 삭제
+	@RequestMapping(value="/dghelper/deleterecord", method=RequestMethod.POST)
 	public String healthRecordDelete(Model model,String curPage, HttpSession session, int recordNo) {
 		logger.info("/dghelper/deleterecord [POST]");
 		
@@ -110,7 +110,7 @@ public class DgHelperController {
 		
 		logger.info("List : {}", recordList);
 		logger.info("페이징 : {}", DgHelperPaging);
-		return "/dghelper/healthrecord";
+		return "redirect: /dghelper/healthrecord";
 	}
 	
 	//------------------------------------------------------------------
@@ -158,14 +158,18 @@ public class DgHelperController {
 		try {
 			
 			Document doc = Jsoup.connect(URL).get();
+			
+			Elements msg = doc.select("MSG");
 			Elements serving = doc.select("SERVING_SIZE");
 			Elements kcal = doc.select("NUTR_CONT1");
 			Elements food = doc.select("DESC_KOR"); 
-			
+
+			logger.info("실행결과 : {}", msg);
 			logger.info("1회 제공량 : {}", serving);
 			logger.info("칼로리 : {}", kcal);
 	        logger.info("음식명 : {}", food);
 	
+	        model.addAttribute("msg", msg);
 	        model.addAttribute("serving", serving);
 	        model.addAttribute("cal", kcal);
 	        model.addAttribute("food", food);
@@ -178,11 +182,12 @@ public class DgHelperController {
 	//칼로리 계산
 	@RequestMapping(value="/dghelper/calorieProc", method=RequestMethod.GET)
 	public void calorieProc() {
-		
+		logger.info("/dghelper/caloriePorc [GET]");
 	}
 	
 	//--------------------------------------------------------------------
 	
+	//운동성향 테스트 조회
 	@RequestMapping(value="/dghelper/healthtest", method=RequestMethod.GET)
 	public void healthTest() {
 		logger.info("/dghelper/healthtest [GET]");
