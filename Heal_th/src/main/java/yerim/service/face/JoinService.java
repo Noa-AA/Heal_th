@@ -1,5 +1,9 @@
 package yerim.service.face;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import yerim.dto.Request;
@@ -30,7 +34,16 @@ public interface JoinService {
 	 * @throws JsonProcessingException 
 	 */
 
-	public String sendRan(Users userPhone);
+	public SmsResponse sendRan(Users userPhone,HttpSession session);
+
+
+	/**
+	 * 본인인증 번호 확인하기
+	 * @param session - 보낸인증번호
+	 * @param code -직접 입력한 인증 번호 
+	 * @return -true/false
+	 */
+	public boolean checkCode(HttpSession session,String code);
 
 
 }
