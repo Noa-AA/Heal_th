@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
- <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
  <script type="text/javascript">
  
   $(document).ready(function(){
-
+	  			
+	  	
+	  			
+	  			
+	  
+				//아이디 중복 검사 
 			  $("#btn_checkId").click(function(){
 				
 				  	console.log("checkId 클릭")
@@ -38,10 +42,51 @@
 				  	})
 			  })
 			  
-  })
-  
+			  
+			  
+// 			  //회원 본인 인증 
+			  $("#btn_userchk").click(function(){
+				console.log("btn_userchk클릭")
+				 $("#smschk").toggle()
+				 
+				 
+				 //보인인증을 위한 문자 보내는 요청하기
+				 new Promise(function(resolve, reject) { 
+					 $.ajax({
+						 type:"post"
+						 ,url:"/login/userChk"
+						,data:{
+							userPhone : $("#userPhone").val()
+						  }
+						,dataType:"json"
+						,success:function(res){
+							console.log("문자 요청 성공")
+							
+						}
+						,error: function(){
+				  			console.log("문자요청 실패")
+//	 			  			alert("전화번호를 확인해주세요")
+				  			
+				  		}
+						 
+					 })
+					 
+					 
+				})
+				
+		});
+				
+				
+  })			
+
+				  
+				  
+			 
+			  
+			  
  
- </script>
+  
+  </script>
  
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -147,8 +192,17 @@
 			</label>
 			
 			<div id="userchk">
-			<button type="button" id="btn_userchk">본인인증</button>
+				<button type="button" id="btn_userchk">본인인증</button>
 		</div>
+		
+			<div id="smschk" style="display:none;">
+				<input type="text" name="code" id="code">
+				<button type="button" id="btn_code">인증번호 확인</button>			
+			</div>
+			
+			<div id="result_code"></div>
+
+			
 		</div>
 		
 		<div id="gender">

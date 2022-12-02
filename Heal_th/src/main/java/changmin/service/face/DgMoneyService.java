@@ -46,4 +46,8 @@ public interface DgMoneyService {
 	 */
 	public List<WithDraw> getWithDrawList();
 
+	public void changeMmoney(WithDraw wd);
+
+	public int cntWithDraw(int userno);
+
 }

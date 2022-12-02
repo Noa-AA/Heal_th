@@ -1,23 +1,81 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
+<link rel="icon" href="<c:url value='/resources/favicon.ico'/>" type="image/x-icon"/>
 <script type="text/javascript">
 $(document).ready(function(){
 	$(window).scroll(function(){  //스크롤이 움직일때마다 이벤트 발생
 	      var position = $(window).scrollTop()+300; // 현재 스크롤바의 위치값을 반환
 	      $(".Quick").stop().animate({top:position+"px"}, 400); //해당 오브젝트 위치값 재설정
-   });
+	});
+	
+	$("#save").click(function(){
+		console.log("#save click")
+		
+		var str = $("#recordCon").val().replaceAll(/\n/g, "<br>").replaceAll(" ","&nbsp")
+		
+		
+		if(str.length>=5){
+			$.ajax({
+				type: "post"
+				, url: "/dghelper/healthrecord"
+				, data: {
+					recordCon: str
+				}
+				, dataType: "json"
+				, success: function(res){
+					console.log("AJAX 성공")
+					
+					console.log(res)
+					$.ajax({
+						type: "get"
+						, url: "/dghelper/healthrecordlist"
+						, data: {}
+						, dataType: "html"
+						, success: function(res){
+							console.log("AJAX 성공")
+							$("#recordCon").val('')
+							
+							$("#recordlist").html(res)
+							alert("일기작성 완료 !")
+						}
+						, error: function(){
+							console.log("AJAX 실패")
+						}
+					})
+					$("#recordlist").html(res)
+				}
+				, error: function(){
+					console.log("AJAX 실패")
+				}
+			})
+		} else {
+			alert("최소 5자 이상 입력해주세요")	
+		}
+	})
+	
+	$("#delete").click(function(){
+		console.log($("#deleteval").val())
+	})
+	
 
 });
 </script>
 <style type="text/css">
 .big-container {
-	width: 1440px;
+	width: 800px;
 	margin: 0 auto;
-	text-align: center;
 }
-#id {
+#id, #save {
 	float:right;
+}
+
+textarea {
+	width: 100%;
+	height: 200px;
+	padding: 10px;
+	resize: none;
+	margin: 20px 0 20px 0;
 }
 
 ul {
@@ -28,6 +86,32 @@ body {
 	height: 2000px;
 }
 
+.record {
+	width: 800px;
+	height: 200px;
+	margin: 0 auto;
+	text-align: center;
+	border: 1px solid silver;
+}
+
+#delete {
+	float: right;
+}
+
+#recordDate {
+	float: left;
+}
+
+#content {
+	width: 100%;
+	border: 1px solid silver;
+	min-height: 200px;
+	padding: 5px;
+}
+
+button {
+	width: 150px;
+}
 
 </style> 
 <body>
@@ -50,23 +134,31 @@ body {
 </div>
 <!-- 퀵메뉴 끝 -->   
 
-
+ 
 <div class="big-container">
-	<h1>운동 일기장</h1>
-	<span id="healthcount">나의 운동 횟수 : ${cnt }회</span>
-	<table>
+	<h1>운동 일기장<img src="/resources/img/diary.png" style="width: 8%;"></h1>
+	<div id="recordlist">
+	<span id="healthcount">나의 운동 횟수 : ${paging.totalCount }회</span><br>
 		<c:forEach items="${list }" var="i">
-		<tr>
-			<td>기록번호 : ${i.recordNo }</td>
-			<td>내용 : ${i.recordCon }</td>
-			<td>날짜 : ${i.recordDate }</td>
-			<td><button>삭제</button></td>
-		</tr>
+		<span id="recordDate">작성일 ${i.recordDate}</span><br>
+		<div id="content">
+			<span>${i.recordCon }</span>
+		</div>
+			<br>
+			<form action="/dghelper/deleterecord?recordNo=${i.recordNo }" method="post">
+				
+				<button id="delete" type="button" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</button>
+			</form>
+			<br>
 		</c:forEach>
-	</table>
+	</div>
 		<form action="./healthrecord" method="post">
-			<textarea rows="" cols="" name="recordcon"></textarea>
-			<button>저장</button>
+<textarea id="recordCon" name="recordCon">
+섭취한 칼로리 : [  ] kcal
+소모한 칼로리 : [  ] kcal
+오늘의 운동 일기 : 
+</textarea>
+			<p><button id="save" type="button">운동일기 추가</button></p>
 		</form>
 	
 	

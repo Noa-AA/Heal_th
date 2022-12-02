@@ -34,5 +34,11 @@ public interface DgMoneyDao {
 
 	public List<WithDraw> selectWithDrawList();
 
+	public void updateWdProcess(WithDraw wd);
+
+	public void updateDgmoneybyAdmin(WithDraw wd);
+
+	public int selectWithDrawCnt(int userno);
+
 
 }

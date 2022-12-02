@@ -10,8 +10,8 @@ $(document).ready(function(){
 	});
 	
 	$("#search").click(function(){		
-		console.log("#ajax click")	
-		
+		console.log("#search click")	
+		$("#result").html("- L O A D I N G -")
 		$.ajax({
 			type: "get"
 			, url: "/dghelper/calorie?foodname=" + $("#foodname").val()
@@ -31,15 +31,64 @@ $(document).ready(function(){
 		})
 		
 	})
+
+	$("#save").click(function(){		
+		console.log("#save click")	
+		
+		if(!$.isNumeric($("#kcal").val())){
+			alert("숫자만 입력해주세요 !")
+		} else {
+		
+			$.ajax({
+				type: "get"
+				, url: "/dghelper/calorieProc?kcal=" + $("#kcal").val() + "&bmr=" +$("#bmrvalue").val()
+				, data: {}
+				, dataType: "html"
+				, success: function(res){
+					console.log("AJAX 성공")
+					
+					console.log(res)
+					
+					$("#resultkcal").html(res)
+				}
+				, error: function(){
+					console.log("AJAX 실패")
+					
+				}
+			})
+		}
+	})
 });
 
 </script>
 <style type="text/css">
+#bmr {
+	float: right;
+}
 .big-container {
-	width: 1440px;
+	width: 800px;
 	margin: 0 auto;
+}
+.small-container {
+	position: relative;
+	height: 100px;
+	border: 1px solid silver;
+}
+.small-container2 {
+	position: relative;
+	border: 1px solid silver;
+}
+
+.cal, .food {
+	margin: 5px;
+	text-align: center;
+	border: 1px solid silver;
+}
+
+input {
 	text-align: center;
 }
+
 
 </style>
 <body>
@@ -61,25 +110,48 @@ $(document).ready(function(){
     </table>
 </div>
 <!-- 퀵메뉴 끝 -->
-<div class="big-container">     
-	<span>운동 가이드</span>
+<div class="big-container">
+	<div class="small-container">     
+		<span>운동 가이드</span>
 	
-	<c:set var="bmr" value="${66.47 +(13.75 * bodyInfo.weight) +(5 * bodyInfo.height) - (6.76 * 30) }"  />
+		<!-- male일 경우 기초대사량 -->
+		<c:if test="${user.userGender eq 'male'}">
+			<c:set var="bmr" value="${66.47 +(13.75 * bodyInfo.weight) +(5 * bodyInfo.height) - (6.76 * age) }"/>
+			<div id="bmr">
+				<p>성별 : 남성</p>
+				<p>나이 : ${age }세</p>
+				<input type="hidden" id="bmrvalue" value="${bmr }">
+				<span>기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
+			</div>
+		</c:if>
+		
+		<!-- female일 경우 기초대사량 -->
+		<c:if test="${user.userGender eq 'female'}">
+			<c:set var="bmr" value="${665.1 +(9.56 * bodyInfo.weight) +(1.85 * bodyInfo.height) - (4.68 * age) }"/>
+			<div id="bmr">
+				<p>성별 : 여성</p>
+				<p>나이 : ${age }세</p>
+				<input type="hidden" id="bmrvalue" value="${bmr }">
+				<span>기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
+			</div>
+		</c:if>
+	</div>
 	
-	<span>나의 기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
-	
-	<p>칼로리 검색</p>
-	<p><input type="text" id="foodname", name="foodname" placeholder="음식명을 입력해주세요."></p>
-	<button id="search">검색</button>
-	<div id="result"></div>
-	
-	<p>오늘 얼마나 드셨어요 ?</p>
-	<p><input type="text" placeholder="섭취한 칼로리를 입력해주세요."></p>	
-	<button>저장</button>
-	<!-- http://openapi.foodsafetykorea.go.kr/api/인증키/서비스명/요청파일타입/요청시작위치/요청종료위치/변수명=값&변수명=값2 -->
-	
-	<p>섭취한 칼로리 : </p>
-	<p>소모해야할 칼로리 : </p>
+	<div class="small-container2">
+		<div class=cal>
+			<p>칼로리 검색</p>
+			<p><input type="text" id="foodname" name="foodname" placeholder="음식명을 입력해주세요."></p>
+			<button id="search">검색</button>
+			<div id="result"></div>
+		</div> 
+		
+		<div class=food>
+			<p>오늘 얼마나 드셨어요 ?</p>
+			<p><input type="text" id="kcal" placeholder="섭취한 칼로리를 입력해주세요."></p>	
+			<button id="save">저장</button>
+			<div id="resultkcal"></div>
+		</div>
+	</div>
 </div>
 </body>
 </html>

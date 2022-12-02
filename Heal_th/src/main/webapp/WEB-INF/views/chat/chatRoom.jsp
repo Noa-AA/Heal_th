@@ -1,102 +1,96 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%@include file="../layout/header.jsp" %>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>제발좀 되라 ㅡㅡㅡㅡ</title>
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 
 <script type="text/javascript">
-$(document).ready(function() {
 
-	$("#sendBtn").on("click", function() {
-		sendMessage();
-		$('#msgInput').val('')
+	
+function goChat(roomNo) {
+	console.log(".room 클릭")
+
+		
+	$.ajax({
+			
+		type:"get"			//요청 메소드
+		, url: "/chat/chatArea"	//요청 URL
+		, data: { 
+			roomNo : roomNo
+		}   //요청 파라미터
+			
+	, dataType: "html"		//응답 데이터 형식
+	, success: function( res ) {
+		console.log("AJAX 성공")
+			
+		//응답 데이터 반영
+		$("#result").html( res )
+			
+	}
+		
+	, error: function() {
+		console.log("AJAX 실패")
+	}	
+		
 	})
 
-})
-
-	var ws = new WebSocket("ws://localhost:8888/chat");
-		
-	ws.onmessage = onMessage;
-	ws.onclose = onClose;
-    
-    // 메시지 전송
-    function sendMessage() {
-    	ws.send($("#msgInput").val());
-    }
-    
-    // 서버로부터 메시지를 받았을 때
-    function onMessage(msg) {
-        var data = msg.data;
-        var id = data.split(":");
-        
-        if(id[0] == ${userId }){
-        	$("#messages").append( data + "<br/>" );
-        }
-        
-//         console.log(data);
-//         $("#messages").append( data + "<br/>" );
-    }
-    
-    // 서버와 연결을 끊었을 때
-    function onClose(evt) {
-        $("#messages").append("연결 끊김");
- 
-    }
+}
 
 </script>
 
+
+
 <style type="text/css">
 
-#chatArea {
-	width: 300px;
-	height: 300px;
-	border: 1px solid #ccc;
-	
+#backGround{
+	width: 800px;
+	height: 500px;
+	margin: 0 auto;
 }
+
+#roomBtn {
+	float: left;
+}
+
+.room {
+	width: 200px;
+	height: 50px;
+	font-size: 18px;
+	background-color: #efefef;
+	text-align: center;
+	border: 1px solid #ddd;
+	line-height: 50px;
+}
+
+#result {
+	float: right;
+}
+
 
 </style>
 
-</head>
-
 <body>
-<h1></h1>
-    
-    <div>
-   		유저 아이디 :${userId }<br>
-    	<input type="text" id="msgInput" />
-    	<input type="button" id="sendBtn" value="메세지 전송" /> 
-<!--         <button onclick="openSocket();">Open</button> -->
-<!--         <button onclick="send();">Send</button> -->
-<!--         <button onclick="closeSocket();">close</button> -->
-    </div>
-    
-    
-<div id="chatArea">
-    <div id="messages"></div>
-</div>
-        
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
+<h1>아아디 : ${userId }님의 채팅목록 </h1>
+<hr>
+
+
+<div id="backGround">
+	
+	<div id="roomBtn">
+		<c:forEach items="${roomList }" var="room">
+			<div class="room" onclick="goChat(${room.roomNo })">
+				<span class="roomSp">${room.roomNo }번방</span>
+			</div>
+		</c:forEach>
+	</div>
+	
+	<div id="result"></div>
+</div>
 
 
 
 </body>
+
+
 </html>
