@@ -1,5 +1,7 @@
 package yerim.service.face;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import yerim.dto.Request;
 import yerim.dto.SmsResponse;
 import yerim.dto.Users;
@@ -25,6 +27,7 @@ public interface JoinService {
 	 * 본인인증 요청 메시지 보내기 -API연결
 	 * @param userPhone - 입력한 전화번호 
 	 * @return -보낸 랜덤 난수 
+	 * @throws JsonProcessingException 
 	 */
 
 	public String sendRan(Users userPhone);

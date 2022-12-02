@@ -64,7 +64,7 @@
 							
 						}
 						,error: function(){
-				  			console.log("문자요성 실패")
+				  			console.log("문자요청 실패")
 //	 			  			alert("전화번호를 확인해주세요")
 				  			
 				  		}
