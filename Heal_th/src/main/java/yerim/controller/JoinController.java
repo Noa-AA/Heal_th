@@ -60,15 +60,26 @@ public class JoinController {
 	 
 	 @ResponseBody
 	 @PostMapping("/login/userChk")
-	 public SmsResponse sendMsg(Users userPhone,HttpSession session) {
+	 public	 SmsResponse sendMsg(Users userPhone,HttpSession session) {
 		 logger.info("문자 요청 {}",userPhone.getUserPhone());
 		 
-		 SmsResponse message = joinService.sendRan(userPhone);
+		 //문자 요청
+		 SmsResponse message = joinService.sendRan(userPhone,session);
+		 logger.info("{}",message);
 		 
-		 //세션에 인증번호 저장하기
-		 session.setAttribute("message", message);
-	
+		 //문자요청 응답 반환
 		 return message;
 	 }
+	 
+	 @ResponseBody
+	 @PostMapping("/login/codeChk")
+	 public boolean codeChk(HttpSession session,String code) {
+		logger.info("code: {}, session: {}",code,session.getAttribute("numMsg"));
+		//본인인증 번호 확인하기
+		boolean confirm = joinService.checkCode(session,code);
+		return confirm ;
+	 }
+	
+	 
 }
 	

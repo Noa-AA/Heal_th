@@ -65,7 +65,7 @@
 						}
 						,error: function(){
 				  			console.log("문자요청 실패")
-//	 			  			alert("전화번호를 확인해주세요")
+// 	 			  			alert("전화번호를 확인해주세요")
 				  			
 				  		}
 						 
@@ -74,9 +74,47 @@
 					 
 				})
 				
-		});
+		});//문자보내기 완료 
 				
+			$("#btn_code").click(function(){
+			
+				console.log("btn_code 클릭")
+				$.ajax({
+					 type:"post"
+					,url:"/login/codeChk"
+					,data :{
+						code: $("#code").val()
+					}
+					,dataType:"json"				
+					,success:function(res){
+						console.log(res)
+						console.log("본인인증 성공")
+						
+						if(res==true) {
+							//본인인증 성공 시 
+						$("#result_code").html("본인인증 성공!")
+						$("#result_code").css("color","green")
+							
+						} else {
+							
+						//본인인증 실패시
+						console.log('본인인증 실패')
+						$("#result_code").html("본인인증을 다시 해주세요")
+						$("#result_code").css("color","red")
+						}
+					}
+					,error :function(){
+						alert("관리자에게 문의해주세요")
+						console.log("실패!!!!")	
+					}
+					
+					
+				}); 
 				
+			}) //문자인증 완료 
+			
+	
+		
   })			
 
 				  
