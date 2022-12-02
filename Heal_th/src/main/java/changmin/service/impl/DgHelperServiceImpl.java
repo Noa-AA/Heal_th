@@ -22,9 +22,9 @@ public class DgHelperServiceImpl implements DgHelperService {
 	@Autowired private DgHelperDao dgHelperDao;
 	
 	@Override
-	public int addRecord(String recordCon, int userno) {
+	public int addRecord(HealthRecord healthRecord) {
 		
-		return dgHelperDao.insertRecord(recordCon); 
+		return dgHelperDao.insertRecord(healthRecord); 
 	}
 
 	@Override
@@ -49,7 +49,9 @@ public class DgHelperServiceImpl implements DgHelperService {
 	@Override
 	public List<HealthRecord> getRecordList(DgHelperPaging DgHelperPaging, int userno) {
 		
-		return dgHelperDao.selectRecord(DgHelperPaging);
+		List<HealthRecord> list =dgHelperDao.selectRecord(DgHelperPaging); 
+		
+		return list;
 	}
 
 	@Override

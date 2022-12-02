@@ -14,14 +14,23 @@ public interface ChatService {
 	 * 
 	 * @param users
 	 */
-	public RoomList selectRoomNoByUserNo(HttpSession session);
+//	public RoomList selectRoomNoByUserNo(HttpSession session);
 
+	
 	/**
 	 * 회원 등급 3이상인 회원 조회하기
 	 * 
 	 * @return List<Users> 회원등급 3이상인 회원목록
 	 */
 	public List<Users> userlist();
+
+	
+	/**
+	 * 유저번호를 이용해서 소속된 채팅방 조회하기
+	 * 
+	 * @return  조회된 채팅방
+	 */
+	public List<RoomList> roomList(Users myUserNo);
 	
 //	public void insertChat();
 	

@@ -23,6 +23,24 @@ public class ChatServiceImpl implements ChatService {
 	//로그 객체
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+//	@Override
+//	public RoomList selectRoomNoByUserNo(HttpSession session) {
+//		Userss users = new Userss();
+//		
+//		RoomList roomList = new RoomList();
+//		
+//		//세션에있는 유저넘버값
+//		logger.info("userNo = {}", session.getAttribute("userNo") );
+//		
+//		users.setUserNo( (Integer)session.getAttribute("userNo") );
+//		
+//		roomList = chatDao.selectRoomNoByUserNo(users);
+//		
+//		logger.info("roomlist = {}", roomList);
+//		
+//		return roomList;
+//	}
+	
 	
 	@Override
 	public List<Users> userlist() {
@@ -37,41 +55,21 @@ public class ChatServiceImpl implements ChatService {
 	
 	
 	
+	
+	
 	@Override
-	public RoomList selectRoomNoByUserNo(HttpSession session) {
-		Userss users = new Userss();
+	public List<RoomList> roomList(Users myUserNo) {
+	
+	//채팅방 목록 조회 - ChatDao 이용
+	List<RoomList> roomList = chatDao.selectRoomList(myUserNo); 
+	
 		
-		RoomList roomList = new RoomList();
+	return roomList;
 		
-		//세션에있는 유저넘버값
-		logger.info("userNo = {}", session.getAttribute("userNo") );
-		
-		users.setUserNo( (Integer)session.getAttribute("userNo") );
-		
-		roomList = chatDao.selectRoomNoByUserNo(users);
-		
-		logger.info("roomlist = {}", roomList);
-		
-		return roomList;
 	}
 	
-//	@Override
-//	public void createRoom() {
-//		logger.info("createRoom()");
-		
-//		chatDao.insertChatRoom(); 
-//		
-//		chatDao.insertroomList(); //매개변수로 세션의 유저번호 들어가야함
-		
-//	}
-	
-	
-//	@Override
-//		public void insertChat() {
-//			logger.info("insertChat()");
-//		
-//			chatDao.insertChat(); 
-//			
-//		}
-	
 }
+
+
+
+
