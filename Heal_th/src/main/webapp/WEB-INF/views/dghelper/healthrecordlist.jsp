@@ -1,21 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<span id="healthcount">나의 운동 횟수 : ${paging.totalCount }회</span>
-	<table>
+	<span id="healthcount">나의 운동 횟수 : ${paging.totalCount }회</span><br>
 		<c:forEach items="${list }" var="i">
-		<tr class="record">
-			<%-- <td class="record">기록번호 : ${i.recordNo }</td> --%>
-			<td class="record">내용 : ${i.recordCon }</td>
-			<%-- <td class="record">날짜 : ${i.recordDate }</td> --%>
-			<td class="record">
-				<a href="/dghelper/deleterecord?recordNo=${i.recordNo }">
-				<button id="delete" type="button">
-					삭제
-				</button>
-				</a>
-				<br>
-			</td>
-		</tr>
+		<span id="recordDate">작성일 ${i.recordDate}</span><br>
+		<div id="content">
+			<span>${i.recordCon }</span>
+		</div>
+			<br>
+			<form action="/dghelper/deleterecord?recordNo=${i.recordNo }" method="post">
+				<button id="delete" type="button" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</button>
+			</form>
+			<br>
 		</c:forEach>
-	</table>

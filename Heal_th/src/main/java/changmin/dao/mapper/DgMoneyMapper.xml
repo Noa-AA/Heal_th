@@ -35,7 +35,21 @@
 	</insert>
 	
 	<select id="selectWithDrawList" resultType="WithDraw">
-		SELECT * FROM withdraw
+		SELECT * FROM withdraw ORDER BY wd_no DESC
 	</select>
 	
+	<update id="updateWdProcess" parameterType="WithDraw">
+		UPDATE withdraw SET wd_process='처리완료' WHERE wd_no=#{wdNo}
+	</update>
+	
+	<update id="updateDgmoneybyAdmin" parameterType="WithDraw">
+		UPDATE users
+		SET dg_money=dg_money-#{wdAmount}
+		WHERE user_no=#{userNo}
+	</update>
+	
+	<select id="selectWithDrawCnt" resultType="int" parameterType="int">
+		SELECT count(*) FROM withdraw
+		WHERE user_no=#{userno} AND wd_process='미처리'
+	</select>
 </mapper>

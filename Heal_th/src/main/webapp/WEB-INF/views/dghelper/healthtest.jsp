@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
+<style type="text/css">
+.big-container {
+	width: 800px;
+	margin: 0 auto;
+}
+
+</style>
 
 <body>
 <!-- 퀵메뉴 시작 -->
@@ -21,5 +28,9 @@
     </table>
 </div>
 <!-- 퀵메뉴 끝 -->   
+
+<div class="big-container">
+	<img src="/resources/img/운동성향테스트메인.png">
+</div>
 </body>
 </html>
