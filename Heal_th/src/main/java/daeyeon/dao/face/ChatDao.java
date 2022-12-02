@@ -16,7 +16,7 @@ public interface ChatDao {
 	 * @param users - 조회할 유저번호
 	 * @return RoomList - 방번호
 	 */
-	public RoomList selectRoomNoByUserNo(Userss users);
+//	public RoomList selectRoomNoByUserNo(Userss users);
 
 	/**
 	 * 회원등급 3이상인 회원 조회하기
@@ -32,7 +32,7 @@ public interface ChatDao {
 	 * @param myUserNo - 자신의 회원번호
 	 * @return - 조회된 채팅방들
 	 */
-	public List<RoomList> selectRoomList(int myUserNo);
+	public List<RoomList> selectRoomList(Users myUserNo);
 
 //	public void insertChat();
 

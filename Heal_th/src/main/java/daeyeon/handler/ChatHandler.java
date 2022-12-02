@@ -1,7 +1,9 @@
 package daeyeon.handler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,14 +14,16 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import daeyeon.dto.RoomList;
+
 @RequestMapping(value = "/chat", method = RequestMethod.GET)
 public class ChatHandler extends TextWebSocketHandler {
 	
 	//로그 객체
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
-	
+//	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
+	private Map<Integer, Object> sessionList = new HashMap<Integer, Object>();
 	
 //	@Autowired private ChatService chatService;
 	
@@ -31,9 +35,12 @@ public class ChatHandler extends TextWebSocketHandler {
     public void afterConnectionEstablished( WebSocketSession session ) throws Exception {
     	String Id = (String)session.getAttributes().get("userId");
     	int userNo = (Integer)session.getAttributes().get("userNo");
+    	RoomList roomNo = (RoomList)session.getAttributes().get("roomNo"); 
     	
-    	sessionList.add(session);
+    	sessionList.put(roomNo.getRoomNo(), session);
+//    	sessionList.add(session);
     	logger.info( "아이디 : {} 유저번호 : {} 연결됨", Id, userNo );
+    	logger.info( "방번호 : {}", roomNo.getRoomNo() );
     	
     }
 
@@ -47,9 +54,11 @@ public class ChatHandler extends TextWebSocketHandler {
     	
     	logger.info( "{}로 부터 {} 받음", Id, message.getPayload() );
     	
-    	for (WebSocketSession sess : sessionList) {
-    		sess.sendMessage(new TextMessage(Id + " : " + message.getPayload()));
-    	}
+    	logger.info("sessionList : {}", sessionList);
+    	
+//    	for (WebSocketSession sess : sessionList) {
+//    		sess.sendMessage(new TextMessage(Id + " : " + message.getPayload()));
+//    	}
     	
 //    	chatService.insertChat();
     	

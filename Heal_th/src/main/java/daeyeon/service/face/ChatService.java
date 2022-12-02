@@ -14,7 +14,7 @@ public interface ChatService {
 	 * 
 	 * @param users
 	 */
-	public RoomList selectRoomNoByUserNo(HttpSession session);
+//	public RoomList selectRoomNoByUserNo(HttpSession session);
 
 	
 	/**
@@ -28,9 +28,9 @@ public interface ChatService {
 	/**
 	 * 유저번호를 이용해서 소속된 채팅방 조회하기
 	 * 
-	 * @return 
+	 * @return  조회된 채팅방
 	 */
-	public List<RoomList> roomList(int myUserNo);
+	public List<RoomList> roomList(Users myUserNo);
 	
 //	public void insertChat();
 	

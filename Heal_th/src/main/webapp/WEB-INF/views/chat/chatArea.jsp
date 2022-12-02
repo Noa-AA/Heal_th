@@ -23,7 +23,7 @@ $(document).ready(function() {
 
 })
 
-	var ws = new WebSocket("ws://localhost:8888/chatArea");
+	var ws = new WebSocket("ws://localhost:8888/chat");
 		
 	ws.onmessage = onMessage;
 	ws.onclose = onClose;

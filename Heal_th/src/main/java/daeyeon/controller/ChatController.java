@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import daeyeon.dto.RoomList;
 import daeyeon.dto.Userss;
@@ -116,33 +117,28 @@ public class ChatController {
 		@RequestMapping("/chatRoom")
 		public void chatRoom(HttpSession session, Users myUserNo, Model model) {
 			logger.info("/chatRoom");
-//			myUserNo = (Integer) session.getAttribute("userNo");
-//			myUserNo.setUserNo((Integer)session.getAttribute("userNo"))
+			myUserNo.setUserNo((Integer)session.getAttribute("userNo"));
 			
-			logger.info("myUserNo : {}", myUserNo);
+			logger.info("myUserNo : {}", myUserNo.getUserNo());
 			
-//			List<RoomList> roomList = chatService.roomList(myUserNo);
+			List<RoomList> roomList = chatService.roomList(myUserNo);
 			
-			//모델값 전달 - Model객체 이용
-//			model.addAttribute("roomList", roomList);
+//			채팅방 번호 전달 - Model객체 이용
+			model.addAttribute("roomList", roomList);
 			
 		}
 		
 			
 		//채팅 영역
 		@RequestMapping("/chatArea")
-		public String goChat(Model model, HttpSession session, RoomList roomNo, Userss users) {
+		public void goChat(Model model, HttpSession session, RoomList roomNo, Userss users) {
 			logger.info("/chatArea");
+			logger.info( "채팅방 번호 : {}", roomNo.getRoomNo() );
 			
-//			유저번호로 방번호 불러오기
-			roomNo = chatService.selectRoomNoByUserNo(session);
-			
-//			socketService.createRoom();
-			
-			logger.info( "채팅방 번호 : {}", roomNo );
+			session.setAttribute("roomNo", roomNo);
 			
 			model.addAttribute("roomNo", roomNo);
-			return ("/chat/chatRoom");
+			
 			
 		}
 		
