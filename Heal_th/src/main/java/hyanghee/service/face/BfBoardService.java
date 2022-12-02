@@ -31,6 +31,15 @@ public interface BfBoardService {
 
 	//유저 정보 찾기
 	public Users getUserInfo(int userno);
+
+	//게시글 삭제
+	public void delete(Beforeafter bfNo);
+
+	//게시글 상세 보기
+	public Beforeafter view(Beforeafter viewBoard);
+
+	//게시글 수정
+	public void update(Beforeafter beforeafter);
 	
 	
 
@@ -40,18 +49,6 @@ public interface BfBoardService {
 
 
 	
-
-
-
-	
-
-	/**
-	 * 페이징이 적용된 게시글 목록 조회
-	 * 
-	 * @param paging - 페이징 정보 객체
-	 * @return 페이징이 적용된 게시글 목록
-	 */
-//	public List<Board> list(Paging paging);
 
 
 	

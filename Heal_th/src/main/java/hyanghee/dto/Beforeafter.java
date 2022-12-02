@@ -234,7 +234,6 @@ public class Beforeafter {
 		this.categoryNo = categoryNo;
 	}
 
-		
 	
 	
 	

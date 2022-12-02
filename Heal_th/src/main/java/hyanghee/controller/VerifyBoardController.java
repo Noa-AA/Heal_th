@@ -53,6 +53,11 @@ public class VerifyBoardController {
 //		return "board/verifyBoard";
 //	}
 	
+	
+	@RequestMapping("board/v_write")
+	public void form() {
+		logger.info("board/v_write");
+	}
 
 	
 }

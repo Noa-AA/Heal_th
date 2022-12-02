@@ -23,12 +23,31 @@ public interface BfBoardDao {
 	 */
 	public List<Beforeafter> selectList(BoardPaging boardPaging);
 
-	
+	/**
+	 * 게시글 작성 - 등록
+	 * @param bfBoard
+	 */
 	public void insertBfBoard(Beforeafter bfBoard);
 
-
-	public Users getUserInfo(int userno);
-
+	/**
+	 * 유저 정보 찾기 - userno
+	 * @param userno
+	 * @return
+	 */
+	public Users selectUserInfo(int userno);
 	
+	
+	public void delete(Beforeafter bfNo);
+
+	/**
+	 * 게시글 번호를 이용하여 게시글을 조회한다
+	 * 
+	 * @param viewBoard - 조회하려는 게시글 번호
+	 * @return 조회된 게시글 정보
+	 */
+	public Beforeafter selectBoard(Beforeafter viewBoard);
+
+	//게시글 수정
+	public void updateBoard(Beforeafter beforeafter);
 	
 }

@@ -25,52 +25,13 @@ td:nth-child(2) {
     background: -webkit-linear-gradient(to right, #348AC7, #7474BF);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #348AC7, #7474BF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
-	border: 3px solid #eee; 
+	border: 3px solid #eee;
 	
 	width: 60px;
 	height: 34px;
 }
 
-.btn {
-    margin-right: 0.5rem !important
-}
 
-.btn {
-    font-size: 0.875rem;
-    line-height: 1;
-    font-weight: 400;
-    padding: .7rem 1.5rem;
-    border-radius: 0.1275rem
-}
-
-.container {
-    margin-top: 100px
-}
-
-.toast {
-    transition: 0.32s all ease-in-out
-}
-
-.toast-container--fade {
-    right: 0;
-    bottom: 0
-}
-
-.toast-container--fade .toast-wrapper {
-    display: inline-block
-}
-
-.toast.fade-init {
-    opacity: 0
-}
-
-.toast.fade-show {
-    opacity: 1
-}
-
-.toast.fade-hide {
-    opacity: 0
-}
 
 </style>
 
@@ -78,13 +39,6 @@ td:nth-child(2) {
 $(document).ready(function() {
 	
 	$("#btnInsert").click(function() {
-		
-		const element =  document.querySelector('.btnInsert');
-        element.classList.add('animated', 'pulse');
-        setTimeout(function() {
-          element.classList.remove('pulse'); 
-  },        1000);
-		
 		$(location).attr("href", "/board/bf_write")
 	})
 	
@@ -121,23 +75,22 @@ $(document).ready(function() {
 <thead>
 	<tr>
 		<th style="width: 10%;">글번호</th>
-		<th style="width: 15%;">카테고리</th>
 		<th style="width: 45%;">제목</th>
 		<th style="width: 20%;">작성자</th>
 		<th style="width: 10%;">조회수</th>
+		<th style="width: 10%;">좋아요</th>
 		<th style="width: 15%;">작성일</th>
 	</tr>
 </thead>
 <tbody>
 <c:forEach items="${list }" var="board">
 	<tr>
-		<td>${board.bf_no }</td>
-		<td>${board.category_no }</td>
-		<td><a href="${path}/board/detail?no=${board.bf_no}">${board.bf_title }</a></td>
-		<td>${board.user_no }</td>
-		<td>${board.bf_hit }</td>
-		<td>${board.bf_thumbs }</td>
-		<td><fmt:formatDate value="${board.bf_inst_date }" pattern="yy-MM-dd"/></td>
+		<td>${board.bfNo }</td>
+		<td><a href="${path}/board/detail?no=${board.bfNo}">${board.bfTitle }</a></td>
+		<td>${board.userNo }</td>
+		<td>${board.bfHit }</td>
+		<td>${board.bfThumbs }</td>
+		<td><fmt:formatDate value="${board.bfInstDate }" pattern="yy-MM-dd"/></td>
 	</tr>
 </c:forEach>
 </tbody>

@@ -31,5 +31,23 @@ public class DietBoardController {
 			logger.info("/board/dietBoard [GET]");
 		}
 			
-	
+		@RequestMapping("/board/d_write")
+		public void test() {
+			
+			logger.info("/board/dietBoard");
+		}
+			
+		
+		@RequestMapping("/board/test")
+		public void test2() {
+			
+			logger.info("/board/dietBoard");
+		}
+
+		@RequestMapping("/board/test2")
+		public void test3() {
+			
+			logger.info("/board/dietBoard");
+		}
+		
 }
