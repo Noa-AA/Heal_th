@@ -5,8 +5,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="hyanghee.dao.BoardDao">
+<mapper namespace="hyanghee.dao.face.ReviewBoardDao">
 
-	
 </mapper>
-  
