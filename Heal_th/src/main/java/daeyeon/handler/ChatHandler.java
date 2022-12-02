@@ -20,6 +20,7 @@ public class ChatHandler extends TextWebSocketHandler {
 	
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 	
+	
 //	@Autowired private ChatService chatService;
 	
 	
@@ -28,10 +29,10 @@ public class ChatHandler extends TextWebSocketHandler {
     // 웹소켓이 연결 되는 것 = 프론트에서 웹소켓이 정확한 경로를 잡아 생성 되는 것
     @Override
     public void afterConnectionEstablished( WebSocketSession session ) throws Exception {
-    	sessionList.add(session);
     	String Id = (String)session.getAttributes().get("userId");
     	int userNo = (Integer)session.getAttributes().get("userNo");
     	
+    	sessionList.add(session);
     	logger.info( "아이디 : {} 유저번호 : {} 연결됨", Id, userNo );
     	
     }

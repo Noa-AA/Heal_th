@@ -12,7 +12,7 @@
 <hr>
 
 <div id="chatBtn">
-		<a href="./chatRoom">채팅하기</a>
+		<a href="./chatRoom">채팅방</a>
 </div><!-- topMenu end -->
 <a href="./login">로그인</a>
 

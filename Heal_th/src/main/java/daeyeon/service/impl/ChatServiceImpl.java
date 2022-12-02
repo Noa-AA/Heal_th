@@ -23,20 +23,6 @@ public class ChatServiceImpl implements ChatService {
 	//로그 객체
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	
-	@Override
-	public List<Users> userlist() {
-		
-		//게시글 목록 조회 - ChatDao 이용
-		List<Users> userList = chatDao.selectUsers(); 
-		logger.trace("boardList 조회 결과"); 
-		for( Users d : userList )	logger.info("{}", d);
-		
-		return userList;
-	}
-	
-	
-	
 	@Override
 	public RoomList selectRoomNoByUserNo(HttpSession session) {
 		Userss users = new Userss();
@@ -55,23 +41,35 @@ public class ChatServiceImpl implements ChatService {
 		return roomList;
 	}
 	
-//	@Override
-//	public void createRoom() {
-//		logger.info("createRoom()");
+	
+	@Override
+	public List<Users> userlist() {
 		
-//		chatDao.insertChatRoom(); 
-//		
-//		chatDao.insertroomList(); //매개변수로 세션의 유저번호 들어가야함
+		//게시글 목록 조회 - ChatDao 이용
+		List<Users> userList = chatDao.selectUsers(); 
+		logger.trace("boardList 조회 결과"); 
+		for( Users d : userList )	logger.info("{}", d);
 		
-//	}
+		return userList;
+	}
 	
 	
-//	@Override
-//		public void insertChat() {
-//			logger.info("insertChat()");
-//		
-//			chatDao.insertChat(); 
-//			
-//		}
+	
+	
+	
+	@Override
+	public List<RoomList> roomList(int myUserNo) {
+	
+	//채팅방 목록 조회 - ChatDao 이용
+	List<RoomList> roomList = chatDao.selectRoomList(myUserNo); 
+	
+		
+	return roomList;
+		
+	}
 	
 }
+
+
+
+

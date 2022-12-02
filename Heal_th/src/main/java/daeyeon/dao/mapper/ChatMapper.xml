@@ -15,6 +15,11 @@
 	
 	
 	<select id="selectRoomNoByUserNo"  resultType="daeyeon.dto.RoomList" parameterType="daeyeon.dto.Userss">
+		SELECT room_no FROM room_list
+		WHERE user_no = #{userNo }
+	</select>
+	
+	<select id="selectRoomList"  resultType="daeyeon.dto.RoomList" parameterType="int">
 		SELECT * FROM room_list
 		WHERE user_no = #{userNo }
 	</select>
