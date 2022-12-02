@@ -1,8 +1,6 @@
 package daeyeon.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import daeyeon.dto.RoomList;
 import daeyeon.dto.Userss;
 import daeyeon.service.face.ChatService;
 import yerim.dto.Users;
@@ -35,10 +35,10 @@ public class ChatController {
 			
 		}
 		
-		//멘토 리스트
-		@RequestMapping("/mentorList")
+		//1. 멘토 리스트
+		@RequestMapping("/intro")
 		public void mentorList(Model model) {
-		logger.info("/chat/mentorList");
+		logger.info("/chat/intro");
 			
 		//회원등급 3이상 회원 조회
 		List<Users> userList = chatService.userlist();
@@ -50,10 +50,13 @@ public class ChatController {
 		
 		
 		
+		//테스트용~~------------------------------------------------------------나중에 지움
+		
 		@GetMapping("/login")
 		public void login() {
 			logger.info("/login");
 		}
+	
 		
 		@PostMapping("/login")
 		public String loginOk(HttpSession session, String id, String pw ) {
@@ -63,7 +66,7 @@ public class ChatController {
 			
 			Userss users = new Userss();
 			
-			//테스트용~~---------------------------------나중에 지움
+			
 			if( id.equals("aaa") ) {
 				users.setUserNo(10);
 				session.setAttribute("userNo", 10);
@@ -91,21 +94,51 @@ public class ChatController {
 			
 			return "/chat/main";
 		}
-			
 		
+		
+//		@RequestMapping("/main")
+//		public String main(Model model, HttpSession session, int roomNo, Userss users) {
+//			logger.info("/chatRoom");
+//			
+//			//유저번호로 방번호 불러오기
+////			chatService.selectRoomNoByUserNo(session);
+//			
+////			socketService.createRoom();
+//			
+////			logger.info( "채팅방 번호 : {}", chatRoom );
+//			
+//			model.addAttribute("roomNo", roomNo);
+//			return ("/chat/chatRoom");
+//			
+//		}
+		
+		
+		//채팅룸의 자신의 소속된 채팅방 조회하기
 		@RequestMapping("/chatRoom")
-		public String goChat(Model model, HttpSession session, int roomNo, Userss users) {
+		public void chatRoom(HttpSession session, Users myUserNo, Model model) {
 			logger.info("/chatRoom");
+			myUserNo.setUserNo((Integer)session.getAttribute("userNo"));
 			
-			//유저번호로 방번호 불러오기
-//			chatService.selectRoomNoByUserNo(session);
+			logger.info("myUserNo : {}", myUserNo.getUserNo());
 			
-//			socketService.createRoom();
+			List<RoomList> roomList = chatService.roomList(myUserNo);
 			
-//			logger.info( "채팅방 번호 : {}", chatRoom );
+//			채팅방 번호 전달 - Model객체 이용
+			model.addAttribute("roomList", roomList);
+			
+		}
+		
+			
+		//채팅 영역
+		@RequestMapping("/chatArea")
+		public void goChat(Model model, HttpSession session, RoomList roomNo, Userss users) {
+			logger.info("/chatArea");
+			logger.info( "채팅방 번호 : {}", roomNo.getRoomNo() );
+			
+			session.setAttribute("roomNo", roomNo);
 			
 			model.addAttribute("roomNo", roomNo);
-			return ("/chat/chatRoom");
+			
 			
 		}
 		
