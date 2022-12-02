@@ -90,6 +90,87 @@
 				}); 
 				
 			}) //문자인증 완료 
+			
+			
+		    $("#joinbtn").click(function(){
+		    	
+		    	//아이디가 빈칸일 때 
+		    	if(document.getElementById("userName").value =="") {
+		    		console.log("이름입력 알림")
+		    		document.getElementById("nameAlert").innerHTML="<span style='color:red;'>* 이름을 입력해주세요</span>"
+		    			return false;
+		    	}
+		    	
+		    	//이메일이 빈칸일 때 
+		    	if(document.getElementById("userEmail").value =="") {
+		    		console.log("이메일입력 알림")
+		    		document.getElementById("emailAlert").innerHTML="<span style='color:red;'>* 이메일을 입력해주세요</span>"
+		    			return false;
+		    	}
+		    	
+		    	
+		    	//아이디가 빈칸일 때 
+		    	if(document.getElementById("userId").value =="") {
+		    		console.log("아이디입력 알림")
+		    		document.getElementById("checkIdResult").innerHTML="<span style='color:red;'>* 아이디를 입력해주세요</span>"
+		    			return false;
+		    	}
+		    	//비밀번호가 빈칸일 때 
+		    	if(document.getElementById("userPw").value =="") {
+		    		console.log("비밀번호입력 알림")
+		    		document.getElementById("pwAlert").innerHTML="<span style='color:red;'>* 비밀번호를 입력해주세요</span>"
+		    			return false;
+		    	}
+		    	
+		    	//비밀번호 유효성 검사 ,비밀번호 확이니 빈칸
+		    	if(document.getElementById("userPwChk").value =="") {
+		    		console.log("비밀번호입력 알림")
+		    		document.getElementById("pwAgain").innerHTML="<span style='color:red;'>* 비밀번호를 확인해주세요</span>"
+		    			return false;
+		    	}
+		    	
+		    		//닉네임이 빈칸일 때 
+		    	if(document.getElementById("userNick").value =="") {
+		    		console.log("닉네임입력 알림")
+		    		document.getElementById("nickAlert").innerHTML="<span style='color:red;'>* 닉네임을 입력해주세요</span>"
+		    			return false;
+		    	}
+		    	
+		    		//연락처가 빈칸일 때 
+		    	if(document.getElementById("userPhone").value =="") {
+		    		console.log("연락처입력 알림")
+		    		document.getElementById("result_code").innerHTML="<span style='color:red;'>* 연락처를 입력하고 본인인증을 해주세요</span>"
+		    			return false;
+		    	}
+		    		
+				//성별이 빈칸일 때 
+				var genderRadio = document.querySelector('input[name="userGender"]').checked;
+		    	if(!genderRadio) {
+		    		console.log("성별입력 알림")
+		    		document.getElementById("genderAlert").innerHTML="<span style='color:red;'>* 성별을 입력해주세요</span>"
+		    		return false;
+		    	}
+		    	
+				//생년월일이 빈칸일 때 
+		    	if(document.getElementById("userBirth").value =="") {
+		    		console.log("생년월일입력 알림")
+		    		document.getElementById("birthAlert").innerHTML="<span style='color:red;'>* 생년월일을 입력해주세요</span>"
+		    			return false;
+		    	}
+				
+		    	//직업이 빈칸일 때 
+		    	if(document.getElementById("userJob").value =="") {
+		    		console.log("직업입력 알림")
+		    		document.getElementById("jobAlert").innerHTML="<span style='color:red;'>* 직업을 입력해주세요</span>"
+		    			return false;
+		    	}	
+		    	//주소가 빈칸일 때 
+		    	if(document.getElementById("postcode").value =="") {
+		    		console.log("주소입력 알림")
+		    		document.getElementById("addressAlert").innerHTML="<span style='color:red;'>* 주소를 입력해주세요</span>"
+		    			return false;
+		    	}	
+		    }); //유효성 검사
   })			
 
   </script>
@@ -144,6 +225,9 @@
             }
         }).open();
     }
+    
+    
+ 
 </script>
  
 
@@ -163,12 +247,17 @@
 	 		<input type="text" name="userName" id="userName">
 	 		</label> 
 		</div>
+		
+		<div id="nameAlert"></div>
 	
 		<div id="email">
 			<label for="userEmail">이메일
 			<input type="text" name="userEmail" id="userEmail">
 			</label>
 		</div>
+		
+		<div id="emailAlert"></div>
+		
 		<div id="id">
 			<label for="userId">아이디
 			<input type="text" name="userId" id="userId">
@@ -186,17 +275,25 @@
 			<input type="password" name="userPw" id="userPw">
 			</label>
 		</div>
+		<div id="pwAlert"></div>
+		
+		
 		<div id="pwChk">
 			<label for="userPwChk">비밀번호 확인
 			<input type="password" name="userPwChk" id="userPwChk">
 			</label>
 		</div>
+		<div id="pwAgain"></div>
+		
+		
 		
 		<div id="nick">
 			<label for="userNick">닉네임
 			<input type="text" name="userNick" id="userNick">
 			</label>
 		</div>
+			<div id="nickAlert"></div>
+		
 		<div id="phone">
 			<label for="userPhone">연락처
 			<input type="text" name="userPhone" id="userPhone">
@@ -212,24 +309,29 @@
 			</div>
 			
 			<div id="result_code"></div>
-
 			
 		</div>
 		
 		<div id="gender">
 			<label for="userGender">성별			
-			<input type="radio" name="userGender" value="male">남성
-			<input type="radio" name="userGender" value="female">여성
+			<input type="radio" name="userGender" value="male" id="userGender">남성
+			<input type="radio" name="userGender" value="female" id="userGender">여성
 			</label>
+		</div>
+		<div id="genderAlert"></div>
+			
 			
 		<div id="birth">
 			<label for="birth">생년월일
-				<input type="text" name="userBirth" placeholder="생년월일 예)19930101">
+				<input type="text" id="userBirth"name="userBirth" placeholder="생년월일 예)19930101">
 			</label>
 		</div>
+		
+		<div id="birthAlert"></div>
+		
 		<div id="job">
 			<label for="userJob">직업</label>
-			<select name="userJob">
+			<select name="userJob" id="userJob">
 				<option value="staff">회사원</option>
 				<option value="teacher">교사</option>
 				<option value="publicOfficial">공무원</option>
@@ -240,9 +342,9 @@
 			</select>
 				
 		</div>
+		<div id="jobAlert"></div>
 		
-		
-		</div>
+	
 	
 		<div id="address">
 			<label for="userAddress">주소</label>
@@ -252,10 +354,14 @@
 				<input type="text" name="userAddress" id="detailAddress" placeholder="상세주소">
 				<input type="text" name="userAddress" id="extraAddress" placeholder="참고항목">
 		</div>
-		<button id="joinbtn">가입 완료</button>
-		<button  type="button" id="joinCance">가입 취소</button>
+			<div id="addressAlert"></div>
+			
+			
+		<button type="button" id="joinbtn">가입 완료</button>
+		<button  type="button" id="joinCancel">가입 취소</button>
 	</form>
 
+	<div id="addressChk"></div>
 </div>
 </body>
 </html>
