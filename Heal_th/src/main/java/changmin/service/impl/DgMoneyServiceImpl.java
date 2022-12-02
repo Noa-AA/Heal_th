@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import changmin.dao.face.DgMoneyDao;
 import changmin.dto.MmoneyPay;
@@ -55,6 +56,22 @@ public class DgMoneyServiceImpl implements DgMoneyService{
 	public List<WithDraw> getWithDrawList() {
 
 		return dgMoneyDao.selectWithDrawList();
+	}
+
+	@Override
+	@Transactional
+	public void changeMmoney(WithDraw wd) {
+		
+		dgMoneyDao.updateDgmoneybyAdmin(wd);
+		dgMoneyDao.updateWdProcess(wd);
+	}
+
+	@Override
+	public int cntWithDraw(int userno) {
+		
+		int count = dgMoneyDao.selectWithDrawCnt(userno);
+		
+		return count;
 	}
 
 }

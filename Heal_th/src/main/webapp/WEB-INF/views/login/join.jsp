@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
- <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
  <script type="text/javascript">
  
   $(document).ready(function(){
-
+	  			
+	  	
+	  			
+	  			
+	  
+				//아이디 중복 검사 
 			  $("#btn_checkId").click(function(){
 				
 				  	console.log("checkId 클릭")
@@ -22,12 +26,12 @@
 // 				  			
 				  			console.log(res)
 				  			if(res ==0) {	
-				  			$("#checkId").html("사용가능한 아이디입니다.")
-				  			$("#checkId").css("color","green")
+				  			$("#checkIdResult").html("사용가능한 아이디입니다.")
+				  			$("#checkIdResult").css("color","green")
 				  			
 				  			} else {
-				  				$("#checkId").html("사용할 수 없는  아이디입니다.")
-				  				$("#checkId"). css("color","red")
+				  				$("#checkIdResult").html("사용할 수 없는  아이디입니다.")
+				  				$("#checkIdResult"). css("color","red")
 				  			}
 				  		}
 				  		,error: function(){
@@ -38,10 +42,89 @@
 				  	})
 			  })
 			  
-  })
-  
+			  
+			  
+// 			  //회원 본인 인증 
+			  $("#btn_userchk").click(function(){
+				console.log("btn_userchk클릭")
+				 $("#smschk").toggle()
+				 
+				 
+				 //보인인증을 위한 문자 보내는 요청하기
+				 new Promise(function(resolve, reject) { 
+					 $.ajax({
+						 type:"post"
+						 ,url:"/login/userChk"
+						,data:{
+							userPhone : $("#userPhone").val()
+						  }
+						,dataType:"json"
+						,success:function(res){
+							console.log("문자 요청 성공")
+							
+						}
+						,error: function(){
+				  			console.log("문자요청 실패")
+// 	 			  			alert("전화번호를 확인해주세요")
+				  			
+				  		}
+						 
+					 })
+					 
+					 
+				})
+				
+		});//문자보내기 완료 
+				
+			$("#btn_code").click(function(){
+			
+				console.log("btn_code 클릭")
+				$.ajax({
+					 type:"post"
+					,url:"/login/codeChk"
+					,data :{
+						code: $("#code").val()
+					}
+					,dataType:"json"				
+					,success:function(res){
+						console.log(res)
+						console.log("본인인증 성공")
+						
+						if(res==true) {
+							//본인인증 성공 시 
+						$("#result_code").html("본인인증 성공!")
+						$("#result_code").css("color","green")
+							
+						} else {
+							
+						//본인인증 실패시
+						console.log('본인인증 실패')
+						$("#result_code").html("본인인증을 다시 해주세요")
+						$("#result_code").css("color","red")
+						}
+					}
+					,error :function(){
+						alert("관리자에게 문의해주세요")
+						console.log("실패!!!!")	
+					}
+					
+					
+				}); 
+				
+			}) //문자인증 완료 
+			
+	
+		
+  })			
+
+				  
+				  
+			 
+			  
+			  
  
- </script>
+  
+  </script>
  
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -128,7 +211,7 @@
 			<button type="button"  id="btn_checkId">중복확인</button>
 		</div>
 		
-		<div id="checkId"></div>
+		<div id="checkIdResult"></div>
 	
 		<div id="pw">
 			<label for="userPw">비밀번호
@@ -147,8 +230,17 @@
 			</label>
 			
 			<div id="userchk">
-			<button type="button" id="btn_userchk">본인인증</button>
+				<button type="button" id="btn_userchk">본인인증</button>
 		</div>
+		
+			<div id="smschk" style="display:none;">
+				<input type="text" name="code" id="code">
+				<button type="button" id="btn_code">인증번호 확인</button>			
+			</div>
+			
+			<div id="result_code"></div>
+
+			
 		</div>
 		
 		<div id="gender">

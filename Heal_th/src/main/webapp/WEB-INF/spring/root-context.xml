@@ -47,4 +47,10 @@
 		changmin.dao, daeyeon.dao, hyanghee.dao, hyunkyung.dao,
 		jucheol.dao, saebyeol.dao, unhak.dao, yerim.dao"/>
 	</bean>
+	
+		
+	<!-- 트랜잭션 매니저 스프링 빈 설정 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
 </beans>

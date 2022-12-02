@@ -38,14 +38,18 @@ public class DgMoneyController {
 		model.addAttribute("user", user);
 		
 		int mmoney = dgMoneyService.getMmoney(userno);
-		
 		logger.info("mmoney : {}", mmoney);
 		model.addAttribute("mmoney", mmoney);
+		
+		int wdCnt = dgMoneyService.cntWithDraw(userno);
+		logger.info("미처리 개수 : {}", wdCnt);
+		model.addAttribute("wdCnt", wdCnt);
+		
 	}
 
 	//득근머니 충전
-	@RequestMapping(value = "/dgmoney/charge", method = RequestMethod.POST)
-	public void moneyCharge(MmoneyPay mmoneyPay) {
+	@RequestMapping(value = "/dgmoney/view", method = RequestMethod.POST)
+	public String moneyCharge(MmoneyPay mmoneyPay) {
 		logger.info("/dgmoney/charge [POST]");
 		
 		logger.info("mmoneypay : {} ", mmoneyPay);
@@ -53,8 +57,10 @@ public class DgMoneyController {
 		dgMoneyService.addMmoney(mmoneyPay);
 		
 		dgMoneyService.chargeMmoney(mmoneyPay);
+		
+		return "/dgmoney/view";
 	}
-	
+		
 	//득근머니 인출신청
 	@RequestMapping(value = "/dgmoney/discharge", method = RequestMethod.GET)
 	public void moneyDisCharge(HttpSession session, Model model) {
@@ -91,10 +97,27 @@ public class DgMoneyController {
 	public void withDrawAdmin(Model model) {
 		logger.info("/admin/withdraw [GET]");
 		
+		
 		List<WithDraw> withDraw = dgMoneyService.getWithDrawList();
 		logger.info("인출신청 리스트 : {}", withDraw);
 		
 		model.addAttribute("withDraw", withDraw);
+	}
+	
+	//관리자 - 인출신청 승인
+	@RequestMapping(value = "/admin/withdrawProc", method = RequestMethod.POST)
+	public String withDrawUpdate(Model model, WithDraw wd) {
+		logger.info("/admin/withdrawProc [POST]");
+		
+		List<WithDraw> withDraw = dgMoneyService.getWithDrawList();
+		logger.info("인출신청 리스트 : {}", withDraw);
+		
+		dgMoneyService.changeMmoney(wd);
+
+		
+		model.addAttribute("withDraw", withDraw);
+		
+		return "redirect: /admin/withdraw";
 	}
 	
 }

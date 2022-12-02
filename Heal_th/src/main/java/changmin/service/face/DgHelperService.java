@@ -4,7 +4,8 @@ import java.util.List;
 
 import changmin.dto.BodyInfo;
 import changmin.dto.HealthRecord;
-import changmin.util.ChangMinPaging;
+import changmin.util.DgHelperPaging;
+import yerim.dto.Users;
 
 public interface DgHelperService {
 
@@ -12,17 +13,19 @@ public interface DgHelperService {
 	 * 운동기록 저장하기
 	 * 
 	 * @param recordcon - 저장할 운동기록
-	 * @param userno 
+	 * @return 
 	 */
-	public void addRecord(String recordcon, int userno);
+	public int addRecord(HealthRecord healthRecord);
 
-	public List<HealthRecord> getRecordList(ChangMinPaging ChangMinPaging, int userno);
+	public List<HealthRecord> getRecordList(DgHelperPaging DgHelperPaging, int userno);
 
-	public ChangMinPaging getChangMinPaging(String curPage, int userno);
+	public DgHelperPaging getDgHelperPaging(String curPage, int userno);
 
 	public BodyInfo getBodyInfo(int userno);
 
-	public int getCntRecord(List<HealthRecord> recordList);
+	public Users getUserInfo(int userno);
+
+	public void removeRecord(int recordNo);
 
 
 }
