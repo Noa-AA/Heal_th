@@ -26,12 +26,12 @@
 // 				  			
 				  			console.log(res)
 				  			if(res ==0) {	
-				  			$("#checkId").html("사용가능한 아이디입니다.")
-				  			$("#checkId").css("color","green")
+				  			$("#checkIdResult").html("사용가능한 아이디입니다.")
+				  			$("#checkIdResult").css("color","green")
 				  			
 				  			} else {
-				  				$("#checkId").html("사용할 수 없는  아이디입니다.")
-				  				$("#checkId"). css("color","red")
+				  				$("#checkIdResult").html("사용할 수 없는  아이디입니다.")
+				  				$("#checkIdResult"). css("color","red")
 				  			}
 				  		}
 				  		,error: function(){
@@ -211,7 +211,7 @@
 			<button type="button"  id="btn_checkId">중복확인</button>
 		</div>
 		
-		<div id="checkId"></div>
+		<div id="checkIdResult"></div>
 	
 		<div id="pw">
 			<label for="userPw">비밀번호

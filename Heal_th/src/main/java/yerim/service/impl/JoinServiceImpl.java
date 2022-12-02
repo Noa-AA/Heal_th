@@ -39,7 +39,7 @@ import yerim.service.face.JoinService;
 @Service
 public class JoinServiceImpl implements JoinService {
 		
-	@Autowired JoinDao loginDao;
+	@Autowired JoinDao joinDao;
 		
 	public final Logger logger = LoggerFactory.getLogger(this.getClass());
 	private String accesskey = "r0IdZKsLWez0CewuKvdP";
@@ -47,14 +47,15 @@ public class JoinServiceImpl implements JoinService {
 	private String serviceId="ncp:sms:kr:297034398491:heal_th";
 	@Override
 		public void setJoinInfo(Users joinInfo) {
-			loginDao.insertJoinInfo(joinInfo);
+		joinDao.insertJoinInfo(joinInfo);
 
 	}
 	
 	@Override
 	public int checkById(Users chkId) {
 
-		int chkResult = loginDao.selectBychkId(chkId);
+		int chkResult = joinDao.selectBychkId(chkId);
+		logger.info("아이디중복체크 {}",chkResult);
 		
 		return chkResult;
 	}
