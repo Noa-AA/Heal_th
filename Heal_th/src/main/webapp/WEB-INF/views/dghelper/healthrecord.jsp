@@ -134,9 +134,9 @@ button {
 </div>
 <!-- 퀵메뉴 끝 -->   
 
-
+ 
 <div class="big-container">
-	<h1>운동 일기장</h1>
+	<h1>운동 일기장<img src="/resources/img/diary.png" style="width: 8%;"></h1>
 	<div id="recordlist">
 	<span id="healthcount">나의 운동 횟수 : ${paging.totalCount }회</span><br>
 		<c:forEach items="${list }" var="i">
@@ -146,6 +146,7 @@ button {
 		</div>
 			<br>
 			<form action="/dghelper/deleterecord?recordNo=${i.recordNo }" method="post">
+				
 				<button id="delete" type="button" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</button>
 			</form>
 			<br>
