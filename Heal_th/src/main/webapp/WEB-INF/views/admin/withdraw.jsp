@@ -18,6 +18,7 @@ th, td {
 	<table>
 		<tr>
 			<th>인출신청 번호</th>
+			<th>인출신청 날짜</th>
 			<th>인출신청 금액</th>
 			<th>예금주</th>
 			<th>은행명</th>
@@ -29,6 +30,7 @@ th, td {
 		<c:forEach items="${withDraw }" var="w">
 		<tr>
 			<td>No.${w.wdNo }</td>
+			<td>${w.wdDate }</td>
 			<td>${w.wdAmount }원</td>
 			<td>${w.wdUsername }</td>
 			<td>${w.bankName }</td>

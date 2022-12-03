@@ -6,6 +6,29 @@
 	font-family: 'mice';
 	src: url('/resources/css/MICEGothic.ttf') format('truetype');
 }
+.Quick {
+	position: absolute;
+	top: 200px;
+	left: 150px;
+	width: 180px;
+	height: 300px;
+	padding: 10px;
+	background: linear-gradient(120deg, #3f94d6 0 , #1869a7);
+	text-align: left;
+}  
+
+@media screen and (max-width: 1640px) {
+	.Quick {
+		display: none;
+	}
+}
+
+.Quick a {
+	font-size: 18px;
+	font-weight: bold;
+	color: white;
+	padding: 10px;
+}
 
 .big-container {
 	width: 800px;
@@ -388,7 +411,7 @@ $(document).ready(function(){
 		}
 	})
 	$(window).scroll(function(){  //스크롤이 움직일때마다 이벤트 발생
-	      var position = $(window).scrollTop()+300; // 현재 스크롤바의 위치값을 반환
+	      var position = $(window).scrollTop()+200; // 현재 스크롤바의 위치값을 반환
 	      $(".Quick").stop().animate({top:position+"px"}, 400); //해당 오브젝트 위치값 재설정
 	});
 	
@@ -405,19 +428,19 @@ function sendLink() {
     Kakao.Link.sendDefault({
       objectType: 'feed',
       content: {
-        title: 'Heal_th',
-        description: ' -> 힐링하는 헬스 힐스 !\n -> 운동성향 테스트하기',
+        title: 'Heal_th\n',
+        description: '   힐링하는 헬스 힐스 !\n   운동성향 테스트하기',
         imageUrl:
-          '이미지 도메인',
+          '/resources/img/HealthTest.png',
         link: {
           mobileWebUrl: 'http://localhost:8888/dghelper/healthtest',
           webUrl: 'http://localhost:8888/dghelper/healthtest',
         },
       },
       social: {
-        likeCount: 0,  //좋아요 수
-        commentCount: 0,  //댓글 수
-        sharedCount: 0,  //공유 수
+        likeCount: 258,  //좋아요 수
+        commentCount: 32,  //댓글 수
+        sharedCount: 117,  //공유 수
       },
       buttons: [
         {
@@ -439,9 +462,10 @@ function sendLink() {
 }
 </script>
 <body>
+<div class="big-container">
 <!-- 퀵메뉴 시작 -->
-<div class="Quick" style="position: absolute; left: 250px; top: 300px;">
-    <table class="quickMenuBar" style="">
+<div class="Quick">
+    <table class="quickMenuBar">
         <tr>
             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthrecord">운동일기장</a></td>
         </tr>
@@ -451,14 +475,12 @@ function sendLink() {
         <tr>
             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthtest">운동성향 테스트</a></td>
         </tr>
-        <tr>
+<!--         <tr>
             <td colspan="2" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</td>
-        </tr>
+        </tr> -->
     </table>
 </div>
-<!-- 퀵메뉴 끝 -->   
-
-<div class="big-container">
+<!-- 퀵메뉴 끝 -->  
 	<div class="question-container">
 		<div class="start" style="display: block;">
 			<div class="mbti-content">

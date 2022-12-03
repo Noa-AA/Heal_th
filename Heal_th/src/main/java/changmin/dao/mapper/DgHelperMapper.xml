@@ -9,7 +9,7 @@
 
 	<insert id="insertRecord" parameterType="HealthRecord">
 		INSERT INTO healthrecord (record_no, record_date, record_con, user_no)
-		VALUES (healthrecord_seq.nextval, sysdate, #{recordCon}, #{userNo})
+		VALUES (healthrecord_seq.nextval, to_char(systimestamp, 'yyyy"년 "mm"월 "dd"일" hh:mm:ss'), #{recordCon}, #{userNo})
 	</insert>
 	
 	<select id="selectRecord" resultType="HealthRecord" parameterType="DgHelperPaging">
