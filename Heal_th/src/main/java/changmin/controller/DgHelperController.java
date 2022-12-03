@@ -73,23 +73,23 @@ public class DgHelperController {
 	}
 	
 	//AJAX용 운동기록 조회
-	@RequestMapping(value="/dghelper/healthrecordlist", method=RequestMethod.GET)
-	public void healthRecordList(Model model,String curPage, HttpSession session) {
-		logger.info("/dghelper/healthrecordlist [GET]");
-		
-		session.setAttribute("userno", 7777);
-		int userno = (int) session.getAttribute("userno");
-		logger.info("userno : {}", userno);
-		
-		DgHelperPaging DgHelperPaging = dgHelperService.getDgHelperPaging(curPage, userno);
-		List<HealthRecord> recordList = dgHelperService.getRecordList(DgHelperPaging, userno);
-	
-		model.addAttribute("list",recordList);
-		model.addAttribute("paging", DgHelperPaging);
-		
-		logger.info("List : {}", recordList);
-		logger.info("페이징 : {}", DgHelperPaging);
-	}
+//	@RequestMapping(value="/dghelper/healthrecordlist", method=RequestMethod.GET)
+//	public void healthRecordList(Model model,String curPage, HttpSession session) {
+//		logger.info("/dghelper/healthrecordlist [GET]");
+//		
+//		session.setAttribute("userno", 7777);
+//		int userno = (int) session.getAttribute("userno");
+//		logger.info("userno : {}", userno);
+//		
+//		DgHelperPaging DgHelperPaging = dgHelperService.getDgHelperPaging(curPage, userno);
+//		List<HealthRecord> recordList = dgHelperService.getRecordList(DgHelperPaging, userno);
+//	
+//		model.addAttribute("list",recordList);
+//		model.addAttribute("paging", DgHelperPaging);
+//		
+//		logger.info("List : {}", recordList);
+//		logger.info("페이징 : {}", DgHelperPaging);
+//	}
 	
 	//운동일기 삭제
 	@RequestMapping(value="/dghelper/deleterecord", method=RequestMethod.POST)
