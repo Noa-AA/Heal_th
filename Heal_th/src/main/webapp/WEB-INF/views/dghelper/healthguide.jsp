@@ -142,6 +142,9 @@ input {
         <tr>
             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthrecord">운동일기장</a></td>
         </tr>
+        <tr>
+            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/dgmagotchi">득근이 키우기</a></td>
+        </tr>
 <!--         <tr>
             <td colspan="2" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</td>
         </tr> -->

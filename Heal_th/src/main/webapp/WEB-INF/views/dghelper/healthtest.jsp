@@ -341,139 +341,139 @@ button {
 
 .start {
 	height: 800px;
-	background-image: url("/resources/img/HtestMain.png");
+	background-image: url("/resources/img/dgtest/HtestMain.png");
 	margin-bottom: 50px;
 }
 
 .question1 {
 	height: 800px;
-	background-image: url("/resources/img/HtestQuestion1.png");
+	background-image: url("/resources/img/dgtest/HtestQuestion1.png");
 	margin-bottom: 50px;
 }
 
 .question2 {
 	height: 800px;
-	background-image: url("/resources/img/HtestQuestion2.png");
+	background-image: url("/resources/img/dgtest/HtestQuestion2.png");
 	margin-bottom: 50px;
 }
 
 .question3 {
 	height: 800px;
-	background-image: url("/resources/img/HtestQuestion3.png");
+	background-image: url("/resources/img/dgtest/HtestQuestion3.png");
 	margin-bottom: 50px;
 }
 
 .question4 {
 	height: 800px;
-	background-image: url("/resources/img/HtestQuestion4.png");
+	background-image: url("/resources/img/dgtest/HtestQuestion4.png");
 	margin-bottom: 50px;
 }
 
 .question5 {
 	height: 800px;
-	background-image: url("/resources/img/HtestQuestion5.png");
+	background-image: url("/resources/img/dgtest/HtestQuestion5.png");
 	margin-bottom: 50px;
 }
 
 .question6 {
 	height: 800px;
-	background-image: url("/resources/img/HtestQuestion6.png");
+	background-image: url("/resources/img/dgtest/HtestQuestion6.png");
 	margin-bottom: 50px;
 }
 
 #result1 {
 	height: 800px;
-	background-image: url("/resources/img/result1.png");
+	background-image: url("/resources/img/dgtest/result1.png");
 	margin-bottom: 50px;
 }
 
 #result2 {
 	height: 800px;
-	background-image: url("/resources/img/result2.png");
+	background-image: url("/resources/img/dgtest/result2.png");
 	margin-bottom: 50px;
 }
 
 #result3 {
 	height: 800px;
-	background-image: url("/resources/img/result3.png");
+	background-image: url("/resources/img/dgtest/result3.png");
 	margin-bottom: 50px;
 }
 
 #result4 {
 	height: 800px;
-	background-image: url("/resources/img/result4.png");
+	background-image: url("/resources/img/dgtest/result4.png");
 	margin-bottom: 50px;
 }
 
 #result5 {
 	height: 800px;
-	background-image: url("/resources/img/result5.png");
+	background-image: url("/resources/img/dgtest/result5.png");
 	margin-bottom: 50px;
 }
 
 #result6 {
 	height: 800px;
-	background-image: url("/resources/img/result6.png");
+	background-image: url("/resources/img/dgtest/result6.png");
 	margin-bottom: 50px;
 }
 
 #result7 {
 	height: 800px;
-	background-image: url("/resources/img/result7.png");
+	background-image: url("/resources/img/dgtest/result7.png");
 	margin-bottom: 50px;
 }
 
 #result8 {
 	height: 800px;
-	background-image: url("/resources/img/result8.png");
+	background-image: url("/resources/img/dgtest/result8.png");
 	margin-bottom: 50px;
 }
 
 #result9 {
 	height: 800px;
-	background-image: url("/resources/img/result9.png");
+	background-image: url("/resources/img/dgtest/result9.png");
 	margin-bottom: 50px;
 }
 
 #result10 {
 	height: 800px;
-	background-image: url("/resources/img/result10.png");
+	background-image: url("/resources/img/dgtest/result10.png");
 	margin-bottom: 50px;
 }
 
 #result11 {
 	height: 800px;
-	background-image: url("/resources/img/result11.png");
+	background-image: url("/resources/img/dgtest/result11.png");
 	margin-bottom: 50px;
 }
 
 #result12 {
 	height: 800px;
-	background-image: url("/resources/img/result12.png");
+	background-image: url("/resources/img/dgtest/result12.png");
 	margin-bottom: 50px;
 }
 
 #result13 {
 	height: 800px;
-	background-image: url("/resources/img/result13.png");
+	background-image: url("/resources/img/dgtest/result13.png");
 	margin-bottom: 50px;
 }
 
 #result14 {
 	height: 800px;
-	background-image: url("/resources/img/result14.png");
+	background-image: url("/resources/img/dgtest/result14.png");
 	margin-bottom: 50px;
 }
 
 #result15 {
 	height: 800px;
-	background-image: url("/resources/img/result15.png");
+	background-image: url("/resources/img/dgtest/result15.png");
 	margin-bottom: 50px;
 }
 
 #result16 {
 	height: 800px;
-	background-image: url("/resources/img/result16.png");
+	background-image: url("/resources/img/dgtest/result16.png");
 	margin-bottom: 50px;
 }
 
@@ -513,6 +513,9 @@ button {
         </tr>
         <tr>
             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthrecord">운동일기장</a></td>
+        </tr>
+         <tr>
+            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/dgmagotchi">득근이 키우기</a></td>
         </tr>
 <!--         <tr>
             <td colspan="2" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</td>
@@ -576,9 +579,9 @@ button {
 				<p>▶ 이렇게 운동하면 올해도 작심삼일..</p>
 				<p>팩폭을 어려워해 상대의 운동 효과는 미미해지는 상황이 벌어질 수도 있어요.</p>
 				<p>좀 더 적극적인 표현도 괜찮아요!</p>
-				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/kakaoshare.png" id="kakaoShareImg">
+				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/dgtest/kakaoshare.png" id="kakaoShareImg">
 				</button>
-				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/sharelink.png" id="linkShareImg">
+				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/dgtest/sharelink.png" id="linkShareImg">
 				</button>
 			</div>
 		</div>
@@ -593,9 +596,9 @@ button {
 				<p>▶ 이렇게 운동하면 올해도 작심삼일..</p>
 				<p>자신의 능력을 과시하기 십상이라 어떤 운동이든 감정적으로 덤빌 염려가 있어요!</p>
 				<p>이 점만 유의하세요!</p>
-				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/kakaoshare.png" id="kakaoShareImg">
+				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/dgtest/kakaoshare.png" id="kakaoShareImg">
 				</button>
-				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/sharelink.png" id="linkShareImg">
+				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/dgtest/sharelink.png" id="linkShareImg">
 				</button>
 			</div>
 		</div>
@@ -611,9 +614,9 @@ button {
 				<p>▶ 이렇게 운동하면 올해도 작심삼일..</p>
 				<p>일대일로 경쟁하거나 서바이벌을 필요로 하는 운동은 쥐약.</p>
 				<p>단순한 승부보단 팀 안에서의 공헌과 협동을 추구하는 타입이라 괜히 의욕이 저하될 수 있으니 주의!</p>
-				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/kakaoshare.png" id="kakaoShareImg">
+				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/dgtest/kakaoshare.png" id="kakaoShareImg">
 				</button>
-				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/sharelink.png" id="linkShareImg">
+				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/dgtest/sharelink.png" id="linkShareImg">
 				</button>
 			</div>
 		</div>
@@ -628,9 +631,9 @@ button {
 				<p>▶ 이렇게 운동하면 올해도 작심삼일..</p>
 				<p>부족한 것은 바로 계획성.</p>
 				<p>운동하다가도 급 술 약속이 생기면 튀어 나가기 십상.</p>
-				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/kakaoshare.png" id="kakaoShareImg">
+				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/dgtest/kakaoshare.png" id="kakaoShareImg">
 				</button>
-				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/sharelink.png" id="linkShareImg">
+				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/dgtest/sharelink.png" id="linkShareImg">
 				</button>
 			</div>
 		</div>
@@ -647,9 +650,9 @@ button {
 				<p>▶ 이렇게 운동하면 올해도 작심삼일..</p>
 				<p>열정적인 만큼 번아웃이 오기도 쉬운 타입.</p>
 				<p>목표도 좋지만 자신의 컨디션을 섬세하게 살피는 주의력이 필수!</p>
-				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/kakaoshare.png" id="kakaoShareImg">
+				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/dgtest/kakaoshare.png" id="kakaoShareImg">
 				</button>
-				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/sharelink.png" id="linkShareImg">
+				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/dgtest/sharelink.png" id="linkShareImg">
 				</button>
 			</div>
 		</div>
@@ -666,9 +669,9 @@ button {
 				<p>▶ 이렇게 운동하면 올해도 작심삼일..</p>
 				<p>자신에게 매우 관대해지면서 자기 합리화의 시기가 빨리 오는 편.</p>
 				<p>좀 더 세부적인 계획과 목표를 설정해야 해요!</p>
-				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/kakaoshare.png" id="kakaoShareImg">
+				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/dgtest/kakaoshare.png" id="kakaoShareImg">
 				</button>
-				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/sharelink.png" id="linkShareImg">
+				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/dgtest/sharelink.png" id="linkShareImg">
 				</button>
 			</div>
 		</div>
@@ -683,9 +686,9 @@ button {
 				<p>어디서도 지지않는 승부욕과 리더쉽으로 당신 팀이 승승장구하겠네요!</p><br>
 				<p>▶ 이렇게 운동하면 올해도 작심삼일..</p>
 				<p>여럿이 함께하는 운동이 잘 맞지만 자칫 꼰대 리더가 될 가능성이 농후...</p>
-				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/kakaoshare.png" id="kakaoShareImg">
+				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/dgtest/kakaoshare.png" id="kakaoShareImg">
 				</button>
-				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/sharelink.png" id="linkShareImg">
+				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/dgtest/sharelink.png" id="linkShareImg">
 				</button>
 			</div>
 		</div>
@@ -701,9 +704,9 @@ button {
 				<p>건강과 다이어트 두마리 토끼를 잡으세요!</p><br>
 				<p>▶ 이렇게 운동하면 올해도 작심삼일..</p>
 				<p>내면적인 수양이나 긴 설명을 필요로 하는 운동은 이들의 잠재 욕구도 떨어뜨릴 수 있단 사실을 기억하도록.</p>
-				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/kakaoshare.png" id="kakaoShareImg">
+				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/dgtest/kakaoshare.png" id="kakaoShareImg">
 				</button>
-				<button onclick="clip(); return false;" class="linkShareButton" class="linkShareButton"><img src="/resources/img/sharelink.png" id="linkShareImg">
+				<button onclick="clip(); return false;" class="linkShareButton" class="linkShareButton"><img src="/resources/img/dgtest/sharelink.png" id="linkShareImg">
 				</button>
 			</div>
 		</div>
@@ -721,9 +724,9 @@ button {
 				<p>▶ 이렇게 운동하면 올해도 작심삼일..</p>
 				<p>스트레스 받거나 눈에 띄는 결과가 없으면 쉽게 포기하는 편이니</p>
 				<p>운동 강도를 섬세하게 조절하자.</p>
-				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/kakaoshare.png" id="kakaoShareImg">
+				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/dgtest/kakaoshare.png" id="kakaoShareImg">
 				</button>
-				<button onclick="clip(); return false;" class="linkShareButton" class="linkShareButton"><img src="/resources/img/sharelink.png" id="linkShareImg">
+				<button onclick="clip(); return false;" class="linkShareButton" class="linkShareButton"><img src="/resources/img/dgtest/sharelink.png" id="linkShareImg">
 				</button>
 			</div>
 		</div>
@@ -737,9 +740,9 @@ button {
 				<p>필록싱 같은 하이브리드 운동이 딱이에요!</p><br>
 				<p>▶ 이렇게 운동하면 올해도 작심삼일..</p>
 				<p>식단과 일상까지 샅샅이 알려고 하는 프로 참견러가 있다면 운동 손절!</p>
-				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/kakaoshare.png" id="kakaoShareImg">
+				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/dgtest/kakaoshare.png" id="kakaoShareImg">
 				</button>
-				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/sharelink.png" id="linkShareImg">
+				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/dgtest/sharelink.png" id="linkShareImg">
 				</button>
 			</div>
 		</div>
@@ -754,9 +757,9 @@ button {
 				<p>▶ 이렇게 운동하면 올해도 작심삼일..</p>
 				<p>수업을 잘 못 따라오는 동료가 옆에 있다?</p>
 				<p>챙기느라 바빠 운동 효과는 0에 수렴.</p>
-				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/kakaoshare.png" id="kakaoShareImg">
+				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/dgtest/kakaoshare.png" id="kakaoShareImg">
 				</button>
-				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/sharelink.png" id="linkShareImg">
+				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/dgtest/sharelink.png" id="linkShareImg">
 				</button>
 			</div>
 		</div>
@@ -769,9 +772,9 @@ button {
 				<p>여유롭게 혼자만의 시간과 공간이 필요한 당신에겐 라이딩이 제격!</p><br>
 				<p>▶ 이렇게 운동하면 올해도 작심삼일..</p>
 				<p>여린 마음에 팩폭을 서슴없이 날리는 트레이너는 운동을 회피하게 만드는 주범.</p>
-				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/kakaoshare.png" id="kakaoShareImg">
+				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/dgtest/kakaoshare.png" id="kakaoShareImg">
 				</button>
-				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/sharelink.png" id="linkShareImg">
+				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/dgtest/sharelink.png" id="linkShareImg">
 				</button>
 			</div>
 		</div>
@@ -787,9 +790,9 @@ button {
 				<p>집중력 킹인 당신이니까 좋은 두각을 나타낼 거에요!</p><br>
 				<p>▶ 이렇게 운동하면 올해도 작심삼일..</p>
 				<p>뒤풀이가 동반되는 운동 동호회는 이들의 활동 욕구를 반감시키는 마이너스 요소.</p>
-				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/kakaoshare.png" id="kakaoShareImg">
+				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/dgtest/kakaoshare.png" id="kakaoShareImg">
 				</button>
-				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/sharelink.png" id="linkShareImg">
+				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/dgtest/sharelink.png" id="linkShareImg">
 				</button>
 			</div>
 		</div>
@@ -804,10 +807,10 @@ button {
 				<p>EMS 트레이닝 어떠세요?</p><br>
 				<p>▶ 이렇게 운동하면 올해도 작심삼일..</p>
 				<p>강압적인 트레이너와는 상극, 밑도 끝도 없는 근력 뽐뿌 운동과는 초상극!</p>
-				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/kakaoshare.png" id="kakaoShareImg">
+				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/dgtest/kakaoshare.png" id="kakaoShareImg">
 					
 				</button>
-				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/sharelink.png" id="linkShareImg">
+				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/dgtest/sharelink.png" id="linkShareImg">
 				</button>
 			</div>
 		</div>
@@ -825,9 +828,9 @@ button {
 				<p>▶ 이렇게 운동하면 올해도 작심삼일..</p>
 				<p>계획이나 가이드가 없으면 초반부터 흔들리기 십상이니</p>
 				<p>전문가의 트레이닝으로 스텝을 밟아나갈 것.</p>
-				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/kakaoshare.png" id="kakaoShareImg">
+				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/dgtest/kakaoshare.png" id="kakaoShareImg">
 				</button>
-				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/sharelink.png" id="linkShareImg">
+				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/dgtest/sharelink.png" id="linkShareImg">
 				</button>
 			</div>
 		</div>
@@ -842,9 +845,9 @@ button {
 				<p>호불호가 강하고 충동적인 성향이 강하기 때문에</p>
 				<p>장기적으로 레슨을 받아야하는 대기만성형 운동은</p>
 				<p>당신의 집중력과 흥미를 떨어뜨리기 쉬워요.</p>
-				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/kakaoshare.png" id="kakaoShareImg">
+				<button onclick="sendLink()" class="kakaoShareButton"><img src="/resources/img/dgtest/kakaoshare.png" id="kakaoShareImg">
 				</button>
-				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/sharelink.png" id="linkShareImg">
+				<button onclick="clip(); return false;" class="linkShareButton"><img src="/resources/img/dgtest/sharelink.png" id="linkShareImg">
 				</button>
 			</div>
 		</div>
