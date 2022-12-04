@@ -12,6 +12,8 @@ import changmin.dao.face.DgMoneyDao;
 import changmin.dto.MmoneyPay;
 import changmin.dto.WithDraw;
 import changmin.service.face.DgMoneyService;
+import changmin.util.AdminWithDrawPaging;
+import changmin.util.DgHelperPaging;
 import yerim.dto.Users;
 
 @Service
@@ -53,12 +55,6 @@ public class DgMoneyServiceImpl implements DgMoneyService{
 	}
 
 	@Override
-	public List<WithDraw> getWithDrawList() {
-
-		return dgMoneyDao.selectWithDrawList();
-	}
-
-	@Override
 	@Transactional
 	public void changeMmoney(WithDraw wd) {
 		
@@ -72,6 +68,30 @@ public class DgMoneyServiceImpl implements DgMoneyService{
 		int count = dgMoneyDao.selectWithDrawCnt(userno);
 		
 		return count;
+	}
+
+	@Override
+	public AdminWithDrawPaging getWdPaging(String curPage) {
+		//총 게시글 수 조회하기
+		int totalCount = dgMoneyDao.selectCntAll();
+		
+		
+		//전달파라미터 curPage 추출하기
+		String param = curPage;
+		int curPage2 = 0;
+		if( param != null && !"".equals(param) ) {
+			curPage2 = Integer.parseInt(param);
+		}
+		
+		//DgHelperPaging객체 생성
+		AdminWithDrawPaging wdPaging = new AdminWithDrawPaging(totalCount, curPage2);
+		return wdPaging;
+	}
+
+	@Override
+	public List<WithDraw> getWithDrawList(AdminWithDrawPaging wdPaging) {
+
+		return dgMoneyDao.selectWithDrawList(wdPaging);
 	}
 
 }

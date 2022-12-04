@@ -41,9 +41,9 @@ public class DgHelperServiceImpl implements DgHelperService {
 		}
 		
 		//DgHelperPaging객체 생성
-		DgHelperPaging DgHelperPaging = new DgHelperPaging(totalCount, curPage2);
+		DgHelperPaging dgHelperPaging = new DgHelperPaging(totalCount, curPage2);
 		
-		return DgHelperPaging;
+		return dgHelperPaging;
 	}
 
 	@Override
@@ -70,6 +70,11 @@ public class DgHelperServiceImpl implements DgHelperService {
 	public void removeRecord(int recordNo) {
 
 		dgHelperDao.deleteRecord(recordNo);
+	}
+
+	@Override
+	public void changeRecord(int recordNo) {
+	
 	}
 
 

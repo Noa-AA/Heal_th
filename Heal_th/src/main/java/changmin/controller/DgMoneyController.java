@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import changmin.dto.MmoneyPay;
 import changmin.dto.WithDraw;
 import changmin.service.face.DgMoneyService;
+import changmin.util.AdminWithDrawPaging;
 import yerim.dto.Users;
 
 @Controller
@@ -94,11 +95,13 @@ public class DgMoneyController {
 	
 	//관리자 - 인출신청내역 조회
 	@RequestMapping(value = "/admin/withdraw", method = RequestMethod.GET)
-	public void withDrawAdmin(Model model) {
+	public void withDrawAdmin(Model model, String curPage) {
 		logger.info("/admin/withdraw [GET]");
+
+		AdminWithDrawPaging wdPaging = dgMoneyService.getWdPaging(curPage);
+		model.addAttribute("paging", wdPaging);
 		
-		
-		List<WithDraw> withDraw = dgMoneyService.getWithDrawList();
+		List<WithDraw> withDraw = dgMoneyService.getWithDrawList(wdPaging);
 		logger.info("인출신청 리스트 : {}", withDraw);
 		
 		model.addAttribute("withDraw", withDraw);
@@ -106,10 +109,13 @@ public class DgMoneyController {
 	
 	//관리자 - 인출신청 승인
 	@RequestMapping(value = "/admin/withdrawProc", method = RequestMethod.POST)
-	public String withDrawUpdate(Model model, WithDraw wd) {
+	public String withDrawUpdate(Model model, String curPage, WithDraw wd) {
 		logger.info("/admin/withdrawProc [POST]");
 		
-		List<WithDraw> withDraw = dgMoneyService.getWithDrawList();
+		AdminWithDrawPaging wdPaging = dgMoneyService.getWdPaging(curPage);
+
+		List<WithDraw> withDraw = dgMoneyService.getWithDrawList(wdPaging);
+		
 		logger.info("인출신청 리스트 : {}", withDraw);
 		
 		dgMoneyService.changeMmoney(wd);
