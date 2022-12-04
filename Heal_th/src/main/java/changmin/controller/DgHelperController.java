@@ -38,21 +38,21 @@ public class DgHelperController {
 	
 	//개별회원의 운동기록 조회
 	@RequestMapping(value="/dghelper/healthrecord", method=RequestMethod.GET)
-	public void recordView(Model model,String curPage, HttpSession session) {
+	public void recordView(Model model, String curPage, HttpSession session) {
 		logger.info("/dghelper/healthrecord [GET]");
 		
 		session.setAttribute("userno", 7777);
 		int userno = (int) session.getAttribute("userno");
 		logger.info("userno : {}", userno);
 		
-		DgHelperPaging DgHelperPaging = dgHelperService.getDgHelperPaging(curPage, userno);
-		List<HealthRecord> recordList = dgHelperService.getRecordList(DgHelperPaging, userno);
+		DgHelperPaging dgHelperPaging = dgHelperService.getDgHelperPaging(curPage, userno);
+		List<HealthRecord> recordList = dgHelperService.getRecordList(dgHelperPaging, userno);
 	
 		model.addAttribute("list",recordList);
-		model.addAttribute("paging", DgHelperPaging);
+		model.addAttribute("paging", dgHelperPaging);
 		
 		logger.info("List : {}", recordList);
-		logger.info("페이징 : {}", DgHelperPaging);
+		logger.info("페이징 : {}", dgHelperPaging);
 	}
 	
 	//개별회원의 운동기록 추가
@@ -72,44 +72,23 @@ public class DgHelperController {
 		return result; 
 	}
 	
-	//AJAX용 운동기록 조회
-//	@RequestMapping(value="/dghelper/healthrecordlist", method=RequestMethod.GET)
-//	public void healthRecordList(Model model,String curPage, HttpSession session) {
-//		logger.info("/dghelper/healthrecordlist [GET]");
-//		
-//		session.setAttribute("userno", 7777);
-//		int userno = (int) session.getAttribute("userno");
-//		logger.info("userno : {}", userno);
-//		
-//		DgHelperPaging DgHelperPaging = dgHelperService.getDgHelperPaging(curPage, userno);
-//		List<HealthRecord> recordList = dgHelperService.getRecordList(DgHelperPaging, userno);
-//	
-//		model.addAttribute("list",recordList);
-//		model.addAttribute("paging", DgHelperPaging);
-//		
-//		logger.info("List : {}", recordList);
-//		logger.info("페이징 : {}", DgHelperPaging);
-//	}
-	
 	//운동일기 삭제
 	@RequestMapping(value="/dghelper/deleterecord", method=RequestMethod.POST)
-	public String healthRecordDelete(Model model,String curPage, HttpSession session, int recordNo) {
+	public String healthRecordDelete(Model model, int recordNo) {
 		logger.info("/dghelper/deleterecord [POST]");
 		
 		dgHelperService.removeRecord(recordNo);
 		
-		session.setAttribute("userno", 7777);
-		int userno = (int) session.getAttribute("userno");
-		logger.info("userno : {}", userno);
-		
-		DgHelperPaging DgHelperPaging = dgHelperService.getDgHelperPaging(curPage, userno);
-		List<HealthRecord> recordList = dgHelperService.getRecordList(DgHelperPaging, userno);
+		return "redirect: /dghelper/healthrecord";
+	}
 	
-		model.addAttribute("list",recordList);
-		model.addAttribute("paging", DgHelperPaging);
+	//운동일기 수정
+	@RequestMapping(value="/dghelper/updaterecord", method=RequestMethod.POST)
+	public String healthRecordUpdate(Model model, int recordNo) {
+		logger.info("/dghelper/updaterecord [POST]");
 		
-		logger.info("List : {}", recordList);
-		logger.info("페이징 : {}", DgHelperPaging);
+		dgHelperService.changeRecord(recordNo);
+		
 		return "redirect: /dghelper/healthrecord";
 	}
 	
@@ -183,6 +162,7 @@ public class DgHelperController {
 	@RequestMapping(value="/dghelper/calorieProc", method=RequestMethod.GET)
 	public void calorieProc() {
 		logger.info("/dghelper/caloriePorc [GET]");
+		
 	}
 	
 	//--------------------------------------------------------------------

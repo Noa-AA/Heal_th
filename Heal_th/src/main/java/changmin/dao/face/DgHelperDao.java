@@ -11,7 +11,7 @@ public interface DgHelperDao {
 
 	public int insertRecord(HealthRecord healthRecord);
 
-	public List<HealthRecord> selectRecord(DgHelperPaging DgHelperPaging);
+	public List<HealthRecord> selectRecord(DgHelperPaging dgHelperPaging);
 
 	public int selectCntAll();
 

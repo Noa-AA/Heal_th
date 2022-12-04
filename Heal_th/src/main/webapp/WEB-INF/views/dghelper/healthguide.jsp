@@ -66,13 +66,25 @@ $(document).ready(function(){
 	position: absolute;
 	top: 200px;
 	left: 150px;
-	width: 180px;
+	width: 200px;
 	height: 300px;
-	padding: 10px;
+	padding: 20px;
 	background: linear-gradient(120deg, #3f94d6 0 , #1869a7);
 }  
 
 @media screen and (max-width: 1640px) {
+	.Quick {
+		left: 75px;
+	}
+}
+
+@media screen and (max-width: 1400px) {
+	.Quick {
+		left: 0px;
+	}
+}
+
+@media screen and (max-width: 1200px) {
 	.Quick {
 		display: none;
 	}
@@ -122,13 +134,13 @@ input {
 <div class="Quick">
     <table class="quickMenuBar">
         <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthrecord">운동일기장</a></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthguide">운동가이드</a></td>
-        </tr>
-        <tr>
             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthtest">운동성향 테스트</a></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthguide">칼로리사전</a></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthrecord">운동일기장</a></td>
         </tr>
 <!--         <tr>
             <td colspan="2" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</td>
