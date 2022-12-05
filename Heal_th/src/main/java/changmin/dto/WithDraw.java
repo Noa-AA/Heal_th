@@ -7,12 +7,13 @@ public class WithDraw {
 	private String wdAccount;
 	private String wdUsername;
 	private String bankName;
+	private String wdDate;
 	private int userNo;
 
 	public WithDraw() {}
 
 	public WithDraw(int wdNo, int wdAmount, String wdProcess, String wdAccount, String wdUsername, String bankName,
-			int userNo) {
+			String wdDate, int userNo) {
 		super();
 		this.wdNo = wdNo;
 		this.wdAmount = wdAmount;
@@ -20,13 +21,15 @@ public class WithDraw {
 		this.wdAccount = wdAccount;
 		this.wdUsername = wdUsername;
 		this.bankName = bankName;
+		this.wdDate = wdDate;
 		this.userNo = userNo;
 	}
 
 	@Override
 	public String toString() {
 		return "WithDraw [wdNo=" + wdNo + ", wdAmount=" + wdAmount + ", wdProcess=" + wdProcess + ", wdAccount="
-				+ wdAccount + ", wdUsername=" + wdUsername + ", bankName=" + bankName + ", userNo=" + userNo + "]";
+				+ wdAccount + ", wdUsername=" + wdUsername + ", bankName=" + bankName + ", wdDate=" + wdDate
+				+ ", userNo=" + userNo + "]";
 	}
 
 	public int getWdNo() {
@@ -77,6 +80,14 @@ public class WithDraw {
 		this.bankName = bankName;
 	}
 
+	public String getWdDate() {
+		return wdDate;
+	}
+
+	public void setWdDate(String wdDate) {
+		this.wdDate = wdDate;
+	}
+
 	public int getUserNo() {
 		return userNo;
 	}
@@ -85,5 +96,6 @@ public class WithDraw {
 		this.userNo = userNo;
 	}
 
+	
 	
 }

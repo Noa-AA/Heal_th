@@ -4,18 +4,12 @@
  <script type="text/javascript">
  
   $(document).ready(function(){
-	  			
-	  	
-	  			
-	  			
-	  
 				//아이디 중복 검사 
+				var count =0;
 			  $("#btn_checkId").click(function(){
-				
 				  	console.log("checkId 클릭")
 				
 				  	$.ajax({
-				  		
 				  		type:"post"
 				  		,url:"/login/checkId"
 				  		,data:{
@@ -23,15 +17,15 @@
 				  			}
 				  		,dataType:"json"
 				  		,success:function(res){
-// 				  			
 				  			console.log(res)
 				  			if(res ==0) {	
 				  			$("#checkIdResult").html("사용가능한 아이디입니다.")
 				  			$("#checkIdResult").css("color","green")
-				  			
+				  			count ++;
 				  			} else {
 				  				$("#checkIdResult").html("사용할 수 없는  아이디입니다.")
 				  				$("#checkIdResult"). css("color","red")
+				  				return false;
 				  			}
 				  		}
 				  		,error: function(){
@@ -43,15 +37,11 @@
 			  })
 			  
 			  
-			  
-// 			  //회원 본인 인증 
+ 			  //회원 본인 인증 
 			  $("#btn_userchk").click(function(){
 				console.log("btn_userchk클릭")
 				 $("#smschk").toggle()
-				 
-				 
 				 //보인인증을 위한 문자 보내는 요청하기
-				 new Promise(function(resolve, reject) { 
 					 $.ajax({
 						 type:"post"
 						 ,url:"/login/userChk"
@@ -61,19 +51,13 @@
 						,dataType:"json"
 						,success:function(res){
 							console.log("문자 요청 성공")
-							
 						}
 						,error: function(){
 				  			console.log("문자요청 실패")
-// 	 			  			alert("전화번호를 확인해주세요")
-				  			
+	 			  			alert("전화번호를 확인해주세요")
 				  		}
-						 
 					 })
 					 
-					 
-				})
-				
 		});//문자보내기 완료 
 				
 			$("#btn_code").click(function(){
@@ -94,35 +78,232 @@
 							//본인인증 성공 시 
 						$("#result_code").html("본인인증 성공!")
 						$("#result_code").css("color","green")
-							
 						} else {
 							
 						//본인인증 실패시
 						console.log('본인인증 실패')
 						$("#result_code").html("본인인증을 다시 해주세요")
 						$("#result_code").css("color","red")
+							return false
 						}
 					}
 					,error :function(){
 						alert("관리자에게 문의해주세요")
 						console.log("실패!!!!")	
 					}
-					
-					
 				}); 
 				
 			}) //문자인증 완료 
 			
-	
-		
+
+			//회원가입 form 전송
+		    $("#joinbtn").click(function(){
+		    	console.log("submit event")
+		    		if(count==0) {
+		    			$("#checkIdResult").html("아이디 중복검사를 해주세요")
+		    			$("#checkIdResult").css("color","red")
+		    			
+		    		}
+		    	
+
+		    	//유효성 검증 후 submit
+		    	if(validate() && validateId()&& validatePw()&&pwChk()&&count>0){
+		    	
+		    		console.log(count)
+		    		$("#joinform").submit();
+			    }
+		    		return false;	//조건 만족하지 않으면 회원가입 되지 않음	
+		    	
+					    	
+		    })
+		    
+		    $("#userId").keyup(function(){
+		    		console.log("아이디 유효성 검사")
+					validateId()
+		    })
+		    //비밀번호 유효성 검사
+		    
+		    $("#userPw").change(function(){
+		    		console.log("비밀번호 유효성 검사")
+					validatePw()
+		    })
+		    
+		    //비밀번호 재확인
+		    $("#userPwChk").keyup(function(){
+				console.log("비밀번호 입력 확인")
+				pwChk()
+			})
+		    
+		   
+		    //input박스 초기화
+		    $("#userName").focus(function(){
+		    	$("#nameAlert").html("");
+		    })
+		    
+		    //아이디 입력창에 포커스 주기
+		    $("input").eq(0).focus()
+		    
+		    //취소하기 버튼(뒤로가기)
+		    $("#joinCancel").click(function(){
+		    	console.log("취소하기")
+		    	history.go(-1) 
+		    })
+		    
+		 
+		   
+		   
   })			
 
-				  
-				  
-			 
-			  
-			  
- 
+  //비밀번호 유효성 검사
+ function validatePw(){
+	  
+	  var vPw = document.getElementById("userPw").value
+
+	  
+	  if(!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(vPw)){
+		  console.log("비밀번호 유효성검사")
+			document.getElementById("pwAlert").innerHTML="<span style='color:red;'> * 비밀번호는 영문대소문자,숫자,특수문자를 모두 포함 8자 이상이어야 합니다.</span>"
+	  		return false;
+	  }else{
+		  console.log("비밀번호 확인")
+			document.getElementById("pwAlert").innerHTML="<span style='color:green;'> 강력한 비밀번호입니다</span>"
+	  		return true;
+	  }
+	  
+	
+	  
+  }
+  
+ function pwChk(){
+	  
+	  var vPw = document.getElementById("userPw").value
+	  var vPwagain = document.getElementById("userPwChk").value
+	  
+	  //비밀번호 입력 확인
+	  if( vPw != vPwagain) {
+	  		console.log("비밀번호 불일치")
+			document.getElementById("pwAgain").innerHTML="<span style='color:red;'> 비밀번호가 일치하지않습니다. 다시한번 확인해주세요</span>"
+			return false;
+	  }else {
+		  	console.log("비밀번호 일치")
+			document.getElementById("pwAgain").innerHTML="<span style='color:green;'> 비밀번호 확인 완료</span>"
+		  	return true;
+	  }
+	 
+ }
+  
+
+  
+  
+  function validateId(){
+		//아이디 유효성 검사: 첫글자 숫자 올 수 없음 소문자,대문자, 숫자로 4이상10이하 가능
+	var vId = document.getElementById("userId").value	
+		
+  	if(!/^[a-zA-z][a-zA-z0-9]{3,9}$/.test(vId)){
+  		console.log("유효성검사")
+			document.getElementById("checkIdResult").innerHTML="<span style='color:red;'> * 아이디는 4~10자의 영문 소대문자,숫자가 가능합니다</span>"
+  		return false;
+  	} else {
+			document.getElementById("checkIdResult").innerHTML="<span style='color:green;'> * 좋은 아이디에요</span>"
+  		return true;
+  	}
+  
+  
+  	
+	  
+  }
+  
+  function validate(){
+		    	//이름이 빈칸일 때 
+		    	if(document.getElementById("userName").value =="") {
+		    		console.log("이름입력 알림")
+		    		document.getElementById("nameAlert").innerHTML="<span style='color:red;'>* 이름을 입력해주세요</span>"
+		    		return false;
+		    	} 
+		    	
+		    	//이메일이 빈칸일 때 
+		    	if(document.getElementById("userEmail").value =="") {
+		    		console.log("이메일입력 알림")
+		    		document.getElementById("emailAlert").innerHTML="<span style='color:red;'>* 이메일을 입력해주세요</span>"
+		    			return false;
+		    	}
+		    	
+		    	//아이디가 빈칸일 때 
+		    	var testId = document.getElementById("userId").value
+		    	if(testId =="") {
+		    		console.log("아이디입력 알림")
+		    		document.getElementById("checkIdResult").innerHTML="<span style='color:red;'>* 아이디를 입력해주세요</span>"
+		    			return false;
+		    	}
+		    
+		    	
+		    	//비밀번호가 빈칸일 때 
+		    	if(document.getElementById("userPw").value =="") {
+		    		console.log("비밀번호입력 알림")
+		    		document.getElementById("pwAlert").innerHTML="<span style='color:red;'>* 비밀번호를 입력해주세요</span>"
+		    			return false;
+		    	}
+		    	
+		    	//비밀번호 유효성 검사 ,비밀번호 확이니 빈칸
+		    	if(document.getElementById("userPwChk").value =="") {
+		    		console.log("비밀번호입력 알림")
+		    		document.getElementById("pwAgain").innerHTML="<span style='color:red;'>* 비밀번호를 확인해주세요</span>"
+		    			return false;
+		    	}
+		    	
+		    		//닉네임이 빈칸일 때 
+		    	if(document.getElementById("userNick").value =="") {
+		    		console.log("닉네임입력 알림")
+		    		document.getElementById("nickAlert").innerHTML="<span style='color:red;'>* 닉네임을 입력해주세요</span>"
+		    	}
+		    	
+		    		//연락처가 빈칸일 때 
+		    	if(document.getElementById("userPhone").value =="") {
+		    		console.log("연락처입력 알림")
+		    		document.getElementById("result_code").innerHTML="<span style='color:red;'>* 연락처를 입력하고 본인인증을 해주세요</span>"
+		    			return false;
+		    	}
+		    		
+// 		    		//본인인증번호가 안되었을 때 ->
+// 		    	if(document.getElementById("code").value =="") {
+// 		    		console.log("본인인증입력 알림")
+// 		    		document.getElementById("result_code").innerHTML="<span style='color:red;'>* 본인인증을 해주세요</span>"
+//                   return false; 		    	
+//					 }
+		    		
+				//성별이 빈칸일 때 
+				var genderRadio = document.querySelector('input[name="userGender"]').checked;
+				console.log(genderRadio)
+		    	if(!genderRadio) {
+		    		console.log("성별입력 알림")
+		    		document.getElementById("genderAlert").innerHTML="<span style='color:red;'>* 성별을 입력해주세요</span>"
+		    			return false;
+		    	}
+				//생년월일이 빈칸일 때 
+		    	if(document.getElementById("userBirth").value =="") {
+		    		console.log("생년월일입력 알림")
+		    		document.getElementById("birthAlert").innerHTML="<span style='color:red;'>* 생년월일을 입력해주세요</span>"
+		    			return false;
+		    	}
+				
+		    	//직업이 빈칸일 때 
+		    	
+		    	if(selectJob = document.getElementById("userJob").value == "") {
+		    		console.log("직업입력 알림")
+		    		document.getElementById("jobAlert").innerHTML="<span style='color:red;'>* 직업을 입력해주세요</span>"
+		    			return false;
+		    	}	
+		    	//주소가 빈칸일 때 
+		    	if(document.getElementById("postcode").value =="") {
+		    		console.log("주소입력 알림")
+		    		document.getElementById("addressAlert").innerHTML="<span style='color:red;'>* 주소를 입력해주세요</span>"
+		    			return false;
+		    	}	
+		    	
+		    	return true;
+	  
+}
+  
   
   </script>
  
@@ -176,6 +357,9 @@
             }
         }).open();
     }
+    
+    
+ 
 </script>
  
 
@@ -188,19 +372,24 @@
 
 회원 가입
 
-<div id="joinform">
-	<form action="/login/join" method="post">
+<div id="join">
+	<form action="/login/join" method="post" id="joinform">
 		<div id="name">		
 		 	<label for="userName">이름
 	 		<input type="text" name="userName" id="userName">
 	 		</label> 
 		</div>
+		
+		<div id="nameAlert"></div>
 	
 		<div id="email">
 			<label for="userEmail">이메일
 			<input type="text" name="userEmail" id="userEmail">
 			</label>
 		</div>
+		
+		<div id="emailAlert"></div>
+		
 		<div id="id">
 			<label for="userId">아이디
 			<input type="text" name="userId" id="userId">
@@ -215,15 +404,28 @@
 	
 		<div id="pw">
 			<label for="userPw">비밀번호
-			<input type="text" name="userPw" id="userPw">
+			<input type="password" name="userPw" id="userPw">
 			</label>
 		</div>
+		<div id="pwAlert"></div>
+		
+		
+		<div id="pwChk">
+			<label for="userPwChk">비밀번호 확인
+			<input type="password" name="userPwChk" id="userPwChk">
+			</label>
+		</div>
+		<div id="pwAgain"></div>
+		
+		
 		
 		<div id="nick">
 			<label for="userNick">닉네임
 			<input type="text" name="userNick" id="userNick">
 			</label>
 		</div>
+			<div id="nickAlert"></div>
+		
 		<div id="phone">
 			<label for="userPhone">연락처
 			<input type="text" name="userPhone" id="userPhone">
@@ -239,24 +441,30 @@
 			</div>
 			
 			<div id="result_code"></div>
-
 			
 		</div>
 		
 		<div id="gender">
 			<label for="userGender">성별			
-			<input type="radio" name="userGender" value="male">남성
-			<input type="radio" name="userGender" value="female">여성
+			<input type="radio" name="userGender" value="male" id="userGender">남성
+			<input type="radio" name="userGender" value="female" id="userGender">여성
 			</label>
+		</div>
+		<div id="genderAlert"></div>
+			
 			
 		<div id="birth">
 			<label for="birth">생년월일
-				<input type="text" name="userBirth" placeholder="생년월일 예)19930101">
+				<input type="text" id="userBirth"name="userBirth" placeholder="생년월일 예)19930101">
 			</label>
 		</div>
+		
+		<div id="birthAlert"></div>
+		
 		<div id="job">
 			<label for="userJob">직업</label>
-			<select name="userJob">
+			<select name="userJob" id="userJob">
+				<option value="" selected disabled>선택해주세요</option>
 				<option value="staff">회사원</option>
 				<option value="teacher">교사</option>
 				<option value="publicOfficial">공무원</option>
@@ -267,9 +475,9 @@
 			</select>
 				
 		</div>
+		<div id="jobAlert"></div>
 		
-		
-		</div>
+	
 	
 		<div id="address">
 			<label for="userAddress">주소</label>
@@ -278,14 +486,15 @@
 				<input type="text" name="userAddress" id="useraddress" placeholder="주소"><br>
 				<input type="text" name="userAddress" id="detailAddress" placeholder="상세주소">
 				<input type="text" name="userAddress" id="extraAddress" placeholder="참고항목">
-			
 		</div>
-		
-		
-		<button id="joinbtn">가입 완료</button>
-	
+			<div id="addressAlert"></div>
+			
+			
+		<button type="button" id="joinbtn">가입 완료</button>
+		<button  type="button" id="joinCancel">가입 취소</button>
 	</form>
 
+	<div id="addressChk"></div>
 </div>
 </body>
 </html>
