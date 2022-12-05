@@ -25,6 +25,8 @@ function goChat(roomNo) {
 			
 		//응답 데이터 반영
 		$("#result").html( res )
+		
+		$(this).
 			
 	}
 		
@@ -33,7 +35,6 @@ function goChat(roomNo) {
 	}	
 		
 	})
-
 }
 
 </script>
