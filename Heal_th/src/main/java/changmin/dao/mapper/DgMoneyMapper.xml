@@ -30,12 +30,17 @@
 	</select>
 	
 	<insert id="insertWithDraw" parameterType="WithDraw">
-		INSERT INTO withdraw(wd_no, wd_amount, wd_process, wd_account, wd_username, bank_name, user_no)
-		VALUES (withdraw_seq.nextval, #{wdAmount},'미처리', #{wdAccount}, #{wdUsername}, #{bankName}, #{userNo})
+		INSERT INTO withdraw(wd_no, wd_date, wd_amount, wd_process, wd_account, wd_username, bank_name, user_no)
+		VALUES (withdraw_seq.nextval, to_char(systimestamp, 'yyyy"년 "mm"월 "dd"일" hh:mm:ss'), #{wdAmount},'미처리', #{wdAccount}, #{wdUsername}, #{bankName}, #{userNo})
 	</insert>
 	
-	<select id="selectWithDrawList" resultType="WithDraw">
-		SELECT * FROM withdraw ORDER BY wd_no DESC
+	<select id="selectWithDrawList" resultType="WithDraw" parameterType="AdminWithDrawPaging">
+		SELECT * FROM (
+		   SELECT rownum rnum, R.* FROM (
+		      SELECT * FROM withdraw ORDER BY wd_no DESC
+		    ) R
+		 ) RECORD
+		 WHERE rnum BETWEEN #{startNo} AND #{endNo}
 	</select>
 	
 	<update id="updateWdProcess" parameterType="WithDraw">
@@ -51,5 +56,9 @@
 	<select id="selectWithDrawCnt" resultType="int" parameterType="int">
 		SELECT count(*) FROM withdraw
 		WHERE user_no=#{userno} AND wd_process='미처리'
+	</select>
+	
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM withdraw 
 	</select>
 </mapper>
