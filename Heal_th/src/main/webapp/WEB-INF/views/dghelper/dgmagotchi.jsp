@@ -58,13 +58,19 @@
 
 .main-content {
 	width: 400px;
-	height: 500px;
+	height: 460px;
+}
+
+#awake{
+	font-size: 30px;
 }
 
 #character {
 	position: relative;
 	top: 300px;
 }
+
+
 .small-container button {
 	border: none;
 	outline: none;
@@ -78,9 +84,23 @@
 	justify-content: flex-start;
 	width: 200px;
 	height: 50%;
-	border: 1px solid silver;
+	border: 1px solid white;
 	background-color: rgba(0,0,0, 0.7);
 	text-align: center;
+}
+
+.small-container2 {
+
+}
+
+.button-container {
+	width: 800px;
+	justify-content: column-reverse;
+}
+#dgbaby {
+	position: relative;
+	animation: loop 10s infinite;
+	transform: rotateY(0deg);
 }
 
 .status-container p {
@@ -95,7 +115,19 @@
 	width: 200px;
 	height: 50%;
 }
+
+.weather-wrap {
+	border: 1px solid white;
+	background-color: rgba(0,0,0, 0.7);
+	padding: 10px;
+
+}
+.weather-container p {
+	color: white;
+}
 /* 날씨 끝 */
+
+/* 애니메이션 시작*/
 
 @keyframes vibration {
   from {
@@ -105,6 +137,34 @@
     transform: rotate(-3deg);
   }
 }
+
+@keyframes vibration2 {
+  from {
+    transform: rotate(30deg);
+  }
+  to {
+    transform: rotate(-5deg);
+  }
+}
+
+
+@keyframes loop{
+    0%{
+    	top:0px;
+    	left:-200px;
+    }
+    50%{
+    	top:0px;
+    	left:200px;
+   	}
+   	100%{
+   		top:0px;
+   		left:-200px;
+   	}
+    	
+
+}
+/* 애니메이션 끝*/
 
 </style>
 <script type="text/javascript">
@@ -122,10 +182,9 @@ $(document).ready(function(){
 			$("#dgEgg button").css("animation-play-state", "paused");
 		},200);
 		
-		if(awake==10){
+		if(awake==1){
 			$("#dgEgg").css("display","none");
 			$("#dgbabyawake").css("display","block");
-			alert("득근이가 알에서 나오려고 해요 !");
 		}
 		
 
@@ -137,17 +196,47 @@ $(document).ready(function(){
 		
 		$("#awake").html(awake + " / 20");
 		setTimeout(function(){
-			$("#dgEgg button").css("animation-play-state", "paused");
+			$("#dgbabyawake button").css("animation-play-state", "paused");
 		},200);
 		
-		if(awake==20){
+		if(awake==2){
 			$("#dgbabyawake").css("display","none");
 			$("#dgbaby").css("display","block");
-			alert("애기 득근이가 태어났습니다 !");
 			
 		}
 	})
+	
 });
+
+$.getJSON('https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=89205d456ca75c3e8437b84277bf671e&units=metric'
+		, function(result) {
+		
+			$('.ctemp').append(result.main.temp + '°');
+			$('.hightemp').append(result.main.temp_max);
+			$('.lowtemp').append(result.main.temp_min);
+			
+			//result.weather[0].icon
+			var wiconUrl = '<img src="http://openweathermap.org/img/wn/'+ result.weather[0].icon +
+				'.png" alt="' + result.weather[0].discription +'">'
+			$('.icon').append(wiconUrl);
+			
+			var ct = result.dt;
+			
+			function convertTime(t) {
+				var ot = new Date(t * 1000);
+				
+				var mt = ot.getMonth()+1;
+				var dt = ot.getDate();
+				var hr = ot.getHours();
+				var m = ot.getMinutes();
+				
+				return mt + '월 ' + dt + '일  ' + hr + ':' + m
+			}
+				
+			var currentTime = convertTime(ct);
+			$('.time').append(currentTime);
+
+	});
 </script>
 <body>
 <div class="big-container">
@@ -172,14 +261,13 @@ $(document).ready(function(){
     </table>
 </div>
 <!-- 퀵메뉴 끝 -->  
-	<h1>득근이 키우기</h1>
 	<div class="small-container">
 		<div class="status-container">
 			<div class="status-content">
 				<p>득근이 상태창</p>
-				<p>배고픔 : ■■■■■■■□</p>
-				<p>목마름 : ■■■■■■□□</p>
-				<p>피곤함 : ■■■■■■■■</p	>
+				<p>포만감 : ■■■■■■■□</p>
+				<p>피로도 : ■■■■■■□□</p>
+				<p>득근력 : ■■■■■■■■</p	>
 			</div>
 		</div>
 		<div class="main-content">
@@ -200,15 +288,35 @@ $(document).ready(function(){
 				<div id="dgbaby" style="display: none;">
 					<img src="/resources/img/dgmagotchi/dgbaby.png">
 				</div>
-			</div>
-		</div>
-		
-		<div class="weather-container">
-			<div class="weather-content">
-				<p>날씨</p>
+				<div id="dgbaby2" style="display: none;">
+					<img src="/resources/img/dgmagotchi/dgbaby2.png">
+				</div>
 			</div>
 		</div>
 
+		
+		<div class="weather-container">
+			<div class="weather-content">
+				<div class="weather-wrap">
+					<div class="weather-widget">
+						<div class="weather-back">
+						</div>
+						<div class="weather-content">
+							<p class="time"></p>
+							<p class="ctemp">현재 온도 : </p>
+						</div>
+					</div>
+				</div> 
+			</div>
+		</div>
+
+	</div>
+	<div class="small-content2">
+		<div class="button-container">
+			<button>밥먹이기</button>
+			<button>똥치우기</button>
+			<button>잠재우기</button>
+		</div>
 	</div>
 </div>
 </body>
