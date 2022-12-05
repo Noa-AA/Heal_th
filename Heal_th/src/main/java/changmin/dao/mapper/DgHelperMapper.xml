@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스 3 Mapper DTD -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="changmin.dao.face.DgHelperDao">
+
+	<insert id="insertRecord" parameterType="HealthRecord">
+		INSERT INTO healthrecord (record_no, record_date, record_con, user_no)
+		VALUES (healthrecord_seq.nextval, to_char(systimestamp, 'yyyy"년 "mm"월 "dd"일" hh:mm:ss'), #{recordCon}, #{userNo})
+	</insert>
+	
+	<select id="selectRecord" resultType="HealthRecord" parameterType="DgHelperPaging">
+		SELECT * FROM (
+		   SELECT rownum rnum, R.* FROM (
+		      SELECT
+		         record_no, record_date, record_con, user_no
+		       FROM healthrecord
+		       ORDER BY record_no DESC
+		    ) R
+		 ) RECORD
+		 WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM healthrecord 
+	</select>
+	
+	<select id="selectBodyInfo" resultType="BodyInfo" parameterType="int">
+		SELECT weight, height
+		FROM body_info
+		WHERE body_no IN(SELECT max(body_no)
+						 FROM body_info
+						 WHERE user_no=#{userno })
+	</select>
+	
+	<select id="selectUserInfo" resultType="Users" parameterType="int">
+		SELECT *
+		FROM users
+		WHERE user_no = #{userno }
+	</select>
+	
+	<delete id="deleteRecord" parameterType="int">
+		DELETE FROM healthrecord
+		WHERE record_no = #{recordNo }
+	</delete>
+	
+</mapper>

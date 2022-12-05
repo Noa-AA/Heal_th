@@ -3,14 +3,21 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
+	
+	<!-- @Transactional 어노테이션 기능을 활성화한다 -->
+	<tx:annotation-driven/>
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
@@ -21,8 +28,44 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.heal_th.www" />
+
+	<!-- 파일업로드 요청을 처리하는 클래스 등록 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		
+		<!-- 메모리에서 파일을 처리할 수 있는 최대 사이즈 : 1MB -->
+		<beans:property name="maxInMemorySize" value="1048576"/>
+		
+		<!-- 파일 업로드 최대 허용 사이즈 : 10MB -->
+		<beans:property name="maxUploadSize" value="10485760"/>
+		
+		<!-- 업로드된 파일 하나 당 최대 사이즈 : 5MB -->
+		<beans:property name="maxUploadSizePerFile" value="5242880"/>
+		
+	</beans:bean>
+
 	
-	
+	<context:component-scan base-package="com.heal_th.www,
+	 changmin.controller, changmin.service,
+	 daeyeon.controller, daeyeon.service,
+	 hyanghee.controller, hyanghee.service,
+	 hyunkyung.controller, hyunkyung.service,
+	 jucheol.controller, jucheol.service,
+	 saebyeol.controller, saebyeol.service,
+	 unhak.controller, unhak.service,
+	 yerim.controller, yerim.service"  />
+	 
+	 
+	 <!-- websocket handler -->
+   <beans:bean id="chatHandler" class="daeyeon.handler.ChatHandler" />
+   
+   <websocket:handlers>
+       <websocket:mapping handler="chatHandler" path="/chat" />
+       <websocket:handshake-interceptors>
+       
+            <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+            
+       </websocket:handshake-interceptors>
+       
+	</websocket:handlers>
 	
 </beans:beans>

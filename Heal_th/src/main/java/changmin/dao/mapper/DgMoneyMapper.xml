@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스 3 Mapper DTD -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="changmin.dao.face.DgMoneyDao">
+
+	<select id="selectDgmoney" resultType="int" parameterType="int">
+		SELECT dg_money
+		FROM users
+		WHERE user_no = #{userno }
+	</select>
+	
+	<insert id="insertDgmoney" parameterType="MmoneyPay">
+		INSERT INTO mmoney_pay(mmoneypay_no, amount, user_no)
+		VALUES(mmoney_pay_seq.nextval, #{amount }, #{userNo } )
+	</insert>
+	
+	<update id="updateDgmoney" parameterType="MmoneyPay">
+		UPDATE users SET dg_money=(dg_money+#{amount})
+		WHERE user_no = #{userNo }
+	</update>
+	
+	<select id="selectUserInfo" resultType="Users" parameterType="int">
+		SELECT *
+		FROM users
+		WHERE user_no = #{userno }
+	</select>
+	
+	<insert id="insertWithDraw" parameterType="WithDraw">
+		INSERT INTO withdraw(wd_no, wd_date, wd_amount, wd_process, wd_account, wd_username, bank_name, user_no)
+		VALUES (withdraw_seq.nextval, to_char(systimestamp, 'yyyy"년 "mm"월 "dd"일" hh:mm:ss'), #{wdAmount},'미처리', #{wdAccount}, #{wdUsername}, #{bankName}, #{userNo})
+	</insert>
+	
+	<select id="selectWithDrawList" resultType="WithDraw" parameterType="AdminWithDrawPaging">
+		SELECT * FROM (
+		   SELECT rownum rnum, R.* FROM (
+		      SELECT * FROM withdraw ORDER BY wd_no DESC
+		    ) R
+		 ) RECORD
+		 WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<update id="updateWdProcess" parameterType="WithDraw">
+		UPDATE withdraw SET wd_process='처리완료' WHERE wd_no=#{wdNo}
+	</update>
+	
+	<update id="updateDgmoneybyAdmin" parameterType="WithDraw">
+		UPDATE users
+		SET dg_money=dg_money-#{wdAmount}
+		WHERE user_no=#{userNo}
+	</update>
+	
+	<select id="selectWithDrawCnt" resultType="int" parameterType="int">
+		SELECT count(*) FROM withdraw
+		WHERE user_no=#{userno} AND wd_process='미처리'
+	</select>
+	
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM withdraw 
+	</select>
+</mapper>

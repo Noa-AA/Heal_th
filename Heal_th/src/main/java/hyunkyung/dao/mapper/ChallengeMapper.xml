@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스3 Mapper DTD -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="hyunkyung.dao.face.ChallengeDao">
+<!-- 	전체 챌린지 수 조회 -->
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM challenge
+	</select>
+	
+<!-- 	챌린지 리스트 -->
+	<select id="selectList" resultType="Challenge" parameterType="Paging">
+		SELECT * FROM (
+    		SELECT rownum rnum, C.* FROM (
+        		SELECT
+            		challenge_no, challenge_kind, challenge_name
+            		, challenge_credate, challenge_enddate
+            	FROM challenge
+            	ORDER BY challenge_no DESC
+    	 	) C   
+    	) CHALLENGE
+    	WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	
+<!-- 	챌린지 상세보기 -->
+	<select id="selectChallenge" resultType="Challenge" parameterType="Challenge">
+		SELECT
+			challenge_no, challenge_kind, challenge_name
+            , challenge_credate, challenge_enddate
+        FROM challenge
+        WHERE challenge_no = #{challengeNo}
+	</select>
+</mapper>    
+    	
+

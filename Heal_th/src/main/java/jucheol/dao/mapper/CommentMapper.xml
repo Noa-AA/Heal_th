@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바티스 3 Mapper DTD -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jucheol.dao.face.CommentDao">
+
+	<insert id="insertComment" parameterType="Comment">
+		INSERT INTO board_comment (comment_no, comment_content, user_no, comment_date, board_no, category_no)
+		VALUES (board_comment_seq.nextval, #{commentContent}, #{userNo}, sysdate, #{boardNo}, #{categoryNo} )
+	</insert>
+	
+<!-- 	<select id="selectList" resultType="Comment" parameterType="Comment"> -->
+<!-- 		SELECT a.comment_no, a.comment_content, a.comment_date, a.board_no, a.category_no, a.user_no, b.user_nick -->
+<!-- 		FROM board_comment a, users b -->
+<!-- 		WHERE a.comment_no = #{categoryNo} -->
+<!-- 		AND a.user_no = b.user_no -->
+<!-- 	</select> -->
+	<select id="selectList" resultType="Comment" parameterType="Comment">
+		SELECT 
+			a.comment_no, a.comment_content, a.comment_date, a.board_no, a.category_no, b.user_nick
+		FROM 
+			board_comment a, users b
+		WHERE 
+			a.board_no = #{boardNo} AND a.category_no = #{categoryNo}
+			AND a.user_no=b.user_no
+		ORDER BY comment_no
+	</select>
+	
+	<delete id="deleteComment" parameterType="Comment">
+		DELETE board_comment
+		WHERE comment_no = #{commentNo}	
+	</delete>
+</mapper>
