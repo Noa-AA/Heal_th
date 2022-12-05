@@ -93,6 +93,7 @@ public class ChatController {
 			session.setAttribute("userId", id);
 			
 			return "/chat/main";
+			
 		}
 		
 		

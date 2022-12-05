@@ -22,8 +22,8 @@ public class ChatHandler extends TextWebSocketHandler {
 	//로그 객체
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-//	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
-	private Map<Integer, Object> sessionList = new HashMap<Integer, Object>();
+	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
+//	private Map<Integer, Object> sessionList = new HashMap<Integer, Object>();
 	
 //	@Autowired private ChatService chatService;
 	
@@ -37,8 +37,8 @@ public class ChatHandler extends TextWebSocketHandler {
     	int userNo = (Integer)session.getAttributes().get("userNo");
     	RoomList roomNo = (RoomList)session.getAttributes().get("roomNo"); 
     	
-    	sessionList.put(roomNo.getRoomNo(), session);
-//    	sessionList.add(session);
+//    	sessionList.put(roomNo.getRoomNo(), session);
+    	sessionList.add(session);
     	logger.info( "아이디 : {} 유저번호 : {} 연결됨", Id, userNo );
     	logger.info( "방번호 : {}", roomNo.getRoomNo() );
     	
@@ -50,11 +50,23 @@ public class ChatHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage( WebSocketSession session, TextMessage message) throws Exception {
     	String Id = (String)session.getAttributes().get("userId");
-    	int userNo = (Integer)session.getAttributes().get("userNo");
+    	RoomList roomNo = (RoomList)session.getAttributes().get("roomNo"); 
     	
     	logger.info( "{}로 부터 {} 받음", Id, message.getPayload() );
     	
     	logger.info("sessionList : {}", sessionList);
+    	
+    	for( WebSocketSession data : sessionList ) {
+    		
+    		String[] Arr = data.getUri().toString().split("=");
+    		logger.info("포문 : {}", Arr[1]);
+    		
+    		if(roomNo.getRoomNo() == Integer.parseInt(Arr[1]) ) {
+    			data.sendMessage(new TextMessage(Id + " : " + message.getPayload()));
+    		}
+    		
+    	}
+    	
     	
 //    	for (WebSocketSession sess : sessionList) {
 //    		sess.sendMessage(new TextMessage(Id + " : " + message.getPayload()));
