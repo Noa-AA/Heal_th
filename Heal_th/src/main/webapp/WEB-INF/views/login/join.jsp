@@ -81,6 +81,7 @@
 						console.log('본인인증 실패')
 						$("#result_code").html("본인인증을 다시 해주세요")
 						$("#result_code").css("color","red")
+							return false
 						}
 					}
 					,error :function(){
@@ -91,15 +92,123 @@
 				
 			}) //문자인증 완료 
 			
-			
+
+			//회원가입 form 전송
 		    $("#joinbtn").click(function(){
+		    	console.log("submit event")
+
+		    	//유효성 검증 후 submit
+		    	if(validate() && validateId()&& validatePw()&&pwChk()){
+		    	$("#joinform").submit();
+			    }
+		    		return false;	//조건 만족하지 않으면 회원가입 되지 않음	
 		    	
-		    	//아이디가 빈칸일 때 
+					    	
+		    })
+		    
+		    $("#userId").keyup(function(){
+		    		console.log("아이디 유효성 검사")
+					validateId()
+		    })
+		    //비밀번호 유효성 검사
+		    
+		    $("#userPw").change(function(){
+		    		console.log("비밀번호 유효성 검사")
+					validatePw()
+		    })
+		    
+		    //비밀번호 재확인
+		    $("#userPwChk").keyup(function(){
+				console.log("비밀번호 입력 확인")
+				pwChk()
+			})
+		    
+		   
+		    //input박스 초기화
+		    $("#userName").focus(function(){
+		    	$("#nameAlert").html("");
+		    })
+		    
+		    //아이디 입력창에 포커스 주기
+		    $("input").eq(0).focus()
+		    
+		    //취소하기 버튼(뒤로가기)
+		    $("#joinCancel").click(function(){
+		    	console.log("취소하기")
+		    	history.go(-1) 
+		    })
+		    
+		 
+		   
+		   
+  })			
+
+  //비밀번호 유효성 검사
+ function validatePw(){
+	  
+	  var vPw = document.getElementById("userPw").value
+
+	  
+	  if(!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(vPw)){
+		  console.log("비밀번호 유효성검사")
+			document.getElementById("pwAlert").innerHTML="<span style='color:red;'> * 비밀번호는 영문대소문자,숫자,특수문자를 모두 포함해야합니다.</span>"
+	  		return false;
+	  }else{
+		  console.log("비밀번호 확인")
+			document.getElementById("pwAlert").innerHTML="<span style='color:green;'> 강력한 비밀번호입니다</span>"
+	  		return true;
+	  }
+	  
+	
+	  
+  }
+  
+ function pwChk(){
+	  
+	  var vPw = document.getElementById("userPw").value
+	  var vPwagain = document.getElementById("userPwChk").value
+	  
+	  //비밀번호 입력 확인
+	  if( vPw != vPwagain) {
+	  		console.log("비밀번호 불일치")
+			document.getElementById("pwAgain").innerHTML="<span style='color:red;'> 비밀번호가 일치하지않습니다. 다시한번 확인해주세요</span>"
+			return false;
+	  }else {
+		  	console.log("비밀번호 일치")
+			document.getElementById("pwAgain").innerHTML="<span style='color:green;'> 비밀번호 확인 완료</span>"
+		  	return true;
+	  }
+	 
+ }
+  
+
+  
+  
+  function validateId(){
+		//아이디 유효성 검사: 첫글자 숫자 올 수 없음 소문자,대문자, 숫자로 4이상10이하 가능
+	var vId = document.getElementById("userId").value	
+		
+  	if(!/^[a-zA-z][a-zA-z0-9]{3,9}$/.test(vId)){
+  		console.log("유효성검사")
+			document.getElementById("checkIdResult").innerHTML="<span style='color:red;'> * 아이디는 4~10자의 영문 소대문자,숫자가 가능합니다</span>"
+  		return false;
+  	} else {
+			document.getElementById("checkIdResult").innerHTML="<span style='color:green;'> * 좋은 아이디에요</span>"
+  		return true;
+  	}
+  
+  
+  	
+	  
+  }
+  
+  function validate(){
+		    	//이름이 빈칸일 때 
 		    	if(document.getElementById("userName").value =="") {
 		    		console.log("이름입력 알림")
 		    		document.getElementById("nameAlert").innerHTML="<span style='color:red;'>* 이름을 입력해주세요</span>"
-		    			return false;
-		    	}
+		    		return false;
+		    	} 
 		    	
 		    	//이메일이 빈칸일 때 
 		    	if(document.getElementById("userEmail").value =="") {
@@ -108,13 +217,15 @@
 		    			return false;
 		    	}
 		    	
-		    	
 		    	//아이디가 빈칸일 때 
-		    	if(document.getElementById("userId").value =="") {
+		    	var testId = document.getElementById("userId").value
+		    	if(testId =="") {
 		    		console.log("아이디입력 알림")
 		    		document.getElementById("checkIdResult").innerHTML="<span style='color:red;'>* 아이디를 입력해주세요</span>"
 		    			return false;
 		    	}
+		    
+		    	
 		    	//비밀번호가 빈칸일 때 
 		    	if(document.getElementById("userPw").value =="") {
 		    		console.log("비밀번호입력 알림")
@@ -133,7 +244,6 @@
 		    	if(document.getElementById("userNick").value =="") {
 		    		console.log("닉네임입력 알림")
 		    		document.getElementById("nickAlert").innerHTML="<span style='color:red;'>* 닉네임을 입력해주세요</span>"
-		    			return false;
 		    	}
 		    	
 		    		//연락처가 빈칸일 때 
@@ -143,14 +253,20 @@
 		    			return false;
 		    	}
 		    		
+// 		    		//본인인증번호가 안되었을 때 ->
+// 		    	if(document.getElementById("code").value =="") {
+// 		    		console.log("본인인증입력 알림")
+// 		    		document.getElementById("result_code").innerHTML="<span style='color:red;'>* 본인인증을 해주세요</span>"
+//                   return false; 		    	
+//					 }
+		    		
 				//성별이 빈칸일 때 
 				var genderRadio = document.querySelector('input[name="userGender"]').checked;
 		    	if(!genderRadio) {
 		    		console.log("성별입력 알림")
 		    		document.getElementById("genderAlert").innerHTML="<span style='color:red;'>* 성별을 입력해주세요</span>"
-		    		return false;
+		    			return false;
 		    	}
-		    	
 				//생년월일이 빈칸일 때 
 		    	if(document.getElementById("userBirth").value =="") {
 		    		console.log("생년월일입력 알림")
@@ -159,7 +275,8 @@
 		    	}
 				
 		    	//직업이 빈칸일 때 
-		    	if(document.getElementById("userJob").value =="") {
+		    	
+		    	if(selectJob = document.getElementById("userJob").value == "") {
 		    		console.log("직업입력 알림")
 		    		document.getElementById("jobAlert").innerHTML="<span style='color:red;'>* 직업을 입력해주세요</span>"
 		    			return false;
@@ -170,9 +287,12 @@
 		    		document.getElementById("addressAlert").innerHTML="<span style='color:red;'>* 주소를 입력해주세요</span>"
 		    			return false;
 		    	}	
-		    }); //유효성 검사
-  })			
-
+		    	
+		    	return true;
+	  
+}
+  
+  
   </script>
  
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -240,8 +360,8 @@
 
 회원 가입
 
-<div id="joinform">
-	<form action="/login/join" method="post">
+<div id="join">
+	<form action="/login/join" method="post" id="joinform">
 		<div id="name">		
 		 	<label for="userName">이름
 	 		<input type="text" name="userName" id="userName">
@@ -332,6 +452,7 @@
 		<div id="job">
 			<label for="userJob">직업</label>
 			<select name="userJob" id="userJob">
+				<option value="" selected disabled>선택해주세요</option>
 				<option value="staff">회사원</option>
 				<option value="teacher">교사</option>
 				<option value="publicOfficial">공무원</option>
