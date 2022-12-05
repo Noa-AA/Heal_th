@@ -5,6 +5,7 @@
  
   $(document).ready(function(){
 				//아이디 중복 검사 
+				var count =0;
 			  $("#btn_checkId").click(function(){
 				  	console.log("checkId 클릭")
 				
@@ -20,9 +21,11 @@
 				  			if(res ==0) {	
 				  			$("#checkIdResult").html("사용가능한 아이디입니다.")
 				  			$("#checkIdResult").css("color","green")
+				  			count ++;
 				  			} else {
 				  				$("#checkIdResult").html("사용할 수 없는  아이디입니다.")
 				  				$("#checkIdResult"). css("color","red")
+				  				return false;
 				  			}
 				  		}
 				  		,error: function(){
@@ -96,10 +99,18 @@
 			//회원가입 form 전송
 		    $("#joinbtn").click(function(){
 		    	console.log("submit event")
+		    		if(count==0) {
+		    			$("#checkIdResult").html("아이디 중복검사를 해주세요")
+		    			$("#checkIdResult").css("color","red")
+		    			
+		    		}
+		    	
 
 		    	//유효성 검증 후 submit
-		    	if(validate() && validateId()&& validatePw()&&pwChk()){
-		    	$("#joinform").submit();
+		    	if(validate() && validateId()&& validatePw()&&pwChk()&&count>0){
+		    	
+		    		console.log(count)
+		    		$("#joinform").submit();
 			    }
 		    		return false;	//조건 만족하지 않으면 회원가입 되지 않음	
 		    	
@@ -151,7 +162,7 @@
 	  
 	  if(!/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/.test(vPw)){
 		  console.log("비밀번호 유효성검사")
-			document.getElementById("pwAlert").innerHTML="<span style='color:red;'> * 비밀번호는 영문대소문자,숫자,특수문자를 모두 포함해야합니다.</span>"
+			document.getElementById("pwAlert").innerHTML="<span style='color:red;'> * 비밀번호는 영문대소문자,숫자,특수문자를 모두 포함 8자 이상이어야 합니다.</span>"
 	  		return false;
 	  }else{
 		  console.log("비밀번호 확인")
@@ -262,6 +273,7 @@
 		    		
 				//성별이 빈칸일 때 
 				var genderRadio = document.querySelector('input[name="userGender"]').checked;
+				console.log(genderRadio)
 		    	if(!genderRadio) {
 		    		console.log("성별입력 알림")
 		    		document.getElementById("genderAlert").innerHTML="<span style='color:red;'>* 성별을 입력해주세요</span>"
