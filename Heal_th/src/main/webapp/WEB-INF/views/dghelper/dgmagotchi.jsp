@@ -89,6 +89,15 @@
 	text-align: center;
 }
 
+.small-container2 {
+	position: realtive;
+	top: -50px; 
+}
+
+.button-container {
+	width: 800px;
+	justify-content: column-reverse;
+}
 #dgbaby {
 	position: relative;
 	animation: loop 10s infinite;
@@ -254,53 +263,61 @@ $.getJSON('https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=89205d4
 </div>
 <!-- 퀵메뉴 끝 -->  
 	<div class="small-container">
-		<div class="status-container">
-			<div class="status-content">
-				<p>득근이 상태창</p>
-				<p>포만감 : ■■■■■■■□</p>
-				<p>피로도 : ■■■■■■□□</p>
-				<p>득근력 : ■■■■■■■■</p	>
-			</div>
-		</div>
-		<div class="main-content">
-			<div id="awake">
-				<p>알을 클릭해주세요 ! </p>
-			</div>
-			<div id="character">
-				<div id="dgEgg" style="display:block;">
-					<button>
-						<img src="/resources/img/dgmagotchi/dgEgg.png">
-					</button>
-				</div>
-				<div id="dgbabyawake" style="display: none;">
-					<button>
-						<img src="/resources/img/dgmagotchi/dgbabyawake.png">
-					</button>
-				</div>
-				<div id="dgbaby" style="display: none;">
-					<img src="/resources/img/dgmagotchi/dgbaby.png">
-				</div>
-				<div id="dgbaby2" style="display: none;">
-					<img src="/resources/img/dgmagotchi/dgbaby2.png">
+		<div class="small2-container">
+			<div class="status-container">
+				<div class="status-content">
+					<p>득근이 상태창</p>
+					<p>포만감 : ■■■■■■■□</p>
+					<p>피로도 : ■■■■■■□□</p>
+					<p>득근력 : ■■■■■■■■</p	>
 				</div>
 			</div>
-		</div>
-		
-		<div class="weather-container">
-			<div class="weather-content">
-				<div class="weather-wrap">
-					<div class="weather-widget">
-						<div class="weather-back">
-						</div>
-						<div class="weather-content">
-							<p class="time"></p>
-							<p class="ctemp">현재 온도 : </p>
-						</div>
+			<div class="main-content">
+				<div id="awake">
+					<p>알을 클릭해주세요 ! </p>
+				</div>
+				<div id="character">
+					<div id="dgEgg" style="display:block;">
+						<button>
+							<img src="/resources/img/dgmagotchi/dgEgg.png">
+						</button>
 					</div>
-				</div> 
+					<div id="dgbabyawake" style="display: none;">
+						<button>
+							<img src="/resources/img/dgmagotchi/dgbabyawake.png">
+						</button>
+					</div>
+					<div id="dgbaby" style="display: none;">
+						<img src="/resources/img/dgmagotchi/dgbaby.png">
+					</div>
+					<div id="dgbaby2" style="display: none;">
+						<img src="/resources/img/dgmagotchi/dgbaby2.png">
+					</div>
+				</div>
+			</div>
+
+			<div class="weather-container">
+				<div class="weather-content">
+					<div class="weather-wrap">
+						<div class="weather-widget">
+							<div class="weather-back">
+							</div>
+							<div class="weather-content">
+								<p class="time"></p>
+								<p class="ctemp">현재 온도 : </p>
+							</div>
+						</div>
+					</div> 
+				</div>
+			</div>
+
+		<div class="small-content2">
+			<div class="button-container">
+				<button>밥먹이기</button>
+				<button>똥치우기</button>
+				<button>잠재우기</button>
 			</div>
 		</div>
-
 	</div>
 </div>
 </body>
