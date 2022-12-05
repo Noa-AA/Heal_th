@@ -269,12 +269,14 @@
 // 		    		console.log("본인인증입력 알림")
 // 		    		document.getElementById("result_code").innerHTML="<span style='color:red;'>* 본인인증을 해주세요</span>"
 //                   return false; 		    	
-//					 }
+// 					 }
 		    		
 				//성별이 빈칸일 때 
-				var genderRadio = document.querySelector('input[name="userGender"]').checked;
-				console.log(genderRadio)
-		    	if(!genderRadio) {
+				var genderRadioF = document.querySelector('input[id="female"]').checked;
+				var genderRadioM = document.querySelector('input[id="male"]').checked;
+				console.log(genderRadioF)
+				console.log(genderRadioM)
+		    	if(!genderRadioF && !genderRadioM) {
 		    		console.log("성별입력 알림")
 		    		document.getElementById("genderAlert").innerHTML="<span style='color:red;'>* 성별을 입력해주세요</span>"
 		    			return false;
@@ -446,8 +448,8 @@
 		
 		<div id="gender">
 			<label for="userGender">성별			
-			<input type="radio" name="userGender" value="male" id="userGender">남성
-			<input type="radio" name="userGender" value="female" id="userGender">여성
+			<input type="radio" name="userGender" value="male" id="male">남성
+			<input type="radio" name="userGender" value="female" id="female">여성
 			</label>
 		</div>
 		<div id="genderAlert"></div>
