@@ -278,6 +278,7 @@ function clip(){
 	padding: 20px;
 	background: linear-gradient(120deg, #3f94d6 0 , #1869a7);
 	text-align: left;
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
 }  
 
 @media screen and (max-width: 1640px) {
@@ -491,12 +492,16 @@ button {
 	border: none;
 }
 
+.question-container {
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);	
+}
 .question-container button:hover {
 	background-color: #59d9b0;
 }
 
 .question-container button {
 	font-family: 'dalseo';
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
 }
 
 </style>

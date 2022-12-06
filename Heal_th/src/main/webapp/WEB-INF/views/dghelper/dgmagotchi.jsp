@@ -15,6 +15,7 @@
 	padding: 20px;
 	background: linear-gradient(120deg, #3f94d6 0 , #1869a7);
 	text-align: left;
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
 }  
 
 @media screen and (max-width: 1640px) {
@@ -54,22 +55,59 @@
 	height: 500px;
 	padding: 15px;
 	background-image: url("/resources/img/dgmagotchi/dgmagotchiBack.png");
-}
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
+} 
 
 .main-content {
 	width: 400px;
 	height: 460px;
+	margin: 0 auto;
 }
 
-#awake{
-	font-size: 30px;
+.message-container {
+	display: flex;
+	width: 400px;
+	margin: 0 auto;
+	justify-content: center;
 }
 
+#message{
+	display: flex;
+	font-size: 27px;
+	position: absolute;
+	font-weight: bold;
+}
+
+/* 캐릭터 시작 */
 #character {
 	position: relative;
-	top: 300px;
+	top: 270px;
 }
 
+#dgbaby {
+	position: relative;
+	animation: vibration2 1s infinite;
+	top: 30px;
+/* 	animation: loop 10s infinite; */
+/* 	transform: rotateY(0deg); */
+}
+
+.poop {
+	width: 38px;
+	height: 38px;
+	position: relative;
+	top: 330px;
+	background-image: url("/resources/img/dgmagotchi/poop.png");
+}
+
+/* .poopsound { */
+/* 	width: 50x; */
+/* 	height: 42px; */
+/* 	position: relative; */
+/* 	top: 330px; */
+/* 	background-image: url("/resources/img/dgmagotchi/poopsound.png"); */
+/* } */
+/* 캐릭터 끝 */
 
 .small-container button {
 	border: none;
@@ -81,32 +119,86 @@
 .status-container {
 	padding: 10px;
 	display: flex;
-	justify-content: flex-start;
+	justify-content: space-around;
 	width: 200px;
-	height: 50%;
+	height: 230px;
 	border: 1px solid white;
 	background-color: rgba(0,0,0, 0.7);
 	text-align: center;
 }
 
-.small-container2 {
-
+.status-container p, .status-container span {
+	color: white;
 }
+
+.dginfo {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+#dgname {
+	display: flex;
+	border: 1px solid white;
+	padding: 5px;
+    justify-content: center;
+    flex-direction: column
+}
+
+#dginfo {
+	display: flex;
+	justify-content: center;
+	border: 1px solid white;
+	width: 80px;
+	padding: 5px;
+}
+
+#dginfo p {
+	display: contents;
+}
+
+#exp-name {
+	display: flex;
+	justify-content: left;
+}
+
+#exp-value {
+	display: flex;
+	justify-content: right;
+	position: relative;
+	top: -20px;
+}
+
+#save {
+	width: 158px;
+	height: 45px;
+	color: white;
+	border: 1px solid white;
+	margin-top: 20px;
+	position: relative;
+	top: -20px;
+}
+/* 스테이터스 끝 */
 
 .button-container {
 	width: 800px;
-	justify-content: column-reverse;
-}
-#dgbaby {
 	position: relative;
-	animation: loop 10s infinite;
-	transform: rotateY(0deg);
+    top: -80px;
 }
 
-.status-container p {
+.button-container p {
 	color: white;
 }
-/* 스테이터스 끝 */
+
+.button-container button {
+	padding: 10px 30px;
+	margin: 0 10px;
+	background: linear-gradient(120deg, #3f94d6 0 , #1869a7);
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
+	border:none;
+} 
+
 
 /* 날씨 시작 */
 .weather-container {
@@ -120,6 +212,7 @@
 	border: 1px solid white;
 	background-color: rgba(0,0,0, 0.7);
 	padding: 10px;
+	width: 130px;
 
 }
 .weather-container p {
@@ -140,12 +233,15 @@
 
 @keyframes vibration2 {
   from {
-    transform: rotate(30deg);
+    transform: rotate(20deg);
+    left: 0;
   }
   to {
-    transform: rotate(-5deg);
+    transform: rotate(-10deg);
+    left: -20px;
   }
 }
+
 
 
 @keyframes loop{
@@ -170,73 +266,129 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	var awake = 0;
+	//현재시간
+	function convertTime() {
+		var ot = new Date();
+		
+		var mt = ot.getMonth()+1;
+		var dt = ot.getDate();
+		var hr = ot.getHours();
+		var m = ot.getMinutes();
+		var s = ot.getSeconds();
+		
+		if(m<10){
+			m = '0' + m;
+		}
+		if(s<10){
+			s = '0' + s;
+		}
+		return mt + '월 ' + dt + '일  ' + hr + ':' + m + ':' + s
+	}
+
+	function interval(){
+		var currentTime = convertTime();
+		$('.time').html(currentTime);
+	}
+
+	function init(){
+		interval();
+		setInterval(interval, 1000);
+	}
 	
+	init();
+	
+	//현재 온도
+	$.getJSON('https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=89205d456ca75c3e8437b84277bf671e&units=metric'
+			, function(result) {
+			
+				$('.ctemp').append(result.main.temp + '°');
+				$('.hightemp').append(result.main.temp_max);
+				$('.lowtemp').append(result.main.temp_min);
+				
+				//result.weather[0].icon
+				var wiconUrl = '<img src="http://openweathermap.org/img/wn/'+ result.weather[0].icon +
+					'.png" alt="' + result.weather[0].discription +'">'
+				$('.icon').append(wiconUrl);
+				
+
+	});
+	
+	//경험치
+	var exp = 0;
+
+	//득근이 부화시키기
 	$("#dgEgg button").click(function(){
-		awake++;
-		console.log(awake);
+		
+		exp++;
 		$(this).css("animation", "vibration 0.1s infinite");
 		
-		$("#awake").html(awake + " / 20");
+		$("#message").html(exp + " / 20");
 		setTimeout(function(){
 			$("#dgEgg button").css("animation-play-state", "paused");
 		},200);
 		
-		if(awake==1){
+		if(exp==1){
 			$("#dgEgg").css("display","none");
 			$("#dgbabyawake").css("display","block");
 		}
 		
 
 	})
-	
+
+	//득근이 부화
 	$("#dgbabyawake").click(function(){
-		awake++;
-		$(this).css("animation", "vibration 0.1s infinite");
 		
-		$("#awake").html(awake + " / 20");
+		exp++;
+		
+		$(this).css("animation", "vibration2 10s infinite");
+		
+		$("#message").html(exp + " / 20");
 		setTimeout(function(){
 			$("#dgbabyawake button").css("animation-play-state", "paused");
 		},200);
 		
-		if(awake==2){
+		if(exp==2){
+			$("#message").html("");
 			$("#dgbabyawake").css("display","none");
 			$("#dgbaby").css("display","block");
-			
+// 			$("#dgbaby").css("animation", "vibration 0.1s infinite");
+			$(".button-container").css("display","block");
 		}
 	})
 	
+	//득근이 똥쌈
+	function poop(){
+		if(exp>=2){
+			var bodyWidth = document.querySelector("#character").offsetWidth;
+			var randPosX = Math.floor((Math.random()*bodyWidth));
+			console.log(randPosX);
+			
+			$("#poopzone").html("<div class='poop'></div>");
+			$("#message").html("득근이의 똥을 치워주세요");
+	    	$(".poop").each(function () {
+	            $(this).css({
+	                left: randPosX
+	            });
+	        }); 
+			$("#dgbaby").css("top","-5px");
+		}
+	}
+	
+ 	function pooploop(){
+		setInterval(poop, 10000);
+	}
+	
+	pooploop();
+
 });
 
-$.getJSON('https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=89205d456ca75c3e8437b84277bf671e&units=metric'
-		, function(result) {
-		
-			$('.ctemp').append(result.main.temp + '°');
-			$('.hightemp').append(result.main.temp_max);
-			$('.lowtemp').append(result.main.temp_min);
-			
-			//result.weather[0].icon
-			var wiconUrl = '<img src="http://openweathermap.org/img/wn/'+ result.weather[0].icon +
-				'.png" alt="' + result.weather[0].discription +'">'
-			$('.icon').append(wiconUrl);
-			
-			var ct = result.dt;
-			
-			function convertTime(t) {
-				var ot = new Date(t * 1000);
-				
-				var mt = ot.getMonth()+1;
-				var dt = ot.getDate();
-				var hr = ot.getHours();
-				var m = ot.getMinutes();
-				
-				return mt + '월 ' + dt + '일  ' + hr + ':' + m
-			}
-				
-			var currentTime = convertTime(ct);
-			$('.time').append(currentTime);
+//득근이 똥 치우기
+function removePoop(){
+	$(".poop").remove();
+	$("#dgbaby").css("top","35px");
+	$("#message").html("");
+}
 
-	});
 </script>
 <body>
 <div class="big-container">
@@ -264,16 +416,30 @@ $.getJSON('https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=89205d4
 	<div class="small-container">
 		<div class="status-container">
 			<div class="status-content">
-				<p>득근이 상태창</p>
-				<p>포만감 : ■■■■■■■□</p>
-				<p>피로도 : ■■■■■■□□</p>
-				<p>득근력 : ■■■■■■■■</p	>
+				<div class="dginfo">
+					<div id="dgname">
+						<p>득근이</p>
+					</div>
+					<div id="dginfo">
+						<p>나이 : 1살</p><br>
+						<p>체중 : 2kg</p>
+					</div>
+				</div>
+				<p id="statA">배부름 : ■■■■■■■□</p>
+				<p id="statB">에너지 : ■■■■■■□□</p>
+				<p id="statC">청결도 : ■■■■■■□□</p>
+				<span id="exp-name">득근력 : </span>
+				<span id="exp-value">0 Power</span>
+				<button id="save">저장하기</button>
 			</div>
 		</div>
 		<div class="main-content">
-			<div id="awake">
-				<p>알을 클릭해주세요 ! </p>
+			<div class="message-container">
+				<div id="message">
+					<p>알을 클릭해주세요 ! </p>
+				</div>
 			</div>
+			<div id="poopzone"></div>
 			<div id="character">
 				<div id="dgEgg" style="display:block;">
 					<button>
@@ -308,14 +474,14 @@ $.getJSON('https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=89205d4
 					</div>
 				</div> 
 			</div>
-		</div>
-
+		</div> 
 	</div>
 	<div class="small-content2">
-		<div class="button-container">
-			<button>밥먹이기</button>
-			<button>똥치우기</button>
-			<button>잠재우기</button>
+		<div class="button-container" style="display: none;">
+			<button><p>밥먹이기</p></button>
+			<button><p>잠재우기</p></button>
+			<button onclick="removePoop()"><p>똥치우기</p></button>
+			<button><p>운동하기</p></button>
 		</div>
 	</div>
 </div>
