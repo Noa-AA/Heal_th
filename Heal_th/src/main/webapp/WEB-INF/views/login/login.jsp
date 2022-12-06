@@ -73,7 +73,7 @@ $(document).ready(function(){
 	
 	
 	<div id="searchId">
-		<a href="">아이디찾기</a>
+		<a href="/login/searchId">아이디찾기</a>
 	</div>
 	
 	<div id="searchPw">

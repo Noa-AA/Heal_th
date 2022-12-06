@@ -18,6 +18,11 @@
   	
   	</select>
   
+   	<select id="selectUser" resultType="int" parameterType="Users">
+   		SELECT count(*) FROM users
+   		WHERE user_name=#{userName} and user_email=#{userEmail}
+   	
+   	</select>
   </mapper>
   
   
