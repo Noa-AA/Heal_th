@@ -430,6 +430,14 @@
  
 </script>
  
+ <style type="text/css">
+#join {
+ 	width:500px;
+ 	margin : 0 auto;
+ }
+ 
+ </style>
+ 
 
  
 </head>
@@ -438,7 +446,6 @@
 <body>
 
 
-회원 가입
 
 <div id="join">
 	<form action="/login/join" method="post" id="joinform">
@@ -563,6 +570,7 @@
 	</form>
 
 	<div id="addressChk"></div>
+	
 </div>
 </body>
 </html>

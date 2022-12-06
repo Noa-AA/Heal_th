@@ -26,7 +26,22 @@
 		<button>로그인</button>	
 	</form>
 	
-	<a href="/login/join">회원가입</a>
+	
+	<div id="joina">
+		<a href="/login/join">회원가입</a>
+	</div>
+	
+	
+	<div id="searchId">
+		<a href="">아이디찾기</a>
+	</div>
+	
+	<div id="searchPw">
+		<a href="">비밀번호 찾기</a>
+	
+	</div>
+	
+	
 </div>
 </body>
 </html>
