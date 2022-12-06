@@ -23,7 +23,8 @@ public class ChatHandler extends TextWebSocketHandler {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
-//	private Map<Integer, Object> sessionList = new HashMap<Integer, Object>();
+	private Map<Integer ,WebSocketSession> sessionMap = new HashMap<Integer ,WebSocketSession>();
+//	private List<Map<String, Object>> sessionList = new ArrayList<Map<String, Object>>();  //3
 	
 //	@Autowired private ChatService chatService;
 	
@@ -37,8 +38,20 @@ public class ChatHandler extends TextWebSocketHandler {
     	int userNo = (Integer)session.getAttributes().get("userNo");
     	RoomList roomNo = (RoomList)session.getAttributes().get("roomNo"); 
     	
-//    	sessionList.put(roomNo.getRoomNo(), session);
-    	sessionList.add(session);
+    	sessionMap.put(userNo, session);
+    	
+    	logger.info("sessionMap : {}", sessionMap);
+    	
+//    	if(sessionList==null) {
+//    		sessionList.add(session);
+//    	} else {  
+//    		for( WebSocketSession data : sessionList ) {
+//    			if(data.getUri())
+//    			
+//    		}
+//    	}
+
+    	
     	logger.info( "아이디 : {} 유저번호 : {} 연결됨", Id, userNo );
     	logger.info( "방번호 : {}", roomNo.getRoomNo() );
     	
@@ -56,6 +69,8 @@ public class ChatHandler extends TextWebSocketHandler {
     	
     	logger.info("sessionList : {}", sessionList);
     	
+    	
+    	
     	for( WebSocketSession data : sessionList ) {
     		
     		String[] Arr = data.getUri().toString().split("=");
@@ -64,7 +79,6 @@ public class ChatHandler extends TextWebSocketHandler {
     		if(roomNo.getRoomNo() == Integer.parseInt(Arr[1]) ) {
     			data.sendMessage(new TextMessage(Id + " : " + message.getPayload()));
     		}
-    		
     	}
     	
     	
@@ -83,6 +97,9 @@ public class ChatHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed( WebSocketSession session, CloseStatus status) throws Exception {
     	sessionList.remove(session);
+    	RoomList roomNo = (RoomList)session.getAttributes().get("roomNo"); 
+    	
+//    	sessionMap.remove(roomNo.getRoomNo());
     	logger.info("아이디 : {} - 연결 끊김", session.getId() );
     	
     }
@@ -91,21 +108,3 @@ public class ChatHandler extends TextWebSocketHandler {
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
