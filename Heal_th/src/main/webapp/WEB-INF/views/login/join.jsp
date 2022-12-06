@@ -99,30 +99,40 @@
 			//회원가입 form 전송
 		    $("#joinbtn").click(function(){
 		    	console.log("submit event")
-		    		if(count==0) {
-		    			$("#checkIdResult").html("아이디 중복검사를 해주세요")
-		    			$("#checkIdResult").css("color","red")
-		    			
-		    		}
-		    	
 
-		    	//유효성 검증 후 submit
+		    	//유효성 검증 후 submit*(조건이 모두 만족해야 가입이됨)
 		    	if(validate() && validateId()&& validatePw()&&pwChk()&&count>0){
 		    	
 		    		console.log(count)
 		    		$("#joinform").submit();
 			    }
-		    		return false;	//조건 만족하지 않으면 회원가입 되지 않음	
 		    	
-					    	
+
+		    		return false;	//조건 만족하지 않으면 회원가입 되지 않음	
 		    })
 		    
+		    //아이디 유효성검사
 		    $("#userId").keyup(function(){
 		    		console.log("아이디 유효성 검사")
 					validateId()
 		    })
-		    //비밀번호 유효성 검사
 		    
+		    //아이디 중복확인 안했을 때의 처리 
+		    $("#userId").blur(function(){
+		    		console.log("중복확인 요청")
+				if(count==0) {
+	 	    			$("#checkIdResult").html("아이디 중복검사를 해주세요")
+	 	    			$("#checkIdResult").css("color","red")
+	 	    	return false;
+		    
+				}
+		    		
+		    	return true;
+		    })
+		    
+		    
+		    
+		    //비밀번호 유효성 검사
 		    $("#userPw").change(function(){
 		    		console.log("비밀번호 유효성 검사")
 					validatePw()
@@ -140,7 +150,7 @@
 		    	$("#nameAlert").html("");
 		    })
 		    
-		    //아이디 입력창에 포커스 주기
+		    //첫번째 입력창에 포커스 주기
 		    $("input").eq(0).focus()
 		    
 		    //취소하기 버튼(뒤로가기)
@@ -150,9 +160,62 @@
 		    })
 		    
 		 
+	
+		    
+		   //메시지 영역 초기화
+		   $("#userName").focus(function(){ //이름 메시지 영역 초기화
+			   $("#nameAlert").html("")
+		   })
 		   
+		   $("#userEmail").focus(function(){//이메일 메시지 영역 초기화
+			   $("#emailAlert").html("")
+		   })
 		   
-  })			
+		   $("#userId").focus(function(){//아이디 메시지 영역 초기화
+			   $("#checkIdResult").html("")
+		   })
+		   
+		    $("#userPw").focus(function(){//비밀번호 메시지 영역 초기화
+			   $("#pwAlert").html("")
+		   })
+		    $("#userPwChk").focus(function(){//비밀번호 확인 메시지 영역 초기화
+			   $("#pwAgain").html("")
+		   })
+		   
+		    $("#userNick").focus(function(){//닉네임 메시지 영역 초기화
+			   $("#nickAlert").html("")
+		   })
+		   
+		   $("#userPhone").focus(function(){//휴대폰 메시지 영역 초기화
+			   $("#result_code").html("")
+		   })
+		   
+		
+		   $("#male").focus(function(){//성별 메시지 영역 초기화
+			   $("#genderAlert").html("")
+		   })
+		   
+		   $("#female").focus(function(){//성별 메시지 영역 초기화
+			   $("#genderAlert").html("")
+		   })
+		   
+		   $("#userBirth").focus(function(){//생년월일 메시지 영역 초기화
+			   $("#birthAlert").html("")
+		   })
+		   
+		   $("#userJob").focus(function(){//직업 메시지 영역 초기화
+			   $("#jobAlert").html("")
+		   })
+		   
+		   $("#detailAddress").focus(function(){//주소 메시지 영역 초기화
+			   $("#addressAlert").html("")
+		   })
+		   
+		
+		    
+		   
+  })	
+  
 
   //비밀번호 유효성 검사
  function validatePw(){
@@ -236,7 +299,7 @@
 		    			return false;
 		    	}
 		    
-		    	
+	
 		    	//비밀번호가 빈칸일 때 
 		    	if(document.getElementById("userPw").value =="") {
 		    		console.log("비밀번호입력 알림")
@@ -244,7 +307,7 @@
 		    			return false;
 		    	}
 		    	
-		    	//비밀번호 유효성 검사 ,비밀번호 확이니 빈칸
+// 		    	//비밀번호 유효성 검사 ,비밀번호 확인이 빈칸  
 		    	if(document.getElementById("userPwChk").value =="") {
 		    		console.log("비밀번호입력 알림")
 		    		document.getElementById("pwAgain").innerHTML="<span style='color:red;'>* 비밀번호를 확인해주세요</span>"
@@ -255,6 +318,7 @@
 		    	if(document.getElementById("userNick").value =="") {
 		    		console.log("닉네임입력 알림")
 		    		document.getElementById("nickAlert").innerHTML="<span style='color:red;'>* 닉네임을 입력해주세요</span>"
+		    		return false;
 		    	}
 		    	
 		    		//연락처가 빈칸일 때 
@@ -264,17 +328,21 @@
 		    			return false;
 		    	}
 		    		
+		    		
 // 		    		//본인인증번호가 안되었을 때 ->
 // 		    	if(document.getElementById("code").value =="") {
 // 		    		console.log("본인인증입력 알림")
 // 		    		document.getElementById("result_code").innerHTML="<span style='color:red;'>* 본인인증을 해주세요</span>"
 //                   return false; 		    	
-//					 }
+// 					 }	
+
 		    		
 				//성별이 빈칸일 때 
-				var genderRadio = document.querySelector('input[name="userGender"]').checked;
-				console.log(genderRadio)
-		    	if(!genderRadio) {
+				var genderRadioF = document.querySelector('input[id="female"]').checked;
+				var genderRadioM = document.querySelector('input[id="male"]').checked;
+				console.log(genderRadioF)
+				console.log(genderRadioM)
+		    	if(!genderRadioF && !genderRadioM) {
 		    		console.log("성별입력 알림")
 		    		document.getElementById("genderAlert").innerHTML="<span style='color:red;'>* 성별을 입력해주세요</span>"
 		    			return false;
@@ -288,7 +356,7 @@
 				
 		    	//직업이 빈칸일 때 
 		    	
-		    	if(selectJob = document.getElementById("userJob").value == "") {
+		    	if(document.getElementById("userJob").value == "") {
 		    		console.log("직업입력 알림")
 		    		document.getElementById("jobAlert").innerHTML="<span style='color:red;'>* 직업을 입력해주세요</span>"
 		    			return false;
@@ -362,15 +430,21 @@
  
 </script>
  
-
+ <style type="text/css">
+#join {
+ 	width:500px;
+ 	margin : 0 auto;
+ }
  
-</head>
+ </style>
+ 
+
+
 
 
 <body>
 
 
-회원 가입
 
 <div id="join">
 	<form action="/login/join" method="post" id="joinform">
@@ -446,8 +520,8 @@
 		
 		<div id="gender">
 			<label for="userGender">성별			
-			<input type="radio" name="userGender" value="male" id="userGender">남성
-			<input type="radio" name="userGender" value="female" id="userGender">여성
+			<input type="radio" name="userGender" value="male" id="male">남성
+			<input type="radio" name="userGender" value="female" id="female">여성
 			</label>
 		</div>
 		<div id="genderAlert"></div>
@@ -495,6 +569,7 @@
 	</form>
 
 	<div id="addressChk"></div>
+	
 </div>
 </body>
 </html>
