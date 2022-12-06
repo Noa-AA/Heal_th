@@ -35,10 +35,12 @@ public class LoginController {
 	 //아이디 확인하기 
 	 boolean isLogin = loginService.checkLogin(login);
 	 
+	 //userNo조회 해오기
+	 int userNo = loginService.getUserNo(login);
 	 if(isLogin) {
 		 
 		 logger.info("login성공");
-		 session.setAttribute("userNo", login.getUserNo());
+		 session.setAttribute("userNo", userNo);
 	 }else { //로그인 실패
 		 logger.info("로그인 실패");
 		 model.addAttribute("isLogin", isLogin);
@@ -46,6 +48,7 @@ public class LoginController {
 		 return "/login/login";
 	 }
 	 
+	 logger.info("userNo : {}",session.getAttribute("userNo"));
 	 //아이디가 있을 때 
 	 return "redirect:/main";
 	 

@@ -26,4 +26,11 @@ public class LoginServiceImpl implements LoginService {
 		return false;//로그인 실패
 	}
 
+	@Override
+	public int getUserNo(Users login) {
+
+		
+		
+		return loginDao.selectUserno(login);
+	}
 }

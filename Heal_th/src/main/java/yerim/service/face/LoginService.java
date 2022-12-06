@@ -11,4 +11,11 @@ public interface LoginService {
 	 */
 	public boolean checkLogin(Users login);
 
+	/**
+	 * 로그인 시 세션에 저장할 userNo조회하기
+	 * @param login 
+	 * @return - userNo
+	 */
+	public int getUserNo(Users login);
+
 }

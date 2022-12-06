@@ -11,7 +11,12 @@
    	
    	</select>
   
-  
+  	<select id="selectUserno" resultType="int" parameterType="Users">
+  	
+  		SELECT user_no FROM users
+  		WHERE user_id=#{userId} and user_pw =#{userPw} 
+  	
+  	</select>
   
   </mapper>
   

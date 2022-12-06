@@ -11,4 +11,11 @@ public interface LoginDao {
 	 */
 	public int selectIdPw(Users login);
 
+	/**
+	 * userno 조회해오기
+	 * @param login 
+	 * @return
+	 */
+	public int selectUserno(Users login);
+
 }
