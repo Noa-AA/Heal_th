@@ -176,7 +176,7 @@ public class DgHelperController {
 	
 	//--------------------------------------------------------------------
 	
-	//득근이 키우기
+	//득근이 키우
 	@RequestMapping(value="/dghelper/dgmagotchi", method=RequestMethod.GET)
 	public void healthTube() {
 		logger.info("/dghelper/healthtube [GET]");
