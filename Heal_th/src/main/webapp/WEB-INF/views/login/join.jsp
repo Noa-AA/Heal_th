@@ -431,7 +431,7 @@
 </script>
  
  <style type="text/css">
-#join {
+#joinarea {
  	width:500px;
  	margin : 0 auto;
  }
@@ -446,7 +446,7 @@
 
 
 
-<div id="join">
+<div id="joinarea">
 	<form action="/login/join" method="post" id="joinform">
 		<div id="name">		
 		 	<label for="userName">이름
