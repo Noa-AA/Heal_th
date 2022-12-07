@@ -3,15 +3,35 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<!-- <html> -->
+<!-- <head> -->
+<!-- <meta charset="UTF-8"> -->
+<!-- <title>Insert title here</title> -->
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <script type="text/javascript">
+function commentListCall(boardno, category) {
+	$.ajax({
+		type: "get"
+		,url: "/comment/list"
+		,data: {
+				boardno:boardno
+				,category:category
+			}
+		,dataType: "html"
+		,success: function(commentList){
+			//응답 데이터 출력
+			$("#commentList").html(commentList)
+		}
+		,error: function(){
+			console.log("AJAX 실패")
+		}
+	})
+}
+
 $(document).ready(function(){
+	commentListCall(1,1)
 	
 	$("#write").click(function(){ //작성하기
 		console.log("#ajax click")
@@ -31,7 +51,8 @@ $(document).ready(function(){
 				
 				
 				//응답 데이터 출력
-				$("#commentBoard").html(commentList)
+// 				$("#commentList").html(commentList)
+				commentListCall(1, 1)
 			}
 			,error: function(){
 				console.log("AJAX 실패")
@@ -39,31 +60,32 @@ $(document).ready(function(){
 		})
 	})
 	
-	$(".commentDelete").click(function(){ //삭제하기
-		console.log(".commentDelete click")
-		console.log($(this).val())
-		
-		$.ajax({
-			type: "post"
-			,url: "/comment/delete"
-			,data: {
-					commentno:$(this).val() //댓글번호
-					,boardno:1					// 글번호
-					,category:1					// 글 카테고리
-				}
-			,dataType: "html"
-			,success: function(commentList){
-				console.log("AJAX 성공")
+// ------------------------------------------------------------------------- list.jsp로 이사감
+// 	$(".commentDelete").click(function(){ //삭제하기
+// 		console.log(".commentDelete click")
+// 		console.log($(this).val())
+// 		$.ajax({
+// 			type: "post"
+// 			,url: "/comment/delete"
+// 			,data: {
+// 					commentno:$(this).val() //댓글번호
+// 					,boardno:1					// 글번호
+// 					,category:1					// 글 카테고리
+// 				}
+// 			,dataType: "html"
+// 			,success: function(commentList){
+// 				console.log("AJAX 성공")
 				
 				
-				//응답 데이터 출력
-				$("#commentBoard").html(commentList)
-			}
-			,error: function(){
-				console.log("AJAX 실패")
-			}
-		})
-	})
+// 				//응답 데이터 출력
+// // 				$("#commentBoard").html(commentList)
+// 				commentListCall(1, 1)
+// 			}
+// 			,error: function(){
+// 				console.log("AJAX 실패")
+// 			}
+// 		})
+// 	})
 	
 	$("#content").on("keyup",function(key){ // 입력창 엔터시 작성하기버튼 클릭
 	    if(key.keyCode==13) {
@@ -90,30 +112,15 @@ table{
 새<br>로<br>고<br>침<br>확<br>인<br>용<br>
 
 댓글 list<br>
-<div id="commentList">
-<table id="commentListTable">
-<c:forEach items="${commentList }" var="comment">
-	<tr>
-		<td>댓글번호 : ${comment.commentNo }</td>
-		<td>댓글내용 : ${comment.commentContent }</td>
-		<td>작성자 : ${comment.userNick }</td>
-		<td>작성일 : <fmt:formatDate value="${comment.commentDate }" pattern="yy-MM-dd HH:mm:ss"/></td>
-		<td><button class="commentDelete" value="${comment.commentNo}">삭제</button></td>
-<%-- 		<td><a href="${comment.commentNo}">삭제</a></td> --%>
-	</tr>
-</c:forEach>
-</table>
-</div>
-<div id="test"></div>
+<div id="commentList"></div> <!-- 댓글 List 적용될 div -->
 <hr>
 
-<form action="./insert">
-
+<form action="./insert"> <!-- 댓글 입력 폼 -->
 <input type="text" name="content" id="content" placeholder="내용을 입력하세요"><br>
 <button disabled="disabled" style="display: none;"></button>
 <button type="button" id="write">작성하기</button>
-
 </form>
-</div>
+
+</div>  <!-- End commentBoard --> 
 </body>
-</html>
+<!-- </html> -->

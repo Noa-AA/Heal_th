@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,9 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>출석 현황</h1>
-<hr>
-ddd
+쿠키 테스트
 </body>
-<%-- <jsp:include page="../comment/board.jsp" /> --%>
 </html>
