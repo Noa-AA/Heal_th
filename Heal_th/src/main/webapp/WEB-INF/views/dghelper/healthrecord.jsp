@@ -167,11 +167,13 @@ ul {
 	width: 800px;
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
 	border: none;
+	padding: 20px;
 }
 
 #delete {
 	border: none;
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
+	background-color: #f0ebff;
 }
 
 #delete, #recordDate, #recordNo {
