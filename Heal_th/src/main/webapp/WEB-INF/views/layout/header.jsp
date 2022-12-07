@@ -133,7 +133,8 @@ header{
 	background-color: #aaa; 
 	float: right; 
 /*  	background: linear-gradient(120deg, transparent 50px, #3f94d6 0 , #1869a7);  */
- 	background: linear-gradient(120deg, transparent 50px, #02a8a8 0 , #4fb783); 
+/*  	background: linear-gradient(120deg, transparent 50px, #02a8a8 0 , #4fb783);  */
+ 	background: linear-gradient(120deg, transparent 50px, #7ca3f5 0 , #c583d6); 
 }
 
 #right > ul {
@@ -305,7 +306,8 @@ header{
 		<h1 class="logo">
 			<a href="">
 <!-- 				<img src="/resources/img/logo_blue.png" alt="득근득근"> -->
-				<img src="/resources/img/logo_green.png" alt="득근득근">
+<!-- 				<img src="/resources/img/logo_green.png" alt="득근득근"> -->
+				<img src="/resources/img/logo_purple.png" alt="득근득근">
 			</a>		
 		</h1>
 				
@@ -315,7 +317,7 @@ header{
 				<a href="/challenge/list">챌린지</a>
 			</li>
 			<li>
-				<a href="/chat/intro">운동질문</a>
+				<a href="/chat/chatRoom">운동질문</a>
 			</li>
 			<li>
 				<a href="/dghelper/healthtest">운동도우미</a>

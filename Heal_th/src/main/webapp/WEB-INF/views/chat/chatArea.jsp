@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <!DOCTYPE html>
@@ -23,7 +24,8 @@ $(document).ready(function() {
 
 })
 
-	var ws = new WebSocket("ws://localhost:8888/chat?roomNo=${roomNo.roomNo }");
+// 	var ws = new WebSocket("ws://localhost:8888/chat?roomNo=${roomNo.roomNo }");
+	var ws = new WebSocket("ws://localhost:8888/chat");
 		
 	ws.onmessage = onMessage;
 	ws.onclose = onClose;
@@ -32,14 +34,14 @@ $(document).ready(function() {
     function sendMessage() {
     	ws.send($("#msgInput").val());
     }
-    
+   
     // 서버로부터 메시지를 받았을 때
     function onMessage(msg) {
         var data = msg.data;
         var id = data.split(" : ");
         
         if( id[0] == "${userId }" ){
-        	$("#messages").append("<div id='senderMsg'><a>" + data + "</a></div>");
+        	$("#messages").append("<div id='senderMsg'><span>" + ${now } + "</span><a>" + data + "</a></div>");
         } else {
         	$("#messages").append("<div id='receiverMsg'><a>" + data + "</a></div>");
         }
@@ -74,14 +76,22 @@ $(document).ready(function() {
 }
 
 #senderMsg > a {
-/* 	line-height: 50px; */
 	padding: 8px 16px;
 	border-radius: 30px 2px 30px 30px;
 	background-color: #0b90f5;
 	color: #fff;
-	font-weight: 500;
+	font-weight: 400;
 	line-height: 40px;
+	font-size: 15px;
 }
+
+#senderMsg > span {
+	vertical-align: bottom;
+	padding-right: 4px;
+	color: #888888;
+	font-size: 12px;
+}
+
 
 #receiverMsg {
 	text-align: left;
@@ -95,8 +105,9 @@ $(document).ready(function() {
 	border-radius: 2px 30px 30px 30px;
 	background-color: #eeeeee;
 	color: #222222;
-	font-weight: 500;
+	font-weight: 400;
 	line-height: 40px;
+	font-size: 15px;
 }
 
 
@@ -108,6 +119,7 @@ $(document).ready(function() {
 
 <h1>${roomNo.roomNo }번방</h1>
 <hr>
+<fmt:formatDate value="${now }" pattern="yyyy-MM-dd HH:mm:ss" var="now" />
 
 <h1></h1>
     
