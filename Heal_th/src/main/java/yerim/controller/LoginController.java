@@ -67,7 +67,7 @@ public class LoginController {
 	 
 	 @ResponseBody
 	 @PostMapping("/login/searchId")
-	 public boolean searchIdProc(Users searchId,HttpSession session) {
+	 public String searchIdProc(Users searchId,HttpSession session) {
 		 logger.info("/login/serachId [POST]");
 		 logger.info("id:{},email:{}",searchId.getUserName(),searchId.getUserEmail());
 		 
@@ -81,13 +81,14 @@ public class LoginController {
 			 //세션에 정보 저장(입력한 정보-이메일,이름)
 			 session.setAttribute("userName",searchId.getUserName());
 			 session.setAttribute("userEmail",searchId.getUserEmail());
+			 String emailResult = loginService.sendMail(searchId);
 			 
-			 
-			 	return true;
+			 	return emailResult;
 			 
 		 } else {
+			 //회원이 없을 때 세션 삭제 이후 처리는 jsp에서 함
 			 session.invalidate();
-			 return false;
+			 return null;
 		 }
 		 
 	 }
