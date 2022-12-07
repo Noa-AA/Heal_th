@@ -116,8 +116,6 @@ public class BfBoardController {
 		model.addAttribute("updateBoard", beforeafter);
 		model.addAttribute("comment", comment);
 		
-		//댓글 정보 추가
-		
 		//첨부파일 모델값 전달
 //		BoardFile boardFile = boardService.getAttachFile(beforeafter);
 //		model.addAttribute("boardFile", boardFile);
