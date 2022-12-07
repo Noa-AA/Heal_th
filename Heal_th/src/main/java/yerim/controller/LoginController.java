@@ -43,6 +43,8 @@ public class LoginController {
 			 int userNo = loginService.getUserNo(login);
 			 //userNo 세션에 저장
 			 session.setAttribute("userNo", userNo);
+			 session.setAttribute("userId", login.getUserId());
+			 
 		 }else { //로그인 실패 시
 			 logger.info("로그인 실패");
 			 model.addAttribute("isLogin", isLogin);
@@ -50,7 +52,7 @@ public class LoginController {
 			 return "/login/login";
 		 }
 		 
-		 logger.info("userNo : {}",session.getAttribute("userNo"));
+		 logger.info("userNo : {}. userId : {}",session.getAttribute("userNo"),session.getAttribute("userId"));
 		 //아이디가 있을 때 
 		 return "redirect:/main";
 		 
