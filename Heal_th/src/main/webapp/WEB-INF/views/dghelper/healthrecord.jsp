@@ -4,10 +4,10 @@
 <link rel="icon" href="<c:url value='/resources/favicon.ico'/>" type="image/x-icon"/>
 <script type="text/javascript">
 $(document).ready(function(){
-	$(window).scroll(function(){  //스크롤이 움직일때마다 이벤트 발생
-	      var position = $(window).scrollTop()+200; // 현재 스크롤바의 위치값을 반환
-	      $(".Quick").stop().animate({top:position+"px"}, 400); //해당 오브젝트 위치값 재설정
-	});
+// 	$(window).scroll(function(){  //스크롤이 움직일때마다 이벤트 발생
+// 	      var position = $(window).scrollTop()+200; // 현재 스크롤바의 위치값을 반환
+// 	      $(".Quick").stop().animate({top:position+"px"}, 400); //해당 오브젝트 위치값 재설정
+// 	});
 	
 	$("#save").click(function(){
 		console.log("#save click")
@@ -37,7 +37,6 @@ $(document).ready(function(){
 							$("#recordCon").val('')
 							
 							$("#recordlist").html(res)
-							alert("일기작성 완료 !")
 							location.reload();
 						}
 						, error: function(){
@@ -65,7 +64,7 @@ $(document).ready(function(){
 </script>
 <style type="text/css">
 
-.Quick {
+/* .Quick {
 	position: absolute;
 	top: 200px;
 	left: 150px;
@@ -73,9 +72,10 @@ $(document).ready(function(){
 	height: 300px;
 	padding: 20px;
 	background: linear-gradient(120deg, #3f94d6 0 , #1869a7);
-}  
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
+}   */
 
-@media screen and (max-width: 1640px) {
+/* @media screen and (max-width: 1640px) {
 	.Quick {
 		left: 75px;
 	}
@@ -98,10 +98,10 @@ $(document).ready(function(){
 	font-weight: bold;
 	color: white;
 	padding: 10px;
-}
+} */
 
 .big-container {
-	width: 800px;
+	width: 1200px;
 	margin: 0 auto;
 }
 
@@ -121,10 +121,6 @@ ul {
 	list-style:none;
 }
 
-body {
-	height: 2000px;
-}
-
 .record {
 	width: 800px;
 	height: 200px;
@@ -133,81 +129,154 @@ body {
 	border: 1px solid silver;
 }
 
-#update {
-	float: right;
-}
-
-#delete {
-	float: right;
-}
-
 #recordDate {
 	float: left;
 }
-
+ 
+#recordlist {
+	display: flex;
+	width: 1200px;
+    flex-direction: column;
+}
+#healthcount {
+	display: flex;
+	justify-content: right;
+	margin-right: 25px;
+	font-size: 25px;
+}
 #content {
-	width: 100%;
-	border: 1px solid silver;
-	min-height: 200px;
-	padding: 5px;
+	min-height: 250px;
+	width: 550px;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
+	text-align: center;
+	border: none;
+	background-color: aliceblue;
+}
+
+#recordNo {
+	float: left;
+}
+
+#recordDate {
+	float: right;
+}
+
+#recordCon {
+	width: 800px;
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
+	border: none;
+	padding: 20px;
+}
+
+#delete {
+	border: none;
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
+	background-color: #f0ebff;
+}
+
+#delete, #recordDate, #recordNo {
+	margin: 10px;
+}
+
+.content-0:nth-child(odd) {
+    display: flex;
+    flex-direction: column;
+    width: 550px;
+    margin-bottom: -335px;
+    position: relative;
+    left: 25px;
+} 
+
+.content-0:nth-child(even) {
+    display: flex;
+    flex-direction: column;
+    width: 550px;
+    position: relative;
+    left: 625px;
+}
+
+.content-3 {
+	display: flex;
+	justify-content: right;
 }
 
 button {
 	width: 150px;
 }
 
+.write-container {
+	display: flex;
+	justify-content: center;
+}
+
 </style> 
 <body>
  
 <div class="big-container">
-<!-- 퀵메뉴 시작 -->
-<div class="Quick">
-    <table class="quickMenuBar">
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthtest">운동성향 테스트</a></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthguide">칼로리사전</a></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthrecord">운동일기장</a></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/dgmagotchi">득근이 키우기</a></td>
-        </tr>
-<!--         <tr>
-            <td colspan="2" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</td>
-        </tr> -->
-    </table>
-</div>
-<!-- 퀵메뉴 끝 --> 
-	<h1>운동 일기장<img src="/resources/img/diary.png" style="width: 8%;"></h1>
+<!-- <!-- 퀵메뉴 시작 --> 
+<!-- <div class="Quick"> -->
+<!--     <table class="quickMenuBar"> -->
+<!--         <tr> -->
+<!--             <td colspan="2" style="cursor:pointer;"><a href="/map/find">주변 시설 찾기</a></td> -->
+<!--         </tr> -->
+<!--         <tr> -->
+<!--             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthtest">운동성향 테스트</a></td> -->
+<!--         </tr> -->
+<!--         <tr> -->
+<!--             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthguide">칼로리사전</a></td> -->
+<!--         </tr> -->
+<!--         <tr> -->
+<!--             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthrecord">운동일기장</a></td> -->
+<!--         </tr> -->
+<!--         <tr> -->
+<!--             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/dgmagotchi">득근이 키우기</a></td> -->
+<!--         </tr> -->
+<!-- <!--         <tr> -->
+<!--             <td colspan="2" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</td> -->
+<!--         </tr> --> 
+<!--     </table> -->
+<!-- </div> -->
+<!-- <!-- 퀵메뉴 끝 --> 
+	<h1>운동 일기장</h1>
 	<div id="recordlist">
-	<span id="healthcount">나의 운동 횟수 : ${paging.totalCount }회</span><br>
+	<span id="healthcount">나의 일기 작성 횟수 [ ${paging.totalCount } 회 ]</span><br>
 		<c:forEach items="${list }" var="i">
-		<span id="recordDate">작성일 ${i.recordDate}</span><br>
-		<div id="content">
-			<span>${i.recordCon }</span>
+		
+		<div class="content-0">
+			<div class="content-1">
+				<span id="recordNo">${i.recordNo }번째 이야기</span>
+				<span id="recordDate">작성일 ${i.recordDate}</span>
+			</div>
+			
+			<div class="content-2">
+				<div id="content">
+					<span>${i.recordCon }</span>
+				</div>
+			</div>
+			
+			<div class="content-3">
+				<form action="/dghelper/deleterecord?recordNo=${i.recordNo }" method="post">
+					<button id="delete" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</button>
+				</form>
+			</div>
 		</div>
-			<br>
-			<form action="/dghelper/deleterecord?recordNo=${i.recordNo }" method="post">
-				<button id="delete" onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</button>
-			</form>
-<%-- 			<form action="/dghelper/updaterecord?recordNo=${i.recordNo }" method="post"> --%>
-<%-- 				<button id="update" type="button" onclick="submit(${i.recordNo})">수정</button> --%>
-<!-- 			</form> -->
-			<br>
 		</c:forEach>
 	</div>
+	<div class="write-container">
 		<form action="./healthrecord" method="post">
 <textarea id="recordCon" name="recordCon">
-섭취한 칼로리 : [  ] kcal
-소모한 칼로리 : [  ] kcal
-오늘의 운동 일기 : 
-</textarea>
+섭취한 칼로리
+[  ] kcal
+소모한 칼로리
+[  ] kcal
+오늘의 운동 일기
+ - 
+ - </textarea>
 			<p><button id="save" type="button">운동일기 추가</button></p>
 		</form>
-	
+	</div>
 	
 	<div class="text-center">
 		<ul class="pagination pagination-sm">

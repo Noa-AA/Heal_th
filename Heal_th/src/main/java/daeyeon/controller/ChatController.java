@@ -20,7 +20,6 @@ import daeyeon.service.face.ChatService;
 import yerim.dto.Users;
 
 @Controller
-@RequestMapping("/chat")
 public class ChatController {
 
 	
@@ -29,14 +28,9 @@ public class ChatController {
 		
 		@Autowired ChatService chatService;
 		
-		//테스트용 헤더~~~~
-		@RequestMapping("/header")
-		public void header() {
-			
-		}
 		
 		//1. 멘토 리스트
-		@RequestMapping("/intro")
+		@RequestMapping("/chat/intro")
 		public void mentorList(Model model) {
 		logger.info("/chat/intro");
 			
@@ -52,48 +46,49 @@ public class ChatController {
 		
 		//테스트용~~------------------------------------------------------------나중에 지움
 		
-		@GetMapping("/login")
-		public void login() {
-			logger.info("/login");
-		}
-	
-		
-		@PostMapping("/login")
-		public String loginOk(HttpSession session, String id, String pw ) {
-			logger.info("/loginOk");
-			logger.info("id :" + id);
-			logger.info("pw :" + pw);
-			
-			Userss users = new Userss();
-			
-			
-			if( id.equals("aaa") ) {
-				users.setUserNo(10);
-				session.setAttribute("userNo", 10);
-				session.setAttribute("roomNo", 1);
-				
-			} else if(id.equals("bbb")) {
-				users.setUserNo(20);
-				session.setAttribute("userNo", 20);
-				session.setAttribute("roomNo", 1);
-			} else if(id.equals("ccc")) {
-				users.setUserNo(30);
-				session.setAttribute("userNo", 30);
-				session.setAttribute("roomNo", 2);
-			} else {
-				users.setUserNo(40);
-				session.setAttribute("userNo", 40);
-				session.setAttribute("roomNo", 2);
-			}
-				
-			
-			System.out.println( "유저번호 : " + session.getAttribute("userNo") );
-			//테스트용~~
-			
-			session.setAttribute("userId", id);
-			
-			return "/chat/main";
-		}
+//		@GetMapping("/login/login")
+//		public void login() {
+//			logger.info("/login");
+//		}
+//	
+//		
+//		@PostMapping("/login/login")
+//		public String loginOk(HttpSession session, String id, String pw ) {
+//			logger.info("/loginOk");
+//			logger.info("id :" + id);
+//			logger.info("pw :" + pw);
+//			
+//			Userss users = new Userss();
+//			
+//			
+//			if( id.equals("aaa") ) {
+//				users.setUserNo(10);
+//				session.setAttribute("userNo", 10);
+//				session.setAttribute("roomNo", 1);
+//				
+//			} else if(id.equals("bbb")) {
+//				users.setUserNo(20);
+//				session.setAttribute("userNo", 20);
+//				session.setAttribute("roomNo", 1);
+//			} else if(id.equals("ccc")) {
+//				users.setUserNo(30);
+//				session.setAttribute("userNo", 30);
+//				session.setAttribute("roomNo", 2);
+//			} else {
+//				users.setUserNo(40);
+//				session.setAttribute("userNo", 40);
+//				session.setAttribute("roomNo", 2);
+//			}
+//				
+//			
+//			System.out.println( "유저번호 : " + session.getAttribute("userNo") );
+//			//테스트용~~
+//			
+//			session.setAttribute("userId", id);
+//			
+//			return "/chat/main";
+//			
+//		}
 		
 		
 //		@RequestMapping("/main")
@@ -114,7 +109,7 @@ public class ChatController {
 		
 		
 		//채팅룸의 자신의 소속된 채팅방 조회하기
-		@RequestMapping("/chatRoom")
+		@RequestMapping("/chat/chatRoom")
 		public void chatRoom(HttpSession session, Users myUserNo, Model model) {
 			logger.info("/chatRoom");
 			myUserNo.setUserNo((Integer)session.getAttribute("userNo"));
@@ -130,12 +125,12 @@ public class ChatController {
 		
 			
 		//채팅 영역
-		@RequestMapping("/chatArea")
+		@RequestMapping("/chat/chatArea")
 		public void goChat(Model model, HttpSession session, RoomList roomNo, Userss users) {
 			logger.info("/chatArea");
 			logger.info( "채팅방 번호 : {}", roomNo.getRoomNo() );
 			
-			session.setAttribute("roomNo", roomNo);
+			session.setAttribute("roomNo", roomNo.getRoomNo());
 			
 			model.addAttribute("roomNo", roomNo);
 			

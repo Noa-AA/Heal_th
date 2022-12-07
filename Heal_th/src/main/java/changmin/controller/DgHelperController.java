@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import changmin.dto.BodyInfo;
+import changmin.dto.Dgmagotchi;
 import changmin.dto.HealthRecord;
 import changmin.service.face.DgHelperService;
 import changmin.util.DgHelperPaging;
@@ -176,11 +177,53 @@ public class DgHelperController {
 	
 	//--------------------------------------------------------------------
 	
-	//득근이 키우기
+	//득근이 시작화면
 	@RequestMapping(value="/dghelper/dgmagotchi", method=RequestMethod.GET)
-	public void healthTube() {
-		logger.info("/dghelper/healthtube [GET]");
+	public void dgmagotchiStart() {
+		logger.info("/dghelper/dgmagotchi [GET]");
+	}
+	
+	//득근이 키우기
+	@RequestMapping(value="/dghelper/dgmagotchiContent", method=RequestMethod.GET)
+	public void dgmagotchi(HttpSession session, Model model) {
+		logger.info("/dghelper/dgmagotchiContent [GET]");
 		
+		session.setAttribute("userno", 7777);
+		int userno = (int) session.getAttribute("userno");
+		logger.info("userno : {}", userno);
+
+		
+		//득마고치 정보가 없을 경우 새로 만들기
+		int cnt = dgHelperService.getDgmaCnt(userno);
+		
+		if(cnt==0) {
+			dgHelperService.addDgmaInfo(userno);
+		}
+		
+		//득마고치 정보 불러오기
+		Dgmagotchi dgmaLoad = dgHelperService.getDgmaInfo(userno);
+		
+		model.addAttribute("dgmainfo", dgmaLoad);
+			
+
+	}
+	
+	//득근이 저장
+	@ResponseBody
+	@RequestMapping(value="/dghelper/dgmasave", method=RequestMethod.POST)
+	public int dgmagotchiSave(Dgmagotchi dgmagotchi, Model model, HttpSession session) {
+		logger.info("/dghelper/dgmasave [POST]");
+		
+		int userno = (int) session.getAttribute("userno");
+		logger.info("saveUserno : {}", userno);
+		
+		logger.info("dgmagotchi : {}", dgmagotchi);
+		
+		dgHelperService.saveDgmaInfo(dgmagotchi);
+		
+		model.addAttribute("dgmagotchi", dgmagotchi);
+		
+		return dgmagotchi.getDgmaExp();
 	}
 	
 }

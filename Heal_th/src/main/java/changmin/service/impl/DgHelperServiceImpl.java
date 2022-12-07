@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import changmin.dao.face.DgHelperDao;
 import changmin.dto.BodyInfo;
+import changmin.dto.Dgmagotchi;
 import changmin.dto.HealthRecord;
 import changmin.service.face.DgHelperService;
 import changmin.util.DgHelperPaging;
@@ -76,6 +77,34 @@ public class DgHelperServiceImpl implements DgHelperService {
 	public void changeRecord(int recordNo) {
 	
 	}
+
+	@Override
+	public Dgmagotchi getDgmaInfo(int userno) {
+
+		return dgHelperDao.selectDgmaInfo(userno);
+	}
+
+	@Override
+	public int getDgmaCnt(int userno) {
+		
+		return dgHelperDao.selectCntDgmaInfo(userno);
+	}
+	
+	@Override
+	public void addDgmaInfo(int userno) {
+
+		dgHelperDao.insertDgmaInfo(userno);
+		
+	}
+
+	@Override
+	public void saveDgmaInfo(Dgmagotchi dgmagotchi) {
+		
+		dgHelperDao.updateDgmaInfo(dgmagotchi);
+		
+	}
+
+
 
 
 }

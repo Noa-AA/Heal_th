@@ -5,12 +5,25 @@
 
 
 <script type="text/javascript">
-
+$(document).ready(function() {
 	
+	$(".roomBtn").click(function() {
+		
+		$(this).attr("disabled", true);
+		
+		$(".roomBtn").not(this).attr("disabled", false);
+		
+		console.log(".roomBtnClick")
+		
+	})
+		
+})
+
+
+
 function goChat(roomNo) {
 	console.log(".room 클릭")
-
-		
+	
 	$.ajax({
 			
 		type:"get"			//요청 메소드
@@ -25,7 +38,7 @@ function goChat(roomNo) {
 			
 		//응답 데이터 반영
 		$("#result").html( res )
-			
+		
 	}
 		
 	, error: function() {
@@ -33,7 +46,6 @@ function goChat(roomNo) {
 	}	
 		
 	})
-
 }
 
 </script>
@@ -48,11 +60,12 @@ function goChat(roomNo) {
 	margin: 0 auto;
 }
 
-#roomBtn {
+#roomMenu {
+	width: 200px;
 	float: left;
 }
 
-.room {
+.roomBtn {
 	width: 200px;
 	height: 50px;
 	font-size: 18px;
@@ -60,6 +73,7 @@ function goChat(roomNo) {
 	text-align: center;
 	border: 1px solid #ddd;
 	line-height: 50px;
+	margin-bottom: 6px;
 }
 
 #result {
@@ -77,11 +91,13 @@ function goChat(roomNo) {
 
 <div id="backGround">
 	
-	<div id="roomBtn">
+	<div id="roomMenu">
 		<c:forEach items="${roomList }" var="room">
-			<div class="room" onclick="goChat(${room.roomNo })">
-				<span class="roomSp">${room.roomNo }번방</span>
-			</div>
+<%-- 			<div class="room" onclick="goChat(${room.roomNo })"> --%>
+				<button class="roomBtn" onclick="goChat(${room.roomNo })" >
+					<span class="roomSp">${room.roomNo }번방</span>
+				</button>
+<!-- 			</div> -->
 		</c:forEach>
 	</div>
 	

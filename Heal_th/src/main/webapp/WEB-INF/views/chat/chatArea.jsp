@@ -1,7 +1,9 @@
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <!DOCTYPE html>
@@ -23,6 +25,7 @@ $(document).ready(function() {
 
 })
 
+// 	var ws = new WebSocket("ws://localhost:8888/chat?roomNo=${roomNo.roomNo }");
 	var ws = new WebSocket("ws://localhost:8888/chat");
 		
 	ws.onmessage = onMessage;
@@ -32,16 +35,19 @@ $(document).ready(function() {
     function sendMessage() {
     	ws.send($("#msgInput").val());
     }
-    
+   
     // 서버로부터 메시지를 받았을 때
     function onMessage(msg) {
         var data = msg.data;
+        var date = new Date();
+        var dateInfo = date.getHours() + ":" + date.getMinutes();
+        
         var id = data.split(" : ");
         
         if( id[0] == "${userId }" ){
-        	$("#messages").append("<div id='senderMsg'><a>" + data + "</a></div>");
+        	$("#messages").append("<div id='senderMsg'><a id='timeS'>" + dateInfo + "</a><a id='msgS'>" + data + "</a></div>");
         } else {
-        	$("#messages").append("<div id='receiverMsg'><a>" + data + "</a></div>");
+        	$("#messages").append("<div id='receiverMsg'><a id='msgR'>" + data + "</a><a id='timeR'>" + dateInfo + "</a></div>");
         }
         
 //         console.log(data);
@@ -72,16 +78,25 @@ $(document).ready(function() {
 	height: 40px;
 	margin-bottom: 8px;
 }
-
-#senderMsg > a {
-/* 	line-height: 50px; */
+#senderMsg > #msgS {
 	padding: 8px 16px;
 	border-radius: 30px 2px 30px 30px;
-	background-color: #0b90f5;
+	background-color: #7ca3f5;
 	color: #fff;
-	font-weight: 500;
+	font-weight: 400;
 	line-height: 40px;
+	font-size: 15px;
 }
+
+#senderMsg > #timeS {
+	width: 50px;
+	vertical-align: bottom;
+	padding-right: 5px;
+	color: #888888;
+	font-size: 12px;
+	line-height: 22px;
+}
+
 
 #receiverMsg {
 	text-align: left;
@@ -90,13 +105,23 @@ $(document).ready(function() {
 	margin-bottom: 8px;
 }
 
-#receiverMsg > a {
+#receiverMsg > #msgR {
 	padding: 8px 16px;
 	border-radius: 2px 30px 30px 30px;
 	background-color: #eeeeee;
 	color: #222222;
-	font-weight: 500;
+	font-weight: 400;
 	line-height: 40px;
+	font-size: 15px;
+}
+
+#receiverMsg > #timeR {
+	width: 50px;
+	vertical-align: bottom;
+	padding-left: 5px;
+	color: #888888;
+	font-size: 12px;
+	line-height: 22px;
 }
 
 
@@ -108,6 +133,9 @@ $(document).ready(function() {
 
 <h1>${roomNo.roomNo }번방</h1>
 <hr>
+
+<%	Date date = new Date(); %>
+<c:set var="now" value="<%=new Date() %>" /> 
 
 <h1></h1>
     
@@ -122,7 +150,7 @@ $(document).ready(function() {
     
     
 <div id="chatArea">
-    <div id="messages"></div>
+    <div id="messages"><span></span></div>
 </div>
         
 	

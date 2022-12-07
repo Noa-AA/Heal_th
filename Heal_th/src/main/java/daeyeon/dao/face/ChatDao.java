@@ -2,8 +2,8 @@ package daeyeon.dao.face;
 
 import java.util.List;
 
+import daeyeon.dto.Chat;
 import daeyeon.dto.RoomList;
-import daeyeon.dto.Userss;
 import yerim.dto.Users;
 
 
@@ -34,8 +34,13 @@ public interface ChatDao {
 	 */
 	public List<RoomList> selectRoomList(Users myUserNo);
 
-//	public void insertChat();
 
+	/**
+	 * 채팅내용 테이블에 저장하기
+	 * 
+	 * @param chat - 회원번호, 채팅방 번호, 채팅 내용이 담긴 Chat dto
+	 */
+	public void insertChat(Chat chat);
 	
 //	public void insertChatRoom();
 //
