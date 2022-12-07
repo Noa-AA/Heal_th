@@ -25,6 +25,7 @@
 	</select>
 	
 	
+	
 <!-- 	<insert id="insertChatRoom" parameterType="int"  > -->
 <!-- 		INSERT INTO chat_room ( room_no, create_date  ) -->
 <!-- 		VALUES ( 1 , sysdate )   -->
@@ -37,9 +38,9 @@
 		 <!-- lost_no 는 시퀀스 userNo는 가져올꺼고 room_no도 위에서 가져올꺼임 } -->
 <!-- 	</insert> -->
 
-<!-- 	<insert id="insertChat" parameterType="int"> -->
-<!-- 		INSERT INTO chat( chat_no, chat_time, chat_contents, ) -->
-<!-- 		VALUES () -->
-<!-- 	</insert> -->
+	<insert id="insertChat" parameterType="Chat">
+		INSERT INTO chat( chat_no, chat_time, chat_contents, room_no, user_no )
+		VALUES ( chat_seq.nextval, sysdate, #{chatContent }, #{roomNo }, #{userNo }  )
+	</insert>
 
 </mapper>
