@@ -16,6 +16,13 @@
 <!-- jQuery 2.2.4 -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
+<!-- 날짜 위젯 -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+
 
 <style type="text/css">
 
@@ -59,27 +66,27 @@ body {
    
 /* Slide is used to slide the form left-right 
     sides when toggle on button */
+ #slide { 
+     width: 50%; 
+     max-height: 100%; 
+     height: 100%; 
+     overflow: hidden; 
+     margin-left: 50%; 
+     position: absolute; 
+     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 
+             0 10px 10px rgba(0, 0, 0, 0.22); 
+} 
+
 /* #slide { */
 /*     width: 50%; */
 /*     max-height: 100%; */
-/*     height: 100%; */
-/*     overflow: hidden; */
-/*     margin-left: 50%; */
+/*     height: 1000px; */
+/*     overflow: hidden scroll; */
+/*     margin-left: 0; */
 /*     position: absolute; */
 /*     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), */
 /*             0 10px 10px rgba(0, 0, 0, 0.22); */
 /* } */
-
-#slide {
-    width: 50%;
-    max-height: 100%;
-    height: 1000px;
-    overflow: hidden scroll;
-    margin-left: 0;
-    position: absolute;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
-            0 10px 10px rgba(0, 0, 0, 0.22);
-}
    
 /* This make forms z-index greater 
    than background-image */
@@ -168,9 +175,6 @@ input[type="password"] {
 	
 $(document).ready(function () {
 
-	$()
-	
-
 	$("#LeftToRight").on("click", function () {
 		$("#slide").animate({
 			marginLeft: "50%",
@@ -197,7 +201,27 @@ $(document).ready(function () {
 		$(this).parents("form").submit();
 	});
     
+    //기간 설정 - 시작일
+	$( function() {
+	    $( "#sDate" ).datepicker({
+	    	showButtonPanel: true,
+	    	closeText: '닫기',
+	    	dateFormat: "yy-mm-dd"
+	    });
+	  } );
+    
+	//기간 설정 - 목표일
+	$( function() {
+	    $( "#eDate" ).datepicker({
+	    	showButtonPanel: true,
+	    	closeText: '닫기',
+	    	dateFormat: "yy-mm-dd"
+	    });
+	  } );
+	
+
 });
+
 
 </script>
 
@@ -221,27 +245,15 @@ $(document).ready(function () {
 	<h2>After</h2>
 		
 			<div>
-	        <h3>설정 목표</h3>
-				<label for="gWeight">목표 체중</label>
-					<input type="text" id="gWeight" placeholder="목표체중을 입력해주세요">
-				<br>
-				<label for="date">목표 기간</label>
-					<input type="text"id="sDate" placeholder="시작일: YYYY-MM-DD">-<input type="text" id="eDate" placeholder="목표일: YYYY-MM-DD">
-				<br>
-				<label for="seleExercise">선택 운동</label>
-					<input type="text" id="seleExercise" placeholder="운동 종류를 입력해주요">
-			</div><br><br>
-	
-			<div>
 	        <h3>운동 후 현재 정보</h3>
 	        	<label for="cWeight">몸무게</label>
-	            	<input type="text" id="cWeight" placeholder="운동 후 몸무게를 입력해주세요">
+	            	<input type="text" id="cWeight" name="cWeight" placeholder="운동 후 몸무게를 입력해주세요">
 				<br><br>
 	             <label>첨부파일</label>
 					<button>첨부파일</button>
 				<br><br>
 	            <label for="gResult">결과</label>
-					<select id="gResult">
+					<select id="gResult" name="gResult">
 						<option value="매우 성공" selected="selected">매우 성공</option>
 						<option value="약간 성공">약간 성공</option>
 						<option value="변화 없음">변화 없음</option>
@@ -251,7 +263,7 @@ $(document).ready(function () {
 				<br><br>
 	                            
 				<h3>후기글</h3>
-					<textarea rows="20" cols="50" id="afterCon" placeholder="후기글을 작성해주세요"></textarea>
+					<textarea rows="20" cols="50" id="afterCon" name="afterCon" placeholder="후기글을 작성해주세요"></textarea>
 				</div>
  
                     <button type="button" id="LeftToRight" class="on-off">이전</button>
@@ -277,21 +289,21 @@ $(document).ready(function () {
                         
 			<div>
              	<label for="bfTitle">제목</label>
-					<input type="text" id="bfTitle" placeholder="제목을 입력해주세요">
+					<input type="text" id="bfTitle" name="bfTitle" placeholder="제목을 입력해주세요">
                  <br>
                         	
-			<h3>현재 정보</h3>
+			<h3>운동 전 정보</h3>
 				<label for=	"height">신장</label>
-					<input type="text" id="height" placeholder="160cm">
+					<input type="text" id="height" name="height" placeholder="160cm">
                 <br>
                  <label for="gender">성별</label>
-					<input type="text" id="gender" placeholder="여성/남성">
+					<input type="text" id="gender" name="gender" placeholder="여성/남성">
                  <br>
                  <label for="weight">몸무게</label>
-					<input type="text" id="weight" placeholder="50kg">
+					<input type="text" id="weight" name="weight" placeholder="50kg">
                   <br>
                   <label for="bfExercise">운동종류</label>
-                    <input type="text" placeholder="운동종류를 입력해주세요">
+                    <input type="text" id="bfExercise" name="bfExercise" placeholder="현재 하고 있는 운동종류를 입력해주세요">
                   <br>
                      <button>첨부파일</button>
 			</div>
@@ -299,20 +311,22 @@ $(document).ready(function () {
 			<div>
 			<h3>설정 목표</h3>
 				<label for="gWeight">목표 체중</label>
-					<input type="text" id="gWeight" placeholder="목표 체중을 입력해주세요">
+					<input type="text" id="gWeight" name="gWeight" placeholder="목표 체중을 입력해주세요">
 				<br>
 				<label for="date">목표 기간</label>
-					<input type="text" id="sDate" placeholder="시작일: YYYY-MM-DD">-
-                    <input type="text" id="eDate" placeholder="목표일: YYYY-MM-DD">
+					<input type="text" id="sDate" name="sDate" placeholder="시작일: YYYY-MM-DD">-
+                    <input type="text" id="eDate" name="eDate" placeholder="목표일: YYYY-MM-DD">
                 <br>
                 <label for="seleExercise">선택 운동</label>
-					<input type="text" id="seleExercise" placeholder="목표 체중을 입력해주세요">
+					<input type="text" id="seleExercise" name="seleExercise" placeholder="목표 체중을 입력해주세요">
 				<br>
                             
 			</div>                            
 
 			<h3>다짐글</h3>
-				<textarea rows="20" cols="50" id="beforeCon" placeholder="다짐글을 작성해주세요"></textarea>
+				<textarea rows="20" cols="50" id="beforeCon" name="beforeCon" placeholder="다짐글을 작성해주세요"></textarea>
+				
+				
 				<br><br><br> 
 
                   <button type="button" id="RightToLeft" class="on-off" style="margin-right: 10px;">After</button>

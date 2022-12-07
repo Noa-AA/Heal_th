@@ -147,7 +147,7 @@ html {
 
 
 
-#btnUpdate {
+#btnInsert {
     width: 100px;
     background: #7ca3f5;
     font-weight: bold;
@@ -345,7 +345,7 @@ $(document).ready(function(){
 	    });
 	  } );
 	
-	$("#btnUpdate").click(function() {
+	$("#btnInsert").click(function() {
 		$(this).parents("form").submit();
 	});
 	    
@@ -362,14 +362,13 @@ $(document).ready(function(){
     <div class="row justify-content-center mt-0">
         <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                <h1><strong>Before & After 게시글 수정</strong></h1><br>
-                <p>게시글을 수정해주세요</p>
+                <h1><strong>Before & After 게시글</strong></h1><br>
+                <p>게시글을 작성해주세요</p>
                 <div class="row">
                     <div class="col-md-12 mx-0">
                     
-                        <form id="msform" method="post" action="/board/bfUpdate" enctype="multipart/form-data">
+                        <form id="msform" method="post" action="/board/bf_write">
                         
-                        <input type="hidden" name="bfNo" value="${param.bfNo }">
                         
                             <!-- progressbar -->
                             <ul id="progressbar">
@@ -386,21 +385,21 @@ $(document).ready(function(){
 	            <div class="form-card">
 	             <h2 style="color: black;">Before</h2><br><br>
 	             	<label for="bfTitle">제목</label>
-						<input type="text" id="bfTitle" name="bfTitle" value="${updateBoard.bfTitle }" placeholder="제목을 입력해주세요">
+						<input type="text" id="bfTitle" name="bfTitle" placeholder="제목을 입력해주세요">
 	                 <br><br>
 	                        
 				<h3 style="color: black;">운동 전 정보</h3><br><br>
 					<label for=	"height">신장</label>
-						<input type="text" id="height" name="height" value="${updateBoard.height }" placeholder="160cm">
+						<input type="text" id="height" name="height" placeholder="160cm">
 	                <br>
 	                 <label for="gender">성별</label>
-						<input type="text" id="gender" name="gender" value="${updateBoard.gender }" placeholder="여성/남성">
+						<input type="text" id="gender" name="gender" placeholder="여성/남성">
 	                 <br>
 	                 <label for="weight">몸무게</label>
-						<input type="text" id="weight" name="weight" value="${updateBoard.weight }" placeholder="50kg">
+						<input type="text" id="weight" name="weight" placeholder="50kg">
 	                  <br>
 	                  <label for="bfExercise">운동종류</label>
-	                    <input type="text" id="bfExercise" name="bfExercise" value="${updateBoard.bfExercise }" placeholder="현재 하고 있는 운동종류를 입력해주세요">
+	                    <input type="text" id="bfExercise" name="bfExercise" placeholder="현재 하고 있는 운동종류를 입력해주세요">
 	                  <br>
 	                     <button>첨부파일</button>
 				</div>
@@ -412,18 +411,18 @@ $(document).ready(function(){
 			<h3 style="color: black">설정 목표</h3>
 			<br><br> 
 				<label for="gWeight">목표 체중</label>
-					<input type="text" id="gWeight" name="gWeight" value="${updateBoard.gWeight }" placeholder="목표 체중을 입력해주세요">
+					<input type="text" id="gWeight" name="gWeight" placeholder="목표 체중을 입력해주세요">
 				<br>
 				<label for="date">목표 기간</label>
-					<input type="text" id="sDate" name="sDate" value="${updateBoard.sDate }" placeholder="시작일: YYYY-MM-DD"> ~ 
-                    <input type="text" id="eDate" name="eDate" value="${updateBoard.eDate }" placeholder="목표일: YYYY-MM-DD">
+					<input type="text" id="sDate" name="sDate" placeholder="시작일: YYYY-MM-DD"> ~ 
+                    <input type="text" id="eDate" name="eDate" placeholder="목표일: YYYY-MM-DD">
                 <br>
                 <label for="seleExercise">선택 운동</label>
-					<input type="text" id="seleExercise" name="seleExercise" value="${updateBoard.seleExercise }" placeholder="선택한 운동을 입력해주세요">
+					<input type="text" id="seleExercise" name="seleExercise" placeholder="선택한 운동을 입력해주세요">
                             <br>
 
 			<h4 style="color: black">다짐글</h4><br><br>
-				<textarea rows="20" cols="50" id="beforeCon" name="beforeCon" value="${updateBoard.beforeCon }" placeholder="다짐글을 작성해주세요"></textarea>
+				<textarea rows="20" cols="50" id="beforeCon" name="beforeCon" placeholder="다짐글을 작성해주세요"></textarea>
 				
 			</div>                            
 				
@@ -439,13 +438,13 @@ $(document).ready(function(){
                                 <h2 style="color: black">After</h2> <br><br>
                                   <h4 style="color: black;">운동 후 현재 정보</h4><br><br>
 	        	<label for="cWeight">몸무게</label>
-	            	<input type="text" id="cWeight" name="cWeight" value="${updateBoard.cWeight }" placeholder="운동 후 몸무게를 입력해주세요">
+	            	<input type="text" id="cWeight" name="cWeight" placeholder="운동 후 몸무게를 입력해주세요">
 				<br><br>
 	             <label>첨부파일</label>
 					<button>첨부파일</button>
 				<br><br>
 	            <label for="gResult">결과</label>
-					<select id="gResult" name="gResult" value="${updateBoard.gResult }">
+					<select id="gResult" name="gResult">
 						<option value="매우 성공" selected="selected">매우 성공</option>
 						<option value="약간 성공">약간 성공</option>
 						<option value="변화 없음">변화 없음</option>
@@ -455,7 +454,7 @@ $(document).ready(function(){
 				<br><br><br>
 	                            
 				<h3>후기글</h3><br><br>
-					<textarea rows="20" cols="50" id="afterCon" name="afterCon" value="${updateBoard.afterCon }" placeholder="후기글을 작성해주세요"></textarea>
+					<textarea rows="20" cols="50" id="afterCon" name="afterCon" placeholder="후기글을 작성해주세요"></textarea>
 				
                                  
                                  </div>
@@ -466,7 +465,7 @@ $(document).ready(function(){
                             <fieldset>
                                 <div class="form-card">
                                 <br><br><br><br>
-                                    <h2 style="text-align: center;">게시글을 수정하시겠습니까?</h2>
+                                    <h2 style="text-align: center;">게시글을 등록하시겠습니까?</h2>
                                     <br><br><br><br>
                                     
                                     
@@ -475,7 +474,7 @@ $(document).ready(function(){
 								        <a class="btn block" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/bfBoard" style="text-decoration: none; color: white; font-size: 14px; font-weight: bold; ">취소</a>
 								     </button>
                                     
-                                    <button type="submit" id="btnUpdate" name="btnUpdate" style="color: white; font-size: 14px;">수정</button>
+                                    <button type="submit" id="btnInsert" name="btnInsert" style="color: white; font-size: 14px;">등록</button>
                                     
                                 </div>
                             </fieldset>
