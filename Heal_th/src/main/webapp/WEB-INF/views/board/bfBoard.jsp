@@ -40,7 +40,7 @@ td:nth-child(2) {
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$("#btnInsert").click(function() {
+	$("#btnWrite").click(function() {
 		$(location).attr("href", "/board/bfWrite")
 	})
 	
