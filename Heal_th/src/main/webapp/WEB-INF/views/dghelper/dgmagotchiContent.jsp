@@ -91,6 +91,10 @@ a {
 	justify-content: center;
 }
 
+#level {
+	color: white;
+	
+}
 #message{
 	display: flex;
 	font-size: 27px;
@@ -109,6 +113,10 @@ a {
     padding-top: 12px;
 }
 
+#poopzone {
+	position: absolute;
+	left: 200px;
+}
 /* 캐릭터 시작 */
 #character {
 	position: relative;
@@ -126,7 +134,8 @@ a {
 .poop {
 	width: 38px;
 	height: 38px;
-	position: relative;
+	position: absolute;
+	left: 300px;
 	top: 330px;
 	background-image: url("/resources/img/dgmagotchi/poop.png");
 }
@@ -152,7 +161,7 @@ a {
 	display: flex;
 	justify-content: space-around;
 	width: 200px;
-	height: 230px;
+	height: 210px;
 	border: 1px solid white;
 	background-color: rgba(0,0,0, 0.7);
 	text-align: center;
@@ -173,6 +182,7 @@ a {
 	display: flex;
 	border: 1px solid white;
 	padding: 5px;
+	width: 80px;
     justify-content: center;
     flex-direction: column
 }
@@ -227,7 +237,13 @@ a {
 	background: linear-gradient(120deg, #3f94d6 0 , #1869a7);
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
 	border:none;
+	border-radius: 5px;
 } 
+
+#food:hover, #sleep:hover, #removePoop:hover, #health:hover {
+	width: 140px;
+	height: 50px;
+}
 
 
 /* 날씨 시작 */
@@ -298,6 +314,29 @@ $(document).ready(function(){
 	
 	//경험치
 	var exp = ${dgmainfo.dgmaExp};
+	var statA = ${dgmainfo.dgmaStata};
+	var statB = ${dgmainfo.dgmaStatb};
+	var statC = ${dgmainfo.dgmaStatc};
+	
+	if(exp>=10){
+		$("#level").html(1);
+	}
+	if(exp>=20){
+		$("#level").html(2);
+	}
+	if(exp>=50){
+		$("#level").html(3);
+	}
+	if(exp>=100){
+		$("#level").html(4);
+	}	
+	if(exp>=250){
+		$("#level").html(5);
+	}	
+	
+	if(statA==0||statB==0||statC==0){
+		exp--;
+	}
 	
 	//현재시간
 	function convertTime() {
@@ -321,6 +360,7 @@ $(document).ready(function(){
 	function interval(){
 		var currentTime = convertTime();
 		$('.time').html(currentTime);
+		
 	}
 
 	function init(){
@@ -329,19 +369,42 @@ $(document).ready(function(){
 	}
 	
 	init();
+
+	function interval2(){
+		if(statA>0){
+			statA--;
+			$("#statA").html(statA);
+		}
+		if(statB>0){
+			statB--;
+			$("#statB").html(statB);
+		}
+		if(statC>0){
+			statC--;
+			$("#statC").html(statC);
+		}
+		
+	}
+
+	function init2(){
+		interval2();
+		setInterval(interval2, 2000);
+	}
+	
+	init2();
 	
 	//현재 온도
 	$.getJSON('https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=89205d456ca75c3e8437b84277bf671e&units=metric'
-			, function(result) {
+		, function(result) {
+		
+			$('.ctemp').append(result.main.temp + '°');
+			$('.hightemp').append(result.main.temp_max);
+			$('.lowtemp').append(result.main.temp_min);
 			
-				$('.ctemp').append(result.main.temp + '°');
-				$('.hightemp').append(result.main.temp_max);
-				$('.lowtemp').append(result.main.temp_min);
-				
-				//result.weather[0].icon
-				var wiconUrl = '<img src="http://openweathermap.org/img/wn/'+ result.weather[0].icon +
-					'.png" alt="' + result.weather[0].discription +'">'
-				$('.icon').append(wiconUrl);
+			//result.weather[0].icon
+			var wiconUrl = '<img src="http://openweathermap.org/img/wn/'+ result.weather[0].icon +
+				'.png" alt="' + result.weather[0].discription +'">'
+			$('.icon').append(wiconUrl);
 				
 
 	});
@@ -398,13 +461,13 @@ $(document).ready(function(){
 // 			console.log(randPosX);
 			
 			$("#poopzone").html("<div class='poop'></div>");
+			$("#message").fadeIn();
 			$("#message").html("득근이의 똥을 치워주세요");
 	    	$(".poop").each(function () {
 	            $(this).css({
 	                left: randPosX
 	            });
 	        }); 
-			$("#dgbaby").css("top","-5px");
 		}
 	}
 	
@@ -417,46 +480,82 @@ $(document).ready(function(){
 	//득근이 똥 치우기
 	$("#removePoop").click(function(){
 		$(".poop").remove();
-		exp++;
 		$("#exp").html(exp);
-		$("#dgbaby").css("top","30px");
 		$("#message").html("");
+		exp++;
+		statC+=3;
+		$("#statC").html(statC);
+	
 	})
 	
-	//득근이 운동하기
-	$("#health").click(function(){
-		exp++;
-		$("#exp").html(exp);
-		$("#dgbaby").css("top","30px");
-		$("#message").html("득근 득근 !!");
-	})
-
 	//득근이 밥먹이기
 	$("#food").click(function(){
-		exp++;
-		$("#dgbaby").css("display","none");
-		$("#dgfood").css("display","block");
-		$("#exp").html(exp);
-		$("#dgbaby").css("top","30px");
-		$("#message").html("냠냠 냠냠 !!");
 		
-		setTimeout(function(){
-			$("#dgfood").css("display","none");
-			$("#dgbaby").css("display","block");
-		},2000);
+		if(statA<100){
+				
+			$("#dgbaby").css("display","none");
+			$("#dgfood").css("display","block");
+			$("#exp").html(exp);
+			$("#message").fadeIn();
+			$("#message").html("냠냠 냠냠 !!");
+			$("#message").fadeOut(2000);
+			
+			setTimeout(function(){
+				$("#dgfood").css("display","none");
+				$("#dgbaby").css("display","block");
+			},2000);
+		
+			exp+=5;
+			statA+=7;
+			statB+=3;
+			$("#statA").html(statA);
+		} else {
+			$("#message").fadeIn();
+			$("#message").html("배불러요 ㅠㅠ");
+			$("#message").fadeOut(2000);
+		}
+		
 	}) 
 
 	//득근이 잠재우기
 	$("#sleep").click(function(){
-		exp++;
+		
+		if(statB<100){
+			
+			$("#dgbaby").css("display","none");
+			$("#dgsleep").css("display","block");
+			$("#exp").html(exp);
+			$("#message").html("드르렁 드르렁 !!");
+			$("#message").fadeIn();
+			$("#message").fadeOut(2000);
+			
+			setTimeout(function(){
+				$("#dgsleep").css("display","none");
+				$("#dgbaby").css("display","block");
+			},2000);
+		
+			exp+=5;
+			statB+=10;
+			$("#statA").html(statA);
+		} else {
+			$("#message").fadeIn();
+			$("#message").html("안졸려요 ㅠㅠ");
+			$("#message").fadeOut(2000);
+		}
+	})
+	
+	//득근이 운동하기
+	$("#health").click(function(){
+		exp+=2;
 		$("#dgbaby").css("display","none");
-		$("#dgsleep").css("display","block");
+		$("#dgpress").css("display","block");
 		$("#exp").html(exp);
-		$("#dgbaby").css("top","30px");
-		$("#message").html("드르렁 드르렁 !!");
+		$("#message").html("득근 득근 !!");
+		$("#message").fadeIn();
+		$("#message").fadeOut(2000);
 		
 		setTimeout(function(){
-			$("#dgsleep").css("display","none");
+			$("#dgpress").css("display","none");
 			$("#dgbaby").css("display","block");
 		},2000);
 	})
@@ -535,8 +634,7 @@ $(document).ready(function(){
 						<p>득근이</p>
 					</div>
 					<div id="dginfo">
-						<p>나이 : 1살</p><br>
-						<p>체중 : 2kg</p>
+						<p>Lv.</p><div id="level">0</div><br>
 					</div>
 				</div>
 				<span id="statA-name">배부름 : </span>
@@ -581,6 +679,9 @@ $(document).ready(function(){
 				</div>
 				<div id="dgsleep" style="display: none;">
 					<img src="/resources/img/dgmagotchi/dgsleep.png">
+				</div>
+				<div id="dgpress" style="display: none;">
+					<img src="/resources/img/dgmagotchi/dgpress.png">
 				</div>
 			</div>
 		</div>
