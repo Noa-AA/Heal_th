@@ -40,6 +40,31 @@ public class CommentController {
 		model.addAttribute("commentList", commentList);
 	}
 
+	
+	@GetMapping("/list")
+	public String comList(
+			Comment comment
+			, int category
+			, int boardno
+			, Model model
+			, HttpSession session
+			) {
+		logger.info("/comment/list [GET]");
+
+		comment.setCategoryNo(category);
+		comment.setBoardNo(boardno);
+		logger.info("comment : {}",comment);
+		
+		List<Comment> commentList = commentService.list(comment);
+		
+		for( Comment c : commentList ) logger.info("list-{}",c);
+		
+		//모델값 전달
+		model.addAttribute("commentList", commentList);
+		return "comment/list";
+	}
+	
+
 	@PostMapping("/insert")
 	public String comInsert(
 			String content
@@ -66,7 +91,8 @@ public class CommentController {
 		
 		//모델값 전달
 		model.addAttribute("commentList", commentList);
-		return "/comment/board";
+//		return "comment/board";
+		return "comment/list";
 	}
 	
 	@PostMapping("/delete")
@@ -88,7 +114,8 @@ public class CommentController {
 
 		//모델값 전달
 		model.addAttribute("commentList", commentList);
-		return "/comment/board";
+//		return "comment/board";
+		return "comment/list";
 	}
 	
 	

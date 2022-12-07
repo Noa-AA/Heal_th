@@ -1,7 +1,5 @@
 package jucheol.dao.face;
 
-import java.util.Date;
-
 import jucheol.dto.Attendance;
 
 public interface AttendanceDao {
@@ -13,5 +11,13 @@ public interface AttendanceDao {
 	 * @return
 	 */
 	public Attendance getLastLogin(Attendance attendance);
+
+
+	/**
+	 * 현재 접속시간을 기록
+	 * @param attendance 회원번호,현재시간
+	 * @return 
+	 */
+	public void addLoginDate(Attendance attendance);
 
 }

@@ -1,7 +1,5 @@
 package jucheol.service.impl;
 
-import java.util.Date;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +18,16 @@ public class AttendanceServiceImpl implements AttendanceService {
 	
 	@Override
 	public Attendance getLastLogin(Attendance attendance) {
-		Attendance lastLogin = attendanceDao.getLastLogin(attendance);
 		
-		logger.info("{}",lastLogin);
-		return lastLogin;
+		return attendanceDao.getLastLogin(attendance);
 	}
+
+	@Override
+	public void addLoginDate(Attendance attendance) {
+		attendanceDao.addLoginDate(attendance);
+		
+	}
+
 
 
 }

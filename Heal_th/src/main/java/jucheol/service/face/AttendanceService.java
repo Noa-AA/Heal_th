@@ -1,7 +1,5 @@
 package jucheol.service.face;
 
-import java.util.Date;
-
 import jucheol.dto.Attendance;
 
 public interface AttendanceService {
@@ -13,5 +11,13 @@ public interface AttendanceService {
 	 * @return 
 	 */
 	public Attendance getLastLogin(Attendance attendance);
+
+
+	/**
+	 * 현재 시간 담기
+	 * @param attendance 회원번호,현재시간
+	 * @return 
+	 */
+	public void addLoginDate(Attendance attendance);
 
 }
