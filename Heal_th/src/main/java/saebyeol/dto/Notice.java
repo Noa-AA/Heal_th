@@ -5,7 +5,7 @@ import java.util.Date;
 public class Notice {
 	
 	private int noticeNo;
-	private int noticeTtl;
+	private String noticeTtl;
 	private Date noticeDate;
 	private int noticeHit;
 	private String noticeContent;
@@ -14,8 +14,8 @@ public class Notice {
 	
 	public Notice() {}
 
-	public Notice(int noticeNo, int noticeTtl, Date noticeDate, int noticeHit, String noticeContent, String noticeFile,
-			int userNo) {
+	public Notice(int noticeNo, String noticeTtl, Date noticeDate, int noticeHit, String noticeContent,
+			String noticeFile, int userNo) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeTtl = noticeTtl;
@@ -50,14 +50,14 @@ public class Notice {
 	/**
 	 * @return the noticeTtl
 	 */
-	public int getNoticeTtl() {
+	public String getNoticeTtl() {
 		return noticeTtl;
 	}
 
 	/**
 	 * @param noticeTtl the noticeTtl to set
 	 */
-	public void setNoticeTtl(int noticeTtl) {
+	public void setNoticeTtl(String noticeTtl) {
 		this.noticeTtl = noticeTtl;
 	}
 
@@ -130,6 +130,8 @@ public class Notice {
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
+
+	
 	
 	
 

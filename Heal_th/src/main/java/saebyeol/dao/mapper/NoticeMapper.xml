@@ -23,6 +23,19 @@
  		) NOTICE
  		WHERE rnum BETWEEN #{startNo } AND #{endNo }
  	</select>
+ 	
+ 	<select id="updateHit" parameterType="Notice">
+ 		UPDATE notice SET notice_hit = notice_hit + 1 
+ 		WHERE notice_no = #{noticeNo}
+ 	</select>
+ 	
+ 	<select id="selectNotice" resultType="Notice" parameterType="Notice">
+ 	SELECT
+ 		notice_no, notice_ttl, notice_date, notice_hit, notice_content, notice_file
+ 	FROM notice
+ 	WHERE notice_no = #{noticeNo}
+ 	
+ 	</select>
  
 
 </mapper>

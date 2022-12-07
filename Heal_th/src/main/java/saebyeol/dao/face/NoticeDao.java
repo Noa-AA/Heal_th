@@ -20,4 +20,17 @@ public interface NoticeDao {
 	 */
 	public List<Notice> selectList(SaebyeolPaging paging);
 
+	/**
+	 * 조회하려는 게시글의 조회수 +1 증가
+	 * @param viewNotice - 조회된 게시글 번호
+	 */
+	public void updateHit(Notice viewNotice);
+
+	/**
+	 * 게시글 번호를 이용해서 게시글 조회
+	 * @param viewNotice - 조회하려는 게시글 번호
+	 * @return - 조회된 게시글 정보
+	 */
+	public Notice selectNotice(Notice viewNotice);
+
 }

@@ -23,9 +23,11 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	@Override
 	public SaebyeolPaging getPaging(int curPage) {
-		
+	
+		//총 게시글 수 조회
 		int totalCount = noticeDao.selectCntAll();
 		
+		//페이징 계산
 		SaebyeolPaging paging = new SaebyeolPaging(totalCount, curPage);
 		
 		return paging;
@@ -34,11 +36,20 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public List<Notice> list(SaebyeolPaging paging) {
 		
-		logger.info("paging {}", paging);
+		logger.debug("Listpaging {}", paging);
 		
 		return noticeDao.selectList(paging);
 	}
 	
+	@Override
+	public Notice view(Notice viewNotice) {
+		
+		//조회수 증가
+		noticeDao.updateHit(viewNotice);
+		
+		//상세보기 조회 결과 리턴
+		return noticeDao.selectNotice(viewNotice);
+	}
 	
 
 }

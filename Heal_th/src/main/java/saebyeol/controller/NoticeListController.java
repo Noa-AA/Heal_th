@@ -25,18 +25,29 @@ public class NoticeListController {
 	@Autowired NoticeService noticeService;
 	
 	@RequestMapping("/list")
-	public void list(@RequestParam(defaultValue="0") int curPage, Model model) {
-		logger.info("/list");
+	public void list(@RequestParam(defaultValue = "0") int curPage, Model model ) {
 		
 		SaebyeolPaging paging = noticeService.getPaging(curPage);
-		logger.info("{}", paging);
+		logger.debug("{}", paging);
 		model.addAttribute("paging", paging);
 		
 		List<Notice> list = noticeService.list(paging);
-		for(Notice n : list) logger.info("List {}", n);
+		for( Notice n : list )	logger.debug("{}", n);
 		model.addAttribute("list", list);
 		
+	
 	}
+	
+	@RequestMapping("/view")
+	public void view(Notice viewNotice, Model model) {
+		
+		viewNotice = noticeService.view(viewNotice);
+		
+		
+		
+	}
+	
+	
 	
 
 }
