@@ -117,7 +117,7 @@ public class ChatController {
 			logger.info("myUserNo : {}", myUserNo.getUserNo());
 			
 			List<RoomList> roomList = chatService.roomList(myUserNo);
-			
+			 
 //			채팅방 번호 전달 - Model객체 이용
 			model.addAttribute("roomList", roomList);
 			
@@ -129,7 +129,7 @@ public class ChatController {
 		public void goChat(Model model, HttpSession session, RoomList roomNo, Userss users) {
 			logger.info("/chatArea");
 			logger.info( "채팅방 번호 : {}", roomNo.getRoomNo() );
-			
+			 
 			session.setAttribute("roomNo", roomNo.getRoomNo());
 			
 			model.addAttribute("roomNo", roomNo);
