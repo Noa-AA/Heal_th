@@ -3,31 +3,30 @@ package changmin.dto;
 public class Dgmagotchi {
 
 	private int dgmaNo;
-	private String dgmaStatA;
-	private String dgmaStatB;
-	private String dgmaStatC;
-	private String dgmaStatD;
+	private int dgmaStata;
+	private int dgmaStatb;
+	private int dgmaStatc;
+	private int dgmaStatd;
 	private int dgmaExp;
 	private int userNo;
 	
 	public Dgmagotchi() {}
 
-	@Override
-	public String toString() {
-		return "Dgmagotchi [dgmaNo=" + dgmaNo + ", dgmaStatA=" + dgmaStatA + ", dgmaStatB=" + dgmaStatB + ", dgmaStatC="
-				+ dgmaStatC + ", dgmaStatD=" + dgmaStatD + ", dgmaExp=" + dgmaExp + ", userNo=" + userNo + "]";
-	}
-
-	public Dgmagotchi(int dgmaNo, String dgmaStatA, String dgmaStatB, String dgmaStatC, String dgmaStatD, int dgmaExp,
-			int userNo) {
+	public Dgmagotchi(int dgmaNo, int dgmaStata, int dgmaStatb, int dgmaStatc, int dgmaStatd, int dgmaExp, int userNo) {
 		super();
 		this.dgmaNo = dgmaNo;
-		this.dgmaStatA = dgmaStatA;
-		this.dgmaStatB = dgmaStatB;
-		this.dgmaStatC = dgmaStatC;
-		this.dgmaStatD = dgmaStatD;
+		this.dgmaStata = dgmaStata;
+		this.dgmaStatb = dgmaStatb;
+		this.dgmaStatc = dgmaStatc;
+		this.dgmaStatd = dgmaStatd;
 		this.dgmaExp = dgmaExp;
 		this.userNo = userNo;
+	}
+
+	@Override
+	public String toString() {
+		return "Dgmagotchi [dgmaNo=" + dgmaNo + ", dgmaStata=" + dgmaStata + ", dgmaStatb=" + dgmaStatb + ", dgmaStatc="
+				+ dgmaStatc + ", dgmaStatd=" + dgmaStatd + ", dgmaExp=" + dgmaExp + ", userNo=" + userNo + "]";
 	}
 
 	public int getDgmaNo() {
@@ -38,36 +37,36 @@ public class Dgmagotchi {
 		this.dgmaNo = dgmaNo;
 	}
 
-	public String getDgmaStatA() {
-		return dgmaStatA;
+	public int getDgmaStata() {
+		return dgmaStata;
 	}
 
-	public void setDgmaStatA(String dgmaStatA) {
-		this.dgmaStatA = dgmaStatA;
+	public void setDgmaStata(int dgmaStata) {
+		this.dgmaStata = dgmaStata;
 	}
 
-	public String getDgmaStatB() {
-		return dgmaStatB;
+	public int getDgmaStatb() {
+		return dgmaStatb;
 	}
 
-	public void setDgmaStatB(String dgmaStatB) {
-		this.dgmaStatB = dgmaStatB;
+	public void setDgmaStatb(int dgmaStatb) {
+		this.dgmaStatb = dgmaStatb;
 	}
 
-	public String getDgmaStatC() {
-		return dgmaStatC;
+	public int getDgmaStatc() {
+		return dgmaStatc;
 	}
 
-	public void setDgmaStatC(String dgmaStatC) {
-		this.dgmaStatC = dgmaStatC;
+	public void setDgmaStatc(int dgmaStatc) {
+		this.dgmaStatc = dgmaStatc;
 	}
 
-	public String getDgmaStatD() {
-		return dgmaStatD;
+	public int getDgmaStatd() {
+		return dgmaStatd;
 	}
 
-	public void setDgmaStatD(String dgmaStatD) {
-		this.dgmaStatD = dgmaStatD;
+	public void setDgmaStatd(int dgmaStatd) {
+		this.dgmaStatd = dgmaStatd;
 	}
 
 	public int getDgmaExp() {
@@ -85,6 +84,7 @@ public class Dgmagotchi {
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
+
 	
 	
 	
