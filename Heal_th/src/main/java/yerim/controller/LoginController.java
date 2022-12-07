@@ -1,24 +1,97 @@
 package yerim.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import yerim.service.face.JoinService;
+import yerim.dto.Users;
+import yerim.service.face.LoginService;
 
 @Controller
 public class LoginController {
- private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	 private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	@Autowired LoginService loginService; 
+	 @GetMapping("/login/login")
+	 public void login() {
+		 //로그인 화면 
+		 logger.info("/login/login [GET]");
+	 }
 
- @Autowired JoinService loginService;
  
- @GetMapping("/login/login")
- public void login() {
-	 //로그인 화면 
-	 logger.info("/login/login [GET]");
- }
- 
+	 @PostMapping("/login/login")
+	 public String loginProc(Users login, HttpSession session, Model model) {
+		 logger.info("/login/login [POST]");
+		 
+		 logger.info("login정보 id : {},pw : {}",login.getUserId(),login.getUserPw());
+		 
+		 
+		 //아이디 확인하기 
+		 boolean isLogin = loginService.checkLogin(login);
+		 
+		 if(isLogin) {//로그인 성공시
+			 logger.info("login성공");
+			 //userNo조회 해오기
+			 int userNo = loginService.getUserNo(login);
+			 //userNo 세션에 저장
+			 session.setAttribute("userNo", userNo);
+			 session.setAttribute("userId", login.getUserId());
+			 
+		 }else { //로그인 실패 시
+			 logger.info("로그인 실패");
+			 model.addAttribute("isLogin", isLogin);
+			 session.invalidate();
+			 return "/login/login";
+		 }
+		 
+		 logger.info("userNo : {}. userId : {}",session.getAttribute("userNo"),session.getAttribute("userId"));
+		 //아이디가 있을 때 
+		 return "redirect:/main";
+		 
+	 }
+	 
+	 @RequestMapping("/login/searchId")
+	 public void searchId() {
+	
+		 logger.info("/login/searchId");
+		 
+	 }
+	 
+	 @ResponseBody
+	 @PostMapping("/login/searchId")
+	 public String searchIdProc(Users searchId,HttpSession session) {
+		 logger.info("/login/serachId [POST]");
+		 logger.info("id:{},email:{}",searchId.getUserName(),searchId.getUserEmail());
+		 
+		 
+		 //입력한 이메일주소와 이름이 일치한 회원이 있는지 조회하기
+		 
+		 boolean searchUser = loginService.searchUser(searchId);
+		 
+		 if(searchUser) {//회원이 있다면 인증 메일 보내기 
+
+			 //세션에 정보 저장(입력한 정보-이메일,이름)
+			 session.setAttribute("userName",searchId.getUserName());
+			 session.setAttribute("userEmail",searchId.getUserEmail());
+			 String emailResult = loginService.sendMail(searchId);
+			 
+			 	return emailResult;
+			 
+		 } else {
+			 //회원이 없을 때 세션 삭제 이후 처리는 jsp에서 함
+			 session.invalidate();
+			 return null;
+		 }
+		 
+	 }
+	 
 
 }

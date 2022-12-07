@@ -45,5 +45,7 @@ public interface JoinService {
 	 */
 	public boolean checkCode(HttpSession session,String code);
 
+	
+
 
 }

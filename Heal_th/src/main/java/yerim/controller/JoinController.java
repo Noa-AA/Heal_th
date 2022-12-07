@@ -39,10 +39,15 @@ public class JoinController {
 		 //전달된 회원가입 정보 insert 하기 
 		 joinService.setJoinInfo(joinInfo);
 		 
-		 return "redirect:/login/login";
+		 return "redirect:/login/joinComplete";
 		 
 	 }
 	 
+	 @GetMapping("/login/joinComplete")
+	 public void loginComplete(){
+		 logger.info("로그인 성공");
+		 
+	 }
 	 @ResponseBody
 	 @PostMapping("/login/checkId")
 	 public int checkId(Users chkId) {

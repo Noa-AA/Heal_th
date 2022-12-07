@@ -86,7 +86,7 @@ public class JoinServiceImpl implements JoinService {
 		//보낼 메시지 설정
 		Msg msg = new Msg();
 		msg.setTo(userPhone.getUserPhone());
-		msg.setContent("Heal_th 가입을 위한 인증번호 [" + numMsg +"]를 넣어주세요 ");
+		msg.setContent("Heal_th  인증번호 [" + numMsg +"]를 넣어주세요 ");
 		sendMsg.add(msg);
 		
 		//요청Body설정
