@@ -31,9 +31,9 @@ public class BfBoardServiceImpl implements BfBoardService {
 		int totalCount = bfBoardDao.selectCntAll();
 				
 		//페이징 계산
-		BoardPaging paging = new BoardPaging(totalCount, curPage);
+		BoardPaging boardPaging = new BoardPaging(totalCount, curPage);
 				
-		return paging;
+		return boardPaging;
 	}
 
 
@@ -133,28 +133,10 @@ public class BfBoardServiceImpl implements BfBoardService {
 
 	
 
-//	//비포 애프터 게시글 삭제
-//	@Override
-//	public Map<String, Object> deleteBfArticle(int userid) {
-//		
-//		boardDao.deleteBfArticle(id);
-//		
-//		Map<String, Object> rs = new HashMap<>();
-//		
-//		rs.put("resultCode", "S-1");
-//		rs.put("msg", id + "게시글 삭제 성공");
-//		
-//		return rs;
-//		
-//	}
 
 
 
-//	@Override
-//	public List<Board> list(Paging paging) {
-//
-//		return boardDao.selectList(paging);
-//	}
+
 	
 	
 	
