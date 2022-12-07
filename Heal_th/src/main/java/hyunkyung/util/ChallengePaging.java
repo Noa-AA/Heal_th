@@ -1,6 +1,6 @@
 package hyunkyung.util;
 
-public class Paging {
+public class ChallengePaging {
 
 	private int curPage; // 현재 페이지 번호
 	
@@ -15,25 +15,27 @@ public class Paging {
 	private int startNo; //화면에 보이는 게시글의 시작 번호
 	private int endNo; //화면에 보이는 게시글의 끝 번호
 	
+	private String keyword; //검색 키워드
+	
 	
 	//디폴트 생성자 - 페이징 로직이 처리되지 않는다
-	public Paging() {}
+	public ChallengePaging() {}
 	
 	
-	public Paging(int totalCount, int curPage) {
+	public ChallengePaging(int totalCount, int curPage) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);
 		
 		makePaging();
 	}
 	
-	public Paging(int totalCount) {
+	public ChallengePaging(int totalCount) {
 		setTotalCount(totalCount);
 		
 		makePaging();
 	}
 	
-	public Paging(int totalCount, int curPage, int listCount) {
+	public ChallengePaging(int totalCount, int curPage, int listCount) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);
 		setListCount(listCount);	//화면에 보여질 게시글 개수 지정하기
@@ -41,7 +43,7 @@ public class Paging {
 		makePaging();
 	}
 	
-	public Paging(int totalCount, int curPage, int listCount, int pageCount) {
+	public ChallengePaging(int totalCount, int curPage, int listCount, int pageCount) {
 		setTotalCount(totalCount);
 		setCurPage(curPage);
 		setListCount(listCount);	//화면에 보여질 게시글 개수 지정하기
@@ -97,16 +99,26 @@ public class Paging {
 	}
 
 
+//	@Override
+//	public String toString() {
+//		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
+//				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
+//				+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
+//	}
+	
+	
+
 	@Override
 	public String toString() {
-		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
-				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
+		return "ChallengePaging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount
+				+ ", totalPage=" + totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage="
+				+ endPage + ", startNo=" + startNo + ", endNo=" + endNo + ", keyword=" + keyword + "]";
 	}
-
 	public int getCurPage() {
 		return curPage;
 	}
+
+
 	public void setCurPage(int curPage) {
 		this.curPage = curPage;
 	}
@@ -158,4 +170,17 @@ public class Paging {
 	public void setEndNo(int endNo) {
 		this.endNo = endNo;
 	}
+
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	
+	
+	
 }

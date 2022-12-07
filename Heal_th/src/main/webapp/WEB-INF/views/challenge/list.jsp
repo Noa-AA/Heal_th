@@ -1,82 +1,258 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-
-
-<style type="text/css">
-ul{
-	list-style: none;
-}
-
-.challenge{
-	border: 1px solid black;
-}
-
-</style>
-
-<!-- jQuery 2.2.4 -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="../layout/header.jsp"%>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
-<!-- 부트스트랩 3 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<style type="text/css">
+.title {
+	margin-bottom: 40px;
+}
 
+.challenge-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	/* 	margin: 50px 50px 90px 50px; */
+	margin: auto;
+	gap: 50px 50px;
+	width: 1200px;
+}
 
+.challenge {
+	position: relative;
+	flex: 1 1 30%;
+	border: 1px solid #333;
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0/ 30%);
+	border-radius: 10px;
+	text-align: center;
+	width: 400px;
+	height: 300px;
+}
 
+.challenge-content {
+	margin-top: 30px;
+}
 
+.challenge img {
+	border: 0;
+	margin-top: 20px;
+	height: 100px;
+	width: 200px;
+}
 
+.search_area {
+	display: inline-block;
+	text-align: center;
+	margin-top: 30px;
+}
+
+.search_area input {
+	height: 36px;
+	width: 250px;
+}
+
+.search_area button {
+	width: 100px;
+	height: 36px;
+}
+
+.search_area select {
+	height: 35px;
+}
+
+/* button{ */
+/* 	background-color: #c583d6; */
+/* } */
+.pageInfo_wrap {
+	text-align: center;
+}
+
+.pageInfo {
+	list-style: none;
+	display: inline-block;
+	margin: 50px 0 0 100px;
+}
+
+.pageInfo li {
+	float: left;
+	font-size: 20px;
+	margin-left: 18px;
+	padding: 7px;
+	font-weight: 500;
+}
+
+a:link {
+	color: black;
+	text-decoration: none;
+}
+
+a:visited {
+	color: black;
+	text-decoration: none;
+}
+
+a:hover {
+	color: black;
+	text-decoration: underline;
+}
+
+.active {
+	background-color: #cdd5ec;
+}
+</style>
 </head>
-
 <body>
-<h1>챌린지 리스트</h1>
-<hr>
+	<div class="title">
+		<h1 style="text-align: center">챌린지 목록</h1>
+	</div>
+	<div class="challenge-list">
+		<c:forEach items="${list }" var="challenge">
+
+			<div class="challenge">
+				<div class="challenge-thumbnail">
+					<img src="/resources/img/chl_thumbnail/chl_thumb${challenge.challengeNo }.jpg" onerror="this.src='https://shared-comic.pstatic.net/thumb/webtoon/796152/thumbnail/thumbnail_IMAG10_a500c803-99ec-4bf8-92d1-b2a5c60c9789.jpg'">
+				</div>
+				<div class="challenge-content">
+					<ul>
+						<li>챌린지 번호 : <c:out value="${challenge.challengeNo}" />
+						</li>
+						<li>
+							<%-- 			 <a class="move" href='/challenge/view?challengeNo=<c:out value="${challenge.challengeNo}"/>'> --%> 
+							제목 : <a class="move" href='<c:out value="${challenge.challengeNo}"/>'> <c:out value="${challenge.challengeName}" />
+						</a>
+						</li>
+						<li>종류 : ${challenge.challengeKind }</li>
+						<li>생성일 : <fmt:formatDate value="${challenge.challengeCredate }" pattern="yyyy년 MM월 dd일" />
+						</li>
+						<li>종료일 : <fmt:formatDate value="${challenge.challengeEnddate }" pattern="yyyy년 MM월 dd일" />
+						</li>
+					</ul>
+				</div>
+			</div>
+		</c:forEach>
 
 
-<div class="challenge-list">
-<c:forEach items="${list }" var="challenge">
 
-<div class="challenge">
-<ul>
-		<li>챌린지 번호 : <a href="./view?challengeNo=${challenge.challengeNo }">${challenge.challengeNo }</a></li>
-		<li>챌린지 종류 : ${challenge.challengeKind }</li>
-		<li>챌린지 이름 : ${challenge.challengeName }</li>
-		<li>챌린지 생성일 : <fmt:formatDate value="${challenge.challengeCredate }" pattern="yyyy-MM-dd"/></li>
-		<li>챌린지 종료일 : <fmt:formatDate value="${challenge.challengeEnddate }" pattern="yyyy-MM-dd"/></li>
-</ul>
-</div>
-</c:forEach>
-</div>
-
-<span class="pull-right">total : ${paging.totalCount }</span>
-<c:import url="/WEB-INF/views/challenge/layout/paging.jsp" />
+		<div class="search_wrap">
+			<div class="search_area">
+				<select name="type">
+					<option value="" <c:out value="${pageMaker.cri.type == null?'selected':'' }"/>></option>
+					<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':'' }"/>>제목</option>
+					<option value="C" <c:out value="${pageMaker.cri.type eq 'C'?'selected':'' }"/>>종류</option>
+					<option value="TC" <c:out value="${pageMaker.cri.type eq 'TC'?'selected':'' }"/>>제목 + 종류</option>
+				</select> <input type="text" name="keyword" value="${pageMaker.cri.keyword }">
+				<button>검색</button>
+			</div>
+		</div>
+	</div>
 
 
-<!-- <form action="/challenge/list" method="post"> -->
-<!-- 	<!--  검색 시작  --> -->
-<!-- 		<div class="search-area"> -->
-<!-- 			<div class="form-item"> -->
-<!-- 				<select class="form-control" name="searchType" id="searchType"> -->
-<!-- 					<option value="party_boardtitle">제목</option> -->
-<!-- 					<option value="partyLeader">파티장</option> -->
-<!-- 				</select> -->
-<!-- 			</div> -->
-<!-- 			<div class="form-item"> -->
-<!-- 				<input type="text" class="form-control" name="keyword" id="keywordInput" > -->
-<!-- 			</div> -->
-<!-- 			<div class="form-item"> -->
-<!-- 				<input type="submit" value="검색 "> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 		<!-- 검색 종료  --> -->
+	<div class="pageInfo_wrap">
+		<div class="pageInfo_area">
+			<ul id="pageInfo" class="pageInfo">
 
-<!-- </form> -->
+				<!-- 이전페이지 버튼 -->
+				<c:if test="${pageMaker.prev}">
+					<li class="pageInfo_btn previous"><a href="${pageMaker.startPage-1}">Previous</a></li>
+				</c:if>
+
+				<!-- 각 번호 페이지 버튼 -->
+				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+					<li class="pageInfo_btn ${pageMaker.cri.pageNum == num ? "active":"" }"><a href="${num}">${num}</a></li>
+				</c:forEach>
+
+				<!-- 다음페이지 버튼 -->
+				<c:if test="${pageMaker.next}">
+					<li class="pageInfo_btn next"><a href="${pageMaker.endPage + 1 }">Next</a></li>
+				</c:if>
+
+			</ul>
+		</div>
+	</div>
+
+	<form id="moveForm" method="get">
+		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> <input type="hidden" name="amount" value="${pageMaker.cri.amount }"> <input type="hidden" name="keyword" value="${pageMaker.cri.keyword }"> <input type="hidden" name="type" value="${pageMaker.cri.type }">
+	</form>
+
+
+
+
+	<script>
+		$(document).ready(function() {
+
+			let result = '<c:out value="${result}"/>';
+
+// 			checkAlert(result);
+// 			console.log(result);
+
+			  checkAlert(result);
+			    
+			    function checkAlert(result){
+			        
+			        if(result === ''){
+			            reutrn;
+			        }
+			        
+			        if(result === "create success"){
+			            alert("등록이 완료. 챌린지는 한번 등록후 수정 불가합니다");
+			        }
+			        
+			    } 
+
+		});
+		let moveForm = $("#moveForm");
+		$(".move")
+				.on(
+						"click",
+						function(e) {
+							e.preventDefault();
+							moveForm.empty();
+
+							moveForm
+									.append("<input type='hidden' name='challengeNo' value='"
+											+ $(this).attr("href") + "'>");
+							moveForm.attr("action", "/challenge/view");
+							moveForm.submit();
+						});
+
+		$(".pageInfo a").on("click", function(e) {
+			e.preventDefault();
+
+			moveForm.find("input[name='pageNum']").val($(this).attr("href"));
+			moveForm.attr("action", "/challenge/list");
+			moveForm.submit();
+
+		});
+
+		//     $(".search_area button").on("click", function(e){
+		//         e.preventDefault();
+
+		//         let val = $("input[name='keyword']").val();
+		//         moveForm.find("input[name='keyword']").val(val);
+		//         moveForm.find("input[name='pageNum']").val(1);
+		//         moveForm.submit();
+		//     });
+
+		$(".search_area button").on("click", function(e) {
+			e.preventDefault();
+
+			let type = $(".search_area select").val();
+			let keyword = $(".search_area input[name='keyword']").val();
+
+			if (!type) {
+				alert("검색 종류를 선택하세요.");
+				return false;
+			}
+
+			if (!keyword) {
+				alert("키워드를 입력하세요.");
+				return false;
+			}
+
+			moveForm.find("input[name='type']").val(type);
+			moveForm.find("input[name='keyword']").val(keyword);
+			moveForm.find("input[name='pageNum']").val(1);
+			moveForm.submit();
+		});
+	</script>
 </body>
 </html>

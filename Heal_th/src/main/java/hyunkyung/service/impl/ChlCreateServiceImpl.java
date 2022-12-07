@@ -5,17 +5,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import hyunkyung.dao.face.CreateDao;
+import hyunkyung.dao.face.ChlCreateDao;
 import hyunkyung.dto.Challenge;
-import hyunkyung.service.face.CreateService;
+import hyunkyung.service.face.ChlCreateService;
 
 @Service
-public class CreateServiceImpl implements CreateService {
+public class ChlCreateServiceImpl implements ChlCreateService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
-	CreateDao createDao;
+	ChlCreateDao createDao;
 
 	@Override
 	public void create(Challenge challenge) {

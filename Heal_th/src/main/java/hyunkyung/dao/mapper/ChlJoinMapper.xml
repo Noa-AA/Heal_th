@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스3 Mapper DTD -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="hyunkyung.dao.face.ChlJoinDao">
+
+<!-- 	챌린지 가입전 결제화면에서 챌린지 정보 -->
+	<select id="selectChlInfo" resultType="Challenge" parameterType="Challenge">
+		SELECT *
+		FROM challenge
+		WHERE challenge_no = #{challengeNo }
+	</select>
+
+<!-- 	<insert id="insert" parameterType="hyunkyung.dto.ParticipantList"> -->
+<!-- 		INSERT INTO participant_list(participant_no, user_no, challenge_no) -->
+<!-- 		VALUES (#{participant_no}, #{user_no}, #{challenge_no}) -->
+		
+<!-- 	</insert> -->
+
+</mapper>    
