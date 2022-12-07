@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.socket.CloseStatus;
@@ -12,7 +13,9 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import daeyeon.dto.Chat;
 import daeyeon.dto.RoomList;
+import daeyeon.service.face.ChatService;
 
 @RequestMapping(value = "/chat", method = RequestMethod.GET)
 public class ChatHandler extends TextWebSocketHandler {
@@ -25,7 +28,7 @@ public class ChatHandler extends TextWebSocketHandler {
 	private Map<WebSocketSession, Integer> sessionRoomNo = new HashMap<WebSocketSession, Integer>();
 	private Map<Integer ,WebSocketSession> userNoSession = new HashMap<Integer ,WebSocketSession>();
 	
-//	@Autowired private ChatService chatService;
+	@Autowired private ChatService chatService;
 	
 	
 	// afterConnectionEstablished : 웹소켓이 연결되면 호출되는 함수
@@ -55,12 +58,14 @@ public class ChatHandler extends TextWebSocketHandler {
     protected void handleTextMessage( WebSocketSession session, TextMessage message ) throws Exception {
     	int roomNo = (int)session.getAttributes().get("roomNo"); 
     	String Id = (String)session.getAttributes().get("userId");
+    	int userNo = (Integer)session.getAttributes().get("userNo");
+    	
+    	Chat chat = new Chat();
     	
     	logger.info( "{}로 부터 {} 받음", Id, message.getPayload() );
     	
     	logger.info(">>> sessionRoomNo : {}", sessionRoomNo);
     	logger.info(">>> userNoSession : {}", userNoSession);
-    	
     	
     	
     	//같은방 유저에게 메세지 보내기
@@ -69,10 +74,15 @@ public class ChatHandler extends TextWebSocketHandler {
     		if( sessionRoomNo.get(userNoSession.get(userNoKey)) == roomNo ) {
     			userNoSession.get(userNoKey).sendMessage(new TextMessage(Id + " : " + message.getPayload()));
     		}
-    		
     	}
     	
-
+    	//Chat dto에 데이터 집어넣기
+    	chat.setChatContent( message.getPayload() );
+    	chat.setRoomNo(roomNo);
+    	chat.setUserNo(userNo);
+    	
+    	//--- chat 테이블에 채팅 데이터 집어넣기
+    	chatService.addChat(chat);
     	
     	
     }
