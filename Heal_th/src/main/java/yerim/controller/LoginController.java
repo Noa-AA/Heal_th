@@ -67,9 +67,9 @@ public class LoginController {
 	 
 	 @ResponseBody
 	 @PostMapping("/login/searchId")
-	 public String searchIdProc(Users searchId,HttpSession session) {
+	 public boolean searchIdProc(Users searchId,HttpSession session) {
 		 logger.info("/login/serachId [POST]");
-		 logger.info("id:{},email:{}",searchId.getUserName(),searchId.getUserEmail());
+		 logger.info("이름:{},email:{}",searchId.getUserName(),searchId.getUserEmail());
 		 
 		 
 		 //입력한 이메일주소와 이름이 일치한 회원이 있는지 조회하기
@@ -79,19 +79,42 @@ public class LoginController {
 		 if(searchUser) {//회원이 있다면 인증 메일 보내기 
 
 			 //세션에 정보 저장(입력한 정보-이메일,이름)
+			 String emailResult = loginService.sendMail(searchId);
 			 session.setAttribute("userName",searchId.getUserName());
 			 session.setAttribute("userEmail",searchId.getUserEmail());
-			 String emailResult = loginService.sendMail(searchId);
 			 
-			 	return emailResult;
+			 //세션에 이메일 인증 코드 저장
+			 logger.info("session 코드 : {}",emailResult);
+			 session.setAttribute("emailResult", emailResult);
 			 
+			 return true; //true 전달
 		 } else {
 			 //회원이 없을 때 세션 삭제 이후 처리는 jsp에서 함
+			 logger.info("회원 없음");
 			 session.invalidate();
-			 return null;
+			return false; //false 전달 
 		 }
 		 
+		 
+	 }
+	 @ResponseBody
+	 @PostMapping("/login/codeIdChk")
+	 public String codeIdChk(String emailCode,HttpSession session,Model model) {
+		 
+		 logger.info("/codeIdChk 실행");
+		 
+		 String searchId =loginService.codeChk(emailCode,session);
+		 
+		 model.addAttribute("searchResult",searchId);
+		 
+		 //세션 지우기
+		 
+		 logger.info(searchId);
+		 return searchId;
 	 }
 	 
-
+	 @RequestMapping("/login/searchIdResult")
+	 public void ResultsearchId() {
+		 	logger.info("아이디 찾기 완료");
+	 }
 }

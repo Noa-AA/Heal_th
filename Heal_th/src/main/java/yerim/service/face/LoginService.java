@@ -1,5 +1,7 @@
 package yerim.service.face;
 
+import javax.servlet.http.HttpSession;
+
 import yerim.dto.Users;
 
 public interface LoginService {
@@ -32,5 +34,13 @@ public interface LoginService {
 	 * @return 
 	 */
 	public String sendMail(Users searchId);
+
+	/**
+	 * 이메일 인증 하기
+	 * @param emailCode
+	 * @param session
+	 * @return
+	 */
+	public String codeChk(String emailCode, HttpSession session);
 
 }
