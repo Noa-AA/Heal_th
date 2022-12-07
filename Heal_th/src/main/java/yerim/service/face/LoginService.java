@@ -18,4 +18,11 @@ public interface LoginService {
 	 */
 	public int getUserNo(Users login);
 
+	/**
+	 * 아이디찾기 시 일치하는 회원 있는지 확인하기
+	 * @param searchId -아이디 찾기 시 작성된 파라미터
+	 * @return -회원 존재 여부 
+	 */
+	public boolean searchUser(Users searchId);
+
 }
