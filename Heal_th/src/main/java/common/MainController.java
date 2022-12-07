@@ -12,9 +12,10 @@ public class MainController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@RequestMapping("/main")
-	public void main() {
+	public String main() {
 		logger.info("/main");
 		
+		return("redirect:/chat/chatRoom");
 	}
 	
 }
