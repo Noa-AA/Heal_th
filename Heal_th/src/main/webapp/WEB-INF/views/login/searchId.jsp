@@ -20,7 +20,7 @@ $(document).ready(function(){
 			,success:function(res){
 				console.log(res)
 				console.log("이메일 번호 보내기 ")
-				if(res == true) {
+				if(res != null) {
 					console.log("회원 있음")
 					$("#emailCode").attr("disabled",false)
 					$("#emailCode").focus()
