@@ -7,8 +7,9 @@
 <mapper namespace="daeyeon.dao.face.ChatDao"> 
 	
 	
+	<!-- 회원 등급 3이상인 회원 조회하기 -->
 	<select id="selectUsers" resultType="yerim.dto.Users" >
-		SELECT user_no, user_name, user_job, user_intro, user_gender, ranking_no
+		SELECT user_no, user_nick, user_name, user_job, user_intro, user_gender, ranking_no
 		FROM USERS
 		WHERE ranking_no >= 3
 	</select> 
@@ -19,6 +20,7 @@
 <!-- 		WHERE user_no = #{userNo } -->
 <!-- 	</select> -->
 	
+	<!-- 자신의 회원번호가 속한 채팅방 조회하기 -->
 	<select id="selectRoomList"  resultType="daeyeon.dto.RoomList" parameterType="Users">
 		SELECT * FROM room_list
 		WHERE user_no = #{userNo }
@@ -38,6 +40,8 @@
 		 <!-- lost_no 는 시퀀스 userNo는 가져올꺼고 room_no도 위에서 가져올꺼임 } -->
 <!-- 	</insert> -->
 
+
+	<!-- 채팅내용 테이블에 저장하기 -->
 	<insert id="insertChat" parameterType="Chat">
 		INSERT INTO chat( chat_no, chat_time, chat_contents, room_no, user_no )
 		VALUES ( chat_seq.nextval, sysdate, #{chatContent }, #{roomNo }, #{userNo }  )
