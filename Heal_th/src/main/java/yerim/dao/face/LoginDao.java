@@ -18,4 +18,11 @@ public interface LoginDao {
 	 */
 	public int selectUserno(Users login);
 
+	/**
+	 * 회원 존재 여부 확인하기
+	 * @param searchId
+	 * @return
+	 */
+	public int selectUser(Users searchId);
+
 }

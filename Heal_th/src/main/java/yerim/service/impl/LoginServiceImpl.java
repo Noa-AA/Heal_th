@@ -28,9 +28,17 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public int getUserNo(Users login) {
-
-		
-		
 		return loginDao.selectUserno(login);
+	}
+	
+	@Override
+	public boolean searchUser(Users searchId) {
+		logger.info("seearchUser");
+		if(loginDao.selectUser(searchId)>0) {
+			logger.info("회원 존재 여부확인 성공");
+			return true;
+		}
+		
+		return false;
 	}
 }
