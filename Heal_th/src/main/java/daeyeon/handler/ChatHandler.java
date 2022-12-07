@@ -1,8 +1,6 @@
 package daeyeon.handler;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -22,9 +20,10 @@ public class ChatHandler extends TextWebSocketHandler {
 	//로그 객체
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
-	private Map<Integer ,WebSocketSession> sessionMap = new HashMap<Integer ,WebSocketSession>();
-//	private List<Map<String, Object>> sessionList = new ArrayList<Map<String, Object>>();  //3
+//	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
+	
+	private Map<WebSocketSession, Integer> sessionRoomNo = new HashMap<WebSocketSession, Integer>();
+	private Map<Integer ,WebSocketSession> userNoSession = new HashMap<Integer ,WebSocketSession>();
 	
 //	@Autowired private ChatService chatService;
 	
@@ -36,57 +35,44 @@ public class ChatHandler extends TextWebSocketHandler {
     public void afterConnectionEstablished( WebSocketSession session ) throws Exception {
     	String Id = (String)session.getAttributes().get("userId");
     	int userNo = (Integer)session.getAttributes().get("userNo");
-    	RoomList roomNo = (RoomList)session.getAttributes().get("roomNo"); 
+    	int roomNo = (Integer)session.getAttributes().get("roomNo"); 
     	
-    	sessionMap.put(userNo, session);
+    	userNoSession.put(userNo, session);
+    	sessionRoomNo.put(session, roomNo);
     	
-    	logger.info("sessionMap : {}", sessionMap);
     	
-//    	if(sessionList==null) {
-//    		sessionList.add(session);
-//    	} else {  
-//    		for( WebSocketSession data : sessionList ) {
-//    			if(data.getUri())
-//    			
-//    		}
-//    	}
-
-    	
-    	logger.info( "아이디 : {} 유저번호 : {} 연결됨", Id, userNo );
-    	logger.info( "방번호 : {}", roomNo.getRoomNo() );
+    	logger.info( ">>> 아이디 : {} 유저번호 : {} 연결됨", Id, userNo );
+    	logger.info( ">>> 방번호 : {}", roomNo);
     	
     }
+    
+    
 
     // 클라이언트가 웹소켓 서버로 메시지를 전송했을 때 실행되는 메서드
     // WebSocketSession session : 전송 주체 정보가 담긴 세션
     // TextMessage message : 전송 받은 메세지 정보
     @Override
-    protected void handleTextMessage( WebSocketSession session, TextMessage message) throws Exception {
+    protected void handleTextMessage( WebSocketSession session, TextMessage message ) throws Exception {
+    	int roomNo = (int)session.getAttributes().get("roomNo"); 
     	String Id = (String)session.getAttributes().get("userId");
-    	RoomList roomNo = (RoomList)session.getAttributes().get("roomNo"); 
     	
     	logger.info( "{}로 부터 {} 받음", Id, message.getPayload() );
     	
-    	logger.info("sessionList : {}", sessionList);
+    	logger.info(">>> sessionRoomNo : {}", sessionRoomNo);
+    	logger.info(">>> userNoSession : {}", userNoSession);
     	
     	
     	
-    	for( WebSocketSession data : sessionList ) {
+    	//같은방 유저에게 메세지 보내기
+    	for( int userNoKey : userNoSession.keySet() ) {
     		
-    		String[] Arr = data.getUri().toString().split("=");
-    		logger.info("포문 : {}", Arr[1]);
-    		
-    		if(roomNo.getRoomNo() == Integer.parseInt(Arr[1]) ) {
-    			data.sendMessage(new TextMessage(Id + " : " + message.getPayload()));
+    		if( sessionRoomNo.get(userNoSession.get(userNoKey)) == roomNo ) {
+    			userNoSession.get(userNoKey).sendMessage(new TextMessage(Id + " : " + message.getPayload()));
     		}
+    		
     	}
     	
-    	
-//    	for (WebSocketSession sess : sessionList) {
-//    		sess.sendMessage(new TextMessage(Id + " : " + message.getPayload()));
-//    	}
-    	
-//    	chatService.insertChat();
+
     	
     	
     }
@@ -96,8 +82,11 @@ public class ChatHandler extends TextWebSocketHandler {
     // 웹소켓이 연결이 종료 = 세션 종료
     @Override
     public void afterConnectionClosed( WebSocketSession session, CloseStatus status) throws Exception {
-    	sessionList.remove(session);
+    	int userNo = (Integer)session.getAttributes().get("userNo");
     	RoomList roomNo = (RoomList)session.getAttributes().get("roomNo"); 
+    	
+    	userNoSession.remove(userNo);
+    	
     	
 //    	sessionMap.remove(roomNo.getRoomNo());
     	logger.info("아이디 : {} - 연결 끊김", session.getId() );
