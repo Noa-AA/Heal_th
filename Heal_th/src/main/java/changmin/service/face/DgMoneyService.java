@@ -4,6 +4,7 @@ import java.util.List;
 
 import changmin.dto.MmoneyPay;
 import changmin.dto.WithDraw;
+import changmin.util.AdminWithDrawPaging;
 import yerim.dto.Users;
 
 public interface DgMoneyService {
@@ -41,9 +42,21 @@ public interface DgMoneyService {
 	public void addWithDraw(WithDraw withDraw);
 
 	/**
-	 * 관리자 - 인출신청리스트 불러오기
+	 *  
+	 * @param userno
 	 * @return
 	 */
-	public List<WithDraw> getWithDrawList();
+	public int cntWithDraw(int userno);
+	/**
+	 * 관리자 - 페이징된 인출신청리스트 불러오기
+	 * @param wdPaging 
+	 * @return
+	 */
+	public List<WithDraw> getWithDrawList(AdminWithDrawPaging wdPaging);
+
+	public void changeMmoney(WithDraw wd);
+
+
+	public AdminWithDrawPaging getWdPaging(String curPage);
 
 }

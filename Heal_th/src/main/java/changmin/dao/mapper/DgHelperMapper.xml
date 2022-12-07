@@ -7,9 +7,9 @@
 
 <mapper namespace="changmin.dao.face.DgHelperDao">
 
-	<insert id="insertRecord" parameterType="string">
+	<insert id="insertRecord" parameterType="HealthRecord">
 		INSERT INTO healthrecord (record_no, record_date, record_con, user_no)
-		VALUES (healthrecord_seq.nextval, sysdate, #{recordcon}, 1)
+		VALUES (healthrecord_seq.nextval, to_char(systimestamp, 'yyyy"년 "mm"월 "dd"일" hh:mm:ss'), #{recordCon}, #{userNo})
 	</insert>
 	
 	<select id="selectRecord" resultType="HealthRecord" parameterType="DgHelperPaging">
@@ -41,5 +41,37 @@
 		FROM users
 		WHERE user_no = #{userno }
 	</select>
+	
+	<delete id="deleteRecord" parameterType="int">
+		DELETE FROM healthrecord
+		WHERE record_no = #{recordNo }
+	</delete>
+	
+	<select id="selectDgmaInfo" resultType="Dgmagotchi" parameterType="int">
+		SELECT *
+		FROM dgmagotchi
+		WHERE user_no = #{userno }
+	</select>
+	
+	<select id="selectCntDgmaInfo" resultType="int" parameterType="int">
+		SELECT count(*)
+		FROM dgmagotchi
+		WHERE user_no = #{userno }
+	</select>
+	
+	<insert id="insertDgmaInfo" parameterType="int">
+		INSERT INTO dgmagotchi (dgma_no, dgma_stata, dgma_statb, dgma_statc, dgma_statd, dgma_exp, user_no)
+		VALUES (dgmagotchi_seq.nextval, 100, 100, 100, 0, 0, #{userno})
+	</insert>
+	
+	<update id="updateDgmaInfo" parameterType="Dgmagotchi">
+		UPDATE dgmagotchi
+		SET dgma_stata=#{dgmaStata},
+			dgma_statb=#{dgmaStatb},
+			dgma_statc=#{dgmaStatc},
+			dgma_statd=#{dgmaStatd},
+			dgma_exp=#{dgmaExp}
+		WHERE dgma_no = #{dgmaNo}
+	</update>
 	
 </mapper>

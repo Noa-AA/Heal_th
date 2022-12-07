@@ -1,7 +1,7 @@
 package daeyeon.handler;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +13,8 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import daeyeon.dto.ChatRoom;
+import daeyeon.dto.Chat;
+import daeyeon.dto.RoomList;
 import daeyeon.service.face.ChatService;
 
 @RequestMapping(value = "/chat", method = RequestMethod.GET)
@@ -22,9 +23,12 @@ public class ChatHandler extends TextWebSocketHandler {
 	//로그 객체
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
+//	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 	
-//	@Autowired private ChatService chatService;
+	private Map<WebSocketSession, Integer> sessionRoomNo = new HashMap<WebSocketSession, Integer>();
+	private Map<Integer ,WebSocketSession> userNoSession = new HashMap<Integer ,WebSocketSession>();
+	
+	@Autowired private ChatService chatService;
 	
 	
 	// afterConnectionEstablished : 웹소켓이 연결되면 호출되는 함수
@@ -32,29 +36,53 @@ public class ChatHandler extends TextWebSocketHandler {
     // 웹소켓이 연결 되는 것 = 프론트에서 웹소켓이 정확한 경로를 잡아 생성 되는 것
     @Override
     public void afterConnectionEstablished( WebSocketSession session ) throws Exception {
-    	sessionList.add(session);
     	String Id = (String)session.getAttributes().get("userId");
     	int userNo = (Integer)session.getAttributes().get("userNo");
+    	int roomNo = (Integer)session.getAttributes().get("roomNo"); 
     	
-    	logger.info( "아이디 : {} 유저번호 : {} 연결됨", Id, userNo );
+    	userNoSession.put(userNo, session);
+    	sessionRoomNo.put(session, roomNo);
+    	
+    	
+    	logger.info( ">>> 아이디 : {} 유저번호 : {} 연결됨", Id, userNo );
+    	logger.info( ">>> 방번호 : {}", roomNo);
     	
     }
+    
+    
 
     // 클라이언트가 웹소켓 서버로 메시지를 전송했을 때 실행되는 메서드
     // WebSocketSession session : 전송 주체 정보가 담긴 세션
     // TextMessage message : 전송 받은 메세지 정보
     @Override
-    protected void handleTextMessage( WebSocketSession session, TextMessage message) throws Exception {
+    protected void handleTextMessage( WebSocketSession session, TextMessage message ) throws Exception {
+    	int roomNo = (int)session.getAttributes().get("roomNo"); 
     	String Id = (String)session.getAttributes().get("userId");
     	int userNo = (Integer)session.getAttributes().get("userNo");
     	
+    	Chat chat = new Chat();
+    	
     	logger.info( "{}로 부터 {} 받음", Id, message.getPayload() );
     	
-    	for (WebSocketSession sess : sessionList) {
-    		sess.sendMessage(new TextMessage(Id + " : " + message.getPayload()));
+    	logger.info(">>> sessionRoomNo : {}", sessionRoomNo);
+    	logger.info(">>> userNoSession : {}", userNoSession);
+    	
+    	
+    	//같은방 유저에게 메세지 보내기
+    	for( int userNoKey : userNoSession.keySet() ) {
+    		
+    		if( sessionRoomNo.get(userNoSession.get(userNoKey)) == roomNo ) {
+    			userNoSession.get(userNoKey).sendMessage(new TextMessage(Id + " : " + message.getPayload()));
+    		}
     	}
     	
-//    	chatService.insertChat();
+    	//Chat dto에 데이터 집어넣기
+    	chat.setChatContent( message.getPayload() );
+    	chat.setRoomNo(roomNo);
+    	chat.setUserNo(userNo);
+    	
+    	//--- chat 테이블에 채팅 데이터 집어넣기
+    	chatService.addChat(chat);
     	
     	
     }
@@ -64,7 +92,13 @@ public class ChatHandler extends TextWebSocketHandler {
     // 웹소켓이 연결이 종료 = 세션 종료
     @Override
     public void afterConnectionClosed( WebSocketSession session, CloseStatus status) throws Exception {
-    	sessionList.remove(session);
+    	int userNo = (Integer)session.getAttributes().get("userNo");
+    	RoomList roomNo = (RoomList)session.getAttributes().get("roomNo"); 
+    	
+    	userNoSession.remove(userNo);
+    	
+    	
+//    	sessionMap.remove(roomNo.getRoomNo());
     	logger.info("아이디 : {} - 연결 끊김", session.getId() );
     	
     }
@@ -73,21 +107,3 @@ public class ChatHandler extends TextWebSocketHandler {
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

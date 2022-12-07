@@ -1,5 +1,12 @@
 package yerim.service.face;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import yerim.dto.Request;
 import yerim.dto.SmsResponse;
 import yerim.dto.Users;
 
@@ -19,14 +26,26 @@ public interface JoinService {
 	 */
 	public int checkById(Users userId);
 
-/**
- * 본인인증을 위한 문자 보내기
- * @param recivedPhoneNumber -입력된 전화번호
- * @param title -제목
- * @param content -내용
- * @return
- */
 
-	public SmsResponse sendSms(String recivedPhoneNumber,String content);
+	/**
+	 * 본인인증 요청 메시지 보내기 -API연결
+	 * @param userPhone - 입력한 전화번호 
+	 * @return -보낸 랜덤 난수 
+	 * @throws JsonProcessingException 
+	 */
+
+	public SmsResponse sendRan(Users userPhone,HttpSession session);
+
+
+	/**
+	 * 본인인증 번호 확인하기
+	 * @param session - 보낸인증번호
+	 * @param code -직접 입력한 인증 번호 
+	 * @return -true/false
+	 */
+	public boolean checkCode(HttpSession session,String code);
+
+	
+
 
 }
