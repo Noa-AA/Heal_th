@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import changmin.dao.face.DgHelperDao;
 import changmin.dto.BodyInfo;
+import changmin.dto.Dgmagotchi;
 import changmin.dto.HealthRecord;
 import changmin.service.face.DgHelperService;
-import changmin.util.ChangMinPaging;
+import changmin.util.DgHelperPaging;
+import yerim.dto.Users;
 
 @Service
 public class DgHelperServiceImpl implements DgHelperService {
@@ -21,12 +23,13 @@ public class DgHelperServiceImpl implements DgHelperService {
 	@Autowired private DgHelperDao dgHelperDao;
 	
 	@Override
-	public void addRecord(String recordcon, int userno) {
-		dgHelperDao.insertRecord(recordcon);
+	public int addRecord(HealthRecord healthRecord) {
+		
+		return dgHelperDao.insertRecord(healthRecord); 
 	}
 
 	@Override
-	public ChangMinPaging getChangMinPaging(String curPage, int userno) {
+	public DgHelperPaging getDgHelperPaging(String curPage, int userno) {
 		//총 게시글 수 조회하기
 		int totalCount = dgHelperDao.selectCntAll();
 		
@@ -38,16 +41,18 @@ public class DgHelperServiceImpl implements DgHelperService {
 			curPage2 = Integer.parseInt(param);
 		}
 		
-		//ChangMinPaging객체 생성
-		ChangMinPaging ChangMinPaging = new ChangMinPaging(totalCount, curPage2);
+		//DgHelperPaging객체 생성
+		DgHelperPaging dgHelperPaging = new DgHelperPaging(totalCount, curPage2);
 		
-		return ChangMinPaging;
+		return dgHelperPaging;
 	}
 
 	@Override
-	public List<HealthRecord> getRecordList(ChangMinPaging ChangMinPaging, int userno) {
+	public List<HealthRecord> getRecordList(DgHelperPaging DgHelperPaging, int userno) {
 		
-		return dgHelperDao.selectRecord(ChangMinPaging);
+		List<HealthRecord> list =dgHelperDao.selectRecord(DgHelperPaging); 
+		
+		return list;
 	}
 
 	@Override
@@ -57,12 +62,49 @@ public class DgHelperServiceImpl implements DgHelperService {
 	}
 
 	@Override
-	public int getCntRecord(List<HealthRecord> recordList) {
-		
-		int cnt = 0;
-		cnt = recordList.size();
+	public Users getUserInfo(int userno) {
 
-		return cnt;
+		return dgHelperDao.selectUserInfo(userno);
 	}
+
+	@Override
+	public void removeRecord(int recordNo) {
+
+		dgHelperDao.deleteRecord(recordNo);
+	}
+
+	@Override
+	public void changeRecord(int recordNo) {
+	
+	}
+
+	@Override
+	public Dgmagotchi getDgmaInfo(int userno) {
+
+		return dgHelperDao.selectDgmaInfo(userno);
+	}
+
+	@Override
+	public int getDgmaCnt(int userno) {
+		
+		return dgHelperDao.selectCntDgmaInfo(userno);
+	}
+	
+	@Override
+	public void addDgmaInfo(int userno) {
+
+		dgHelperDao.insertDgmaInfo(userno);
+		
+	}
+
+	@Override
+	public void saveDgmaInfo(Dgmagotchi dgmagotchi) {
+		
+		dgHelperDao.updateDgmaInfo(dgmagotchi);
+		
+	}
+
+
+
 
 }
