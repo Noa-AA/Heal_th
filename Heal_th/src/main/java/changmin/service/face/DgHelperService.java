@@ -3,6 +3,7 @@ package changmin.service.face;
 import java.util.List;
 
 import changmin.dto.BodyInfo;
+import changmin.dto.Dgmagotchi;
 import changmin.dto.HealthRecord;
 import changmin.util.DgHelperPaging;
 import yerim.dto.Users;
@@ -58,6 +59,33 @@ public interface DgHelperService {
 	 * @param recordNo
 	 */
 	public void changeRecord(int recordNo);
+
+	/**
+	 * 유저에 따른 득마고치 정보 조회
+	 * @param userno
+	 * @return
+	 */
+	public Dgmagotchi getDgmaInfo(int userno);
+
+	/**
+	 * 득마고치 존재여부 확인
+	 * @param userno
+	 * @return
+	 */
+	public int getDgmaCnt(int userno);
+	
+	/**
+	 * 득마고치 정보 추가
+	 * @param userno
+	 */
+	public void addDgmaInfo(int userno);
+
+	/**
+	 * 득마고치 정보 저장
+	 * @param dgmagotchi
+	 */
+	public void saveDgmaInfo(Dgmagotchi dgmagotchi);
+
 
 
 }

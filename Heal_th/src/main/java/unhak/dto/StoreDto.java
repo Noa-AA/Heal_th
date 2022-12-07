@@ -6,20 +6,20 @@ public class StoreDto {
 
 	
 	
-	private int prodNo;
-	private int userNo;
-	private String pName;
-	private int pPrice;
-	private String pImage1;
-	private String pImage2;
-	private String pDetail;
-	private Date pDate;
-	private int pHit;
-	private String pSteaming;
-	private String pCart;
-	private int pStock;
-	private int pDelivery;
-	private int pSell;
+	private int prodNo; //상품 아이디
+	private int userNo; //회원번호
+	private String pName; //상품명
+	private int pPrice; //가격
+	private String pImage1; //상품 메인 사진
+	private String pImage2; //상품 추가 사진
+	private String pDetail; //상세 정보
+	private Date pDate; //등록일
+	private int pHit;  //조회수
+	private String pSteaming; //찜하기
+	private String pCart; //장바구니
+	private int pStock;  //재고수량
+	private int pDelivery; //배송조건
+	private int pSell; //판매수량
 	
 	
 	public StoreDto() {	}

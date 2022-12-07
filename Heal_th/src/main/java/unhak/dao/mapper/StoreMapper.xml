@@ -8,4 +8,17 @@
     
  <mapper namespace="unhak.dao.face.StoreDao">
  
+ 
+ <select id="selectList" resultType="StoreDto" parameterType="StorePaging">
+ 	SELECT * FROM(
+ 		SELECT rownum rnum, P.* FROM (
+			SELECT 
+				prod_no,p_name,p_price,p_hit,p_date
+			FROM PRODUCT
+			ORDER BY prod_no DESC
+ 		)P
+ 	)PRODUCT
+ 	WHERE rnum BETWEEN #{startNo} AND #{endNo}
+ </select>
+ 
  </mapper>   
