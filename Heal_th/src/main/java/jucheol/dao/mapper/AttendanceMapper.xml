@@ -5,10 +5,19 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="jucheol.dao.face.AttendanceDao">
 	<select id="getLastLogin" resultType="Attendance" parameterType="Attendance">
-		SELECT
-			att_no, last_login, user_no
-		FROM attendance
-		WHERE user_no = #{userNo}
+		SELECT att_no, att_date, user_no
+		FROM
+			(SELECT *
+			FROM attendance
+			WHERE user_no = #{userNo }
+			ORDER BY att_date desc)
+		where rownum=1
 	</select>
-
+	
+	<insert id="addLoginDate" parameterType="Attendance">
+		INSERT INTO attendance(att_no, att_date, user_no)
+		VALUES ( attendance_seq.nextval, #{attDate }, #{userNo } )
+	</insert>
+	
+	
 </mapper>

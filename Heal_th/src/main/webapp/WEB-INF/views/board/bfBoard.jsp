@@ -20,15 +20,17 @@ td:nth-child(2) {
 	text-align: left;
 }
 
-#btnInsert {
+#btnWrite {
     background: #7474BF;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #348AC7, #7474BF);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #348AC7, #7474BF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: -webkit-linear-gradient(to right, #7ca3f5, #c583d6);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #7ca3f5, #c583d6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
-	border: 3px solid #eee;
-	
+	border: none;
+	font-weight: bold;
 	width: 60px;
 	height: 34px;
+	float: right;
+	margin-top: -28px;
 }
 
 
@@ -38,8 +40,8 @@ td:nth-child(2) {
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$("#btnInsert").click(function() {
-		$(location).attr("href", "/board/bf_write")
+	$("#btnWrite").click(function() {
+		$(location).attr("href", "/board/bfWrite")
 	})
 	
 })
@@ -61,7 +63,9 @@ $(document).ready(function() {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 <div class="page-content page-container" id="page-content">
     <div class="padding">
-        <div class="row container d-flex justify-content-center"> <button type="button" id="btnInsert" class="btn btn-warning btn-icon-text animatebutton"> <i class="fa fa-check btn-icon-prepend"></i>글쓰기</button> </div>
+        <div class="row container d-flex justify-content-center"> 
+        	<button type="button" id="btnWrite" class="btn btn-warning btn-icon-text animatebutton"> <i class="fa fa-check btn-icon-prepend"></i>글쓰기</button> 
+       </div>
     </div>
 </div>
 
@@ -86,7 +90,7 @@ $(document).ready(function() {
 <c:forEach items="${list }" var="board">
 	<tr>
 		<td>${board.bfNo }</td>
-		<td><a href="${path}/board/detail?no=${board.bfNo}">${board.bfTitle }</a></td>
+		<td><a href="${path}/board/bfView?bfNo=${board.bfNo}">${board.bfTitle }</a></td>
 		<td>${board.userNo }</td>
 		<td>${board.bfHit }</td>
 		<td>${board.bfThumbs }</td>
