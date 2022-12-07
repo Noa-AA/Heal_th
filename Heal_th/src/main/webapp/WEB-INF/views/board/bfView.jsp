@@ -39,7 +39,8 @@ table {
 <table class="table table-bordered">
 
 <tr>
-	<td class="info">글번호</td><td colspan="3">${viewBoard.bfNo }</td>
+	<td class="info">글번호</td><td>${viewBoard.bfNo }</td>
+	<td class="info">카테고리 번호</td><td>${viewBoard.categoryNo }</td>
 </tr>
 <tr>
 	<td class="info">회원번호</td><td>${viewBoard.userNo }</td>
@@ -115,17 +116,23 @@ table {
 <div class="text-center">
 	<button id="btnList" class="btn btn-default">목록</button>
 	
-	<c:if test="${user eq viewBoard.userNo }">
+	<c:if test="${userNo eq viewBoard.userNo }">
 		<button id="btnUpdate" class="btn btn-primary">수정</button>
 		<button id="btnDelete" class="btn btn-danger">삭제</button>
 	</c:if>
 </div>
 
-<br><br><br><br>
+<br><br>
+
+
+<br><br>
 
 </div><!-- .container end -->
 
+<jsp:include page="../comment/board.jsp" />
 
+
+<br><br><br><br><br><br><br><br>
 
 
 
