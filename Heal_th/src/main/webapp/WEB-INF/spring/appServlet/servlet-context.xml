@@ -69,7 +69,7 @@
 	 jucheol.controller, jucheol.service,
 	 saebyeol.controller, saebyeol.service,
 	 unhak.controller, unhak.service,
-	 yerim.controller, yerim.service,  
+	 yerim.controller, yerim.service,
 	 common"/>
 	 
 	 

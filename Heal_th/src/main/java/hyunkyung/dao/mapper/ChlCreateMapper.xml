@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바티스3 Mapper DTD -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="hyunkyung.dao.face.ChlCreateDao">
+	<insert id="insert" parameterType="hyunkyung.dto.Challenge">
+		INSERT INTO challenge (challenge_no, challenge_kind, challenge_name, m_no, challenge_credate, challenge_enddate)
+		VALUES (challenge_seq.nextval, #{challengeKind}, #{challengeName}, #{mNo}, #{challengeCredate}, #{challengeEnddate})
+	</insert>
+
+</mapper>    
