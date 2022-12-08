@@ -36,7 +36,7 @@ public interface BfBoardDao {
 	 */
 	public Users selectUserInfo(int userno);
 	
-	
+	//게시글 삭제
 	public void delete(Beforeafter bfNo);
 
 	/**

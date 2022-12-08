@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import hyanghee.dto.Beforeafter;
 import hyanghee.service.face.BfBoardService;
 import hyanghee.util.BoardPaging;
+import jucheol.dto.Comment;
 import yerim.dto.Users;
 
 
@@ -53,14 +54,14 @@ public class BfBoardController {
 	
 	
 	//게시글 작성
-	@GetMapping("/board/bf_write")
+	@GetMapping("/board/bfWrite")
 	public void insertBfBoard() {
 		
-		logger.info("/board/bf_write [GET]");
+		logger.info("/board/bfWrite [GET]");
 
 	}
 	
-	@PostMapping("/board/bf_write")
+	@PostMapping("/board/bfWrite")
 	public String insertBfBoardProc(Beforeafter bfBoard,HttpSession session) {
 		
 		//테스트용 로그인 userno
@@ -80,7 +81,7 @@ public class BfBoardController {
 	//게시글 상세 보기
 	@RequestMapping("board/bfView")
 	public String view(Beforeafter viewBoard, Model model) {
-		logger.info("/board/view - {}", viewBoard);
+		logger.info("{}", viewBoard);
 		
 		//잘못된 게시글 번호 처리
 		if( viewBoard.getBfNo() < 0 ) {
@@ -99,7 +100,7 @@ public class BfBoardController {
 
 	//게시글 수정
 	@GetMapping("/board/bfUpdate")
-	public String update(Beforeafter beforeafter, Model model) {
+	public String update(Beforeafter beforeafter, Comment comment, Model model) {
 		logger.debug("{}", beforeafter);
 		
 		//잘못된 게시글 번호 처리
@@ -113,7 +114,7 @@ public class BfBoardController {
 		
 		//모델값 전달
 		model.addAttribute("updateBoard", beforeafter);
-		
+		model.addAttribute("comment", comment);
 		
 		//첨부파일 모델값 전달
 //		BoardFile boardFile = boardService.getAttachFile(beforeafter);
@@ -124,14 +125,7 @@ public class BfBoardController {
 
 	}
 	
-//	@PostMapping("/board/bfUpdate")
-//	public String updateProcess(Beforeafter beforeafter, MultipartFile file) {
-//		logger.debug("{}", beforeafter);
-//		
-//		bfBoardService.update(beforeafter, file);
-//		
-//		return "redirect:/board/view?boardNo=" + beforeafter.getBfNo();
-//	}
+
 	
 	@PostMapping("/board/bfUpdate")
 	public String updateProcess(Beforeafter beforeafter) {
@@ -155,6 +149,9 @@ public class BfBoardController {
 		return "redirect:/board/bfBoard";
 	}
 
+	
+	//포인트
+	
 }
 
 

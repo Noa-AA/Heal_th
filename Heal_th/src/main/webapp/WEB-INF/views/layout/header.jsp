@@ -59,7 +59,7 @@ a {
 }
 
 header{
-	margin-bottom: 180px;
+	margin-bottom: 160px;
 }
 
 #topMenu {
@@ -223,6 +223,35 @@ header{
 	height: 20px;
     color: #666;
     font-weight: 400;
+}
+
+#subvisual {
+    position: absolute;
+    top: 80px;
+    width: 100%;
+    height: 275px;
+    background: linear-gradient(#fbf5fd 0 , #eaecfb);
+    text-align: center;
+}
+
+#subvisual-A {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#subvisual #subv-title {
+    font-family: 'SUIT';
+    font-size: 40px;
+    font-weight: 700;
+}
+
+#subvisual #subv-content {
+    font-family: 'SUIT';
+	font-size: 15px;
+	color: #888888;
 }
 
 </style>

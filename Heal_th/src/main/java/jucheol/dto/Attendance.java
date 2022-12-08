@@ -1,25 +1,26 @@
 package jucheol.dto;
 
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class Attendance {
 	
 	private int attNo;
-	private Date lastLogin;
 	private int userNo;
+	private Date attDate;
 	
 	public Attendance() {	}
 
-	public Attendance(int attNo, Date lastLogin, int userNo) {
+	public Attendance(int attNo, int userNo, Date attDate) {
 		super();
 		this.attNo = attNo;
-		this.lastLogin = lastLogin;
 		this.userNo = userNo;
+		this.attDate = attDate;
 	}
 
 	@Override
 	public String toString() {
-		return "Attendance [attNo=" + attNo + ", lastLogin=" + lastLogin + ", userNo=" + userNo + "]";
+		return "Attendance [attNo=" + attNo + ", userNo=" + userNo + ", attDate=" + attDate + "]";
 	}
 
 	public int getAttNo() {
@@ -30,14 +31,6 @@ public class Attendance {
 		this.attNo = attNo;
 	}
 
-	public Date getLastLogin() {
-		return lastLogin;
-	}
-
-	public void setLastLogin(Date lastLogin) {
-		this.lastLogin = lastLogin;
-	}
-
 	public int getUserNo() {
 		return userNo;
 	}
@@ -46,6 +39,13 @@ public class Attendance {
 		this.userNo = userNo;
 	}
 
+	public Date getAttDate() {
+		return attDate;
+	}
+
+	public void setAttDate(Date attDate) {
+		this.attDate = attDate;
+	}
 	
 	
 }

@@ -2,7 +2,7 @@ package hyunkyung.dao.face;
 
 import hyunkyung.dto.Challenge;
 
-public interface CreateDao {
+public interface ChlCreateDao {
 
 	/**
 	 * 신규 챌린지 방 삽입하기

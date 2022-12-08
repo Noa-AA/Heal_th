@@ -25,4 +25,12 @@ public interface LoginService {
 	 */
 	public boolean searchUser(Users searchId);
 
+	
+	/**
+	 * 이메일보내기
+	 * @param searchId -이메일에 보낼 정보
+	 * @return 
+	 */
+	public String sendMail(Users searchId);
+
 }
