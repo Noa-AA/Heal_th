@@ -59,7 +59,7 @@ a {
 }
 
 header{
-	margin-bottom: 180px;
+	margin-bottom: 160px;
 }
 
 #topMenu {
@@ -226,8 +226,8 @@ header{
 }
 
 #subvisual {
-    position: relative;
-    top: -100px;
+    position: absolute;
+    top: 80px;
     width: 100%;
     height: 275px;
     background: linear-gradient(#fbf5fd 0 , #eaecfb);
