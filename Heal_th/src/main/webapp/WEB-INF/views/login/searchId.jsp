@@ -103,6 +103,7 @@ $(document).ready(function(){
 				if(res != "false") {
 					console.log("아이디 찾기 성공")
 					$("#search").css("display","none")
+					$("#btnCancel").css("display","none")
 					$("#resultMsg").html("회원님의 아이디는"+res+"입니다.")
 					$("#toLogin").show()
 				}else  {
@@ -115,14 +116,13 @@ $(document).ready(function(){
 			,error : function(){
 				console.log("실패다 실패야...")
 			}
-		}); //이메일 보내기 요청 완료 
+		}); //이메일 인증 완료 
 				
 				
-			})
+	})
 	
 			//문자로 인증번호 받기 클릭
-			
-				$("#btngetSmsCode").click(function(){
+			$("#btngetSmsCode").click(function(){
 			console.log("전화번호 인증받기 버튼 클릭")
 		$.ajax({
 			
@@ -138,8 +138,8 @@ $(document).ready(function(){
 				console.log("문자 번호 보내기 ")
 				if(res == true) {
 					console.log("회원 있음")
-					$("#emailCode").attr("disabled",false)
-					$("#emailCode").focus()
+					$("#smsCode").attr("disabled",false)
+					$("#smsCode").focus()
 				}else {
 					console.log("회원 없음")
 					$("#resultMsg").html("일치하는 회원정보가 없습니다. 아이디 또는 전화번호를 확인해주세요")
@@ -155,6 +155,40 @@ $(document).ready(function(){
 			
 	})//인증하기 버튼 클릭 
 	
+
+	$("#chksmsCode").click(function(){
+				console.log("인증번호(문자) 확인하기 버튼 클릭 ")
+				
+				$.ajax({
+			type:"post"
+			,url:"/login/checkSmsCode"
+			,data :{
+				smsCode : $("#smsCode").val()
+			}
+			,dataType:"text"
+			,success:function(res){
+				console.log(res)
+				console.log("문자 인증하기 ")
+				if(res != "false") {
+					console.log("아이디 찾기 성공")
+					$("#search").css("display","none")
+					$("#btnCancel").css("display","none")
+					$("#resultMsg").html("회원님의 아이디는"+res+"입니다.")
+					$("#toLogin").show()
+				}else  {
+					console.log("이메일 인증 실패")
+					$("#search").css("display","block")
+					$("#resultMsg").html("<p>인증 실패. 인증번호를 한번 더 확인해주세요</p>")
+					$("#resultMsg").css("color","red")
+				}
+				
+			}
+			,error : function(){
+				console.log("실패다 실패야...")
+			}
+		}); //문자인증 완료 
+				
+	})
 })
 
 

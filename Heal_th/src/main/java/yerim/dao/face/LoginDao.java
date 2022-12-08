@@ -40,5 +40,13 @@ public interface LoginDao {
 	 * @return
 	 */
 	public int selectUserBySms(Users searchBySms);
+	
+	/**
+	 * 문자이증을 통한 아이디 찾기 (아디치 조회)
+	 * @param searchIdBySms
+	 * @return -조회한 아이디
+	 */
+
+	public String selectByNamePhone(Users searchIdBySms);
 
 }

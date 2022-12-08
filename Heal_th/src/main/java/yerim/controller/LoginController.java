@@ -21,9 +21,12 @@ public class LoginController {
 	
 	@Autowired LoginService loginService; 
 	 @GetMapping("/login/login")
-	 public void login() {
+	 public void login(HttpSession session) {
 		 //로그인 화면 
 		 logger.info("/login/login [GET]");
+		 
+		//세션있으면 지우기
+		 session.invalidate();
 	 }
 
  
@@ -103,11 +106,6 @@ public class LoginController {
 		 logger.info("/codeIdChk 실행");
 		 
 		 String searchId =loginService.codeChk(emailCode,session);
-		 
-		 model.addAttribute("searchResult",searchId);
-		 
-		 //세션 지우기
-		 session.invalidate();
 		 logger.info(searchId);
 		 return searchId;
 	 }
@@ -141,7 +139,17 @@ public class LoginController {
 			 return false;
 		 }
 		 
-		 
-		 
 	 }
+	 
+	 @ResponseBody
+	 @PostMapping("/login/checkSmsCode")
+	 public String smsCodeChk(String smsCode,HttpSession session) {
+		 logger.info("/login/chedkSmScode");
+		 
+		 String searchBySms = loginService.smsCodeChk(smsCode,session);
+		 
+		 logger.info("아이디 찾기 성공 -{}",searchBySms);
+		 return searchBySms;
+	 }
+	 
 }

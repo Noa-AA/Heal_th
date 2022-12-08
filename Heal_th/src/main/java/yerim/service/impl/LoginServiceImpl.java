@@ -178,4 +178,33 @@ public class LoginServiceImpl implements LoginService {
 		
 		return msgNum;
 	}
+	@Override
+	public String smsCodeChk(String smsCode, HttpSession session) {
+		logger.info("smsCodeChk - 아이디 조회해오기");
+		String getId ="";
+		
+		//세션에 담긴 인증번호
+		String sessionSmsCode = (String)session.getAttribute("sendMsg");
+		
+		//세션에 담긴 회원 이름과 전화번호 ->DTO에 저장하기
+		Users searchIdBySms = new Users();
+		
+			searchIdBySms.setUserName((String)session.getAttribute("userName"));
+			searchIdBySms.setUserPhone((String)session.getAttribute("userPhone"));
+		
+		
+		//인증번호 같으면  아이디 조회해오기
+		String getUserIdSms = "";
+		if(sessionSmsCode.equals(smsCode)) {
+			logger.info("문자인증 성공");
+			//아이디 조회해오기
+			getUserIdSms = loginDao.selectByNamePhone(searchIdBySms);
+			return getUserIdSms;
+		}else {
+			logger.info("인증 실패 코드 불일치");
+			return "false";
+		}
+		
+		
+	}
 }

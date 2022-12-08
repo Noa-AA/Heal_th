@@ -58,4 +58,12 @@ public interface LoginService {
 	 */
 	public String sendMsessage(Users searchBySms);
 
+	/**
+	 * 문자인증으로 회원 아이디 조회해오기
+	 * @param smsCode -회원이 입력한인증번호
+	 * @param session - 생성된 인증번호
+	 * @return
+	 */
+	public String smsCodeChk(String smsCode, HttpSession session);
+
 }
