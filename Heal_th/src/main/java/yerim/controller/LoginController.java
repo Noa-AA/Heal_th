@@ -60,7 +60,6 @@ public class LoginController {
 	 
 	 @RequestMapping("/login/searchId")
 	 public void searchId() {
-	
 		 logger.info("/login/searchId");
 		 
 	 }
@@ -108,7 +107,7 @@ public class LoginController {
 		 model.addAttribute("searchResult",searchId);
 		 
 		 //세션 지우기
-		 
+		 session.invalidate();
 		 logger.info(searchId);
 		 return searchId;
 	 }
@@ -116,5 +115,33 @@ public class LoginController {
 	 @RequestMapping("/login/searchIdResult")
 	 public void ResultsearchId() {
 		 	logger.info("아이디 찾기 완료");
+	 }
+	 
+	 @ResponseBody
+	 @PostMapping("/login/searchIdBySms")
+	 public boolean searchIdBySms(Users searchBySms,HttpSession session) {
+		 logger.info("/login/serachIdBySms");
+		 //입력된 정보로 회원이 존재하는지 조회해오기
+		 boolean isUser = loginService.getUsersBySms(searchBySms);
+		 if(isUser) {
+			 //회원이 있으면 문자 보내기 
+			 logger.info("회원 있음 - 문자 보내기");
+			 String sendMsg = loginService.sendMsessage(searchBySms);
+			 //회원 정보 세션에 저장
+			 session.setAttribute("userName",searchBySms.getUserName());
+			 session.setAttribute("userPhone",searchBySms.getUserPhone());
+			 //세션에 인증 번호 저장
+			 session.setAttribute("sendMsg", sendMsg);
+			 
+			 return true;
+		 }else {
+			 logger.info("회원 없음 인증 실패");
+			 session.invalidate();
+			 
+			 return false;
+		 }
+		 
+		 
+		 
 	 }
 }

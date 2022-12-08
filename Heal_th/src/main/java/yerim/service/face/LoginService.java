@@ -43,4 +43,19 @@ public interface LoginService {
 	 */
 	public String codeChk(String emailCode, HttpSession session);
 
+	
+	/**
+	 * 문자 인증번호 보내기전 회원 존재여부 조회
+	 * @param searchBySms
+	 * @return
+	 */
+	public boolean getUsersBySms(Users searchBySms);
+
+	/**
+	 * 회원에게 인증 번호 문자 보내기
+	 * @param searchBySms -회원번호
+	 * @return -인증번호
+	 */
+	public String sendMsessage(Users searchBySms);
+
 }
