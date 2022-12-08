@@ -481,7 +481,7 @@ button {
 .mbti-content{
 	position: relative;
 	top: 420px;
-	font-family: 'mice';
+	font-family: 'SUIT';
 }
 
 #start, #E, #I, #E2, #I2, #F3, #T3, #E4, #I4, #T5, #F5, #T6, #F6 {
@@ -504,6 +504,19 @@ button {
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
 }
 
+.question-title {
+	height: 80px;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'SUIT';
+    font-weight: bold;
+    font-size: x-large;
+    color: black;
+    background: linear-gradient(#fbf5fd 0 , #eaecfb);
+}
+
 body {
 	padding-top: 355px;
 }
@@ -512,11 +525,12 @@ body {
 <div id="subvisual">
 	<div id="subvisual-A">
 		<p id="subv-title">운동성향 테스트</p>
-		<p id="subv-content">운동성향테스트 어쩌구저쩌구</p>
+		<p id="subv-content">운동성향 테스트로 나에게 맞는 운동을 찾아봐요</p>
 	</div>
 </div>
 <div class="big-container">
 	<div class="question-container">
+	<div class="question-title">운동성향 테스트</div>
 		<div class="start" style="display: block;">
 			<div class="mbti-content">
 				<button id="start">시작하기</button>
