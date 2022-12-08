@@ -213,7 +213,12 @@ button {
 
 </style> 
 <body>
- 
+<div id="subvisual">
+	<div id="subvisual-A">
+		<p id="subv-title">운동성향 테스트</p>
+		<p id="subv-content">운동성향테스트 어쩌구저쩌구</p>
+	</div>
+</div>
 <div class="big-container">
 <!-- <!-- 퀵메뉴 시작 --> 
 <!-- <div class="Quick"> -->

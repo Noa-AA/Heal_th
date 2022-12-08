@@ -4,6 +4,7 @@ import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import yerim.dao.face.LoginDao;
 import yerim.dto.Users;
 import yerim.service.face.LoginService;
+import yerim.util.Sms;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -104,8 +106,76 @@ public class LoginServiceImpl implements LoginService {
 		}
 		
 		
-		logger.info("이메일 보내기 완료 ");
+		logger.info("이메일 보내기 완료  : {}",emailCode);
 		return emailCode.toString();
 		
+	}
+	
+	
+	@Override
+	public String codeChk(String emailCode, HttpSession session) {
+		logger.info("codeChk 실행");
+		logger.info("emailCode : {}, session : {}",emailCode, 	session.getAttribute("emailResult"));
+		
+		//세션에 담긴 번호 
+		String sessionCode = (String)session.getAttribute("emailResult");
+		
+		//세션에 담긴 이름과 이메일 얻기
+		Users searchId = new Users();
+			searchId.setUserName((String)session.getAttribute("userName"));
+			searchId.setUserEmail((String)session.getAttribute("userEmail"));	
+		
+		logger.info("userName : {}, userEmai :{}",session.getAttribute("userName"),session.getAttribute("userEmail"));
+		String getUserId = "";
+		if(sessionCode.equals(emailCode)) {
+			logger.info("이메일 인증 성공");
+			//인증 성공 시 아이디 조회해오기
+			getUserId = loginDao.selectById(searchId);
+			logger.info(getUserId);
+			return getUserId;
+		}else {
+			logger.info("인증 실패 코드 불일치");
+			getUserId="false";
+			logger.info("실패 {}",getUserId);
+			return "false";
+		}
+	}
+	
+	@Override
+	public boolean getUsersBySms(Users searchBySms) {
+		logger.info("getUserBySms");
+		logger.info("이름: {}",searchBySms.getUserName());
+		logger.info("전화번호: {}",searchBySms.getUserPhone());
+		if(loginDao.selectUserBySms(searchBySms)>0) {
+			logger.info("회원 있음");
+			return true;
+		}
+		logger.info("회원 없음");
+		return false;
+	}
+	
+	@Override
+	public String sendMsessage(Users searchBySms) {
+		Random ranNum = new Random();
+		
+		String msgNum = "";
+		//6자리 난수 생성하기
+		for( int i=0;i<6;i++) {
+				//0~9사이의 난수값 추가하기
+			msgNum += Integer.toString(ranNum.nextInt(10));
+		}
+		
+		logger.info("인증번호 생성 : {}", msgNum);
+	
+		
+		//---------네이버 클라우드 플랫폼 호출
+		logger.info("네이버 문자 보내기 ");
+		Sms sendNum = new Sms();
+		//문자 보내는 메소드 호출 
+		sendNum.sendSms(searchBySms.getUserPhone(),msgNum);
+		
+		logger.info("네이버 문자 보내기 끝");
+		
+		return msgNum;
 	}
 }

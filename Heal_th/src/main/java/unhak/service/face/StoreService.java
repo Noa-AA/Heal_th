@@ -7,15 +7,12 @@ import org.springframework.stereotype.Service;
 import unhak.dto.StoreDto;
 import unhak.util.StorePaging;
 
-@Service
+
 public interface StoreService {
 
 	
 	public List<StoreDto> list(StorePaging paging);
 
-	public static StorePaging getPaging(int curPage) {
-		return null;
-	}
 
 	
 	/**
@@ -24,6 +21,14 @@ public interface StoreService {
 	 * @return 조회된 상세 게시글 객체
 	 */
 	public StoreDto storeview(StoreDto viewStore);
+
+
+
+	public StorePaging getPaging(int curPage);
+
+
+
+
 
 
 }

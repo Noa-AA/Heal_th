@@ -18,6 +18,7 @@ public interface ChatDao {
 	 */
 //	public RoomList selectRoomNoByUserNo(Userss users);
 
+	
 	/**
 	 * 회원등급 3이상인 회원 조회하기
 	 * 

@@ -1,43 +1,102 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<%@include file="../layout/header.jsp"%>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+<style type="text/css">
+.title {
+	margin-bottom: 40px;
+}
+
+.container {
+	border: 1px solid #333;
+	width: 750px;
+	height: 500px;
+}
+
+.input_wrap {
+	position: relative;
+	text-align: center;
+}
+
+label {
+	display: block;
+	margin: 10px 0;
+/* 	font-size: 20px; */
+}
+
+input {
+	padding: 5px;
+/* 	font-size: 17px; */
+}
+
+textarea {
+	width: 800px;
+	height: 200px;
+/* 	font-size: 15px; */
+	padding: 10px;
+}
+
+.btn {
+	border: 1px solid #333;
+	font-weight: 600;
+	top: 352px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.btn_wrap {
+	display: inline-block;
+	text-align: center;
+	padding: 1px 15px;
+	margin-right: 10px;
+	margin-left: 10px;
+	margin-top: 50px;
+}
+</style>
 </head>
 <body>
-<h1>챌린지 상세정보</h1>
+	<div class="title">
+		<h1 style="text-align: center;">상세 조회 페이지</h1>
+	</div>
+	<div class="container" style="text-align: center;">
+		<div class="input_wrap">
+			<label>챌린지 번호</label> <input name="challengeNo" readonly="readonly" value='<c:out value="${pageInfo.challengeNo}"/>'>
+		</div>
+		<div class="input_wrap">
+			<label>챌린지 종류</label> <input name="challengeKind" readonly="readonly" value='<c:out value="${pageInfo.challengeKind}"/>'>
+		</div>
+		<div class="input_wrap">
+			<label>챌린지 이름</label> <input name="challengeName" readonly="readonly" value='<c:out value="${pageInfo.challengeName}"/>'>
+		</div>
+		<div class="input_wrap">
+			<label>챌린지 생성일</label> <input name="challengeCredate" readonly="readonly" value='<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${pageInfo.challengeCredate}"/>'>
+		</div>
+		<div class="input_wrap">
+			<label>챌린지 종료일</label> <input name="challengeEnddate" readonly="readonly" value='<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${pageInfo.challengeEnddate}"/>'>
+		</div>
 
-<table>
-<tr>
-	<td>챌린지 번호 : ${viewChallenge.challengeNo }</td>
-</tr>
-<tr>
-	<td>챌린지 종류 : ${viewChallenge.challengeKind }</td>
-</tr>
-<tr>
-	<td>챌린지 이름 : ${viewChallenge.challengeName }</td>
-</tr>
-<tr>
-	<td>챌린지 생성일 : <fmt:formatDate value="${viewChallenge.challengeCredate }" pattern="yyyy-MM-dd"/></td>
-</tr>
-<tr>
-	<td>챌린지 종료일 : <fmt:formatDate value="${viewChallenge.challengeEnddate }" pattern="yyyy-MM-dd"/></td>
-</tr>
 
-</table>
-<form action="/challenge/join" method="get">
-<button>가입하기</button>
-</form>
+		<div class="btn_wrap">
+		
+			<button class="btn" id="list_btn" onclick="location.href='/challenge/list'">목록 페이지</button>
+		
+			<button class="btn" id="join_btn">가입 페이지</button>
+		</div>
 
-<form action="/challenge/list" method="get">
-<button>목록으로</button>
-</form>
+	</div>
+	
 
+	<script>
+			
+// 		let form = $("#infoForm");
+
+// 		$("#list_btn").on("click", function(e) {
+// 			form.find("#challengeNo").remove();
+// 			form.attr("action", "/challenge/list");
+// 			form.submit();
+// 		});
+		
+	</script>
 </body>
 </html>

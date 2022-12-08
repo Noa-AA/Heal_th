@@ -110,29 +110,14 @@ $(document).ready(function(){
 });
 
 </script>
+<div id="subvisual">
+	<div id="subvisual-A">
+		<p id="subv-title">운동성향 테스트</p>
+		<p id="subv-content">운동성향테스트 어쩌구저쩌구</p>
+	</div>
+</div>
 <body>
 <div class="big-container">
-<!-- 퀵메뉴 시작 -->
-<div class="Quick">
-    <table class="quickMenuBar">
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthtest">운동성향 테스트</a></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthguide">칼로리사전</a></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthrecord">운동일기장</a></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/dgmagotchi">득근이 키우기</a></td>
-        </tr>
-<!--         <tr>
-            <td colspan="2" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</td>
-        </tr> -->
-    </table>
-</div>
-<!-- 퀵메뉴 끝 -->  
 	<div class="start-container">
 		<button id="start">시작하기</button>
 	</div>
