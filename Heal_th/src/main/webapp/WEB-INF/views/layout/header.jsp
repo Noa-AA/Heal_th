@@ -62,10 +62,6 @@ header{
 	margin-bottom: 160px;
 }
 
-body {
-	padding-top: 355px;
-}
-
 #topMenu {
 	display: flex;
     align-items: center;
