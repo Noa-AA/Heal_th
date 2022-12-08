@@ -37,11 +37,11 @@ public class StoreController {
 			@RequestParam(defaultValue = "0") int curPage
 			, Model model	
 			) {
-		StorePaging paging = StoreService.getPaging(curPage);
+		StorePaging paging = storeService.getPaging(curPage);
 		logger.info("store/list[GET]");
 		
 		
-		logger.debug("{}", paging);
+		logger.info("{}", paging);
 		model.addAttribute("paging", paging);
 		
 		List<StoreDto> list = storeService.list(paging);
@@ -54,7 +54,7 @@ public class StoreController {
 	@RequestMapping(value="/view", method=RequestMethod.GET)
 	public String storeview(StoreDto viewStore,   Model model) {
 		
-		logger.debug("{}",viewStore);
+		logger.info("{}",viewStore);
 		logger.info("store/view[GET]");
 
 		//잘못된 게시글 번호 처리
@@ -65,7 +65,7 @@ public class StoreController {
 		
 		//상품 조회
 		viewStore = storeService.storeview(viewStore);
-		logger.debug("조회된 상품{}",viewStore);
+		logger.info("조회된 상품{}",viewStore);
 		
 		//모델값 전달
 		model.addAttribute("viewStore",viewStore);
