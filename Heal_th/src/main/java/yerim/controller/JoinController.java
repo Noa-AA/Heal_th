@@ -65,13 +65,16 @@ public class JoinController {
 	 
 	 @ResponseBody
 	 @PostMapping("/login/userChk")
-	 public	 SmsResponse sendMsg(Users userPhone,HttpSession session) {
+	 public	 String sendMsg(Users userPhone,HttpSession session) {
 		 logger.info("문자 요청 {}",userPhone.getUserPhone());
 		 
 		 //문자 요청
-		 SmsResponse message = joinService.sendRan(userPhone,session);
+		 String message = joinService.sendRan(userPhone,session);
 		 logger.info("{}",message);
 		 
+		 //인증번호 세션에 저장
+		 session.setAttribute("message", message);
+			
 		 //문자요청 응답 반환
 		 return message;
 	 }
