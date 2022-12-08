@@ -503,7 +503,6 @@ button {
 	font-family: 'dalseo';
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
 }
-
 </style>
 <body>
 <div id="subvisual">

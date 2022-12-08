@@ -22,6 +22,11 @@ a {
     color: #000;
     text-decoration: none;
 }
+
+body {
+	padding-top: 355px;
+}
+
 @font-face {
 	font-family: 'mice';
 	src: url('/resources/css/MICEGothic.ttf') format('truetype');
@@ -71,6 +76,7 @@ a {
 
 .small-container {
 	display: flex;
+	position: relative;
 	width: 800px;
 	height: 500px;
 	padding: 15px;
