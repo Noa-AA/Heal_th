@@ -34,7 +34,7 @@ public interface JoinService {
 	 * @throws JsonProcessingException 
 	 */
 
-	public SmsResponse sendRan(Users userPhone,HttpSession session);
+	public String sendRan(Users userPhone,HttpSession session);
 
 
 	/**
