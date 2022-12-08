@@ -1,5 +1,8 @@
 package jucheol.dao.face;
 
+import java.util.Date;
+import java.util.List;
+
 import jucheol.dto.Attendance;
 
 public interface AttendanceDao {
@@ -19,5 +22,14 @@ public interface AttendanceDao {
 	 * @return 
 	 */
 	public void addLoginDate(Attendance attendance);
+
+
+	/**
+	 *  출석일 리스트 가져오기
+	 * 
+	 * @param attendance
+	 * @return
+	 */
+	public List<Date> getAtt(Attendance attendance);
 
 }

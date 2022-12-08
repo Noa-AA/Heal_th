@@ -1,8 +1,14 @@
 package jucheol.controller;
 
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jucheol.dto.Attendance;
@@ -30,14 +37,13 @@ public class AttendanceController {
 	@Autowired private AttendanceService attendanceService;
 	
 	@GetMapping("/check")
-	public void check(
+	public void getCheck(
 			HttpSession session
 			, Attendance attendance
-			,@CookieValue(value="checkCookie", required = false) String checkCookie
+			, Model model
 			) {
 		logger.info("/check/check[GET]");
 		
-		logger.info("checkCookieValue-{}", checkCookie);
 		
 		//세션에 최근(마지막) 접속 시간
 //		Date lastSession = new Date(session.getLastAccessedTime());
@@ -70,26 +76,76 @@ public class AttendanceController {
 		
 //		logger.info("sessionIsNew?-{}",session.isNew());
 		
+		
+
+		LocalDate now = LocalDate.now(); //현재시간 담기
+		logger.info("check-nowDate : {}", now);
+		
+		//Localdate를 util.date로 변환
+		Instant instant = now.atStartOfDay(ZoneId.systemDefault()).toInstant();
+        Date nowDate = Date.from(instant);
+		
+        SimpleDateFormat dateY = new SimpleDateFormat("yyyy");
+		SimpleDateFormat dateM = new SimpleDateFormat("MM");
+		SimpleDateFormat dateD = new SimpleDateFormat("dd");
+		
+		//당월 마지막날짜 구하기
+		Calendar cal = Calendar.getInstance();
+//		cal.set(2024,1,1);
+		cal.set(Integer.parseInt(dateY.format(nowDate)),Integer.parseInt(dateM.format(nowDate))-1,1);
+
+		int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		logger.info("이번달 마지막날 - {}",lastDay);
+		
+		//출석일 불러오기
+		List<Date> attList = attendanceService.getAtt(attendance);
+		
+		//출석일 담을 int List
+		ArrayList<Integer> attDays = new ArrayList<Integer>();
+		
+		//Date -> int 변환후 intList에 담기
+		for( Date d : attList )	attDays.add(Integer.parseInt(dateD.format(d)));
+		
+		int today = Integer.parseInt(dateD.format(nowDate));
+//		
+		model.addAttribute("today", today);
+		model.addAttribute("attDays",attDays);
+		model.addAttribute("lastDay",lastDay);
+	}
+	
+	@PostMapping("/check")
+	public void insertCheck(
+			HttpSession session
+			, Attendance attendance
+			, Model model
+			,@CookieValue(value="checkCookie", required = false) String checkCookie
+			) {
+		LocalDate now = LocalDate.now(); //현재시간 담기
+		logger.info("check-nowDate : {}", now);
+		//---------------테스트용 유저정보 삽입
+		session.setAttribute("userNo", 7777);
+		
+		attendance.setUserNo((int) session.getAttribute("userNo"));
+		
 		if(checkCookie==null) {
 			//쿠키가 없을경우 마지막로그인 확인후 기록
 			attendance = attendanceService.getLastLogin(attendance);
 			
 			logger.info("lastLogin-{}",attendance);
 			
-			LocalDate now = LocalDate.now(); //현재시간 담기
-			logger.info("check-nowDate : {}", now);
 			
-			// LocalDate를 Date로 변환
-			Date nowDate = java.sql.Date.valueOf(now);
+			// LocalDate를 sql.Date로 변환
+			java.sql.Date loginDate = java.sql.Date.valueOf(now);
 		
 			
 //			System.out.println(attendance.getLastLogin().getClass().getName());
 //			System.out.println(nowDate.getClass().getName());
 			logger.info("lastLogin-{}",attendance.getAttDate());
-			logger.info("nowDate-{}",nowDate);
+			logger.info("loginDate-{}",loginDate);
 			
-			if(!attendance.getAttDate().equals(nowDate)) {
-				attendance.setAttDate(nowDate);
+			//마지막 로그인날짜와 금일비교
+			if(!attendance.getAttDate().equals(loginDate)) {
+				attendance.setAttDate(loginDate);
 				attendanceService.addLoginDate(attendance);
 				
 				logger.info("cookieIsNew!!-{}",attendance);
@@ -100,18 +156,15 @@ public class AttendanceController {
 		} else {
 			logger.info("금일 접속 쿠키 있음");
 		}
-		
-	
-		
 	}
-	
 	
 	@GetMapping("/cookie")
 	public void cookieTest(
-			HttpServletResponse resp
+			HttpServletResponse resp //-----------이거
 			) {
 		logger.info("/check/cookietest[GET]");
-
+		
+		//------------여기부터
 		Cookie checkCookie = new Cookie("checkCookie","check");
 		
 		//---쿠키 24시까지만 유지
@@ -138,5 +191,6 @@ public class AttendanceController {
 		
 		resp.addCookie(checkCookie);
 		
+		//-----------여기까지
 	}
 }
