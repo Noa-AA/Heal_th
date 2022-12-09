@@ -15,7 +15,6 @@ body {
 	margin: 0 auto;
 	text-align: center;
 	height: 750px;
-	margin-bottom: 100px;
 }
 
 .start-container {
@@ -49,7 +48,12 @@ body {
 }
 
 .button-container {
-    top: 200px !important;
+    top: 100px !important;
+    padding-bottom: 100px;
+}
+
+.footer-test {
+	padding-top:100px;
 }
 
 
@@ -91,5 +95,7 @@ $(document).ready(function(){
 		<button id="start">시작하기</button>
 	</div>
 </div>
+
 </body>
+<div class="footer-test"></div>
 </html>
