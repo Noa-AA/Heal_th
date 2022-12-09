@@ -174,7 +174,6 @@ public class LoginServiceImpl implements LoginService {
 		Sms sendNum = new Sms();
 		//문자 보내는 메소드 호출 
 		sendNum.sendSms((String)searchBySms.getUserPhone(),msgNum);
-		
 		logger.info("네이버 문자 보내기 끝");
 		
 		return msgNum;
@@ -238,9 +237,9 @@ Random ranNum = new Random();
 		
 		//------------네이버 클라우드 플랫폼 호출 
 		logger.info("네이버 문자 보내기");
-//		Sms sendCode = new Sms();
-//		//메소드 호출
-//		sendCode.sendSms((String)searchPw.getUserPhone(), msgCode);
+		Sms sendCode = new Sms();
+		//메소드 호출
+		sendCode.sendSms((String)searchPw.getUserPhone(), msgCode);
 		logger.info("네이버 문자 보내기 끝");
 		
 		return msgCode;
