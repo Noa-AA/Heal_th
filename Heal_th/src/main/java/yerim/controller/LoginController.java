@@ -21,12 +21,10 @@ public class LoginController {
 	
 	@Autowired LoginService loginService; 
 	 @GetMapping("/login/login")
-	 public void login(HttpSession session) {
+	 public void login() {
 		 //로그인 화면 
 		 logger.info("/login/login [GET]");
 		 
-		//세션있으면 지우기
-		 session.invalidate();
 	 }
 
  
@@ -90,12 +88,11 @@ public class LoginController {
 			 session.setAttribute("emailResult", emailResult);
 			 
 			 return true; //true 전달
-		 } else {
+		 } 
 			 //회원이 없을 때 세션 삭제 이후 처리는 jsp에서 함
 			 logger.info("회원 없음");
-			 session.invalidate();
 			return false; //false 전달 
-		 }
+		 
 		 
 		 
 	 }
@@ -132,12 +129,11 @@ public class LoginController {
 			 session.setAttribute("sendMsg", sendMsg);
 			 
 			 return true;
-		 }else {
+		 }
 			 logger.info("회원 없음 인증 실패");
-			 session.invalidate();
 			 
 			 return false;
-		 }
+		 
 		 
 	 }
 	 
@@ -150,6 +146,36 @@ public class LoginController {
 		 
 		 logger.info("아이디 찾기 성공 -{}",searchBySms);
 		 return searchBySms;
+	 }
+	 
+	 @RequestMapping("/login/searchPw")
+	 public void searchPw() {
+		logger.info("/login/searchPw"); 
+	 }
+	 @ResponseBody
+	 @PostMapping("/login/searchPw")
+	 public boolean searchPwBySms(Users searchPw,HttpSession session) {
+		 logger.info("/login/searchPw [POST]");
+		 
+		 //회원 가입 여부 조회하기
+		 boolean getUser = loginService.checkUser(searchPw);
+		 if(getUser) {
+			 logger.info("회원 있음-인증번호 문자 보내기");
+			 
+			 String sendCodeForPw = loginService.sendMsg(searchPw);
+			 
+			 //세션에 회원 아이디, 이름 저장하기
+			 session.setAttribute("userName", searchPw.getUserName());
+			 session.setAttribute("userId", searchPw.getUserId());
+			
+			 //세션에 인증번호 저장하기
+			 session.setAttribute("codeForPw", sendCodeForPw);
+			 
+			 return true;
+		 }
+		 
+		 logger.info("회원 없음");
+		 return false;
 	 }
 	 
 }
