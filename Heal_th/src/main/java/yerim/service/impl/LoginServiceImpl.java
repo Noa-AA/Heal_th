@@ -77,7 +77,7 @@ public class LoginServiceImpl implements LoginService {
 				emailCode.append(ran.nextInt(10));
 			}
 			
-			logger.info(null);
+			logger.info("인증번호 생성 완료");
 		}
 
 		//이메일 보내기
@@ -132,6 +132,7 @@ public class LoginServiceImpl implements LoginService {
 			//인증 성공 시 아이디 조회해오기
 			getUserId = loginDao.selectById(searchId);
 			logger.info(getUserId);
+			session.removeAttribute(sessionCode);
 			return getUserId;
 		}else {
 			logger.info("인증 실패 코드 불일치");
@@ -172,10 +173,94 @@ public class LoginServiceImpl implements LoginService {
 		logger.info("네이버 문자 보내기 ");
 		Sms sendNum = new Sms();
 		//문자 보내는 메소드 호출 
-		sendNum.sendSms(searchBySms.getUserPhone(),msgNum);
-		
+		sendNum.sendSms((String)searchBySms.getUserPhone(),msgNum);
 		logger.info("네이버 문자 보내기 끝");
 		
 		return msgNum;
+	}
+	@Override
+	public String smsCodeChk(String smsCode, HttpSession session) {
+		logger.info("smsCodeChk - 아이디 조회해오기");
+		
+		//세션에 담긴 인증번호
+		String sessionSmsCode = (String)session.getAttribute("sendMsg");
+		
+		//세션에 담긴 회원 이름과 전화번호 ->DTO에 저장하기
+		Users searchIdBySms = new Users();
+		
+			searchIdBySms.setUserName((String)session.getAttribute("userName"));
+			searchIdBySms.setUserPhone((String)session.getAttribute("userPhone"));
+		
+		
+		//인증번호 같으면  아이디 조회해오기
+		String getUserIdSms = "";
+		if(sessionSmsCode.equals(smsCode)) {
+			logger.info("문자인증 성공");
+			//아이디 조회해오기
+			getUserIdSms = loginDao.selectByNamePhone(searchIdBySms);
+			
+			//세션 지우기
+			session.removeAttribute("sendMsg");
+			return getUserIdSms;
+		}else {
+			logger.info("인증 실패 코드 불일치");
+			return "false";
+		}
+	}
+	
+	@Override
+	public boolean checkUser(Users searchPw) {
+		logger.info("checkUser");
+		logger.info("이름 : {},연락처 : {}",searchPw.getUserName(),searchPw.getUserPhone());
+	
+		if(loginDao.selectUserIdForPw(searchPw)>0) {
+			logger.info("회원있음");
+			return true;
+		}
+		
+		logger.info("회원 없음");
+		return false;
+	}
+	
+	@Override
+	public String sendMsg(Users searchPw) {
+Random ranNum = new Random();
+		
+		String msgCode = "";
+		//6자리 난수 생성하기
+		for( int i=0;i<6;i++) {
+				//0~9사이의 난수값 추가하기
+			msgCode += Integer.toString(ranNum.nextInt(10));
+		}
+		
+		logger.info("인증번호 생성 : {}", msgCode);
+		
+		//------------네이버 클라우드 플랫폼 호출 
+		logger.info("네이버 문자 보내기");
+		Sms sendCode = new Sms();
+		//메소드 호출
+		sendCode.sendSms((String)searchPw.getUserPhone(), msgCode);
+		logger.info("네이버 문자 보내기 끝");
+		
+		return msgCode;
+	}
+	
+	@Override
+	public boolean smsCodeForPw(String pwSmsCode, HttpSession session) {
+		
+		//세션에서 인증번호 
+		String sessionSmsCodeForPw = (String)session.getAttribute("codeForPw");
+		
+		
+		//인증번호 검증
+		if(sessionSmsCodeForPw.equals(pwSmsCode)) {
+			logger.info("문자 인증 성공");
+			
+			//세션에서 인증번호 지우기
+			session.removeAttribute("codeForPw");
+			return true;
+		}
+		
+		return false;
 	}
 }

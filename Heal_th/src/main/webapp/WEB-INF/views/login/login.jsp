@@ -77,7 +77,7 @@ $(document).ready(function(){
 	</div>
 	
 	<div id="searchPw">
-		<a href="">비밀번호 찾기</a>
+		<a href="/login/searchPw">비밀번호 찾기</a>
 	
 	</div>
 	
