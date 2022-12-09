@@ -40,21 +40,28 @@ public class DgHelperController {
 	
 	//개별회원의 운동기록 조회
 	@RequestMapping(value="/dghelper/healthrecord", method=RequestMethod.GET)
-	public void recordView(Model model, String curPage, HttpSession session) {
+	public String recordView(Model model, String curPage, HttpSession session) {
 		logger.info("/dghelper/healthrecord [GET]");
 		
-		session.setAttribute("userno", 7777);
-		int userno = (int) session.getAttribute("userno");
+		if(session.getAttribute("userNo")!=null && session.getAttribute("userNo")!="") {
+			
+		int userno = (int) session.getAttribute("userNo");
 		logger.info("userno : {}", userno);
 		
-		DgHelperPaging dgHelperPaging = dgHelperService.getDgHelperPaging(curPage, userno);
-		List<HealthRecord> recordList = dgHelperService.getRecordList(dgHelperPaging, userno);
-	
-		model.addAttribute("list",recordList);
-		model.addAttribute("paging", dgHelperPaging);
 		
-		logger.info("List : {}", recordList);
-		logger.info("페이징 : {}", dgHelperPaging);
+			DgHelperPaging dgHelperPaging = dgHelperService.getDgHelperPaging(curPage, userno);
+			List<HealthRecord> recordList = dgHelperService.getRecordList(dgHelperPaging, userno);
+		
+			model.addAttribute("list",recordList);
+			model.addAttribute("paging", dgHelperPaging);
+			
+			logger.info("List : {}", recordList);
+			logger.info("페이징 : {}", dgHelperPaging);
+			
+			return "/dghelper/healthrecord";
+		} else {
+			return "/login/login";
+		}
 	}
 	
 	//개별회원의 운동기록 추가
@@ -63,8 +70,7 @@ public class DgHelperController {
 	public int recordAdd(HealthRecord healthRecord, HttpSession session) {
 		logger.info("/dghelper/healthrecord [POST]");
 		
-		session.setAttribute("userno", 7777);
-		healthRecord.setUserNo((int)session.getAttribute("userno"));
+		healthRecord.setUserNo((int)session.getAttribute("userNo"));
 
 		logger.info("recordCon : {}", healthRecord.getRecordCon());
 		logger.info("HealthUserno : {}", healthRecord.getUserNo());
@@ -98,32 +104,37 @@ public class DgHelperController {
 	
 	//운동가이드 조회
 	@RequestMapping(value="/dghelper/healthguide", method=RequestMethod.GET)
-	public void guideView(HttpSession session, Model model) {
+	public String guideView(HttpSession session, Model model) {
 		logger.info("/dghelper/healthguide [GET]");
 		
-		session.setAttribute("userno", 7777);
-		int userno = (int) session.getAttribute("userno");
-		logger.info("userno : {}", userno);
-		
-		Users user = dgHelperService.getUserInfo(userno);
-		logger.info("user : {}", user);
-		model.addAttribute("user", user);
-		
-		//나이 계산
-		String str = "";
-		for(int i=0; i<4; i++) {
-			str += user.getUserBirth().charAt(i);
+		if(session.getAttribute("userNo")!=null && session.getAttribute("userNo")!="") {
+			int userno = (int) session.getAttribute("userNo");
+			logger.info("userno : {}", userno);
+			
+			Users user = dgHelperService.getUserInfo(userno);
+			logger.info("user : {}", user);
+			model.addAttribute("user", user);
+			
+			//나이 계산
+			String str = "";
+			for(int i=0; i<4; i++) {
+				str += user.getUserBirth().charAt(i);
+			}
+			int age = 0;
+			for(int j=0; j<str.length(); j++) {
+				age = (2022-Integer.parseInt(str))+1;
+			}
+			model.addAttribute("age", age);
+			
+			BodyInfo bodyInfo = dgHelperService.getBodyInfo(userno);
+			logger.info("bodyInfo : {}", bodyInfo);
+			model.addAttribute("bodyInfo", bodyInfo);
+			
+			return "/dghelper/healthguide";
+		} else {
+			return "/login/login";
 		}
-		int age = 0;
-		for(int j=0; j<str.length(); j++) {
-			age = (2022-Integer.parseInt(str))+1;
-		}
-		model.addAttribute("age", age);
-		
-		BodyInfo bodyInfo = dgHelperService.getBodyInfo(userno);
-		logger.info("bodyInfo : {}", bodyInfo);
-		model.addAttribute("bodyInfo", bodyInfo);
-
+			
 	}
 	
 	//칼로리 조회
@@ -180,8 +191,14 @@ public class DgHelperController {
 	
 	//득근이 시작화면
 	@RequestMapping(value="/dghelper/dgmagotchi", method=RequestMethod.GET)
-	public void dgmagotchiStart() {
+	public String dgmagotchiStart(HttpSession session) {
 		logger.info("/dghelper/dgmagotchi [GET]");
+		
+		if(session.getAttribute("userNo")!=null && session.getAttribute("userNo")!="") {
+			return "/dghelper/dgmagotchi";
+		} else {
+			return "/login/login";
+		}
 	}
 	
 	//득근이 키우기
@@ -189,8 +206,7 @@ public class DgHelperController {
 	public void dgmagotchi(HttpSession session, Model model) {
 		logger.info("/dghelper/dgmagotchiContent [GET]");
 		
-		session.setAttribute("userno", 7777);
-		int userno = (int) session.getAttribute("userno");
+		int userno = (int) session.getAttribute("userNo");
 		logger.info("userno : {}", userno);
 
 		
@@ -210,7 +226,6 @@ public class DgHelperController {
 		logger.info("dgmaRanking : {}", dgmaRanking);
 		model.addAttribute("dgmaRanking", dgmaRanking);
 			
-
 	}
 	
 	//득근이 저장
@@ -219,7 +234,7 @@ public class DgHelperController {
 	public int dgmagotchiSave(Dgmagotchi dgmagotchi, Model model, HttpSession session) {
 		logger.info("/dghelper/dgmasave [POST]");
 		
-		int userno = (int) session.getAttribute("userno");
+		int userno = (int) session.getAttribute("userNo");
 		logger.info("saveUserno : {}", userno);
 		
 		logger.info("dgmagotchi : {}", dgmagotchi);

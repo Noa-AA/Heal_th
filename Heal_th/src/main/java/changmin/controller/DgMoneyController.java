@@ -30,8 +30,7 @@ public class DgMoneyController {
 	public void moneyView(Model model,HttpSession session) {
 		logger.info("/dgmoney/view [GET]");
 
-		session.setAttribute("userno", 7777);
-		int userno = (int) session.getAttribute("userno");
+		int userno = (int) session.getAttribute("userNo");
 		logger.info("userno : {}", userno);
 		
 		Users user = dgMoneyService.getUserInfo(userno);
@@ -67,8 +66,7 @@ public class DgMoneyController {
 	public void moneyDisCharge(HttpSession session, Model model) {
 		logger.info("/dgmoney/dischage [GET]");
 		
-		session.setAttribute("userno", 7777);
-		int userno = (int) session.getAttribute("userno");
+		int userno = (int) session.getAttribute("userNo");
 		logger.info("userno : {}", userno);
 		
 		model.addAttribute("userno", userno);

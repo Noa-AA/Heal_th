@@ -427,7 +427,7 @@ $(document).ready(function(){
 			$("#dgEgg button").css("animation-play-state", "paused");
 		},200);
 		
-		if(exp==1){
+		if(exp==10){
 			$("#dgEgg").css("display","none");
 			$("#dgbabyawake").css("display","block");
 		}
@@ -447,7 +447,7 @@ $(document).ready(function(){
 			$("#dgbabyawake button").css("animation-play-state", "paused");
 		},200);
 		
-		if(exp==2){
+		if(exp==20){
 			$("#message").html("");
 			$("#dgbabyawake").css("display","none");
 			$("#dgbaby").css("display","block");

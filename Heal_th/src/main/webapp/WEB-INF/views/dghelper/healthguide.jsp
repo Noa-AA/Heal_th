@@ -194,25 +194,27 @@ body {
 	<div class="small-container">     
 	
 		<!-- male일 경우 기초대사량 -->
-		<c:if test="${user.userGender eq 'male'}">
-			<c:set var="bmr" value="${66.47 +(13.75 * bodyInfo.weight) +(5 * bodyInfo.height) - (6.76 * age) }"/>
-			<div id="bmr">
-				<p>성별 : 남성</p>
-				<p>나이 : ${age }세</p>
-				<input type="hidden" id="bmrvalue" value="${bmr }">
-				<span>기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
-			</div>
-		</c:if>
-		
-		<!-- female일 경우 기초대사량 -->
-		<c:if test="${user.userGender eq 'female'}">
-			<c:set var="bmr" value="${665.1 +(9.56 * bodyInfo.weight) +(1.85 * bodyInfo.height) - (4.68 * age) }"/>
-			<div id="bmr">
-				<p>성별 : 여성</p>
-				<p>나이 : ${age }세</p>
-				<input type="hidden" id="bmrvalue" value="${bmr }">
-				<span>기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
-			</div>
+		<c:if test="${bodyInfo ne undefined}">
+			<c:if test="${user.userGender eq 'male'}">
+					<c:set var="bmr" value="${66.47 +(13.75 * bodyInfo.weight) +(5 * bodyInfo.height) - (6.76 * age) }"/>
+				<div id="bmr">
+					<p>성별 : 남성</p>
+					<p>나이 : ${age }세</p>
+					<input type="hidden" id="bmrvalue" value="${bmr }">
+					<span>기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
+				</div>
+			</c:if>
+			
+			<!-- female일 경우 기초대사량 -->
+			<c:if test="${user.userGender eq 'female'}">
+					<c:set var="bmr" value="${665.1 +(9.56 * bodyInfo.weight) +(1.85 * bodyInfo.height) - (4.68 * age) }"/>
+				<div id="bmr">
+					<p>성별 : 여성</p>
+					<p>나이 : ${age }세</p>
+					<input type="hidden" id="bmrvalue" value="${bmr }">
+					<span>기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
+				</div>
+			</c:if>
 		</c:if>
 	</div>
 	
