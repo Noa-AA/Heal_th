@@ -58,4 +58,35 @@ public interface LoginService {
 	 */
 	public String sendMsessage(Users searchBySms);
 
+	/**
+	 * 문자인증으로 회원 아이디 조회해오기
+	 * @param smsCode -회원이 입력한인증번호
+	 * @param session - 생성된 인증번호
+	 * @return
+	 */
+	public String smsCodeChk(String smsCode, HttpSession session);
+
+	/**
+	 * 비밀번호 찾기를 위한 회원 조회
+	 * @param searchPw -회원이 입력한회원 정보
+	 * @return -treu or false
+	 */
+	public boolean checkUser(Users searchPw);
+	
+	/**
+	 *비밀번호 찾기를 위한 인증번호 문자 보내기
+	 * @param searchPw -회원이 기입한 연락처
+	 * @return -인증 번호 
+	 */
+
+	public String sendMsg(Users searchPw);
+
+	/**
+	 * 비밀번호 찾기를 위한 인증번호 검증
+	 * @param pwSmsCode -회원이 기입한 인증번호
+	 * @param session -세션에 저장된 인증번호
+	 * @return -검증 결과
+	 */
+	public boolean smsCodeForPw(String pwSmsCode, HttpSession session);
+
 }

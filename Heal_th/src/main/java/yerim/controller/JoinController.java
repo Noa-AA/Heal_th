@@ -45,7 +45,7 @@ public class JoinController {
 	 
 	 @GetMapping("/login/joinComplete")
 	 public void loginComplete(){
-		 logger.info("로그인 성공");
+		 logger.info("회원가입 성공");
 		 
 	 }
 	 @ResponseBody

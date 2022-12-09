@@ -40,4 +40,13 @@
 		WHERE prod_no = #{prodNo}
 	
 	</select>
+	
+	<!-- 카트 담기 -->
+	<insert id="addCart">
+ 		insert into tbl_cart (cart_no, user_no, prod_no, cart_stock)
+   		 values (tbl_cart_seq.nextval, #{user_no}, #{prod_no}, #{cart_stock})
+	</insert>
+	
+	
+	
  </mapper>   

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import unhak.dao.face.StoreDao;
+import unhak.dto.CartDto;
 import unhak.dto.StoreDto;
 import unhak.service.face.StoreService;
 import unhak.util.StorePaging;
@@ -50,6 +51,14 @@ public StorePaging getPaging(int curPage) {
 		
 		//상세보기 조회 결과 리턴
 		return storeDao.selectStore(viewStore);
+	}
+
+	
+	//카트담기
+	@Override
+	public void addCart(CartDto cart) throws Exception {
+		storeDao.addCart(cart);
+		
 	}
 	
 	

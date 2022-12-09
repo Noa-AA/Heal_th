@@ -1,13 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
-
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#btnList").click(function() {
 		location.href = "/store/list"
 	})
 })
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+$(".addCart_btn").click(function(){
+	console.log("addCart_btn click")
+// 	   var prodNo = $("#prodNo").val();
+// 	   var cartStock = $(".cart_stock").val();
+// 	   var data = {
+// 			     prodNo : prod_no,
+// 			     cartStock : cart_stock
+// 			     };
+	   $.ajax({
+		    type : "post", 
+		    url : "/store/cart",
+		    data : {},
+		    success : function(result){
+		     alert("카트 담기 성공");
+		     $(".cart_stock").val("1");
+		    },
+		    error : function(){
+		     alert("카트 담기 실패");
+		    }
+		   });
+	});
+});
 </script>
 
 
@@ -46,6 +71,10 @@ $(document).ready(function() {
 
 <div class="text-center">
 	<button id="btnList" class="btn btn-default">목록</button>
+</div>
+
+<div class="text-center">
+	<button id="btnList" class="btn addCart_btn">장바구니에 담기</button>
 </div>
 
 </body>
