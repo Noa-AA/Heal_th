@@ -48,13 +48,13 @@ public class ReviewBoardController {
 		
 		//게시글 작성
 		@GetMapping("/board/rWrite")
-		public void insertBfBoard() {
+		public void insertBoard() {
 			
 			logger.info("/board/rWrite [GET]");
 
 		}
 		
-		@PostMapping("/board/bf_write")
+		@PostMapping("/board/rWrite")
 		public String insertReviewProc(ReviewBoard reviewBoard,HttpSession session) {
 			
 			//테스트용 로그인 userno
