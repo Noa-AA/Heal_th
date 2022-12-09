@@ -114,7 +114,8 @@ $(document).ready(function(){
 				
 			}
 			,error : function(){
-				console.log("실패다 실패야...")
+				console.log("오류")
+				alert("시스템오류 다시 진행해주세요")
 			}
 		}); //이메일 인증 완료 
 				

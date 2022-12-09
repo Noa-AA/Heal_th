@@ -61,8 +61,39 @@ $(document).ready(function(){
 			 }
 		 })
 		 
+	}) //문자 보내기 완료 
 	
-	})	
+ 	$("#btnChk").click(function(){
+		$.ajax({
+			type:"post"
+			,url:"/login/codeChkForPw"
+			,data:{
+				pwSmsCode: $("#pwSmsCode").val()
+			}
+			,dataType:"json"
+			,success:function(res){
+				console.log(res)
+				console.log("인증번호 검사하기")
+				if(res){
+					console.log("인증번호 검사 성공")
+					location.href="/login/makeNewPw"
+				}else {
+					console.log("인증번호 검사 실패")
+					 $("#searchPwResult").html("인증실패! 인증번호를 확인해주세요")
+					$("#searchPwResult").css("color","red")
+				}
+			}
+			,error :function(){
+				 console.log("오류입니다.")
+				 alert("시스템 오류  다시 진행해주세요")
+			 
+			}
+			
+			
+		})//인증번호 검사하기
+	 
+	 })
+
 
 })//ready
 

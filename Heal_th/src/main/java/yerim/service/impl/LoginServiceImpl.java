@@ -182,7 +182,6 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public String smsCodeChk(String smsCode, HttpSession session) {
 		logger.info("smsCodeChk - 아이디 조회해오기");
-		String getId ="";
 		
 		//세션에 담긴 인증번호
 		String sessionSmsCode = (String)session.getAttribute("sendMsg");
@@ -202,7 +201,7 @@ public class LoginServiceImpl implements LoginService {
 			getUserIdSms = loginDao.selectByNamePhone(searchIdBySms);
 			
 			//세션 지우기
-			session.removeAttribute(sessionSmsCode);
+			session.removeAttribute("sendMsg");
 			return getUserIdSms;
 		}else {
 			logger.info("인증 실패 코드 불일치");
@@ -239,11 +238,30 @@ Random ranNum = new Random();
 		
 		//------------네이버 클라우드 플랫폼 호출 
 		logger.info("네이버 문자 보내기");
-		Sms sendCode = new Sms();
-		//메소드 호출
-		sendCode.sendSms((String)searchPw.getUserPhone(), msgCode);
+//		Sms sendCode = new Sms();
+//		//메소드 호출
+//		sendCode.sendSms((String)searchPw.getUserPhone(), msgCode);
 		logger.info("네이버 문자 보내기 끝");
 		
 		return msgCode;
+	}
+	
+	@Override
+	public boolean smsCodeForPw(String pwSmsCode, HttpSession session) {
+		
+		//세션에서 인증번호 
+		String sessionSmsCodeForPw = (String)session.getAttribute("codeForPw");
+		
+		
+		//인증번호 검증
+		if(sessionSmsCodeForPw.equals(pwSmsCode)) {
+			logger.info("문자 인증 성공");
+			
+			//세션에서 인증번호 지우기
+			session.removeAttribute("codeForPw");
+			return true;
+		}
+		
+		return false;
 	}
 }

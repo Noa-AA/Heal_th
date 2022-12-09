@@ -178,4 +178,19 @@ public class LoginController {
 		 return false;
 	 }
 	 
+	 @ResponseBody
+	 @PostMapping("/login/codeChkForPw")
+	 public boolean chkCodeForPw(String pwSmsCode,HttpSession session ) {
+		 logger.info("/lgoin/codeChkForPw");
+
+		 boolean searchPwBySms = loginService.smsCodeForPw(pwSmsCode,session);
+		 
+		 logger.info("인증번호 검증 완료 {}",searchPwBySms);
+		 return searchPwBySms;
+	 }
+	 
+	 @RequestMapping("/login/makeNewPw")
+	 public void makeNewPw() {
+		 logger.info("/login/makeNewPw ");
+	 }
 }

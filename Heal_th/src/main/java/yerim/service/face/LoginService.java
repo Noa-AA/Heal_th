@@ -81,4 +81,12 @@ public interface LoginService {
 
 	public String sendMsg(Users searchPw);
 
+	/**
+	 * 비밀번호 찾기를 위한 인증번호 검증
+	 * @param pwSmsCode -회원이 기입한 인증번호
+	 * @param session -세션에 저장된 인증번호
+	 * @return -검증 결과
+	 */
+	public boolean smsCodeForPw(String pwSmsCode, HttpSession session);
+
 }
