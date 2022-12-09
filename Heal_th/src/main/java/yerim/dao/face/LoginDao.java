@@ -1,5 +1,6 @@
 package yerim.dao.face;
 
+
 import yerim.dto.Users;
 
 public interface LoginDao {
@@ -24,5 +25,20 @@ public interface LoginDao {
 	 * @return
 	 */
 	public int selectUser(Users searchId);
+
+	/**
+	 * 이름,이메일과 일치하는 아이디 조회해오기
+	 * @param session
+	 * @param searchId
+	 * @return
+	 */
+	public String selectById(Users searchId);
+
+	/**
+	 * 이름,전화번호로 일치하는 회원 여부 확인하기
+	 * @param searchBySms
+	 * @return
+	 */
+	public int selectUserBySms(Users searchBySms);
 
 }

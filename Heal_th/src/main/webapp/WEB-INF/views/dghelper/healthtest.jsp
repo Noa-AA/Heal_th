@@ -481,7 +481,7 @@ button {
 .mbti-content{
 	position: relative;
 	top: 420px;
-	font-family: 'mice';
+	font-family: 'SUIT';
 }
 
 #start, #E, #I, #E2, #I2, #F3, #T3, #E4, #I4, #T5, #F5, #T6, #F6 {
@@ -504,31 +504,33 @@ button {
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
 }
 
+.question-title {
+	height: 80px;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'SUIT';
+    font-weight: bold;
+    font-size: x-large;
+    color: black;
+    background: linear-gradient(#fbf5fd 0 , #eaecfb);
+}
+
+body {
+	padding-top: 355px;
+}
 </style>
 <body>
-<div class="big-container">
-<!-- 퀵메뉴 시작 -->
-<div class="Quick">
-    <table class="quickMenuBar">
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthtest">운동성향 테스트</a></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthguide">칼로리사전</a></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthrecord">운동일기장</a></td>
-        </tr>
-         <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/dgmagotchi">득근이 키우기</a></td>
-        </tr>
-<!--         <tr>
-            <td colspan="2" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</td>
-        </tr> -->
-    </table>
+<div id="subvisual">
+	<div id="subvisual-A">
+		<p id="subv-title">운동성향 테스트</p>
+		<p id="subv-content">운동성향 테스트로 나에게 맞는 운동을 찾아봐요</p>
+	</div>
 </div>
-<!-- 퀵메뉴 끝 -->  
+<div class="big-container">
 	<div class="question-container">
+	<div class="question-title">운동성향 테스트</div>
 		<div class="start" style="display: block;">
 			<div class="mbti-content">
 				<button id="start">시작하기</button>

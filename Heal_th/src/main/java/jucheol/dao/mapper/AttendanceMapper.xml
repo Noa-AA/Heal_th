@@ -19,5 +19,10 @@
 		VALUES ( attendance_seq.nextval, #{attDate }, #{userNo } )
 	</insert>
 	
+	<select id="getAtt" resultType="Date" parameterType="Attendance">
+		SELECT att_date 
+		FROM attendance
+		WHERE user_no = #{userNo}
+	</select>
 	
 </mapper>

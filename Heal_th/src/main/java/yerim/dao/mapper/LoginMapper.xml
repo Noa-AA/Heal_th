@@ -23,6 +23,18 @@
    		WHERE user_name=#{userName} and user_email=#{userEmail}
    	
    	</select>
+   	
+   	<select id="selectById" resultType="string" parameterType="Users">
+   		SELECT user_id FROM users
+   		WHERE user_name = #{userName} and user_email = #{userEmail}
+   	
+   	</select>
+   	
+   	<select id="selectUserBySms" resultType="int" parameterType="Users"> 
+		SELECT count(*) FROM users
+		WHERE user_name=#{userName} and user_phone =#{userPhone}
+   	
+   	</select>
   </mapper>
   
   
