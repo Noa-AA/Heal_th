@@ -74,4 +74,12 @@
 		WHERE dgma_no = #{dgmaNo}
 	</update>
 	
+	<select id="selectDgmaRanking" resultType="DgmaJoin" >
+		SELECT u.user_nick, d.dgma_exp
+		FROM users u INNER JOIN dgmagotchi d
+		ON u.user_no = d.user_no
+		WHERE rownum <![CDATA[<=]]>3
+		ORDER BY d.dgma_exp DESC
+	</select>
+	
 </mapper>

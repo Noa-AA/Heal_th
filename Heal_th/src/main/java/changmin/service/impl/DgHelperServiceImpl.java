@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import changmin.dao.face.DgHelperDao;
 import changmin.dto.BodyInfo;
+import changmin.dto.DgmaJoin;
 import changmin.dto.Dgmagotchi;
 import changmin.dto.HealthRecord;
 import changmin.service.face.DgHelperService;
@@ -102,6 +103,14 @@ public class DgHelperServiceImpl implements DgHelperService {
 		
 		dgHelperDao.updateDgmaInfo(dgmagotchi);
 		
+	}
+
+	@Override
+	public List<DgmaJoin> getDgmaRanking() {
+
+		List<DgmaJoin> list = dgHelperDao.selectDgmaRanking();
+		
+		return list;
 	}
 
 

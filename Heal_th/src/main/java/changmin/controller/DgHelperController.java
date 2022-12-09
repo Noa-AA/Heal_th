@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import changmin.dto.BodyInfo;
+import changmin.dto.DgmaJoin;
 import changmin.dto.Dgmagotchi;
 import changmin.dto.HealthRecord;
 import changmin.service.face.DgHelperService;
@@ -202,8 +203,12 @@ public class DgHelperController {
 		
 		//득마고치 정보 불러오기
 		Dgmagotchi dgmaLoad = dgHelperService.getDgmaInfo(userno);
-		
 		model.addAttribute("dgmainfo", dgmaLoad);
+		
+		//득마고치 랭킹 조회
+		List<DgmaJoin> dgmaRanking = dgHelperService.getDgmaRanking();
+		logger.info("dgmaRanking : {}", dgmaRanking);
+		model.addAttribute("dgmaRanking", dgmaRanking);
 			
 
 	}
@@ -226,5 +231,6 @@ public class DgHelperController {
 		return dgmagotchi.getDgmaExp();
 	}
 	
+	//--------------------------------------------------------------------
 }
 

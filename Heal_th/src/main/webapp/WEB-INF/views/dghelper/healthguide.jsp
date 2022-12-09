@@ -9,26 +9,32 @@ $(document).ready(function(){
 	      $(".Quick").stop().animate({top:position+"px"}, 400); //해당 오브젝트 위치값 재설정
 	});
 	
-	$("#search").click(function(){		
-		console.log("#search click")	
-		$("#result").html("- L O A D I N G -")
-		$.ajax({
-			type: "get"
-			, url: "/dghelper/calorie?foodname=" + $("#foodname").val()
-			, data: {}
-			, dataType: "html"
-			, success: function(res){
-				console.log("AJAX 성공")
-				
-				console.log(res)
-				
-				$("#result").html(res)
-			}
-			, error: function(){
-				console.log("AJAX 실패")
-				
-			}
-		})
+	$("#search").click(function(){
+		
+		if(!$("#foodname")){
+			console.log("#search click")
+			$("html").css("cursor", "wait");
+			$("#result").html("- L O A D I N G -")
+			$.ajax({
+				type: "get"
+				, url: "/dghelper/calorie?foodname=" + $("#foodname").val()
+				, data: {}
+				, dataType: "html"
+				, success: function(res){
+					console.log("AJAX 성공")
+					
+					console.log(res)
+					$("html").css("cursor", "default");
+					$("#result").html(res)
+				}
+				, error: function(){
+					console.log("AJAX 실패")
+					
+				}
+			})
+		} else {
+			$("#result").html("음식명을 입력해주세요.");
+		}
 		
 	})
 
@@ -36,7 +42,7 @@ $(document).ready(function(){
 		console.log("#save click")	
 		
 		if(!$.isNumeric($("#kcal").val())){
-			alert("숫자만 입력해주세요 !")
+			$("#resultkcal").html("숫자값을 입력해주세요.");
 		} else {
 		
 			$.ajax({
@@ -160,7 +166,7 @@ body {
 <div id="subvisual">
 	<div id="subvisual-A">
 		<p id="subv-title">칼로리 사전</p>
-		<p id="subv-content">칼로리 계산으로 체계적으로 관리해봐요</p>
+		<p id="subv-content">칼로리를 계산하여 체계적으로 관리해봐요</p>
 	</div>
 </div>
 <!-- <!-- 퀵메뉴 시작 -->

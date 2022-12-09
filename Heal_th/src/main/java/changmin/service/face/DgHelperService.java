@@ -3,6 +3,7 @@ package changmin.service.face;
 import java.util.List;
 
 import changmin.dto.BodyInfo;
+import changmin.dto.DgmaJoin;
 import changmin.dto.Dgmagotchi;
 import changmin.dto.HealthRecord;
 import changmin.util.DgHelperPaging;
@@ -85,6 +86,12 @@ public interface DgHelperService {
 	 * @param dgmagotchi
 	 */
 	public void saveDgmaInfo(Dgmagotchi dgmagotchi);
+
+	/**
+	 * 득마고치 랭킹 조회
+	 * @return
+	 */
+	public List<DgmaJoin> getDgmaRanking();
 
 
 

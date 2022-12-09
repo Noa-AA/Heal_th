@@ -3,6 +3,7 @@ package changmin.dao.face;
 import java.util.List;
 
 import changmin.dto.BodyInfo;
+import changmin.dto.DgmaJoin;
 import changmin.dto.Dgmagotchi;
 import changmin.dto.HealthRecord;
 import changmin.util.DgHelperPaging;
@@ -29,5 +30,7 @@ public interface DgHelperDao {
 	public void updateDgmaInfo(Dgmagotchi dgmagotchi);
 
 	public int selectCntDgmaInfo(int userno);
+
+	public List<DgmaJoin> selectDgmaRanking();
 
 }
