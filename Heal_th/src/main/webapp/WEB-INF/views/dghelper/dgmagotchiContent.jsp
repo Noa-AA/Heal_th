@@ -68,8 +68,30 @@ body {
 	padding: 10px;
 }
 
+p {
+   text-shadow: -1px 0 #333, 0 1px #333, 1px 0 #333, 0 -1px #333;
+}
+
+span {
+   text-shadow: -1px 0 #333, 0 1px #333, 1px 0 #333, 0 -1px #333;
+}
+
+#level, #save {
+    font-family: 'SUIT';
+	text-shadow: -1px 0 #333, 0 1px #333, 1px 0 #333, 0 -1px #333;
+	color: white;
+}
+
+#message {
+    font-family: 'SUIT';
+	text-shadow: -3px 0 #333, 0 3px #333, 3px 0 #333, 0 -3px #333;
+	color: white;
+	position: absolute;
+    top: 50px;
+}
+
 .big-container {
-	width: 800px;
+	width: 1200px;
 	margin: 0 auto;
 	text-align: center;
 }
@@ -77,16 +99,16 @@ body {
 .small-container {
 	display: flex;
 	position: relative;
-	width: 800px;
-	height: 500px;
+	width: 1200px;
+	height: 750px;
 	padding: 15px;
 	background-image: url("/resources/img/dgmagotchi/dgmagotchiBack.png");
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
 } 
 
 .main-content {
-	width: 400px;
-	height: 460px;
+	width: 600px;
+	height: 600px;
 	margin: 0 auto;
 }
 
@@ -121,20 +143,17 @@ body {
 
 #poopzone {
 	position: absolute;
-	left: 200px;
+	left: 450px;
 }
 /* 캐릭터 시작 */
 #character {
 	position: relative;
-	top: 270px;
+	top: 460px;
 }
 
 #dgbaby {
 	position: relative;
 	animation: vibration2 1s infinite;
-	top: 30px;
-/* 	animation: loop 10s infinite; */
-/* 	transform: rotateY(0deg); */
 }
 
 .poop {
@@ -142,17 +161,14 @@ body {
 	height: 38px;
 	position: absolute;
 	left: 300px;
-	top: 330px;
+	top: 460px;
 	background-image: url("/resources/img/dgmagotchi/poop.png");
 }
 
-/* .poopsound { */
-/* 	width: 50x; */
-/* 	height: 42px; */
-/* 	position: relative; */
-/* 	top: 330px; */
-/* 	background-image: url("/resources/img/dgmagotchi/poopsound.png"); */
-/* } */
+#dgpress {
+	animation: vibration3 0.1s infinite;
+}
+
 /* 캐릭터 끝 */
 
 .small-container button {
@@ -228,9 +244,8 @@ body {
 /* 스테이터스 끝 */
 
 .button-container {
-	width: 800px;
+	width: 1200px;
 	position: relative;
-    top: -80px;
 }
 
 .button-container p {
@@ -291,6 +306,15 @@ body {
   to {
     transform: rotate(-10deg);
     left: -20px;
+  }
+}
+
+@keyframes vibration3 {
+  from {
+    transform: rotate(1deg);
+  }
+  to {
+    transform: rotate(-1deg);
   }
 }
 
@@ -552,18 +576,24 @@ $(document).ready(function(){
 	
 	//득근이 운동하기
 	$("#health").click(function(){
-		exp+=2;
-		$("#dgbaby").css("display","none");
-		$("#dgpress").css("display","block");
-		$("#exp").html(exp);
-		$("#message").html("득근 득근 !!");
-		$("#message").fadeIn();
-		$("#message").fadeOut(2000);
-		
-		setTimeout(function(){
-			$("#dgpress").css("display","none");
-			$("#dgbaby").css("display","block");
-		},2000);
+		if(statA>5){
+			exp+=10;
+			statA-=5;
+			statB-=5;
+			$("#dgbaby").css("display","none");
+			$("#dgpress").css("display","block");
+			$("#exp").html(exp);
+			$("#message").fadeIn();
+			$("#message").html("득근 득근 !!");
+			$("#message").fadeOut(2000);
+			
+			setTimeout(function(){
+				$("#dgpress").css("display","none");
+				$("#dgbaby").css("display","block");
+			},2000);
+		} else {
+			
+		}
 	})
 	
 	$("#save").click(function(){
