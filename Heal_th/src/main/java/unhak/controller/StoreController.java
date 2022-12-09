@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import unhak.dto.CartDto;
 import unhak.dto.StoreDto;
 import unhak.service.face.StoreService;
 import unhak.util.StorePaging;
@@ -85,6 +87,20 @@ public class StoreController {
 		
 		
 		return null;
+	}
+	
+	
+	
+	
+	// 장바구니 담기
+	@ResponseBody
+	@RequestMapping(value = "/store/cart", method = RequestMethod.POST)
+	public void addCart(CartDto cart, HttpSession session) throws Exception {
+	 
+		String userNo = (String)session.getAttribute("userNo");
+
+	 
+	 
 	}
 	
 }

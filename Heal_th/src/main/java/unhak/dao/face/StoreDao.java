@@ -2,6 +2,7 @@ package unhak.dao.face;
 
 import java.util.List;
 
+import unhak.dto.CartDto;
 import unhak.dto.StoreDto;
 import unhak.util.StorePaging;
 
@@ -40,4 +41,14 @@ public interface StoreDao  {
 	 */
 	public StoreDto selectStore(StoreDto viewStore);
 
+	/**
+	 * 카트담기
+	 * @param cart
+	 * @throws Exception
+	 */
+	public void addCart(CartDto cart) throws Exception;
+
+
+
+	
 }
