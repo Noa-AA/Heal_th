@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import changmin.dto.BodyInfo;
 import changmin.dto.DgmaJoin;
+import changmin.dto.Dgmachat;
 import changmin.dto.Dgmagotchi;
 import changmin.dto.HealthRecord;
 import changmin.service.face.DgHelperService;
@@ -225,6 +226,11 @@ public class DgHelperController {
 		List<DgmaJoin> dgmaRanking = dgHelperService.getDgmaRanking();
 		logger.info("dgmaRanking : {}", dgmaRanking);
 		model.addAttribute("dgmaRanking", dgmaRanking);
+		
+		//득마고치 닉네임 조회
+		String nick = dgHelperService.getMyNick(userno);
+		logger.info("myNick : {}", nick);
+		model.addAttribute("nick", nick);
 			
 	}
 	
@@ -246,6 +252,24 @@ public class DgHelperController {
 		return dgmagotchi.getDgmaExp();
 	}
 	
+	@RequestMapping(value="/dghelper/dgmaChat", method=RequestMethod.POST)
+	public void dgmaChatPost(Dgmachat dgmachat) {
+		logger.info("/dghelper/dgmaChat [POST]");
+		
+		logger.info("dgmachat : {}", dgmachat);
+		
+		dgHelperService.pushChat(dgmachat);
+	}
+
+	@RequestMapping(value="/dghelper/dgmaChat", method=RequestMethod.GET)
+	public void dgmaChatGet(Dgmachat dgmachat, Model model) {
+		logger.info("/dghelper/dgmaChat [GET]");
+		
+		List<Dgmachat> chatList = dgHelperService.getDgmaChat();
+		logger.info("chatList : {}", chatList);
+		
+		model.addAttribute("chat",chatList);
+	}
 	//--------------------------------------------------------------------
 }
 

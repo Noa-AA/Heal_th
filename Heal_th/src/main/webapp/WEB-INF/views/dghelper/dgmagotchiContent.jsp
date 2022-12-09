@@ -68,6 +68,12 @@ body {
 	margin: 0 auto;
 }
 
+.main-wrap {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+}
+
 .message-container {
 	display: flex;
 	width: 400px;
@@ -202,6 +208,26 @@ body {
 .button-container {
 	width: 1200px;
 	position: relative;
+}
+
+.chat-container {
+	height: 200px;
+   	display: flex;
+    width: 800px;
+	justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+   	border: 1px solid white;
+	background-color: rgba(0,0,0, 0.7);
+	padding: 10px;
+}
+
+.chat-container p {
+	color: white;
+}
+
+.chat-container input {
+	color: black;
 }
 
 .button-container p {
@@ -617,6 +643,54 @@ $(document).ready(function(){
 		$("#dgbaby").css("display","block");
 		$(".button-container").css("display","block");
 	}
+	
+	$("#send").click(function(){
+		console.log("send click")
+		$.ajax({
+			type: "post",
+			url: "/dghelper/dgmaChat",
+			data: {
+				dgmachatCon: $('#dgmaCon').val()
+				, userNick: "${nick}"
+			},
+			dataType: "json",
+			success: (res)=>{
+				console.log("AJAX 성공")
+			},
+			error: ()=>{
+				console.log("AJAX 실패")
+				getChat();
+			}
+		})
+	})
+	
+	/* $("#send").click(function(){ */
+		
+	function getChat(){
+		console.log("send click")
+		$.ajax({
+			type: "get",
+			url: "/dghelper/dgmaChat",
+			data: {
+			},
+			dataType: "html",
+			success: (res)=>{
+				console.log("AJAX 성공")
+				console.log(res)
+				$(".chat-value").html(res);
+			},
+			error: ()=>{
+				console.log("AJAX 실패")
+			}
+		})
+	}
+	
+	function chatInterval(){
+		getChat();
+		/* setInterval(chatInterval, 3000); */
+	}
+	
+	/* chatInterval(); */
 
 
 });
@@ -669,44 +743,50 @@ $(document).ready(function(){
 				<button id="save">저장하기</button>
 			</div>
 		</div>
-		<div class="main-content">
-			<div class="message-container">
-				<div id="message">
-					<p>알을 클릭해주세요 ! </p>
+		<div class="main-wrap">
+			<div class="main-content">
+				<div class="message-container">
+					<div id="message">
+						<p>알을 클릭해주세요 ! </p>
+					</div>
+					
+					<div id="savemessage" style="display:none"></div>
 				</div>
-				
-				<div id="savemessage" style="display:none"></div>
+				<div id="poopzone"></div>
+				<div id="character">
+					<div id="dgEgg" style="display:block;">
+						<button>
+							<img src="/resources/img/dgmagotchi/dgEgg.png">
+						</button>
+					</div>
+					<div id="dgbabyawake" style="display: none;">
+						<button>
+							<img src="/resources/img/dgmagotchi/dgbabyawake.png">
+						</button>
+					</div>
+					<div id="dgbaby" style="display: none;">
+						<img src="/resources/img/dgmagotchi/dgbaby.png">
+					</div>
+					<div id="dgbaby2" style="display: none;">
+						<img src="/resources/img/dgmagotchi/dgbaby2.png">
+					</div>
+					<div id="dgfood" style="display: none;">
+						<img src="/resources/img/dgmagotchi/dgfood.png">
+					</div>
+					<div id="dgsleep" style="display: none;">
+						<img src="/resources/img/dgmagotchi/dgsleep.png">
+					</div>
+					<div id="dgpress" style="display: none;">
+						<img src="/resources/img/dgmagotchi/dgpress.png">
+					</div>
+				</div>
 			</div>
-			<div id="poopzone"></div>
-			<div id="character">
-				<div id="dgEgg" style="display:block;">
-					<button>
-						<img src="/resources/img/dgmagotchi/dgEgg.png">
-					</button>
-				</div>
-				<div id="dgbabyawake" style="display: none;">
-					<button>
-						<img src="/resources/img/dgmagotchi/dgbabyawake.png">
-					</button>
-				</div>
-				<div id="dgbaby" style="display: none;">
-					<img src="/resources/img/dgmagotchi/dgbaby.png">
-				</div>
-				<div id="dgbaby2" style="display: none;">
-					<img src="/resources/img/dgmagotchi/dgbaby2.png">
-				</div>
-				<div id="dgfood" style="display: none;">
-					<img src="/resources/img/dgmagotchi/dgfood.png">
-				</div>
-				<div id="dgsleep" style="display: none;">
-					<img src="/resources/img/dgmagotchi/dgsleep.png">
-				</div>
-				<div id="dgpress" style="display: none;">
-					<img src="/resources/img/dgmagotchi/dgpress.png">
-				</div>
+	
+			<div class="chat-container">
+				<div class="chat-value"></div>
+				<p><input type="text" id="dgmaCon"><button id="send" style="border: 1px solid white;">전송하기</button></p>
 			</div>
 		</div>
-
 		<div class="right-container">
 			<div class="weather-wrap">
 				<div class="weather-widget">

@@ -15,6 +15,7 @@ body {
 	margin: 0 auto;
 	text-align: center;
 	height: 750px;
+	margin-bottom: 100px;
 }
 
 .start-container {
@@ -48,7 +49,7 @@ body {
 }
 
 .button-container {
-    top: 90px !important;
+    top: 200px !important;
 }
 
 

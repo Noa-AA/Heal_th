@@ -4,6 +4,7 @@ import java.util.List;
 
 import changmin.dto.BodyInfo;
 import changmin.dto.DgmaJoin;
+import changmin.dto.Dgmachat;
 import changmin.dto.Dgmagotchi;
 import changmin.dto.HealthRecord;
 import changmin.util.DgHelperPaging;
@@ -92,6 +93,17 @@ public interface DgHelperService {
 	 * @return
 	 */
 	public List<DgmaJoin> getDgmaRanking();
+
+	/**
+	 * 로그인회원의 닉네임 조회
+	 * @param userno
+	 * @return
+	 */
+	public String getMyNick(int userno);
+
+	public void pushChat(Dgmachat dgmachat);
+
+	public List<Dgmachat> getDgmaChat();
 
 
 
