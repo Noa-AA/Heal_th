@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import unhak.dto.CartDto;
 import unhak.dto.StoreDto;
 import unhak.util.StorePaging;
 
@@ -27,7 +28,8 @@ public interface StoreService {
 	public StorePaging getPaging(int curPage);
 
 
-
+	//카트담기
+	public void addCart(CartDto cart) throws Exception;
 
 
 
