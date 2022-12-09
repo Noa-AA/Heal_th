@@ -2,8 +2,6 @@ package daeyeon.service.impl;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import daeyeon.dao.face.ChatDao;
 import daeyeon.dto.Chat;
+import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
-import daeyeon.dto.Userss;
 import daeyeon.service.face.ChatService;
 import yerim.dto.Users;
 
@@ -23,33 +21,16 @@ public class ChatServiceImpl implements ChatService {
 	
 	//로그 객체
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-//	@Override
-//	public RoomList selectRoomNoByUserNo(HttpSession session) {
-//		Userss users = new Userss();
-//		
-//		RoomList roomList = new RoomList();
-//		
-//		//세션에있는 유저넘버값
-//		logger.info("userNo = {}", session.getAttribute("userNo") );
-//		
-//		users.setUserNo( (Integer)session.getAttribute("userNo") );
-//		
-//		roomList = chatDao.selectRoomNoByUserNo(users);
-//		
-//		logger.info("roomlist = {}", roomList);
-//		
-//		return roomList;
-//	}
 	
 	
+	// /chat/intro
 	//---------- 회원 등급 3이상인 회원 조회하기
 	@Override
-	public List<Users> userlist() {
+	public List<Users> userlist(Users myUserNo) {
 		logger.info("userlist()");
 		
 		//게시글 목록 조회 - ChatDao 이용
-		List<Users> userList = chatDao.selectUsers(); 
+		List<Users> userList = chatDao.selectUsers(myUserNo); 
 		logger.trace("boardList 조회 결과"); 
 		for( Users d : userList )	logger.info("{}", d);
 		
@@ -58,7 +39,7 @@ public class ChatServiceImpl implements ChatService {
 	
 	
 	
-	
+	// /chat/chatRoom
 	//---------- 유저번호를 이용해서 소속된 채팅방 조회하기
 	@Override
 	public List<RoomList> roomList(Users myUserNo) {
@@ -71,6 +52,7 @@ public class ChatServiceImpl implements ChatService {
 	}
 	
 	
+	// /chat/chatArea
 	//---------- 채팅 내용 저장하기
 	@Override
 	public void addChat(Chat chat) {
@@ -78,6 +60,65 @@ public class ChatServiceImpl implements ChatService {
 		
 		chatDao.insertChat(chat);
 	}
+	
+	
+	// /chat/pointCompare
+	//---------- 자신의 포인트 조회해오기
+	@Override
+	public int getMyPoint(Users users) {
+		
+		
+		return chatDao.selectMyPoint(users);
+	}
+	
+	
+	// /chat/createChatRoom
+	//---------- 상대방 포인트는 증가시키고 내 포인트는 감소시키기
+	@Override
+	public void updatePoint(int yourRankingNo, int yourUserNo, int myUserNo) {
+		logger.info(">>updatePoint() - yourRankingNo : {} ", yourRankingNo );
+		logger.info(">>updatePoint() - yourUserNo : {} ", yourUserNo );
+		logger.info(">>updatePoint() - myUserNo : {} ", myUserNo );
+		Users users = new Users();
+		
+		users.setRankingNo(yourRankingNo);
+		
+		
+		//상대방의 포인트 증가시키기
+		users.setUserNo(yourUserNo);
+		chatDao.updateYourPoint(users);
+		
+		//자신의 포인트 감소시키기
+		users.setUserNo(myUserNo);
+		chatDao.updateMyPoint(users);
+	}
+	
+	
+	// /chat/createChatRoom
+	//---------- 채팅방 만들기
+	@Override
+	public void createChatRoom(int yourUserNo, int myUserNo) {
+		logger.info("createChatRoom() - yourUserNo : {} , myUserNo : {}", yourUserNo, myUserNo);
+				
+		ChatRoom chatRoom = new ChatRoom();
+			
+		//채팅방 만들기
+		int result = chatDao.insertChatRoom(chatRoom);
+				
+		//방을 만들때 사용된 방번호(chat_room_seq.next로 조회)
+		logger.info("채팅방 만들때 사용된 방번호 : {}", chatRoom.getRoomNo());  
+		chatRoom.setRoomNo(chatRoom.getRoomNo());
+				
+		if( result > 0) { //채팅방 만들기 성공시
+					
+			chatRoom.setUserNo(myUserNo);
+			chatDao.insertChatListByMy(chatRoom); //자신의 룸리스트 만들기
+					
+			chatRoom.setUserNo(yourUserNo);
+			chatDao.insertChatListByYou(chatRoom); //상대방 룸리스트 만들기
+					
+			}
+		}
 	
 }
 
