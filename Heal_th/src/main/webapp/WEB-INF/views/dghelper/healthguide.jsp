@@ -152,8 +152,17 @@ input {
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
 }
 
+body {
+	padding-top: 355px;
+}
 </style>
 <body>
+<div id="subvisual">
+	<div id="subvisual-A">
+		<p id="subv-title">칼로리 사전</p>
+		<p id="subv-content">칼로리 계산으로 체계적으로 관리해봐요</p>
+	</div>
+</div>
 <!-- <!-- 퀵메뉴 시작 -->
 <!-- <div class="Quick"> -->
 <!--     <table class="quickMenuBar"> -->
@@ -177,7 +186,6 @@ input {
 <!-- 퀵메뉴 끝 --> 
 <div class="big-container">
 	<div class="small-container">     
-		<span>운동 가이드</span>
 	
 		<!-- male일 경우 기초대사량 -->
 		<c:if test="${user.userGender eq 'male'}">

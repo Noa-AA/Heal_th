@@ -7,40 +7,95 @@
 <mapper namespace="daeyeon.dao.face.ChatDao"> 
 	
 	
-	<select id="selectUsers" resultType="yerim.dto.Users" >
-		SELECT user_no, user_name, user_job, user_intro, user_gender, ranking_no
+	<!-- /chat/intro -->
+	<!-- 회원 등급 3이상인 회원 조회하기 -->
+	<select id="selectUsers" resultType="yerim.dto.Users" parameterType="Users">
+		SELECT user_no, user_nick, user_name, user_intro, user_job, user_photo, user_gender, ranking_no, point
 		FROM USERS
 		WHERE ranking_no >= 3
+		AND user_no != #{userNo } 
 	</select> 
 	
-	
-<!-- 	<select id="selectRoomNoByUserNo"  resultType="daeyeon.dto.RoomList" parameterType="daeyeon.dto.Userss"> -->
-<!-- 		SELECT room_no FROM room_list -->
-<!-- 		WHERE user_no = #{userNo } -->
-<!-- 	</select> -->
-	
+
+	<!-- /chat/chatRoom -->
+	<!-- 자신의 회원번호가 속한 채팅방 조회하기 -->
 	<select id="selectRoomList"  resultType="daeyeon.dto.RoomList" parameterType="Users">
 		SELECT * FROM room_list
 		WHERE user_no = #{userNo }
 	</select>
 	
 	
-	
-<!-- 	<insert id="insertChatRoom" parameterType="int"  > -->
-<!-- 		INSERT INTO chat_room ( room_no, create_date  ) -->
-<!-- 		VALUES ( 1 , sysdate )   -->
-<!-- 	</insert> -->
-
-	
-<!-- 	<insert id="insertroomList" parameterType="int"  > -->
-<!-- 		INSERT INTO room_list ( chat_list_no, user_no, room_no  ) -->
-<!-- 		VALUES ( 1 ,10, 1 )  -->
-		 <!-- lost_no 는 시퀀스 userNo는 가져올꺼고 room_no도 위에서 가져올꺼임 } -->
-<!-- 	</insert> -->
-
-	<insert id="insertChat" parameterType="Chat">
+	<!-- /chat/chatArea -->
+	<!-- 채팅내용 테이블에 저장하기 -->
+	<insert id="insertChat" parameterType="chatRoom">
 		INSERT INTO chat( chat_no, chat_time, chat_contents, room_no, user_no )
 		VALUES ( chat_seq.nextval, sysdate, #{chatContent }, #{roomNo }, #{userNo }  )
 	</insert>
 
+
+
+	<!-- /chat/pointCompare -->
+	<!-- 내 포인트 얻어오기 -->
+	<select id="selectMyPoint" resultType="int" parameterType="Users">
+		SELECT point FROM USERS
+		WHERE user_no = #{userNo }
+	</select>
+
+	<!-- /chat/createChatRoom -->
+	<!-- 상대방 포인트 증가시키기 -->
+	<update id="updateYourPoint" parameterType="Users">
+		UPDATE USERS SET point = 
+			CASE 
+			WHEN #{rankingNo } = 5 THEN point+1000
+			WHEN #{rankingNo } = 4 THEN point+700
+			WHEN #{rankingNo } = 3 THEN point+400
+			END
+		WHERE user_no = #{userNo }
+	</update>
+	
+	<!-- /chat/createChatRoom -->
+	<!-- 자신의 포인트 감소시키기 -->
+	<update id="updateMyPoint" parameterType="Users">
+		UPDATE USERS SET point = 
+			CASE 
+			WHEN #{rankingNo } = 5 THEN point-1000
+			WHEN #{rankingNo } = 4 THEN point-700
+			WHEN #{rankingNo } = 3 THEN point-400
+			END
+		WHERE user_no = #{userNo }
+	</update>
+	
+
+	<!-- /chat/createChatRoom -->
+	<!-- 채팅방 만들기 -->
+	<insert id="insertChatRoom" parameterType="ChatRoom">
+			<selectKey resultType="int" keyProperty="roomNo" order="BEFORE">
+				SELECT chat_room_seq.nextval FROM DUAL
+			</selectKey>
+			INSERT INTO chat_room (room_no, create_date)
+			VALUES ( chat_room_seq.currval, sysdate )
+	</insert>
+
+	<!-- /chat/createChatRoom -->
+	<!-- 로그인한 자신의 채팅방리스트 만들기 -->
+	<insert id="insertChatListByMy" parameterType="ChatRoom">
+		INSERT INTO room_list (chat_list_no, user_no, room_no)
+		VALUES ( room_list_seq.nextval, #{userNo }, #{roomNo } )
+	</insert>
+
+	<!-- /chat/createChatRoom -->
+	<!-- 상대방의 채팅방리스트 만들기 -->
+	<insert id="insertChatListByYou" parameterType="ChatRoom">
+		INSERT INTO room_list (chat_list_no, user_no, room_no)
+		VALUES ( room_list_seq.nextval, #{userNo }, #{roomNo } )
+	</insert>
+
 </mapper>
+
+
+
+
+
+
+
+

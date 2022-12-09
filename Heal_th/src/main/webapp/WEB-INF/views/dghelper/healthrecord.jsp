@@ -210,10 +210,17 @@ button {
 	display: flex;
 	justify-content: center;
 }
-
+body {
+	padding-top: 355px;
+}
 </style> 
 <body>
- 
+<div id="subvisual">
+	<div id="subvisual-A">
+		<p id="subv-title">운동 일기장</p>
+		<p id="subv-content">나의 오늘 운동기록을 매일매일 기록해 봐요</p>
+	</div>
+</div>
 <div class="big-container">
 <!-- <!-- 퀵메뉴 시작 --> 
 <!-- <div class="Quick"> -->
@@ -239,7 +246,6 @@ button {
 <!--     </table> -->
 <!-- </div> -->
 <!-- <!-- 퀵메뉴 끝 --> 
-	<h1>운동 일기장</h1>
 	<div id="recordlist">
 	<span id="healthcount">나의 일기 작성 횟수 [ ${paging.totalCount } 회 ]</span><br>
 		<c:forEach items="${list }" var="i">

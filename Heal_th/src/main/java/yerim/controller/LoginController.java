@@ -24,6 +24,7 @@ public class LoginController {
 	 public void login() {
 		 //로그인 화면 
 		 logger.info("/login/login [GET]");
+		 
 	 }
 
  
@@ -60,16 +61,15 @@ public class LoginController {
 	 
 	 @RequestMapping("/login/searchId")
 	 public void searchId() {
-	
 		 logger.info("/login/searchId");
 		 
 	 }
 	 
 	 @ResponseBody
 	 @PostMapping("/login/searchId")
-	 public String searchIdProc(Users searchId,HttpSession session) {
+	 public boolean searchIdProc(Users searchId,HttpSession session) {
 		 logger.info("/login/serachId [POST]");
-		 logger.info("id:{},email:{}",searchId.getUserName(),searchId.getUserEmail());
+		 logger.info("이름:{},email:{}",searchId.getUserName(),searchId.getUserEmail());
 		 
 		 
 		 //입력한 이메일주소와 이름이 일치한 회원이 있는지 조회하기
@@ -79,19 +79,118 @@ public class LoginController {
 		 if(searchUser) {//회원이 있다면 인증 메일 보내기 
 
 			 //세션에 정보 저장(입력한 정보-이메일,이름)
+			 String emailResult = loginService.sendMail(searchId);
 			 session.setAttribute("userName",searchId.getUserName());
 			 session.setAttribute("userEmail",searchId.getUserEmail());
-			 String emailResult = loginService.sendMail(searchId);
 			 
-			 	return emailResult;
+			 //세션에 이메일 인증 코드 저장
+			 logger.info("session 코드 : {}",emailResult);
+			 session.setAttribute("emailResult", emailResult);
 			 
-		 } else {
+			 return true; //true 전달
+		 } 
 			 //회원이 없을 때 세션 삭제 이후 처리는 jsp에서 함
-			 session.invalidate();
-			 return null;
+			 logger.info("회원 없음");
+			return false; //false 전달 
+		 
+		 
+		 
+	 }
+	 @ResponseBody
+	 @PostMapping("/login/codeIdChk")
+	 public String codeIdChk(String emailCode,HttpSession session,Model model) {
+		 
+		 logger.info("/codeIdChk 실행");
+		 
+		 String searchId =loginService.codeChk(emailCode,session);
+		 logger.info(searchId);
+		 return searchId;
+	 }
+	 
+	 @RequestMapping("/login/searchIdResult")
+	 public void ResultsearchId() {
+		 	logger.info("아이디 찾기 완료");
+	 }
+	 
+	 @ResponseBody
+	 @PostMapping("/login/searchIdBySms")
+	 public boolean searchIdBySms(Users searchBySms,HttpSession session) {
+		 logger.info("/login/serachIdBySms");
+		 //입력된 정보로 회원이 존재하는지 조회해오기
+		 boolean isUser = loginService.getUsersBySms(searchBySms);
+		 if(isUser) {
+			 //회원이 있으면 문자 보내기 
+			 logger.info("회원 있음 - 문자 보내기");
+			 String sendMsg = loginService.sendMsessage(searchBySms);
+			 //회원 정보 세션에 저장
+			 session.setAttribute("userName",searchBySms.getUserName());
+			 session.setAttribute("userPhone",searchBySms.getUserPhone());
+			 //세션에 인증 번호 저장
+			 session.setAttribute("sendMsg", sendMsg);
+			 
+			 return true;
 		 }
+			 logger.info("회원 없음 인증 실패");
+			 
+			 return false;
+		 
 		 
 	 }
 	 
+	 @ResponseBody
+	 @PostMapping("/login/checkSmsCode")
+	 public String smsCodeChk(String smsCode,HttpSession session) {
+		 logger.info("/login/chedkSmScode");
+		 
+		 String searchBySms = loginService.smsCodeChk(smsCode,session);
+		 
+		 logger.info("아이디 찾기 성공 -{}",searchBySms);
+		 return searchBySms;
+	 }
+	 
+	 @RequestMapping("/login/searchPw")
+	 public void searchPw() {
+		logger.info("/login/searchPw"); 
+	 }
+	 @ResponseBody
+	 @PostMapping("/login/searchPw")
+	 public boolean searchPwBySms(Users searchPw,HttpSession session) {
+		 logger.info("/login/searchPw [POST]");
+		 
+		 //회원 가입 여부 조회하기
+		 boolean getUser = loginService.checkUser(searchPw);
+		 if(getUser) {
+			 logger.info("회원 있음-인증번호 문자 보내기");
+			 
+			 String sendCodeForPw = loginService.sendMsg(searchPw);
+			 
+			 //세션에 회원 아이디, 이름 저장하기
+			 session.setAttribute("userName", searchPw.getUserName());
+			 session.setAttribute("userId", searchPw.getUserId());
+			
+			 //세션에 인증번호 저장하기
+			 session.setAttribute("codeForPw", sendCodeForPw);
+			 
+			 return true;
+		 }
+		 
+		 logger.info("회원 없음");
+		 return false;
+	 }
+	 
+	 @ResponseBody
+	 @PostMapping("/login/codeChkForPw")
+	 public boolean chkCodeForPw(String pwSmsCode,HttpSession session ) {
+		 logger.info("/lgoin/codeChkForPw");
 
+		 boolean searchPwBySms = loginService.smsCodeForPw(pwSmsCode,session);
+		 
+		 logger.info("인증번호 검증 완료 {}",searchPwBySms);
+		 return searchPwBySms;
+	 }
+	 
+	 @RequestMapping("/login/makeNewPw")
+	 public void makeNewPw() {
+		 logger.info("/login/makeNewPw ");
+	 }
 }

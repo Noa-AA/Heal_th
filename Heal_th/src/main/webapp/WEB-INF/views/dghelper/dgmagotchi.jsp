@@ -6,53 +6,21 @@
 	font-family: 'mice';
 	src: url('/resources/css/MICEGothic.ttf') format('truetype');
 }
-.Quick {
-	position: absolute;
-	top: 200px;
-	left: 150px;
-	width: 200px;
-	height: 300px;
-	padding: 20px;
-	background: linear-gradient(120deg, #3f94d6 0 , #1869a7);
-	text-align: left;
-	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
-}  
 
-@media screen and (max-width: 1640px) {
-	.Quick {
-		left: 75px;
-	}
+body {
+	padding-top: 355px;
 }
-
-@media screen and (max-width: 1400px) {
-	.Quick {
-		left: 0px;
-	}
-}
-
-@media screen and (max-width: 1200px) {
-	.Quick {
-		display: none;
-	}
-}
-
-.Quick a {
-	font-size: 18px;
-	font-weight: bold;
-	color: white;
-	padding: 10px;
-}
-
 .big-container {
-	width: 800px;
+	width: 1200px;
 	margin: 0 auto;
 	text-align: center;
+	height: 750px;
 }
 
 .start-container {
 	display: flex;
-	width: 800px;
-	height: 500px;
+	width: 1200px;
+	height: 750px;
 	background-image: url("/resources/img/dgmagotchi/dgmagotchi-start.png");
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
 	flex-direction: column-reverse;
@@ -80,7 +48,7 @@
 }
 
 .button-container {
-    top: 120px !important;
+    top: 90px !important;
 }
 
 
@@ -110,29 +78,14 @@ $(document).ready(function(){
 });
 
 </script>
+<div id="subvisual">
+	<div id="subvisual-A">
+		<p id="subv-title">득근이 키우기</p>
+		<p id="subv-content">스트레스는 운동의 적 ! 득근이를 키우며 힐링해봐요</p>
+	</div>
+</div>
 <body>
 <div class="big-container">
-<!-- 퀵메뉴 시작 -->
-<div class="Quick">
-    <table class="quickMenuBar">
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthtest">운동성향 테스트</a></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthguide">칼로리사전</a></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthrecord">운동일기장</a></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/dgmagotchi">득근이 키우기</a></td>
-        </tr>
-<!--         <tr>
-            <td colspan="2" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</td>
-        </tr> -->
-    </table>
-</div>
-<!-- 퀵메뉴 끝 -->  
 	<div class="start-container">
 		<button id="start">시작하기</button>
 	</div>

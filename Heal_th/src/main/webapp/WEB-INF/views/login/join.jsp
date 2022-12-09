@@ -74,7 +74,7 @@
 						console.log(res)
 						console.log("본인인증 성공")
 						
-						if(res==true) {
+						if(res) {
 							//본인인증 성공 시 
 						$("#result_code").html("본인인증 성공!")
 						$("#result_code").css("color","green")
@@ -119,6 +119,7 @@
 		    
 		    //아이디 중복확인 안했을 때의 처리 
 		    $("#userId").blur(function(){
+								    		
 		    		console.log("중복확인 요청")
 				if(count==0) {
 	 	    			$("#checkIdResult").html("아이디 중복검사를 해주세요")
@@ -126,7 +127,7 @@
 	 	    	return false;
 		    
 				}
-		    		
+		    			
 		    	return true;
 		    })
 		    
