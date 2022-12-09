@@ -47,6 +47,18 @@
    	
    	</select>
    	
+   	<select id="selectByPw" resultType="int" parameterType="Users" >
+   	 	SELECT count(*) FROM users
+   	 	WHERE user_pw = #{userPw} and user_name=#{userName} and user_id=#{userId}
+   	
+   	 </select>
+   	
+   	<update id="updateNewPw" parameterType="Users" >
+   		UPDATE users
+   		SET user_pw = #{userPw}
+   		WHERE user_id=#{userId} and user_name=#{userName} 	
+   	
+   	</update>
   </mapper>
   
   

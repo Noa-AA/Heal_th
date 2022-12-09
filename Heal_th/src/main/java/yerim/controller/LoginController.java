@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import oracle.jdbc.proxy.annotation.Post;
 import yerim.dto.Users;
 import yerim.service.face.LoginService;
 
@@ -92,10 +93,8 @@ public class LoginController {
 			 //회원이 없을 때 세션 삭제 이후 처리는 jsp에서 함
 			 logger.info("회원 없음");
 			return false; //false 전달 
-		 
-		 
-		 
 	 }
+	 
 	 @ResponseBody
 	 @PostMapping("/login/codeIdChk")
 	 public String codeIdChk(String emailCode,HttpSession session,Model model) {
@@ -131,10 +130,7 @@ public class LoginController {
 			 return true;
 		 }
 			 logger.info("회원 없음 인증 실패");
-			 
 			 return false;
-		 
-		 
 	 }
 	 
 	 @ResponseBody
@@ -192,5 +188,34 @@ public class LoginController {
 	 @RequestMapping("/login/makeNewPw")
 	 public void makeNewPw() {
 		 logger.info("/login/makeNewPw ");
+	 }
+	 
+	 @ResponseBody
+	 @PostMapping("/login/usedPwChk")
+	 public boolean chkNewPw(Users updatePw,HttpSession session) {
+		 logger.info("/login/usedPwchk [POST]");
+		 
+		boolean resultchkPw = loginService.chkUsedPw(updatePw,session);
+		 
+		logger.info("비밀번호 확인 {}",resultchkPw);
+		 return resultchkPw;
+	 }
+	 
+	 @PostMapping("/login/updatePw")
+	 public String updatePw(Users userUpdatePw,HttpSession session) {
+		 logger.info("login/updatePw [POST]");
+		 
+		boolean newPw = loginService.setNewPw(userUpdatePw,session);
+		 
+		
+		 //비밀번호 업데이트 이후 세션초기화
+		if(newPw) {
+			session.invalidate();
+		
+			return "/login/login";
+		}
+		
+		return "/login/updatePw";
+		 
 	 }
 }

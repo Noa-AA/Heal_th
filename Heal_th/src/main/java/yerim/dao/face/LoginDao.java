@@ -5,6 +5,8 @@ import yerim.dto.Users;
 
 public interface LoginDao {
 
+	int updatePw = 0;
+
 	/**
 	 * 로그인을 위한 아이디 및 비밀번호 조회
 	 * @param login -로그인 파라미터
@@ -55,5 +57,23 @@ public interface LoginDao {
 	  */
 	 
 	public int selectUserIdForPw(Users searchPw);
+
+	
+	/**
+	 * 입력한 새비밀번호와 기존 번호가 같은지 비교하여 조회하기
+	 * @param updatePw -사용자가 입력한 비밀번호
+	 * @return - 같은 비밀번호가 있는 갯수
+	 */
+	public int selectByPw(Users updatePw);
+
+	/**
+	 * 회원 비밀번호 새로 재설정
+	 * @param userUpdatePw-입력된 회원 정보
+	 * @return-입력된 결과
+	 */
+	public int updateNewPw(Users userUpdatePw);
+	
+	
+	
 
 }
