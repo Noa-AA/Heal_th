@@ -9,26 +9,32 @@ $(document).ready(function(){
 	      $(".Quick").stop().animate({top:position+"px"}, 400); //해당 오브젝트 위치값 재설정
 	});
 	
-	$("#search").click(function(){		
-		console.log("#search click")	
-		$("#result").html("- L O A D I N G -")
-		$.ajax({
-			type: "get"
-			, url: "/dghelper/calorie?foodname=" + $("#foodname").val()
-			, data: {}
-			, dataType: "html"
-			, success: function(res){
-				console.log("AJAX 성공")
-				
-				console.log(res)
-				
-				$("#result").html(res)
-			}
-			, error: function(){
-				console.log("AJAX 실패")
-				
-			}
-		})
+	$("#search").click(function(){
+		
+		if(!$("#foodname")){
+			console.log("#search click")
+			$("html").css("cursor", "wait");
+			$("#result").html("- L O A D I N G -")
+			$.ajax({
+				type: "get"
+				, url: "/dghelper/calorie?foodname=" + $("#foodname").val()
+				, data: {}
+				, dataType: "html"
+				, success: function(res){
+					console.log("AJAX 성공")
+					
+					console.log(res)
+					$("html").css("cursor", "default");
+					$("#result").html(res)
+				}
+				, error: function(){
+					console.log("AJAX 실패")
+					
+				}
+			})
+		} else {
+			$("#result").html("음식명을 입력해주세요.");
+		}
 		
 	})
 
@@ -36,7 +42,7 @@ $(document).ready(function(){
 		console.log("#save click")	
 		
 		if(!$.isNumeric($("#kcal").val())){
-			alert("숫자만 입력해주세요 !")
+			$("#resultkcal").html("숫자값을 입력해주세요.");
 		} else {
 		
 			$.ajax({
@@ -160,7 +166,7 @@ body {
 <div id="subvisual">
 	<div id="subvisual-A">
 		<p id="subv-title">칼로리 사전</p>
-		<p id="subv-content">칼로리 계산으로 체계적으로 관리해봐요</p>
+		<p id="subv-content">칼로리를 계산하여 체계적으로 관리해봐요</p>
 	</div>
 </div>
 <!-- <!-- 퀵메뉴 시작 -->
@@ -188,25 +194,27 @@ body {
 	<div class="small-container">     
 	
 		<!-- male일 경우 기초대사량 -->
-		<c:if test="${user.userGender eq 'male'}">
-			<c:set var="bmr" value="${66.47 +(13.75 * bodyInfo.weight) +(5 * bodyInfo.height) - (6.76 * age) }"/>
-			<div id="bmr">
-				<p>성별 : 남성</p>
-				<p>나이 : ${age }세</p>
-				<input type="hidden" id="bmrvalue" value="${bmr }">
-				<span>기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
-			</div>
-		</c:if>
-		
-		<!-- female일 경우 기초대사량 -->
-		<c:if test="${user.userGender eq 'female'}">
-			<c:set var="bmr" value="${665.1 +(9.56 * bodyInfo.weight) +(1.85 * bodyInfo.height) - (4.68 * age) }"/>
-			<div id="bmr">
-				<p>성별 : 여성</p>
-				<p>나이 : ${age }세</p>
-				<input type="hidden" id="bmrvalue" value="${bmr }">
-				<span>기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
-			</div>
+		<c:if test="${bodyInfo ne undefined}">
+			<c:if test="${user.userGender eq 'male'}">
+					<c:set var="bmr" value="${66.47 +(13.75 * bodyInfo.weight) +(5 * bodyInfo.height) - (6.76 * age) }"/>
+				<div id="bmr">
+					<p>성별 : 남성</p>
+					<p>나이 : ${age }세</p>
+					<input type="hidden" id="bmrvalue" value="${bmr }">
+					<span>기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
+				</div>
+			</c:if>
+			
+			<!-- female일 경우 기초대사량 -->
+			<c:if test="${user.userGender eq 'female'}">
+					<c:set var="bmr" value="${665.1 +(9.56 * bodyInfo.weight) +(1.85 * bodyInfo.height) - (4.68 * age) }"/>
+				<div id="bmr">
+					<p>성별 : 여성</p>
+					<p>나이 : ${age }세</p>
+					<input type="hidden" id="bmrvalue" value="${bmr }">
+					<span>기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
+				</div>
+			</c:if>
 		</c:if>
 	</div>
 	

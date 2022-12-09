@@ -66,7 +66,7 @@ $(document).ready(function(){
 			if(${wdCnt}>0){
 				alert("이미 신청한 내역이 있습니다.");
 			} else {
-				window.open("/dgmoney/discharge?wdAmount="+$("#wdAmount").val(),"discharge","width=700,height=500, left=600, top=200");
+				window.open("/dgmoney/discharge?wdAmount="+$("#wdAmount").val(),"discharge","width=540,height=400, left=600, top=200");
 			}
 		} else {
 			alert("보유중인 금액이 충분한지 확인해주세요.");

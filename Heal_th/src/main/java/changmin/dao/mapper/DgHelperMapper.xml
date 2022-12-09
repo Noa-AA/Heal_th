@@ -74,4 +74,31 @@
 		WHERE dgma_no = #{dgmaNo}
 	</update>
 	
+	<select id="selectDgmaRanking" resultType="DgmaJoin" >
+		SELECT u.user_nick, d.dgma_exp
+		FROM users u INNER JOIN dgmagotchi d
+		ON u.user_no = d.user_no
+		WHERE rownum <![CDATA[<=]]>3
+		ORDER BY d.dgma_exp DESC
+	</select>
+	
+	<select id="selectMyNick" resultType="string" parameterType="int">
+		SELECT user_nick
+		FROM users
+		WHERE user_no=#{userno}
+	</select>
+	
+	<insert id="insertDgmaChat" parameterType="Dgmachat">
+		INSERT INTO dgmachat
+		VALUES (dgmachat_seq.nextval, #{dgmachatCon}, #{userNick})
+	</insert>
+	
+	<select id="selectDgmaChat" resultType="Dgmachat">
+		SELECT user_nick, dgmachat_con FROM dgmachat a
+		INNER JOIN (SELECT dgmachat_no FROM dgmachat
+		            WHERE ROWNUM <![CDATA[<=]]> 5
+		            ORDER BY dgmachat_no DESC) b
+		ON a.dgmachat_no = b.dgmachat_no
+	</select>
+	
 </mapper>
