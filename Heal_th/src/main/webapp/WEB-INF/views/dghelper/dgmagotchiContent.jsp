@@ -60,6 +60,7 @@ body {
 	padding: 15px;
 	background-image: url("/resources/img/dgmagotchi/dgmagotchiBack.png");
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
+	margin-bottom: 100px;
 } 
 
 .main-content {
@@ -110,7 +111,7 @@ body {
 /* 캐릭터 시작 */
 #character {
 	position: relative;
-	top: 460px;
+	top: 440px;
 }
 
 #dgbaby {
@@ -211,10 +212,10 @@ body {
 }
 
 .chat-container {
-	height: 200px;
+	height: 175px;
    	display: flex;
-    width: 800px;
-	justify-content: flex-start;
+    width: 540px;
+	justify-content: flex-end;
     flex-direction: column;
     align-items: center;
    	border: 1px solid white;
@@ -222,12 +223,39 @@ body {
 	padding: 10px;
 }
 
+.chat-value {
+	margin-bottom: 17px;
+	width: 501px;
+}
+
+.chat-container-wrap {
+	width:780px;
+	justify-content: center;
+	display: flex;
+} 
+
 .chat-container p {
 	color: white;
+	display: flex;
 }
 
 .chat-container input {
 	color: black;
+	width: 450px;
+}
+
+.chat-send {
+    width: 550px;
+    display: flex;
+    margin-bottom: 4px;
+    justify-content: center;
+}
+
+#dgmaCon {
+	padding-left: 5px;
+}
+#send {
+	padding: 3px;
 }
 
 .button-container p {
@@ -241,13 +269,8 @@ body {
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
 	border:none;
 	border-radius: 5px;
+	width: 118px;
 } 
-
-#food:hover, #sleep:hover, #removePoop:hover, #health:hover {
-	width: 140px;
-	height: 50px;
-}
-
 
 /* 오른쪽 컨테이너 시작 */
 .right-container {
@@ -263,7 +286,7 @@ body {
 	border: 1px solid white;
 	background-color: rgba(0,0,0, 0.7);
 	padding: 10px;
-	width: 130px;
+	width: 180px;
 }
 
 .ranking-wrap {
@@ -283,6 +306,8 @@ body {
 
 .right-container p {
 	color: white;
+	display: flex;
+    justify-content: space-between;
 }
 /* 날씨 끝 */
 
@@ -445,7 +470,7 @@ $(document).ready(function(){
 		
 		exp++;
 		$("#exp").html(exp);
-		console.log($("#expvalue").val())
+		console.log(exp)
 		$(this).css("animation", "vibration 0.1s infinite");
 		
 		$("#message").html(exp + " / 20");
@@ -466,6 +491,7 @@ $(document).ready(function(){
 		
 		exp++;
 		$("#exp").html(exp);
+		console.log(exp)
 		$(this).css("animation", "vibration2 10s infinite");
 		
 		$("#message").html(exp + " / 20");
@@ -477,8 +503,8 @@ $(document).ready(function(){
 			$("#message").html("");
 			$("#dgbabyawake").css("display","none");
 			$("#dgbaby").css("display","block");
-// 			$("#dgbaby").css("animation", "vibration 0.1s infinite");
 			$(".button-container").css("display","block");
+			$(".chat-container").css("display","flex");
 		}
 	})
 	
@@ -486,7 +512,7 @@ $(document).ready(function(){
 	var havePoop=0;
 	//득근이 똥쌈
 	function poop(){
-		if(exp>=2){
+		if(exp>=20){
 			var bodyWidth = document.querySelector("#character").offsetWidth;
 			var randPosX = Math.floor((Math.random()*bodyWidth));
 			havePoop=1;
@@ -607,6 +633,7 @@ $(document).ready(function(){
 		}
 	})
 	
+	//득마고치 저장
 	$("#save").click(function(){
 		console.log("save click")
 		$.ajax({
@@ -636,7 +663,11 @@ $(document).ready(function(){
 		})
 	})
 	
-	if(${dgmainfo.dgmaExp}>=2){
+	if(${dgmainfo.dgmaExp}>=10 && ${dgmainfo.dgmaExp}<20) {
+		$("#dgEgg").css("display","none");
+		$("#dgbabyawake").css("display","block");
+		
+	} else if (${dgmainfo.dgmaExp}>=20) {
 		$("#dgEgg").css("display","none");
 		$("#message").html("");
 		$("#dgbabyawake").css("display","none");
@@ -644,6 +675,19 @@ $(document).ready(function(){
 		$(".button-container").css("display","block");
 	}
 	
+	if(exp<20){
+		$(".chat-container").css("display","none");
+	} else {
+		$(".chat-container").css("display","flex");
+	}
+		
+    $("#dgmaCon").keyup(function(event) {
+        if (event.which === 13) {
+            $("#send").click();
+        }
+    });
+	
+	//득근채팅 메세지보내기
 	$("#send").click(function(){
 		console.log("send click")
 		$.ajax({
@@ -656,13 +700,15 @@ $(document).ready(function(){
 			dataType: "json",
 			success: (res)=>{
 				console.log("AJAX 성공")
+				getChat();
+				$("#dgmaCon").val('');
+				$("#dgmaCon").focus();
 			},
 			error: ()=>{
 				console.log("AJAX 실패")
-				getChat();
 			}
-		})
-	})
+		});
+	});
 	
 	/* $("#send").click(function(){ */
 		
@@ -673,10 +719,10 @@ $(document).ready(function(){
 			url: "/dghelper/dgmaChat",
 			data: {
 			},
+			async:false,
 			dataType: "html",
 			success: (res)=>{
 				console.log("AJAX 성공")
-				console.log(res)
 				$(".chat-value").html(res);
 			},
 			error: ()=>{
@@ -684,14 +730,29 @@ $(document).ready(function(){
 			}
 		})
 	}
-	
-	function chatInterval(){
-		getChat();
-		/* setInterval(chatInterval, 3000); */
-	}
-	
-	/* chatInterval(); */
 
+	//일정시간마다 채팅 불러오기
+ 	$(function() {
+
+		  timer = setInterval( function () {
+			$.ajax({
+				type: "get",
+				url: "/dghelper/dgmaChat",
+				data: {},
+				cache:false,
+				dataType: "html",
+				success: (res)=>{
+					console.log("AJAX 성공")
+					$(".chat-value").html(res);
+				},
+				error: ()=>{
+					console.log("AJAX 실패")
+				}
+			});
+		}, 1000);
+	});
+	
+	
 
 });
 
@@ -700,27 +761,6 @@ $(document).ready(function(){
 </script>
 <body>
 <div class="big-container">
-<!-- <!-- 퀵메뉴 시작
-<div class="Quick">
-    <table class="quickMenuBar">
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthtest">운동성향 테스트</a></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthguide">칼로리사전</a></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthrecord">운동일기장</a></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="cursor:pointer;"><a href="/dghelper/dgmagotchi">득근이 키우기</a></td>
-        </tr>
-        <tr>
-            <td colspan="2" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</td>
-        </tr>
-    </table>
-</div>
-퀵메뉴 끝   -->
 	<div class="small-container">
 		<div class="status-container">
 			<div class="status-content">
@@ -781,10 +821,14 @@ $(document).ready(function(){
 					</div>
 				</div>
 			</div>
-	
+			<div class="chat-container-wrap">
 			<div class="chat-container">
 				<div class="chat-value"></div>
-				<p><input type="text" id="dgmaCon"><button id="send" style="border: 1px solid white;">전송하기</button></p>
+				<div class="chat-send">
+					<p><input type="text" id="dgmaCon"><button id="send" style="border: 1px solid white;">전송하기</button></p>
+					<button id="chatstart"></button>
+				</div>
+			</div>
 			</div>
 		</div>
 		<div class="right-container">
@@ -793,20 +837,20 @@ $(document).ready(function(){
 					<div class="weather-back">
 					</div>
 					<div class="weather-content">
-						<p class="time"></p>
-						<p class="ctemp">현재 온도 : </p>
+						<p class="time" style="justify-content: center;"></p>
+						<p class="ctemp" style="justify-content: center;">현재 온도 : </p>
 					</div>
 				</div>
 			</div> 
 			<div class="ranking-wrap">
-				<p>랭킹</p>
+				<p style="justify-content: center;">랭킹 TOP3</p>
 			</div>
 			<div class="ranking-wrap2">
 				<c:forEach items="${dgmaRanking}" var="dr">
 				<c:set var="cnt" value="${cnt+1 }"/>
 					<p>${cnt }위</p>
 					<p><span>닉네임 : </span><span>${dr.userNick }</span></p>
-					<p><span>득근력 : </span><span>${dr.dgmaExp }Pw</span></p>
+					<p><span>득근력 : </span><span>${dr.dgmaExp } Power</span></p><br>
 				</c:forEach>
 			</div>
 		</div> 
