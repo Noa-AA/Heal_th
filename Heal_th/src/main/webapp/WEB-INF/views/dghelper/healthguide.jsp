@@ -4,14 +4,14 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	$(window).scroll(function(){  //스크롤이 움직일때마다 이벤트 발생
+/* 	$(window).scroll(function(){  //스크롤이 움직일때마다 이벤트 발생
 	      var position = $(window).scrollTop()+200; // 현재 스크롤바의 위치값을 반환
 	      $(".Quick").stop().animate({top:position+"px"}, 400); //해당 오브젝트 위치값 재설정
-	});
+	}); */
 	
 	$("#search").click(function(){
 		
-		if(!$("#foodname")){
+		if($("#foodname").val()){
 			console.log("#search click")
 			$("html").css("cursor", "wait");
 			$("#result").html("- L O A D I N G -")
@@ -68,42 +68,6 @@ $(document).ready(function(){
 
 </script>
 <style type="text/css">
-/* .Quick {
-	position: absolute;
-	top: 200px;
-	left: 150px;
-	width: 200px;
-	height: 300px;
-	padding: 20px;
-	background: linear-gradient(120deg, #3f94d6 0 , #1869a7);
-	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
-}  
-
-@media screen and (max-width: 1640px) {
-	.Quick {
-		left: 75px;
-	}
-}
-
-@media screen and (max-width: 1400px) {
-	.Quick {
-		left: 0px;
-	}
-}
-
-@media screen and (max-width: 1200px) {
-	.Quick {
-		display: none;
-	}
-}
-
-.Quick a {
-	font-size: 18px;
-	font-weight: bold;
-	color: white;
-	padding: 10px;
-} */
-
 #bmr {
 	float: right;
 }
@@ -111,26 +75,46 @@ $(document).ready(function(){
 	width: 1200px;
 	margin: 0 auto;
 }
+
+.medium-container {
+    box-shadow: 1px 0px 10px 0px rgb(0 0 0 / 30%);	
+}
+
 .small-container {
-	position: relative;
-	height: 100px;
-	border: 1px solid silver;
-	padding: 20px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    padding: 15px;
+    font-family: 'SUIT';
+    font-weight: bold;
+    font-size: 14px;
+    color: black;
+    background: linear-gradient(#fbf5fd 0 , #eaecfb);
 }
 .small-container2 {
 	position: relative;
-	border: 1px solid silver;
+	min-height: 550px;
+	width: 1200px;
+    display: flex; 
 }
 
 .cal, .food {
-	margin: 5px;
-	padding: 5px;
 	text-align: center;
 	border: 1px solid silver;
-	min-height: 200px;
-	background: #cde7e7;
+	min-height: 275px;
+	padding: 15px;
+	width: 450px;
 }
 
+.calc {
+	text-align: center;
+	border: 1px solid silver;
+	min-height: 275px;
+	padding: 15px;
+	width: 300px;
+}
 input {
 	text-align: center;
 }
@@ -191,50 +175,56 @@ body {
 <!-- </div> -->
 <!-- 퀵메뉴 끝 --> 
 <div class="big-container">
-	<div class="small-container">     
-	
-		<!-- male일 경우 기초대사량 -->
-		<c:if test="${bodyInfo ne undefined}">
-			<c:if test="${user.userGender eq 'male'}">
-					<c:set var="bmr" value="${66.47 +(13.75 * bodyInfo.weight) +(5 * bodyInfo.height) - (6.76 * age) }"/>
-				<div id="bmr">
-					<p>성별 : 남성</p>
-					<p>나이 : ${age }세</p>
-					<input type="hidden" id="bmrvalue" value="${bmr }">
-					<span>기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
-				</div>
-			</c:if>
-			
-			<!-- female일 경우 기초대사량 -->
-			<c:if test="${user.userGender eq 'female'}">
-					<c:set var="bmr" value="${665.1 +(9.56 * bodyInfo.weight) +(1.85 * bodyInfo.height) - (4.68 * age) }"/>
-				<div id="bmr">
-					<p>성별 : 여성</p>
-					<p>나이 : ${age }세</p>
-					<input type="hidden" id="bmrvalue" value="${bmr }">
-					<span>기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
-				</div>
-			</c:if>
-		</c:if>
-	</div>
-	
-	<div class="small-container2">
-		<div class="cal">
-			<p>칼로리 검색</p>
-			<div class="input-box">
-				<p><input type="text" id="foodname" name="foodname" placeholder="음식명을 입력해주세요."><button id="search"><img src="/resources/img/dgsearch.png"></button></p>
-			</div>		
-			<div id="result"></div>
-		</div> 
+	<div class="medium-container">
+		<div class="small-container">     
 		
-		<div class="food">
-			<p>오늘 얼마나 드셨어요 ?</p>
-			<div class="input-box">
-				<p><input type="text" id="kcal" placeholder="섭취한 칼로리를 입력해주세요."><button id="save"><img src="/resources/img/dgsearch.png"></button></p>
-			</div>	
-			<div id="resultkcal"></div>
+			<!-- male일 경우 기초대사량 -->
+			<c:if test="${bodyInfo ne undefined}">
+				<c:if test="${user.userGender eq 'male'}">
+						<c:set var="bmr" value="${66.47 +(13.75 * bodyInfo.weight) +(5 * bodyInfo.height) - (6.76 * age) }"/>
+					<div id="bmr">
+						<p>성별 : 남성</p>
+						<p>나이 : ${age }세</p>
+						<input type="hidden" id="bmrvalue" value="${bmr }">
+						<span>기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
+					</div>
+				</c:if>
+				
+				<!-- female일 경우 기초대사량 -->
+				<c:if test="${user.userGender eq 'female'}">
+						<c:set var="bmr" value="${665.1 +(9.56 * bodyInfo.weight) +(1.85 * bodyInfo.height) - (4.68 * age) }"/>
+					<div id="bmr">
+						<p>성별 : 여성</p>
+						<p>나이 : ${age }세</p>
+						<input type="hidden" id="bmrvalue" value="${bmr }">
+						<span>기초대사량 : <fmt:formatNumber value="${bmr }"/>칼로리</span>
+					</div>
+				</c:if>
+			</c:if>
 		</div>
-	</div>
-</div>
+		
+		<div class="small-container2">
+			<div class="cal">
+				<p>칼로리 검색</p>
+				<div class="input-box">
+					<p><input type="text" id="foodname" name="foodname" placeholder="음식명을 입력해주세요."><button id="search"><img src="/resources/img/dgsearch.png"></button></p>
+				</div>		
+				<div id="result"></div>
+			</div> 
+			
+			<div class="food">
+				<p>오늘 얼마나 드셨어요 ?</p>
+				<div class="input-box">
+					<p><input type="text" id="kcal" placeholder="섭취한 칼로리를 입력해주세요."><button id="save"><img src="/resources/img/dgsearch.png"></button></p>
+				</div>	
+				<div id="resultkcal"></div>
+			</div>
+			<div class="calc">
+				<p>계산기</p>
+				<input type="text"><button>버튼</button>
+			</div>
+		</div><!-- small-container2 END -->
+	</div><!-- medium-container END -->
+</div><!-- big-container END -->
 </body>
 </html>
