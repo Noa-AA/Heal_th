@@ -46,11 +46,12 @@ public class DgHelperController {
 		
 		if(session.getAttribute("userNo")!=null && session.getAttribute("userNo")!="") {
 			
-		int userno = (int) session.getAttribute("userNo");
-		logger.info("userno : {}", userno);
+			int userno = (int) session.getAttribute("userNo");
+			logger.info("userno : {}", userno);
+			
+			DgHelperPaging dgHelperPaging = new DgHelperPaging();
 		
-		
-			DgHelperPaging dgHelperPaging = dgHelperService.getDgHelperPaging(curPage, userno);
+			dgHelperPaging = dgHelperService.getDgHelperPaging(curPage, userno);
 			List<HealthRecord> recordList = dgHelperService.getRecordList(dgHelperPaging, userno);
 		
 			model.addAttribute("list",recordList);
