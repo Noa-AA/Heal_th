@@ -7,6 +7,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	
+	goChat();
+	
 	$(".roomBtn").click(function() {
 		
 		$(this).attr("disabled", true);
