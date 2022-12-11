@@ -70,8 +70,9 @@ public interface ChatService {
 	 * 
 	 * @param yourUserNo - 상대방 회원번호
 	 * @param myUserNo - 로그인한 자신의 회원번호
+	 * @return 
 	 */
-	public void createChatRoom(int yourUserNo, int myUserNo);
+	public int createChatRoom(int yourUserNo, int myUserNo);
 
 
 	

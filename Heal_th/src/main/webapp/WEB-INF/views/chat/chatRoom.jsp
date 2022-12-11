@@ -6,8 +6,10 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	
-	goChat();
+
+	var createRoomNo = ${createRoomNo };
+	console.log( createRoomNo );
+	goChat( createRoomNo );
 	
 	$(".roomBtn").click(function() {
 		

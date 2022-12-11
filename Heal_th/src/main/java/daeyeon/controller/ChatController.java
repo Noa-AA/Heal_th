@@ -9,11 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
 import daeyeon.dto.Userss;
 import daeyeon.service.face.ChatService;
@@ -97,6 +96,7 @@ public class ChatController {
 			int myUserNo = (Integer)session.getAttribute("userNo"); //자신의 유저넘버
 			int yourRankingNo = (Integer)session.getAttribute("yourRankingNo");
 			
+			
 			logger.info("채팅신청할 상대방 유저넘버 : {}", yourUserNo );
 			logger.info("내 유저넘버 : {}", myUserNo );
 			
@@ -105,14 +105,14 @@ public class ChatController {
 			
 			
 			// 채팅방만들고 리스트에 하나의 채팅방에 두개의 유저넘버 넣기 insert 세번
-			chatService.createChatRoom(yourUserNo, myUserNo);
+			int createRoomNo = chatService.createChatRoom(yourUserNo, myUserNo);
 			
+			logger.info("만든 채팅방 번호 : {}", createRoomNo);
+			session.setAttribute("createRoomNo", createRoomNo);
 			
 			//유저번호로 방번호 불러오기
 //			chatService.selectRoomNoByUserNo(session);
 			
-//			socketService.createRoom();
-//			model.addAttribute("roomNo", roomNo);
 			return "redirect: /chat/chatRoom";
 			
 		}
@@ -127,7 +127,9 @@ public class ChatController {
 			logger.info("myUserNo : {}", myUserNo.getUserNo());
 			
 			List<RoomList> roomList = chatService.roomList(myUserNo);
-			 
+			
+			model.addAttribute("createRoomNo", session.getAttribute("createRoomNo"));
+			
 //			채팅방 번호 전달 - Model객체 이용
 			model.addAttribute("roomList", roomList);
 			

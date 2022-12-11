@@ -97,7 +97,7 @@ public class ChatServiceImpl implements ChatService {
 	// /chat/createChatRoom
 	//---------- 채팅방 만들기
 	@Override
-	public void createChatRoom(int yourUserNo, int myUserNo) {
+	public int createChatRoom(int yourUserNo, int myUserNo) {
 		logger.info("createChatRoom() - yourUserNo : {} , myUserNo : {}", yourUserNo, myUserNo);
 				
 		ChatRoom chatRoom = new ChatRoom();
@@ -116,9 +116,16 @@ public class ChatServiceImpl implements ChatService {
 					
 			chatRoom.setUserNo(yourUserNo);
 			chatDao.insertChatListByYou(chatRoom); //상대방 룸리스트 만들기
-					
-			}
+			
+			return chatRoom.getRoomNo();
+			
+		} else {
+			
 		}
+		
+		return chatRoom.getRoomNo();
+		
+	}
 	
 }
 
