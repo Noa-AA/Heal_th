@@ -108,7 +108,7 @@ public class NaverLoginServiceImpl implements NaverLoginService {
 			naverUsers.setUserName(userName);
 			naverUsers.setUserEmail(userEmail);
 			naverUsers.setUserGender(userGender);
-			naverUsers.setUserBirth(userBirthday+birthyear);
+			naverUsers.setUserBirth(birthyear+userBirthday);
 			naverUsers.setUserPhoto(profile_image);
 			naverUsers.setUserPhone(userPhone);
 		} catch (ParseException e) {
@@ -136,12 +136,12 @@ public class NaverLoginServiceImpl implements NaverLoginService {
 		//네이버 로그인하기
 		return loginDao.loginByNaver(userproFile);
 	}
-	@Override
-	public void joinNaver(Users userproFile) {
-		logger.info("네이버 회원 가입하기");
-		
-		loginDao.insertNaverUser(userproFile);
-		
-		
-	}
+//	@Override
+//	public void joinNaver(Users userproFile) {
+//		logger.info("네이버 회원 가입하기");
+//		
+//		loginDao.insertNaverUser(userproFile);
+//		
+//		
+//	}
 }

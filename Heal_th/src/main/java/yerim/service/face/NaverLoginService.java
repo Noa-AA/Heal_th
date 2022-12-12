@@ -51,10 +51,10 @@ public interface NaverLoginService {
 	 */
 	public int naverLogin(Users userproFile);
 
-	/**
-	 * 회원 가입하기
-	 * @param userproFile -유저정보
-	 */
-	public void joinNaver(Users userproFile);
+//	/**
+//	 * 회원 가입하기
+//	 * @param userproFile -유저정보
+//	 */
+//	public void joinNaver(Users userproFile);
 
 }

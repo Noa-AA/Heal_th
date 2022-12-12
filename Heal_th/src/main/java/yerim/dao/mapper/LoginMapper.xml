@@ -72,10 +72,7 @@
    		WHERE user_id =#{userId} and user_phone=#{userPhone} and user_name=#{userName}
    	</select> 
    	
-   	<insert id="insertNaverUser" parameterType="Users">
-   		INSERT INTO users(user_no,user_id,user_pw,user_nick,user_phone,user_address,user_email,user_name,user_job,user_birth,user_gender,user_joindate,ranking_no,point)
-   		VALUES(users_seq.nextval,#{userId},#{userPw},#{userNick},#{userPhone},#{userAddress},#{userEmail},#{userName},#{userJob},#{userBirth},#{userGender},sysdate,1,1000)
-   	</insert>
+
    	
   </mapper>
   

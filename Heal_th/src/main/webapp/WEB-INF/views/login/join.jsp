@@ -263,7 +263,7 @@
 		//아이디 유효성 검사: 첫글자 숫자 올 수 없음 소문자,대문자, 숫자로 4이상10이하 가능
 	var vId = document.getElementById("userId").value	
 		
-  	if(!/^[a-zA-z][a-zA-z0-9]{3,9}$/.test(vId)){
+  	if(!/^[a-zA-z][a-zA-z0-9]{3,9}$/.test(vId)&& vId !="${naverJoin.userId}"){
   		console.log("유효성검사")
 			document.getElementById("checkIdResult").innerHTML="<span style='color:red;'> * 아이디는 4~10자의 영문 소대문자,숫자가 가능합니다</span>"
   		return false;
@@ -299,6 +299,8 @@
 		    		document.getElementById("checkIdResult").innerHTML="<span style='color:red;'>* 아이디를 입력해주세요</span>"
 		    			return false;
 		    	}
+		    	
+		    
 		    
 	
 		    	//비밀번호가 빈칸일 때 
@@ -451,7 +453,7 @@
 	<form action="/login/join" method="post" id="joinform">
 		<div id="name">		
 		 	<label for="userName">이름
-	 		<input type="text" name="userName" id="userName">
+	 		<input type="text" name="userName" id="userName" value='${naverJoin.userName }'>
 	 		</label> 
 		</div>
 		
@@ -459,7 +461,7 @@
 	
 		<div id="email">
 			<label for="userEmail">이메일
-			<input type="text" name="userEmail" id="userEmail">
+			<input type="text" name="userEmail" id="userEmail" value="${naverJoin.userEmail }">
 			</label>
 		</div>
 		
@@ -467,7 +469,7 @@
 		
 		<div id="id">
 			<label for="userId">아이디
-			<input type="text" name="userId" id="userId">
+			<input type="text" name="userId" id="userId" value="${naverJoin.userId}">
 			</label>
 		</div>
 		
@@ -496,14 +498,14 @@
 		
 		<div id="nick">
 			<label for="userNick">닉네임
-			<input type="text" name="userNick" id="userNick">
+			<input type="text" name="userNick" id="userNick" value="${naverJoin.userNick }">
 			</label>
 		</div>
 			<div id="nickAlert"></div>
 		
 		<div id="phone">
 			<label for="userPhone">연락처
-			<input type="text" name="userPhone" id="userPhone">
+			<input type="text" name="userPhone" id="userPhone" value="${naverJoin.userPhone }">
 			</label>
 			
 			<div id="userchk">
@@ -521,8 +523,8 @@
 		
 		<div id="gender">
 			<label for="userGender">성별			
-			<input type="radio" name="userGender" value="male" id="male">남성
-			<input type="radio" name="userGender" value="female" id="female">여성
+			<input type="radio" name="userGender" value="M" id="male">남성
+			<input type="radio" name="userGender" value="F" id="female">여성
 			</label>
 		</div>
 		<div id="genderAlert"></div>
@@ -530,7 +532,7 @@
 			
 		<div id="birth">
 			<label for="birth">생년월일
-				<input type="text" id="userBirth"name="userBirth" placeholder="생년월일 예)19930101">
+				<input type="text" id="userBirth"name="userBirth" placeholder="생년월일 예)19930101" value="${naverJoin.userBirth }">
 			</label>
 		</div>
 		

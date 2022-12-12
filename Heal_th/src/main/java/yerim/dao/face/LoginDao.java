@@ -92,7 +92,7 @@ public interface LoginDao {
 	 * 네이버 회원 가입하기
 	 * @param userproFile
 	 */
-	public void insertNaverUser(Users userproFile);
+//	public void insertNaverUser(Users userproFile);
 	
 	
 	

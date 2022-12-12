@@ -240,7 +240,7 @@ public class LoginController {
 
 	 
 	 @GetMapping("/login/naverLogin")
-	 public String naverLogin(HttpSession session,@RequestParam(value="code") String code,@RequestParam(value="state") String state) {
+	 public String naverLogin(HttpSession session,@RequestParam(value="code") String code,@RequestParam(value="state") String state,Model model) {
 		 
 		 logger.info("/login/naverLogin");
 		 
@@ -264,11 +264,12 @@ public class LoginController {
 		
 		if(!isJoin) {//회원 가입되었던 있으면 로그인->회원 번호 /아이디 세션 저장
 			logger.info("회원가입");
-			naverLoginService.joinNaver(userproFile);
+//			naverLoginService.joinNaver(userproFile);
+			model.addAttribute("naverJoin", userproFile);
+			return "/login/join";
 			
 			
-			
-		}
+		}else {
 			int userNo = naverLoginService.naverLogin(userproFile);
 			//회원 번호 세션 저장
 			session.setAttribute("userNo", userNo);
@@ -277,7 +278,7 @@ public class LoginController {
 			
 			
 			return"/main";
-		
+		}
 	 }
 	 
 }
