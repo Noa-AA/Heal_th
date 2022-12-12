@@ -54,6 +54,12 @@ $(document).ready(function(){
 		}
 	})
 	
+	if(${paging.totalCount}<3){
+		$("#recordlist").css("min-height","430.7px");
+	} else {
+		$("#recordlist").css("min-height","750.7px");
+	}
+	
 
 });
 

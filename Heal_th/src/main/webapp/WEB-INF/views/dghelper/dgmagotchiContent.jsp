@@ -825,7 +825,7 @@ $(document).ready(function(){
 			<div class="chat-container">
 				<div class="chat-value"></div>
 				<div class="chat-send">
-					<p><input type="text" id="dgmaCon"><button id="send" style="border: 1px solid white;">전송하기</button></p>
+					<p><input type="text" id="dgmaCon" placeholder="채팅을 입력해주세요"><button id="send" style="border: 1px solid white;">전송하기</button></p>
 					<button id="chatstart"></button>
 				</div>
 			</div>

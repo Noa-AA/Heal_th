@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="/resources/img/favicon.ico" type="image/x-icon"/>
 <meta charset="UTF-8">
 <title>심장이 득근</title>
 
