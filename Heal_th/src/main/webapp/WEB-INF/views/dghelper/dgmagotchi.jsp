@@ -58,11 +58,6 @@ body {
     padding-bottom: 100px;
 }
 
-.footer-test {
-	padding-top:100px;
-}
-
-
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -104,5 +99,5 @@ $(document).ready(function(){
 </div>
 
 </body>
-<div class="footer-test"></div>
+<%@include file="../layout/footer.jsp" %>
 </html>

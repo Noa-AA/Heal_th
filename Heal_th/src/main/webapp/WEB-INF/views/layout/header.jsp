@@ -255,6 +255,24 @@ header{
 	color: #888888;
 }
 
+.footer {
+    width: 100%;
+    min-width: 1048px;
+	bottom: 0;
+	height: 100px;
+	border-top: 1px solid #ddd;
+	background: #fff;
+	z-index: 99;
+	margin-top: 160px;
+} 
+
+.footer-wrap {
+	width: 1200px;
+	margin: 0 auto;
+	height: 100px;
+	padding: 10px 0;
+}
+
 </style>
 
 </head>
