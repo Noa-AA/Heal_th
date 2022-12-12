@@ -1,5 +1,8 @@
 package yerim.controller;
 
+import java.net.http.HttpRequest;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -10,22 +13,36 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import oracle.jdbc.proxy.annotation.Post;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import yerim.dto.Users;
 import yerim.service.face.LoginService;
+import yerim.service.face.NaverLoginService;
+import yerim.util.NaverLogin;
 
 @Controller
 public class LoginController {
 	 private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired LoginService loginService; 
+
+	//네이버 로그인 서비스
+	@Autowired NaverLoginService naverLoginService;
+	
 	 @GetMapping("/login/login")
-	 public void login() {
+	 public void login(Model model,HttpSession session) {
 		 //로그인 화면 
 		 logger.info("/login/login [GET]");
 		 
+		 //네이버 로그인을 위한 URL  호출 
+		 String naverURL = naverLoginService.getURL(session);
+		 logger.info(naverURL);
+		 
+		 //모델값으로 URL전달
+		 model.addAttribute("naverURL", naverURL);
 	 }
 
  
@@ -163,7 +180,7 @@ public class LoginController {
 			 //세션에 회원 아이디, 이름 저장하기
 			 session.setAttribute("userName", searchPw.getUserName());
 			 session.setAttribute("userId", searchPw.getUserId());
-			
+			 session.setAttribute("userBirth", searchPw.getUserBirth());
 			 //세션에 인증번호 저장하기
 			 session.setAttribute("codeForPw", sendCodeForPw);
 			 
@@ -218,4 +235,49 @@ public class LoginController {
 		return "/login/updatePw";
 		 
 	 }
+	 
+	 
+
+	 
+	 @GetMapping("/login/naverLogin")
+	 public String naverLogin(HttpSession session,@RequestParam(value="code") String code,@RequestParam(value="state") String state) {
+		 
+		 logger.info("/login/naverLogin");
+		 
+		 //access_token을 발급 요청
+		String getToken ="";
+			try {
+				getToken =naverLoginService.getToken(session,code,state);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		logger.info("접근 토근 요청 : {}",getToken);
+		
+		
+		//토큰으회원 정보 가져오기(프로필 정보 조회)
+		Users userproFile = naverLoginService.getUserProfile(getToken);
+		logger.info("회원 정보 저장 {}",userproFile);
+		
+		//회원 가입 여부 조회하기 (이름, 전화번호로)
+		boolean isJoin = naverLoginService.getIsJoin(userproFile);
+
+		
+		if(!isJoin) {//회원 가입되었던 있으면 로그인->회원 번호 /아이디 세션 저장
+			logger.info("회원가입");
+			naverLoginService.joinNaver(userproFile);
+			
+			
+			
+		}
+			int userNo = naverLoginService.naverLogin(userproFile);
+			//회원 번호 세션 저장
+			session.setAttribute("userNo", userNo);
+			session.setAttribute("userId", userproFile.getUserId());
+			logger.info("로그인 완료 ");
+			
+			
+			return"/main";
+		
+	 }
+	 
 }

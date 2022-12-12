@@ -32,7 +32,7 @@
    	
    	<select id="selectUserBySms" resultType="int" parameterType="Users"> 
 		SELECT count(*) FROM users
-		WHERE user_name=#{userName} and user_phone =#{userPhone}
+		WHERE user_name=#{userName} and user_phone =#{userPhone} 
    	
    	</select>
    	
@@ -43,22 +43,40 @@
    	
    	<select id="selectUserIdForPw" resultType="int" parameterType="Users">
    		SELECT count(*) FROM users
-   		WHERE user_name =#{userName} and user_Id=#{userId} and user_phone=#{userPhone}
+   		WHERE user_name =#{userName} and user_Id=#{userId} and user_phone=#{userPhone} and user_birth =#{userBirth}
    	
    	</select>
    	
    	<select id="selectByPw" resultType="int" parameterType="Users" >
    	 	SELECT count(*) FROM users
-   	 	WHERE user_pw = #{userPw} and user_name=#{userName} and user_id=#{userId}
+   	 	WHERE user_pw = #{userPw} and user_name=#{userName} and user_id=#{userId} and user_birth =#{userBirth}
    	
    	 </select>
    	
    	<update id="updateNewPw" parameterType="Users" >
    		UPDATE users
    		SET user_pw = #{userPw}
-   		WHERE user_id=#{userId} and user_name=#{userName} 	
+   		WHERE user_id=#{userId} and user_name=#{userName}and user_birth =#{userBirth}
    	
    	</update>
+   	
+   	<select id="isNaverJoin" parameterType="Users" resultType="int">
+   	
+   		Select count(*) FROM users
+   		WHERE user_name =#{userName} and user_phone =#{userPhone}
+   	</select>
+   	
+   	<select id="loginByNaver" resultType="int" parameterType="Users">
+   	
+   		SELECT user_no FROM users
+   		WHERE user_id =#{userId} and user_phone=#{userPhone} and user_name=#{userName}
+   	</select> 
+   	
+   	<insert id="insertNaverUser" parameterType="Users">
+   		INSERT INTO users(user_no,user_id,user_pw,user_nick,user_phone,user_address,user_email,user_name,user_job,user_birth,user_gender,user_joindate,ranking_no,point)
+   		VALUES(users_seq.nextval,#{userId},#{userPw},#{userNick},#{userPhone},#{userAddress},#{userEmail},#{userName},#{userJob},#{userBirth},#{userGender},sysdate,1,1000)
+   	</insert>
+   	
   </mapper>
   
   

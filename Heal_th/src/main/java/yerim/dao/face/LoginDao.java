@@ -72,6 +72,27 @@ public interface LoginDao {
 	 * @return-입력된 결과
 	 */
 	public int updateNewPw(Users userUpdatePw);
+
+	/**
+	 * 네이버로그인 -회원 존재여부 확인
+	 * @param userName -회원 이름
+	 * @param userPhone -회원 전화번호
+	 * @return -ture/false
+	 */
+	public int isNaverJoin(Users userproFile);
+
+	/**
+	 * 네이버 로그인
+	 * @param userproFile
+	 * @return
+	 */
+	public int loginByNaver(Users userproFile);
+
+	/**
+	 * 네이버 회원 가입하기
+	 * @param userproFile
+	 */
+	public void insertNaverUser(Users userproFile);
 	
 	
 	

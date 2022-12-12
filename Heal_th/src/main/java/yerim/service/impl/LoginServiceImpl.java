@@ -212,7 +212,7 @@ public class LoginServiceImpl implements LoginService {
 	public boolean checkUser(Users searchPw) {
 		logger.info("checkUser");
 		logger.info("이름 : {},연락처 : {}",searchPw.getUserName(),searchPw.getUserPhone());
-	
+		logger.info("생일 {}",searchPw.getUserBirth());
 		if(loginDao.selectUserIdForPw(searchPw)>0) {
 			logger.info("회원있음");
 			return true;
@@ -270,7 +270,7 @@ Random ranNum = new Random();
 		//세션에서 회원 이름과 아이디 ->DTO에 넣기
 		updatePw.setUserName( (String) session.getAttribute("userName"));
 		updatePw.setUserId( (String) session.getAttribute("userId"));
-		
+		updatePw.setUserBirth((String)session.getAttribute("userBirth"));
 		if(loginDao.selectByPw(updatePw)>0) {
 			logger.info("사용중인 비밀번호 임-초기화 불가능");
 			return false;
@@ -287,6 +287,7 @@ Random ranNum = new Random();
 		//세션에서 회원 정보 담아서 DTO에 넣기
 		userUpdatePw.setUserName((String)session.getAttribute("userName"));
 		userUpdatePw.setUserId((String)session.getAttribute("userId"));
+		userUpdatePw.setUserBirth((String)session.getAttribute("userBirth"));
 		if(loginDao.updateNewPw(userUpdatePw)>0) {
 			logger.info("비밀번호 update -성공");
 			return true;
@@ -295,5 +296,6 @@ Random ranNum = new Random();
 		return false;
 	}
 		
+	
 	
 }

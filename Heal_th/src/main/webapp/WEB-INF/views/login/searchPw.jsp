@@ -19,6 +19,10 @@ $(document).ready(function(){
 		$("#searchPwResult").html("")
 		$("#searchPwResult").css("color","black")
 	})
+	$("#userBirth").focus(function(){
+		$("#searchPwResult").html("")
+		$("#searchPwResult").css("color","black")
+	})
 	$("#userPhone").focus(function(){
 		$("#searchPwResult").html("")
 		$("#searchPwResult").css("color","black")
@@ -40,6 +44,7 @@ $(document).ready(function(){
 				 userName: $("#userName").val()
 				 ,userId : $("#userId").val()
 				 ,userPhone: $("#userPhone").val()
+				 ,userBirth: $("#userBirth").val()
 			 }
 			 ,dataType:"json"
 			 ,success :function(res){
@@ -51,7 +56,7 @@ $(document).ready(function(){
 					$("#pwSmsCode").focus()
 				 }else {
 					 console.log("회원 없음")
-					 $("#searchPwResult").html("일치하는 회원정보가 없습니다.이름,아이디,전화번호를 확인해주세요")
+					 $("#searchPwResult").html("일치하는 회원정보가 없습니다.이름,아이디,생년월일,전화번호를 확인해주세요")
 					 $("#searchPwResult").css("color","red")
 				 }
 			 }
@@ -131,6 +136,11 @@ $(document).ready(function(){
 			<div id="id">
 				<label for="userId">아이디
 				<input type="text" name="userId" id="userId" placeholder="아이디를 입력해주세요">
+				</label>
+			</div>		
+			<div id="birdh">
+				<label for="userBirth">생년월일
+				<input type="text" name="userBirth" id="userBirth" placeholder="19930725 형식으로 입력해주세요">
 				</label>
 			</div>		
 			
