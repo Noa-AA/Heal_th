@@ -18,11 +18,11 @@
 <!-- 	</select> -->
 	<select id="selectList" resultType="Comment" parameterType="Comment">
 		SELECT 
-			a.comment_no, a.comment_content, a.comment_date, a.board_no, a.category_no, b.user_nick
+			a.comment_no, a.comment_content, a.comment_date, a.board_no, a.category_no, a.user_no, b.user_nick
 		FROM 
 			board_comment a, users b
 		WHERE 
-			a.board_no = #{boardNo} AND a.category_no = #{categoryNo}
+			a.board_no = #{boardNo} AND a.category_no = #{categoryNo} 
 			AND a.user_no=b.user_no
 		ORDER BY comment_no
 	</select>

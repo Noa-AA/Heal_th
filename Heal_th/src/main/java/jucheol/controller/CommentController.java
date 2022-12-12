@@ -30,8 +30,8 @@ public class CommentController {
 			, Comment comment
 			) {
 		logger.info("/comment/board [GET]");
-		comment.setBoardNo(1);
-		comment.setCategoryNo(1);
+//		comment.setBoardNo(1);
+//		comment.setCategoryNo(1);
 		List<Comment> commentList = commentService.list(comment);
 		
 		for( Comment c : commentList ) logger.info("{}",c);
@@ -76,7 +76,7 @@ public class CommentController {
 			) {
 		logger.info("/comment/insert [POST]");
 
-		session.setAttribute("userNo", 7777);
+//		session.setAttribute("userNo", 7777);
 
 		comment.setUserNo((int)session.getAttribute("userNo"));
 		comment.setCommentContent(content);
@@ -98,14 +98,14 @@ public class CommentController {
 	@PostMapping("/delete")
 	public String comDelete(
 			int commentno
-			, int category
-			, int boardno
+//			, int category
+//			, int boardno
 			, Comment comment
 			, Model model
 			) {
 		comment.setCommentNo(commentno);
-		comment.setCategoryNo(category);
-		comment.setBoardNo(boardno);
+//		comment.setCategoryNo(category);
+//		comment.setBoardNo(boardno);
 		
 		logger.info("/delete[POST]");
 		List<Comment> commentList = commentService.deleteComment(comment);
