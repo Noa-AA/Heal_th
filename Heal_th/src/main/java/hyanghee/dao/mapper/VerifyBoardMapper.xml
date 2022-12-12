@@ -17,7 +17,6 @@
 				SELECT
 					verify_no, v_title, user_no,
 					v_hit, v_thumbs, v_inst_date
-					, score
 				FROM verifyboard
 				ORDER BY verify_no DESC
 			) V
@@ -42,7 +41,7 @@
 			   , v_hit, v_thumbs, user_no, category_no )
 		
 		VALUES ( #{verifyNo}, sysdate, #{vTitle}, #{exercise}, #{time}
-				   , #{kcal}, #{verify_content}
+				   , #{kcal}, #{verifyContent}
 				   , to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
 				   , to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
 				   , 0, 0, #{userNo}, 2 )
@@ -64,7 +63,7 @@
 			, exercise = #{exercise}
 			, time = #{time}
 			, kcal = #{kcal}
-			, verify_content = #{verify_content}
+			, verify_content = #{verifyContent}
 		WHERE verify_no = #{verifyNo}
 	</update>
 
