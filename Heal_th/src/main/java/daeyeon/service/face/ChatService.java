@@ -75,8 +75,17 @@ public interface ChatService {
 	public int createChatRoom(int yourUserNo, int myUserNo);
 
 
-	
-	
+	/**
+	 * chat/chatArea
+	 * 
+	 * 상대방 이름 가져오기
+	 * 
+	 * @param roomNo - 방번호와 자신의 회원번호가 저장되있는 dto
+	 * @return - 같은 채팅방의 상대방 이름
+	 */
+	public String getReciverNick(RoomList roomNo);
+
+
 
 	
 }

@@ -120,29 +120,43 @@ public class ChatController {
 		
 		//3. 채팅룸의 자신의 소속된 채팅방 조회하기
 		@RequestMapping("/chatRoom")
-		public void chatRoom(HttpSession session, Users myUserNo, Model model) {
+		public void chatRoom(HttpSession session, Users myUserNo, Model model, RoomList room) {
 			logger.info("/chatRoom");
+			
 			myUserNo.setUserNo((Integer)session.getAttribute("userNo"));
 			
 			logger.info("myUserNo : {}", myUserNo.getUserNo());
 			
+			// 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
 			List<RoomList> roomList = chatService.roomList(myUserNo);
 			
 			model.addAttribute("createRoomNo", session.getAttribute("createRoomNo"));
 			
+			//chatArea 쓸꺼
+			session.setAttribute("roomListNo", roomList);
+			
 //			채팅방 번호 전달 - Model객체 이용
 			model.addAttribute("roomList", roomList);
-			
 		}
 		
 			
 		//4. 채팅 영역
 		@RequestMapping("/chatArea")
-		public void goChat(Model model, HttpSession session, RoomList roomNo, Userss users) {
+		public void goChat(Model model, HttpSession session, RoomList roomNo, Users users) {
 			logger.info("/chatArea");
 			logger.info( "채팅방 번호 : {}", roomNo.getRoomNo() );
-			 
+			
+			roomNo.setUserNo((Integer)session.getAttribute("userNo"));
+		
+			logger.info( "roomNo 이름가져오기 전 : {}", roomNo );
+			
+//			상대방 이름 가져오기
+			roomNo.setUserNick( chatService.getReciverNick(roomNo) );
+			
+			logger.info( "roomNo 이름가져오기 후 : {}", roomNo );
+			
 			session.setAttribute("roomNo", roomNo.getRoomNo());
+			session.setAttribute("userNick", roomNo.getUserNick());
 			
 			model.addAttribute("roomNo", roomNo);
 			
