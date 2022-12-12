@@ -70,7 +70,7 @@ public class AttendanceController {
 //		session.invalidate();
 		
 		//---------------테스트용 유저정보 삽입
-		session.setAttribute("userNo", 7777);
+//		session.setAttribute("userNo", 7777);
 		
 		attendance.setUserNo((int) session.getAttribute("userNo"));
 		
@@ -123,35 +123,39 @@ public class AttendanceController {
 		LocalDate now = LocalDate.now(); //현재시간 담기
 		logger.info("check-nowDate : {}", now);
 		//---------------테스트용 유저정보 삽입
-		session.setAttribute("userNo", 7777);
+//		session.setAttribute("userNo", 7777);
 		
 		attendance.setUserNo((int) session.getAttribute("userNo"));
-		
+		System.out.println(attendance);
 		if(checkCookie==null) {
 			//쿠키가 없을경우 마지막로그인 확인후 기록
-			attendance = attendanceService.getLastLogin(attendance);
+			attendanceService.getLastLogin(attendance);
 			
 			logger.info("lastLogin-{}",attendance);
 			
 			
 			// LocalDate를 sql.Date로 변환
 			java.sql.Date loginDate = java.sql.Date.valueOf(now);
-		
-			
-//			System.out.println(attendance.getLastLogin().getClass().getName());
-//			System.out.println(nowDate.getClass().getName());
-			logger.info("lastLogin-{}",attendance.getAttDate());
 			logger.info("loginDate-{}",loginDate);
-			
-			//마지막 로그인날짜와 금일비교
-			if(!attendance.getAttDate().equals(loginDate)) {
+		
+			if(attendance.getAttDate()==null) {
+				//첫 로그인일경우
 				attendance.setAttDate(loginDate);
 				attendanceService.addLoginDate(attendance);
 				
 				logger.info("cookieIsNew!!-{}",attendance);
 			}else {
-				logger.info("금일 접속 기록 있음");
+				//로그인 기록이 있을경우 마지막 로그인날짜와 금일비교
+				if(!attendance.getAttDate().equals(loginDate)) {
+					attendance.setAttDate(loginDate);
+					attendanceService.addLoginDate(attendance);
+					
+					logger.info("cookieIsNew!!-{}",attendance);
+				}else {
+					logger.info("금일 접속 기록 있음");
+				}
 			}
+			
 				
 		} else {
 			logger.info("금일 접속 쿠키 있음");
