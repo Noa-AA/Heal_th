@@ -96,8 +96,13 @@ $(document).ready(function(){
 .small-container2 {
 	position: relative;
 	min-height: 550px;
-	width: 1200px;
-    display: flex; 
+    display: flex;
+    flex-direction: column 
+}
+
+.small-title {
+	display: flex;
+	
 }
 
 .cal, .food {
@@ -105,16 +110,16 @@ $(document).ready(function(){
 	border: 1px solid silver;
 	min-height: 275px;
 	padding: 15px;
-	width: 450px;
 }
 
 .calc {
 	text-align: center;
 	border: 1px solid silver;
-	min-height: 275px;
+	min-height: 1100px;
 	padding: 15px;
 	width: 300px;
 }
+
 input {
 	text-align: center;
 }
@@ -145,6 +150,7 @@ input {
 body {
 	padding-top: 355px;
 }
+
 </style>
 <body>
 <div id="subvisual">
@@ -153,27 +159,6 @@ body {
 		<p id="subv-content">칼로리를 계산하여 체계적으로 관리해봐요</p>
 	</div>
 </div>
-<!-- <!-- 퀵메뉴 시작 -->
-<!-- <div class="Quick"> -->
-<!--     <table class="quickMenuBar"> -->
-<!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthtest">운동성향 테스트</a></td> -->
-<!--         </tr> -->
-<!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthguide">칼로리사전</a></td> -->
-<!--         </tr> -->
-<!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthrecord">운동일기장</a></td> -->
-<!--         </tr> -->
-<!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/dgmagotchi">득근이 키우기</a></td> -->
-<!--         </tr> -->
-<!-- <!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</td> -->
-<!--         </tr> -->
-<!--     </table> -->
-<!-- </div> -->
-<!-- 퀵메뉴 끝 --> 
 <div class="big-container">
 	<div class="medium-container">
 		<div class="small-container">     
@@ -205,7 +190,9 @@ body {
 		
 		<div class="small-container2">
 			<div class="cal">
-				<p>칼로리 검색</p>
+				<div class="small-title">
+					<p>칼로리 검색</p>
+				</div>
 				<div class="input-box">
 					<p><input type="text" id="foodname" name="foodname" placeholder="음식명을 입력해주세요."><button id="search"><img src="/resources/img/dgsearch.png"></button></p>
 				</div>		
@@ -213,18 +200,18 @@ body {
 			</div> 
 			
 			<div class="food">
-				<p>오늘 얼마나 드셨어요 ?</p>
+				<div class="small-title">
+					<p style="float: left">칼로리 계산</p>
+				</div>
 				<div class="input-box">
 					<p><input type="text" id="kcal" placeholder="섭취한 칼로리를 입력해주세요."><button id="save"><img src="/resources/img/dgsearch.png"></button></p>
 				</div>	
 				<div id="resultkcal"></div>
 			</div>
-			<div class="calc">
-				<p>계산기</p>
-				<input type="text"><button>버튼</button>
-			</div>
 		</div><!-- small-container2 END -->
 	</div><!-- medium-container END -->
 </div><!-- big-container END -->
 </body>
+
+<%@include file="../layout/footer.jsp" %>
 </html>

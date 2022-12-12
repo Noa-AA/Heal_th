@@ -354,4 +354,5 @@ body {
 </div>
 
 </body>
+<%@include file="../layout/footer.jsp" %>
 </html>
