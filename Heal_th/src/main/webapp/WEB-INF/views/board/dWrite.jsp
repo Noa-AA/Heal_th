@@ -14,7 +14,45 @@
 <title>Insert title here</title>
 
 <style type="text/css">
+* {
+    margin: 0;
+    padding: 0;
+}
 
+#btnCancle {
+    width: 100px;
+    background: #616161;
+    font-size: 21px;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 5px; 
+    margin: 10px 5px;
+    padding-bottom: 14px; 
+	height: 52px;
+	width: 100px;
+	margin-right: 15px;
+}
+
+#btnWrite {
+    width: 100px;
+    background: #7ca3f5;
+    font-size: 21px;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 5px; 
+    margin: 10px 5px;
+    padding-bottom: 14px; 
+	height: 52px;
+	width: 100px;
+}
+
+#container{width: 1200px;}
 
 
 </style>
@@ -29,7 +67,51 @@
 
 </head>
 
+<body>
 
+<div id="container" name="container">
+<form action="/board/dWrite" method="post">
+
+<h1>식단 공유</h1>
+
+<div>
+	<label for="dTitle">제목</label>
+	<input id="dTitle" name="dTitle" placeholder="제목을 입력해주세요">
+</div>
+
+<div>
+	<label for="prodClassification">제품 분류</label>
+	<input>
+	
+</div>
+
+<div>
+	<label for="file">첨부파일</label>
+	<button type="button" id="file" name="file">첨부파일</button>
+</div>
+
+<div class="text-center">
+	
+		<a class="btn block" id="btnCancle" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/reviewBoard" >취소</a>
+	<button type="submit" class="btn btn-primary" id="btnWrite">등록</button>
+</div>
+
+<div>
+
+
+</div>
+
+</form>
+</div>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
