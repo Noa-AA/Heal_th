@@ -28,42 +28,84 @@ $(document).ready(()=>{
 		}
 	}
 	
-	$table.appendTo($("#attCheck"))
+	$table.prependTo($("#attCheck"))
 	
 	$("#goCheck").click(()=>{
-		console.log("goCheck click")
-		console.log(${today})
-		$(".cal").find("td:eq(${today-1})").css({
-			"background-image":"url(/resources/img/check/checkicon.png)"
-			,"background-size":"50px"
-			,"background-position": "center"
-			,"background-repeat" : "no-repeat"
-			
-		})
 		
-		var tdEl = $(".cal").find("td:eq(${today-1})");
-                            
-		var tdX = tdEl.offset().left;
-		var tdY = tdEl.offset().top;
-		 
-		var tHalfWidth = tdEl.width() / 2;
-		var tHalfHeight = tdEl.height() / 2;
-		 
-		var tCenterX = tdX + tHalfWidth;
-		var tCenterY = tdY + tHalfHeight;
-		
-		console.log(tdX)
-		console.log(tdY)
-		
-		$("#stamp").css({
-				"display":"block"
-				,"left":"tdY"
-				,"top":"tdX"
-		})
+		if($(".cal").find("td:eq(${today-1})").css("background-image")!="none"){
+			alert("오늘의 출석체크는 이미 하셨습니다")
+		}else{
+			console.log("goCheck click")
+			console.log(${today})
+			$(".cal").find("td:eq(${today-1})").css({
+				"background-image":"url(/resources/img/check/checkicon.png)"
+				,"background-size":"50px"
+				,"background-position": "center"
+				,"background-repeat" : "no-repeat"
 				
-		$("#stamp").css(
-			"animation","kenburns-top 0.2s cubic-bezier(0.165, 0.840, 0.440, 1.000) reverse both"
-		)
+			})
+			
+			var tdEl = $(".cal").find("td:eq(${today-1})");
+			
+	// 		$("#stamp").appendTo( tdEl )
+			
+			
+			console.log("1-",tdEl.css("background-image"))
+			
+	        console.log("offset-",tdEl.offset())
+	        console.log("position-",tdEl.position())
+	        
+	        
+	// 		var tdLeft = tdEl.offset().left - stampWidth;
+	// 		var tdTop = tdEl.offset().top - stampHeight;
+	// 		var tdLeft = tdEl.offset().left;
+	// 		var tdTop = tdEl.offset().top;
+	// 		var tdLeft = tdEl.position().left - stampWidth;
+	// 		var tdTop = tdEl.position().top - stampHeight;
+			var tdLeft = tdEl.position().left;
+			var tdTop = tdEl.position().top;
+			 
+			console.log("left",tdLeft)
+			console.log("top",tdTop)
+			
+			var tHalfWidth = tdEl.width() / 2;
+			var tHalfHeight = tdEl.height() / 2;
+			 
+			var tdCenterX = tdLeft + tHalfWidth;
+			var tdCenterY = tdTop + tHalfHeight;
+			
+			console.log("tdCenter-",tdCenterX,tdCenterY)
+			
+	        var stampWidth = parseInt($("#stamp").css("width")) / 2
+	        var stampHeight = parseInt($("#stamp").css("height")) / 2
+			
+			var imgLeft = tdCenterX - stampWidth
+			var imgTop = tdCenterY - stampHeight
+			
+			
+			$("#stamp").css({
+					"display":"block"
+					,"left":imgLeft
+					,"top":imgTop
+			})
+			
+			$("#stamp").css(
+				"animation","kenburns-top 0.2s cubic-bezier(0.165, 0.840, 0.440, 1.000) reverse both"
+			)
+		}
+		
+		$.ajax({
+			type: "post"
+			,url: "/check/check"
+			,data: {}
+			,dataType: "html"
+			,success: function(commentList){
+				console.log("checkPost 성공")
+			}
+			,error: function(){
+				console.log("checkPost 실패")
+			}
+		})
 
 	})
 	
@@ -72,6 +114,7 @@ $(document).ready(()=>{
 </script>
 <style type="text/css">
 table,th, td {
+ 	margin: 0 auto; 
     border: 1px solid #ccc;
     text-align: center;
     font-size: 30px;
@@ -81,33 +124,42 @@ td{
   	width: 50px;
 }
 @keyframes kenburns-top {
-  
-  0% {
-    transform: scale(0.1) translateY(0);
-    transform-origin: 50% 16%;
+  0%{
+  	transform: scale(0.2);
+  	opacity:0;
+  }
+  40% {
+    transform: scale(0.1);
+    opacity:0.5;
+/*     transform: scale(0.1) translateY(0); */
+/*      transform-origin: 50% 16%;  */
   }
   100% {
-    transform: scale(1) translateY(-15px);
-    transform-origin: top;
+    transform: scale(1);
+/*     transform: scale(1) translateY(-15px); */
+/*      transform-origin: top;  */
   }
 }
 
 #attContiner{
 /* 	width: 800px; */
 /* 	height: 500px; */
-	position:relative;
-	display: flex;
-    justify-content: center;
+ 	position:relative;
+ 	display: flex; 
+    justify-content: center; 
+    align-items: center; 
+	text-align: center;
 }
 #attCheck{
-    display: flex;
-    flex-direction: column-reverse;
 }
 #stamp{
-/* 	display: none; */
 	position:absolute;
-	width: 500px;
-	height: 500px;
+/*
+	width: 50px;
+	height: 50px;
+*/
+ 	width: 500px;
+ 	height: 500px;
 	display: none;
 	margin: 0 auto;
 }
@@ -118,12 +170,12 @@ td{
 <h1>출석 현황</h1>
 <hr>
 <div id="attContiner">
-<img id="stamp" class="kenburns-top" alt="도장" src="/resources/img/check/checkicon.png">
+	<img id="stamp" class="kenburns-top" alt="도장" src="/resources/img/check/checkicon.png">
 
-<div id="attCheck">
-<button id="goCheck">출석체크</button>
-<!-- <button id="test">test</button> -->
-</div>
+	<div id="attCheck">
+	<button id="goCheck">출석체크</button>
+	<!-- <button id="test">test</button> -->
+	</div>
 </div>
 
 </body>
