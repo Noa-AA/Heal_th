@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import daeyeon.dto.Chat;
 import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
 import daeyeon.dto.Userss;
@@ -105,7 +106,7 @@ public class ChatController {
 			
 			
 			// 채팅방만들고 리스트에 하나의 채팅방에 두개의 유저넘버 넣기 insert 세번
-			int createRoomNo = chatService.createChatRoom(yourUserNo, myUserNo);
+			int createRoomNo = chatService.createChatRoom(yourUserNo, myUserNo, session);
 			
 			logger.info("만든 채팅방 번호 : {}", createRoomNo);
 			session.setAttribute("createRoomNo", createRoomNo);
@@ -132,9 +133,6 @@ public class ChatController {
 			
 			model.addAttribute("createRoomNo", session.getAttribute("createRoomNo"));
 			
-			//chatArea 쓸꺼
-			session.setAttribute("roomListNo", roomList);
-			
 //			채팅방 번호 전달 - Model객체 이용
 			model.addAttribute("roomList", roomList);
 		}
@@ -147,17 +145,22 @@ public class ChatController {
 			logger.info( "채팅방 번호 : {}", roomNo.getRoomNo() );
 			
 			roomNo.setUserNo((Integer)session.getAttribute("userNo"));
-		
-			logger.info( "roomNo 이름가져오기 전 : {}", roomNo );
 			
 //			상대방 이름 가져오기
 			roomNo.setUserNick( chatService.getReciverNick(roomNo) );
 			
-			logger.info( "roomNo 이름가져오기 후 : {}", roomNo );
-			
 			session.setAttribute("roomNo", roomNo.getRoomNo());
-			session.setAttribute("userNick", roomNo.getUserNick());
 			
+			//로그인한 내 닉네임 조회해서 세션(userNick)으로 넣기
+			String userNick = chatService.getSenderNick(session);
+			session.setAttribute("userNick", userNick);
+			
+			//채팅내역 불러오기
+			List<Chat> chatList = chatService.gerChatList(roomNo);
+			logger.info( "구해온 채팅 내역 : {}", chatList );
+			
+			model.addAttribute("chatList", chatList);
+			model.addAttribute("senderNick", userNick);
 			model.addAttribute("roomNo", roomNo);
 			
 			

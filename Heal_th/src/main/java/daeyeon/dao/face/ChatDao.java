@@ -33,16 +33,6 @@ public interface ChatDao {
 
 
 	/**
-	 * chat/chatArea
-	 * 
-	 * 채팅내용 테이블에 저장하기
-	 * 
-	 * @param chat - 회원번호, 채팅방 번호, 채팅 내용이 담긴 Chat dto
-	 */
-	public void insertChat(Chat chat);
-
-
-	/**
 	 * chat/pointCompare
 	 * 
 	 * @param users 자신의 유저번호가 담긴 dto
@@ -105,6 +95,36 @@ public interface ChatDao {
 	 * @return - 같은 채팅방의 상대방 이름
 	 */
 	public String selectReciverNick(RoomList roomNo);
+
+
+	/**
+	 * chat/chatArea
+	 * 
+	 * 채팅내용 테이블에 저장하기
+	 * 
+	 * @param chat - 회원번호, 채팅방 번호, 채팅 내용이 담긴 Chat dto
+	 */
+	public void insertChat(Chat chat);
+
+	
+	/**
+	 * 세션에 있는 내 유저넘버로 내 닉네임 조회하기
+	 * 
+	 * @param myUserNo - 내 유저번호
+	 * @return - 조회된 유저닉네임
+	 */
+	public String selectSenderNick(int myUserNo);
+
+
+	/**
+	 * chat/chatArea
+	 * 
+	 * 채팅내용 불러오기
+	 * 
+	 * @param roomNo - 조회할 채팅방 번호
+	 * @return List<Chat> - 채팅내용
+	 */
+	public List<Chat> selectChat(RoomList roomNo);
 
 
 	

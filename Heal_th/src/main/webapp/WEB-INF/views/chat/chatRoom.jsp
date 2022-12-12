@@ -3,13 +3,22 @@
 
 <%@include file="../layout/header.jsp" %>
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
 
-	var createRoomNo = ${createRoomNo };
-	console.log( createRoomNo );
-	goChat( createRoomNo );
+	var createRoomNo = <%= request.getAttribute("createRoomNo")%>
+	console.log("받은 createRoom : " + createRoomNo)
+// 	var createRoomNo = null;
+		
+	if ( createRoomNo == null || createRoomNo =="" || createRoomNo == "undefined") {
+		console.log ( "createRoomNo가 값이 없음" )
+	} else {
+		console.log( createRoomNo );
+		goChat( createRoomNo );
+	}
+		
 	
 	$(".roomBtn").click(function() {
 		
@@ -113,5 +122,6 @@ function goChat(roomNo) {
 
 </body>
 
+<jsp:include page="webSocketArea.jsp" />
 
 </html>

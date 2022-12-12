@@ -18,13 +18,6 @@
 	
 
 	<!-- /chat/chatRoom -->
-	<!-- 자신의 회원번호가 속한 채팅방 조회하기 -->
-<!-- 	<select id="selectRoomList"  resultType="daeyeon.dto.RoomList" parameterType="Users"> -->
-<!-- 		SELECT * FROM room_list -->
-<!-- 		WHERE user_no = #{userNo } -->
-<!-- 	</select> -->
-	
-	<!-- /chat/chatRoom -->
 	<!-- 자신의 회원번호가 속한 채팅방번호와 상대방 닉네임 조회하기 -->
 	<select id="selectRoomList"  resultType="daeyeon.dto.RoomList" parameterType="Users">
 		SELECT c.room_no, d.user_nick FROM users d		<!-- 나랑같은 룸번호를 가졌지만 나를 제외한 사람의 nick을 함꼐 조회한다 -->
@@ -36,25 +29,6 @@
 			WHERE a.user_no != #{userNo } ) c
 		ON d.user_no = c.user_no
 	</select>
-
-	<!-- /chat/chatArea -->
-	<!-- 전달받은 방번호로 상대방 닉네임 조회하기 -->
-	<select id="selectReciverNick" resultType="string" parameterType="RoomList">
-		SELECT a.user_nick FROM users a
-			INNER JOIN (
-			SELECT * FROM room_list WHERE room_no = #{roomNo }) b
-		ON a.user_no = b.user_no
-		WHERE a.user_no != #{userNo }
-	</select>
-
-	
-	<!-- /chat/chatArea -->
-	<!-- 채팅내용 테이블에 저장하기 -->
-	<insert id="insertChat" parameterType="chatRoom">
-		INSERT INTO chat( chat_no, chat_time, chat_contents, room_no, user_no )
-		VALUES ( chat_seq.nextval, sysdate, #{chatContent }, #{roomNo }, #{userNo }  )
-	</insert>
-
 
 
 	<!-- /chat/pointCompare -->
@@ -113,6 +87,40 @@
 		VALUES ( room_list_seq.nextval, #{userNo }, #{roomNo } )
 	</insert>
 
+	
+		<!-- /chat/chatArea -->
+	<!-- 전달받은 방번호로 상대방 닉네임 조회하기 -->
+	<select id="selectReciverNick" resultType="string" parameterType="RoomList">
+		SELECT a.user_nick FROM users a
+			INNER JOIN (
+			SELECT * FROM room_list WHERE room_no = #{roomNo }) b
+		ON a.user_no = b.user_no
+		WHERE a.user_no != #{userNo }
+	</select>
+	
+	<!-- /chat/chatArea -->
+	<!-- 내 유저번호로 내 닉네임 조회하기 -->
+	<select id="selectSenderNick" resultType="string" parameterType="int" >
+		SELECT user_nick FROM users
+		WHERE user_no = #{myUserNo }
+	</select>
+
+	
+	<!-- /chat/chatArea -->
+	<!-- 채팅내용 테이블에 저장하기 -->
+	<insert id="insertChat" parameterType="chatRoom">
+		INSERT INTO chat( chat_no, chat_time, chat_contents, room_no, user_no )
+		VALUES ( chat_seq.nextval, to_char(sysdate, 'yyyy.mm.dd hh24:mi:ss'), #{chatContent }, #{roomNo }, #{userNo }  )
+	</insert>
+	
+	<!-- /chat/chatArea -->
+	<!-- 채팅방번호로 채팅내용 조회하기 -->
+	<select id="selectChat" resultType="Chat" parameterType="RoomList" >
+		SELECT * FROM chat
+		WHERE room_no = #{roomNo }
+		ORDER BY chat_no ASC
+	</select>
+	
 </mapper>
 
 
