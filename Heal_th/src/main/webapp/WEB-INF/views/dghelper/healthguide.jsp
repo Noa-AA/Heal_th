@@ -8,6 +8,18 @@ $(document).ready(function(){
 	      var position = $(window).scrollTop()+200; // 현재 스크롤바의 위치값을 반환
 	      $(".Quick").stop().animate({top:position+"px"}, 400); //해당 오브젝트 위치값 재설정
 	}); */
+
+	$("#foodname").keyup(function(event) {
+        if (event.which === 13) {
+            $("#search").click();
+        }
+    });
+
+	$("#kcal").keyup(function(event) {
+        if (event.which === 13) {
+            $("#save").click();
+        }
+    });
 	
 	$("#search").click(function(){
 		
@@ -95,29 +107,25 @@ $(document).ready(function(){
 }
 .small-container2 {
 	position: relative;
-	min-height: 550px;
-    display: flex;
-    flex-direction: column 
+	min-height: 600px;
 }
 
+.small-container2 hr {
+	width: 97%;
+    border-top: 1px solid #bdbdbd;
+    margin: 0 auto;
+	
+}
 .small-title {
 	display: flex;
-	
+    font-size: 22px;
+    font-weight: 500;
 }
 
 .cal, .food {
 	text-align: center;
-	border: 1px solid silver;
-	min-height: 275px;
-	padding: 15px;
-}
-
-.calc {
-	text-align: center;
-	border: 1px solid silver;
-	min-height: 1100px;
-	padding: 15px;
-	width: 300px;
+	min-height: 300px;
+	padding: 20px;
 }
 
 input {
@@ -137,6 +145,7 @@ input {
 	border: none;
 	outline: none;
 	background: #18a9ec;
+	position: absolute;
 }
 
 .input-box {
@@ -144,13 +153,20 @@ input {
 	justify-content: center;
 	margin: 10px auto;
 	width: 300px;
-	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
+	height: 48px;
+}
+
+.input-box p {
+	box-shadow: 0px 1px 10px 0px rgb(0 0 0 / 15%);
 }
 
 body {
 	padding-top: 355px;
 }
 
+#result, #resultkcal {
+	padding-top: 30px;
+}
 </style>
 <body>
 <div id="subvisual">
@@ -191,17 +207,17 @@ body {
 		<div class="small-container2">
 			<div class="cal">
 				<div class="small-title">
-					<p>칼로리 검색</p>
+					<label for="foodname"><span>칼로리 검색</span></label>
 				</div>
 				<div class="input-box">
 					<p><input type="text" id="foodname" name="foodname" placeholder="음식명을 입력해주세요."><button id="search"><img src="/resources/img/dgsearch.png"></button></p>
 				</div>		
 				<div id="result"></div>
-			</div> 
-			
+			</div>
+			<hr>
 			<div class="food">
 				<div class="small-title">
-					<p style="float: left">칼로리 계산</p>
+					<label for="kcal"><span>칼로리 계산</span></label>
 				</div>
 				<div class="input-box">
 					<p><input type="text" id="kcal" placeholder="섭취한 칼로리를 입력해주세요."><button id="save"><img src="/resources/img/dgsearch.png"></button></p>
