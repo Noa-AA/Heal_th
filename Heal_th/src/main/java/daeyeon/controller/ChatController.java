@@ -9,11 +9,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
 import daeyeon.dto.Userss;
 import daeyeon.service.face.ChatService;
@@ -97,6 +96,7 @@ public class ChatController {
 			int myUserNo = (Integer)session.getAttribute("userNo"); //자신의 유저넘버
 			int yourRankingNo = (Integer)session.getAttribute("yourRankingNo");
 			
+			
 			logger.info("채팅신청할 상대방 유저넘버 : {}", yourUserNo );
 			logger.info("내 유저넘버 : {}", myUserNo );
 			
@@ -105,14 +105,14 @@ public class ChatController {
 			
 			
 			// 채팅방만들고 리스트에 하나의 채팅방에 두개의 유저넘버 넣기 insert 세번
-			chatService.createChatRoom(yourUserNo, myUserNo);
+			int createRoomNo = chatService.createChatRoom(yourUserNo, myUserNo);
 			
+			logger.info("만든 채팅방 번호 : {}", createRoomNo);
+			session.setAttribute("createRoomNo", createRoomNo);
 			
 			//유저번호로 방번호 불러오기
 //			chatService.selectRoomNoByUserNo(session);
 			
-//			socketService.createRoom();
-//			model.addAttribute("roomNo", roomNo);
 			return "redirect: /chat/chatRoom";
 			
 		}
@@ -120,27 +120,43 @@ public class ChatController {
 		
 		//3. 채팅룸의 자신의 소속된 채팅방 조회하기
 		@RequestMapping("/chatRoom")
-		public void chatRoom(HttpSession session, Users myUserNo, Model model) {
+		public void chatRoom(HttpSession session, Users myUserNo, Model model, RoomList room) {
 			logger.info("/chatRoom");
+			
 			myUserNo.setUserNo((Integer)session.getAttribute("userNo"));
 			
 			logger.info("myUserNo : {}", myUserNo.getUserNo());
 			
+			// 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
 			List<RoomList> roomList = chatService.roomList(myUserNo);
-			 
+			
+			model.addAttribute("createRoomNo", session.getAttribute("createRoomNo"));
+			
+			//chatArea 쓸꺼
+			session.setAttribute("roomListNo", roomList);
+			
 //			채팅방 번호 전달 - Model객체 이용
 			model.addAttribute("roomList", roomList);
-			
 		}
 		
 			
 		//4. 채팅 영역
 		@RequestMapping("/chatArea")
-		public void goChat(Model model, HttpSession session, RoomList roomNo, Userss users) {
+		public void goChat(Model model, HttpSession session, RoomList roomNo, Users users) {
 			logger.info("/chatArea");
 			logger.info( "채팅방 번호 : {}", roomNo.getRoomNo() );
-			 
+			
+			roomNo.setUserNo((Integer)session.getAttribute("userNo"));
+		
+			logger.info( "roomNo 이름가져오기 전 : {}", roomNo );
+			
+//			상대방 이름 가져오기
+			roomNo.setUserNick( chatService.getReciverNick(roomNo) );
+			
+			logger.info( "roomNo 이름가져오기 후 : {}", roomNo );
+			
 			session.setAttribute("roomNo", roomNo.getRoomNo());
+			session.setAttribute("userNick", roomNo.getUserNick());
 			
 			model.addAttribute("roomNo", roomNo);
 			

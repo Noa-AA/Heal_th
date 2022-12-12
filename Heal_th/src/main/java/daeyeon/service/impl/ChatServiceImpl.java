@@ -40,15 +40,22 @@ public class ChatServiceImpl implements ChatService {
 	
 	
 	// /chat/chatRoom
-	//---------- 유저번호를 이용해서 소속된 채팅방 조회하기
+	//---------- 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
 	@Override
 	public List<RoomList> roomList(Users myUserNo) {
 		logger.info("roomList() - {}", myUserNo);
 		
 		//채팅방 목록 조회 - ChatDao 이용
-		List<RoomList> roomList = chatDao.selectRoomList(myUserNo); 
+		List<RoomList> roomList = chatDao.selectRoomList(myUserNo);
 		
 		return roomList;
+	}
+	
+	// /chat/chatArea
+	//---------- 상대방 닉네임 조회하기
+	@Override
+	public String getReciverNick(RoomList roomNo) {
+		return chatDao.selectReciverNick(roomNo);
 	}
 	
 	
@@ -97,7 +104,7 @@ public class ChatServiceImpl implements ChatService {
 	// /chat/createChatRoom
 	//---------- 채팅방 만들기
 	@Override
-	public void createChatRoom(int yourUserNo, int myUserNo) {
+	public int createChatRoom(int yourUserNo, int myUserNo) {
 		logger.info("createChatRoom() - yourUserNo : {} , myUserNo : {}", yourUserNo, myUserNo);
 				
 		ChatRoom chatRoom = new ChatRoom();
@@ -116,9 +123,16 @@ public class ChatServiceImpl implements ChatService {
 					
 			chatRoom.setUserNo(yourUserNo);
 			chatDao.insertChatListByYou(chatRoom); //상대방 룸리스트 만들기
-					
-			}
+			
+			return chatRoom.getRoomNo();
+			
+		} else {
+			
 		}
+		
+		return chatRoom.getRoomNo();
+		
+	}
 	
 }
 
