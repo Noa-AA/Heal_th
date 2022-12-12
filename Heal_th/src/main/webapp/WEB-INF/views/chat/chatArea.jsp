@@ -25,40 +25,6 @@ $(document).ready(function() {
 
 })
 
-	var ws = new WebSocket("ws://localhost:8888/chat");
-		
-	ws.onmessage = onMessage;
-	ws.onclose = onClose;
-    
-    // 메시지 전송
-    function sendMessage() {
-    	ws.send($("#msgInput").val());
-    }
-   
-    // 서버로부터 메시지를 받았을 때
-    function onMessage(msg) {
-        var data = msg.data;
-        var date = new Date();
-        var dateInfo = date.getHours() + ":" + date.getMinutes();
-        
-        var id = data.split(" : ");
-        
-        if( id[0] == "${roomNo.userNick }" ){
-        	$("#messages").append("<div id='senderMsg'><a id='timeS'>" + dateInfo + "</a><a id='msgS'>" + data + "</a></div>");
-        } else {
-        	$("#messages").append("<div id='receiverMsg'><a id='msgR'>" + data + "</a><a id='timeR'>" + dateInfo + "</a></div>");
-        }
-        
-//         console.log(data);
-//         $("#messages").append( data + "<br/>" );
-    }
-    
-    // 서버와 연결을 끊었을 때
-    function onClose(evt) {
-        $("#messages").append("연결 끊김");
- 
-    }
-
 </script>
 
 <style type="text/css">
@@ -130,7 +96,7 @@ $(document).ready(function() {
 
 <body>
 
-<h1>${roomNo.userNick }</h1>
+<h1>${roomNo.userNick } : ${userNo }</h1>
 <hr>
 
 <%	Date date = new Date(); %>
@@ -145,22 +111,41 @@ $(document).ready(function() {
     
     
 <div id="chatArea">
-    <div id="messages"><span></span></div>
+    <div id="messages">
+    	<c:forEach items="${chatList }" var="chatList">
+    		<c:choose> 
+    			<%-- 자신의 채팅일때 --%>
+    			<c:when test="${chatList.userNo eq userNo }">
+    				<div id='senderMsg'><a id='timeS'>${chatList.chatTime }</a><a id='msgS'>${chatList.chatContent }</a></div>
+    			</c:when>
+    			
+    			<%-- 상대방의 채팅일때 --%>
+    			<c:otherwise>
+    				<div id='receiverMsg'><a id='msgR'>${chatList.chatContent }</a><a id='timeR'>${chatList.chatTime }</a></div>
+    			</c:otherwise>
+    		</c:choose>
+    	</c:forEach>
+    </div>
 </div>
         
 	
 	
+<%-- if (id[0] == "${senderNick }") { --%>
+<!-- 	$("#messages").append( "<div id='senderMsg'><a id='timeS'>" + dateInfo + "</a><a id='msgS'>" + data + "</a></div>"); -->
+<%-- } else if( id[0] != "${senderNick }" && id[0] != "createOk" ) { --%>
+<!-- 	$("#messages").append( "<div id='receiverMsg'><a id='msgR'>" + data + "</a><a id='timeR'>" + dateInfo + "</a></div>"); -->
+<!-- }  -->
 	
 	
 	
 	
 	
-	
-	
-	
-
 
 
 
 </body>
+
+<jsp:include page="webSocketArea.jsp" />
+
+
 </html>
