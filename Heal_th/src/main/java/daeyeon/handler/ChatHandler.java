@@ -57,12 +57,12 @@ public class ChatHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage( WebSocketSession session, TextMessage message ) throws Exception {
     	int roomNo = (int)session.getAttributes().get("roomNo"); 
-    	String Id = (String)session.getAttributes().get("userId");
     	int userNo = (Integer)session.getAttributes().get("userNo");
+    	String userNick = (String)session.getAttributes().get("userNick");
     	
     	Chat chat = new Chat();
     	
-    	logger.info( "{}로 부터 {} 받음", Id, message.getPayload() );
+    	logger.info( "{}로 부터 {} 받음", userNick, message.getPayload() );
     	
     	logger.info(">>> sessionRoomNo : {}", sessionRoomNo);
     	logger.info(">>> userNoSession : {}", userNoSession);
@@ -72,7 +72,7 @@ public class ChatHandler extends TextWebSocketHandler {
     	for( int userNoKey : userNoSession.keySet() ) {
     		
     		if( sessionRoomNo.get(userNoSession.get(userNoKey)) == roomNo ) {
-    			userNoSession.get(userNoKey).sendMessage(new TextMessage(Id + " : " + message.getPayload()));
+    			userNoSession.get(userNoKey).sendMessage(new TextMessage(userNick + " : " + message.getPayload()));
     		}
     	}
     	

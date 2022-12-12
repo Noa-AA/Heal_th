@@ -6,8 +6,10 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	
-	goChat();
+
+	var createRoomNo = ${createRoomNo };
+	console.log( createRoomNo );
+	goChat( createRoomNo );
 	
 	$(".roomBtn").click(function() {
 		
@@ -40,6 +42,7 @@ function goChat(roomNo) {
 			
 		//응답 데이터 반영
 		$("#result").html( res )
+		
 		
 	}
 		
@@ -97,7 +100,7 @@ function goChat(roomNo) {
 		<c:forEach items="${roomList }" var="room">
 <%-- 			<div class="room" onclick="goChat(${room.roomNo })"> --%>
 				<button class="roomBtn" onclick="goChat(${room.roomNo })" >
-					<span class="roomSp">${room.roomNo }번방</span>
+					<span class="roomSp">${room.userNick }</span>
 				</button>
 <!-- 			</div> -->
 		</c:forEach>

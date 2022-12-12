@@ -25,7 +25,6 @@ $(document).ready(function() {
 
 })
 
-// 	var ws = new WebSocket("ws://localhost:8888/chat?roomNo=${roomNo.roomNo }");
 	var ws = new WebSocket("ws://localhost:8888/chat");
 		
 	ws.onmessage = onMessage;
@@ -44,7 +43,7 @@ $(document).ready(function() {
         
         var id = data.split(" : ");
         
-        if( id[0] == "${userId }" ){
+        if( id[0] == "${roomNo.userNick }" ){
         	$("#messages").append("<div id='senderMsg'><a id='timeS'>" + dateInfo + "</a><a id='msgS'>" + data + "</a></div>");
         } else {
         	$("#messages").append("<div id='receiverMsg'><a id='msgR'>" + data + "</a><a id='timeR'>" + dateInfo + "</a></div>");
@@ -131,7 +130,7 @@ $(document).ready(function() {
 
 <body>
 
-<h1>${roomNo.roomNo }번방</h1>
+<h1>${roomNo.userNick }</h1>
 <hr>
 
 <%	Date date = new Date(); %>
@@ -140,12 +139,8 @@ $(document).ready(function() {
 <h1></h1>
     
     <div>
-   		유저 아이디 :${userId }<br>
     	<input type="text" id="msgInput" autocapitalize="off"/>
     	<input type="button" id="sendBtn" value="메세지 전송" /> 
-<!--         <button onclick="openSocket();">Open</button> -->
-<!--         <button onclick="send();">Send</button> -->
-<!--         <button onclick="closeSocket();">close</button> -->
     </div>
     
     
