@@ -24,10 +24,10 @@ public interface ChatDao {
 	/**
 	 * chat/chatRoom
 	 * 
-	 * 자신의 회원번호가 속한 채팅방 조회하기
+	 * 자신의 회원번호가 속한 채팅방번호와 상대방 닉네임 조회하기
 	 * 
 	 * @param myUserNo - 자신의 회원번호
-	 * @return - 조회된 채팅방들
+	 * @return - 조회된 채팅방번호와 상대방 닉네임
 	 */
 	public List<RoomList> selectRoomList(Users myUserNo);
 
@@ -94,6 +94,17 @@ public interface ChatDao {
 	 * @param chatRoom - 추가될 상대방의 회원번호, 채팅방번호
 	 */
 	public void insertChatListByYou(ChatRoom chatRoom);
+
+
+	/**
+	 * chat/chatArea
+	 * 
+	 * 룸번호로 상대방 이름 조회하기
+	 * 
+	 * @param roomNo - 방번호와 자신의 회원번호가 저장되있는 dto
+	 * @return - 같은 채팅방의 상대방 이름
+	 */
+	public String selectReciverNick(RoomList roomNo);
 
 
 	
