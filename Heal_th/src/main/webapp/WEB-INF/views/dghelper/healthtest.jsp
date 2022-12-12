@@ -880,4 +880,5 @@ body {
 </div> <!-- medium-container END -->
 </div> <!-- big-container END  -->
 </body>
+<%@include file="../layout/footer.jsp" %>
 </html>

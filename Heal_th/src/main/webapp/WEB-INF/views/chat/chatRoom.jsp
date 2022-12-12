@@ -3,9 +3,22 @@
 
 <%@include file="../layout/header.jsp" %>
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
+
+	var createRoomNo = <%= request.getAttribute("createRoomNo")%>
+	console.log("받은 createRoom : " + createRoomNo)
+// 	var createRoomNo = null;
+		
+	if ( createRoomNo == null || createRoomNo =="" || createRoomNo == "undefined") {
+		console.log ( "createRoomNo가 값이 없음" )
+	} else {
+		console.log( createRoomNo );
+		goChat( createRoomNo );
+	}
+		
 	
 	$(".roomBtn").click(function() {
 		
@@ -38,6 +51,7 @@ function goChat(roomNo) {
 			
 		//응답 데이터 반영
 		$("#result").html( res )
+		
 		
 	}
 		
@@ -95,7 +109,7 @@ function goChat(roomNo) {
 		<c:forEach items="${roomList }" var="room">
 <%-- 			<div class="room" onclick="goChat(${room.roomNo })"> --%>
 				<button class="roomBtn" onclick="goChat(${room.roomNo })" >
-					<span class="roomSp">${room.roomNo }번방</span>
+					<span class="roomSp">${room.userNick }</span>
 				</button>
 <!-- 			</div> -->
 		</c:forEach>
@@ -108,5 +122,6 @@ function goChat(roomNo) {
 
 </body>
 
+<jsp:include page="webSocketArea.jsp" />
 
 </html>

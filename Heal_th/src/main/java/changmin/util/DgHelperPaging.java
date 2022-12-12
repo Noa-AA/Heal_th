@@ -14,6 +14,8 @@ public class DgHelperPaging {
 
 	private int startNo; //화면에 보이는 게시글의 시작 번호
 	private int endNo; //화면에 보이는 게시글의 끝 번호
+	
+	private int userno;
 
 	
 	//디폴트 생성자 - 페이징 로직이 처리되지 않는다
@@ -83,9 +85,7 @@ public class DgHelperPaging {
 	
 	@Override
 	public String toString() {
-		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
-				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
+		return "DgHelperPaging [userno=" + userno + "]";
 	}
 
 	public int getCurPage() {
@@ -159,5 +159,22 @@ public class DgHelperPaging {
 	public void setEndNo(int endNo) {
 		this.endNo = endNo;
 	}
+
+
+	public int getUserno() {
+		return userno;
+	}
+
+
+	public void setUserno(int userno) {
+		this.userno = userno;
+	}
+
+
+	public DgHelperPaging(int userno) {
+		super();
+		this.userno = userno;
+	}
+	
 	
 }

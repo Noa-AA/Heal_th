@@ -1,29 +1,27 @@
 package daeyeon.dto;
 
-import java.util.Date;
-
 public class Chat {
 
 	private int chatNo;
-	private Date chatTime;
-	private String chatContent;
+	private String chatTime;
+	private String chatContents;
 	private int roomNo;
 	private int userNo;
 	
 	public Chat() {	}
 
-	public Chat(int chatNo, Date chatTime, String chatContent, int roomNo, int userNo) {
+	public Chat(int chatNo, String chatTime, String chatContent, int roomNo, int userNo) {
 		super();
 		this.chatNo = chatNo;
 		this.chatTime = chatTime;
-		this.chatContent = chatContent;
+		this.chatContents = chatContent;
 		this.roomNo = roomNo;
 		this.userNo = userNo;
 	}
 
 	@Override
 	public String toString() {
-		return "Chat [chatNo=" + chatNo + ", chatTime=" + chatTime + ", chatContent=" + chatContent + ", roomNo="
+		return "Chat [chatNo=" + chatNo + ", chatTime=" + chatTime + ", chatContent=" + chatContents + ", roomNo="
 				+ roomNo + ", userNo=" + userNo + "]";
 	}
 
@@ -35,20 +33,20 @@ public class Chat {
 		this.chatNo = chatNo;
 	}
 
-	public Date getChatTime() {
+	public String getChatTime() {
 		return chatTime;
 	}
 
-	public void setChatTime(Date chatTime) {
+	public void setChatTime(String chatTime) {
 		this.chatTime = chatTime;
 	}
 
 	public String getChatContent() {
-		return chatContent;
+		return chatContents;
 	}
 
 	public void setChatContent(String chatContent) {
-		this.chatContent = chatContent;
+		this.chatContents = chatContent;
 	}
 
 	public int getRoomNo() {
@@ -66,6 +64,8 @@ public class Chat {
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
+
+	
 	
 	
 	
