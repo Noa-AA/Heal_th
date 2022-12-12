@@ -46,6 +46,10 @@ body {
     top: 50px;
 }
 
+.footer {
+	margin-top: 400px !important;
+}
+
 .big-container {
 	width: 1200px;
 	margin: 0 auto;
