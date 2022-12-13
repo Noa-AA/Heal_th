@@ -82,7 +82,7 @@ public class JoinController {
 	 @ResponseBody
 	 @PostMapping("/login/codeChk")
 	 public boolean codeChk(HttpSession session,String code) {
-		logger.info("code: {}, session: {}",code,session.getAttribute("numMsg"));
+		logger.info("code: {}, session: {}",code,session.getAttribute("message"));
 		//본인인증 번호 확인하기
 		boolean confirm = joinService.checkCode(session,code);
 		return confirm ;

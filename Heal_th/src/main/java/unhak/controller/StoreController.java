@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -92,15 +94,27 @@ public class StoreController {
 	
 	
 	
-	// 장바구니 담기
-	@ResponseBody
-	@RequestMapping(value = "/store/cart", method = RequestMethod.POST)
-	public void addCart(CartDto cart, HttpSession session) throws Exception {
-	 
-		String userNo = (String)session.getAttribute("userNo");
+//	// 장바구니 담기
+//	@ResponseBody
+//	@RequestMapping(value = "/cart", method = RequestMethod.POST)
+//	public int addCart(CartDto cart, HttpSession session) {
+//	 
+//		String userNo = (String)session.getAttribute("userNo");
+//		
+//		logger.info("prodNo :{} ",cart);
+//		
+//		return 1; //나중에 바꿀것
+//	}
+	
+	  @PostMapping("/cart/{id}/{itemId}")
+	    public String addCartItem(@PathVariable("id") Integer id, @PathVariable("itemId") Integer itemId, int amount) {
 
-	 
-	 
-	}
+//	        User user = userPageService.findUser(id);
+//	        Item item = itemService.itemView(itemId);
+//
+//	        cartService.addCart(user, item, amount);
+
+	        return "redirect:/item/view/{itemId}";
+	    }
 	
 }

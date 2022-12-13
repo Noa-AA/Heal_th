@@ -29,7 +29,7 @@ public interface StoreService {
 
 
 	//카트담기
-	public void addCart(CartDto cart) throws Exception;
+//	public void addCart(CartDto cart);
 
 
 

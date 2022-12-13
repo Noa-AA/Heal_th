@@ -34,6 +34,7 @@ $(document).ready(()=>{
 		
 		if($(".cal").find("td:eq(${today-1})").css("background-image")!="none"){
 			alert("오늘의 출석체크는 이미 하셨습니다")
+			return false
 		}else{
 			console.log("goCheck click")
 			console.log(${today})

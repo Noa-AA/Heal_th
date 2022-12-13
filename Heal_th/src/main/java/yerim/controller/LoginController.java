@@ -1,5 +1,8 @@
 package yerim.controller;
 
+import java.net.http.HttpRequest;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -10,21 +13,46 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import yerim.dto.Users;
+import yerim.service.face.KakaoLoginService;
 import yerim.service.face.LoginService;
+import yerim.service.face.NaverLoginService;
+import yerim.util.NaverLogin;
 
 @Controller
 public class LoginController {
 	 private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired LoginService loginService; 
+
+	//네이버 로그인 서비스
+	@Autowired NaverLoginService naverLoginService;
+	
+	//카카오 로그인 서비스 
+	@Autowired KakaoLoginService kakaoLoginService;
+	
 	 @GetMapping("/login/login")
-	 public void login() {
+	 public void login(Model model,HttpSession session) {
 		 //로그인 화면 
 		 logger.info("/login/login [GET]");
 		 
+		 //네이버 로그인을 위한 URL  호출 
+		 String naverURL = naverLoginService.getURL(session);
+		 logger.info(naverURL);
+		 
+		 //카카오 로그인을 위한 URL 호출
+		 String kakaoURL = kakaoLoginService.getURL();
+		 
+		 //모델값으로 URL전달
+		 model.addAttribute("naverURL", naverURL);
+		 model.addAttribute("kakaoURL", kakaoURL);
+		 
+	 
 	 }
 
  
@@ -92,10 +120,8 @@ public class LoginController {
 			 //회원이 없을 때 세션 삭제 이후 처리는 jsp에서 함
 			 logger.info("회원 없음");
 			return false; //false 전달 
-		 
-		 
-		 
 	 }
+	 
 	 @ResponseBody
 	 @PostMapping("/login/codeIdChk")
 	 public String codeIdChk(String emailCode,HttpSession session,Model model) {
@@ -131,10 +157,7 @@ public class LoginController {
 			 return true;
 		 }
 			 logger.info("회원 없음 인증 실패");
-			 
 			 return false;
-		 
-		 
 	 }
 	 
 	 @ResponseBody
@@ -167,7 +190,7 @@ public class LoginController {
 			 //세션에 회원 아이디, 이름 저장하기
 			 session.setAttribute("userName", searchPw.getUserName());
 			 session.setAttribute("userId", searchPw.getUserId());
-			
+			 session.setAttribute("userBirth", searchPw.getUserBirth());
 			 //세션에 인증번호 저장하기
 			 session.setAttribute("codeForPw", sendCodeForPw);
 			 
@@ -192,5 +215,98 @@ public class LoginController {
 	 @RequestMapping("/login/makeNewPw")
 	 public void makeNewPw() {
 		 logger.info("/login/makeNewPw ");
+	 }
+	 
+	 @ResponseBody
+	 @PostMapping("/login/usedPwChk")
+	 public boolean chkNewPw(Users updatePw,HttpSession session) {
+		 logger.info("/login/usedPwchk [POST]");
+		 
+		boolean resultchkPw = loginService.chkUsedPw(updatePw,session);
+		 
+		logger.info("비밀번호 확인 {}",resultchkPw);
+		 return resultchkPw;
+	 }
+	 
+	 @PostMapping("/login/updatePw")
+	 public String updatePw(Users userUpdatePw,HttpSession session) {
+		 logger.info("login/updatePw [POST]");
+		 
+		boolean newPw = loginService.setNewPw(userUpdatePw,session);
+		 
+		
+		 //비밀번호 업데이트 이후 세션초기화
+		if(newPw) {
+			session.invalidate();
+		
+			return "/login/login";
+		}
+		
+		return "/login/updatePw";
+		 
+	 }
+	 
+	 
+
+	 
+	 @GetMapping("/login/naverLogin")
+	 public String naverLogin(HttpSession session,@RequestParam(value="code") String code,@RequestParam(value="state") String state,Model model) {
+		 
+		 logger.info("/login/naverLogin");
+		 
+		 //access_token을 발급 요청
+		String getToken ="";
+			try {
+				getToken =naverLoginService.getToken(session,code,state);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		logger.info("접근 토근 요청 : {}",getToken);
+		
+		
+		//토큰으회원 정보 가져오기(프로필 정보 조회)
+		Users userproFile = naverLoginService.getUserProfile(getToken);
+		logger.info("회원 정보 저장 {}",userproFile);
+		
+		//회원 가입 여부 조회하기 (이름, 전화번호로)
+		boolean isJoin = naverLoginService.getIsJoin(userproFile);
+
+		
+		
+		if(!isJoin) {//회원 가입되었던 있으면 로그인->회원 번호 /아이디 세션 저장
+			logger.info("회원가입");
+			model.addAttribute("naverJoin", userproFile);
+			return "/login/joinNaver";
+			
+			
+		}else {
+			int userNo = naverLoginService.naverLogin(userproFile);
+			//회원 번호 세션 저장
+			session.setAttribute("userNo", userNo);
+			session.setAttribute("userId", userproFile.getUserId());
+			logger.info("로그인 완료 ");
+			
+			
+			return"/main";
+		}
+	 }
+	 
+	 @GetMapping("/login/joinNaver")
+	 public void joinByNaver() {
+		 logger.info("네이버 아이디로 회원가입");
+		 
+	 }
+	 
+	 @GetMapping("/login/kakaoLogin")
+	 public void kakaoLogin(String acceses_token,@RequestParam(value="code") String code) {
+		//인가받은 코드로 토큰 받기
+		logger.info("카카오 토큰 요청하기"); 
+		String getKakaoToken = kakaoLoginService.getToken(code);
+		logger.info("access_Token {}",getKakaoToken);
+
+		//접근 토큰으로 회원 정보 가져오기 
+		Users kakaoUserInfo = kakaoLoginService.getuserInfo(getKakaoToken);
+		logger.info("회원 정보 {}", kakaoUserInfo);
+		
 	 }
 }
