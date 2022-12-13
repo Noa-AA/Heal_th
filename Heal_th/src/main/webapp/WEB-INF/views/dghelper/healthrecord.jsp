@@ -150,7 +150,6 @@ ul {
 	justify-content: right;
 	margin-right: 25px;
 	font-size: 25px;
-    margin-top: 8px;
 }
 #content {
 	min-height: 250px;
@@ -230,30 +229,31 @@ body {
     box-shadow: 1px 0px 10px 0px rgb(0 0 0 / 30%);
 }
 
-.small-container {
-    height: 80px;
-/*     display: flex; */
-/*     flex-direction: column; */
-/*     align-items: end; */
-/*     justify-content: center; */
-    padding: 15px;
-    font-family: 'SUIT';
-    font-weight: bold;
-    font-size: 14px;
-    color: black;
-    background: linear-gradient(#fbf5fd 0 , #eaecfb);
+#twoDepth-list a:nth-child(2){
+	color: #b571e9;
+	border-bottom: 2px solid #b571e9;
+	margin-top: 1px;
 }
 
 </style> 
 <body>
 <div id="subvisual">
 	<div id="subvisual-A">
-		<p id="subv-title">운동 일기장</p>
-		<p id="subv-content">나의 오늘 운동기록을 매일매일 기록해 봐요</p>
+		<p id="subv-title">운동 도우미</p>
+<!-- 		<p id="subv-content">나의 오늘 운동기록을 매일매일 기록해 봐요</p> -->
+	</div>
+</div>
+<div id="twoDepth">
+	<div id="twoDepth-list">
+		<a href="/map/find">운동 시설 추천</a>
+		<a href="/dghelper/healthrecord">운동 일기장</a>
+		<a href="/dghelper/healthtest">운동 성향 테스트</a>
+		<a href="/dghelper/healthguide">칼로리 사전</a>
+		<a href="/dghelper/dgmagotchi">득근이 키우기</a>
 	</div>
 </div>
 <div class="big-container">
-	<div class="medium-container">
+<h3 style="margin: 0 auto; width: 1200px; text-align: center;">운동 일기장</h3>
 	<div id="recordlist">
 	<div class="small-container">
 		<span id="healthcount">나의 일기 작성 횟수 [ ${paging.totalCount } 회 ]</span><br>

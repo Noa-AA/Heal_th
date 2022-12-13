@@ -58,6 +58,12 @@ body {
     padding-bottom: 100px;
 }
 
+#twoDepth-list a:nth-child(5){
+	color: #b571e9;
+	border-bottom: 2px solid #b571e9;
+	margin-top: 1px;
+}
+
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -87,12 +93,21 @@ $(document).ready(function(){
 </script>
 <div id="subvisual">
 	<div id="subvisual-A">
-		<p id="subv-title">득근이 키우기</p>
-		<p id="subv-content">스트레스는 운동의 적 ! 득근이를 키우며 힐링해봐요</p>
+		<p id="subv-title">운동 도우미</p>
+<!-- 		<p id="subv-content">나의 오늘 운동기록을 매일매일 기록해 봐요</p> -->
 	</div>
 </div>
-<body>
+<div id="twoDepth">
+	<div id="twoDepth-list">
+		<a href="/map/find">운동 시설 추천</a>
+		<a href="/dghelper/healthrecord">운동 일기장</a>
+		<a href="/dghelper/healthtest">운동 성향 테스트</a>
+		<a href="/dghelper/healthguide">칼로리 사전</a>
+		<a href="/dghelper/dgmagotchi">득근이 키우기</a>
+	</div>
+</div>
 <div class="big-container">
+<h3 style="margin: 0 auto; width: 1200px; text-align: center;">득근이 키우기</h3>
 	<div class="start-container">
 		<button id="start"><p>시작하기</p></button>
 	</div>
