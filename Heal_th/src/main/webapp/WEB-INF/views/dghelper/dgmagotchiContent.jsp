@@ -46,6 +46,10 @@ body {
     top: 50px;
 }
 
+.footer {
+	margin-top: 400px !important;
+}
+
 .big-container {
 	width: 1200px;
 	margin: 0 auto;
@@ -226,6 +230,8 @@ body {
 .chat-value {
 	margin-bottom: 17px;
 	width: 501px;
+	display: flex;
+    flex-direction: column-reverse;
 }
 
 .chat-container-wrap {

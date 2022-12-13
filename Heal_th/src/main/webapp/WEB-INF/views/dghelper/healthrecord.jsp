@@ -150,6 +150,7 @@ ul {
 	justify-content: right;
 	margin-right: 25px;
 	font-size: 25px;
+    margin-top: 8px;
 }
 #content {
 	min-height: 250px;
@@ -192,17 +193,17 @@ ul {
     display: flex;
     flex-direction: column;
     width: 550px;
-    margin-bottom: -350px;
     position: relative;
-    left: 25px;
+    left: 625px;
 } 
 
 .content-0:nth-child(even) {
     display: flex;
     flex-direction: column;
     width: 550px;
+    margin-bottom: -350px;
     position: relative;
-    left: 625px;
+    left: 25px;
 }
 
 .content-3 {
@@ -218,9 +219,31 @@ button {
 	display: flex;
 	justify-content: center;
 }
+
 body {
 	padding-top: 355px;
 }
+
+.medium-container {
+	width: 1200px;
+	min-height: 800px;
+    box-shadow: 1px 0px 10px 0px rgb(0 0 0 / 30%);
+}
+
+.small-container {
+    height: 80px;
+/*     display: flex; */
+/*     flex-direction: column; */
+/*     align-items: end; */
+/*     justify-content: center; */
+    padding: 15px;
+    font-family: 'SUIT';
+    font-weight: bold;
+    font-size: 14px;
+    color: black;
+    background: linear-gradient(#fbf5fd 0 , #eaecfb);
+}
+
 </style> 
 <body>
 <div id="subvisual">
@@ -230,32 +253,11 @@ body {
 	</div>
 </div>
 <div class="big-container">
-<!-- <!-- 퀵메뉴 시작 --> 
-<!-- <div class="Quick"> -->
-<!--     <table class="quickMenuBar"> -->
-<!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;"><a href="/map/find">주변 시설 찾기</a></td> -->
-<!--         </tr> -->
-<!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthtest">운동성향 테스트</a></td> -->
-<!--         </tr> -->
-<!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthguide">칼로리사전</a></td> -->
-<!--         </tr> -->
-<!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthrecord">운동일기장</a></td> -->
-<!--         </tr> -->
-<!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/dgmagotchi">득근이 키우기</a></td> -->
-<!--         </tr> -->
-<!-- <!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</td> -->
-<!--         </tr> --> 
-<!--     </table> -->
-<!-- </div> -->
-<!-- <!-- 퀵메뉴 끝 --> 
+	<div class="medium-container">
 	<div id="recordlist">
-	<span id="healthcount">나의 일기 작성 횟수 [ ${paging.totalCount } 회 ]</span><br>
+	<div class="small-container">
+		<span id="healthcount">나의 일기 작성 횟수 [ ${paging.totalCount } 회 ]</span><br>
+	</div>
 		<c:forEach items="${list }" var="i">
 		
 		<div class="content-0">
@@ -350,6 +352,7 @@ body {
 		</c:if>
 		
 		</ul>
+	</div>
 	</div>
 </div>
 
