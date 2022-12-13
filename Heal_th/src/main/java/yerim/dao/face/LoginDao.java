@@ -88,11 +88,7 @@ public interface LoginDao {
 	 */
 	public int loginByNaver(Users userproFile);
 
-	/**
-	 * 네이버 회원 가입하기
-	 * @param userproFile
-	 */
-//	public void insertNaverUser(Users userproFile);
+
 	
 	
 	

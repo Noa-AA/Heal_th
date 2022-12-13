@@ -63,13 +63,13 @@
    	<select id="isNaverJoin" parameterType="Users" resultType="int">
    	
    		Select count(*) FROM users
-   		WHERE user_name =#{userName} and user_phone =#{userPhone}
+   		WHERE user_name =#{userName} and user_id=#{userId}
    	</select>
    	
    	<select id="loginByNaver" resultType="int" parameterType="Users">
    	
    		SELECT user_no FROM users
-   		WHERE user_id =#{userId} and user_phone=#{userPhone} and user_name=#{userName}
+   		WHERE user_id =#{userId} and 																																													user_name=#{userName}
    	</select> 
    	
 

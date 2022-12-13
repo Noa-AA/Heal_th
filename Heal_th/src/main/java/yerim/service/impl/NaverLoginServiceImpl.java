@@ -136,12 +136,5 @@ public class NaverLoginServiceImpl implements NaverLoginService {
 		//네이버 로그인하기
 		return loginDao.loginByNaver(userproFile);
 	}
-//	@Override
-//	public void joinNaver(Users userproFile) {
-//		logger.info("네이버 회원 가입하기");
-//		
-//		loginDao.insertNaverUser(userproFile);
-//		
-//		
-//	}
+
 }

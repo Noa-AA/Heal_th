@@ -7,8 +7,8 @@
     <mapper namespace="yerim.dao.face.JoinDao">
     	<insert id="insertJoinInfo" parameterType="Users">
     	
-    		INSERT INTO users (user_no,user_id,user_pw,user_nick,user_phone,user_address,user_email,user_name,user_job,user_birth,user_gender,user_joindate,ranking_no,point)
-    		VALUES(users_seq.nextval,#{userId},#{userPw},#{userNick},#{userPhone},#{userAddress},#{userEmail},#{userName},#{userJob},#{userBirth},#{userGender},sysdate,1,1000)
+    		INSERT INTO users (user_no,user_id,user_pw,user_nick,user_phone,user_address,user_email,user_name,user_job,user_birth,user_gender,user_joindate,ranking_no,point,joinType)
+    		VALUES(users_seq.nextval,#{userId},#{userPw},#{userNick},#{userPhone},#{userAddress},#{userEmail},#{userName},#{userJob},#{userBirth},#{userGender},sysdate,1,1000,#{joinType})
     	
     	</insert>
     	

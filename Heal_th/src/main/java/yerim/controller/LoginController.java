@@ -262,11 +262,11 @@ public class LoginController {
 		boolean isJoin = naverLoginService.getIsJoin(userproFile);
 
 		
+		
 		if(!isJoin) {//회원 가입되었던 있으면 로그인->회원 번호 /아이디 세션 저장
 			logger.info("회원가입");
-//			naverLoginService.joinNaver(userproFile);
 			model.addAttribute("naverJoin", userproFile);
-			return "/login/join";
+			return "/login/joinNaver";
 			
 			
 		}else {
@@ -279,6 +279,12 @@ public class LoginController {
 			
 			return"/main";
 		}
+	 }
+	 
+	 @GetMapping("/login/joinNaver")
+	 public void joinByNaver() {
+		 logger.info("네이버 아이디로 회원가입");
+		 
 	 }
 	 
 }
