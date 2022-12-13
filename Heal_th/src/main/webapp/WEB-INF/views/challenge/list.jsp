@@ -59,9 +59,6 @@
 	height: 35px;
 }
 
-/* button{ */
-/* 	background-color: #c583d6; */
-/* } */
 .pageInfo_wrap {
 	text-align: center;
 }
@@ -99,6 +96,8 @@ a:hover {
 	background-color: #cdd5ec;
 }
 </style>
+
+
 </head>
 <body>
 	<div class="title">
@@ -115,10 +114,9 @@ a:hover {
 					<ul>
 						<li>챌린지 번호 : <c:out value="${challenge.challengeNo}" />
 						</li>
-						<li>
-							<%-- 			 <a class="move" href='/challenge/view?challengeNo=<c:out value="${challenge.challengeNo}"/>'> --%> 
-							제목 : <a class="move" href='<c:out value="${challenge.challengeNo}"/>'> <c:out value="${challenge.challengeName}" />
-						</a>
+						<li>제목 : <a class="move" href='<c:out value="${challenge.challengeNo}"/>'>
+								<c:out value="${challenge.challengeName}" />
+							</a>
 						</li>
 						<li>종류 : ${challenge.challengeKind }</li>
 						<li>생성일 : <fmt:formatDate value="${challenge.challengeCredate }" pattern="yyyy년 MM월 dd일" />
@@ -170,35 +168,36 @@ a:hover {
 	</div>
 
 	<form id="moveForm" method="get">
-		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> <input type="hidden" name="amount" value="${pageMaker.cri.amount }"> <input type="hidden" name="keyword" value="${pageMaker.cri.keyword }"> <input type="hidden" name="type" value="${pageMaker.cri.type }">
+		<input type="hidden" id="challengeNo" name="challengeNo" value='<c:out value="${pageInfo.challengeNo}"/>'> <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> <input type="hidden" name="amount" value="${pageMaker.cri.amount }"> <input type="hidden" name="keyword" value="${pageMaker.cri.keyword }"> <input type="hidden" name="type" value="${pageMaker.cri.type }">
 	</form>
 
 
 
 
 	<script>
-		$(document).ready(function() {
+	
+	//챌린지 등록시 알림창
+				$(document).ready(function() {
 
-			let result = '<c:out value="${result}"/>';
+					let result = '<c:out value="${result}"/>';
 
-// 			checkAlert(result);
-// 			console.log(result);
+					checkAlert(result);
 
-			  checkAlert(result);
-			    
-			    function checkAlert(result){
-			        
-			        if(result === ''){
-			            reutrn;
-			        }
-			        
-			        if(result === "create success"){
-			            alert("등록이 완료. 챌린지는 한번 등록후 수정 불가합니다");
-			        }
-			        
-			    } 
+					    function checkAlert(result){
 
-		});
+					        if(result === ''){
+					            return;
+					        }
+
+					        if(result === "create success"){
+					            alert("등록 완료, 챌린지는 등록후 수정이 불가합니다");
+					        }
+
+					    } 
+
+				});
+		
+		//챌린지 상세보기
 		let moveForm = $("#moveForm");
 		$(".move")
 				.on(
@@ -214,6 +213,7 @@ a:hover {
 							moveForm.submit();
 						});
 
+		//페이지 이동 번호 동작
 		$(".pageInfo a").on("click", function(e) {
 			e.preventDefault();
 
@@ -223,15 +223,9 @@ a:hover {
 
 		});
 
-		//     $(".search_area button").on("click", function(e){
-		//         e.preventDefault();
+	
 
-		//         let val = $("input[name='keyword']").val();
-		//         moveForm.find("input[name='keyword']").val(val);
-		//         moveForm.find("input[name='pageNum']").val(1);
-		//         moveForm.submit();
-		//     });
-
+		//검색 버튼
 		$(".search_area button").on("click", function(e) {
 			e.preventDefault();
 
@@ -253,6 +247,7 @@ a:hover {
 			moveForm.find("input[name='pageNum']").val(1);
 			moveForm.submit();
 		});
+
 	</script>
 </body>
 </html>
