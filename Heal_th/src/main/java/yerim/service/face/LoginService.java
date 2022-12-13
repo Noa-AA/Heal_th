@@ -89,4 +89,20 @@ public interface LoginService {
 	 */
 	public boolean smsCodeForPw(String pwSmsCode, HttpSession session);
 
+	
+	/**
+	 * 사용중인 비밀번호 확인하기
+	 * @param updatePw -회원이 기입한 새 비밀번호
+	 * @return true or false
+	*/
+	public boolean chkUsedPw(Users updatePw, HttpSession session);
+
+	/**
+	 * 비밀번호 재설정 업데이트
+	 * @param userUpdatePw -유저가 입력한 새 비밀번호
+	 * @param session -세션에 저장된 유저 정보
+	 * @return 
+	 */
+	public boolean setNewPw(Users userUpdatePw, HttpSession session);
+
 }

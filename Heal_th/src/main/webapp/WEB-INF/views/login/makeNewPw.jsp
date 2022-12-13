@@ -6,6 +6,9 @@
 $(document).ready(function(){
 
 	   $("#userPw").focus(function(){
+		   $("#resultMsg").html("")
+	   })
+	   $("#userchkPw").focus(function(){
 		   $("#resultMsgChk").html("")
 	   })
 	   //비밀번호 확인 안했을 때의 처리
@@ -27,6 +30,15 @@ $(document).ready(function(){
 		,success : function (res){
 			console.log(res)
 			console.log("사용된 비밀번호 확인")
+				validateUpdatePw()
+			
+			if(!res){
+				console.log(res)
+				console.log("비밀번호 재설정 불가")
+				 $("#resultMsg").html("이미 사용중인 비밀번호입니다.")
+					$("#resultMsg").css("color","red")
+				}
+			
 			}
 			
 		})
@@ -41,20 +53,25 @@ $(document).ready(function(){
 	})
 
 	//비밀번호 바꾸기
-	$(".btnUpdatePw").click(function(){
+	$("#btnUpdatePw").click(function(){
 		console.log("버튼 클릭")
 		if($("#userchkPw").val() =="") {
 			$("#resultMsgChk").html("비밀번호 확인을 해주세요")
 			$("#resultMsgChk").css("color","red")
-			$("#userchkPw").focus()
+			$("#resultMsgChk").focus()
 			return false
-		} 
-
-
+		}
 	})
 	
 	
 
+	//버튼 클릭시 비밀번호 업데이트
+	
+	$("#btnUpdatePw").click(function(){
+		$("#updatePwForm").submit()
+		
+	})
+	
 	
 })
 		
@@ -112,6 +129,7 @@ function validateCkh(){
 <div id="newPw">
 
 	<h1>비밀번호 재설정</h1>
+	<form action="/login/updatePw" method="post" id="updatePwForm">
 	<div id="updatePw">
 		<label for="userPw">비밀번호 
 			<input type="text" name="userPw" id="userPw">
@@ -127,8 +145,8 @@ function validateCkh(){
 	</div>
 
 	<div id="resultMsgChk"></div>	
-	<button type="button" class="btnUpdatePw">비밀번호 설정하기</button>
-
+	<button type="button" id="btnUpdatePw">비밀번호 설정하기</button>
+	</form>
 </div>
 
 

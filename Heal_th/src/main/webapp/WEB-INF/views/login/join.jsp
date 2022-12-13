@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
  <script type="text/javascript">
  
   $(document).ready(function(){
-				//아이디 중복 검사 
-				var count =0;
+	//아이디 중복 검사 
+		var count =0;
+				
 			  $("#btn_checkId").click(function(){
 				  	console.log("checkId 클릭")
 				
@@ -299,6 +301,8 @@
 		    		document.getElementById("checkIdResult").innerHTML="<span style='color:red;'>* 아이디를 입력해주세요</span>"
 		    			return false;
 		    	}
+		    	
+		    
 		    
 	
 		    	//비밀번호가 빈칸일 때 
@@ -376,7 +380,7 @@
   
   </script>
  
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <script>
     function addressFind() {
             	console.log("주소검색");
@@ -448,128 +452,133 @@
 
 
 <div id="joinarea">
-	<form action="/login/join" method="post" id="joinform">
-		<div id="name">		
-		 	<label for="userName">이름
-	 		<input type="text" name="userName" id="userName">
-	 		</label> 
+		<div id="intro">
+			<h1>회원가입</h1>
 		</div>
-		
-		<div id="nameAlert"></div>
-	
-		<div id="email">
-			<label for="userEmail">이메일
-			<input type="text" name="userEmail" id="userEmail">
-			</label>
-		</div>
-		
-		<div id="emailAlert"></div>
-		
-		<div id="id">
-			<label for="userId">아이디
-			<input type="text" name="userId" id="userId">
-			</label>
-		</div>
-		
-		<div id="checkId">
-			<button type="button"  id="btn_checkId">중복확인</button>
-		</div>
-		
-		<div id="checkIdResult"></div>
-	
-		<div id="pw">
-			<label for="userPw">비밀번호
-			<input type="password" name="userPw" id="userPw">
-			</label>
-		</div>
-		<div id="pwAlert"></div>
-		
-		
-		<div id="pwChk">
-			<label for="userPwChk">비밀번호 확인
-			<input type="password" name="userPwChk" id="userPwChk">
-			</label>
-		</div>
-		<div id="pwAgain"></div>
-		
-		
-		
-		<div id="nick">
-			<label for="userNick">닉네임
-			<input type="text" name="userNick" id="userNick">
-			</label>
-		</div>
-			<div id="nickAlert"></div>
-		
-		<div id="phone">
-			<label for="userPhone">연락처
-			<input type="text" name="userPhone" id="userPhone">
-			</label>
-			
-			<div id="userchk">
-				<button type="button" id="btn_userchk">본인인증</button>
-		</div>
-		
-			<div id="smschk" style="display:none;">
-				<input type="text" name="code" id="code">
-				<button type="button" id="btn_code">인증번호 확인</button>			
+		<form action="/login/join" method="post" id="joinform">
+			<div id="howJoin">
+				<input id="joinType" name="joinType" value="Dg" style="display: none;">
 			</div>
 			
-			<div id="result_code"></div>
+			<div id="name">		
+			 	<label for="userName">이름
+		 		<input type="text" name="userName" id="userName" >
+		 		</label> 
+			</div>
 			
-		</div>
+			<div id="nameAlert"></div>
 		
-		<div id="gender">
-			<label for="userGender">성별			
-			<input type="radio" name="userGender" value="male" id="male">남성
-			<input type="radio" name="userGender" value="female" id="female">여성
-			</label>
-		</div>
-		<div id="genderAlert"></div>
+			<div id="email">
+				<label for="userEmail">이메일
+				<input type="text" name="userEmail" id="userEmail">
+				</label>
+			</div>
+			
+			<div id="emailAlert"></div>
+			
+			<div id="id">
+				<label for="userId">아이디
+				<input type="text" name="userId" id="userId" >
+				</label>
+			</div>
+			
+			<div id="checkId">
+				<button type="button"  id="btn_checkId">중복확인</button>
+			</div>
+			
+			<div id="checkIdResult"></div>
+		
+			<div id="pw">
+				<label for="userPw">비밀번호
+				<input type="password" name="userPw" id="userPw">
+				</label>
+			</div>
+			<div id="pwAlert"></div>
 			
 			
-		<div id="birth">
-			<label for="birth">생년월일
-				<input type="text" id="userBirth"name="userBirth" placeholder="생년월일 예)19930101">
-			</label>
-		</div>
-		
-		<div id="birthAlert"></div>
-		
-		<div id="job">
-			<label for="userJob">직업</label>
-			<select name="userJob" id="userJob">
-				<option value="" selected disabled>선택해주세요</option>
-				<option value="staff">회사원</option>
-				<option value="teacher">교사</option>
-				<option value="publicOfficial">공무원</option>
-				<option value="trainer">트레이너</option>
-				<option value="business">자영업</option>
-				<option value="student">학생</option>
-				<option value="etc">기타</option>
-			</select>
+			<div id="pwChk">
+				<label for="userPwChk">비밀번호 확인
+				<input type="password" name="userPwChk" id="userPwChk">
+				</label>
+			</div>
+			<div id="pwAgain"></div>
+			
+			
+			
+			<div id="nick">
+				<label for="userNick">닉네임
+				<input type="text" name="userNick" id="userNick" >
+				</label>
+			</div>
+				<div id="nickAlert"></div>
+			
+			<div id="phone">
+				<label for="userPhone">연락처
+				<input type="text" name="userPhone" id="userPhone" >
+				</label>
 				
-		</div>
-		<div id="jobAlert"></div>
+				<div id="userchk">
+					<button type="button" id="btn_userchk">본인인증</button>
+			</div>
+			
+				<div id="smschk" style="display:none;">
+					<input type="text" name="code" id="code">
+					<button type="button" id="btn_code">인증번호 확인</button>			
+				</div>
+				
+				<div id="result_code"></div>
+				
+			</div>
+			
+			<div id="gender">
+				<label for="userGender">성별			
+				<input type="radio" name="userGender" value="M" id="male">남성
+				<input type="radio" name="userGender" value="F" id="female">여성
+				</label>
+			</div>
+			<div id="genderAlert"></div>
+				
+				
+			<div id="birth">
+				<label for="birth">생년월일
+					<input type="text" id="userBirth"name="userBirth" placeholder="생년월일 예)19930101" >
+				</label>
+			</div>
+			
+			<div id="birthAlert"></div>
+			
+			<div id="job">
+				<label for="userJob">직업</label>
+				<select name="userJob" id="userJob">
+					<option value="" selected disabled>선택해주세요</option>
+					<option value="staff">회사원</option>
+					<option value="teacher">교사</option>
+					<option value="publicOfficial">공무원</option>
+					<option value="trainer">트레이너</option>
+					<option value="business">자영업</option>
+					<option value="student">학생</option>
+					<option value="etc">기타</option>
+				</select>
+					
+			</div>
+			<div id="jobAlert"></div>
 		
+			<div id="address">
+				<label for="userAddress">주소</label>
+					<input type="text" name="userAddress" id="postcode" placeholder="우편번호">
+					<input type="button" onclick="addressFind()" name="userAddress" value="우편번호 찾기"><br>
+					<input type="text" name="userAddress" id="useraddress" placeholder="주소"><br>
+					<input type="text" name="userAddress" id="detailAddress" placeholder="상세주소">
+					<input type="text" name="userAddress" id="extraAddress" placeholder="참고항목">
+			</div>
+				<div id="addressAlert"></div>
+				
+				
+			<button type="button" id="joinbtn">가입 완료</button>
+			<button  type="button" id="joinCancel">가입 취소</button>
+		</form>
 	
-	
-		<div id="address">
-			<label for="userAddress">주소</label>
-				<input type="text" name="userAddress" id="postcode" placeholder="우편번호">
-				<input type="button" onclick="addressFind()" name="userAddress" value="우편번호 찾기"><br>
-				<input type="text" name="userAddress" id="useraddress" placeholder="주소"><br>
-				<input type="text" name="userAddress" id="detailAddress" placeholder="상세주소">
-				<input type="text" name="userAddress" id="extraAddress" placeholder="참고항목">
-		</div>
-			<div id="addressAlert"></div>
-			
-			
-		<button type="button" id="joinbtn">가입 완료</button>
-		<button  type="button" id="joinCancel">가입 취소</button>
-	</form>
-
-	<div id="addressChk"></div>
+		<div id="addressChk"></div>
 	
 </div>
 </body>
