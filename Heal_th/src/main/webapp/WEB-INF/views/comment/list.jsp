@@ -9,40 +9,66 @@ $(document).ready(function(){
 	$(".commentDelete").click(function(){ //삭제하기
 		console.log(".commentDelete click")
 		console.log($(this).val())
-		
-		$.ajax({
-			type: "post"
-			,url: "/comment/delete"
-			,data: {
-					commentno:$(this).val() //댓글번호
-					,boardno:1					// 글번호
-					,category:1					// 글 카테고리
+		if(confirm("댓글을 삭제하시겠습니까?")){
+			$.ajax({
+				type: "post"
+				,url: "/comment/delete"
+				,data: {
+						commentno:$(this).val() //댓글번호
+					}
+				,dataType: "html"
+				,success: function(commentList){
+					console.log("댓글삭제AJAX 성공")
+					
+					commentListCall()
 				}
-			,dataType: "html"
-			,success: function(commentList){
-				console.log("AJAX 성공")
-				
-				
-				//응답 데이터 출력
-// 				$("#commentBoard").html(commentList)
-				commentListCall(1, 1)
-			}
-			,error: function(){
-				console.log("AJAX 실패")
-			}
-		})
+				,error: function(){
+					console.log("댓글삭제AJAX 실패")
+				}
+			})
+			
+		}else{
+			return false
+		}
 	})
 })
 </script>
+<style type="text/css">
+#commentListTable{
+	border: solid 1px #ccc;
+	width: 700px;
+	margin-left: auto;
+    margin-right: auto;
+}
+#commentSpace{
+	height: 10px;
+}
+.commentOne{
+	margin-bottom: 50px;
+}
+</style>
 <table id="commentListTable">
 <c:forEach items="${commentList }" var="comment">
-	<tr>
-		<td>댓글번호 : ${comment.commentNo }</td>
-		<td>댓글내용 : ${comment.commentContent }</td>
-		<td>작성자 : ${comment.userNick }</td>
-		<td>작성일 : <fmt:formatDate value="${comment.commentDate }" pattern="yy-MM-dd HH:mm:ss"/></td>
-		<td><button class="commentDelete" value="${comment.commentNo}">삭제</button></td>
-<%-- 		<td><a href="${comment.commentNo}">삭제</a></td> --%>
-	</tr>
+	<tbody class="commentOne">
+		<tr>
+	<%-- 		<td>댓글번호 : ${comment.commentNo } </td> --%>
+			<td style="width:450px">작성자 : ${comment.userNick } </td>
+			<td style="text-align:right">작성일 : <fmt:formatDate value="${comment.commentDate }" pattern="yy-MM-dd HH:mm:ss"/></td>
+		</tr>
+		<tr>
+			<td>댓글내용 : ${comment.commentContent } </td>
+	<%-- 		<c:set var="userNo" value='<%=session.getAttribute("userNo")%>'/> --%>
+			<c:set var="userNo" value="${userNo }"/>
+			<c:choose>
+				<c:when test="${comment.userNo eq userNo}">
+					<td style="text-align:right"><button class="commentDelete" value="${comment.commentNo}">삭제</button></td>
+				</c:when>
+				<c:otherwise>
+					<td></td>
+				</c:otherwise>
+			</c:choose>
+		</tr>
+		<tr id="commentSpace"></tr>
+	</tbody>
 </c:forEach>
 </table>

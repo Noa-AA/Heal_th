@@ -3,10 +3,24 @@
 
 <%@include file="../layout/header.jsp" %>
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function() {
+
+	var createRoomNo = <%= request.getAttribute("createRoomNo")%>
+	console.log("받은 createRoom : " + createRoomNo)
+// 	var createRoomNo = null;
+		
+	if ( createRoomNo == null || createRoomNo =="" || createRoomNo == "undefined") {
+		console.log ( "createRoomNo가 값이 없음" )
+	} else {
+		console.log( createRoomNo );
+		goChat( createRoomNo );
+	}
+		
 	
+	/* 리스트를 누르면 해당리스트는 안눌리기 */
 	$(".roomBtn").click(function() {
 		
 		$(this).attr("disabled", true);
@@ -14,10 +28,21 @@ $(document).ready(function() {
 		$(".roomBtn").not(this).attr("disabled", false);
 		
 		console.log(".roomBtnClick")
-		
 	})
+	
+	
+// 	/* 리스트에 마우스 오버하면 색 바뀌기 */
+// 	$(".roomBtn").hover(function() {
+// 		$(this).css("background-color", "#eee");
+// 	})
+// 	/* 나가면 색 그대로 돌리기 */
+// 	$(".roomBtn").hover(function() {
+// 		$(this).css("background-color", "#eee");
+// 	})
 		
+	
 })
+
 
 
 
@@ -39,6 +64,7 @@ function goChat(roomNo) {
 		//응답 데이터 반영
 		$("#result").html( res )
 		
+		
 	}
 		
 	, error: function() {
@@ -54,49 +80,152 @@ function goChat(roomNo) {
 
 <style type="text/css">
 
+button, input {
+	background: transparent;
+    border: none;
+	outline: 0;
+}
+
+/* 전체 영역 */
 #backGround{
-	width: 800px;
-	height: 500px;
+	display: flex;
+	justify-content: space-between;
+	width: 1200px;
+	height: 530px;
 	margin: 0 auto;
 }
 
+
+/* 좌측 메뉴 영역 */
 #roomMenu {
-	width: 200px;
-	float: left;
+	box-sizing: border-box;
+	border-left: 1px solid #eee;
+	border-right: 1px solid #eee;
+	border-bottom: 1px solid #eee;
 }
 
+
+/* 내 아이디 부분 */
+#myId {
+	display:flex;
+	align-items: center;
+	width: 300px;
+	height: 70px;
+	padding-left: 16px;
+	font-size: 20px;
+	font-weight: 700;
+	color: #fff;
+	background: linear-gradient(90deg, #7ca3f5 , #c583d6);
+}
+
+/* 방 리스트 버튼 */
 .roomBtn {
-	width: 200px;
-	height: 50px;
-	font-size: 18px;
-	background-color: #efefef;
-	text-align: center;
-	border: 1px solid #ddd;
+	display: flex;
+	align-items: center;
+	width: 300px;
+	height: 74px;
+	background-color: #fff;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
 	line-height: 50px;
-	margin-bottom: 6px;
+	margin-top: -1px;
+}
+
+.roomBtn:hover {
+	background-color: #f0f0f0;
+}
+
+/* 왼쪽 사진부분 */
+.left {
+	display: flex;
+	width: 44px;
+	height: 44px;
+	margin-right: 14px;
+	margin-left: 16px;
+}
+
+.left > img {
+	border-radius: 20px;
+}
+
+
+/* 오른쪽 닉네임, 마지막채팅 부분 */
+.right {
+	width: 70%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	overflow: hidden;
+}
+
+.right > p {
+	max-width: 210px;
+	min-width: 0;
+	height: 20px;
+	text-overflow: ellipsis; 
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+/* 닉네임 */
+.reciverNick {
+	display: flex;
+	align-items: center;
+	font-weight: 600;
+	color: #222;
+	font-size: 17px;
+}
+
+/* 마지막 채팅 */
+.lastChat {
+	display: flex;
+	align-items: center;
+	font-size: 15px;
+	color: #666;
 }
 
 #result {
 	float: right;
+	width: 900px;
 }
 
+
+body {
+	padding-top: 300px;
+}
 
 </style>
 
 <body>
 
-<h1>아아디 : ${userId }님의 채팅목록 </h1>
-<hr>
+<body>
+<div id="subvisual">
+	<div id="subvisual-A">
+		<p id="subv-title">운동 질문하기</p>
+		<p id="subv-content">챌린지, 운동을 하며 궁금했던 점을 멘토들에게 궁금한점을 물어보세요.</p>
+	</div>
+</div>
+
 
 
 <div id="backGround">
 	
 	<div id="roomMenu">
+		<div id="myId">
+			${userId }
+		</div>
 		<c:forEach items="${roomList }" var="room">
 <%-- 			<div class="room" onclick="goChat(${room.roomNo })"> --%>
 				<button class="roomBtn" onclick="goChat(${room.roomNo })" >
-					<span class="roomSp">${room.roomNo }번방</span>
+				<div class="left">
+					<img src="https://webimage.10x10.co.kr/eventIMG/2022/118925/etcitemban20220623180508.JPEG">
+				</div>
+				<div class="right">
+						<p class="reciverNick">${room.userNick }</p>
+						<p class="lastChat ${room.roomNo }"></p>
+				</div>
 				</button>
+				
 <!-- 			</div> -->
 		</c:forEach>
 	</div>
@@ -108,5 +237,7 @@ function goChat(roomNo) {
 
 </body>
 
+<jsp:include page="webSocketArea.jsp" />
+<%@include file="../layout/footer.jsp" %>
 
 </html>

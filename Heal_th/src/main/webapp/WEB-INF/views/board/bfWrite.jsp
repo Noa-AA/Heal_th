@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -367,7 +371,7 @@ $(document).ready(function(){
                 <div class="row">
                     <div class="col-md-12 mx-0">
                     
-                        <form id="msform" method="post" action="/board/bf_write">
+                        <form id="msform" method="post" action="/board/bfWrite">
                         
                         
                             <!-- progressbar -->

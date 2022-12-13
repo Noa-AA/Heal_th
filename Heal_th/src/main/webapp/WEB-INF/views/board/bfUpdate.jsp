@@ -134,7 +134,7 @@ html {
 
 #btnCancle{
      width: 100px; 
-     background: #616161; 
+     background: #616161;
      font-weight: bold; 
      color: white; 
      border: 0 none; 

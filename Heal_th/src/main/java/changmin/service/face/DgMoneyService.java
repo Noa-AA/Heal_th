@@ -54,9 +54,17 @@ public interface DgMoneyService {
 	 */
 	public List<WithDraw> getWithDrawList(AdminWithDrawPaging wdPaging);
 
+	/**
+	 * 득근머니 수정
+	 * @param wd
+	 */
 	public void changeMmoney(WithDraw wd);
 
-
+	/**
+	 * 인출정보 페이징
+	 * @param curPage
+	 * @return
+	 */
 	public AdminWithDrawPaging getWdPaging(String curPage);
 
 }

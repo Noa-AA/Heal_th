@@ -10,10 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import unhak.dto.CartDto;
 import unhak.dto.StoreDto;
 import unhak.service.face.StoreService;
 import unhak.util.StorePaging;
@@ -37,11 +41,11 @@ public class StoreController {
 			@RequestParam(defaultValue = "0") int curPage
 			, Model model	
 			) {
-		StorePaging paging = StoreService.getPaging(curPage);
+		StorePaging paging = storeService.getPaging(curPage);
 		logger.info("store/list[GET]");
 		
 		
-		logger.debug("{}", paging);
+		logger.info("{}", paging);
 		model.addAttribute("paging", paging);
 		
 		List<StoreDto> list = storeService.list(paging);
@@ -54,7 +58,7 @@ public class StoreController {
 	@RequestMapping(value="/view", method=RequestMethod.GET)
 	public String storeview(StoreDto viewStore,   Model model) {
 		
-		logger.debug("{}",viewStore);
+		logger.info("{}",viewStore);
 		logger.info("store/view[GET]");
 
 		//잘못된 게시글 번호 처리
@@ -65,7 +69,7 @@ public class StoreController {
 		
 		//상품 조회
 		viewStore = storeService.storeview(viewStore);
-		logger.debug("조회된 상품{}",viewStore);
+		logger.info("조회된 상품{}",viewStore);
 		
 		//모델값 전달
 		model.addAttribute("viewStore",viewStore);
@@ -86,5 +90,31 @@ public class StoreController {
 		
 		return null;
 	}
+	
+	
+	
+	
+//	// 장바구니 담기
+//	@ResponseBody
+//	@RequestMapping(value = "/cart", method = RequestMethod.POST)
+//	public int addCart(CartDto cart, HttpSession session) {
+//	 
+//		String userNo = (String)session.getAttribute("userNo");
+//		
+//		logger.info("prodNo :{} ",cart);
+//		
+//		return 1; //나중에 바꿀것
+//	}
+	
+	  @PostMapping("/cart/{id}/{itemId}")
+	    public String addCartItem(@PathVariable("id") Integer id, @PathVariable("itemId") Integer itemId, int amount) {
+
+//	        User user = userPageService.findUser(id);
+//	        Item item = itemService.itemView(itemId);
+//
+//	        cartService.addCart(user, item, amount);
+
+	        return "redirect:/item/view/{itemId}";
+	    }
 	
 }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
-
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	 //아이디 입력창에 포커스 주기
@@ -19,7 +19,6 @@ $(document).ready(function(){
 	})
 	
 
-	
 })
 
 
@@ -36,7 +35,9 @@ $(document).ready(function(){
 
 }
 
-
+button{
+	border:  none;
+}
 </style>
 <body>
 
@@ -54,7 +55,7 @@ $(document).ready(function(){
 		
 		<div id="pw">
 			비밀번호 
-			<input type="text" name="userPw" placeholder="비밀번호를 입력하세요" id="userPw">
+			<input type="password" name="userPw" placeholder="비밀번호를 입력하세요" id="userPw">
 		</div>
 		
 		<c:if test="${isLogin == false}">
@@ -67,21 +68,34 @@ $(document).ready(function(){
 	</form>
 	
 	
+	
 	<div id="joina">
 		<a href="/login/join">회원가입</a>
 	</div>
 	
+	<!-- 네이버 로그인 버튼 노출 영역 -->
+	<div id="naverLogin">
+		<a id="btnNaver" href="${naverURL}"><img src="<%=request.getContextPath() %>/resources/img/login/btnG_완성형.png" width="223"></a>
+	
+	</div>
+	
+	<!-- 카카오 로그인 버튼 노출 영역 -->
+	<div id="kakoLogin">
+		<a id="btnKakao" href="${kakaoURL}"><img src="<%=request.getContextPath() %>/resources/img/login/kakao_login_medium_narrow.png" width="223"></a>
+	</div>
 	
 	<div id="searchId">
 		<a href="/login/searchId">아이디찾기</a>
 	</div>
 	
 	<div id="searchPw">
-		<a href="">비밀번호 찾기</a>
+		<a href="/login/searchPw">비밀번호 찾기</a>
 	
 	</div>
 	
 	
 </div>
 </body>
+
+
 </html>

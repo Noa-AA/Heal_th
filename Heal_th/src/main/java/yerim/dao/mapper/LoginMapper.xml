@@ -23,6 +23,57 @@
    		WHERE user_name=#{userName} and user_email=#{userEmail}
    	
    	</select>
+   	
+   	<select id="selectById" resultType="string" parameterType="Users">
+   		SELECT user_id FROM users
+   		WHERE user_name = #{userName} and user_email = #{userEmail}
+   	
+   	</select>
+   	
+   	<select id="selectUserBySms" resultType="int" parameterType="Users"> 
+		SELECT count(*) FROM users
+		WHERE user_name=#{userName} and user_phone =#{userPhone} 
+   	
+   	</select>
+   	
+   	<select id="selectByNamePhone" resultType="string" parameterType="Users">
+   	 SELECT user_id FROM users
+   	 WHERE user_name =#{userName} and user_phone=#{userPhone}
+   	</select>
+   	
+   	<select id="selectUserIdForPw" resultType="int" parameterType="Users">
+   		SELECT count(*) FROM users
+   		WHERE user_name =#{userName} and user_Id=#{userId} and user_phone=#{userPhone} and user_birth =#{userBirth}
+   	
+   	</select>
+   	
+   	<select id="selectByPw" resultType="int" parameterType="Users" >
+   	 	SELECT count(*) FROM users
+   	 	WHERE user_pw = #{userPw} and user_name=#{userName} and user_id=#{userId} and user_birth =#{userBirth}
+   	
+   	 </select>
+   	
+   	<update id="updateNewPw" parameterType="Users" >
+   		UPDATE users
+   		SET user_pw = #{userPw}
+   		WHERE user_id=#{userId} and user_name=#{userName}and user_birth =#{userBirth}
+   	
+   	</update>
+   	
+   	<select id="isNaverJoin" parameterType="Users" resultType="int">
+   	
+   		Select count(*) FROM users
+   		WHERE user_name =#{userName} and user_id=#{userId}
+   	</select>
+   	
+   	<select id="loginByNaver" resultType="int" parameterType="Users">
+   	
+   		SELECT user_no FROM users
+   		WHERE user_id =#{userId} and 																																													user_name=#{userName}
+   	</select> 
+   	
+
+   	
   </mapper>
   
   

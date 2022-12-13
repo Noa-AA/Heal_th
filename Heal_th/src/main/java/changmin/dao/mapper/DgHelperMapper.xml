@@ -9,7 +9,7 @@
 
 	<insert id="insertRecord" parameterType="HealthRecord">
 		INSERT INTO healthrecord (record_no, record_date, record_con, user_no)
-		VALUES (healthrecord_seq.nextval, to_char(systimestamp, 'yyyy"년 "mm"월 "dd"일" hh:mm:ss'), #{recordCon}, #{userNo})
+		VALUES (healthrecord_seq.nextval, to_char(systimestamp, 'yyyy"년" mm"월" dd"일" HH24:mi:ss'), #{recordCon}, #{userNo})
 	</insert>
 	
 	<select id="selectRecord" resultType="HealthRecord" parameterType="DgHelperPaging">
@@ -18,6 +18,7 @@
 		      SELECT
 		         record_no, record_date, record_con, user_no
 		       FROM healthrecord
+		       WHERE user_no=#{userno}
 		       ORDER BY record_no DESC
 		    ) R
 		 ) RECORD
@@ -25,7 +26,7 @@
 	</select>
 	
 	<select id="selectCntAll" resultType="int">
-		SELECT count(*) FROM healthrecord 
+		SELECT count(*) FROM healthrecord WHERE user_no = #{userno}
 	</select>
 	
 	<select id="selectBodyInfo" resultType="BodyInfo" parameterType="int">
@@ -73,5 +74,32 @@
 			dgma_exp=#{dgmaExp}
 		WHERE dgma_no = #{dgmaNo}
 	</update>
+	
+	<select id="selectDgmaRanking" resultType="DgmaJoin" >
+		SELECT u.user_nick, d.dgma_exp
+		FROM users u INNER JOIN dgmagotchi d
+		ON u.user_no = d.user_no
+		WHERE rownum <![CDATA[<=]]>3
+		ORDER BY d.dgma_exp DESC
+	</select>
+	
+	<select id="selectMyNick" resultType="string" parameterType="int">
+		SELECT user_nick
+		FROM users
+		WHERE user_no=#{userno}
+	</select>
+	
+	<insert id="insertDgmaChat" parameterType="Dgmachat">
+		INSERT INTO dgmachat
+		VALUES (dgmachat_seq.nextval, #{dgmachatCon}, #{userNick})
+	</insert>
+	
+	<select id="selectDgmaChat" resultType="Dgmachat">
+		SELECT user_nick, dgmachat_con FROM dgmachat a
+		INNER JOIN (SELECT dgmachat_no FROM dgmachat
+		            WHERE ROWNUM <![CDATA[<=]]> 5
+		            ORDER BY dgmachat_no DESC) b
+		ON a.dgmachat_no = b.dgmachat_no
+	</select>
 	
 </mapper>
