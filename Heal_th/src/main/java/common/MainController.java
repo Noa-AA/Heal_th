@@ -15,7 +15,7 @@ public class MainController {
 	public String main() {
 		logger.info("/main");
 		
-		return("redirect:/chat/intro");
+		return("redirect:/chat/chatRoom");
 	}
 	
 }

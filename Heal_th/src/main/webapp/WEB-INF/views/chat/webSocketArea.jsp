@@ -27,18 +27,23 @@
 		}
 		
 		var id = data.split(" : ");
+		var content = data.split(" : ");
 
-		if (id[0] == "${senderNick }") {
-			$("#messages").append( "<div id='senderMsg'><a id='timeS'>" + dateInfo + "</a><a id='msgS'>" + data + "</a></div>");
-		} else if( id[0] != "${senderNick }" && id[0] != "createOk" ) {
-			$("#messages").append( "<div id='receiverMsg'><a id='msgR'>" + data + "</a><a id='timeR'>" + dateInfo + "</a></div>");
-		} else if (id[0] = "createOk") {
-			$("#roomMenu").append( "<button class='roomBtn' onclick='goChat(${room.roomNo })' <span class='roomSp'>${room.userNick }</span> " )
+// 		console.log(id);
+		
+		if ( id[0] == "${senderNick }" && id[1] != "listChat" ) {
+			$("#messages").append( "<div id='senderMsg'><a id='timeS'>" + dateInfo + "</a><a id='msgS'>" + content[1] + "</a></div>");
+		} else if ( id[0] != "${senderNick }" && id[1] != "listChat") {
+			$("#messages").append( "<div id='receiverMsg'><a id='msgR'>" + content[1] + "</a><a id='timeR'>" + dateInfo + "</a></div>");
+		} 
+		
+		if ( id[1] === "listChat" ) {
+			$("."+id[3]).html( content[2] );
 		}
 		
+		
+		
 
-		//     console.log(data);
-		//     $("#messages").append( data + "<br/>" );
 	}
 
 	// 서버와 연결을 끊었을 때
