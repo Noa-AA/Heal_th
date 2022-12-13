@@ -51,5 +51,26 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDao.selectNotice(viewNotice);
 	}
 	
+	@Override
+	
+	public void write(Notice notice) {
+		
+		if("".equals(notice.getNoticeTtl())) {
+			notice.setNoticeTtl("제목없음");
+		}
+		
+		noticeDao.insertNotice(notice);
+	}
+	
+	@Override
+	public void update(Notice notice) {
+		if("".equals(notice.getNoticeTtl())) {
+			notice.setNoticeTtl("제목없음");
+		}
+		
+		noticeDao.updateNotice(notice);
+		
+	}
 
 }
+

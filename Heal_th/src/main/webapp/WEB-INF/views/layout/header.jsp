@@ -357,8 +357,8 @@ header{
 <!-- 				<img src="/resources/img/logo_green.png" alt="득근득근"> -->
 				<img src="/resources/img/logo_purple.png" alt="득근득근">
 			</a>		
-		</h1>
-				
+		</h1>	
+			
 		<div id="menu">
 		<ul>
 			<li>

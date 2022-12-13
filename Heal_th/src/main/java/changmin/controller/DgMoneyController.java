@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import changmin.dto.MmoneyPay;
 import changmin.dto.WithDraw;
@@ -93,26 +94,44 @@ public class DgMoneyController {
 	
 	//관리자 - 인출신청내역 조회
 	@RequestMapping(value = "/admin/withdraw", method = RequestMethod.GET)
-	public void withDrawAdmin(Model model, String curPage) {
+	public void withDrawAdmin(Model model, String curPage, String selectOption) {
 		logger.info("/admin/withdraw [GET]");
+		logger.info("selectOption : {}", selectOption);
 
 		AdminWithDrawPaging wdPaging = dgMoneyService.getWdPaging(curPage);
 		model.addAttribute("paging", wdPaging);
 		
-		List<WithDraw> withDraw = dgMoneyService.getWithDrawList(wdPaging);
+		List<WithDraw> withDraw = dgMoneyService.getWithDrawList(wdPaging, selectOption);
 		logger.info("인출신청 리스트 : {}", withDraw);
 		
 		model.addAttribute("withDraw", withDraw);
+		
+	}
+
+	//관리자 - 인출신청내역 조회 (정렬)
+	@RequestMapping(value = "/admin/withdrawOrder", method = RequestMethod.GET)
+	public void withDrawAdminOrder(Model model, String curPage, String selectOption) {
+		logger.info("/admin/withdraw [GET]");
+		logger.info("selectOption : {}", selectOption);
+
+		AdminWithDrawPaging wdPaging = dgMoneyService.getWdPaging(curPage);
+		model.addAttribute("paging", wdPaging);
+		
+		List<WithDraw> withDraw = dgMoneyService.getWithDrawList(wdPaging, selectOption);
+		logger.info("인출신청 리스트 : {}", withDraw);
+		
+		model.addAttribute("withDraw", withDraw);
+		
 	}
 	
 	//관리자 - 인출신청 승인
 	@RequestMapping(value = "/admin/withdrawProc", method = RequestMethod.POST)
-	public String withDrawUpdate(Model model, String curPage, WithDraw wd) {
+	public String withDrawUpdate(Model model, String curPage, WithDraw wd, String selectOption) {
 		logger.info("/admin/withdrawProc [POST]");
 		
 		AdminWithDrawPaging wdPaging = dgMoneyService.getWdPaging(curPage);
 
-		List<WithDraw> withDraw = dgMoneyService.getWithDrawList(wdPaging);
+		List<WithDraw> withDraw = dgMoneyService.getWithDrawList(wdPaging, selectOption);
 		
 		logger.info("인출신청 리스트 : {}", withDraw);
 		
@@ -123,5 +142,7 @@ public class DgMoneyController {
 		
 		return "redirect: /admin/withdraw";
 	}
+	
+	
 	
 }

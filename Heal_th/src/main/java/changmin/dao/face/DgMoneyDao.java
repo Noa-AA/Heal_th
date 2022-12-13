@@ -73,4 +73,11 @@ public interface DgMoneyDao {
 	 */
 	public List<WithDraw> selectWithDrawList(AdminWithDrawPaging wdPaging);
 
+	/**
+	 * 정렬기준에 따른 인출신청내역 조회 
+	 * @param wdPaging
+	 * @return
+	 */
+	public List<WithDraw> selectWithDrawListOrderByProc(AdminWithDrawPaging wdPaging);
+
 }
