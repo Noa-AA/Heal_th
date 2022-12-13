@@ -28,7 +28,7 @@ public class ChatController {
 		private final Logger logger = LoggerFactory.getLogger(this.getClass());
 		
 		@Autowired ChatService chatService;
-		
+		 
 		
 		//1. 멘토 리스트
 		@RequestMapping("/intro")

@@ -18,11 +18,12 @@ public class Users {
 	private Date userJoinDate;
 	private String userBirth;
 	private String userGender;
-	private int dgMoney;
+	private int dgMoney;																	
 	private int point;
 	private int rankingNo;
 	private int kakaNo;
 	private int naverNo;
+	private String joinType;
 	
 
 	public Users() {}
@@ -30,7 +31,8 @@ public class Users {
 
 	public Users(int userNo, String userId, String userPw, String userNick, String userPhone, String userAddress,
 			String userEmail, String userName, String userIntro, String userJob, String userPhoto, Date userJoinDate,
-			String userBirth, String userGender, int dgMoney, int point, int rankingNo, int kakaNo, int naverNo) {
+			String userBirth, String userGender, int dgMoney, int point, int rankingNo, int kakaNo, int naverNo,
+			String joinType) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -51,6 +53,7 @@ public class Users {
 		this.rankingNo = rankingNo;
 		this.kakaNo = kakaNo;
 		this.naverNo = naverNo;
+		this.joinType = joinType;
 	}
 
 
@@ -61,7 +64,7 @@ public class Users {
 				+ ", userName=" + userName + ", userIntro=" + userIntro + ", userJob=" + userJob + ", userPhoto="
 				+ userPhoto + ", userJoinDate=" + userJoinDate + ", userBirth=" + userBirth + ", userGender="
 				+ userGender + ", dgMoney=" + dgMoney + ", point=" + point + ", rankingNo=" + rankingNo + ", kakaNo="
-				+ kakaNo + ", naverNo=" + naverNo + "]";
+				+ kakaNo + ", naverNo=" + naverNo + ", joinType=" + joinType + "]";
 	}
 
 
@@ -254,5 +257,16 @@ public class Users {
 		this.naverNo = naverNo;
 	}
 
-	
+
+	public String getJoinType() {
+		return joinType;
+	}
+
+
+	public void setJoinType(String joinType) {
+		this.joinType = joinType;
+	}
+
+
+
 }
