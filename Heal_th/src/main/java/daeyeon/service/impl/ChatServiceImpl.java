@@ -2,6 +2,8 @@ package daeyeon.service.impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,25 +42,15 @@ public class ChatServiceImpl implements ChatService {
 	
 	
 	// /chat/chatRoom
-	//---------- 유저번호를 이용해서 소속된 채팅방 조회하기
+	//---------- 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
 	@Override
 	public List<RoomList> roomList(Users myUserNo) {
 		logger.info("roomList() - {}", myUserNo);
 		
 		//채팅방 목록 조회 - ChatDao 이용
-		List<RoomList> roomList = chatDao.selectRoomList(myUserNo); 
+		List<RoomList> roomList = chatDao.selectRoomList(myUserNo);
 		
 		return roomList;
-	}
-	
-	
-	// /chat/chatArea
-	//---------- 채팅 내용 저장하기
-	@Override
-	public void addChat(Chat chat) {
-		logger.info("addChat() - {}", chat);
-		
-		chatDao.insertChat(chat);
 	}
 	
 	
@@ -97,11 +89,11 @@ public class ChatServiceImpl implements ChatService {
 	// /chat/createChatRoom
 	//---------- 채팅방 만들기
 	@Override
-	public void createChatRoom(int yourUserNo, int myUserNo) {
+	public int createChatRoom(int yourUserNo, int myUserNo, HttpSession session) {
 		logger.info("createChatRoom() - yourUserNo : {} , myUserNo : {}", yourUserNo, myUserNo);
 				
 		ChatRoom chatRoom = new ChatRoom();
-			
+		
 		//채팅방 만들기
 		int result = chatDao.insertChatRoom(chatRoom);
 				
@@ -109,16 +101,61 @@ public class ChatServiceImpl implements ChatService {
 		logger.info("채팅방 만들때 사용된 방번호 : {}", chatRoom.getRoomNo());  
 		chatRoom.setRoomNo(chatRoom.getRoomNo());
 				
+		
 		if( result > 0) { //채팅방 만들기 성공시
 					
 			chatRoom.setUserNo(myUserNo);
 			chatDao.insertChatListByMy(chatRoom); //자신의 룸리스트 만들기
-					
+			
 			chatRoom.setUserNo(yourUserNo);
 			chatDao.insertChatListByYou(chatRoom); //상대방 룸리스트 만들기
-					
-			}
-		}
+			
+			return chatRoom.getRoomNo();
+			
+		} 
+		
+		return chatRoom.getRoomNo();
+	}
+	
+	
+	// /chat/chatArea
+	//---------- 상대방 닉네임 조회하기
+	@Override
+	public String getReciverNick(RoomList roomNo) {
+		return chatDao.selectReciverNick(roomNo);
+	}
+	
+	// /chat/chatArea
+	//---------- 본인의 닉네임 조회하기
+	@Override
+	public String getSenderNick(HttpSession session) {
+		logger.info("getSenderNick() - {}", session.getAttribute("userNo"));
+		int myUserNo = (int)session.getAttribute("userNo");
+		
+		return chatDao.selectSenderNick(myUserNo);
+	}
+	
+	
+	// /chat/chatArea
+	//---------- 채팅 내용 저장하기
+	@Override
+	public void addChat(Chat chat) {
+		logger.info("addChat() - {}", chat);
+		
+		chatDao.insertChat(chat);
+	}
+	
+	
+	// /chat/chatArea
+	//---------- 채팅 내용 불러오기
+	@Override
+	public List<Chat> gerChatList(RoomList roomNo) {
+		logger.info("gerChatList() - {}", roomNo);
+
+		List<Chat> chatList = chatDao.selectChat(roomNo); 
+		
+		return chatList;
+	}
 	
 }
 

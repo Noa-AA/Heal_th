@@ -24,22 +24,12 @@ public interface ChatDao {
 	/**
 	 * chat/chatRoom
 	 * 
-	 * 자신의 회원번호가 속한 채팅방 조회하기
+	 * 자신의 회원번호가 속한 채팅방번호와 상대방 닉네임 조회하기
 	 * 
 	 * @param myUserNo - 자신의 회원번호
-	 * @return - 조회된 채팅방들
+	 * @return - 조회된 채팅방번호와 상대방 닉네임
 	 */
 	public List<RoomList> selectRoomList(Users myUserNo);
-
-
-	/**
-	 * chat/chatArea
-	 * 
-	 * 채팅내용 테이블에 저장하기
-	 * 
-	 * @param chat - 회원번호, 채팅방 번호, 채팅 내용이 담긴 Chat dto
-	 */
-	public void insertChat(Chat chat);
 
 
 	/**
@@ -94,6 +84,47 @@ public interface ChatDao {
 	 * @param chatRoom - 추가될 상대방의 회원번호, 채팅방번호
 	 */
 	public void insertChatListByYou(ChatRoom chatRoom);
+
+
+	/**
+	 * chat/chatArea
+	 * 
+	 * 룸번호로 상대방 이름 조회하기
+	 * 
+	 * @param roomNo - 방번호와 자신의 회원번호가 저장되있는 dto
+	 * @return - 같은 채팅방의 상대방 이름
+	 */
+	public String selectReciverNick(RoomList roomNo);
+
+
+	/**
+	 * chat/chatArea
+	 * 
+	 * 채팅내용 테이블에 저장하기
+	 * 
+	 * @param chat - 회원번호, 채팅방 번호, 채팅 내용이 담긴 Chat dto
+	 */
+	public void insertChat(Chat chat);
+
+	
+	/**
+	 * 세션에 있는 내 유저넘버로 내 닉네임 조회하기
+	 * 
+	 * @param myUserNo - 내 유저번호
+	 * @return - 조회된 유저닉네임
+	 */
+	public String selectSenderNick(int myUserNo);
+
+
+	/**
+	 * chat/chatArea
+	 * 
+	 * 채팅내용 불러오기
+	 * 
+	 * @param roomNo - 조회할 채팅방 번호
+	 * @return List<Chat> - 채팅내용
+	 */
+	public List<Chat> selectChat(RoomList roomNo);
 
 
 	

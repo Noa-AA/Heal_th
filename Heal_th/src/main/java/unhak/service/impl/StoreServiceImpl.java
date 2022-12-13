@@ -55,11 +55,11 @@ public StorePaging getPaging(int curPage) {
 
 	
 	//카트담기
-	@Override
-	public void addCart(CartDto cart) throws Exception {
-		storeDao.addCart(cart);
-		
-	}
+//	@Override
+//	public void addCart(CartDto cart) {
+//		storeDao.addCart(cart);
+//		
+//	}
 	
 	
 	

@@ -54,6 +54,12 @@ $(document).ready(function(){
 		}
 	})
 	
+	if(${paging.totalCount}<3){
+		$("#recordlist").css("min-height","430.7px");
+	} else {
+		$("#recordlist").css("min-height","750.7px");
+	}
+	
 
 });
 
@@ -152,7 +158,7 @@ ul {
 	border-radius: 8px;
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
 	text-align: center;
-	border: 1px solid black;
+	border: 1px solid #9d9d9d;
 }
 
 #recordNo {
@@ -186,7 +192,7 @@ ul {
     display: flex;
     flex-direction: column;
     width: 550px;
-    margin-bottom: -355px;
+    margin-bottom: -350px;
     position: relative;
     left: 25px;
 } 
@@ -348,4 +354,5 @@ body {
 </div>
 
 </body>
+<%@include file="../layout/footer.jsp" %>
 </html>

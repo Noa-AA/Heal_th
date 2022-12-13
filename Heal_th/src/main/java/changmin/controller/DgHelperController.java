@@ -46,11 +46,12 @@ public class DgHelperController {
 		
 		if(session.getAttribute("userNo")!=null && session.getAttribute("userNo")!="") {
 			
-		int userno = (int) session.getAttribute("userNo");
-		logger.info("userno : {}", userno);
+			int userno = (int) session.getAttribute("userNo");
+			logger.info("userno : {}", userno);
+			
+			DgHelperPaging dgHelperPaging = new DgHelperPaging();
 		
-		
-			DgHelperPaging dgHelperPaging = dgHelperService.getDgHelperPaging(curPage, userno);
+			dgHelperPaging = dgHelperService.getDgHelperPaging(curPage, userno);
 			List<HealthRecord> recordList = dgHelperService.getRecordList(dgHelperPaging, userno);
 		
 			model.addAttribute("list",recordList);
@@ -204,33 +205,39 @@ public class DgHelperController {
 	
 	//득근이 키우기
 	@RequestMapping(value="/dghelper/dgmagotchiContent", method=RequestMethod.GET)
-	public void dgmagotchi(HttpSession session, Model model) {
+	public String dgmagotchi(HttpSession session, Model model) {
 		logger.info("/dghelper/dgmagotchiContent [GET]");
 		
-		int userno = (int) session.getAttribute("userNo");
-		logger.info("userno : {}", userno);
-
-		
-		//득마고치 정보가 없을 경우 새로 만들기
-		int cnt = dgHelperService.getDgmaCnt(userno);
-		
-		if(cnt==0) {
-			dgHelperService.addDgmaInfo(userno);
+		if(session.getAttribute("userNo")!=null && session.getAttribute("userNo")!="") {
+			
+			int userno = (int) session.getAttribute("userNo");
+			logger.info("userno : {}", userno);
+	
+			
+			//득마고치 정보가 없을 경우 새로 만들기
+			int cnt = dgHelperService.getDgmaCnt(userno);
+			
+			if(cnt==0) {
+				dgHelperService.addDgmaInfo(userno);
+			}
+			
+			//득마고치 정보 불러오기
+			Dgmagotchi dgmaLoad = dgHelperService.getDgmaInfo(userno);
+			model.addAttribute("dgmainfo", dgmaLoad);
+			
+			//득마고치 랭킹 조회
+			List<DgmaJoin> dgmaRanking = dgHelperService.getDgmaRanking();
+			logger.info("dgmaRanking : {}", dgmaRanking);
+			model.addAttribute("dgmaRanking", dgmaRanking);
+			
+			//득마고치 닉네임 조회
+			String nick = dgHelperService.getMyNick(userno);
+			logger.info("myNick : {}", nick);
+			model.addAttribute("nick", nick);
+			return "/dghelper/dgmagotchiContent";
+		} else {
+			return "/login/login";
 		}
-		
-		//득마고치 정보 불러오기
-		Dgmagotchi dgmaLoad = dgHelperService.getDgmaInfo(userno);
-		model.addAttribute("dgmainfo", dgmaLoad);
-		
-		//득마고치 랭킹 조회
-		List<DgmaJoin> dgmaRanking = dgHelperService.getDgmaRanking();
-		logger.info("dgmaRanking : {}", dgmaRanking);
-		model.addAttribute("dgmaRanking", dgmaRanking);
-		
-		//득마고치 닉네임 조회
-		String nick = dgHelperService.getMyNick(userno);
-		logger.info("myNick : {}", nick);
-		model.addAttribute("nick", nick);
 			
 	}
 	
@@ -252,13 +259,16 @@ public class DgHelperController {
 		return dgmagotchi.getDgmaExp();
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/dghelper/dgmaChat", method=RequestMethod.POST)
-	public void dgmaChatPost(Dgmachat dgmachat) {
+	public boolean dgmaChatPost(Dgmachat dgmachat) {
 		logger.info("/dghelper/dgmaChat [POST]");
 		
 		logger.info("dgmachat : {}", dgmachat);
 		
 		dgHelperService.pushChat(dgmachat);
+		
+		return true;
 	}
 
 	@RequestMapping(value="/dghelper/dgmaChat", method=RequestMethod.GET)
