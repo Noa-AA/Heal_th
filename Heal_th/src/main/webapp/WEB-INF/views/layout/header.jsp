@@ -59,8 +59,12 @@ a {
     text-decoration: none;
 }
 
-header{
-	margin-bottom: 160px;
+input {
+	padding-left: 5px;
+}
+
+header {
+	margin-bottom: 140px;
 }
 
 #topMenu {
@@ -245,7 +249,7 @@ header{
 
 #subvisual #subv-title {
     font-family: 'SUIT';
-    font-size: 40px;
+    font-size: 42px;
     font-weight: 700;
 }
 
@@ -253,6 +257,31 @@ header{
     font-family: 'SUIT';
 	font-size: 15px;
 	color: #888888;
+}
+
+#twoDepth {
+	position: absolute;
+    top: 355px;
+    width: 100%;
+    height: 70px;
+    border-bottom: 1px solid silver;
+}
+
+#twoDepth-list {
+	width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	height: 70px;
+}
+
+#twoDepth-list a {
+	padding: 10px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #484848;
+    font-size: 18px;
+    width: 20%;
 }
 
 .footer {
@@ -271,6 +300,12 @@ header{
 	margin: 0 auto;
 	height: 100px;
 	padding: 10px 0;
+}
+
+.big-container h3:nth-child(1){
+	padding-bottom: 55px;
+	font-size: 32px;
+    font-weight: 700;
 }
 
 </style>
