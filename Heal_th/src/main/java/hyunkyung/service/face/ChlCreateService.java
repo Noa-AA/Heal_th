@@ -2,7 +2,7 @@ package hyunkyung.service.face;
 
 import hyunkyung.dto.Challenge;
 
-public interface CreateService {
+public interface ChlCreateService {
 
 	/**
 	 * 챌린지 만들기

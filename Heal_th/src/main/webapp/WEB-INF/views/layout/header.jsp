@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="/resources/img/favicon.ico" type="image/x-icon"/>
 <meta charset="UTF-8">
 <title>심장이 득근</title>
 
@@ -59,7 +60,7 @@ a {
 }
 
 header{
-	margin-bottom: 180px;
+	margin-bottom: 160px;
 }
 
 #topMenu {
@@ -223,6 +224,53 @@ header{
 	height: 20px;
     color: #666;
     font-weight: 400;
+}
+
+#subvisual {
+    position: absolute;
+    top: 80px;
+    width: 100%;
+    height: 275px;
+    background: linear-gradient(#fbf5fd 0 , #eaecfb);
+    text-align: center;
+}
+
+#subvisual-A {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#subvisual #subv-title {
+    font-family: 'SUIT';
+    font-size: 40px;
+    font-weight: 700;
+}
+
+#subvisual #subv-content {
+    font-family: 'SUIT';
+	font-size: 15px;
+	color: #888888;
+}
+
+.footer {
+    width: 100%;
+    min-width: 1048px;
+	bottom: 0;
+	height: 100px;
+	border-top: 1px solid #ddd;
+	background: #fff;
+	z-index: 99;
+	margin-top: 160px;
+} 
+
+.footer-wrap {
+	width: 1200px;
+	margin: 0 auto;
+	height: 100px;
+	padding: 10px 0;
 }
 
 </style>

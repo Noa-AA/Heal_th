@@ -34,7 +34,7 @@
 <c:forEach items="${list }" var="StoreDto">
 	<tr>
 		<td>${StoreDto.prodNo }</td>
-		<td><a href="/store/view?prodNo=${StoreDto.prodNo }">${Store.pName }</a></td>
+		<td><a href="/store/view?prodNo=${StoreDto.prodNo }">${StoreDto.pName }</a></td>
 		<td>${StoreDto.pPrice }</td>
 		<td>${StoreDto.pHit }</td>
 		<td><fmt:formatDate value="${StoreDto.pDate }" pattern="yy-MM-dd HH:mm:ss"/></td>

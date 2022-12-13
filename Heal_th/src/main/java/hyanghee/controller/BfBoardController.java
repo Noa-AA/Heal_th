@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import hyanghee.dto.Beforeafter;
 import hyanghee.service.face.BfBoardService;
 import hyanghee.util.BoardPaging;
+import jucheol.dto.Comment;
 import yerim.dto.Users;
 
 
@@ -99,7 +100,7 @@ public class BfBoardController {
 
 	//게시글 수정
 	@GetMapping("/board/bfUpdate")
-	public String update(Beforeafter beforeafter, Model model) {
+	public String update(Beforeafter beforeafter, Comment comment, Model model) {
 		logger.debug("{}", beforeafter);
 		
 		//잘못된 게시글 번호 처리
@@ -113,7 +114,7 @@ public class BfBoardController {
 		
 		//모델값 전달
 		model.addAttribute("updateBoard", beforeafter);
-		
+		model.addAttribute("comment", comment);
 		
 		//첨부파일 모델값 전달
 //		BoardFile boardFile = boardService.getAttachFile(beforeafter);

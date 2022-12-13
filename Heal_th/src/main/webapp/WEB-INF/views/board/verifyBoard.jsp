@@ -32,11 +32,11 @@
 <tbody>
 <c:forEach items="${list }" var="board">
 	<tr>
-		<td>${board.bf_no }</td>
+		<td>${board.verify_no }</td>
 		<td>${board.category_no }</td>
-		<td>${board.bf_title }</td>
+		<td>${board.v_title }</td>
 		<td>${board.user_no }</td>
-		<td>${board.bf_hit }</td>
+		<td>${board.v_hit }</td>
 		<td><fmt:formatDate value="${board.v_inst_date }" pattern="yy-MM-dd HH:mm:ss"/></td>
 	</tr>
 </c:forEach>

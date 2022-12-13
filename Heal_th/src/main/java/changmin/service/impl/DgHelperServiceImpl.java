@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import changmin.dao.face.DgHelperDao;
 import changmin.dto.BodyInfo;
+import changmin.dto.DgmaJoin;
+import changmin.dto.Dgmachat;
 import changmin.dto.Dgmagotchi;
 import changmin.dto.HealthRecord;
 import changmin.service.face.DgHelperService;
@@ -31,8 +33,7 @@ public class DgHelperServiceImpl implements DgHelperService {
 	@Override
 	public DgHelperPaging getDgHelperPaging(String curPage, int userno) {
 		//총 게시글 수 조회하기
-		int totalCount = dgHelperDao.selectCntAll();
-		
+		int totalCount = dgHelperDao.selectCntAll(userno);
 		
 		//전달파라미터 curPage 추출하기
 		String param = curPage;
@@ -48,9 +49,11 @@ public class DgHelperServiceImpl implements DgHelperService {
 	}
 
 	@Override
-	public List<HealthRecord> getRecordList(DgHelperPaging DgHelperPaging, int userno) {
+	public List<HealthRecord> getRecordList(DgHelperPaging dgHelperPaging, int userno) {
 		
-		List<HealthRecord> list =dgHelperDao.selectRecord(DgHelperPaging); 
+		dgHelperPaging.setUserno(userno);
+		
+		List<HealthRecord> list = dgHelperDao.selectRecord(dgHelperPaging); 
 		
 		return list;
 	}
@@ -102,6 +105,34 @@ public class DgHelperServiceImpl implements DgHelperService {
 		
 		dgHelperDao.updateDgmaInfo(dgmagotchi);
 		
+	}
+
+	@Override
+	public List<DgmaJoin> getDgmaRanking() {
+
+		List<DgmaJoin> list = dgHelperDao.selectDgmaRanking();
+		
+		return list;
+	}
+
+	@Override
+	public String getMyNick(int userno) {
+
+		return dgHelperDao.selectMyNick(userno);
+	}
+
+	@Override
+	public void pushChat(Dgmachat dgmachat) {
+
+		dgHelperDao.insertDgmaChat(dgmachat);
+	}
+
+	@Override
+	public List<Dgmachat> getDgmaChat() {
+		
+		List<Dgmachat> list = dgHelperDao.selectDgmaChat();
+		
+		return list;
 	}
 
 

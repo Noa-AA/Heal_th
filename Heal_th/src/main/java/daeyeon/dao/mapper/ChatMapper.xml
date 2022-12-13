@@ -7,40 +7,126 @@
 <mapper namespace="daeyeon.dao.face.ChatDao"> 
 	
 	
-	<select id="selectUsers" resultType="yerim.dto.Users" >
-		SELECT user_no, user_name, user_job, user_intro, user_gender, ranking_no
+	<!-- /chat/intro -->
+	<!-- 회원 등급 3이상인 회원 조회하기 -->
+	<select id="selectUsers" resultType="yerim.dto.Users" parameterType="Users">
+		SELECT user_no, user_nick, user_name, user_intro, user_job, user_photo, user_gender, ranking_no, point
 		FROM USERS
 		WHERE ranking_no >= 3
+		AND user_no != #{userNo } 
 	</select> 
 	
-	
-<!-- 	<select id="selectRoomNoByUserNo"  resultType="daeyeon.dto.RoomList" parameterType="daeyeon.dto.Userss"> -->
-<!-- 		SELECT room_no FROM room_list -->
-<!-- 		WHERE user_no = #{userNo } -->
-<!-- 	</select> -->
-	
+
+	<!-- /chat/chatRoom -->
+	<!-- 자신의 회원번호가 속한 채팅방번호와 상대방 닉네임 조회하기 -->
 	<select id="selectRoomList"  resultType="daeyeon.dto.RoomList" parameterType="Users">
-		SELECT * FROM room_list
+		SELECT c.room_no, d.user_nick FROM users d		<!-- 나랑같은 룸번호를 가졌지만 나를 제외한 사람의 nick을 함꼐 조회한다 -->
+			INNER JOIN
+			(SELECT a.* FROM room_list a 						<!-- 같은 룸번호를 가진 룸리스트 전체를 조회한다 user_no가 10이 아닌 사람 조회 -->
+				INNER JOIN (
+					SELECT * FROM room_list WHERE user_no = #{userNo } ) b 	<!-- user_no가 10인 룸리스트 전체를 조회해와 -->
+    			ON a.room_no = b.room_no
+			WHERE a.user_no != #{userNo } ) c
+		ON d.user_no = c.user_no
+	</select>
+
+
+	<!-- /chat/pointCompare -->
+	<!-- 내 포인트 얻어오기 -->
+	<select id="selectMyPoint" resultType="int" parameterType="Users">
+		SELECT point FROM USERS
 		WHERE user_no = #{userNo }
 	</select>
-	
-	
-	
-<!-- 	<insert id="insertChatRoom" parameterType="int"  > -->
-<!-- 		INSERT INTO chat_room ( room_no, create_date  ) -->
-<!-- 		VALUES ( 1 , sysdate )   -->
-<!-- 	</insert> -->
 
+	<!-- /chat/createChatRoom -->
+	<!-- 상대방 포인트 증가시키기 -->
+	<update id="updateYourPoint" parameterType="Users">
+		UPDATE USERS SET point = 
+			CASE 
+			WHEN #{rankingNo } = 5 THEN point+1000
+			WHEN #{rankingNo } = 4 THEN point+700
+			WHEN #{rankingNo } = 3 THEN point+400
+			END
+		WHERE user_no = #{userNo }
+	</update>
 	
-<!-- 	<insert id="insertroomList" parameterType="int"  > -->
-<!-- 		INSERT INTO room_list ( chat_list_no, user_no, room_no  ) -->
-<!-- 		VALUES ( 1 ,10, 1 )  -->
-		 <!-- lost_no 는 시퀀스 userNo는 가져올꺼고 room_no도 위에서 가져올꺼임 } -->
-<!-- 	</insert> -->
+	<!-- /chat/createChatRoom -->
+	<!-- 자신의 포인트 감소시키기 -->
+	<update id="updateMyPoint" parameterType="Users">
+		UPDATE USERS SET point = 
+			CASE 
+			WHEN #{rankingNo } = 5 THEN point-1000
+			WHEN #{rankingNo } = 4 THEN point-700
+			WHEN #{rankingNo } = 3 THEN point-400
+			END
+		WHERE user_no = #{userNo }
+	</update>
+	
 
-	<insert id="insertChat" parameterType="Chat">
-		INSERT INTO chat( chat_no, chat_time, chat_contents, room_no, user_no )
-		VALUES ( chat_seq.nextval, sysdate, #{chatContent }, #{roomNo }, #{userNo }  )
+	<!-- /chat/createChatRoom -->
+	<!-- 채팅방 만들기 -->
+	<insert id="insertChatRoom" parameterType="ChatRoom">
+			<selectKey resultType="int" keyProperty="roomNo" order="BEFORE">
+				SELECT chat_room_seq.nextval FROM DUAL
+			</selectKey>
+			INSERT INTO chat_room (room_no, create_date)
+			VALUES ( chat_room_seq.currval, sysdate )
 	</insert>
 
+	<!-- /chat/createChatRoom -->
+	<!-- 로그인한 자신의 채팅방리스트 만들기 -->
+	<insert id="insertChatListByMy" parameterType="ChatRoom">
+		INSERT INTO room_list (chat_list_no, user_no, room_no)
+		VALUES ( room_list_seq.nextval, #{userNo }, #{roomNo } )
+	</insert>
+
+	<!-- /chat/createChatRoom -->
+	<!-- 상대방의 채팅방리스트 만들기 -->
+	<insert id="insertChatListByYou" parameterType="ChatRoom">
+		INSERT INTO room_list (chat_list_no, user_no, room_no)
+		VALUES ( room_list_seq.nextval, #{userNo }, #{roomNo } )
+	</insert>
+
+	
+		<!-- /chat/chatArea -->
+	<!-- 전달받은 방번호로 상대방 닉네임 조회하기 -->
+	<select id="selectReciverNick" resultType="string" parameterType="RoomList">
+		SELECT a.user_nick FROM users a
+			INNER JOIN (
+			SELECT * FROM room_list WHERE room_no = #{roomNo }) b
+		ON a.user_no = b.user_no
+		WHERE a.user_no != #{userNo }
+	</select>
+	
+	<!-- /chat/chatArea -->
+	<!-- 내 유저번호로 내 닉네임 조회하기 -->
+	<select id="selectSenderNick" resultType="string" parameterType="int" >
+		SELECT user_nick FROM users
+		WHERE user_no = #{myUserNo }
+	</select>
+
+	
+	<!-- /chat/chatArea -->
+	<!-- 채팅내용 테이블에 저장하기 -->
+	<insert id="insertChat" parameterType="chatRoom">
+		INSERT INTO chat( chat_no, chat_time, chat_contents, room_no, user_no )
+		VALUES ( chat_seq.nextval, to_char(sysdate, 'yyyy.mm.dd hh24:mi:ss'), #{chatContent }, #{roomNo }, #{userNo }  )
+	</insert>
+	
+	<!-- /chat/chatArea -->
+	<!-- 채팅방번호로 채팅내용 조회하기 -->
+	<select id="selectChat" resultType="Chat" parameterType="RoomList" >
+		SELECT * FROM chat
+		WHERE room_no = #{roomNo }
+		ORDER BY chat_no ASC
+	</select>
+	
 </mapper>
+
+
+
+
+
+
+
+

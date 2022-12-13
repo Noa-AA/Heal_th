@@ -12,7 +12,7 @@ public class ReviewBoard {
 	private String classification;
 	private String price;
 	private String address;
-	private int score;
+	private Double score;
 	private String review;
 	private Date rUptDate;
 	private Date rDeleteDate;
@@ -24,7 +24,7 @@ public class ReviewBoard {
 	public ReviewBoard() {	}
 
 	public ReviewBoard(int reviewNo, Date rInstDate, String rTitle, String gymName, String gymIntroduce,
-			String classification, String price, String address, int score, String review, Date rUptDate,
+			String classification, String price, String address, Double score, String review, Date rUptDate,
 			Date rDeleteDate, int rHit, int rThumbs, int userNo, int categoryNo) {
 		super();
 		this.reviewNo = reviewNo;
@@ -118,11 +118,11 @@ public class ReviewBoard {
 		this.address = address;
 	}
 
-	public int getScore() {
+	public Double getScore() {
 		return score;
 	}
 
-	public void setScore(int score) {
+	public void setScore(Double score) {
 		this.score = score;
 	}
 
@@ -183,7 +183,6 @@ public class ReviewBoard {
 	}
 
 		
-	
 	
 	
 }
