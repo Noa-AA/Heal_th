@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import yerim.dto.Users;
+import yerim.service.face.KakaoLoginService;
 import yerim.service.face.LoginService;
 import yerim.service.face.NaverLoginService;
 import yerim.util.NaverLogin;
@@ -32,6 +33,9 @@ public class LoginController {
 	//네이버 로그인 서비스
 	@Autowired NaverLoginService naverLoginService;
 	
+	//카카오 로그인 서비스 
+	@Autowired KakaoLoginService kakaoLoginService;
+	
 	 @GetMapping("/login/login")
 	 public void login(Model model,HttpSession session) {
 		 //로그인 화면 
@@ -41,8 +45,14 @@ public class LoginController {
 		 String naverURL = naverLoginService.getURL(session);
 		 logger.info(naverURL);
 		 
+		 //카카오 로그인을 위한 URL 호출
+		 String kakaoURL = kakaoLoginService.getURL();
+		 
 		 //모델값으로 URL전달
 		 model.addAttribute("naverURL", naverURL);
+		 model.addAttribute("kakaoURL", kakaoURL);
+		 
+	 
 	 }
 
  
@@ -287,4 +297,16 @@ public class LoginController {
 		 
 	 }
 	 
+	 @GetMapping("/login/kakaoLogin")
+	 public void kakaoLogin(String acceses_token,@RequestParam(value="code") String code) {
+		//인가받은 코드로 토큰 받기
+		logger.info("카카오 토큰 요청하기"); 
+		String getKakaoToken = kakaoLoginService.getToken(code);
+		logger.info("access_Token {}",getKakaoToken);
+
+		//접근 토큰으로 회원 정보 가져오기 
+		Users kakaoUserInfo = kakaoLoginService.getuserInfo(getKakaoToken);
+		logger.info("회원 정보 {}", kakaoUserInfo);
+		
+	 }
 }

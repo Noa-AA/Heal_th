@@ -1,12 +1,6 @@
 package yerim.service.impl;
 
 
-import java.math.BigInteger;
-import java.net.http.HttpRequest;
-import java.security.SecureRandom;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -17,12 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 
 import yerim.dao.face.LoginDao;
-import yerim.dto.Naver;
 import yerim.dto.Users;
 import yerim.service.face.NaverLoginService;
 import yerim.util.NaverLogin;

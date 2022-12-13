@@ -79,37 +79,7 @@ public class NaverLogin {
 	public String getAccessToken(String storedStated, String state, String code) {
 		
 			logger.info("getAccessToken 시작");
-		
-//			//HTTPHeader 생성
-//			HttpHeaders headers = new HttpHeaders();
-//			headers.add("Contect-type","application/x-www-form-urlencoded;charset=utf-8");
-//			
-//			//HTTP BODY 생성
-//			MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-//			body.add("grant_type", "authorization_code");
-//			body.add("client_id", CLIENTID);
-//			body.add("client_secre", CLIENTSECRET);
-//			body.add("redirect_uri", REDIRECTURI);
-//			body.add("state",state);
-//			body.add("code", code);
-//			
-//			//HTTP 요청 보내기
-//			HttpEntity<MultiValueMap<String, String>> naverTokenRequest = new HttpEntity<>(body, headers);
-//			RestTemplate restTemplate = new RestTemplate();
-//			
-//			ResponseEntity<String> response = restTemplate.exchange("https://nid.naver.com/oauth2.0/token", HttpMethod.GET,naverTokenRequest,String.class);
-//			
-//			
-//			//http 응답(JSON> ->액세스 토큰 파싱
-//			String responseBody = response.getBody();
-//			ObjectMapper objMapper = new ObjectMapper();
-//			JsonNode jsonNode = objMapper.readTree(responseBody);
-//			
-//			String access_token =  jsonNode.get("access_token").toString();
-//			return access_token;
-		
-			
-		
+
 		String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code"
 				   + "&client_id=" +CLIENTID
 			        + "&client_secret=" +CLIENTSECRET
@@ -138,17 +108,17 @@ public class NaverLogin {
 		      br.close();
 		    
 		    } catch (Exception e) {
-		      // Exception 로깅
+		    	e.printStackTrace();
 		    }
 					
-		    if (responseCode == 200) {
+		    if (responseCode == 200) { //정상호출일 때 파싱하기
 		    	//access_token 파싱하기 
 		    	
 		    	try {
 		    		JSONParser parser = new JSONParser();
 					Object obj = parser.parse(res.toString());
 					JSONObject jsonObj = (JSONObject) obj;
-					//json ->스트링 파싱
+					//json ->스트링 파싱(액세스 토큰 얻기)
 					accessToken =(String)jsonObj.get("access_token");
 				} catch (ParseException e) {
 					e.printStackTrace();
@@ -178,9 +148,6 @@ public class NaverLogin {
 //			
 //		
 		
-//		//HTTP Header 생성
-//		HttpHeaders headers= new HttpHeaders();
-//		headers.add("Authorization", "Bearer"+acces);
 		logger.info("responseBody {}",responseBody);
 		return responseBody;
 		
