@@ -212,7 +212,7 @@ public class LoginServiceImpl implements LoginService {
 	public boolean checkUser(Users searchPw) {
 		logger.info("checkUser");
 		logger.info("이름 : {},연락처 : {}",searchPw.getUserName(),searchPw.getUserPhone());
-	
+		logger.info("생일 {}",searchPw.getUserBirth());
 		if(loginDao.selectUserIdForPw(searchPw)>0) {
 			logger.info("회원있음");
 			return true;
@@ -237,9 +237,9 @@ Random ranNum = new Random();
 		
 		//------------네이버 클라우드 플랫폼 호출 
 		logger.info("네이버 문자 보내기");
-		Sms sendCode = new Sms();
-		//메소드 호출
-		sendCode.sendSms((String)searchPw.getUserPhone(), msgCode);
+//		Sms sendCode = new Sms();
+//		//메소드 호출
+//		sendCode.sendSms((String)searchPw.getUserPhone(), msgCode);
 		logger.info("네이버 문자 보내기 끝");
 		
 		return msgCode;
@@ -263,4 +263,39 @@ Random ranNum = new Random();
 		
 		return false;
 	}
+	
+	@Override
+	public boolean chkUsedPw(Users updatePw,HttpSession session) {
+		logger.info("chkUsedPw");
+		//세션에서 회원 이름과 아이디 ->DTO에 넣기
+		updatePw.setUserName( (String) session.getAttribute("userName"));
+		updatePw.setUserId( (String) session.getAttribute("userId"));
+		updatePw.setUserBirth((String)session.getAttribute("userBirth"));
+		if(loginDao.selectByPw(updatePw)>0) {
+			logger.info("사용중인 비밀번호 임-초기화 불가능");
+			return false;
+		}
+		
+		
+		logger.info("비밀번호 없음-초기화 가능");
+		return true;
+	}
+	
+	@Override
+	public boolean setNewPw(Users userUpdatePw, HttpSession session) {
+
+		//세션에서 회원 정보 담아서 DTO에 넣기
+		userUpdatePw.setUserName((String)session.getAttribute("userName"));
+		userUpdatePw.setUserId((String)session.getAttribute("userId"));
+		userUpdatePw.setUserBirth((String)session.getAttribute("userBirth"));
+		if(loginDao.updateNewPw(userUpdatePw)>0) {
+			logger.info("비밀번호 update -성공");
+			return true;
+		}
+		logger.info("비밀번호 update 실패");
+		return false;
+	}
+		
+	
+	
 }
