@@ -73,17 +73,18 @@ public class LoginController {
 			 //userNo 세션에 저장
 			 session.setAttribute("userNo", userNo);
 			 session.setAttribute("userId", login.getUserId());
+			 logger.info("userNo : {}. userId : {}",session.getAttribute("userNo"),session.getAttribute("userId"));
+			 //아이디가 있을 때 
+			 return "redirect:/main";
 			 
 		 }else { //로그인 실패 시
 			 logger.info("로그인 실패");
-			 model.addAttribute("isLogin", isLogin);
+			 model.addAttribute("isAdminLogin", isLogin);
 			 session.invalidate();
 			 return "/login/login";
 		 }
 		 
-		 logger.info("userNo : {}. userId : {}",session.getAttribute("userNo"),session.getAttribute("userId"));
-		 //아이디가 있을 때 
-		 return "redirect:/main";
+		
 		 
 	 }
 	 
