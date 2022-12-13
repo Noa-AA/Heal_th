@@ -1,6 +1,8 @@
 package hyunkyung.controller;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import hyunkyung.dto.Challenge;
+import hyunkyung.dto.MmoneyUse;
+import hyunkyung.dto.ParticipantList;
 import hyunkyung.service.face.ChlJoinService;
+import yerim.dto.Users;
 
 @Controller
 public class ChlJoinController {
@@ -23,38 +28,59 @@ public class ChlJoinController {
 
 	//챌린지 가입,결제 화면
 		@GetMapping("/challenge/join")
-		//localhost:8888/challenge/join?challengeNo=1 로 입력할땐 에러안남
-		public void join(@RequestParam(required = true) int challengeNo, Challenge challenge, Model model) {
+		public void join(int challengeNo, Challenge challenge/*, int mNo, MmoneyUse mmoney*/, Model model, HttpSession session) {
 			logger.info("challenge/join [GET]");
-			model.addAttribute("challengeNo {}", challengeNo);
-			logger.info("challengeNo", challengeNo);
 			
-			//해당 챌린지 조회
-			challenge = chlJoinService.selectInfo(challenge);
-			logger.info("{}", challenge);
-			// 모델값 전달
-			model.addAttribute("challenge", challenge);
-			logger.info("챌린지 나오게 해주세요", challenge);
+			//로그인 데이터
+			session.setAttribute("userno", 1);
+			int userno = (int)session.getAttribute("userno");
+			logger.info("userno : {}", userno);
+			
+			Users user = chlJoinService.getUserInfo(userno);
+			logger.info("userInfo : {}", user);
+			model.addAttribute("user",user);
+			
+			
 
+			
+			//챌린지 정보
+			Challenge challenges = chlJoinService.selectInfo(challengeNo);
+			logger.info("challenges : {}", challengeNo);
+			model.addAttribute("challenges",challenges);
+			
+			model.addAttribute("challengeInfo: {}" , chlJoinService.selectInfo(challengeNo));
+			
+			//mCharge, 현재 보유 포인트 조회
+			int mmoney = chlJoinService.getMmoney(userno);
+			logger.info("mmoney: {}", mmoney);
+			model.addAttribute("mmoney", mmoney);
+
+			
+			
+
+			
+//			//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//			//mCharge, 현재 보유 포인트 조회
+//			int mmoneys = chlJoinService.getMcharge(mmoney);
+//			logger.info("mmoneys: {}", mmoney);
+//			model.addAttribute("mmoneys", mmoneys);
+//			
+//			model.addAttribute("mmoneyInfo: {}", chlJoinService.getMcharge(mmoney));
+			
+			
 		}
 
-	@GetMapping("/join/{}")
+		
 		// 챌린지 가입,결제 버튼 누를때 -> 결제완료 화면으로 넘어가는
 		@PostMapping("/challenge/join")
-		public String joinProc(Challenge challenge, Model model) {
+		public String joinProc(ParticipantList pList, HttpSession session) {
 			logger.info("challenge/join [POST]");
-
-			// 여기서부터 챌린지 번호가 안찍힘
-			logger.info("{}", challenge);
-
-//			테스트용 로그인
-//			session.setAttribute("userno", 7777);
-//			challenge.setUserNo((int)session.getAttribute("userNo"));
-
-//			// 모델값 전달
-			model.addAttribute("challenge", challenge);
-			logger.info("챌린지 나오게 해주세요", challenge);
-//			chlJoinService.join(challenge);
+			
+			session.setAttribute("userno", 1);
+			pList.setUserNo((int)session.getAttribute("userno"));
+			
+			chlJoinService.insert(pList);
+			logger.info("pList: {}", pList);
 			
 			return "challenge/complete";
 		}

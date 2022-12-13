@@ -11,6 +11,7 @@
 	<select id="getList" resultType="Challenge">
 		SELECT challenge_no, challenge_kind, challenge_name, challenge_credate, challenge_enddate
 		FROM challenge
+		ORDER BY challenge_no DESC
 	</select>
 	
 	<!-- 챌린지 조회 -->
@@ -31,9 +32,6 @@
                         <when test="type == 'C'.toString()">
                             challenge_kind like '%'||#{keyword}||'%' 
                         </when>
-<!--                         <when test="type == 'W'.toString()"> -->
-<!--                             challenge_no like '%'||#{keyword}||'%'  -->
-<!--                         </when> -->
                     </choose>
                 </trim>
             </foreach>
@@ -53,7 +51,6 @@
                 from challenge where rownum <= #{pageNum} * #{amount} 
     ]]>            
                 <if test="keyword != null">
-<!--                     and challenge_name like '%'||#{keyword}||'%'  -->
 					<include refid="criteria"></include> 
                 </if>
     
@@ -73,8 +70,14 @@
     	SELECT count(*) FROM challenge
     	
     	<if test="keyword != null">
-<!--             where challenge_name like '%'||#{keyword}||'%' -->
 			where challenge_no > 0 <include refid="criteria"></include>
         </if>
     </select>
+    
+    <!-- 챌린지 삭제 -->
+    <delete id="delete" parameterType="Challenge">
+    	DELETE challenge
+    	WHERE challenge_no = #{challengeNo}
+    </delete>
+    
 </mapper>    

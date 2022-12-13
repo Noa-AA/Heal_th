@@ -12,6 +12,7 @@ import hyunkyung.dto.Challenge;
 import hyunkyung.dto.ChallengeFile;
 import hyunkyung.service.face.ChallengeService;
 import hyunkyung.util.ChlCriteria;
+import yerim.dto.Users;
 
 @Service
 public class ChallengeServiceImpl implements ChallengeService {
@@ -46,5 +47,13 @@ public class ChallengeServiceImpl implements ChallengeService {
 	public int getTotal(ChlCriteria cri) {
 		return challengeDao.getTotal(cri);
 	}
+	
+	//챌린지 삭제
+	@Override
+	public void delete(Challenge challenge) {
+		
+		challengeDao.delete(challenge);
+	}
 
+	
 }

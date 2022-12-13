@@ -17,11 +17,12 @@ public class ChlCreateServiceImpl implements ChlCreateService {
 	@Autowired
 	ChlCreateDao createDao;
 
+	//챌린지 만들기
 	@Override
 	public void create(Challenge challenge) {
 		logger.info("create()- {}", challenge);
 
-		createDao.insert(challenge);
+		createDao.insertChl(challenge);
 	}
 
 }
