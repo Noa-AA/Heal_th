@@ -38,6 +38,8 @@ th, td {
 <c:if test="${(param.kcal - param.bmr)<0}">
 </c:if>
 <c:if test="${(param.kcal - param.bmr)>=0}">
-	<a href="/dghelper/healthtest">나에게 맞는 운동 추천받기</a>
+	<div style="position: relative; top: 100px;">
+		<a href="/dghelper/healthtest">나에게 맞는 운동 추천받기</a>
+	</div>
 </c:if>
 

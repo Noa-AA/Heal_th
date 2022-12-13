@@ -32,5 +32,18 @@ public interface NoticeDao {
 	 * @return - 조회된 게시글 정보
 	 */
 	public Notice selectNotice(Notice viewNotice);
+	
+	/**
+	 * 작성된 게시글 DB에 삽입
+	 * @param notice
+	 * @return 
+	 */
+	public void insertNotice(Notice notice);
+	
+	/**
+	 * 게시글 정보 수정
+	 * @param notice
+	 */
+	public void updateNotice(Notice notice);
 
 }

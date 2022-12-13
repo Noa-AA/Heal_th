@@ -58,6 +58,39 @@ $(document).ready(function() {
 
 <h1>게시판 리스트</h1><br><br>
 
+<div class="search">
+<form action="">
+	<input type="hidden" name="boardCode" value="${param.boardCode }">
+	<input type="hidden" name="page" value="1"> 
+	<select name="searchType">
+		<option <c:if test="${param.searchType == 'title'}"> selected </c:if> value="title">제목</option>
+		<option <c:if test="${param.searchType == 'body'}"> selected </c:if> value="body">내용</option>
+		<option <c:if test="${param.searchType == 'titleAndBody'}"> selected </c:if> value="titleAndBody">제목+내용</option>
+		
+	</select>
+	
+	<script type="text/javascript">
+	
+	if( typeof param.searchType =='undefined' ) {
+		param.searchType = 'title';
+	}
+	
+	$('form[name="searchForm"] select[]name=searchType').val(parma.searchType);
+	
+	</script>
+	
+	<input type="text" name="searchKeyword" placeholder="검색어를 입력해주세요">
+	<input type="submit" value="검색">
+	
+</form>
+</div>
+
+<br><br>
+
+<hr>
+
+<br><br>
+
 <h3>비포 애프터 게시판</h3>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
