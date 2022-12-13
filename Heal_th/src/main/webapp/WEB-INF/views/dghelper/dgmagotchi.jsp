@@ -33,14 +33,20 @@ body {
 }
 
 #start {
-	background: white;
+    background: #3f94d6;
 	border-radius: 8px;
 	margin: 0 auto;
 	width: 300px;
 	height: 100px;
 	margin-bottom: 100px;
-	
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
 }
+
+#start p {
+	color: white;
+	fomt-family: 'mice' !important;
+	font-size: 30px;
+}	
 
 .small-container {
 	position: absolute;
@@ -48,9 +54,9 @@ body {
 }
 
 .button-container {
-    top: 90px !important;
+    top: 100px !important;
+    padding-bottom: 100px;
 }
-
 
 </style>
 <script type="text/javascript">
@@ -74,6 +80,7 @@ $(document).ready(function(){
 			}
 		})
 	})
+	
 
 });
 
@@ -87,8 +94,10 @@ $(document).ready(function(){
 <body>
 <div class="big-container">
 	<div class="start-container">
-		<button id="start">시작하기</button>
+		<button id="start"><p>시작하기</p></button>
 	</div>
 </div>
+
 </body>
+<%@include file="../layout/footer.jsp" %>
 </html>

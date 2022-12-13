@@ -54,6 +54,12 @@ $(document).ready(function(){
 		}
 	})
 	
+	if(${paging.totalCount}<3){
+		$("#recordlist").css("min-height","430.7px");
+	} else {
+		$("#recordlist").css("min-height","750.7px");
+	}
+	
 
 });
 
@@ -136,6 +142,7 @@ ul {
 #recordlist {
 	display: flex;
 	width: 1200px;
+	min-height: 750.7px;
     flex-direction: column;
 }
 #healthcount {
@@ -148,11 +155,10 @@ ul {
 	min-height: 250px;
 	width: 550px;
 	padding: 20px;
-	border-radius: 10px;
+	border-radius: 8px;
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
 	text-align: center;
-	border: none;
-	background-color: aliceblue;
+	border: 1px solid #9d9d9d;
 }
 
 #recordNo {
@@ -170,10 +176,12 @@ ul {
 	padding: 20px;
 }
 
-#delete {
+#delete, #save {
 	border: none;
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
-	background-color: #f0ebff;
+	background-color: #7ca3f5;
+	height: 40px;
+	border-radius: 8px;
 }
 
 #delete, #recordDate, #recordNo {
@@ -184,7 +192,7 @@ ul {
     display: flex;
     flex-direction: column;
     width: 550px;
-    margin-bottom: -335px;
+    margin-bottom: -350px;
     position: relative;
     left: 25px;
 } 
@@ -346,4 +354,5 @@ body {
 </div>
 
 </body>
+<%@include file="../layout/footer.jsp" %>
 </html>

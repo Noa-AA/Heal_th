@@ -184,27 +184,20 @@ h2{
 	font-weight: 700;
 }
 
+body {
+	padding-top: 300px;
+}
 
 
 </style>
 
 <body>
-
-<h2 id="title">멘토 리스트</h2>
-<br>
-
-
-
-<!-- <tr> -->
-<!-- 	<th>유저번호</th> -->
-<!-- 	<th>이름</th> -->
-<!-- 	<th>직업</th> -->
-<!-- 	<th>사진</th> -->
-<!-- 	<th>한말씀</th> -->
-<!-- 	<th>성별</th> -->
-<!-- 	<th>회원등급</th> -->
-<!-- 	<th>포인트</th> -->
-<!-- </tr> -->
+<div id="subvisual">
+	<div id="subvisual-A">
+		<p id="subv-title">운동 일기장</p>
+		<p id="subv-content">나의 오늘 운동기록을 매일매일 기록해 봐요</p>
+	</div>
+</div>
 
 
 <!-- 리스트 페이지 -->

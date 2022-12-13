@@ -12,11 +12,15 @@
 $(document).ready(function(){
 	<%-- 여기부터 --%>
 	function checkPopup() {
-		if($.cookie('checkCookie')!="check"){
-			console.log("쿠키 없음")
-			window.open('/check/check', '_blank','width=500, height=500, left=600, top=200');
+		var sessionData = <%=session.getAttribute("userNo")%>
+		if(null==sessionData || !sessionData){// 로그인 안됐을경우
 		}else{
-			console.log("쿠키 있음")
+			if($.cookie('checkCookie')!="check"){
+				console.log("쿠키 없음")
+				window.open('/check/check', '_blank','width=500, height=500, left=600, top=200');
+			}else{
+				console.log("쿠키 있음")
+			}
 		}
 	}
 	checkPopup()
