@@ -31,8 +31,8 @@ public interface BfBoardService {
 
 	//게시글 수정
 	public void update(Beforeafter beforeafter);
-	
-	
+
+	//검색
 
 
 
