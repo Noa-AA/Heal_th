@@ -230,6 +230,8 @@ body {
 .chat-value {
 	margin-bottom: 17px;
 	width: 501px;
+	display: flex;
+    flex-direction: column-reverse;
 }
 
 .chat-container-wrap {
