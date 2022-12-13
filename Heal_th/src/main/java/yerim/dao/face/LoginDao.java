@@ -88,6 +88,20 @@ public interface LoginDao {
 	 */
 	public int loginByNaver(Users userproFile);
 
+	/**
+	 * 회원 가입 여부 확인하기
+	 * @param kakaoUserInfo -회원 정보
+	 * @return -true/false
+	 */
+	public int iskakaoLogin(Users kakaoUserInfo);
+
+	/**
+	 * 회원 번호 조회하기
+	 * @param kakaoUserInfo -카카오에서 받은 회원 정보
+	 * @return -회원 번호 
+	 */
+	public int selectuserNoForKakao(Users kakaoUserInfo);
+
 
 	
 	
