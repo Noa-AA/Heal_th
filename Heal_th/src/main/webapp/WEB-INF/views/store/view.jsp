@@ -13,19 +13,26 @@ $(document).ready(function() {
 $(document).ready(function() {
 $(".addCart_btn").click(function(){
 	console.log("addCart_btn click")
-// 	   var prodNo = $("#prodNo").val();
-// 	   var cartStock = $(".cart_stock").val();
-// 	   var data = {
-// 			     prodNo : prod_no,
-// 			     cartStock : cart_stock
-// 			     };
+	   	var prodNo = ${viewStore.prodNo}
+		var uesrNo = ${viewStore.userNo}
+// 		var pName = ${viewStore.pName}
+// 	   var cartStock = $("#cart_stock").val();
+
+	console.log("prod_no : "+ prodNo)
+// 	console.log("cartStock : "+ cartStock)
 	   $.ajax({
 		    type : "post", 
-		    url : "/store/cart",
-		    data : {},
+		    url : "/store/cart", 
+		    dataType : "json",
+		    data : {
+		    	prodNo : prodNo,
+		    	userNo : userNo
+// 		    	pName : pName
+// 			     cartStock : cartStock
+			     },
 		    success : function(result){
 		     alert("카트 담기 성공");
-		     $(".cart_stock").val("1");
+// 		     $("#cart_stock").val("1");
 		    },
 		    error : function(){
 		     alert("카트 담기 실패");
@@ -46,7 +53,8 @@ $(".addCart_btn").click(function(){
 <table class="table table-bordered">
 
 <tr>
-	<td class="info">상품번호</td><td colspan="3">${viewStore.prodNo }</td>
+	
+	<td class="info" id="prodNo">상품번호</td><td colspan="3">${viewStore.prodNo }</td>
 </tr>
 <tr>
 	<td class="info">상품명</td><td>${viewStore.pName }</td>
