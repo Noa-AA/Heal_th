@@ -131,6 +131,10 @@ public class BfBoardServiceImpl implements BfBoardService {
 //		
 	}
 
+
+	
+	
+
 	
 
 

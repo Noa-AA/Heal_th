@@ -113,7 +113,7 @@ margin-top: 3px;
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$("input[name='score'][value='${updateBoard.score']").prop("checked", true)
+	$("input[name='score'][value='${updateBoard.score}']").prop("checked", true)
 	updateStar();
 	
 	$("input[type='radio']").click(updateStar);
