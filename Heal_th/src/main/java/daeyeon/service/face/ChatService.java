@@ -21,16 +21,6 @@ public interface ChatService {
 	 */
 	public List<Users> userlist(Users myUserNo);
 
-	
-	/**
-	 * chat/chatRoom
-	 * 
-	 * 유저번호를 이용해서 소속된 채팅방 조회하기
-	 * 
-	 * @return List - 조회된 채팅방
-	 */
-	public List<RoomList> roomList(Users myUserNo);
-
 
 	/**
 	 * chat/chatArea
@@ -75,6 +65,27 @@ public interface ChatService {
 	public int createChatRoom(int yourUserNo, int myUserNo, HttpSession session);
 
 
+	/**
+	 * chat/chatRoom
+	 * 
+	 * 유저번호를 이용해서 소속된 채팅방 조회하기
+	 * 
+	 * @param myUserNo - 내 유저번호
+	 * @return List<RoomList>  - 조회된 채팅방
+	 */
+	public List<RoomList> roomList(Users myUserNo);
+
+
+	/**
+	 * chat/chatRoom
+	 * 
+	 * 채팅중에 마지막 채팅과 방번호 조회하기
+	 * 
+	 * @return List<Chat> - 조회된 마지막채팅, 방번호
+	 */
+	public List<Chat> getLastChat();
+	
+	
 	/**
 	 * chat/chatArea
 	 * 
