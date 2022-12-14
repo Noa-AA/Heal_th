@@ -161,7 +161,7 @@ button, input {
 .right > p {
 	max-width: 210px;
 	min-width: 0;
-	height: 20px;
+	height: 22px;
 	text-overflow: ellipsis; 
 	white-space: nowrap;
 	overflow: hidden;
@@ -215,19 +215,32 @@ body {
 			${userId }
 		</div>
 		<c:forEach items="${roomList }" var="room">
-<%-- 			<div class="room" onclick="goChat(${room.roomNo })"> --%>
-				<button class="roomBtn" onclick="goChat(${room.roomNo })" >
-				<div class="left">
-					<img src="https://webimage.10x10.co.kr/eventIMG/2022/118925/etcitemban20220623180508.JPEG">
-				</div>
-				<div class="right">
-						<p class="reciverNick">${room.userNick }</p>
-						<p class="lastChat ${room.roomNo }"></p>
-				</div>
-				</button>
+		
+<%-- 		<div class="room" onclick="goChat(${room.roomNo })"> --%>
+
+			<button class="roomBtn" onclick="goChat(${room.roomNo })" >
 				
-<!-- 			</div> -->
-		</c:forEach>
+			<div class="left">
+				<img src="https://webimage.10x10.co.kr/eventIMG/2022/118925/etcitemban20220623180508.JPEG">
+			</div>
+			
+			<div class="right">
+				<p class="reciverNick">${room.userNick }</p>
+				<p class="lastChat ${room.roomNo }">
+					<!-- 같은 방번호일때 채팅 넣어주기 -->
+					<c:forEach items="${lastChat }" var="lastChat">
+					<c:if test="${room.roomNo == lastChat.roomNo }">
+						${lastChat.chatContents }
+					</c:if>
+					</c:forEach> <!-- ${lastChat } -->
+				</p>
+			</div>
+				
+			</button>
+				
+<!-- 		</div> -->
+		</c:forEach> <!-- ${roomList } -->
+		
 	</div>
 	
 	<div id="result"></div>

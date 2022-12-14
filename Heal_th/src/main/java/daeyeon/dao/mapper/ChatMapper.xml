@@ -16,27 +16,14 @@
 		AND user_no != #{userNo } 
 	</select> 
 	
-
-	<!-- /chat/chatRoom -->
-	<!-- 자신의 회원번호가 속한 채팅방번호와 상대방 닉네임 조회하기 -->
-	<select id="selectRoomList"  resultType="daeyeon.dto.RoomList" parameterType="Users">
-		SELECT c.room_no, d.user_nick FROM users d		<!-- 나랑같은 룸번호를 가졌지만 나를 제외한 사람의 nick을 함꼐 조회한다 -->
-			INNER JOIN
-			(SELECT a.* FROM room_list a 						<!-- 같은 룸번호를 가진 룸리스트 전체를 조회한다 user_no가 10이 아닌 사람 조회 -->
-				INNER JOIN (
-					SELECT * FROM room_list WHERE user_no = #{userNo } ) b 	<!-- user_no가 10인 룸리스트 전체를 조회해와 -->
-    			ON a.room_no = b.room_no
-			WHERE a.user_no != #{userNo } ) c
-		ON d.user_no = c.user_no
-	</select>
-
-
+	
 	<!-- /chat/pointCompare -->
 	<!-- 내 포인트 얻어오기 -->
 	<select id="selectMyPoint" resultType="int" parameterType="Users">
 		SELECT point FROM USERS
 		WHERE user_no = #{userNo }
 	</select>
+
 
 	<!-- /chat/createChatRoom -->
 	<!-- 상대방 포인트 증가시키기 -->
@@ -49,6 +36,7 @@
 			END
 		WHERE user_no = #{userNo }
 	</update>
+	
 	
 	<!-- /chat/createChatRoom -->
 	<!-- 자신의 포인트 감소시키기 -->
@@ -73,6 +61,7 @@
 			VALUES ( chat_room_seq.currval, sysdate )
 	</insert>
 
+
 	<!-- /chat/createChatRoom -->
 	<!-- 로그인한 자신의 채팅방리스트 만들기 -->
 	<insert id="insertChatListByMy" parameterType="ChatRoom">
@@ -86,9 +75,35 @@
 		INSERT INTO room_list (chat_list_no, user_no, room_no)
 		VALUES ( room_list_seq.nextval, #{userNo }, #{roomNo } )
 	</insert>
+	
+	
+	<!-- /chat/chatRoom -->
+	<!-- 자신의 회원번호가 속한 채팅방번호와 상대방 닉네임 조회하기 -->
+	<select id="selectRoomList"  resultType="daeyeon.dto.RoomList" parameterType="Users">
+		SELECT c.room_no, d.user_nick FROM users d		<!-- 나랑같은 룸번호를 가졌지만 나를 제외한 사람의 nick을 함꼐 조회한다 -->
+			INNER JOIN
+			(SELECT a.* FROM room_list a 						<!-- 같은 룸번호를 가진 룸리스트 전체를 조회한다 user_no가 10이 아닌 사람 조회 -->
+				INNER JOIN (
+					SELECT * FROM room_list WHERE user_no = #{userNo } ) b 	<!-- user_no가 10인 룸리스트 전체를 조회해와 -->
+    			ON a.room_no = b.room_no
+			WHERE a.user_no != #{userNo } ) c
+		ON d.user_no = c.user_no
+		ORDER BY c.room_no DESC
+	</select>
+	
+	
+	<!-- /chat/chatRoom -->
+	<!-- 마지막 채팅내역과 채팅방 번호 조회 -->
+	<select id="selectLastChat" resultType="Chat">
+		SELECT chat_contents, room_no FROM (
+			SELECT chat_contents, room_no, chat_time,
+    		RANK() OVER (PARTITION BY room_no ORDER BY chat_time DESC) AS RNK
+    		FROM chat )
+		WHERE RNK = 1
+	</select>
 
 	
-		<!-- /chat/chatArea -->
+	<!-- /chat/chatArea -->
 	<!-- 전달받은 방번호로 상대방 닉네임 조회하기 -->
 	<select id="selectReciverNick" resultType="string" parameterType="RoomList">
 		SELECT a.user_nick FROM users a
@@ -110,7 +125,7 @@
 	<!-- 채팅내용 테이블에 저장하기 -->
 	<insert id="insertChat" parameterType="chatRoom">
 		INSERT INTO chat( chat_no, chat_time, chat_contents, room_no, user_no )
-		VALUES ( chat_seq.nextval, to_char(sysdate, 'yyyy.mm.dd hh24:mi:ss'), #{chatContent }, #{roomNo }, #{userNo }  )
+		VALUES ( chat_seq.nextval, to_char(sysdate, 'yyyy.mm.dd hh24:mi:ss'), #{chatContents }, #{roomNo }, #{userNo }  )
 	</insert>
 	
 	<!-- /chat/chatArea -->

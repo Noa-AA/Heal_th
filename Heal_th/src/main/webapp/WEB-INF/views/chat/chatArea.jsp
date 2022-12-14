@@ -18,6 +18,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
+	$('#chatArea').scrollTop($('#chatArea')[0].scrollHeight);
+	
 	$("#sendBtn").on("click", function() {
 		sendMessage();
 		$('#msgInput').val('')
@@ -39,9 +41,8 @@ button {
 #chatArea {
 	width: 900px;
 	height: 300px;
-/* 	border: 1px solid #ccc; */
 	padding-top: 26px;
-	
+	overflow: hidden auto;
 }
 
 /* 내 채팅 */
@@ -234,7 +235,7 @@ button {
 								<fmt:formatDate value="${date }" pattern="a hh:ss" />
 	    					</a>
 	    					<a id='msgS'>
-	    						${chatList.chatContent }
+	    						${chatList.chatContents }
 	    					</a>
 	    				</div> 
 	    			</c:when>
@@ -243,7 +244,7 @@ button {
 	    			<c:otherwise>
 	    				<div id='receiverMsg'>
 	    					<a id='msgR'>
-	    						${chatList.chatContent }
+	    						${chatList.chatContents }
 	    					</a>
 	    					<a id='timeR'>
 	    						<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
