@@ -60,9 +60,6 @@ public class LoginController {
 	 public String loginProc(Users login, HttpSession session, Model model) {
 		 logger.info("/login/login [POST]");
 		 
-		 logger.info("login정보 id : {},pw : {}",login.getUserId(),login.getUserPw());
-		 
-		 
 		 //아이디 확인하기 
 		 boolean isLogin = loginService.checkLogin(login);
 		 
