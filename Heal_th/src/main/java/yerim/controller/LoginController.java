@@ -60,9 +60,6 @@ public class LoginController {
 	 public String loginProc(Users login, HttpSession session, Model model) {
 		 logger.info("/login/login [POST]");
 		 
-		 logger.info("login정보 id : {},pw : {}",login.getUserId(),login.getUserPw());
-		 
-		 
 		 //아이디 확인하기 
 		 boolean isLogin = loginService.checkLogin(login);
 		 
@@ -73,17 +70,18 @@ public class LoginController {
 			 //userNo 세션에 저장
 			 session.setAttribute("userNo", userNo);
 			 session.setAttribute("userId", login.getUserId());
+			 logger.info("userNo : {}. userId : {}",session.getAttribute("userNo"),session.getAttribute("userId"));
+			 //아이디가 있을 때 
+			 return "redirect:/main";
 			 
 		 }else { //로그인 실패 시
 			 logger.info("로그인 실패");
-			 model.addAttribute("isLogin", isLogin);
+			 model.addAttribute("isAdminLogin", isLogin);
 			 session.invalidate();
 			 return "/login/login";
 		 }
 		 
-		 logger.info("userNo : {}. userId : {}",session.getAttribute("userNo"),session.getAttribute("userId"));
-		 //아이디가 있을 때 
-		 return "redirect:/main";
+		
 		 
 	 }
 	 
@@ -273,13 +271,13 @@ public class LoginController {
 
 		
 		
-		if(!isJoin) {//회원 가입되었던 있으면 로그인->회원 번호 /아이디 세션 저장
+		if(!isJoin) {//회원 가입하기
 			logger.info("회원가입");
 			model.addAttribute("naverJoin", userproFile);
 			return "/login/joinNaver";
 			
 			
-		}else {
+		}else {//로그인하기
 			int userNo = naverLoginService.naverLogin(userproFile);
 			//회원 번호 세션 저장
 			session.setAttribute("userNo", userNo);
@@ -298,7 +296,7 @@ public class LoginController {
 	 }
 	 
 	 @GetMapping("/login/kakaoLogin")
-	 public void kakaoLogin(String acceses_token,@RequestParam(value="code") String code) {
+	 public String kakaoLogin(String acceses_token,@RequestParam(value="code") String code,HttpSession session,Model model) {
 		//인가받은 코드로 토큰 받기
 		logger.info("카카오 토큰 요청하기"); 
 		String getKakaoToken = kakaoLoginService.getToken(code);
@@ -308,5 +306,31 @@ public class LoginController {
 		Users kakaoUserInfo = kakaoLoginService.getuserInfo(getKakaoToken);
 		logger.info("회원 정보 {}", kakaoUserInfo);
 		
+		
+		//회원정보 있는지 확인하기
+		boolean isKakaoLogin = kakaoLoginService.isLogin(kakaoUserInfo);
+		if(isKakaoLogin) {//로그인하기
+				logger.info("카카오 로그인하기");
+			//회원 번호 조회해오기
+			int userNo = kakaoLoginService.getuserNo(kakaoUserInfo);
+			
+			//세션에 정보 담기(회원번호, 아이디)
+			session.setAttribute("userNo", userNo);
+			session.setAttribute("userId", kakaoUserInfo.getUserId());
+			return "/main";
+		}else { //회원 가입하기
+			logger.info("카카오 회원가입하기");
+			
+			//모델값 넘겨주기
+			model.addAttribute("kakaoInfo", kakaoUserInfo);
+			return"/login/joinKakao";
+		}
+		
+	 }
+	 
+	 
+	 @GetMapping("/login/joinKakao")
+	 public void joinKakao() {
+		 logger.info("카카오 회원으로 가입하기");
 	 }
 }

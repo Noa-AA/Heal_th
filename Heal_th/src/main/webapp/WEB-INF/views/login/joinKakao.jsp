@@ -2,25 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 <script type="text/javascript">
 
 $(document).ready(function(){
-
-	var naverPhone = $("#userPhone").val()
-  	
-  	if(naverPhone =="${naverJoin.userPhone}"){
-  	var userPhoneN	=naverPhone.split("-").join("")
-  		console.log(userPhoneN)
-  		 $("#userPhone").attr("value",userPhoneN)
-  	}
-  	
-  if($("#userBirth").val() == "${naverJoin.userBirth}"){
-	  var naverBirth = $("#userBirth").val().split("-").join("")
-	  console.log(naverBirth)
-	   $("#userBirth").attr("value",naverBirth)
-  }
-	
 
 	  //회원 본인 인증 
   $("#btn_userchk").click(function(){
@@ -87,9 +71,10 @@ $("#joinbtn").click(function(){
 
 	//유효성 검증 후 submit*(조건이 모두 만족해야 가입이됨)
 	if(validate()&& validatePw()&&pwChk()){
-		$("#joinNaverform").submit();
-    }
-		return false;	//조건 만족하지 않으면 회원가입 되지 않음	
+	
+			$("#joinKakaoform").submit();
+	    }
+			return false;	//조건 만족하지 않으면 회원가입 되지 않음	
 	})
 	
 	
@@ -372,26 +357,22 @@ $("#joinbtn").click(function(){
  	width:500px;
  	margin : 0 auto;
  }
- 
  </style>
 <body>
-
-
-
 <div id="joinarea">
 	<div id="intro">
-			<h1>네이버 아이디로 회원가입</h1>
+			<h1>카카오 아이디로 회원가입</h1>
 			<div id="intro_description">추가적인 정보를 기입해주세요 ! 아이디는 수정이 불가합니다</div>
 		</div>
 		
 		
-	<form action="/login/join" method="post" id="joinNaverform">
+	<form action="/login/join" method="post" id="joinKakaoform">
 		<div id="howJoin">
-				<input id="joinType" name="joinType" value="Naver" style="display: none;">
+				<input id="joinType" name="joinType" value="KaKao" style="display: none;">
 			</div>
 		<div id="name">		
 		 	<label for="userName">이름
-	 		<input type="text" name="userName" id="userName" value='${naverJoin.userName }'>
+	 		<input type="text" name="userName" id="userName" >
 	 		</label> 
 		</div>
 		
@@ -399,7 +380,7 @@ $("#joinbtn").click(function(){
 	
 		<div id="email">
 			<label for="userEmail">이메일
-			<input type="text" name="userEmail" id="userEmail" value="${naverJoin.userEmail }">
+			<input type="text" name="userEmail" id="userEmail" value="${kakaoInfo.userEmail}">
 			</label>
 		</div>
 		
@@ -407,7 +388,7 @@ $("#joinbtn").click(function(){
 		
 		<div id="id">
 			<label for="userId">아이디
-			<input type="text" name="userId" id="userId" value="${naverJoin.userId}" readonly="readonly">
+			<input type="text" name="userId" id="userId" value="${kakaoInfo.userId}" readonly="readonly">
 			</label>
 		</div>
 	
@@ -432,7 +413,7 @@ $("#joinbtn").click(function(){
 		
 		<div id="nick">
 			<label for="userNick">닉네임
-			<input type="text" name="userNick" id="userNick" value="${naverJoin.userNick }">
+			<input type="text" name="userNick" id="userNick" value="${kakaoInfo.userNick}">
 			</label>
 		</div>
 			<div id="nickAlert"></div>

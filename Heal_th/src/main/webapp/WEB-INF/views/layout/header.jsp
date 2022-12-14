@@ -279,8 +279,9 @@ header {
 	display: flex;
     align-items: center;
     justify-content: center;
-    color: #484848;
+    color: #666666;
     font-size: 18px;
+    font-weight: 400;
     width: 20%;
 }
 
@@ -303,9 +304,14 @@ header {
 }
 
 .big-container h3:nth-child(1){
-	padding-bottom: 55px;
-	font-size: 32px;
-    font-weight: 700;
+	padding-bottom: 64px;
+	padding-top: 10px;
+	font-size: 38px;
+    font-weight: 600;
+}
+
+body {
+	padding-top: 355px;
 }
 
 </style>
