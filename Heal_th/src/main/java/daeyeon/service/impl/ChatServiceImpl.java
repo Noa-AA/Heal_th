@@ -40,20 +40,6 @@ public class ChatServiceImpl implements ChatService {
 	}
 	
 	
-	
-	// /chat/chatRoom
-	//---------- 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
-	@Override
-	public List<RoomList> roomList(Users myUserNo) {
-		logger.info("roomList() - {}", myUserNo);
-		
-		//채팅방 목록 조회 - ChatDao 이용
-		List<RoomList> roomList = chatDao.selectRoomList(myUserNo);
-		
-		return roomList;
-	}
-	
-	
 	// /chat/pointCompare
 	//---------- 자신의 포인트 조회해오기
 	@Override
@@ -115,6 +101,32 @@ public class ChatServiceImpl implements ChatService {
 		} 
 		
 		return chatRoom.getRoomNo();
+	}
+	
+	
+	// /chat/chatRoom
+	//---------- 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
+	@Override
+	public List<RoomList> roomList(Users myUserNo) {
+		logger.info("roomList() - {}", myUserNo);
+			
+		//채팅방 목록 조회 - ChatDao 이용
+		List<RoomList> roomList = chatDao.selectRoomList(myUserNo);
+			
+		return roomList;
+	}
+	
+	// /chat/chatRoom
+	//---------- 마지막 채팅내역과 채팅방번호
+	@Override
+	public List<Chat> getLastChat() {
+	// TODO Auto-generated method stub
+		logger.info("getLastChat() ");
+		
+		//마지막 채팅 내역 조회 
+		List<Chat> lastChat = chatDao.selectLastChat();
+		
+		return lastChat;
 	}
 	
 	
