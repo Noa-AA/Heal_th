@@ -190,14 +190,22 @@ button, input {
 }
 
 
-body {
-	padding-top: 300px;
+/* 2dept menu */
+#twoDepth-list a:nth-child(2){
+	color: #b571e9;
+	border-bottom: 2px solid #b571e9;
+	margin-top: 1px;
+	font-weight: 700;
+}
+
+#twoDepth-list a {
+    width: 50%;
 }
 
 </style>
 
 <body>
-
+<!-- 1depth visual -->
 <body>
 <div id="subvisual">
 	<div id="subvisual-A">
@@ -205,7 +213,17 @@ body {
 		<p id="subv-content">챌린지, 운동을 하며 궁금했던 점을 멘토들에게 궁금한점을 물어보세요.</p>
 	</div>
 </div>
+<!-- 2dept Menu -->
+<div id="twoDepth">
+	<div id="twoDepth-list">
+		<a href="/chat/intro">멘토 리스트</a>
+		<a href="/chat/chatRoom">내 채팅목록</a>
+	</div>
+</div>
 
+<div class="big-container">
+<h3 style="margin: 0 auto; width: 1200px; text-align: center;">멘토 리스트</h3>
+</div>
 
 
 <div id="backGround">
