@@ -24,4 +24,18 @@ public interface KakaoLoginService {
 	 */
 	public Users getuserInfo(String getKakaoToken);
 
+	/**
+	 * 가입된 아이디인지 확인하기
+	 * @param kakaoUserInfo -회원 정보
+	 * @return -turue/false
+	 */
+	public boolean isLogin(Users kakaoUserInfo);
+
+	/**
+	 * 로그인하기
+	 * @param kakaoUserInfo -카카오에서 받은 회원정보
+	 * @return-회원번호
+	 */
+	public int getuserNo(Users kakaoUserInfo);
+
 }
