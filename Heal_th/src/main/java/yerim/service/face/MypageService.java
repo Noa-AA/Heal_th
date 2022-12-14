@@ -28,4 +28,25 @@ public interface MypageService {
 	 */
 	public boolean chkEmailCode(HttpSession session, String emailCode);
 
+	/**
+	 * 문자로 인증번호 보내기
+	 * @param userPhone -회원 전화번호
+	 * @return -인증번호
+	 */
+	public String sendSmsCode(Users userPhone);
+
+	/**
+	 * 인증번호 검증하기
+	 * @param session -생성된 인증번호
+	 * @param smsCode - 입력된 인증번호 
+	 * @return -true/false
+	 */
+	public boolean chkSmsCode(HttpSession session, String smsCode);
+
+	/**
+	 * 수정된 회원 정보 업데이트 하기
+	 * @param userInfo -입력된 회원 정보
+	 */
+	public void updateInfo(HttpSession session,Users userInfo);
+
 }

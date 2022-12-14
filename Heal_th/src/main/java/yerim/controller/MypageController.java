@@ -53,6 +53,18 @@ public class MypageController {
 		model.addAttribute("address", address);
 	}
 	
+	@PostMapping("/updateInfo")
+	public String updateCompleted(HttpSession session,Users userInfo) {
+		logger.info("/mypage/updateInfo[POST]");
+		
+		//수정된 정보 update하기
+		mypageService.updateInfo(session,userInfo);
+		
+		
+		return "/mypage/main";
+	}
+	
+	
 	@ResponseBody
 	@PostMapping("/getEmailCodeForUpdate")
 	public String updateEmail(Users userEmail,HttpSession session) {
@@ -72,11 +84,34 @@ public class MypageController {
 	public boolean chkEmailCode(HttpSession session,String emailCode) {
 		
 		logger.info("이메일 인증번호 검사하기");
-		
-		
 		boolean resultEmailChk = mypageService.chkEmailCode(session,emailCode);
-		
 		return resultEmailChk;
 	}
+	
+	@ResponseBody
+	@PostMapping("/smsCodeForUpdate")
+	public String updatePhone(Users userPhone,HttpSession session) {
+		logger.info("문자 인증 보내기");
+		
+		//문자로 인증번호 보내기
+		String smsCodeForUpdate = mypageService.sendSmsCode(userPhone);
+		
+		//세션에 인증번호 저장
+		session.setAttribute("sessionSmSCode", smsCodeForUpdate);
+		
+		return smsCodeForUpdate;
+		
+	}
+	 @ResponseBody
+	 @PostMapping("/chkSmsCode")
+	 public boolean chkSmsCode(HttpSession session,String smsCode ) {
+		 logger.info("문자로 본인인증하기");
+		 
+		 //문자 본인인증 검사하기
+		 boolean resultSmsChk = mypageService.chkSmsCode(session,smsCode);
+		 
+		 return resultSmsChk;
+	 }
+	 
 	
 }

@@ -5,9 +5,28 @@
 <mapper namespace="yerim.dao.face.MypageDao">
 
 	<select id="selectUserInfo" parameterType="int" resultType="Users">
-		SELECT user_name,user_nick,user_email,user_id,user_phone,user_gender,user_birth,user_job,user_address
+		SELECT user_name,user_nick,user_email,user_id,user_phone,user_gender,user_birth,user_job,user_gender,user_address,jointype
 		FROM users
 		WHERE user_no = #{userNo}
 	</select>
+	
+	<update id="updateUserInfo" parameterType="Users">
+	
+		UPDATE users
+		SET
+			user_name =#{userName},
+			user_nick =#{userNick},
+			user_email =#{userEmail},
+			user_id=#{userId},
+			user_phone=#{userPhone},
+			user_gender=#{userGender},
+			user_birth=#{userBirth},
+			user_job=#{userJob},
+			user_address=#{userAddress}
+		WHERE user_no = #{userNo}
+			
+			
+	
+	</update>
 
 </mapper>
