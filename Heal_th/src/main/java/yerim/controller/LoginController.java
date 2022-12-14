@@ -76,7 +76,7 @@ public class LoginController {
 			 
 		 }else { //로그인 실패 시
 			 logger.info("로그인 실패");
-			 model.addAttribute("isAdminLogin", isLogin);
+			 model.addAttribute("isLogin", isLogin);
 			 session.invalidate();
 			 return "/login/login";
 		 }
