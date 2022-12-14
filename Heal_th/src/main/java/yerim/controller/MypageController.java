@@ -35,6 +35,7 @@ public class MypageController {
 		
 		//세션에서 회원 번호 가져오기
 		int userNo = (int)session.getAttribute("userNo");
+		
 		logger.info("회원번호: {}",userNo);
 		
 		//기존에 작성된 회원 정보 조회해오기
@@ -113,5 +114,27 @@ public class MypageController {
 		 return resultSmsChk;
 	 }
 	 
+	 @RequestMapping("/updatePw")
+	 public void updatePw(HttpSession session,Model model) {
+		 logger.info("/mypage/updatePw");
+		 
+		 //세션에서 유저넘버 추출
+		 int userNo = (int)session.getAttribute("userNo");
+		 
+		 //회원 아이디 조회해오기
+		 String userId = mypageService.getuserId(userNo);
+		 
+		 
+		 //아이디 모델값으로 넘겨주기
+		 model.addAttribute("userId", userId);
+	 }
+	 
+	 @PostMapping("chkUsingPw")
+	 public String chkUsingPw(HttpSession session,Users updatePwInfo) {
+		 logger.info("/mypage/chkUsingPw [POST]");
+		 
+		 return "/mypage/updatePw";
+		 
+	 }
 	
 }

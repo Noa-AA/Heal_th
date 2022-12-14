@@ -71,8 +71,8 @@ public class MypageServiceImpl implements MypageService {
 		logger.info("인증번호 생성 : {}", msgNum);
 		
 		logger.info("문자 보내기 시작");
-//		Sms sms = new Sms();
-//		sms.sendSms((String)userPhone.getUserPhone(), msgNum);
+		Sms sms = new Sms();
+		sms.sendSms((String)userPhone.getUserPhone(), msgNum);
 		logger.info("문자 보내기 끝");
 		
 		
@@ -101,14 +101,6 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public void updateInfo(HttpSession session,Users userInfo) {
 		
-		//성별 바꿔주기 
-		
-//		if(userInfo.getUserGender() =="여성") {
-//			userInfo.setUserGender("F");
-//		}else {
-//			userInfo.setUserGender("M");
-//		}
-		
 		logger.info("성별 : {}",userInfo.getUserGender());
 		//세션에서 userNo 추출하여 DTO에 담기
 		userInfo.setUserNo((int)session.getAttribute("userNo"));
@@ -116,5 +108,11 @@ public class MypageServiceImpl implements MypageService {
 		
 		mypageDao.updateUserInfo(userInfo);
 		
+	}
+	
+	@Override
+	public String getuserId(int userNo) {
+		logger.info("getuserId - 회원 아이디 조회");
+		return mypageDao.selectUserId(userNo);
 	}
 }

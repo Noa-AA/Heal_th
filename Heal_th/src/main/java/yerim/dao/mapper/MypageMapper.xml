@@ -11,7 +11,6 @@
 	</select>
 	
 	<update id="updateUserInfo" parameterType="Users">
-	
 		UPDATE users
 		SET
 			user_name =#{userName},
@@ -24,9 +23,13 @@
 			user_job=#{userJob},
 			user_address=#{userAddress}
 		WHERE user_no = #{userNo}
-			
-			
-	
 	</update>
+	
+	<select id="selectUserId" resultType="String" parameterType="int"> 
+	
+		SELECT user_id FROM users
+		WHERE user_no = #{userNo}
+	
+	</select>
 
 </mapper>

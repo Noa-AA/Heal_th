@@ -49,4 +49,11 @@ public interface MypageService {
 	 */
 	public void updateInfo(HttpSession session,Users userInfo);
 
+	/**
+	 * 비밀번호 변경 페이지에 표시할 회원 아이디 조회하기
+	 * @param userNo -회원 번호 
+	 * @return -회원 아이디
+	 */
+	public String getuserId(int userNo);
+
 }

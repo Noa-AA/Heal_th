@@ -17,4 +17,11 @@ public interface MypageDao {
 	 */
 	public void updateUserInfo(Users userInfo);
 
+	/**
+	 * 회원 아이디 조회하기
+	 * @param userNo -회원 번호
+	 * @return 회원 아이디 
+	 */
+	public String selectUserId(int userNo);
+
 }

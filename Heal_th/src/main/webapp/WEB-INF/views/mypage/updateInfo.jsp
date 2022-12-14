@@ -199,11 +199,6 @@ $(document).ready(function(){
 	
 function update(){
 	console.log("회원정보 수정하기")
-// 	if($("#userGender").val() == '여성'){
-// 		$("#userGender").attr("value","F")
-// 	}else {
-// 		$("#userGender").attr("value","M")
-// 	}	
 	$("#updateInfoForm").submit()
 }
 
