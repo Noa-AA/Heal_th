@@ -15,6 +15,7 @@ body {
 	margin: 0 auto;
 	text-align: center;
 	height: 750px;
+	margin-top: 140px;
 }
 
 .start-container {
@@ -54,7 +55,7 @@ body {
 }
 
 .button-container {
-    top: 100px !important;
+    top: 150px !important;
     padding-bottom: 100px;
 }
 
@@ -62,6 +63,7 @@ body {
 	color: #b571e9;
 	border-bottom: 2px solid #b571e9;
 	margin-top: 1px;
+	font-weight: 700;
 }
 
 </style>
