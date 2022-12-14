@@ -123,6 +123,7 @@ public class ChatController {
 		@RequestMapping("/chatRoom")
 		public void chatRoom(HttpSession session, Users myUserNo, Model model, RoomList room) {
 			logger.info("/chatRoom");
+//			Chat chat = new Chat();
 			
 			myUserNo.setUserNo((Integer)session.getAttribute("userNo"));
 			
@@ -131,10 +132,20 @@ public class ChatController {
 			// 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
 			List<RoomList> roomList = chatService.roomList(myUserNo);
 			
+			// 채팅에서 제일 마지막 채팅 리스트 받아오기 - chatRoom들어갔을때 
+			List<Chat> lastChat = chatService.getLastChat();
+			
 			model.addAttribute("createRoomNo", session.getAttribute("createRoomNo"));
+			
+			logger.info("roomList : {}", roomList);
+			logger.info("lastChat : {}", lastChat);
 			
 //			채팅방 번호 전달 - Model객체 이용
 			model.addAttribute("roomList", roomList);
+
+//			마지막 채팅, 방번호 전달 - Model객체 이용
+			model.addAttribute("lastChat", lastChat);
+			
 		}
 		
 			

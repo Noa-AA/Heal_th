@@ -20,17 +20,6 @@ public interface ChatDao {
 	 */
 	public List<Users> selectUsers(Users myUserNo);
 
-	
-	/**
-	 * chat/chatRoom
-	 * 
-	 * 자신의 회원번호가 속한 채팅방번호와 상대방 닉네임 조회하기
-	 * 
-	 * @param myUserNo - 자신의 회원번호
-	 * @return - 조회된 채팅방번호와 상대방 닉네임
-	 */
-	public List<RoomList> selectRoomList(Users myUserNo);
-
 
 	/**
 	 * chat/pointCompare
@@ -85,7 +74,29 @@ public interface ChatDao {
 	 */
 	public void insertChatListByYou(ChatRoom chatRoom);
 
+	
+	
+	/**
+	 * chat/chatRoom
+	 * 
+	 * 자신의 회원번호가 속한 채팅방번호와 상대방 닉네임 조회하기
+	 * 
+	 * @param myUserNo - 자신의 회원번호
+	 * @return - 조회된 채팅방번호와 상대방 닉네임
+	 */
+	public List<RoomList> selectRoomList(Users myUserNo);
+	
+	
+	/**
+	 * chat/chatRoom
+	 * 
+	 * 채팅중에 마지막 채팅과 방번호 조회하기
+	 * 
+	 * @return - 조회된 마지막채팅 내역과 채팅방번호
+	 */
+	public List<Chat> selectLastChat();
 
+	
 	/**
 	 * chat/chatArea
 	 * 
@@ -125,6 +136,9 @@ public interface ChatDao {
 	 * @return List<Chat> - 채팅내용
 	 */
 	public List<Chat> selectChat(RoomList roomNo);
+
+
+	
 
 
 	

@@ -15,6 +15,7 @@ import yerim.dao.face.LoginDao;
 import yerim.dto.Users;
 import yerim.service.face.KakaoLoginService;
 import yerim.util.KakaoLogin;
+
 @Service
 public class KakaoLoginServiceImple implements KakaoLoginService {
 	public final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -53,24 +54,61 @@ public class KakaoLoginServiceImple implements KakaoLoginService {
 			//받은 정보 parsing 하기
 			 JSONParser parser = new JSONParser();
 			 JSONObject jsonObj = (JSONObject) parser.parse(kakaoUser);
-
-			 //id 추출하기
-			 String userId = (String)jsonObj.get("id");
-			 
+			 String userId = ((Long)jsonObj.get("id")).toString(); //id 추출하기 /long형->String으로 변환해서 저장
+			  
 			 //응답 속 kakao_account를 jsonObj 파싱
 			 JSONObject kakao_account = (JSONObject) jsonObj.get("kakao_account");
+			//kakao_account속 정보들 파싱
+			 String userEmail =(String) kakao_account.get("email"); //이메일
+			 String birthday =(String)kakao_account.get("birthday"); //생일
+			 String userGender = (String) kakao_account.get("gender"); //성별
+	
+			 //제공되지 않는 것들
+//			 String userName = (String)kakao_account.get("name"); //이름
+//			 String birthyear = (String)kakao_account.get("birthyear"); //출생연도
+//			 String userPhone = (String)kakao_account.get("phone_number"); //연락서
+
 			 //kakao_account속 profile파싱
 			 JSONObject profile = (JSONObject) kakao_account.get("profile");
+			 
 			 //kakao_account>profile 안의 정보 파싱
-			 String userNick = (String)profile.get("nickname");
-			 String userPhoto = (String)profile.get("profile_image_url");
-			
-		
+			 String userNick = (String)profile.get("nickname"); //닉네임
+			 String userPhoto = (String)profile.get("profile_image_url"); //프로필 사진
+			 
+			 
+			 logger.info("userId {}",userId);
+			 logger.info("userNick {}",userNick);
+			 logger.info("userEmail {}",userEmail);
+			 logger.info("birthday {}",birthday);
+			 logger.info("userGender {}",userGender);
+			 logger.info("userPhoto {}",userPhoto);
+			 
+			 //DTO에 정보 담기
+			 kakaoUserInfo.setUserId(userId);
+			 kakaoUserInfo.setUserNick(userNick);
+			 kakaoUserInfo.setUserEmail(userEmail);
+			 kakaoUserInfo.setUserGender(userGender);
+			 kakaoUserInfo.setUserPhoto(userPhoto);
 		} catch (RestClientException | URISyntaxException | ParseException e) {
 			e.printStackTrace();
 		}
-		
-		
+
+		logger.info("회원정보 추출 완료 :{}",kakaoUserInfo);
 		return kakaoUserInfo;
+	}
+	@Override
+	public boolean isLogin(Users kakaoUserInfo) {
+		
+		if(loginDao.iskakaoLogin(kakaoUserInfo)>0) {
+			logger.info("가입한 적 있음");
+			return true;
+		}
+		logger.info("가입한 적 없음");
+		return false;
+	}
+	
+	@Override
+	public int getuserNo(Users kakaoUserInfo) {
+		return loginDao.selectuserNoForKakao(kakaoUserInfo);
 	}
 }
