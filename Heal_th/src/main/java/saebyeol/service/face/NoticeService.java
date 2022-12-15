@@ -35,4 +35,22 @@ public interface NoticeService {
 	 */
 	public Notice view(Notice viewNotice);
 
+	/**
+	 * 게시글 작성
+	 * @param noticeWrite
+	 * @return
+	 */
+	public void write(Notice notice);
+
+	/**
+	 * 게시글 정보 수정
+	 * @param notice
+	 */
+	public void update(Notice notice);
+
+	/**
+	 * 게시글 삭제
+	 * @param notice
+	 */
+	public void delete(Notice notice);
 }

@@ -86,6 +86,8 @@
 		DELETE beforeafter
 		WHERE bf_no = #{bfNo}	
 	</delete>
+	
+	
 
 	
 </mapper>

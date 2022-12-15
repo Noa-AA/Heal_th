@@ -9,6 +9,7 @@ public interface ChlCreateDao {
 	 * 
 	 * @param challenge - 신규 생성 방 정보
 	 */
-	public void insert(Challenge challenge);
+	public void insertChl(Challenge challenge);
+
 
 }

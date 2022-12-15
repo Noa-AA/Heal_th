@@ -9,5 +9,6 @@
 <body>
 
 <h1>결제 성공</h1>
+$pList
 </body>
 </html>

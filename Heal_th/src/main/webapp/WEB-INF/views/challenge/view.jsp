@@ -11,7 +11,17 @@
 .container {
 	border: 1px solid #333;
 	width: 750px;
-	height: 500px;
+	height: 570px;
+}
+
+#btnDelete {
+	background:
+		url(https://static-whale.pstatic.net/main/sprite-20220527@2x.png);
+	margin-top: 16px;
+	width: 25px;
+	height: 25px;
+	background-position: 117px 49px;
+	border: 0 none;
 }
 
 .input_wrap {
@@ -22,18 +32,18 @@
 label {
 	display: block;
 	margin: 10px 0;
-/* 	font-size: 20px; */
+	/* 	font-size: 20px; */
 }
 
 input {
 	padding: 5px;
-/* 	font-size: 17px; */
+	/* 	font-size: 17px; */
 }
 
 textarea {
 	width: 800px;
 	height: 200px;
-/* 	font-size: 15px; */
+	/* 	font-size: 15px; */
 	padding: 10px;
 }
 
@@ -48,7 +58,7 @@ textarea {
 .btn_wrap {
 	display: inline-block;
 	text-align: center;
-	padding: 1px 15px;
+	padding: 1px 271px;
 	margin-right: 10px;
 	margin-left: 10px;
 	margin-top: 50px;
@@ -59,7 +69,10 @@ textarea {
 	<div class="title">
 		<h1 style="text-align: center;">상세 조회 페이지</h1>
 	</div>
-	<div class="container" style="text-align: center;">
+	<div class="container">
+		<div style="text-align: right;">
+			<button id="btnDelete"></button>
+		</div>
 		<div class="input_wrap">
 			<label>챌린지 번호</label> <input name="challengeNo" readonly="readonly" value='<c:out value="${pageInfo.challengeNo}"/>'>
 		</div>
@@ -78,25 +91,34 @@ textarea {
 
 
 		<div class="btn_wrap">
-		
-			<button class="btn" id="list_btn" onclick="location.href='/challenge/list'">목록 페이지</button>
-		
-			<button class="btn" id="join_btn">가입 페이지</button>
+			<button class="btn" id="list_btn" onclick="location.href='/challenge/list'">목록으로</button>
+			<a class="btn" id="join_btn">가입하기</a>
 		</div>
-
 	</div>
-	
+
+	<form id="joinForm" action="/challenge/join" method="get">
+		<input type="hidden" id="challengeNo" name="challengeNo" value='<c:out value="${pageInfo.challengeNo}"/>'>
+
+	</form>
+
 
 	<script>
-			
-// 		let form = $("#infoForm");
+	
+	
+		let form = $("#joinForm");
 
-// 		$("#list_btn").on("click", function(e) {
-// 			form.find("#challengeNo").remove();
-// 			form.attr("action", "/challenge/list");
-// 			form.submit();
-// 		});
-		
+		//가입 버튼
+		$("#join_btn").on("click", function(e) {
+			form.attr("action", "/challenge/join");
+			form.submit();
+		});
+
+		//삭제 버튼 (관리자만 보이게해야함)
+		$("#btnDelete")
+				.click(
+						function() {
+							location.href = "/challenge/delete?challengeNo=${pageInfo.challengeNo }"
+						})
 	</script>
 </body>
 </html>

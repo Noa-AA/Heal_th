@@ -5,14 +5,15 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 public class Challenge {
 	private int challengeNo;
 	private String challengeKind;
 	private String challengeName;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date challengeCredate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date challengeEnddate;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private int mNo;
 	
 	public Challenge() {

@@ -46,11 +46,17 @@ body {
     top: 50px;
 }
 
-.big-container {
+.footer {
+	margin-top: 400px !important;
+}
+
+.big-container2 {
 	width: 1200px;
 	margin: 0 auto;
 	text-align: center;
 }
+
+.big-container2 h3 {}
 
 .small-container {
 	display: flex;
@@ -60,7 +66,8 @@ body {
 	padding: 15px;
 	background-image: url("/resources/img/dgmagotchi/dgmagotchiBack.png");
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 30%);
-	margin-bottom: 100px;
+	margin-bottom: 50px;
+	margin-top: 40px;
 } 
 
 .main-content {
@@ -226,6 +233,8 @@ body {
 .chat-value {
 	margin-bottom: 17px;
 	width: 501px;
+	display: flex;
+    flex-direction: column-reverse;
 }
 
 .chat-container-wrap {
@@ -760,7 +769,7 @@ $(document).ready(function(){
 
 </script>
 <body>
-<div class="big-container">
+<div class="big-container2">
 	<div class="small-container">
 		<div class="status-container">
 			<div class="status-content">

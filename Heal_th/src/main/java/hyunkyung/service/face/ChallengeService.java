@@ -5,6 +5,7 @@ import java.util.List;
 import hyunkyung.dto.Challenge;
 import hyunkyung.dto.ChallengeFile;
 import hyunkyung.util.ChlCriteria;
+import yerim.dto.Users;
 
 public interface ChallengeService {
 
@@ -34,4 +35,11 @@ public interface ChallengeService {
 	 * @return
 	 */
 	public int getTotal(ChlCriteria cri);
+
+	/**
+	 * 챌린지 삭제
+	 * @param challenge
+	 */
+	public void delete(Challenge challenge);
+
 }

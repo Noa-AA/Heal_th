@@ -68,6 +68,8 @@ public class Sms {
 		//시간 설정
 		String time = Long.toString(System.currentTimeMillis());
 		
+		//요청 보내기전 기본 설정 끝
+		//------------------------------------------------------------
 		//Header 설정
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
@@ -80,7 +82,7 @@ public class Sms {
 		RestTemplate restTempalte = new RestTemplate();
 		restTempalte.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 		
-		//응답 설정
+		//HTTPPOSt 요청 보내기
 		SmsResponse smsResponse = new SmsResponse();
 		try { //응답 주소 및 내용, 헤더 설정 ,요청 URL
 			smsResponse	= restTempalte.postForObject(new URI("https://sens.apigw.ntruss.com/sms/v2/services/"+serviceId+"/messages"),body,SmsResponse.class);

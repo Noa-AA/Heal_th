@@ -192,17 +192,21 @@ ul {
     display: flex;
     flex-direction: column;
     width: 550px;
-    margin-bottom: -350px;
     position: relative;
-    left: 25px;
+    left: 625px;
 } 
 
 .content-0:nth-child(even) {
     display: flex;
     flex-direction: column;
     width: 550px;
+    margin-bottom: -350px;
     position: relative;
-    left: 625px;
+    left: 25px;
+}
+
+.contentempty {
+	margin: 0 auto;
 }
 
 .content-3 {
@@ -218,44 +222,52 @@ button {
 	display: flex;
 	justify-content: center;
 }
+
 body {
 	padding-top: 355px;
 }
+
+.medium-container {
+	width: 1200px;
+	min-height: 800px;
+    box-shadow: 1px 0px 10px 0px rgb(0 0 0 / 30%);
+}
+
+#twoDepth-list a:nth-child(2){
+	color: #b571e9;
+	border-bottom: 2px solid #b571e9;
+	margin-top: 1px;
+	font-weight: 700;
+}
+
 </style> 
 <body>
 <div id="subvisual">
 	<div id="subvisual-A">
-		<p id="subv-title">운동 일기장</p>
-		<p id="subv-content">나의 오늘 운동기록을 매일매일 기록해 봐요</p>
+		<p id="subv-title">운동 도우미</p>
+<!-- 		<p id="subv-content">나의 오늘 운동기록을 매일매일 기록해 봐요</p> -->
+	</div>
+</div>
+<div id="twoDepth">
+	<div id="twoDepth-list">
+		<a href="/map/find">운동 시설 추천</a>
+		<a href="/dghelper/healthrecord">운동 일기장</a>
+		<a href="/dghelper/healthtest">운동 성향 테스트</a>
+		<a href="/dghelper/healthguide">칼로리 사전</a>
+		<a href="/dghelper/dgmagotchi">득근이 키우기</a>
 	</div>
 </div>
 <div class="big-container">
-<!-- <!-- 퀵메뉴 시작 --> 
-<!-- <div class="Quick"> -->
-<!--     <table class="quickMenuBar"> -->
-<!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;"><a href="/map/find">주변 시설 찾기</a></td> -->
-<!--         </tr> -->
-<!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthtest">운동성향 테스트</a></td> -->
-<!--         </tr> -->
-<!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthguide">칼로리사전</a></td> -->
-<!--         </tr> -->
-<!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/healthrecord">운동일기장</a></td> -->
-<!--         </tr> -->
-<!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;"><a href="/dghelper/dgmagotchi">득근이 키우기</a></td> -->
-<!--         </tr> -->
-<!-- <!--         <tr> -->
-<!--             <td colspan="2" style="cursor:pointer;" onclick="window.scrollTo(0,0);">TOP</td> -->
-<!--         </tr> --> 
-<!--     </table> -->
-<!-- </div> -->
-<!-- <!-- 퀵메뉴 끝 --> 
+<h3 style="margin: 0 auto; width: 1200px; text-align: center;">운동 일기장</h3>
 	<div id="recordlist">
-	<span id="healthcount">나의 일기 작성 횟수 [ ${paging.totalCount } 회 ]</span><br>
+	<div class="small-container">
+		<span id="healthcount">나의 일기 작성 횟수 [ ${paging.totalCount } 회 ]</span><br>
+	</div>
+	<c:if test="${empty list }">
+		<div class="contentempty">
+			<div id="content">작성한 일기내용이 없습니다.</div>
+		</div>
+	</c:if>
 		<c:forEach items="${list }" var="i">
 		
 		<div class="content-0">
@@ -350,6 +362,7 @@ body {
 		</c:if>
 		
 		</ul>
+	</div>
 	</div>
 </div>
 
