@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import daeyeon.dto.Chat;
 import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
+import daeyeon.util.ChatIntroPaging;
 import yerim.dto.Users;
 
 public interface ChatService {
@@ -15,11 +16,22 @@ public interface ChatService {
 	/**
 	 * chat/intro
 	 * 
+	 * 회원인트로페이지의 페이징 정보
+	 * 
+	 * @param curPage
+	 * @param myUserNo
+	 * @return
+	 */
+	public ChatIntroPaging getChatIntroPaging(String curPage, Users myUserNo);
+	
+	/**
+	 * chat/intro
+	 * 
 	 * 회원 등급 3이상인 회원 조회하기
 	 * 
 	 * @return List<Users> -  회원등급 3이상인 회원목록
 	 */
-	public List<Users> userlist(Users myUserNo);
+	public List<Users> userlist(Users myUserNo, ChatIntroPaging chatIntroPaging);
 
 
 	/**
@@ -116,6 +128,9 @@ public interface ChatService {
 	 * @return List<Chat> - 조회한 채팅내역
 	 */
 	public List<Chat> gerChatList(RoomList roomNo);
+
+	
+	
 
 
 

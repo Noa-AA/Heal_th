@@ -17,6 +17,7 @@ import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
 import daeyeon.dto.Userss;
 import daeyeon.service.face.ChatService;
+import daeyeon.util.ChatIntroPaging;
 import yerim.dto.Users;
 
 @Controller
@@ -32,17 +33,22 @@ public class ChatController {
 		
 		//1. 멘토 리스트
 		@RequestMapping("/intro")
-		public void mentorList(HttpSession session, Model model, Users myUserNo) {
+		public void mentorList(HttpSession session, Model model, Users myUserNo, String curPage) {
 			logger.info("/chat/intro");
 			
 			//자신을 제외하기위한 자신의 회원번호 파라미터
 			myUserNo.setUserNo((Integer)session.getAttribute("userNo"));
 			
+			//페이징 객체
+			ChatIntroPaging chatIntroPaging = new ChatIntroPaging();
+			chatIntroPaging = chatService.getChatIntroPaging(curPage, myUserNo);
+			
 			//회원등급 3이상 회원 조회
-			List<Users> userList = chatService.userlist(myUserNo);
+			List<Users> userList = chatService.userlist(myUserNo, chatIntroPaging);
 				
 			//모델값 전달 - Model객체 이용
 			model.addAttribute("userList", userList);
+			model.addAttribute("paging", chatIntroPaging);
 		}
 		
 		
