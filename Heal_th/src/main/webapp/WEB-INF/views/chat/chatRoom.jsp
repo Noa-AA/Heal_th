@@ -31,16 +31,6 @@ $(document).ready(function() {
 	})
 	
 	
-// 	/* 리스트에 마우스 오버하면 색 바뀌기 */
-// 	$(".roomBtn").hover(function() {
-// 		$(this).css("background-color", "#eee");
-// 	})
-// 	/* 나가면 색 그대로 돌리기 */
-// 	$(".roomBtn").hover(function() {
-// 		$(this).css("background-color", "#eee");
-// 	})
-		
-	
 })
 
 
@@ -161,7 +151,7 @@ button, input {
 .right > p {
 	max-width: 210px;
 	min-width: 0;
-	height: 20px;
+	height: 22px;
 	text-overflow: ellipsis; 
 	white-space: nowrap;
 	overflow: hidden;
@@ -190,14 +180,27 @@ button, input {
 }
 
 
-body {
-	padding-top: 300px;
+/* 2dept menu */
+
+#twoDepth-list {
+	width: 1400px;
+}
+
+#twoDepth-list a:nth-child(2){
+	color: #b571e9;
+	border-bottom: 2px solid #b571e9;
+	margin-top: 1px;
+	font-weight: 700;
+}
+
+#twoDepth-list a {
+    width: 50%;
 }
 
 </style>
 
 <body>
-
+<!-- 1depth visual -->
 <body>
 <div id="subvisual">
 	<div id="subvisual-A">
@@ -205,7 +208,17 @@ body {
 		<p id="subv-content">챌린지, 운동을 하며 궁금했던 점을 멘토들에게 궁금한점을 물어보세요.</p>
 	</div>
 </div>
+<!-- 2dept Menu -->
+<div id="twoDepth">
+	<div id="twoDepth-list">
+		<a href="/chat/intro">멘토 리스트</a>
+		<a href="/chat/chatRoom">내 채팅목록</a>
+	</div>
+</div>
 
+<div class="big-container">
+<h3 style="margin: 0 auto; width: 1200px; text-align: center;">내 채팅목록</h3>
+</div>
 
 
 <div id="backGround">
@@ -215,19 +228,32 @@ body {
 			${userId }
 		</div>
 		<c:forEach items="${roomList }" var="room">
-<%-- 			<div class="room" onclick="goChat(${room.roomNo })"> --%>
-				<button class="roomBtn" onclick="goChat(${room.roomNo })" >
+		
+<%-- 		<div class="room" onclick="goChat(${room.roomNo })"> --%>
+
+			<button class="roomBtn" onclick="goChat(${room.roomNo })" >
+				
 				<div class="left">
 					<img src="https://webimage.10x10.co.kr/eventIMG/2022/118925/etcitemban20220623180508.JPEG">
 				</div>
-				<div class="right">
-						<p class="reciverNick">${room.userNick }</p>
-						<p class="lastChat ${room.roomNo }"></p>
-				</div>
-				</button>
 				
-<!-- 			</div> -->
-		</c:forEach>
+				<div class="right">
+					<p class="reciverNick">${room.userNick }</p>
+					<p class="lastChat ${room.roomNo }">
+						<!-- 같은 방번호일때 채팅 넣어주기 -->
+						<c:forEach items="${lastChat }" var="lastChat">
+						<c:if test="${room.roomNo == lastChat.roomNo }">
+							${lastChat.chatContents }
+						</c:if>
+						</c:forEach> <!-- ${lastChat } -->
+					</p>
+				</div>
+				
+			</button>
+				
+<!-- 		</div> -->
+		</c:forEach> <!-- ${roomList } -->
+		
 	</div>
 	
 	<div id="result"></div>
