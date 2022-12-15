@@ -1,5 +1,7 @@
 package hyunkyung.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,52 +11,59 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import hyunkyung.dto.Challenge;
-import hyunkyung.dto.ParticipantList;
 import hyunkyung.service.face.ChlPageService;
 import yerim.dto.Users;
 
 @Controller
 public class ChlPageController {
-	
+
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private ChlPageService chlPageService;
-	
-	//마이페이지 폼
+
+	// 마이페이지 폼
 	@GetMapping("/challenge/mypage")
-	public void mypageGET(/*int participantNo,*/ ParticipantList participantList, Challenge challenge, HttpSession session, Model model) {
+	public String mypageGET(HttpSession session, Model model) {
 		logger.info("/challenge/mypage[GET]");
 		
-		//로그인 데이터
-		session.setAttribute("userno", 1);
-		int userno = (int)session.getAttribute("userno");
-		logger.info("userno : {}", userno);
-		
-		Users user = chlPageService.getUserInfo(userno);
-		logger.info("userInfo : {}", user);
-		model.addAttribute("user",user);
+		if(session.getAttribute("userNo")!=null && session.getAttribute("userNo")!="") {
+			int userno = (int) session.getAttribute("userNo");
+			logger.info("userno : {}", userno);
+			
+			Users user = chlPageService.getUserInfo(userno);
+			logger.info("userInfo : {}", user);
+			model.addAttribute("user",user);
 
-		
-		//챌린지 정보
-		Challenge challenges = chlPageService.selectChlInfo(challenge);
-		logger.info("challenges : {}", challenge);
-		model.addAttribute("challenges",challenges);
-		
-		model.addAttribute("challengeInfo: {}" , chlPageService.selectChlInfo(challenge));
-		
-		
-		//챌린지 참여자 목록
-		ParticipantList pList = chlPageService.selectPList(participantList);
-		logger.info("pList : {}", participantList);
-		model.addAttribute("pList", pList);
-		
-		model.addAttribute("pListInfo : {}", chlPageService.selectPList(participantList));
-		
+			//회원번호로 내가 가입한 챌린지 조회
+			List<Challenge> joinList = chlPageService.getList(userno);
+			
+			model.addAttribute("joinList", joinList);
+			logger.info("controller joinList : {}", joinList);
+			
+			//내가 가입한 챌린지 총 갯수
+//			Challenge total = chlPageService.getTotal(userno);
+//			model.addAttribute("total", total);
+//			logger.info("total 갯수 : {} ", total);
+			
+			return "challenge/mypage";
+		}else {
+			return "/login/login";
+		}
 	}
-	
-	//클릭하면 사진 첨부
 
+	// 원하는 챌린지 클릭후 인증용 사진 첨부
+//	@PostMapping("/challenge/mypage")
+//	public void mypagePOST(HttpSession session, Model model) {
+//		logger.info("/challenge/mypage[POST]");
+//		
+//	}
+	
+	@GetMapping("/challenge/photopage")
+	public void challengeGetPhotopage() {
+		logger.info("/challenge/photopage [GET]");
+	}
 }

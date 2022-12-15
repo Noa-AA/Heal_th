@@ -1,9 +1,10 @@
 package hyunkyung.service.face;
 
+
+
 import java.util.List;
 
 import hyunkyung.dto.Challenge;
-import hyunkyung.dto.ParticipantList;
 import yerim.dto.Users;
 
 public interface ChlPageService {
@@ -15,19 +16,34 @@ public interface ChlPageService {
 	 */
 	public Users getUserInfo(int userno);
 
-	/**
-	 * 챌린지 정보 조회
-	 * @param challengeNo
-	 * @return
-	 */
-	public Challenge selectChlInfo(Challenge challenge);
 
 	/**
-	 * 참여자 목록 조회
-	 * @param participantNo
+	 * 가입한 챌린지 리스트
+	 * @param userno - 유저 번호 이용
 	 * @return
 	 */
-	public ParticipantList selectPList(ParticipantList participantList);
+	public List<Challenge> getList(int userno);
+
+	/**
+	 * 내가 가입한 챌린지 총 갯수
+	 * @return
+	 */
+//	public Challenge getTotal(int userno);
+
+
+
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
 
 
 

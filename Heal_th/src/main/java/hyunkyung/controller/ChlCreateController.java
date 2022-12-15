@@ -28,14 +28,14 @@ public class ChlCreateController {
 
 	// 챌린지 만들기 처리
 	@PostMapping("/challenge/create")
-	public String createProc(Challenge challenge, RedirectAttributes rttr) {
+	public String createProc(Challenge challenge/*, RedirectAttributes rttr*/) {
 		logger.info("/challenge/create [POST]");
 		logger.info("[post] challenge :{}", challenge);
 		
 		createService.create(challenge);
 		
 		//알림창 실행위해서
-		rttr.addFlashAttribute("result", "create success");
+//		rttr.addFlashAttribute("result", "create success");
 		return "redirect:/challenge/list";
 	}
 

@@ -27,8 +27,7 @@ public interface ChlJoinDao {
 	 * @param userno
 	 * @return
 	 */
-	public int selectMmoney(int userno);
-//	public MmoneyUse selectMmoney(int mNo);
+//	public int selectMmoney(int userno);
 	
 	/**
 	 * 가입시 정보 저장
@@ -38,6 +37,5 @@ public interface ChlJoinDao {
 	public int insertInfo(ParticipantList pList);
 
 	
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-//	public Integer getMcharge(int mmoney);
+	public MmoneyUse selectMmoney(int userno);
 }

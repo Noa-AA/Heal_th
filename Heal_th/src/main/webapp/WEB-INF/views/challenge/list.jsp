@@ -11,10 +11,10 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	/* 	margin: 50px 50px 90px 50px; */
 	margin: auto;
 	gap: 50px 50px;
 	width: 1200px;
+	margin-top: 400px;
 }
 
 .challenge {
@@ -100,9 +100,12 @@ a:hover {
 
 </head>
 <body>
-	<div class="title">
-		<h1 style="text-align: center">챌린지 목록</h1>
+<div id="subvisual">
+	<div id="subvisual-A">
+		<p id="subv-title">챌린지 목록</p>
+		<p id="subv-content">원하는 챌린지를 눌러주세요</p>
 	</div>
+</div>
 	<div class="challenge-list">
 		<c:forEach items="${list }" var="challenge">
 
@@ -127,13 +130,13 @@ a:hover {
 				</div>
 			</div>
 		</c:forEach>
+		
 
 
 
 		<div class="search_wrap">
 			<div class="search_area">
 				<select name="type">
-					<option value="" <c:out value="${pageMaker.cri.type == null?'selected':'' }"/>></option>
 					<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':'' }"/>>제목</option>
 					<option value="C" <c:out value="${pageMaker.cri.type eq 'C'?'selected':'' }"/>>종류</option>
 					<option value="TC" <c:out value="${pageMaker.cri.type eq 'TC'?'selected':'' }"/>>제목 + 종류</option>
@@ -168,7 +171,11 @@ a:hover {
 	</div>
 
 	<form id="moveForm" method="get">
-		<input type="hidden" id="challengeNo" name="challengeNo" value='<c:out value="${pageInfo.challengeNo}"/>'> <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> <input type="hidden" name="amount" value="${pageMaker.cri.amount }"> <input type="hidden" name="keyword" value="${pageMaker.cri.keyword }"> <input type="hidden" name="type" value="${pageMaker.cri.type }">
+		<input type="hidden" id="challengeNo" name="challengeNo" value='<c:out value="${pageInfo.challengeNo}"/>'> 
+		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
+		<input type="hidden" name="amount" value="${pageMaker.cri.amount }"> 
+		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }"> 
+		<input type="hidden" name="type" value="${pageMaker.cri.type }">
 	</form>
 
 
@@ -176,26 +183,26 @@ a:hover {
 
 	<script>
 	
-	//챌린지 등록시 알림창
-				$(document).ready(function() {
+// 	//챌린지 등록시 알림창
+// 				$(document).ready(function() {
 
-					let result = '<c:out value="${result}"/>';
+// 					let result = '<c:out value="${result}"/>';
 
-					checkAlert(result);
+// 					checkAlert(result);
 
-					    function checkAlert(result){
+// 					    function checkAlert(result){
 
-					        if(result === ''){
-					            return;
-					        }
+// 					        if(result === ''){
+// 					            return;
+// 					        }
 
-					        if(result === "create success"){
-					            alert("등록 완료, 챌린지는 등록후 수정이 불가합니다");
-					        }
+// 					        if(result === "create success"){
+// 					            alert("등록 완료, 챌린지는 등록후 수정이 불가합니다");
+// 					        }
 
-					    } 
+// 					    } 
 
-				});
+// 				});
 		
 		//챌린지 상세보기
 		let moveForm = $("#moveForm");
@@ -250,4 +257,5 @@ a:hover {
 
 	</script>
 </body>
+<%@include file="../layout/footer.jsp" %>
 </html>

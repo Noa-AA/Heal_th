@@ -1,6 +1,5 @@
 package hyunkyung.controller;
 
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,15 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import hyunkyung.dto.Challenge;
 import hyunkyung.service.face.ChallengeService;
 import hyunkyung.util.ChlCriteria;
 import hyunkyung.util.ChlPageMakerDTO;
-import yerim.dto.Users;
 
 @Controller
 @RequestMapping("/challenge")

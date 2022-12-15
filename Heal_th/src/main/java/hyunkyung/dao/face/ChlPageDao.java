@@ -1,5 +1,6 @@
 package hyunkyung.dao.face;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import hyunkyung.dto.Challenge;
@@ -15,19 +16,30 @@ public interface ChlPageDao {
 	 */
 	public Users selectUserInfo(int userno);
 
-	/**
-	 * 챌린지 번호에 따른 챌린지 정보 조회
-	 * @param challengeNo
-	 * @return
-	 */
-	public Challenge selectChlInfo(Challenge challenge);
 
 	/**
-	 * 챌린지 참여자 목록 조회
-	 * @param participantNo
+	 * 유저번호를 이용하여 가입한 챌린지 조회
+	 * @param userno
 	 * @return
 	 */
-	public ParticipantList selectPInfo(ParticipantList participantList);
+	public List<Challenge> selectjoinList(int userno);
+
+	/**
+	 * 내가 가입한 챌린지 총 갯수
+	 * @return
+	 */
+//	public Challenge getTotal(int userno);
+
+
+	
+	
+	
+	
+
+	
+	
+	
+	
 
 
 	

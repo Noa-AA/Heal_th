@@ -12,6 +12,7 @@
 	border: 1px solid #333;
 	width: 750px;
 	height: 570px;
+	margin-top: 400px;
 }
 
 #btnDelete {
@@ -66,12 +67,18 @@ textarea {
 </style>
 </head>
 <body>
-	<div class="title">
-		<h1 style="text-align: center;">상세 조회 페이지</h1>
+	<div id="subvisual">
+		<div id="subvisual-A">
+			<p id="subv-title">상세 조회 페이지</p>
+			<p id="subv-content">해당 챌린지에 대한 상세 내용입니다</p>
+		</div>
 	</div>
 	<div class="container">
 		<div style="text-align: right;">
-			<button id="btnDelete"></button>
+			<!-- 			<button id="btnDelete" onclick="return confirm('정말 삭제하실건가요?')"></button> -->
+			<form method="get" action="./list" onsubmit="return cancelok(); ">
+				<button type="submit" id="btnDelete"></button>
+			</form>
 		</div>
 		<div class="input_wrap">
 			<label>챌린지 번호</label> <input name="challengeNo" readonly="readonly" value='<c:out value="${pageInfo.challengeNo}"/>'>
@@ -103,8 +110,6 @@ textarea {
 
 
 	<script>
-	
-	
 		let form = $("#joinForm");
 
 		//가입 버튼
@@ -114,11 +119,23 @@ textarea {
 		});
 
 		//삭제 버튼 (관리자만 보이게해야함)
-		$("#btnDelete")
-				.click(
-						function() {
-							location.href = "/challenge/delete?challengeNo=${pageInfo.challengeNo }"
-						})
+		// 		$("#btnDelete")
+		// 				.click(
+		// 						function() {
+		// 							location.href = "/challenge/delete?challengeNo=${pageInfo.challengeNo }"
+		// 						});
+
+		//삭제 버튼 (관리자만 보이게해야함)
+		function cancelok() {
+			if (confirm("진짜로 거래를 삭제하시겠습니까?")) {
+				alert("정상적으로 처리 되었습니다.");
+				return location.href = "/challenge/delete?challengeNo=${pageInfo.challengeNo }";
+			} else {
+				return false;
+
+			}
+		}
 	</script>
 </body>
+<%@include file="../layout/footer.jsp"%>
 </html>

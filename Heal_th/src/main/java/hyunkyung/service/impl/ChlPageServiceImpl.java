@@ -27,17 +27,36 @@ public class ChlPageServiceImpl implements ChlPageService{
 		return chlPageDao.selectUserInfo(userno);
 	}
 
-	//챌린지 정보 조회
+	//회원번호로 내가 가입한 챌린지 조회
 	@Override
-	public Challenge selectChlInfo(Challenge challenge) {
-		return chlPageDao.selectChlInfo(challenge);
+	public List<Challenge> getList(int userno) {
+
+		List<Challenge> list = chlPageDao.selectjoinList(userno);
+		
+		for(Challenge c : list) logger.info("내가 가입한 챌린지{}", c);
+		
+		return list;
 	}
 
-	//참여자 목록 조회
-	@Override
-	public ParticipantList selectPList(ParticipantList participantList) {
-		return chlPageDao.selectPInfo(participantList);
-	}
+
+//	@Override
+//	public Challenge getTotal(int userno) {
+//		return chlPageDao.getTotal(userno);
+//	}
+
+
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 
