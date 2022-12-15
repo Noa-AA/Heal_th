@@ -22,17 +22,12 @@
 	</select>
 	
 <!-- 	득근머니 잔액 조회 -->
-	<select id="selectMmoney" resultType="int" parameterType="int">
-		SELECT m_charge, m_use
-		FROM mmoney_use
-		WHERE user_no = #{userno }
-	</select>
-
-<!-- 	<select id="selectMmoney" resultType="MmoneyUse" parameterType="int"> -->
-<!-- 		SELECT * -->
+<!-- 	<select id="selectMmoney" resultType="int" parameterType="int"> -->
+<!-- 		SELECT m_charge, m_use -->
 <!-- 		FROM mmoney_use -->
 <!-- 		WHERE user_no = #{userno } -->
 <!-- 	</select> -->
+
 
 <!-- 가입시 정보 저장 -->
 	<insert id="insertInfo" parameterType="ParticipantList">
@@ -41,12 +36,9 @@
 	</insert>
 
 
-<!-- @@@@@@@@@@@@@@@@ -->
-<!-- <select id="getMcharge" resultType="Integer" parameterType="int"> -->
-<!-- 		SELECT * -->
-<!-- 		FROM mmoney_use -->
-<!-- 		WHERE user_no = #{userno } -->
-
-<!-- </select> -->
-
+	<select id="selectMmoney" resultType="MmoneyUse" parameterType="int">
+		SELECT m_charge, m_use
+		FROM mmoney_use
+		WHERE user_no = #{useno }
+	</select>
 </mapper>    

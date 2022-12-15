@@ -12,6 +12,7 @@
 	width: 750px;
 	height: 370px;
 	text-align: center;
+	margin-top: 400px;
 }
 
 label {
@@ -30,8 +31,11 @@ button {
 </style>
 </head>
 <body>
-	<div class="title">
-		<h1 style="text-align: center">챌린지 만들기</h1>
+	<div id="subvisual">
+		<div id="subvisual-A">
+			<p id="subv-title">챌린지 만들기</p>
+			<p id="subv-content">원하는 챌린지를 만들어주세요</p>
+		</div>
 	</div>
 
 
@@ -64,13 +68,14 @@ button {
 				</label>
 			</div>
 			<div class="btn">
-				<button type="submit">확인</button>
+				<button type="submit" onclick="return confirm('챌린지는 등록후 수정이 불가합니다')">확인</button>
 				<button type="reset">취소</button>
 
 			</div>
 		</form>
 	</div>
 </body>
+<%@include file="../layout/footer.jsp"%>
 
 
 

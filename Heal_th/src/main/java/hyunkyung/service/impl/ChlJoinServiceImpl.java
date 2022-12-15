@@ -33,16 +33,12 @@ public class ChlJoinServiceImpl implements ChlJoinService{
 		return chlJoinDao.selectUserInfo(userno);
 	}
 
-	//득근머니 잔액 조회
-	@Override
-	public int getMmoney(int userno) {
-		return chlJoinDao.selectMmoney(userno);
-	}
-
+//	//득근머니 잔액 조회
 //	@Override
-//	public MmoneyUse getMmoney(int mNo) {
-//		return chlJoinDao.selectMmoney(mNo);
+//	public int getMmoney(int userno) {
+//		return chlJoinDao.selectMmoney(userno);
 //	}
+
 
 	
 	//가입시 정보저장
@@ -53,11 +49,12 @@ public class ChlJoinServiceImpl implements ChlJoinService{
 		return chlJoinDao.insertInfo(pList);
 	}
 
-	//@@@@@@@@@@@@@@@@@@@@@
-//	@Override
-//	public Integer getMcharge(int mmoney) {
-//		return chlJoinDao.getMcharge(mmoney);
-//	}
+
+	@Override
+	public MmoneyUse getMmoney(int userno) {
+		return chlJoinDao.selectMmoney(userno);
+	}
+
 
 
 

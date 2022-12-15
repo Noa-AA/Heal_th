@@ -3,10 +3,10 @@
 <%@include file="../layout/header.jsp"%>
 
 <style type="text/css">
-.title {
-	margin-bottom: 40px;
-}
 
+.container{
+	margin-top: 400px;
+}
 #chlInfo_title {
 	width: 200px;
 	height: 30px;
@@ -107,13 +107,13 @@ span {
 }
 </style>
 <body>
-	<div class="title">
-		<h1 style="text-align: center">가입 화면</h1>
+<div id="subvisual">
+	<div id="subvisual-A">
+		<p id="subv-title">가입 화면</p>
+		<p id="subv-content">해당 챌린지에 가입할 수 있습니다</p>
 	</div>
-
-
+</div>
 	<div class="container">
-<%-- 		<c:forEach items="${challenge }" var="challenge"> --%>
 		<div id="chlInfo_title">
 			<span>챌린지 정보</span>
 		</div>
@@ -174,8 +174,7 @@ span {
 		<div id="mmoney_area">
 			<table id="MmoneyInfo">
 				<tr id="mCharge">
-					<td>현재 보유 포인트 : ${mmoney }원</td>
-<%-- 					<td>현재 보유 포인트 : ${mmoneys.mCharge }</td> --%>
+					<td>보유 득근머니 : ${mmoney.mCharge }</td>
 
 				</tr>
 				<tr class="mUse">
@@ -212,10 +211,10 @@ span {
 			<span>total</span>
 		</div>
 
-		<div id="total_area">mUse
+		<div id="total_area">
 			<table id="total">
 			<tr>
-				<td> ${mmoneys.mUse} </td>
+				<td> ${mmoney.mUse} </td>
 			</tr>
 			</table>
 		
@@ -232,4 +231,5 @@ span {
 		</div>
 		</div>
 </body>
+<%@include file="../layout/footer.jsp" %>
 </html>

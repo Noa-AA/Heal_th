@@ -27,8 +27,7 @@ public interface ChlJoinService {
 	 * @param userno
 	 * @return
 	 */
-	public int getMmoney(int userno);
-//	public MmoneyUse getMmoney(int mNo);
+//	public int getMmoney(int userno);
 
 	
 	/**
@@ -38,9 +37,12 @@ public interface ChlJoinService {
 	 */
 	public int insert(ParticipantList pList);
 
+
 	
-	//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-//	public Integer getMcharge(int mmoney);
+	
+	public MmoneyUse getMmoney(int userno);
+
+	
 
 
 }
