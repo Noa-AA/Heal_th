@@ -18,10 +18,25 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
+	$('#chatArea').scrollTop($('#chatArea')[0].scrollHeight);
+	
 	$("#sendBtn").on("click", function() {
 		sendMessage();
 		$('#msgInput').val('')
 	})
+	
+	/* 전송 버튼에 엔터는 섭밋되게 */
+	$('#msgInput').on('keydown', function(event) {
+        if (event.keyCode == 13)
+            if (!event.shiftKey){
+                event.preventDefault();
+                $('#sendBtn').click();
+            }
+    })
+    
+	
+	
+	
 
 })
 
@@ -39,9 +54,8 @@ button {
 #chatArea {
 	width: 900px;
 	height: 300px;
-/* 	border: 1px solid #ccc; */
 	padding-top: 26px;
-	
+	overflow: hidden auto;
 }
 
 /* 내 채팅 */
@@ -190,6 +204,7 @@ button {
 }
 
 #sendBtn{
+	display: flex;
 	border-radius: 4px;
     width: 64px;
     height: 32px;
@@ -198,6 +213,8 @@ button {
     font-size: 14px;
     color: #fff;
     background-color: #7ca3f5;
+    justify-content: center;
+    padding: 0px;
 }
 
 
@@ -234,7 +251,7 @@ button {
 								<fmt:formatDate value="${date }" pattern="a hh:ss" />
 	    					</a>
 	    					<a id='msgS'>
-	    						${chatList.chatContent }
+	    						${chatList.chatContents }
 	    					</a>
 	    				</div> 
 	    			</c:when>
@@ -243,7 +260,7 @@ button {
 	    			<c:otherwise>
 	    				<div id='receiverMsg'>
 	    					<a id='msgR'>
-	    						${chatList.chatContent }
+	    						${chatList.chatContents }
 	    					</a>
 	    					<a id='timeR'>
 	    						<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>

@@ -71,7 +71,7 @@ $(document).ready(function(){
 				}
 				, error: function(){
 					console.log("AJAX 실패")
-					
+					alert("마이페이지에서 바디정보를 등록 해주세요.");
 				}
 			})
 		}
@@ -167,15 +167,32 @@ body {
 #result, #resultkcal {
 	padding-top: 30px;
 }
+
+#twoDepth-list a:nth-child(4){
+	color: #b571e9;
+	border-bottom: 2px solid #b571e9;
+	margin-top: 1px;
+	font-weight: 700;
+}
 </style>
 <body>
 <div id="subvisual">
 	<div id="subvisual-A">
-		<p id="subv-title">칼로리 사전</p>
-		<p id="subv-content">칼로리를 계산하여 체계적으로 관리해봐요</p>
+		<p id="subv-title">운동 도우미</p>
+<!-- 		<p id="subv-content">나의 오늘 운동기록을 매일매일 기록해 봐요</p> -->
+	</div>
+</div>
+<div id="twoDepth">
+	<div id="twoDepth-list">
+		<a href="/map/find">운동 시설 추천</a>
+		<a href="/dghelper/healthrecord">운동 일기장</a>
+		<a href="/dghelper/healthtest">운동 성향 테스트</a>
+		<a href="/dghelper/healthguide">칼로리 사전</a>
+		<a href="/dghelper/dgmagotchi">득근이 키우기</a>
 	</div>
 </div>
 <div class="big-container">
+<h3 style="margin: 0 auto; width: 1200px; text-align: center;">칼로리 사전</h3>
 	<div class="medium-container">
 		<div class="small-container">     
 		

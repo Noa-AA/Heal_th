@@ -551,13 +551,13 @@
 				<label for="userJob">직업</label>
 				<select name="userJob" id="userJob">
 					<option value="" selected disabled>선택해주세요</option>
-					<option value="staff">회사원</option>
-					<option value="teacher">교사</option>
-					<option value="publicOfficial">공무원</option>
-					<option value="trainer">트레이너</option>
-					<option value="business">자영업</option>
-					<option value="student">학생</option>
-					<option value="etc">기타</option>
+					<option value="회사원">회사원</option>
+					<option value="교사">교사</option>
+					<option value="공무원">공무원</option>
+					<option value="트레이너">트레이너</option>
+					<option value="자영업">자영업</option>
+					<option value="학생">학생</option>
+					<option value="기타">기타</option>
 				</select>
 					
 			</div>
@@ -573,9 +573,10 @@
 			</div>
 				<div id="addressAlert"></div>
 				
-				
-			<button type="button" id="joinbtn">가입 완료</button>
-			<button  type="button" id="joinCancel">가입 취소</button>
+			<div id="btnArea">
+				<button type="button" id="joinbtn">가입 완료</button>
+				<button  type="button" id="joinCancel">가입 취소</button>
+			</div>
 		</form>
 	
 		<div id="addressChk"></div>

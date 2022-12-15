@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="../layout/header.jsp" %>
+<%@include file="../layout/adminheader.jsp" %>
 
 <script type="text/javascript">
 $(document).ready(function() { //공지사항으로 이동
@@ -17,11 +17,20 @@ $(document).ready(function() { //공지사항으로 이동
 	})
 
 	$("#btnUpdate").click(function() {
-		$(location).attr("href", "./update")
+		$(location).attr("href", "/notice/update?noticeNo=${viewNotice.noticeNo}")
+	})
+
+	$("#btnDelete").click(function() {
+		$(location).attr("href", "/notice/delete?noticeNo=${viewNotice.noticeNo}")
 	})
 
 })
 </script>
+
+<style type="text/css">
+table{margin: auto;}
+
+</style>
 
 <body>
 
@@ -51,7 +60,7 @@ $(document).ready(function() { //공지사항으로 이동
 
 <hr>
 
-<button id="btnUpdate">수정</button> <button>삭제</button> <button id="btnWrite">글쓰기</button> <button id="btnList">목록</button>
+<button id="btnUpdate">수정</button> <button id="btnDelete">삭제</button> <button id="btnWrite">글쓰기</button> <button id="btnList">목록</button>
 
 </div>
 </body>

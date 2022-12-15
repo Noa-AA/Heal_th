@@ -89,13 +89,12 @@ public class ChatHandler extends TextWebSocketHandler {
     	}
     	
     	//Chat dto에 데이터 집어넣기
-    	chat.setChatContent( message.getPayload() );
+    	chat.setChatContents( message.getPayload() );
     	chat.setRoomNo(roomNo);
     	chat.setUserNo(userNo);
     	
     	//--- chat 테이블에 채팅 데이터 집어넣기
     	chatService.addChat(chat);
-    	
     	
     }
 

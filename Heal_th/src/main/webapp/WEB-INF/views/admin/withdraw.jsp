@@ -10,7 +10,7 @@ function showValue(target){
 }
 
 function listOrderBy(selectValue){
-	console.log("select change")
+
 	$.ajax({
 		type: "get",
 		url: "/admin/withdrawOrder",

@@ -10,18 +10,18 @@ public class Chat {
 	
 	public Chat() {	}
 
-	public Chat(int chatNo, String chatTime, String chatContent, int roomNo, int userNo) {
+	public Chat(int chatNo, String chatTime, String chatContents, int roomNo, int userNo) {
 		super();
 		this.chatNo = chatNo;
 		this.chatTime = chatTime;
-		this.chatContents = chatContent;
+		this.chatContents = chatContents;
 		this.roomNo = roomNo;
 		this.userNo = userNo;
 	}
 
 	@Override
 	public String toString() {
-		return "Chat [chatNo=" + chatNo + ", chatTime=" + chatTime + ", chatContent=" + chatContents + ", roomNo="
+		return "Chat [chatNo=" + chatNo + ", chatTime=" + chatTime + ", chatContents=" + chatContents + ", roomNo="
 				+ roomNo + ", userNo=" + userNo + "]";
 	}
 
@@ -41,12 +41,12 @@ public class Chat {
 		this.chatTime = chatTime;
 	}
 
-	public String getChatContent() {
+	public String getChatContents() {
 		return chatContents;
 	}
 
-	public void setChatContent(String chatContent) {
-		this.chatContents = chatContent;
+	public void setChatContents(String chatContents) {
+		this.chatContents = chatContents;
 	}
 
 	public int getRoomNo() {
@@ -65,8 +65,6 @@ public class Chat {
 		this.userNo = userNo;
 	}
 
-	
-	
 	
 	
 	

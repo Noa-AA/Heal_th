@@ -33,8 +33,8 @@ public class KakaoLogin {
 		logger.info("카카오 요청 URL생성");
 		String requestURL = "https://kauth.kakao.com/oauth/authorize?response_type=code"
 					+"&client_id="+CLIENTID
-					+"&redirect_uri="+REDIRCTURL
-					+"&scope=profile_nickname,profile_image,account_email,gender,birthday";
+					+"&redirect_uri="+REDIRCTURL;
+//					+"&scope=profile_nickname,profile_image,account_email,gender,birthday";
 		
 		return requestURL;
 	}
@@ -95,12 +95,13 @@ public class KakaoLogin {
 		logger.info("접근 토큰으로 회원 정보 요청하기");
 		
 		//요청할 URL
-		String apiURL = "https://kapi.kakao.com/v2/user/me?"
-			+"&Authorization=Bearer "+getKakaoToken;
+		String apiURL = "https://kapi.kakao.com/v2/user/me";
+//			+"&Authorization=Bearer "+getKakaoToken;
 		
 		//헤더 설정
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		headers.set("Authorization", "Bearer "+getKakaoToken);
 		
 		HttpEntity<String> requestInfo = new HttpEntity<>(headers);
 		restTempalte.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
