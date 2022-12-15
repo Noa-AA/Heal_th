@@ -31,5 +31,20 @@
 		WHERE user_no = #{userNo}
 	
 	</select>
+	
+	<select id="selectuserPw" resultType="int" parameterType="Users">
+		SELECT count(*) FROM users
+		WHERE user_no=#{userNo} and user_id=#{userId} and user_pw=#{userPw}
+	</select>
+	
+	<select id="selectUserPwForNewPw" resultType="int" parameterType="Users">
+		SELECT count(*) FROM users
+		WHERE user_no=#{userNo} and user_pw=#{userPw}
+	</select>
+	<update id="updateUserNewPw" parameterType="Users" >
+		UPDATE users
+		SET user_pw = #{userPw}
+		WHERE user_no =#{userNo}
+	</update>
 
 </mapper>

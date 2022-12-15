@@ -226,7 +226,7 @@ public class LoginController {
 		 return resultchkPw;
 	 }
 	 
-	 @PostMapping("/login/updatePw")
+	 @PostMapping("/login/makeNewPw")
 	 public String updatePw(Users userUpdatePw,HttpSession session) {
 		 logger.info("login/updatePw [POST]");
 		 
@@ -240,7 +240,7 @@ public class LoginController {
 			return "/login/login";
 		}
 		
-		return "/login/updatePw";
+		return "/login/makeNewPw";
 		 
 	 }
 	 

@@ -55,5 +55,31 @@ public interface MypageService {
 	 * @return -회원 아이디
 	 */
 	public String getuserId(int userNo);
+	
+	/**회원 비밀번호 조회하기
+	 * 
+	 * @param updatePwInfo -입력된 비밀번호, 아이디
+	 * @param session -세션에 저장된 회원번호
+	 * @return -true/false
+	 */
+
+	public boolean getuserPw(Users updatePwInfo, HttpSession session);
+
+	
+	/**
+	 * 현재사용중인 비밀번호 확인하기
+	 * @param userPw -회원이 입력한 비밀번호
+	 * @param session -유저 넘버
+	 * @return -ture/false
+	 */
+	public boolean getchkPw(Users userPw, HttpSession session);
+
+	/**
+	 * 새로 입력한 비밀번호 업데이트하기
+	 * @param userNewPw -입력한 비밀번호
+	 * @param session -회원 no
+	 * @return 
+	 */
+	public void updateNewPw(Users userNewPw, HttpSession session);
 
 }

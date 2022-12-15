@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import yerim.dao.face.MypageDao;
 import yerim.dto.Users;
@@ -114,5 +115,45 @@ public class MypageServiceImpl implements MypageService {
 	public String getuserId(int userNo) {
 		logger.info("getuserId - 회원 아이디 조회");
 		return mypageDao.selectUserId(userNo);
+	}
+	
+	@Override
+	public boolean getuserPw(Users updatePwInfo, HttpSession session) {
+		logger.info("getuserPw");
+		//세션에 저장된 유저번호 DTO에 담기 
+		logger.info("session {}", session.getAttribute("userNo"));
+		updatePwInfo.setUserNo((int)session.getAttribute("userNo"));
+		
+		if(mypageDao.selectuserPw(updatePwInfo)>0) {
+			logger.info("비밀번호 일치");
+			return true;
+		}
+		
+		logger.info("비밀번호 불일치");
+		return false;
+	}
+	@Override
+	public boolean getchkPw(Users userPw, HttpSession session) {
+
+		//세션에 있는 유저번호 DTO에 담기
+		userPw.setUserNo((int)session.getAttribute("userNo"));
+		
+		if(mypageDao.selectUserPwForNewPw(userPw)>0) {
+			logger.info("현재 사용중인 비밀번호 ");
+			return false;
+		}
+		
+		logger.info("현재 사용중이지 않은 비밀번호 ");
+		return true;
+	}
+	@Override
+		public void updateNewPw(Users userNewPw, HttpSession session) {
+		
+		logger.info("updateNewPw");
+		//세션에 있는 유저번호 DTO에 담기
+		userNewPw.setUserNo((int)session.getAttribute("userNo"));
+		//비밀번호 update
+		mypageDao.updateUserNewPw(userNewPw);
+		
 	}
 }

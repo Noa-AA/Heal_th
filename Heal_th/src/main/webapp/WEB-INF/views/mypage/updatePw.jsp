@@ -44,13 +44,22 @@
 		
 		<div id="inputUsingPw">
 			<label for="userPw">현재 비밀번호
-				<input type="text" id="userPw" name="userPw">
+				<input type="password" id="userPw" name="userPw">
 			</label>		
 		</div>
-	
+		<c:if test="${isUsingPw ==false}">
+			<div id="resultPw">
+				<span style="color:red;" id="resultMsg">비밀번호를 다시 한번 확인해주세요</span>
+			</div>
+		</c:if>
 		<div id="btn">
 			<button type="button" id="chkPw" onclick="chkUsingPw()">비밀번호 확인</button>
 			<button type="button" id="cancel">취소하기</button>
+		</div>
+
+		<div id="searchPw">
+			<a href="/login/searchPw"><span>비밀번호가 기억나지 않아요</span></a>
+		
 		</div>
 
 	</form>
