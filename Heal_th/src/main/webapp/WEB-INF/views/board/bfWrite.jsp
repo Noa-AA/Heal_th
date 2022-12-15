@@ -407,7 +407,8 @@ $(document).ready(function(){
 	                  <br>
 	                     <button>첨부파일</button>
 				</div>
-                                <input type="button" name="next" class="next action-button" value="다음"/>
+                                <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)"
+                                 value="다음"/>
                             </fieldset>
                             
                             <fieldset>
@@ -432,8 +433,10 @@ $(document).ready(function(){
 				
                                 
                                 
-                                <input type="button" name="previous" class="previous action-button-previous" value="이전"/>
-                                <input type="button" name="next" class="next action-button" value="다음"/>
+                                <input type="button" name="previous" class="previous action-button-previous" onClick="javascript:window.scrollTo(0,0)"
+                                 value="이전"/>
+                                <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)"
+                                 value="다음"/>
                             </fieldset>
                             
                             
@@ -462,8 +465,10 @@ $(document).ready(function(){
 				
                                  
                                  </div>
-                                <input type="button" name="previous" class="previous action-button-previous" value="이전"/>
-                                <input type="button" name="next" class="next action-button" value="다음"/>
+                                <input type="button" name="previous" class="previous action-button-previous" onClick="javascript:window.scrollTo(0,0)"
+                                 value="이전"/>
+                                <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)"
+                                 value="다음"/>
                             </fieldset>
                             
                             <fieldset>

@@ -34,6 +34,7 @@ label: hover{
 .tabmenu ul{
   position: relative;
   border-radius: 10px;
+  text-align: center;
 }
 .tabmenu ul li{
   display:  inline-block;
@@ -51,6 +52,7 @@ label: hover{
   border-radius: 5px;
 }
 .tabmenu input{display:none;}
+
 .tabCon{
   display:none; 
   width: 100%;
@@ -72,9 +74,7 @@ label: hover{
 }
 
 
-a{
-text-decoration: none;
-}
+
 
 </style>
 
@@ -90,70 +90,36 @@ var param = ${paramJson};
 <body>
 
  <div class="tabmenu out-tabmenu">
-  <ul>
+  <ul style="text-align: center;">
     <li id="tab1" class="btnCon"> 
       <input type="radio" checked name="tabmenu" id="tabmenu1">
       <label for="tabmenu1">소개</label>
-      <div class="tabCon" >
-        
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-      
-      </div>
       
     </li>
     <li id="tab2" class="btnCon"><input type="radio" name="tabmenu" id="tabmenu2">
-      <label for="tabmenu2">비포 애프터</label>
-      <div class="tabCon" >It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</div>
+      <label for="tabmenu2"><a href="/board/bfBoard">비포 애프터</a></label>
       
     </li>    
     <li id="tab3" class="btnCon"><input type="radio" name="tabmenu" id="tabmenu3">
       <label for="tabmenu3">운동 인증</label>
-      <div class="tabCon" >There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</div>
       
     </li>
     
      <li id="tab4" class="btnCon"><input type="radio" name="tabmenu" id="tabmenu4">
       <label for="tabmenu4">식단 공유<a href="/board/dietBoard"></a></label>
-      <div class="tabCon" >There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</div>
       
     </li>
     
      <li id="tab5" class="btnCon"><input type="radio" name="tabmenu" id="tabmenu5">
-      <button type="button">후기</button>
-      <label for="tabmenu5">후기</label>
-      <div class="tabCon" >There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</div>
+      <label for="tabmenu5">후기<a href="/board/reviewBoard"></a></label>
       
     </li>
     
   </ul>
 </div>
 
-<div class="search">
-<form action="">
-	<input type="hidden" name="boardCode" value="${param.boardCode }">
-	<input type="hidden" name="page" value="1"> 
-	<select name="searchType">
-		<option <c:if test="${param.searchType == 'title'}"> selected </c:if> value="title">제목</option>
-		<option <c:if test="${param.searchType == 'body'}"> selected </c:if> value="body">내용</option>
-		<option <c:if test="${param.searchType == 'titleAndBody'}"> selected </c:if> value="titleAndBody">제목+내용</option>
-		
-	</select>
 	
-	<script type="text/javascript">
 	
-	if( typeof param.searchType =='undefined' ) {
-		param.searchType = 'title';
-	}
-	
-	$('form[name="searchForm"] select[]name=searchType').val(parma.searchType);
-	
-	</script>
-	
-	<input type="text" name="searchKeyword" placeholder="검색어를 입력해주세요">
-	<input type="submit" value="검색">
-	
-</form>
-</div>
 
 </body>
 </html>
