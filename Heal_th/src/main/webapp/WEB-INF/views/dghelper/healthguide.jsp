@@ -71,7 +71,7 @@ $(document).ready(function(){
 				}
 				, error: function(){
 					console.log("AJAX 실패")
-					
+					alert("마이페이지에서 바디정보를 등록 해주세요.");
 				}
 			})
 		}

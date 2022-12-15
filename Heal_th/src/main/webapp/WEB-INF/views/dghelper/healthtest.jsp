@@ -487,6 +487,14 @@ body {
 	margin-top: 1px;
 	font-weight: 700;
 }
+
+.footer {
+	margin-top: 300px;
+}
+
+[class^="result"] p:nth-child(1) {
+	font-size: 30px;
+}
 </style>
 <body>
 <div id="subvisual">

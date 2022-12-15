@@ -205,6 +205,10 @@ ul {
     left: 25px;
 }
 
+.contentempty {
+	margin: 0 auto;
+}
+
 .content-3 {
 	display: flex;
 	justify-content: right;
@@ -259,6 +263,11 @@ body {
 	<div class="small-container">
 		<span id="healthcount">나의 일기 작성 횟수 [ ${paging.totalCount } 회 ]</span><br>
 	</div>
+	<c:if test="${empty list }">
+		<div class="contentempty">
+			<div id="content">작성한 일기내용이 없습니다.</div>
+		</div>
+	</c:if>
 		<c:forEach items="${list }" var="i">
 		
 		<div class="content-0">
