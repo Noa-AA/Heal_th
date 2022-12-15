@@ -429,7 +429,7 @@ button {
 
 .mbti-text {
     position: relative;
-    top: 230px;
+    top: 330px;
     left: -466px;
     font-size: 24px;
     height: 100px;
@@ -443,7 +443,6 @@ button {
 	border-radius: 8px;
 	border: none;
 	position: relative;
-	top: -80px;
     margin: 10px 0 10px 0;
 }
 
@@ -485,6 +484,15 @@ body {
 	color: #b571e9;
 	border-bottom: 2px solid #b571e9;
 	margin-top: 1px;
+	font-weight: 700;
+}
+
+.footer {
+	margin-top: 300px;
+}
+
+[class^="result"] p:nth-child(1) {
+	font-size: 30px;
 }
 </style>
 <body>

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<link rel="icon" href="/resources/img/favicon.ico" type="image/x-icon"/>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>

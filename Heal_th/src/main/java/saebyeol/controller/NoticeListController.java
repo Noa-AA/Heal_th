@@ -86,5 +86,11 @@ public class NoticeListController {
 		return "redirect:/notice/view?noticeNo=" + notice.getNoticeNo();
 	}
 	
+	@RequestMapping("/delete")
+	public String delete(Notice notice) {
+		noticeService.delete(notice);
+		
+		return "redirect:/notice/list";
+	}
 
 }
