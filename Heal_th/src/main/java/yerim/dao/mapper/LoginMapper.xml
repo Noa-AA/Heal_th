@@ -72,7 +72,16 @@
    		WHERE user_id =#{userId} and 																																													user_name=#{userName}
    	</select> 
    	
+   	<select id="iskakaoLogin" resultType="int" parameterType="Users">
+   		SELECT count(*) FROM users
+   		WHERE user_id =#{userId} and user_email=#{userEmail}
+   	
+   	</select>
 
+	<select id="selectuserNoForKakao" resultType="int" parameterType="Users">
+		SELECT user_no FROM users
+		WHERE user_id=#{userId} and user_email=#{userEmail}
+	</select>
    	
   </mapper>
   
