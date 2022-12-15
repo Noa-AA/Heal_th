@@ -133,7 +133,7 @@ th,td {
 	border: 1px solid silver;
 }
 
-a {
+#adminMenuContainer a {
 	color: white;
 }
 

@@ -77,7 +77,7 @@ function currentLocation() {
 	            lon = position.coords.longitude; // 경도
             var locPosition= new kakao.maps.LatLng(lat, lon) // geolocation으로 얻어온 좌표
 	            
-	        geocoder.coord2RegionCode(locPosition.getLng(), locPosition.getLat(), callback);
+	        geocoder.coord2Address(locPosition.getLng(), locPosition.getLat(), callback);
 	        console.log(locPosition.getLng(), locPosition.getLat());
 	        map.setCenter(locPosition);   
 	            
@@ -109,14 +109,33 @@ var geo;
 var callback = function(result, status) {
     if (status === kakao.maps.services.Status.OK) {
 
-        console.log('지역 명칭 : ' + result[0].address_name);
-        geo = result[0].address_name;
+        console.log('지역 명칭 : ' + result[0].address.address_name);
+        geo = result[0].address.address_name;
     }
 };
 
+var mapMove = (lng,lat) => {
+    return new Promise((resolve, reject) => {
+	    geocoder.coord2Address(lng,lat, function(result, status) {
+		    if (status === kakao.maps.services.Status.OK) {
+		        
+		        console.log('지역 명칭 + : ' + result[0].address.address_name);
+		        geo = result[0].address.address_name;
+			    resolve(geo);
+		    } else {
+			    reject(status);
+		    }
+	    });
+    });
+};
 
-
-
+//function mapMove(lng,lat) {
+//return new Promise(function(resolve, reject) {
+//	geocoder.coord2Address(lng,lat, callback);
+ 
+//  resolve(geo);
+//});
+//}
 
 // 장소 검색 객체를 생성합니다
 var ps = new kakao.maps.services.Places();  
@@ -125,27 +144,40 @@ var ps = new kakao.maps.services.Places();
 var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 
 //마우스 드래그로 지도 이동이 완료되었을 때 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
-kakao.maps.event.addListener(map, 'dragend', function() {        
+kakao.maps.event.addListener(map, 'dragend', async function() {        
     
 	// 지도 중심좌표를 얻어옵니다 
     var latlng = map.getCenter(); 
 	
-	geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
+//     mapMove(latlng.getLng(), latlng.getLat()).then(function(geo){})
+// 	console.log("geo?----",geo)
+// 	mapMove(latlng.getLng(), latlng.getLat()).then(function(geo){
+// 		console.log("geo?----",geo)
+// 	})
+	await mapMove(latlng.getLng(), latlng.getLat())
+	console.log("geo?----",geo)
+
+// 	geocoder.coord2Address(latlng.getLng(), latlng.getLat(), callback); // 원래꺼
+// 	console.log("geo?----",geo)
+	
+	
 	var fac = document.getElementById('fac').value;
     if (fac.replace(/^\s+|\s+$/g, '')) {
-		searchPlaces();
+    	ps.keywordSearch(geo + " " + fac, placesSearchCB); 
     }
     
 });
 
+
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
 
-    var loc = document.getElementById('loc').value;
+	var loc = document.getElementById('loc').value;
     var fac = document.getElementById('fac').value;
 
-    if (!loc.replace(/^\s+|\s+$/g, '')) {
+    if (!loc.replace(/^\s+|\s+$/g, '')) {  //지역 입력 안함
         loc=geo;
+    	
     }
     
 
@@ -238,7 +270,8 @@ function displayPlaces(places) {
 
     // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
     map.setBounds(bounds);
-//     map.setLevel(4);
+    map.setLevel(4);
+//     map.panTo(moveLatLon);//부드럽게 이동
 }
 
 // 검색결과 항목을 Element로 반환하는 함수입니다
