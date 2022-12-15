@@ -5,7 +5,7 @@
 <style type="text/css">
 
 #mypage{
-	width: 1600px;
+	width: 1200px;
 	margin: 0 auto;
 }
 .infoTitle{

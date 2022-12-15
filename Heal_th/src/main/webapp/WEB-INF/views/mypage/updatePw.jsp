@@ -16,7 +16,7 @@
 
 <style type="text/css" >
 #beforeUpdatePw{
-	width: 1600px;
+	width: 1200px;
 	margin : 0 auto;
 	text-align: center;
 }

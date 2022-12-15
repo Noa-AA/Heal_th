@@ -274,7 +274,7 @@ function cancel(){
 
 <style type="text/css">
 #updateInfo{
-	width: 1600px;
+	width: 1200px;
 	margin: 0 auto;
 	
 }
