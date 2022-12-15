@@ -23,7 +23,7 @@ public class Users {
 	private int rankingNo;
 	private int kakaNo;
 	private int naverNo;
-	private String joinType;
+	private String jointype;
 	
 
 	public Users() {}
@@ -32,7 +32,7 @@ public class Users {
 	public Users(int userNo, String userId, String userPw, String userNick, String userPhone, String userAddress,
 			String userEmail, String userName, String userIntro, String userJob, String userPhoto, Date userJoinDate,
 			String userBirth, String userGender, int dgMoney, int point, int rankingNo, int kakaNo, int naverNo,
-			String joinType) {
+			String jointype) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -53,7 +53,7 @@ public class Users {
 		this.rankingNo = rankingNo;
 		this.kakaNo = kakaNo;
 		this.naverNo = naverNo;
-		this.joinType = joinType;
+		this.jointype = jointype;
 	}
 
 
@@ -64,7 +64,7 @@ public class Users {
 				+ ", userName=" + userName + ", userIntro=" + userIntro + ", userJob=" + userJob + ", userPhoto="
 				+ userPhoto + ", userJoinDate=" + userJoinDate + ", userBirth=" + userBirth + ", userGender="
 				+ userGender + ", dgMoney=" + dgMoney + ", point=" + point + ", rankingNo=" + rankingNo + ", kakaNo="
-				+ kakaNo + ", naverNo=" + naverNo + ", joinType=" + joinType + "]";
+				+ kakaNo + ", naverNo=" + naverNo + ", jointype=" + jointype + "]";
 	}
 
 
@@ -258,13 +258,13 @@ public class Users {
 	}
 
 
-	public String getJoinType() {
-		return joinType;
+	public String getjointype() {
+		return jointype;
 	}
 
 
-	public void setJoinType(String joinType) {
-		this.joinType = joinType;
+	public void setjointype(String jointype) {
+		this.jointype = jointype;
 	}
 
 

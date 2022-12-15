@@ -35,6 +35,7 @@ public class MypageController {
 		
 		//세션에서 회원 번호 가져오기
 		int userNo = (int)session.getAttribute("userNo");
+		
 		logger.info("회원번호: {}",userNo);
 		
 		//기존에 작성된 회원 정보 조회해오기
@@ -52,6 +53,18 @@ public class MypageController {
 		//주소 정보만 model값으로 넘기기
 		model.addAttribute("address", address);
 	}
+	
+	@PostMapping("/updateInfo")
+	public String updateCompleted(HttpSession session,Users userInfo) {
+		logger.info("/mypage/updateInfo[POST]");
+		
+		//수정된 정보 update하기
+		mypageService.updateInfo(session,userInfo);
+		
+		
+		return "/mypage/main";
+	}
+	
 	
 	@ResponseBody
 	@PostMapping("/getEmailCodeForUpdate")
@@ -72,11 +85,106 @@ public class MypageController {
 	public boolean chkEmailCode(HttpSession session,String emailCode) {
 		
 		logger.info("이메일 인증번호 검사하기");
-		
-		
 		boolean resultEmailChk = mypageService.chkEmailCode(session,emailCode);
-		
 		return resultEmailChk;
 	}
 	
+	@ResponseBody
+	@PostMapping("/smsCodeForUpdate")
+	public String updatePhone(Users userPhone,HttpSession session) {
+		logger.info("문자 인증 보내기");
+		
+		//문자로 인증번호 보내기
+		String smsCodeForUpdate = mypageService.sendSmsCode(userPhone);
+		
+		//세션에 인증번호 저장
+		session.setAttribute("sessionSmSCode", smsCodeForUpdate);
+		
+		return smsCodeForUpdate;
+		
+	}
+	 @ResponseBody
+	 @PostMapping("/chkSmsCode")
+	 public boolean chkSmsCode(HttpSession session,String smsCode ) {
+		 logger.info("문자로 본인인증하기");
+		 
+		 //문자 본인인증 검사하기
+		 boolean resultSmsChk = mypageService.chkSmsCode(session,smsCode);
+		 
+		 return resultSmsChk;
+	 }
+	 
+	 
+	 //-------비밀번호 바꾸기 (mypage)------
+	 @RequestMapping("/updatePw")
+	 public void updatePw(HttpSession session,Model model) {
+		 logger.info("/mypage/updatePw");
+		 
+		 //세션에서 유저넘버 추출
+		 int userNo = (int)session.getAttribute("userNo");
+		 
+		 //회원 아이디 조회해오기
+		 String userId = mypageService.getuserId(userNo);
+		 
+		 
+		 //아이디 모델값으로 넘겨주기
+		 model.addAttribute("userId", userId);
+	 }
+	 
+	 @PostMapping("chkUsingPw")
+	 public String chkUsingPw(HttpSession session,Users updatePwInfo,Model model) {
+		 logger.info("/mypage/chkUsingPw [POST]");
+		 
+		 		 
+		 //현재 비밀번호와 맞는지 확인하기
+		 boolean isUsingPw = mypageService.getuserPw(updatePwInfo,session);
+		 
+		 if(isUsingPw) {//확인된 비밀번호 일치
+			 logger.info("현재 사용중인 비밀번호 일치 - 비밀번호 초기화하기");
+			 return "/mypage/setUserPw";
+			 
+		 }
+		
+		 //model값으로 false값 넘겨 주기 
+		 model.addAttribute("isUsingPw", isUsingPw);
+		 return "/mypage/updatePw";
+		
+		 
+	 }
+	 
+	 @GetMapping("/setUserPw")
+	 public void setNewPw() {
+		 logger.info("setNewPw [GET]");
+	 }
+
+	 
+	 @ResponseBody
+	@PostMapping("/setUserPw")
+	public boolean chkSetNewPw(Users userPw,HttpSession session) {
+		 logger.info("/setUserPw [POST]");
+		 logger.info("pw : {}",userPw);
+		 
+		 //현재 사용중인 비밀번호 인지 확인하기
+		 boolean chekPw = mypageService.getchkPw(userPw,session);
+	
+		 logger.info("확인 {}",chekPw);
+		 return chekPw;
+	 }
+	
+	 @PostMapping("/setNewPw")
+	 public String setNewPw(Users userNewPw,HttpSession session,Model model) {
+		 logger.info("비밀번호 update 하기");
+		 
+		 //비밀번호 재설정
+//		 boolean updateResult = mypageService.updateNewPw(userNewPw,session);
+		 mypageService.updateNewPw(userNewPw,session);
+//		 model.addAttribute("result", updateResult);
+		 //업데이트 후 로그인 페이지로 이동
+		 return "redirect:/login/login";
+	 }
+	 
+	@GetMapping("/setProfile")
+	public void setProfile() {
+		logger.info("/setProfile [GET]");
+	}
 }

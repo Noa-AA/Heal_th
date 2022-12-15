@@ -11,8 +11,8 @@
 
 $(document).ready(function(){
 	
-	var count =0;
-	
+	var countEmail =0;
+	var countSms =0;
 	if($("#userGender").val() == 'F'){
 		$("#userGender").attr("value","여성")
 	}else {
@@ -26,7 +26,48 @@ $(document).ready(function(){
 		
 	})
 	
+	var joinType="${userInfo.jointype}"
+	console.log(joinType)
+	if( joinType !="Dg"){
+		$("#userEmail").attr("readonly","readonly")
+		$("#btn_emailchk").hide()
+		console.log("버튼 안됨")
+		$("#userEmail").css("background","#cccccc")
+	}else {
+		console.log("득근 아이디")	
+	}
+	
+	//DB에 있는 성별에 따라 체크 되게 하기
+
+	$("input[name='userGender'][value='${userInfo.userGender}']").prop("checked",true);
+	
+	
+	
 	//이메일 변경시  이메일 인증해야만 저장됨
+	$("#userEmail").change(function(){
+			console.log("이메일 수정")
+		
+		if(countEmail>0){
+			return true;
+		}else {
+			$("#email_result").html("이메일 변경시 이메일 인증을 해주세요")
+			$("#email_result").css("color","red")
+			return false;
+		}
+		
+	})
+	
+	//휴대폰 번호 변경시 본인 인증 해야만 저장됨
+	$("#userPhone").change(function(){
+		console.log("폰번호 수정")
+		if(countSms>0){
+			return true;
+		}else {
+			$("#result_code").html("전화번호 변경시 본인 인증을 해주세요")
+			$("#result_code").css("color","red")
+			return false;
+		}
+	})
 	
 	
 	//이메일 인증 클릭시 이메일 인증 하기 
@@ -44,6 +85,7 @@ $(document).ready(function(){
 				,success : function(res){
 					console.log(res)
 					console.log("이메일 보내기 성공")
+					countEmail++
 					
 				}
 				,error:function(){
@@ -60,7 +102,6 @@ $(document).ready(function(){
 	$("#chkemailCode").click(function(){
 	
 		$.ajax({
-		
 			type:"post"
 			,url:"/mypage/chkEmailCdoeForUpdate"
 			,data:{
@@ -72,6 +113,8 @@ $(document).ready(function(){
 					console.log("이메일 인증 성공")
 						$("#email_result").html("이메일 인증 성공")
 						$("#email_result").css("color","green")
+						
+						
 					}else {
 						console.log("이메일 인증 실패")
 						$("#email_result").html("이메일 인증 실패")
@@ -82,6 +125,66 @@ $(document).ready(function(){
 				console.log("시스템 오류")
 				alert("시스템 오류 관리자에게 문의하세요")
 			}
+			
+		})
+		
+		
+		
+	})
+	
+	
+	//문자 인증하기
+	$("#btn_userchk").click(function(){
+		console.log("문자 인증 클릭")
+		$("#smschk").toggle()
+		$.ajax({
+			type :"post"
+			,url: "/mypage/smsCodeForUpdate"
+			,data: {
+				userPhone :$("#userPhone").val()
+			}
+			,dataType : "html"
+			,success : function(res){
+				console.log(res)
+				console.log("이메일 보내기 성공")
+				countSms++;
+			}
+			,error:function(){
+				console.log("이메일 인증요청 실패")
+			alert("시스템 오류 관리자에게 문의하세요")
+			}
+		})
+		
+	}) //문자로 인증번호 보내기 완료
+	
+	//문자 인증번호 검증하기
+	$("#btn_code").click(function(){
+		console.log("버튼 클릭")
+		$.ajax({
+			type:"post"
+			,url:"/mypage/chkSmsCode"
+			,data:{
+				smsCode: $("#code").val()
+			}
+			,dataType :"json"
+			,success : function(res){
+				if(res ==true){
+					console.log("문자 인증 성공")
+						$("#result_code").html("본인 인증 성공")
+						$("#result_code").css("color","green")
+						
+						
+					}else {
+						console.log("문자 인증 실패")
+						$("#result_code").html("본인 인증 실패")
+						$("#result_code").css("color","red")
+					}
+			}
+			,error:function(){
+				console.log("시스템 오류")
+				alert("시스템 오류 관리자에게 문의하세요")
+			}
+			
 		})
 		
 		
@@ -91,12 +194,18 @@ $(document).ready(function(){
 	
 	
 	
-	
 })	
 
 	
+function update(){
+	console.log("회원정보 수정하기")
+	$("#updateInfoForm").submit()
+}
 
-
+function cancel(){
+	console.log("취소하기")
+	history.go(-1)
+}
 	
 
 </script>
@@ -165,7 +274,7 @@ $(document).ready(function(){
 
 <style type="text/css">
 #updateInfo{
-	width: 1600px;
+	width: 1200px;
 	margin: 0 auto;
 	
 }
@@ -190,34 +299,34 @@ $(document).ready(function(){
 	</div>
 
 	<div id="updateArea">
+		<form action="/mypage/updateInfo" method="post" id="updateInfoForm">
 			<div id="name">		
 			 	<label for="userName">이름
 		 		<input type="text" name="userName" id="userName" value="${userInfo.userName }">
 		 		</label> 
 			</div>
-	
-			<div id="email">
-				<label for="userEmail">이메일
-				<input type="text" name="userEmail" id="userEmail" value="${userInfo.userEmail}">
-				</label>
-			</div>
+		
+				<div id="email">
+					<label for="userEmail">이메일
+					<input type="text" name="userEmail" id="userEmail" value="${userInfo.userEmail}">
+					</label>
+				</div>
+				
+				<div id="userchk">
+					<button type="button" id="btn_emailchk">이메일 인증</button>
+				</div>
 			
-			<div id="userchk">
-				<button type="button" id="btn_emailchk">이메일 인증</button>
-			</div>
-	
-			<div id="confirmEmail" style="display:none;">
-				<label for="emailCode">인증번호
-					<input type="text" name="emailCode" id="emailCode" placeholder="인증번호를 입력하세요">
-				</label>
-				<button type="button" id="chkemailCode">인증번호 확인</button>
-			</div>
-			
+				<div id="confirmEmail" style="display:none;">
+					<label for="emailCode">인증번호
+						<input type="text" name="emailCode" id="emailCode" placeholder="인증번호를 입력하세요">
+					</label>
+					<button type="button" id="chkemailCode">인증번호 확인</button>
+				</div>
 			<div id="email_result"></div>
 			
 			<div id="id">
 				<label for="userId">아이디
-				<input type="text" name="userId" id="userId" value="${userInfo.userId }"readonly="readonly" >
+				<input type="text" name="userId" id="userId" value="${userInfo.userId }"  readonly="readonly">
 				</label>
 			</div>
 			<div id="nickname">
@@ -245,14 +354,15 @@ $(document).ready(function(){
 			
 			<div id="gender">
 				<label for="userGender">성별			
-				<input type="text" name="userGender" id="userGender" value="${userInfo.userGender }">
+				<input type="radio" name="userGender" value="M" id="male" >남성
+				<input type="radio" name="userGender" value="F" id="female">여성
 				</label>
 			</div>
 			
 			
 				<div id="birth">
 				<label for="birth">생년월일
-					<input type="text" id="userBirth" name="userBirth" value="${userInfo.userBirth }" readonly="readonly" >
+					<input type="text" id="userBirth" name="userBirth" value="${userInfo.userBirth }">
 				</label>
 			</div>
 			
@@ -286,10 +396,10 @@ $(document).ready(function(){
 			
 			
 			<div id="btnArea">
-			<button type="button" id="joinbtn">가입 완료</button>
-			<button  type="button" id="joinCancel">가입 취소</button>
+			<button type="button" id="joinbtn" onclick="update()">수정 완료</button>
+			<button  type="button" id="joinCancel" onclick="cancel()">취소</button>
 			</div>
-
+		</form>
 	</div>
 
 
