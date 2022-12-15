@@ -3,29 +3,36 @@
 <%@include file="../layout/header.jsp" %>
 
 <style type="text/css">
-
+body{
+	padding-top:0;
+}
 #mypage{
-	width: 1600px;
+	width: 1200px;
 	margin: 0 auto;
 }
 .infoTitle{
 	font-size: 20px;
 	margin: 10px 0;
 }
-.
 
-#sidemenu{
-	float: left;
-	position: absolute;
+#profileArea{
+
+	width: 200px;
+    position: fixed;
+    left: 200px;
 }
 
-#usersInfo{
-	position: relative;
-    left: 100px;
-    top: 100px;
+#pIcon{
+	width:100px;
 }
-.info{
-	padding: 5px;
+
+#manageInfo{
+	margin-top: 29px;	
+}
+
+#intro{
+	margin-top: 55px;	
+
 }
 
 </style>
@@ -37,21 +44,32 @@
 		<h1> 마이페이지 </h1>
 	</div>
 
-	<div id="sidemenu">
-		<div id="usersInfo">
+	
+	<div id="profileArea">
+	
+		<div id="profilePhoto">
+			<a href="/mypage/setProfile"><img src="/resources/img/mypage/userprofile.png" id="pIcon"></a>
+		</div>
 		
-			<ul id="updateInfo">
-				<li class="infoTitle updateTitle" >회원 정보 관리</li>
-				<li class="info updateUser"><a href="/mypage/updateInfo">회원 정보 변경</a></li>
-				<li class="info updatePw">비밀번호 변경</li>
-				<li class="info updayBody">Body 관리</li>
-			
-			</ul>
-				
+		<div id="intro">
+			한줄소개한줄소개한술소개
+		
 		</div>
 	
-	
-	
+		<div id="manageInfo">
+			<div id="usersInfo">
+				<ul id="updateInfo">
+					<li class="infoTitle updateTitle" >회원 정보 관리</li>
+					<li class="info updateUser"><a href="/mypage/updateInfo">회원 정보 변경</a></li>
+					<li class="info updatePw"><a href="/mypage/updatePw">비밀번호 변경</a></li>
+					<li class="info updayBody">Body 관리</li>
+				
+				</ul>
+					
+			</div>
+		
+		</div>
+		
 	</div>
 
 

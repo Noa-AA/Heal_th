@@ -20,6 +20,8 @@
 		var data = msg.data;
 		var date = new Date();
 		
+		$('#chatArea').scrollTop($('#chatArea')[0].scrollHeight);
+		
 		console.log( data )
 		
 // 		$("."+id[2])

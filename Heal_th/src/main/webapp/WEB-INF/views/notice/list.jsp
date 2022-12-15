@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
-<jsp:include page="../layout/header.jsp" />
+<jsp:include page="../layout/adminheader.jsp" />
 <script type="text/javascript">
 $(document).ready(function() { //공지사항으로 이동
 	
@@ -42,7 +42,7 @@ h1{text-align: center;}
 <c:forEach items="${list }" var="notice">
 	<tr>
 		<td>${notice.noticeNo }</td>
-		<td><a href="/notice/view?noticeNo=${notice.noticeNo }">${notice.noticeTtl }</td>
+		<td><a href="/notice/view?noticeNo=${notice.noticeNo }" style="color: black;">${notice.noticeTtl }</td>
 		<td>${notice.userNo }</td>
 <%-- 		<fmt:formatDate value="${notice.noticeDate }" var="dateValue" pattern="yyyy.MM.dd HH:mm:ss"/> --%>
 		<td><fmt:formatDate value="${notice.noticeDate }" pattern="yyyy-MM-dd" /></td>

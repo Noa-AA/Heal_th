@@ -46,4 +46,10 @@ public interface NoticeDao {
 	 */
 	public void updateNotice(Notice notice);
 
+	/**
+	 * 게시글 삭제
+	 * @param notice
+	 */
+	public void delete(Notice notice);
+
 }

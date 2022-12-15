@@ -11,7 +11,6 @@ $(document).ready(function(){
 	   $("#userchkPw").focus(function(){
 		   $("#resultMsgChk").html("")
 	   })
-	   //비밀번호 확인 안했을 때의 처리
 	
 	
 	//비밀번호 유효성 검사
@@ -61,17 +60,16 @@ $(document).ready(function(){
 			$("#resultMsgChk").focus()
 			return false
 		}
+		
+		//유효성 검사 됐을 때 submit 
+		if( validateUpdatePw()&&validateCkh()){
+			$("#updatePwForm").submit()
+				
+			}
 	})
 	
 	
 
-	//버튼 클릭시 비밀번호 업데이트
-	
-	$("#btnUpdatePw").click(function(){
-		$("#updatePwForm").submit()
-		
-	})
-	
 	
 })
 		
@@ -129,7 +127,7 @@ function validateCkh(){
 <div id="newPw">
 
 	<h1>비밀번호 재설정</h1>
-	<form action="/login/updatePw" method="post" id="updatePwForm">
+	<form action="/login/makeNewPw" method="post" id="updatePwForm">
 	<div id="updatePw">
 		<label for="userPw">비밀번호 
 			<input type="text" name="userPw" id="userPw">
@@ -147,6 +145,7 @@ function validateCkh(){
 	<div id="resultMsgChk"></div>	
 	<button type="button" id="btnUpdatePw">비밀번호 설정하기</button>
 	</form>
+	
 </div>
 
 

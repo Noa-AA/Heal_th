@@ -49,11 +49,18 @@
  	VALUES ( #{noticeNo}, #{noticeTtl}, sysdate, '0', #{noticeContent}  )
  	</insert>
  	
+ 	<!-- 게시글 수정 -->
  	<update id="updateNotice" parameterType="Notice">
  	UPDATE notice
  	SET notice_ttl = #{noticeTtl} , notice_content = #{noticeContent}
  	WHERE notice_no = #{noticeNo}
  	</update>
+ 	
+ 	<!-- 게시글 삭제 -->
+ 	<delete id="delete" parameterType="Notice">
+ 	DELETE notice
+ 	WHERE notice_no = #{noticeNo}
+ 	</delete>
  	
 
 </mapper>
