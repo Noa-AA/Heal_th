@@ -9,4 +9,18 @@
 		INSERT INTO scrap(scrap_no, board_no, user_no, category_no)
 		VALUES ( scrap_seq.nextval, #{boardNo }, #{userNo }, #{categoryNo } )
 	</insert>
+	
+	<select id="selectList" resultType="Scrap" parameterType="Scrap">
+		SELECT a.*, c.category_name,s.scrap_no, s.user_no FROM (
+			SELECT bf_title as title, bf_no as board_no, category_no from beforeafter
+			WHERE user_no = #{userNo }
+			UNION
+			SELECT r_title, review_no, category_no  from reviewboard
+			WHERE user_no = #{userNo }
+			)a, scrap s, category c
+		WHERE s.board_no = a.board_no
+		AND a.category_no = c.category_no
+		ORDER BY scrap_no desc
+	
+	</select>
 </mapper>
