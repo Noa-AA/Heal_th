@@ -31,16 +31,6 @@ $(document).ready(function() {
 	})
 	
 	
-// 	/* 리스트에 마우스 오버하면 색 바뀌기 */
-// 	$(".roomBtn").hover(function() {
-// 		$(this).css("background-color", "#eee");
-// 	})
-// 	/* 나가면 색 그대로 돌리기 */
-// 	$(".roomBtn").hover(function() {
-// 		$(this).css("background-color", "#eee");
-// 	})
-		
-	
 })
 
 
@@ -191,6 +181,11 @@ button, input {
 
 
 /* 2dept menu */
+
+#twoDepth-list {
+	width: 1400px;
+}
+
 #twoDepth-list a:nth-child(2){
 	color: #b571e9;
 	border-bottom: 2px solid #b571e9;
@@ -222,7 +217,7 @@ button, input {
 </div>
 
 <div class="big-container">
-<h3 style="margin: 0 auto; width: 1200px; text-align: center;">멘토 리스트</h3>
+<h3 style="margin: 0 auto; width: 1200px; text-align: center;">내 채팅목록</h3>
 </div>
 
 
@@ -238,21 +233,21 @@ button, input {
 
 			<button class="roomBtn" onclick="goChat(${room.roomNo })" >
 				
-			<div class="left">
-				<img src="https://webimage.10x10.co.kr/eventIMG/2022/118925/etcitemban20220623180508.JPEG">
-			</div>
-			
-			<div class="right">
-				<p class="reciverNick">${room.userNick }</p>
-				<p class="lastChat ${room.roomNo }">
-					<!-- 같은 방번호일때 채팅 넣어주기 -->
-					<c:forEach items="${lastChat }" var="lastChat">
-					<c:if test="${room.roomNo == lastChat.roomNo }">
-						${lastChat.chatContents }
-					</c:if>
-					</c:forEach> <!-- ${lastChat } -->
-				</p>
-			</div>
+				<div class="left">
+					<img src="https://webimage.10x10.co.kr/eventIMG/2022/118925/etcitemban20220623180508.JPEG">
+				</div>
+				
+				<div class="right">
+					<p class="reciverNick">${room.userNick }</p>
+					<p class="lastChat ${room.roomNo }">
+						<!-- 같은 방번호일때 채팅 넣어주기 -->
+						<c:forEach items="${lastChat }" var="lastChat">
+						<c:if test="${room.roomNo == lastChat.roomNo }">
+							${lastChat.chatContents }
+						</c:if>
+						</c:forEach> <!-- ${lastChat } -->
+					</p>
+				</div>
 				
 			</button>
 				

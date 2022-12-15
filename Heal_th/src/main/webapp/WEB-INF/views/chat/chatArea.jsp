@@ -24,6 +24,19 @@ $(document).ready(function() {
 		sendMessage();
 		$('#msgInput').val('')
 	})
+	
+	/* 전송 버튼에 엔터는 섭밋되게 */
+	$('#msgInput').on('keydown', function(event) {
+        if (event.keyCode == 13)
+            if (!event.shiftKey){
+                event.preventDefault();
+                $('#sendBtn').click();
+            }
+    })
+    
+	
+	
+	
 
 })
 
@@ -191,6 +204,7 @@ button {
 }
 
 #sendBtn{
+	display: flex;
 	border-radius: 4px;
     width: 64px;
     height: 32px;
@@ -199,6 +213,8 @@ button {
     font-size: 14px;
     color: #fff;
     background-color: #7ca3f5;
+    justify-content: center;
+    padding: 0px;
 }
 
 

@@ -5,10 +5,20 @@ import java.util.List;
 import daeyeon.dto.Chat;
 import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
+import daeyeon.util.ChatIntroPaging;
 import yerim.dto.Users;
 
 
 public interface ChatDao {
+	
+	
+	/**
+	 * 페이징을 위한 멘토 리스트 개수조회
+	 * 
+	 * @param myUserNo - 조회에서 제외할 내 번호
+	 * @return - 조회된 전체 리스트 개수
+	 */
+	public int selectCntAll(Users myUserNo);
 	
 
 	/**
@@ -18,7 +28,7 @@ public interface ChatDao {
 	 * 
 	 * @return 회원등급 3이상인 회원 목록
 	 */
-	public List<Users> selectUsers(Users myUserNo);
+	public List<Users> selectUsers(ChatIntroPaging chatIntroPaging);
 
 
 	/**
