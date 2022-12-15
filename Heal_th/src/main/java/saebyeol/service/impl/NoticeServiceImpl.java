@@ -71,6 +71,13 @@ public class NoticeServiceImpl implements NoticeService {
 		noticeDao.updateNotice(notice);
 		
 	}
+	
+	@Override
+	public void delete(Notice notice) {
+		
+		noticeDao.delete(notice);
+		
+	}
 
 }
 

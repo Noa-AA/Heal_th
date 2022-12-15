@@ -9,48 +9,57 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import changmin.util.DgHelperPaging;
 import daeyeon.dao.face.ChatDao;
 import daeyeon.dto.Chat;
 import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
 import daeyeon.service.face.ChatService;
+import daeyeon.util.ChatIntroPaging;
 import yerim.dto.Users;
 
 @Service
 public class ChatServiceImpl implements ChatService {
 
-@Autowired ChatDao chatDao;
+	@Autowired ChatDao chatDao;
 	
 	//로그 객체
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
 	// /chat/intro
-	//---------- 회원 등급 3이상인 회원 조회하기
+	//---------- 페이징 정보 조회하기
 	@Override
-	public List<Users> userlist(Users myUserNo) {
-		logger.info("userlist()");
+	public ChatIntroPaging getChatIntroPaging(String curPage, Users myUserNo) {
 		
-		//게시글 목록 조회 - ChatDao 이용
-		List<Users> userList = chatDao.selectUsers(myUserNo); 
-		logger.trace("boardList 조회 결과"); 
-		for( Users d : userList )	logger.info("{}", d);
-		
-		return userList;
+		//총 게시글 수 조회하기
+		int totalCount = chatDao.selectCntAll(myUserNo);
+				
+		//전달파라미터 curPage 추출하기
+		String param = curPage;
+		int curPage2 = 0;
+		if( param != null && !"".equals(param) ) {
+			curPage2 = Integer.parseInt(param);
+		}
+				
+		//DgHelperPaging객체 생성
+		ChatIntroPaging chatIntroPaging = new ChatIntroPaging(totalCount, curPage2);
+				
+		return chatIntroPaging;
 	}
 	
 	
-	
-	// /chat/chatRoom
-	//---------- 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
+	// /chat/intro
+	//---------- 회원 등급 3이상인 회원 조회하기
 	@Override
-	public List<RoomList> roomList(Users myUserNo) {
-		logger.info("roomList() - {}", myUserNo);
+	public List<Users> userlist(Users myUserNo, ChatIntroPaging chatIntroPaging) {
+		logger.info("userlist()");
+		chatIntroPaging.setUserNo(myUserNo.getUserNo());
+		 
+		//게시글 목록 조회 - ChatDao 이용
+		List<Users> userList = chatDao.selectUsers(chatIntroPaging); 
 		
-		//채팅방 목록 조회 - ChatDao 이용
-		List<RoomList> roomList = chatDao.selectRoomList(myUserNo);
-		
-		return roomList;
+		return userList;
 	}
 	
 	
@@ -115,6 +124,32 @@ public class ChatServiceImpl implements ChatService {
 		} 
 		
 		return chatRoom.getRoomNo();
+	}
+	
+	
+	// /chat/chatRoom
+	//---------- 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
+	@Override
+	public List<RoomList> roomList(Users myUserNo) {
+		logger.info("roomList() - {}", myUserNo);
+			
+		//채팅방 목록 조회 - ChatDao 이용
+		List<RoomList> roomList = chatDao.selectRoomList(myUserNo);
+			
+		return roomList;
+	}
+	
+	// /chat/chatRoom
+	//---------- 마지막 채팅내역과 채팅방번호
+	@Override
+	public List<Chat> getLastChat() {
+	// TODO Auto-generated method stub
+		logger.info("getLastChat() ");
+		
+		//마지막 채팅 내역 조회 
+		List<Chat> lastChat = chatDao.selectLastChat();
+		
+		return lastChat;
 	}
 	
 	

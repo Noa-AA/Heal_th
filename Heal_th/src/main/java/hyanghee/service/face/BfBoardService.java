@@ -1,12 +1,11 @@
 package hyanghee.service.face;
 
 import java.util.List;
-import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 
 import hyanghee.dto.Beforeafter;
 import hyanghee.util.BoardPaging;
+import hyanghee.util.BoardSearch;
 import yerim.dto.Users;
 
 public interface BfBoardService {
@@ -32,8 +31,13 @@ public interface BfBoardService {
 	//게시글 수정
 	public void update(Beforeafter beforeafter);
 
-	//검색
+	public List<Beforeafter> getSearchPaging(BoardSearch boardSearch);
 
+	public int getTotal(BoardSearch boardSearch);
+	
+	public Beforeafter getPage(int bfNo);
+
+	//포인트
 
 
 

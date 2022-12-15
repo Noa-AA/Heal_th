@@ -3,6 +3,8 @@
     
 <%@include file="../layout/header.jsp" %>
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 <!-- --------------------------스크립트 시작 -->
 <script type="text/javascript">
 $(document).ready(function() {
@@ -64,7 +66,6 @@ h2{
 
 #listPg {
 	width: 100%;
-	height: 1200px;
 }
 
 
@@ -184,21 +185,89 @@ h2{
 	font-weight: 700;
 }
 
-body {
-	padding-top: 300px;
+
+/* 2dept menu */
+
+#twoDepth-list {
+	width: 1400px;
 }
+
+#twoDepth-list a:nth-child(1){
+	color: #b571e9;
+	border-bottom: 2px solid #b571e9;
+	margin-top: 1px;
+	font-weight: 700;
+}
+
+#twoDepth-list a {
+    width: 50%;
+}
+
+
+/* 페이징 부분 */
+
+.text-center {
+	display: flex;
+	justify-content: center;
+	margin-top: 40px;
+}
+
+.pagination {
+	display: flex;
+	margin: 0;
+}
+
+.pagination > li{
+	display: flex;
+}
+
+.pagination > li > a {
+	display: flex;
+	margin: 0 4px;
+	width: 40px;
+	height: 40px;
+	border-radius: 20px !important;
+	font-size: 16px;
+	justify-content: center;
+	align-items: center;
+}
+
+.none:hover {
+	cursor: default;
+}
+
+
+.material-symbols-outlined {
+	font-variation-settings:
+	'FILL' 0,
+	'wght' 400,
+	'GRAD' 0,
+	'opsz' 48
+}
+
 
 
 </style>
 
 <body>
+<!-- 1depth visual -->
 <div id="subvisual">
 	<div id="subvisual-A">
-		<p id="subv-title">운동 일기장</p>
-		<p id="subv-content">나의 오늘 운동기록을 매일매일 기록해 봐요</p>
+		<p id="subv-title">운동 질문하기</p>
+		<p id="subv-content">챌린지, 운동을 하며 궁금했던 점을 멘토들에게 궁금한점을 물어보세요.</p>
+	</div>
+</div>
+<!-- 2dept Menu -->
+<div id="twoDepth">
+	<div id="twoDepth-list">
+		<a href="/chat/intro">멘토 리스트</a>
+		<a href="/chat/chatRoom">내 채팅목록</a>
 	</div>
 </div>
 
+<div class="big-container">
+<h3 style="margin: 0 auto; width: 1200px; text-align: center;">멘토 리스트</h3>
+</div>
 
 <!-- 리스트 페이지 -->
 <div id="listPg">
@@ -212,7 +281,7 @@ body {
 				<div id="rightCon">
 					<!-- 상담 이름, 등급 -->
 					<div id="rightTop">
-						<div id="name">${userList.userName }</div>
+						<div id="name">${userList.userNick }</div>
 						<div id="ranking">${userList.rankingNo }등급</div>
 						
 					</div>
@@ -253,12 +322,69 @@ body {
 			</c:forEach>
 		</ul>
 	</div> <!-- inner -->
+	
+	
+	<div class="text-center">
+		<ul class="pagination pagination-sm">
+	
+		<%-- 첫 페이지로 이동 (이동할게 없을때) --%>
+		<c:if test="${paging.curPage eq 1 }">
+			<li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
+		</c:if>
+	
+		<%-- 첫 페이지로 이동 --%>
+		<c:if test="${paging.curPage ne 1 }">
+			<li><a href="/chat/intro"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
+		</c:if>
+		
+		
+		<%-- 이전 페이지로 가기 --%>
+		<c:if test="${paging.curPage > 1 }">
+			<li><a href="/chat/intro?curPage=${paging.curPage - 1 }"><span class="material-symbols-outlined">navigate_before</span></a></li>
+		</c:if>
+		
+		<%-- 이전 페이지로 가기 (이전으로 갈 페이지 없을때)--%>
+		<c:if test="${paging.curPage <= 1 }">
+			<li><a class="none"><span class="material-symbols-outlined">navigate_before</span></a></li>
+		</c:if>
+		
+			
+		<%-- 페이징 리스트 --%>
+		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
+		<c:if test="${paging.curPage eq i }">
+			<li class="active"><a href="/chat/intro?curPage=${i }">${i }</a></li>
+		</c:if>
+		<c:if test="${paging.curPage ne i }">
+			<li><a href="/chat/intro?curPage=${i }">${i }</a></li>
+		</c:if>
+		</c:forEach>
+	
+		
+		
+		<%-- 다음 페이지로 가기 --%>
+		<c:if test="${paging.curPage < paging.totalPage }">
+			<li><a href="/chat/intro?curPage=${paging.curPage + 1 }"><span class="material-symbols-outlined">navigate_next</span></a></li>
+		</c:if>
+		
+		<%-- 다음 페이지로 가기 (다음으로 갈 페이지 없을때) --%>
+		<c:if test="${paging.curPage >= paging.totalPage }">
+			<li><a class="none"><span class="material-symbols-outlined">navigate_next</span></a></li>
+		</c:if>
+		
+	
+		<%-- 끝 페이지로 이동 --%>
+		<c:if test="${paging.curPage ne paging.totalPage }">
+			<li><a href="/chat/intro?curPage=${paging.totalPage }" ><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+		</c:if>
+		
+		</ul>
+	</div>
+	
 </div>
 
 
 
 
-
-
 </body>
+<%@include file="../layout/footer.jsp" %>
 </html>

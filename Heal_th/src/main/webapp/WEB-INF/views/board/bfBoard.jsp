@@ -4,6 +4,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
 <jsp:include page="../layout/header.jsp" />
 
 
@@ -20,6 +27,17 @@ td:nth-child(2) {
 	text-align: left;
 }
 
+body{
+	font-family: 'Noto Sans','NotoSansWeb',Verdana,"맑은 고딕",Malgun Gothic,Dotum,돋움,Gulim,굴림,sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+#container{
+	width: 1200px;
+	height: 1800px;
+}
+
 #btnWrite {
     background: #7474BF;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #7ca3f5, #c583d6);  /* Chrome 10-25, Safari 5.1-6 */
@@ -33,6 +51,98 @@ td:nth-child(2) {
 	margin-top: -28px;
 }
 
+/* #totalList { */
+/*     background: #7ca3f5; */
+/*     color: #fff; */
+/* 	border: none; */
+/* 	font-weight: bold; */
+/* 	width: 120px; */
+/* 	height: 34px; */
+/* 	float: right; */
+/* 	margin-top: -32px; */
+/* 	border-radius: 7px; */
+/* } */
+
+#totalList {
+    color: #7ca3f5;
+	text-decoration: none;	
+	font-weight: bold;
+	width: 120px;
+	height: 34px;
+	float: right;
+	margin-top: -25px;
+}
+
+#search {
+	text-align: center;
+	margin-bottom: -5px;
+	
+}
+
+#type{
+	border: 2px solid #7ca3f5;
+	font-weight: border;
+	display: none;
+}
+
+#searchText{
+	width: 360px;
+	padding: 0 6px;
+	border: 2px solid #7ca3f5;
+	border-radius: 30px;
+	transition: 0.4s;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+#searchText:hover{
+  box-shadow: 0px 0px .5px 1px #7ca3f5;
+  width: 380px;
+}
+
+#searchIcon{
+ margin-left: -39px;
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  color: #7ca3f5;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: none;
+}
+
+/* .container{margin-top:200px;text-align:center} */
+
+/* 탭메뉴 공통 */
+.tab_menu{
+	width:800px;
+ 	margin:30px auto 0;
+	list-style:none;
+}
+.tab_menu li{border:1px solid #ccc; list-style:none;}
+
+/* 탭메뉴 버튼 */
+.tab_menu {display:table;table-layout:fixed;}
+.tab_menu li{display:table-cell;padding:20px 0;cursor:pointer; background:white;}
+.tab_menu li.on{
+	background:#7ca3f5; 
+	color: white;
+	font-size: 20px;
+	text-align: center;
+ }
+.tab_menu li+li{border-left:none;}
+
+#comDepth{
+	font-size: 20px;
+	text-align: center;
+	text-decoration: none;
+}
+
+#boardList{
+	font-size: 24px;
+	margin-bottom: -36px;
+}
 
 
 </style>
@@ -40,12 +150,72 @@ td:nth-child(2) {
 <script type="text/javascript">
 $(document).ready(function() {
 	
+	let moveForm = $("#moveForm");
+	$(".move")
+		.on(
+			"click",
+			function(e) {
+				e.preventDefault();
+				moveForm.empty();
+
+				moveForm
+						.append("<input type='hidden' name='bfNo' value='"
+								+ $(this).attr("href") + "'>");
+				moveForm.attr("action", "/board/searchView");
+				moveForm.submit();
+			});
+	
+	//페이지 이동 번호 동작
+	$(".pageInfo a").on("click", function(e) {
+		e.preventDefault();
+
+		moveForm.find("input[name='pageNum']").val($(this).attr("href"));
+		moveForm.attr("action", "/board/bfBoard");
+		moveForm.submit();
+
+	});
+
+
+
+	//검색 버튼
+	$(".search_area button").on("click", function(e) {
+		e.preventDefault();
+
+		let type = $(".search_area select").val();
+		let keyword = $(".search_area input[name='keyword']").val();
+
+		if (!keyword) {
+			alert("키워드를 입력하세요.");
+			return false;
+		}
+
+		moveForm.find("input[name='type']").val(type);
+		moveForm.find("input[name='keyword']").val(keyword);
+		moveForm.find("input[name='pageNum']").val(1);
+		moveForm.submit();
+	});
+	
 	$("#btnWrite").click(function() {
 		$(location).attr("href", "/board/bfWrite")
 	})
 	
-})
+	//메뉴 버튼
+	 $(".tab_menu li").click(function () {
+	        var $this = $(this),
+	            tabId = $this.data("tab"),
+	            tabIndex = $this.index();
 
+	        $(".tab_menu li").removeClass("on");
+
+			$this.addClass("on");
+	        $("#"+tabId).addClass("on");
+
+	    });
+	
+
+
+
+})
 </script>
 
 
@@ -54,61 +224,111 @@ $(document).ready(function() {
 
 
 
-<div class="container">
+<div class="container" id="container">
 
-<h1>게시판 리스트</h1><br><br>
+<h1 style="text-align: center;">커뮤니티</h1><br><br><br><br>
 
-<div class="search">
-<form action="">
-	<input type="hidden" name="boardCode" value="${param.boardCode }">
-	<input type="hidden" name="page" value="1"> 
-	<select name="searchType">
-		<option <c:if test="${param.searchType == 'title'}"> selected </c:if> value="title">제목</option>
-		<option <c:if test="${param.searchType == 'body'}"> selected </c:if> value="body">내용</option>
-		<option <c:if test="${param.searchType == 'titleAndBody'}"> selected </c:if> value="titleAndBody">제목+내용</option>
+
+<div class="beforeafter" id="search" name="search">
+
+
+<div class="search_wrap">
 		
-	</select>
-	
-	<script type="text/javascript">
-	
-	if( typeof param.searchType =='undefined' ) {
-		param.searchType = 'title';
-	}
-	
-	$('form[name="searchForm"] select[]name=searchType').val(parma.searchType);
-	
-	</script>
-	
-	<input type="text" name="searchKeyword" placeholder="검색어를 입력해주세요">
-	<input type="submit" value="검색">
-	
-</form>
+			<div class="search_area">
+				<select name="type" id="type">
+					<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option>
+					<option value="C" <c:out value="${pageMaker.boardSearch.type eq 'C'?'selected':'' }"/>>내용</option>
+					<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option>
+				</select> 
+				
+					<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search...">
+				<button id="searchIcon"><i class="fas fa-search"></i></button>
+				
+				
+			</div>
+		</div>
+	</div>
+
+<br><br><br><br>
+
+<div id="community" name="community">
+	<ul class="tab_menu" style="text-align: center;">
+		<li data-tab="tab-1" class="on" id="tab"><a href="/board/bfBoard" style="color: white; font-weight: bold;" id="comDepth" class="tabCon" >비포 애프터</a></li>
+		<li data-tab="tab-2" id="tab"><a href="/board/verifyBoard" id="comDepth" class="tabCon">운동 인증</a></li>
+		<li data-tab="tab-3" id="tab"><a href="/board/dietBoard" id="comDepth" class="tabCon">식단 공유</a></li>
+		<li data-tab="tab-4" id="tab"><a href="/board/reviewBoard" id="comDepth" class="tabCon">시설 리뷰</a></li>
+	</ul>
 </div>
 
 <br><br>
 
-<hr>
+<div class="pageInfo_wrap">
+		<div class="pageInfo_area">
+			<ul id="pageInfo" class="pageInfo">
 
-<br><br>
+				<c:if test="${pageMaker.prev}">
+					<li class="pageInfo_btn previous"><a href="${pageMaker.startPage - 1}">Previous</a></li>
+				</c:if>
 
-<h3>비포 애프터 게시판</h3>
+				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+					<li class="pageInfo_btn ${pageMaker.boardSearch.pageNum == num ? "active":"" }"></li>
+				</c:forEach>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-<div class="page-content page-container" id="page-content">
-    <div class="padding">
-        <div class="row container d-flex justify-content-center"> 
-        	<button type="button" id="btnWrite" class="btn btn-warning btn-icon-text animatebutton"> <i class="fa fa-check btn-icon-prepend"></i>글쓰기</button> 
-       </div>
+				<c:if test="${pageMaker.next}">
+					<li class="pageInfo_btn next"><a href="${pageMaker.endPage + 1 }">Next</a></li>
+				</c:if>
+
+			</ul>
+		</div>
+	</div>
+
+	<form id="moveForm" method="get">
+		<input type="hidden" id="bfNo" name="bfNo" value='<c:out value="${pageInfo.bfNo}"/>'>
+		<input type="hidden" name="pageNum" value="${pageMaker.boardSearch.pageNum }">
+		<input type="hidden" name="amount" value="${pageMaker.boardSearch.amount }">
+		<input type="hidden" name="keyword" value="${pageMaker.boardSearch.keyword }">
+		<input type="hidden" name="type" value="${pageMaker.boardSearch.type }">
+	</form>
+	
+
+<br><br><br><br>
+
+
+<div id="boardList">
+<span>비포 애프터 게시판</span>
+</div>
+
+<!-- <div class="beforeafter" id="search" name="search"> -->
+
+
+<!-- <div class="search_wrap"> -->
+		
+<!-- 			<div class="search_area"> -->
+<!-- 				<select name="type" id="type"> -->
+<%-- 					<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option> --%>
+<%-- 					<option value="C" <c:out value="${pageMaker.boardSearch.type eq 'C'?'selected':'' }"/>>내용</option> --%>
+<%-- 					<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option> --%>
+<!-- 				</select>  -->
+				
+<%-- 					<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search..."> --%>
+<!-- 				<button id="searchIcon"><i class="fas fa-search"></i></button> -->
+				
+				
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+
+    <div>
+    	<a href="/board/bfBoard" id="totalList" name="totalList">전체 게시글 보기 ▼</a>
+<!--         <button type="button" id="totalList" name="totalList">전체 게시글 보기 ▼</button>  -->
     </div>
-</div>
 
 
-<!-- <button id="btnInsert">글쓰기</button> -->
 
-
+<br>
 <hr>
 
-<table class="table table-striped table-hover table-condensed">
+<table class="table table-hover table-condensed">
 <thead>
 	<tr>
 		<th style="width: 10%;">글번호</th>
@@ -120,7 +340,7 @@ $(document).ready(function() {
 	</tr>
 </thead>
 <tbody>
-<c:forEach items="${list }" var="board">
+<c:forEach items="${boardSearch }" var="board">
 	<tr>
 		<td>${board.bfNo }</td>
 		<td><a href="${path}/board/bfView?bfNo=${board.bfNo}">${board.bfTitle }</a></td>
@@ -133,11 +353,19 @@ $(document).ready(function() {
 </tbody>
 </table>
 
-<span class="pull-right">total : ${paging.totalCount }</span>
+<span class="pull-right">total : ${boardPaging.totalCount }</span>
 <div class="clearfix"></div>
 
 <c:import url="/WEB-INF/views/board/paging.jsp" />
 
-</div><!-- .container -->
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center"> 
+        	<button type="button" id="btnWrite">글쓰기</button> 
+       </div>
+    </div>
+</div>
+
+</div>
 
 

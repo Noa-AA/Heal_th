@@ -1,5 +1,7 @@
 package jucheol.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -53,8 +55,8 @@ public class ScrapController {
 	@GetMapping("/list")
 	public void scrapList(
 			HttpSession session
-			,Scrap scrap
-			
+			, Scrap scrap
+			, Model model
 			) {
 		logger.info("/scrap/list[GET]");
 
@@ -62,6 +64,19 @@ public class ScrapController {
 		session.setAttribute("userNo", 7777);
 		
 		scrap.setUserNo((int) session.getAttribute("userNo"));
+		
+		List<Scrap> scrapList = scrapService.selectList(scrap);
+		for( Scrap s : scrapList )logger.info("scrapList {}",s);
+		
+		
+		model.addAttribute("scrapList", scrapList);
+	}
+	
+	@PostMapping("/delete")
+	public void scrapDelete(
+			int scrapNo
+			) {
+		logger.info("/scrap/delete[POST]");
 		
 	}
 	

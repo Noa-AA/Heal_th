@@ -17,13 +17,13 @@ import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
 import daeyeon.dto.Userss;
 import daeyeon.service.face.ChatService;
+import daeyeon.util.ChatIntroPaging;
 import yerim.dto.Users;
 
 @Controller
 @RequestMapping("/chat")
 public class ChatController {
 
-	
 		//로그 객체
 		private final Logger logger = LoggerFactory.getLogger(this.getClass());
 		
@@ -32,17 +32,22 @@ public class ChatController {
 		
 		//1. 멘토 리스트
 		@RequestMapping("/intro")
-		public void mentorList(HttpSession session, Model model, Users myUserNo) {
+		public void mentorList(HttpSession session, Model model, Users myUserNo, String curPage) {
 			logger.info("/chat/intro");
 			
 			//자신을 제외하기위한 자신의 회원번호 파라미터
 			myUserNo.setUserNo((Integer)session.getAttribute("userNo"));
 			
+			//페이징 객체
+			ChatIntroPaging chatIntroPaging = new ChatIntroPaging();
+			chatIntroPaging = chatService.getChatIntroPaging(curPage, myUserNo);
+			
 			//회원등급 3이상 회원 조회
-			List<Users> userList = chatService.userlist(myUserNo);
+			List<Users> userList = chatService.userlist(myUserNo, chatIntroPaging);
 				
 			//모델값 전달 - Model객체 이용
 			model.addAttribute("userList", userList);
+			model.addAttribute("paging", chatIntroPaging);
 		}
 		
 		
@@ -123,6 +128,7 @@ public class ChatController {
 		@RequestMapping("/chatRoom")
 		public void chatRoom(HttpSession session, Users myUserNo, Model model, RoomList room) {
 			logger.info("/chatRoom");
+//			Chat chat = new Chat();
 			
 			myUserNo.setUserNo((Integer)session.getAttribute("userNo"));
 			
@@ -131,10 +137,20 @@ public class ChatController {
 			// 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
 			List<RoomList> roomList = chatService.roomList(myUserNo);
 			
+			// 채팅에서 제일 마지막 채팅 리스트 받아오기 - chatRoom들어갔을때 
+			List<Chat> lastChat = chatService.getLastChat();
+			
 			model.addAttribute("createRoomNo", session.getAttribute("createRoomNo"));
+			
+			logger.info("roomList : {}", roomList);
+			logger.info("lastChat : {}", lastChat);
 			
 //			채팅방 번호 전달 - Model객체 이용
 			model.addAttribute("roomList", roomList);
+
+//			마지막 채팅, 방번호 전달 - Model객체 이용
+			model.addAttribute("lastChat", lastChat);
+			
 		}
 		
 			

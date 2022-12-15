@@ -1,11 +1,8 @@
 package hyanghee.service.impl;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +13,7 @@ import hyanghee.dao.face.BfBoardDao;
 import hyanghee.dto.Beforeafter;
 import hyanghee.service.face.BfBoardService;
 import hyanghee.util.BoardPaging;
+import hyanghee.util.BoardSearch;
 import yerim.dto.Users;
 
 @Service
@@ -132,10 +130,24 @@ public class BfBoardServiceImpl implements BfBoardService {
 	}
 
 
-	
-	
+	@Override
+	public List<Beforeafter> getSearchPaging(BoardSearch boardSearch) {
+		return bfBoardDao.getSearchPaging(boardSearch);
+	}
 
-	
+
+	@Override
+	public int getTotal(BoardSearch boardSearch) {
+		return bfBoardDao.getTotal(boardSearch);
+	}
+
+
+	@Override
+	public Beforeafter getPage(int bfNo) {
+		return bfBoardDao.getPage(bfNo);
+	}
+
+
 
 
 

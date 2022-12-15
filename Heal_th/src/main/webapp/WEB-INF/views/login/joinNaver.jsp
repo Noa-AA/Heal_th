@@ -6,7 +6,6 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	var count =0;
 
 	var naverPhone = $("#userPhone").val()
   	
@@ -20,7 +19,6 @@ $(document).ready(function(){
 	  var naverBirth = $("#userBirth").val().split("-").join("")
 	  console.log(naverBirth)
 	   $("#userBirth").attr("value",naverBirth)
-	   count++
   }
 	
 
@@ -88,13 +86,9 @@ $("#joinbtn").click(function(){
 	console.log("submit event")
 
 	//유효성 검증 후 submit*(조건이 모두 만족해야 가입이됨)
-	if(validate()&& validatePw()&&pwChk()&&count>0){
-	
-		console.log(count)
-		$("#joinform").submit();
+	if(validate()&& validatePw()&&pwChk()){
+		$("#joinNaverform").submit();
     }
-	
-
 		return false;	//조건 만족하지 않으면 회원가입 되지 않음	
 	})
 	
@@ -391,7 +385,7 @@ $("#joinbtn").click(function(){
 		</div>
 		
 		
-	<form action="/login/join" method="post" id="joinform">
+	<form action="/login/join" method="post" id="joinNaverform">
 		<div id="howJoin">
 				<input id="joinType" name="joinType" value="Naver" style="display: none;">
 			</div>

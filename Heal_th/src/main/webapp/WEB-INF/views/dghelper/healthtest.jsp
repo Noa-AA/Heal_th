@@ -429,7 +429,7 @@ button {
 
 .mbti-text {
     position: relative;
-    top: 230px;
+    top: 330px;
     left: -466px;
     font-size: 24px;
     height: 100px;
@@ -443,7 +443,6 @@ button {
 	border-radius: 8px;
 	border: none;
 	position: relative;
-	top: -80px;
     margin: 10px 0 10px 0;
 }
 
@@ -480,17 +479,42 @@ button {
 body {
 	padding-top: 355px;
 }
+
+#twoDepth-list a:nth-child(3){
+	color: #b571e9;
+	border-bottom: 2px solid #b571e9;
+	margin-top: 1px;
+	font-weight: 700;
+}
+
+.footer {
+	margin-top: 300px;
+}
+
+[class^="result"] p:nth-child(1) {
+	font-size: 30px;
+}
 </style>
 <body>
 <div id="subvisual">
 	<div id="subvisual-A">
-		<p id="subv-title">운동성향 테스트</p>
-		<p id="subv-content">운동성향 테스트로 나에게 맞는 운동을 찾아봐요</p>
+		<p id="subv-title">운동 도우미</p>
+<!-- 		<p id="subv-content">나의 오늘 운동기록을 매일매일 기록해 봐요</p> -->
+	</div>
+</div>
+<div id="twoDepth">
+	<div id="twoDepth-list">
+		<a href="/map/find">운동 시설 추천</a>
+		<a href="/dghelper/healthrecord">운동 일기장</a>
+		<a href="/dghelper/healthtest">운동 성향 테스트</a>
+		<a href="/dghelper/healthguide">칼로리 사전</a>
+		<a href="/dghelper/dgmagotchi">득근이 키우기</a>
 	</div>
 </div>
 <div class="big-container">
+<h3 style="margin: 0 auto; width: 1200px; text-align: center;">운동 성향 테스트</h3>
 <div class="medium-container">
-	<div class="question-title">운동성향 테스트</div>
+	<div class="question-title"></div>
 	<div class="question-container">
 		<div class="mbti-content">
 			<div class="start" style="display: block;">

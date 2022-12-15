@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import daeyeon.dto.Chat;
 import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
+import daeyeon.util.ChatIntroPaging;
 import yerim.dto.Users;
 
 public interface ChatService {
@@ -15,21 +16,22 @@ public interface ChatService {
 	/**
 	 * chat/intro
 	 * 
+	 * 회원인트로페이지의 페이징 정보
+	 * 
+	 * @param curPage
+	 * @param myUserNo
+	 * @return
+	 */
+	public ChatIntroPaging getChatIntroPaging(String curPage, Users myUserNo);
+	
+	/**
+	 * chat/intro
+	 * 
 	 * 회원 등급 3이상인 회원 조회하기
 	 * 
 	 * @return List<Users> -  회원등급 3이상인 회원목록
 	 */
-	public List<Users> userlist(Users myUserNo);
-
-	
-	/**
-	 * chat/chatRoom
-	 * 
-	 * 유저번호를 이용해서 소속된 채팅방 조회하기
-	 * 
-	 * @return List - 조회된 채팅방
-	 */
-	public List<RoomList> roomList(Users myUserNo);
+	public List<Users> userlist(Users myUserNo, ChatIntroPaging chatIntroPaging);
 
 
 	/**
@@ -76,6 +78,27 @@ public interface ChatService {
 
 
 	/**
+	 * chat/chatRoom
+	 * 
+	 * 유저번호를 이용해서 소속된 채팅방 조회하기
+	 * 
+	 * @param myUserNo - 내 유저번호
+	 * @return List<RoomList>  - 조회된 채팅방
+	 */
+	public List<RoomList> roomList(Users myUserNo);
+
+
+	/**
+	 * chat/chatRoom
+	 * 
+	 * 채팅중에 마지막 채팅과 방번호 조회하기
+	 * 
+	 * @return List<Chat> - 조회된 마지막채팅, 방번호
+	 */
+	public List<Chat> getLastChat();
+	
+	
+	/**
 	 * chat/chatArea
 	 * 
 	 * 상대방 이름 가져오기
@@ -105,6 +128,9 @@ public interface ChatService {
 	 * @return List<Chat> - 조회한 채팅내역
 	 */
 	public List<Chat> gerChatList(RoomList roomNo);
+
+	
+	
 
 
 
