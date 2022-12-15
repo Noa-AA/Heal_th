@@ -47,4 +47,24 @@
 		WHERE user_no =#{userNo}
 	</update>
 
+	 <select id="selectIsProfile" resultType="int" parameterType="PhotoFile">
+	 
+	 	SELECT count(*) FROM PhotoFile
+	 	WHERE user_no =#{userNo}
+	 </select>
+	 
+	 <update id="setUserNo" parameterType="PhotoFile">
+	 	UPDATE photofile
+	 	SET
+			file_no = #{fileNo},
+			origin_name =#{originName},
+			stored_name =#{storedName}
+		WHERE user_no = #{userNo}
+	 
+	 </update>
+	 
+	  <insert id="insertProfile" parameterType="PhotoFile">
+	  	INSERT INTO photofile (file_no,origin_name,stored_name,user_no)
+	  	VALUES (photoFile_seq.nextval,#{originName},#{storedName},#{userNo})
+	  </insert>
 </mapper>

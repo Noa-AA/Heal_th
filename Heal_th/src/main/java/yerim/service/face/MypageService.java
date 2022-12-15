@@ -2,6 +2,9 @@ package yerim.service.face;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import yerim.dto.PhotoFile;
 import yerim.dto.Users;
 
 public interface MypageService {
@@ -81,5 +84,12 @@ public interface MypageService {
 	 * @return 
 	 */
 	public void updateNewPw(Users userNewPw, HttpSession session);
+
+	/**
+	 * 프로필 사진 upload하기
+	 * @param file -사진 파일
+	 * @param photoFile -userNo 담은 DTO
+	 */
+	public void upload(MultipartFile file,PhotoFile photoFile);
 
 }

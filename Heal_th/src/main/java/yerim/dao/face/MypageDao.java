@@ -1,5 +1,6 @@
 package yerim.dao.face;
 
+import yerim.dto.PhotoFile;
 import yerim.dto.Users;
 
 public interface MypageDao {
@@ -44,5 +45,23 @@ public interface MypageDao {
 	 * @return 
 	 */
 	public void updateUserNewPw(Users userNewPw);
+
+	/**
+	 * 파일 존재여부 확인하기
+	 * @param photoFile -파일 
+	 */
+	public int selectIsProfile(PhotoFile photoFile);
+
+	/**
+	 * 파일 업데이트하기
+	 * @param photoFile
+	 */
+	public void updateProfile(PhotoFile photoFile);
+
+	/**
+	 * 파일 인서트 하기
+	 * @param photoFile
+	 */
+	public void insertProfile(PhotoFile photoFile);
 
 }

@@ -1,7 +1,11 @@
 package yerim.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
+import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -9,8 +13,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 
 import yerim.dao.face.MypageDao;
+import yerim.dto.PhotoFile;
 import yerim.dto.Users;
 import yerim.service.face.MypageService;
 import yerim.util.EmailCode;
@@ -26,6 +32,7 @@ public class MypageServiceImpl implements MypageService {
 	//이메일 보내기위한 객체
 	@Autowired EmailCode emailCode;
 
+	@Autowired ServletContext context;
 	@Override
 	public Users getuserInfo(int userNo) {
 		logger.info("getuserInfo - userNo :{}",userNo);
@@ -155,5 +162,57 @@ public class MypageServiceImpl implements MypageService {
 		//비밀번호 update
 		mypageDao.updateUserNewPw(userNewPw);
 		
+	}
+	
+	 @Override
+	public void upload(MultipartFile userPhoto,PhotoFile photoFile) {
+		 logger.info("upload 시작");
+		
+		 //빈 파일일 겨우
+		 if(userPhoto.getSize()<=0) {
+			 return;
+		 }
+		 
+		 //파일이 저장될 경로
+		 String storedPath = context.getRealPath("upload");
+		 File storedFolder = new File(storedPath);
+		 if(!storedFolder.exists()) {//저장할 폴더가 없을 경우 폴더 생성
+			 storedFolder.mkdir();
+		 }
+		 
+		 //파일이 저장될 이름
+		 String originName = userPhoto.getOriginalFilename();
+		 String storedName = originName + UUID.randomUUID().toString().split("-")[4];
+		 
+		 logger.info("실제 파일 이름 : {}",originName);
+		 logger.info("저장된 파일 이름 : {}", storedName);
+		 
+		 //저장할 파일의 정보 객체
+		 File dest = new File(storedFolder, storedName);
+		 
+		 try {
+			 userPhoto.transferTo(dest); //지정한 파일에 업로드한 파일을 저장
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		 
+		 //----------------------------------
+		 //첨부파일 정보 DB 기록하기
+		   photoFile.setOriginName(originName);
+		   photoFile.setStoredName(storedName);
+		   
+		 //파일 insert 또는 update
+		   if(mypageDao.selectIsProfile(photoFile)>0){
+			   logger.info("사진 있음 -update하기");
+			   mypageDao.updateProfile(photoFile);
+		   }else {
+			   //파일 insert
+			   logger.info("사진 없음 - insert하기");
+			   mypageDao.insertProfile(photoFile);
+		   }
+		   
+		 
 	}
 }

@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import yerim.dto.PhotoFile;
 import yerim.dto.Users;
 import yerim.service.face.MypageService;
 
 @Controller  
-@RequestMapping("/mypage")
+@RequestMapping(value="/mypage")
 public class MypageController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -186,5 +188,18 @@ public class MypageController {
 	@GetMapping("/setProfile")
 	public void setProfile() {
 		logger.info("/setProfile [GET]");
+	}
+	
+	@PostMapping("/setProfile")
+	public String fileup(HttpSession session, MultipartFile userPhoto,PhotoFile photoFile,Users intro ) {
+		logger.info("{}",userPhoto);
+		
+		//작성자 정보 추가
+		photoFile.setUserNo((int)session.getAttribute("userNo"));
+		
+		//첨부파일 처리
+		mypageService.upload(userPhoto,photoFile);
+	
+		return "redirect:/mypage/main";
 	}
 }
