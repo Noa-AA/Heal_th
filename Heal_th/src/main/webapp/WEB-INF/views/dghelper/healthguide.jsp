@@ -71,7 +71,7 @@ $(document).ready(function(){
 				}
 				, error: function(){
 					console.log("AJAX 실패")
-					
+					alert("마이페이지에서 바디정보를 등록 해주세요.");
 				}
 			})
 		}
@@ -172,6 +172,7 @@ body {
 	color: #b571e9;
 	border-bottom: 2px solid #b571e9;
 	margin-top: 1px;
+	font-weight: 700;
 }
 </style>
 <body>

@@ -9,32 +9,55 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import changmin.util.DgHelperPaging;
 import daeyeon.dao.face.ChatDao;
 import daeyeon.dto.Chat;
 import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
 import daeyeon.service.face.ChatService;
+import daeyeon.util.ChatIntroPaging;
 import yerim.dto.Users;
 
 @Service
 public class ChatServiceImpl implements ChatService {
 
-@Autowired ChatDao chatDao;
+	@Autowired ChatDao chatDao;
 	
 	//로그 객체
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	
 	// /chat/intro
+	//---------- 페이징 정보 조회하기
+	@Override
+	public ChatIntroPaging getChatIntroPaging(String curPage, Users myUserNo) {
+		
+		//총 게시글 수 조회하기
+		int totalCount = chatDao.selectCntAll(myUserNo);
+				
+		//전달파라미터 curPage 추출하기
+		String param = curPage;
+		int curPage2 = 0;
+		if( param != null && !"".equals(param) ) {
+			curPage2 = Integer.parseInt(param);
+		}
+				
+		//DgHelperPaging객체 생성
+		ChatIntroPaging chatIntroPaging = new ChatIntroPaging(totalCount, curPage2);
+				
+		return chatIntroPaging;
+	}
+	
+	
+	// /chat/intro
 	//---------- 회원 등급 3이상인 회원 조회하기
 	@Override
-	public List<Users> userlist(Users myUserNo) {
+	public List<Users> userlist(Users myUserNo, ChatIntroPaging chatIntroPaging) {
 		logger.info("userlist()");
-		
+		chatIntroPaging.setUserNo(myUserNo.getUserNo());
+		 
 		//게시글 목록 조회 - ChatDao 이용
-		List<Users> userList = chatDao.selectUsers(myUserNo); 
-		logger.trace("boardList 조회 결과"); 
-		for( Users d : userList )	logger.info("{}", d);
+		List<Users> userList = chatDao.selectUsers(chatIntroPaging); 
 		
 		return userList;
 	}
