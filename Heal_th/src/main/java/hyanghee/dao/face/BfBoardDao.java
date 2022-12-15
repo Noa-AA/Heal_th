@@ -4,6 +4,7 @@ import java.util.List;
 
 import hyanghee.dto.Beforeafter;
 import hyanghee.util.BoardPaging;
+import hyanghee.util.BoardSearch;
 import yerim.dto.Users;
 
 public interface BfBoardDao {
@@ -49,5 +50,17 @@ public interface BfBoardDao {
 
 	//게시글 수정
 	public void updateBoard(Beforeafter beforeafter);
+
+	public List<Beforeafter> getList();
+	
+	public List<Beforeafter> getSearchPaging(BoardSearch boardSearch);
+
+	public int getTotal(BoardSearch boardSearch);
+
+	public Beforeafter getPage(int bfNo);
+
+	public void updatePoint(int userNo, int point);
+	
+	
 	
 }

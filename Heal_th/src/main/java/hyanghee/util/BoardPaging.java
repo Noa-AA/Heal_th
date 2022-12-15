@@ -15,6 +15,8 @@ public class BoardPaging {
 		private int startNo; //화면에 보이는 게시글의 시작 번호
 		private int endNo; //화면에 보이는 게시글의 끝 번호
 		
+		private String keyword;
+		
 		
 		//디폴트 생성자 - 페이징 로직이 처리되지 않는다
 		public BoardPaging() {}
@@ -92,66 +94,123 @@ public class BoardPaging {
 		}
 
 
+//		@Override
+//		public String toString() {
+//			return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
+//					+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
+//					+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
+//		}
+		
+		
 		@Override
 		public String toString() {
-			return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
-					+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-					+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
+			return "BoardPaging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount
+					+ ", totalPage=" + totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage
+					+ ", endPage=" + endPage + ", startNo=" + startNo + ", endNo=" + endNo + ", keyword=" + keyword
+					+ "]";
 		}
+
 
 		public int getCurPage() {
 			return curPage;
 		}
+
+
 		public void setCurPage(int curPage) {
 			this.curPage = curPage;
 		}
+
+
 		public int getTotalCount() {
 			return totalCount;
 		}
+
+
 		public void setTotalCount(int totalCount) {
 			this.totalCount = totalCount;
 		}
+
+
 		public int getListCount() {
 			return listCount;
 		}
+
+
 		public void setListCount(int listCount) {
 			this.listCount = listCount;
 		}
+
+
 		public int getTotalPage() {
 			return totalPage;
 		}
+
+
 		public void setTotalPage(int totalPage) {
 			this.totalPage = totalPage;
 		}
+
+
 		public int getPageCount() {
 			return pageCount;
 		}
+
+
 		public void setPageCount(int pageCount) {
 			this.pageCount = pageCount;
 		}
+
+
 		public int getStartPage() {
 			return startPage;
 		}
+
+
 		public void setStartPage(int startPage) {
 			this.startPage = startPage;
 		}
+
+
 		public int getEndPage() {
 			return endPage;
 		}
+
+
 		public void setEndPage(int endPage) {
 			this.endPage = endPage;
 		}
+
+
 		public int getStartNo() {
 			return startNo;
 		}
+
+
 		public void setStartNo(int startNo) {
 			this.startNo = startNo;
 		}
+
+
 		public int getEndNo() {
 			return endNo;
 		}
+
+
 		public void setEndNo(int endNo) {
 			this.endNo = endNo;
-	}
-	
+		}
+
+
+		public String getKeyword() {
+			return keyword;
+		}
+
+
+		public void setKeyword(String keyword) {
+			this.keyword = keyword;
+		}
+		
+
+		
+		
 }

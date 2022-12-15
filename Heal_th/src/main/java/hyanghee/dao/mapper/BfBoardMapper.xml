@@ -88,7 +88,99 @@
 	</delete>
 	
 	
+	
+	
+	<select id="getList" resultType="Beforeafter">
+		SELECT bf_no, bf_title, user_no,
+				bf_hit, bf_thumbs, bf_inst_date
+		FROM beforeafter
+		
+		ORDER BY bf_no DESC
+	</select>
+	
+	<select id="getPage" resultType="Beforeafter">
+        SELECT * FROM beforeafter
+        WHERE bf_no = #{bfNo}
+    </select>
+	
+	
+    <sql id="boardSearch">
+        <trim prefix="AND (" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'T'.toString()">
+                            bf_title like '%'||#{keyword}||'%' 
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            before_con like '%'||#{keyword}||'%',
+                            after_con like '%'||#{keyword}||'%'
+                        </when>
+                         <when test="type == 'TC'.toString()">
+                         	bf_title like '%'||#{keyword}||'%',
+                            before_con like '%'||#{keyword}||'%',
+                            after_con like '%'||#{keyword}||'%'
+                        </when>
+                        
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    
+    </sql>
+    
+    
+    <select id="getSearchPaging" resultType="Beforeafter">
+    
+    <![CDATA[
+        
+        SELECT bf_no, bf_title, user_no,
+					bf_hit, bf_thumbs, bf_inst_date  FROM(
+        
+                SELECT 
+                rownum  as rn, bf_no, bf_title, user_no,
+								bf_hit, bf_thumbs, bf_inst_date
+                  
+                FROM beforeafter WHERE rownum <= #{pageNum} * #{amount} 
+    ]]>            
+                <if test="keyword != null">
+                	<include refid="boardSearch"></include> 
+                </if>
+    
+    <![CDATA[
+                    
+                )
+                    
+        WHERE rn > (#{pageNum} -1) * #{amount}
+    
+    ]]>
+    
+    </select>
+	
+       
+    
+    <select id="getTotal" resultType="int">
+    	SELECT count(*) FROM beforeafter
+    	
+    	<if test="keyword != null">
+			WHERE bf_no > 0 <include refid="boardSearch"></include>
+        </if>
+        
+    </select>
+
+
+	<update id="updatePoint">
+		UPDATE user SET point = point + #{point}
+		WHERE user_no = #{userno}
+	</update>
 
 	
 </mapper>
+
+
+
+
+
+
+
   

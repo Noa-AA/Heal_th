@@ -64,6 +64,9 @@ public class BoardSearch {
 
 	public void setType(String type) {
 		this.type = type;
+		
+		//공백 ""을 사용하여 문자열 분리
+		this.typeArr = type.split("");
 	}
 
 	public String[] getTypeArr() {
