@@ -3,6 +3,8 @@
     
 <%@include file="../layout/header.jsp" %>
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 <!-- --------------------------스크립트 시작 -->
 <script type="text/javascript">
 $(document).ready(function() {
@@ -206,11 +208,13 @@ h2{
 
 .text-center {
 	display: flex;
-	justify-content: center
+	justify-content: center;
+	margin-top: 40px;
 }
 
 .pagination {
 	display: flex;
+	margin: 0;
 }
 
 .pagination > li{
@@ -226,6 +230,19 @@ h2{
 	font-size: 16px;
 	justify-content: center;
 	align-items: center;
+}
+
+.none:hover {
+	cursor: default;
+}
+
+
+.material-symbols-outlined {
+	font-variation-settings:
+	'FILL' 0,
+	'wght' 400,
+	'GRAD' 0,
+	'opsz' 48
 }
 
 
@@ -310,20 +327,25 @@ h2{
 	<div class="text-center">
 		<ul class="pagination pagination-sm">
 	
+		<%-- 첫 페이지로 이동 (이동할게 없을때) --%>
+		<c:if test="${paging.curPage eq 1 }">
+			<li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
+		</c:if>
+	
 		<%-- 첫 페이지로 이동 --%>
 		<c:if test="${paging.curPage ne 1 }">
-			<li><a href="/chat/intro">&larr; 처음</a></li>	
+			<li><a href="/chat/intro"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
 		</c:if>
 		
 		
 		<%-- 이전 페이지로 가기 --%>
 		<c:if test="${paging.curPage > 1 }">
-			<li><a href="/chat/intro?curPage=${paging.curPage - 1 }">&lt;</a></li>
+			<li><a href="/chat/intro?curPage=${paging.curPage - 1 }"><span class="material-symbols-outlined">navigate_before</span></a></li>
 		</c:if>
 		
 		<%-- 이전 페이지로 가기 (이전으로 갈 페이지 없을때)--%>
 		<c:if test="${paging.curPage <= 1 }">
-			<li><a>&lt;</a></li>
+			<li><a class="none"><span class="material-symbols-outlined">navigate_before</span></a></li>
 		</c:if>
 		
 			
@@ -341,21 +363,21 @@ h2{
 		
 		<%-- 다음 페이지로 가기 --%>
 		<c:if test="${paging.curPage < paging.totalPage }">
-			<li><a href="/chat/intro?curPage=${paging.curPage + 1 }">&gt;</a></li>
+			<li><a href="/chat/intro?curPage=${paging.curPage + 1 }"><span class="material-symbols-outlined">navigate_next</span></a></li>
 		</c:if>
 		
 		<%-- 다음 페이지로 가기 (다음으로 갈 페이지 없을때) --%>
 		<c:if test="${paging.curPage >= paging.totalPage }">
-			<li><a>&gt;</a></li>
+			<li><a class="none"><span class="material-symbols-outlined">navigate_next</span></a></li>
 		</c:if>
 		
 	
 		<%-- 끝 페이지로 이동 --%>
 		<c:if test="${paging.curPage ne paging.totalPage }">
-			<li><a href="/chat/intro?curPage=${paging.totalPage }" ><i class="fa-regular fa-chevrons-right"></i></a></li>	
+			<li><a href="/chat/intro?curPage=${paging.totalPage }" ><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
 		</c:if>
 		
-		</ul><i class="fa-solid fa-chevrons-right"></i>
+		</ul>
 	</div>
 	
 </div>

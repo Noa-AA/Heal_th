@@ -55,7 +55,7 @@ html, body, pre, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, li, ol, th, td, p, bloc
 }
 
 header {
-	margin-bottom: 110px;
+	margin-bottom: 120px;
 }
 
 #topMenu {
@@ -106,9 +106,9 @@ header {
 hr {
     width: 300px;
     margin-top: 24px;
-    margin-bottom: 20px;
     border: 0;
-    border-top: 1px solid #838080;
+    border-top: 1px solid #ffffff;
+    opacity: 40%;
     position: absolute;
     left: 0;
 }
@@ -122,7 +122,7 @@ html {
 }
 
 body {
-	width: 1565px;
+	width: 1540px;
 }
 
 table {
@@ -139,7 +139,7 @@ a {
 
 .big-container {
     width: 100%;
-    margin-left: 325px;
+    margin-left: 340px;
     height: 800px;
     box-shadow: 1px 0px 10px 0px rgb(0 0 0 / 15%);
     background: #fff;
