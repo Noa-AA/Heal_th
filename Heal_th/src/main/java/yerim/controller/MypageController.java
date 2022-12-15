@@ -183,5 +183,8 @@ public class MypageController {
 		 return "redirect:/login/login";
 	 }
 	 
-	
+	@GetMapping("/setProfile")
+	public void setProfile() {
+		logger.info("/setProfile [GET]");
+	}
 }
