@@ -88,7 +88,6 @@ select {
 			</tr>
 			</c:forEach>
 		</table>
-		
 			<div class="text-center">
 			<ul class="pagination pagination-sm">
 		
