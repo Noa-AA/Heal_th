@@ -233,7 +233,13 @@ public class MypageServiceImpl implements MypageService {
 		 logger.info("한줄 소개 -작성 하기 ");
 		 
 		 logger.info("한줄 소개 있음- update하기");
+		 
 		 logger.info("한줄 소개 : {}",intro);
+		 
+		 if(intro.getUserIntro().equals("") || intro.getUserIntro() == null) { //한줄 소개 안적었을 때의 처리
+			 return;
+		 }
+		 
 		 mypageDao.updateIntro(intro);
 		 
 	}
