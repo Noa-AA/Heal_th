@@ -92,4 +92,25 @@ public interface MypageService {
 	 */
 	public void upload(MultipartFile file,PhotoFile photoFile);
 
+	/**
+	 * 프로필 사진 가져오기
+	 * @param session
+	 * @param profile 
+	 * @return
+	 */
+	public PhotoFile getPhoto(HttpSession session, PhotoFile profile);
+
+	/**
+	 * 한줄 소개 넣기 
+	 * @param intro -한줄 소개, 유저번호
+	 */
+	public void uploadIntro(Users intro);
+	
+	/**
+	 * 한줄 소개 조회해오기
+	 * @param session -한줄 소개
+	 * @return
+	 */
+	public Users getIntro(HttpSession session);
+
 }

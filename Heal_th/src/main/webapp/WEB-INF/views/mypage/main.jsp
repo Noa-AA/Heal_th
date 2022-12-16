@@ -34,6 +34,11 @@ body{
 	margin-top: 55px;	
 
 }
+.pIcon{
+	width: 160px;
+    height: 160px;
+    border-radius: 71px;
+}
 
 </style>
 
@@ -46,14 +51,18 @@ body{
 
 	
 	<div id="profileArea">
-	
 		<div id="profilePhoto">
-			<a href="/mypage/setProfile"><img src="/resources/img/mypage/userprofile.png" id="pIcon"></a>
+			<c:if test="${storedName == null }">
+				<a href="/mypage/setProfile"><img src="/resources/img/mypage/userprofile.png" class="pIcon"></a>
+			</c:if>
+			<c:if test="${storedName != null}">
+				<a href="/mypage/setProfile"><img src="${pageContext.request.contextPath}/upload/${storedName.storedName}" class="pIcon"></a>
+			</c:if>
 		</div>
+	
 		
 		<div id="intro">
-			한줄소개한줄소개한술소개
-		
+			<a href="/mypage/setProfile">${userIntro.userIntro}</a>
 		</div>
 	
 		<div id="manageInfo">
@@ -63,6 +72,7 @@ body{
 					<li class="info updateUser"><a href="/mypage/updateInfo">회원 정보 변경</a></li>
 					<li class="info updatePw"><a href="/mypage/updatePw">비밀번호 변경</a></li>
 					<li class="info updayBody">Body 관리</li>
+					<li class="info dropOut">탈퇴하기</li>
 				
 				</ul>
 					

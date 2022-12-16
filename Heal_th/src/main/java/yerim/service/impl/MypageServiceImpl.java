@@ -213,6 +213,39 @@ public class MypageServiceImpl implements MypageService {
 			   mypageDao.insertProfile(photoFile);
 		   }
 		   
+	}
+	 
+	 @Override
+	public PhotoFile getPhoto(HttpSession session,PhotoFile profile) {
 		 
+		 logger.info("getPhot - 프로필 사진 가져오기");
+		 
+		 //세션에 회원 정보 저장하기
+		 profile.setUserNo((int)session.getAttribute("userNo"));
+		 
+		 //회원 프로필 (storedName)조회하기
+		 PhotoFile storedName = mypageDao.selectStoredName(profile);
+		 return storedName;
+	}
+	 @Override
+	public void uploadIntro(Users intro) {
+
+		 logger.info("한줄 소개 -작성 하기 ");
+		 
+		 logger.info("한줄 소개 있음- update하기");
+		 logger.info("한줄 소개 : {}",intro);
+		 mypageDao.updateIntro(intro);
+		 
+	}
+	 
+	 @Override
+	public Users getIntro(HttpSession session) {
+		logger.info("한줄 소개 가져오기");
+		 Users user = new Users();
+		 user.setUserNo((int)session.getAttribute("userNo"));
+		 
+		 Users introSelect = mypageDao.selectUserIntro(user);
+		 
+		 return introSelect;
 	}
 }

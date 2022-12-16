@@ -70,7 +70,7 @@ body{
 						</tr>
 						<tr id="intro">		
 							<th>자기소개</th>
-							<th><textarea id="introText"></textarea></th>
+							<th><textarea id="introText" name="userIntro" id="userIntro"></textarea></th>
 					</tbody>
 				</table>
 		

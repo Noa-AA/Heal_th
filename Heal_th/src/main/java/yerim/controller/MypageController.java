@@ -26,8 +26,23 @@ public class MypageController {
 	@Autowired MypageService mypageService;
 	
 	@RequestMapping("/main")
-	public void mypage() {
+	public void mypage(HttpSession session, Model model,PhotoFile profile) {
 		logger.info("/mypag/main [GET]");
+		
+		//회원 프로필 사진 조회해오기
+		PhotoFile profilePhoto = mypageService.getPhoto(session,profile);
+		logger.info("프로필 {}",profilePhoto);
+		
+		//한줄 소개 조회해오기
+		Users userIntro = mypageService.getIntro(session);
+		logger.info("한술 소개 : {}",userIntro);
+		
+		//모델값으로 storedName 전달하기
+		model.addAttribute("storedName", profilePhoto);
+		//모델값으로 한줄 소개 전달하기
+		model.addAttribute("userIntro", userIntro);
+		
+		
 	}
 	
 	@GetMapping("/updateInfo")
@@ -48,6 +63,8 @@ public class MypageController {
 		String [] address = userInfo.getUserAddress().split(",");
 		for(String a :address) System.out.println(a);
 		
+		
+
 		
 		//조회해온 정보 model값 넘기기
 		model.addAttribute("userInfo", userInfo);
@@ -178,9 +195,8 @@ public class MypageController {
 		 logger.info("비밀번호 update 하기");
 		 
 		 //비밀번호 재설정
-//		 boolean updateResult = mypageService.updateNewPw(userNewPw,session);
 		 mypageService.updateNewPw(userNewPw,session);
-//		 model.addAttribute("result", updateResult);
+		 
 		 //업데이트 후 로그인 페이지로 이동
 		 return "redirect:/login/login";
 	 }
@@ -196,10 +212,16 @@ public class MypageController {
 		
 		//작성자 정보 추가
 		photoFile.setUserNo((int)session.getAttribute("userNo"));
+		intro.setUserNo((int)session.getAttribute("userNo"));
 		
 		//첨부파일 처리
 		mypageService.upload(userPhoto,photoFile);
+		
+		//한줄 소개 처리
+		mypageService.uploadIntro(intro);
 	
 		return "redirect:/mypage/main";
 	}
+	
+	
 }

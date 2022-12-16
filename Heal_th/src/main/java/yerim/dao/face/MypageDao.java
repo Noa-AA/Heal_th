@@ -64,4 +64,33 @@ public interface MypageDao {
 	 */
 	public void insertProfile(PhotoFile photoFile);
 
+	/**
+	 * 회원 사진 조회해오기
+	 * @param profile -회원 번호
+	 * @return -storedName
+	 */
+	public PhotoFile selectStoredName(PhotoFile profile);
+
+	/**
+	 * 자기소개 작성된게 있는지 조회하기
+	 * @param intro
+	 * @return
+	 */
+	public int selectIsIntro(Users intro);
+
+	/**
+	 * 한줄 소개 update 하기 
+	 * @param intro
+	 */
+	public void updateIntro(Users intro);
+
+	/**
+	 * 한줄 소개 조회하기
+	 * @param user
+	 * @return
+	 */
+	
+	public Users selectUserIntro(Users user);
+
+
 }
