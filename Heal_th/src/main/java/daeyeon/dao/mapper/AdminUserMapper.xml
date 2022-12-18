@@ -25,5 +25,10 @@
 	</select>
 	
 	
+	<!-- admin/userSearch -->
+	<select id="selectSearchCntAll" resultType="int" parameterType="AdminPaging">
+		SELECT count(*) FROM users
+	</select>
+	
 	
 </mapper>
