@@ -539,7 +539,7 @@ $(document).ready(function(){
 	}
 	
  	function pooploop(){
-		setInterval(poop, 10000);
+		setInterval(poop, 20000);
 	}
 	
 	pooploop();
