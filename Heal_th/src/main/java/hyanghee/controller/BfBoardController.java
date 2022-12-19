@@ -76,7 +76,7 @@ public class BfBoardController {
 	}
 	
 	@PostMapping("/board/bfWrite")
-	public String insertBfBoardProc(Beforeafter bfBoard, int userNo, HttpSession session, Model model) {
+	public String insertBfBoardProc(Beforeafter bfBoard, int point, HttpSession session, Model model) {
 		logger.info("/board/bfWrite [POST]");
 		
 		//테스트용 로그인 userno
@@ -86,8 +86,8 @@ public class BfBoardController {
 		bfBoard.setUserNo( (int) session.getAttribute("userNo") );
 		
 		//포인트
-		Users userno = bfBoardService.getUserInfo(userNo);
-		List<Users> point = bfBoardService.insertPoint(userNo);
+		Users userno = bfBoardService.getPoint(point);
+		List<Users> user = bfBoardService.updatePoint(point);
 		model.addAttribute("point", point);
 		
 		logger.info("{}", bfBoard);

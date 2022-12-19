@@ -177,6 +177,10 @@
         
     </select>
 
+	<select id="getPoint" resultType="Users" parameterType="int">
+		SELECT * FROM users
+		WHERE point = #{point }
+	</select>
 
 	<update id="updatePoint">
 		UPDATE users 

@@ -38,6 +38,8 @@ public interface BfBoardDao {
 	 */
 	public Users selectUserInfo(int userno);
 	
+	public Users selectPoint(int point);
+	
 	//게시글 삭제
 	public void delete(Beforeafter bfNo);
 
@@ -60,11 +62,13 @@ public interface BfBoardDao {
 
 	public Beforeafter getPage(int bfNo);
 
-	public List<Users> insertPoint(int userno);
-
 	//공지사항 목록
 	public List<Notice> noticeList(BoardPaging boardPaging);
+
+	//포인트
+	public Users getPoint(int point);
 	
+	public List<Users> updatePoint(int userno);
 	
 	
 }

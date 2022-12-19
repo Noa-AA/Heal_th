@@ -42,10 +42,11 @@ public interface BfBoardService {
 	public Beforeafter getPage(int bfNo);
 
 	//포인트
-	public List<Users> insertPoint(int userno);
+	public List<Users> updatePoint(int point);
 
-	public Users getPoint(Users point);
-
+//	public Users getPoint(Users point);
+	
+	public Users getPoint(int point);
 
 
 
