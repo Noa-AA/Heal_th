@@ -1,5 +1,6 @@
 package daeyeon.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -13,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import daeyeon.dto.Chat;
-import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
-import daeyeon.dto.Userss;
 import daeyeon.service.face.ChatService;
 import daeyeon.util.ChatIntroPaging;
 import yerim.dto.Users;
@@ -45,6 +44,13 @@ public class ChatController {
 			//회원등급 3이상 회원 조회
 			List<Users> userList = chatService.userlist(myUserNo, chatIntroPaging);
 				
+			// 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
+			List<RoomList> roomList = chatService.roomList(myUserNo);
+			model.addAttribute("roomList", roomList);
+			
+			logger.info("userList : {}", userList);
+			logger.info("roomList : {}", roomList);
+			
 			//모델값 전달 - Model객체 이용
 			model.addAttribute("userList", userList);
 			model.addAttribute("paging", chatIntroPaging);
@@ -137,8 +143,15 @@ public class ChatController {
 			// 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
 			List<RoomList> roomList = chatService.roomList(myUserNo);
 			
-			// 채팅에서 제일 마지막 채팅 리스트 받아오기 - chatRoom들어갔을때 
-			List<Chat> lastChat = chatService.getLastChat();
+			//roomList안에 값이 존재할때
+			List<Chat> lastChat = new ArrayList<>();
+			if (roomList != null) {
+				// 채팅에서 제일 마지막 채팅 리스트 받아오기 - chatRoom들어갔을때 
+				lastChat = chatService.getLastChat();
+				logger.info("리스트 안에 값이 존재합니다");
+				
+			}
+			
 			
 			model.addAttribute("createRoomNo", session.getAttribute("createRoomNo"));
 			

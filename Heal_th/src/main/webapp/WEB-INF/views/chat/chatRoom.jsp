@@ -256,7 +256,11 @@ button, input {
 		
 	</div>
 	
-	<div id="result"></div>
+	<div id="result">
+		<c:if test="${empty roomList }">
+			<div>비어있다</div>
+		</c:if>
+	</div>
 </div>
 
 

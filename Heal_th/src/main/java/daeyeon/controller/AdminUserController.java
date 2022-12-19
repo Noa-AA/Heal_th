@@ -10,13 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import daeyeon.service.face.AdminUserService;
 import daeyeon.util.AdminPaging;
-import daeyeon.util.UserPageMaker;
-import daeyeon.util.UserSearch;
-import hyanghee.util.BoardPageMaker;
 import yerim.dto.Users;
 
 @Controller
@@ -49,12 +45,25 @@ public class AdminUserController {
 	
 	//검색하기
 	@PostMapping("/user")
-	public void searchUser(Model model, UserSearch userSearch, Users users, AdminPaging adminPaging, String curPage) {
+	public void searchUser(Model model, Users users, AdminPaging adminPaging, String curPage) {
 		logger.info("/admin/user [POST]");
-		logger.info("adminPaging : {}", adminPaging.getCurPage());
+		logger.info("adminPaging : {}", adminPaging);
+		
+		AdminPaging searchTK = adminPaging;
 		
 		adminPaging = adminUserService.getSearchPaging(adminPaging, curPage);
-//		logger.info("adminPaging : {} ", adminPaging);
+		
+		adminPaging.setType(searchTK.getType());
+		adminPaging.setKeyword(searchTK.getKeyword());
+		
+		logger.info("adminPaging : {} ", searchTK);
+		//검색된 회원 조회
+		List<Users> searchList = adminUserService.userSearchlist(adminPaging);
+		
+		logger.info("searchList : {} ", searchList);
+		
+		model.addAttribute("userList", searchList);
+		model.addAttribute("paging", adminPaging);
 		
 	}
 	

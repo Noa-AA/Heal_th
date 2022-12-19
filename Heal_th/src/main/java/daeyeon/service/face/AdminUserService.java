@@ -3,8 +3,6 @@ package daeyeon.service.face;
 import java.util.List;
 
 import daeyeon.util.AdminPaging;
-import daeyeon.util.UserSearch;
-import hyanghee.dto.Beforeafter;
 import yerim.dto.Users;
 
 public interface AdminUserService {
@@ -39,6 +37,10 @@ public interface AdminUserService {
 	 * @return
 	 */
 	public AdminPaging getSearchPaging(AdminPaging adminPaging, String curPage);
+
+
+	
+	public List<Users> userSearchlist(AdminPaging adminPaging);
 
 
 

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import daeyeon.dao.face.AdminUserDao;
 import daeyeon.service.face.AdminUserService;
 import daeyeon.util.AdminPaging;
-import daeyeon.util.UserSearch;
 import yerim.dto.Users;
 
 @Service
@@ -57,7 +56,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 	
 	
 	
-	// 검색
+	// 검색된 게시글수 조회
 	@Override
 	public AdminPaging getSearchPaging(AdminPaging adminPaging, String curPage) {
 		logger.info("getSearchPaging");
@@ -65,6 +64,7 @@ public class AdminUserServiceImpl implements AdminUserService {
 		//총 게시글 수 조회하기
 		int totalCount = adminUserDao.selectSearchCntAll(adminPaging);
 						
+		logger.info("totalCount : {}", totalCount);
 		//전달파라미터 curPage 추출하기
 		String param = curPage;
 		int curPage2 = 0;
@@ -72,10 +72,24 @@ public class AdminUserServiceImpl implements AdminUserService {
 			curPage2 = Integer.parseInt(param);
 		}
 
-		//DgHelperPaging객체 생성
-//		AdminPaging adminPaging = new AdminPaging(totalCount, curPage2);
+		//AdminPaging객체 생성
+		AdminPaging adminPagingResult = new AdminPaging(totalCount, curPage2);
 						
-		return adminPaging;
+		return adminPagingResult;
+	}
+	
+	
+	@Override
+	public List<Users> userSearchlist(AdminPaging adminPaging) {
+		
+		logger.info("adminPaging () - {}", adminPaging);
+		
+		//게시글 목록 조회 - ChatDao 이용
+		List<Users> searchList = adminUserDao.selectSearchUsers(adminPaging); 
+				
+		logger.info("searchList : {}", searchList);
+		
+		return searchList;
 	}
 	
 	
