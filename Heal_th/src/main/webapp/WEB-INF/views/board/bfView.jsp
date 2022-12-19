@@ -161,7 +161,7 @@ table {
 </table>
 
 <div class="text-center">
-	<button id="btnList" class="btn btn-primary">목록</button>
+	<button id="btnList">목록</button>
 	
 	<c:if test="${userNo eq viewBoard.userNo }">
 		<button id="btnUpdate" class="btn btn-primary">수정</button>

@@ -24,6 +24,11 @@
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
+	<select id="updateHit" parameterType="Beforeafter">
+ 		UPDATE beforeafter SET bf_hit = bf_hit + 1 
+ 		WHERE bf_no = #{bfNo}
+ 	</select>
+	
 	<select id="noticeList" resultType="Notice" parameterType="BoardPaging">
 	<![CDATA[
 		SELECT * FROM (
