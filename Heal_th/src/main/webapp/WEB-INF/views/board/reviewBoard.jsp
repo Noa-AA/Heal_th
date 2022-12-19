@@ -1,530 +1,370 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
 
-<head>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<meta charset="UTF-8">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+<jsp:include page="../layout/header.jsp" />
+
 
 <style type="text/css">
-
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
-@import url(https://fonts.googleapis.com/css?family=Pacifico);
-
-* {
-	font-size: 16px;
+table {
+	table-layout: fixed;
 }
 
-input:focus,
-button:focus {
-	outline: none;
-}
-
-button:hover,
-.reset:hover {
-	opacity: .8;
-}
-
-button:active,
-.reset:active {
-	opacity: .5;
-}
-
-.container {
-	width: 400px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-}
-
-.steps {
-	margin-bottom: 10px;
-	position: relative;
-	height: 25px;
-}
-
-.steps > div {
-	position: absolute;
-	top: 0;
-	-webkit-transform: translate(-50%);
-	-ms-transform: translate(-50%);
-	transform: translate(-50%);
-	height: 25px;
-	padding: 0 5px;;
-	display: inline-block;
-	width: 80px;
+table, th {
 	text-align: center;
-	-webkit-transition: .3s all ease;
-	transition: .3s all ease;
 }
 
-.steps > div > span {
-	line-height: 25px;
-	height: 25px;
+td:nth-child(2) {
+	text-align: left;
+	vertical-align: center;
+	height:80px;
+}
+
+/* tr{ */
+/* height:50px; */
+/* } */
+
+body{
+	font-family: 'Noto Sans','NotoSansWeb',Verdana,"맑은 고딕",Malgun Gothic,Dotum,돋움,Gulim,굴림,sans-serif;
 	margin: 0;
-	color: #777;
-	font-family: 'Roboto', sans-serif;
-	font-size: .9rem;
-	font-weight: 300;
+	padding: 0;
 }
 
-.steps > div > .liner {
-	position: absolute;
-	height: 2px;
-	width: 0%;
-	left: 0;
-	top: 50%;
-	margin-top: -1px;
-	background: #999;
-	-webkit-transition: .3s all ease;
-	transition: .3s all ease;
-}
-
-.step-one {
-	left: 0;
-}
-
-.step-two {
-	left: 50%;
-	clip: rect(0, 0px, 25px, 0px);
-}
-
-.step-three {
-	left: 100%;
-	clip: rect(0, 0px, 25px, 0px);
-}
-
-.line {
-	width: 100%;
-	height: 5px;
-	background: #ddd;
-	position: relative;
-	border-radius: 10px;
-	overflow: visible;
-	margin-bottom: 50px;
-}
-
-.line .dot-move {
-	position: absolute;
-	top: 50%;
-	left: 0%;
-	width: 15px;
-	height: 15px;
-	-webkit-transform: translate(-50%, -50%);
-	-ms-transform: translate(-50%, -50%);
-	transform: translate(-50%, -50%);
-	background: #ddd;
-	border-radius: 50%;
-	-webkit-transition: .3s all ease;
-	transition: .3s all ease;
-}
-
-.line .dot {
-	position: absolute;
-	top: 50%;
-	width: 15px;
-	height: 15px;
-	left: 0;
-	background: #ddd;
-	border-radius: 50%;
-	-webkit-transition: .3s all ease;
-	transition: .3s all ease;
-	-webkit-transform: translate(-50%, -50%) scale(.5);
-	-ms-transform: translate(-50%, -50%) scale(.5);
-	transform: translate(-50%, -50%) scale(.5);
-}
-
-.line .dot.zero {
-	left: 0%;
-	background: #bbb;
-}
-
-.container.slider-one-active .dot.zero {
-	background: #5892fc;
-}
-
-.line .dot.center {
-	left: 50%;
-	background: #bbb
-}
-
-.line .dot.full {
-	left: 100%;
-	background: #bbb
-}
-
-.slider-ctr {
-	width: 100%;
-	overflow: hidden;
-}
-
-.slider {
-	overflow: hidden;
+#container{
 	width: 1200px;
-	-webkit-transition: .3s all ease;
-	transition: .3s all ease;
-	-webkit-transform: translate(0px) scale(1);
-	-ms-transform: translate(0px) scale(1);
-	transform: translate(0px) scale(1);
+	height: 1800px;
 }
 
-.container.slider-one-active .slider-two,
-.container.slider-one-active .slider-three {
-	-webkit-transform: scale(.5);
-	-ms-transform: scale(.5);
-	transform: scale(.5);
-}
-
-.container.slider-two-active .slider-one,
-.container.slider-two-active .slider-three {
-	-webkit-transform: scale(.5);
-	-ms-transform: scale(.5);
-	transform: scale(.5);
-}
-
-.container.slider-three-active .slider-one,
-.container.slider-three-active .slider-two {
-	-webkit-transform: scale(.5);
-	-ms-transform: scale(.5);
-	transform: scale(.5);
-}
-
-.slider-one,
-.slider-two,
-.slider-three {
-	-webkit-transition: .3s all ease;
-	transition: .3s all ease;
-}
-
-.slider-form {
-	float: left;
-	width: 400px;
-	text-align: center;
-}
-
-.slider-form h2 {
-	font-size: 1.5rem;
-	font-family: 'Roboto', sans-serif;
-	font-weight: 300;
-	margin-bottom: 50px;
-	color: #999;
-	position: relative;
-}
-
-.slider-form h2 .yourname {
-	font-weight: 400;
-}
-
-.slider-form h3 {
-	font-size: 1.5rem;
-	font-family: 'Roboto', sans-serif;
-	font-weight: 300;
-	margin-bottom: 50px;
-	line-height: 1.5;
-	color: #999;
-	position: relative;
-}
-
-.slider-form h3 .balapa {
-	font-family: 'Pacifico', sans-serif;
-	display: inline-block;
-	color: #5892fc;
-	text-decoration: none
-}
-
-.slider-form [type="text"] {
-	width: 100%;
-	box-sizing: border-box;
-	padding: 15px 20px;
-	background: #fafafa;
-	border: 1px solid transparent;
-	color: #777;
-	border-radius: 50px;
-	margin-bottom: 50px;
-	font-size: 1rem;
-	font-family: 'Roboto', sans-serif;
-	position: relative;
-	z-index: 99;
-}
-
-.slider-form [type="text"]:focus {
-	background: #fcfcfc;
-	border: 1px solid #ddd;
-}
-
-.slider-form button,
-.reset {
-  display: inline-block;
-  text-decoration: none;
-	background: #5892fc;
+#btnWrite {
+    background: #7ca3f5;
+    color: #fff;
 	border: none;
-	color: white;
-	padding: 10px 25px;
-	font-size: 1rem;
-	border-radius: 3px;
-	cursor: pointer;
-	font-family: 'Roboto', sans-serif;
-	font-weight: 300;
-	position: relative;
+	border-radius: 7px;
+	font-size: 22px;
+	font-weight: bold;
+	width: 173px;
+	height: 50px;
 }
 
-/*  emot */
-
-.label-ctr {
-	margin-bottom: 50px;
+.myform{
+    display: inline-block;
+    direction: rtl;
+    border:0;
+}
+.myform legend{
+    text-align: right;
+}
+.myform input[type=radio]{
+    display: none;
+}
+.myform label{
+    font-size: 27px;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
 }
 
-label.radio {
-	height: 55px;
-	width: 55px;
-	display: inline-block;
-	margin: 0 10px;
-	background: transparent;
-	position: relative;
-	border-radius: 50%;
-	cursor: pointer
+/*
+#myform label:hover{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#myform label:hover ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+*/
+.myform input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 }
 
-label.radio input {
-	visibility: hidden
+span{display: none;}
+
+#totalList {
+    color: #7ca3f5;
+	text-decoration: none;	
+	font-weight: bold;
+	width: 120px;
+	height: 34px;
+	float: right;
+    margin-top: 15px;
+	
 }
 
-label.radio input:checked + .emot {
-	-webkit-transform: scale(1.25);
-	-ms-transform: scale(1.25);
-	transform: scale(1.25);
+#search {
+	text-align: center;
+	margin-bottom: -5px;
+	
 }
 
-label.radio input:checked + .emot,
-label.radio input:checked + .emot .mouth {
-	border-color: #5892fc;
+#type{
+	border: 2px solid #7ca3f5;
+	font-weight: border;
+	display: none;
 }
 
-label.radio input:checked + .emot:before,
-label.radio input:checked + .emot:after {
-	background: #5892fc;
+#searchText{
+	width: 360px;
+	padding: 0 6px;
+	border: 2px solid #7ca3f5;
+	border-radius: 30px;
+	transition: 0.4s;
+	padding-top: 8px;
+	padding-bottom: 8px;
 }
 
-label.radio .emot {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: #fafafa;
-	border-radius: 50%;
-	border: 2px solid #ddd;
-	-webkit-transition: .3s all ease;
-	transition: .3s all ease;
+#searchText:hover{
+  box-shadow: 0px 0px .5px 1px #7ca3f5;
+  width: 380px;
 }
 
-label.radio .emot:before {
-	content: "";
-	position: absolute;
-	top: 15px;
-	left: 15px;
-	width: 5px;
-	height: 10px;
-	background: #ddd;
+#searchIcon{
+ margin-left: -39px;
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  color: #7ca3f5;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: none;
 }
 
-label.radio .emot:after {
-	content: "";
-	position: absolute;
-	top: 15px;
-	right: 15px;
-	width: 5px;
-	height: 10px;
-	background: #ddd;
+#noticeStrong{
+	background: #ff4057;
+    font-weight: bold;
+    color: white;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 16px;
+	
 }
-
-label.radio .emot .mouth {
-	position: absolute;
-	bottom: 10px;
-	right: 15px;
-	left: 15px;
-	height: 15px;
-	border-radius: 50%;
-	border: 3px solid #ddd;
-	background: transparent;
-	clip: rect(0, 35px, 10px, 0);
-}
-
-label.radio .emot .mouth.smile {
-	-webkit-transform: rotate(180deg);
-	-ms-transform: rotate(180deg);
-	transform: rotate(180deg);
-}
-
-label.radio .emot .mouth.sad {
-	-webkit-transform: translateY(50%);
-	-ms-transform: translateY(50%);
-	transform: translateY(50%);
-}
-
-/*	center */
-
-.container.center .line .dot-move {
-	left: 50%;
-	-webkit-animation: .3s anim 1;
-}
-
-.container.center .line .dot.center {
-	background: #5892fc;
-}
-
-.container.center .slider {
-	-webkit-transform: translate(-400px);
-	-ms-transform: translate(-400px);
-	transform: translate(-400px);
-}
-
-.container.center .step-two {
-	clip: rect(0, 100px, 25px, 0px);
-}
-
-.container.center .step-one .liner {
-	width: 100%;
-}
-
-/*	full */
-
-.container.full .line .dot-move {
-	left: 100%;
-	-webkit-animation: .3s anim 1;
-}
-
-.container.full .line .dot.full {
-	background: #5892fc;
-}
-
-.container.full .slider {
-	-webkit-transform: translate(-800px);
-	-ms-transform: translate(-800px);
-	transform: translate(-800px);
-}
-
-.container.full .step-two,
-.container.full .step-three {
-	clip: rect(0, 100px, 25px, 0px);
-}
-
-.container.full .step-one .liner,
-.container.full .step-two .liner {
-	width: 100%;
-}
-
 </style>
 
 <script type="text/javascript">
+$(document).ready(function() {
+	
+	let moveForm = $("#moveForm");
+	$(".move")
+		.on(
+			"click",
+			function(e) {
+				e.preventDefault();
+				moveForm.empty();
 
-var $firstButton = $(".first"),
-$secondButton = $(".second"),
-$input = $("input"),
-$name = $(".name"),
-$more = $(".more"),
-$yourname = $(".yourname"),
-$reset = $(".reset"),
-$ctr = $(".container");
+				moveForm
+						.append("<input type='hidden' name='reviewNo' value='"
+								+ $(this).attr("href") + "'>");
+				moveForm.attr("action", "/board/searchView");
+				moveForm.submit();
+			});
+	
+	//페이지 이동 번호 동작
+	$(".pageInfo a").on("click", function(e) {
+		e.preventDefault();
 
-$firstButton.on("click", function(e){
-$(this).text("Saving...").delay(900).queue(function(){
-  $ctr.addClass("center slider-two-active").removeClass("full slider-one-active");
-});
-e.preventDefault();
-});
+		moveForm.find("input[name='pageNum']").val($(this).attr("href"));
+		moveForm.attr("action", "/board/reviewBoard");
+		moveForm.submit();
 
-$secondButton.on("click", function(e){
-$(this).text("Saving...").delay(900).queue(function(){
-  $ctr.addClass("full slider-three-active").removeClass("center slider-two-active slider-one-active");
-  $name = $name.val();
-  if($name == "") {
-    $yourname.html("Anonymous!");
-  }
-  else { $yourname.html($name+"!"); }
-});
-e.preventDefault();
-});
+	});
 
-//copy
-balapaCop("Step by Step Form", "#999");
+
+
+	//검색 버튼
+	$(".search_area button").on("click", function(e) {
+		e.preventDefault();
+
+		let type = $(".search_area select").val();
+		let keyword = $(".search_area input[name='keyword']").val();
+
+		if (!keyword) {
+			alert("키워드를 입력하세요.");
+			return false;
+		}
+
+		moveForm.find("input[name='type']").val(type);
+		moveForm.find("input[name='keyword']").val(keyword);
+		moveForm.find("input[name='pageNum']").val(1);
+		moveForm.submit();
+	});
+	
+	
+	//검색창 엔터시 검색 기능 
+	$("#searchText").keydown(function (key) {
+		if (key.keyCode == 13) {
+			 
+            // 엔터키가 눌렸을 때 실행할 내용
+			$("#searchIcon").click();
+       }
+	})
+	
+	
+	$("#btnWrite").click(function() {
+		$(location).attr("href", "/board/rWrite")
+	})
+
+	$(".myform").each(function() {
+		var score = $(this).find(".myratings").text()
+// 		console.log(score)
+	 	$(this).find( "input[name^='score'][value='"+score+"']" ).prop("checked", true)
+// 	     console.log( $(this).find( "input[name^='score'][value='"+score+"']" ) )
+// 	 	console.log($(this).find('.myratings'))
+	     if (score<3) {
+	         $(this).find('.myratings').css('color','red'); 
+	         $(this).find('.myratings').text(score);
+	 	}else{
+	 		$(this).find('.myratings').css('color','green');
+	  	  	$(this).find('.myratings').text(score);
+	 	}
+	});	
+})
 
 </script>
 
+<div class="container" id="container">
 
-</head>
+<h1 style="text-align: center;">커뮤니티</h1><br><br><br><br>
 
-<!-- JQUERY STEP -->
-<div class="container slider-one-active">
-  <div class="steps">
-    <div class="step step-one">
-      <div class="liner"></div>
-      <span>Before</span>
-    </div>
-    <div class="step step-two">
-      <div class="liner"></div>
-      <span>Rating</span>
-    </div>
-    <div class="step step-three">
-      <div class="liner"></div>
-      <span>Conclusion</span>
-    </div>
-  </div>
-  <div class="line">
-    <div class="dot-move"></div>
-    <div class="dot zero"></div>
-    <div class="dot center"></div>
-    <div class="dot full"></div>
-  </div>
-  
-  
-  <div class="slider-ctr">
-    <div class="slider" id="slider">
-      <form class="slider-form slider-one">
-        <h2>Step Form Design Experience</h2>
-        <label class="input">
-          <input type="text" class="name" placeholder="What's your name?">
-        </label>
-        <button class="first next">Next Step</button>
-      </form>
-      
-      
-      
-      
-      
-      
-      <form class="slider-form slider-two">
-        <h2>Are you happy with our service?</h2>
-        <div class="label-ctr">
-          <label class="radio">
-            <input type="radio" value="happy" name="condition">
-            <div class="emot happy">
-              <div class="mouth sad"></div>
-            </div>
-          </label>
-          <label class="radio">
-            <input type="radio" value="happy" name="condition">
-            <div class="emot happy">
-              <div class="mouth smile"></div>
-            </div>
-          </label>
-        </div>
-        <button class="second next">Next Step</button>
-      </form>
-      <div class="slider-form slider-three">
-        <h2>Hello, <span class="yourname"></span></h2>
-        <h3>Thank you for your input!
-					</h3>
-        <a class="reset" href="https://codepen.io/balapa/pen/XbXVRg" target="_blank">Reset</a>
-      </div>
-    </div>
-  </div>
+
+<div class="reviewBord" id="search" name="search">
+
+
+<div class="search_wrap">
+		
+			<div class="search_area">
+				<select name="type" id="type">
+					<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option>
+					<option value="C" <c:out value="${pageMaker.boardSearch.type eq 'C'?'selected':'' }"/>>내용</option>
+					<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option>
+				</select> 
+				
+					<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search...">
+				<button id="searchIcon"><i class="fas fa-search"></i></button>
+				
+				
+			</div>
+		</div>
+	</div>
+
+<br><br><br><br>
+
+<div class="pageInfo_wrap">
+		<div class="pageInfo_area">
+			<ul id="pageInfo" class="pageInfo">
+
+				<c:if test="${pageMaker.prev}">
+					<li class="pageInfo_btn previous"><a href="${pageMaker.startPage - 1}">Previous</a></li>
+				</c:if>
+
+				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+					<li class="pageInfo_btn ${pageMaker.boardSearch.pageNum == num ? "active":"" }"></li>
+				</c:forEach>
+
+				<c:if test="${pageMaker.next}">
+					<li class="pageInfo_btn next"><a href="${pageMaker.endPage + 1 }">Next</a></li>
+				</c:if>
+
+			</ul>
+		</div>
+	</div>
+
+	<form id="moveForm" method="get">
+		<input type="hidden" id="reviewNo" name="reviewNo" value='<c:out value="${pageInfo.reviewNo}"/>'>
+		<input type="hidden" name="pageNum" value="${pageMaker.boardSearch.pageNum }">
+		<input type="hidden" name="amount" value="${pageMaker.boardSearch.amount }">
+		<input type="hidden" name="keyword" value="${pageMaker.boardSearch.keyword }">
+		<input type="hidden" name="type" value="${pageMaker.boardSearch.type }">
+	</form>
+	
+
+<br><br><br><br>
+
+
+<div id="boardList">
+	<h3 style="font-weight: bold; color: #06364E; font-size: 30px;">시설 리뷰 게시판</h3>
 </div>
 
+<div>
+	<a href="/board/bfBoard" id="totalList" name="totalList">전체 게시글 보기 ▼</a>
+</div>
 
-</body>
-</html>
+<table class="table table-hover">
+<thead>
+	<tr style="border-top: 3px solid #84C9E3;">
+		<th style="width: 10%;">글번호</th>
+		<th style="width: 15%;">별점</th>
+		<th style="width: 35%;">제목</th>
+		<th style="width: 10%;">작성자</th>
+		<th style="width: 10%;">조회수</th>
+		<th style="width: 10%;">좋아요</th>
+		<th style="width: 15%;">작성일</th>
+	</tr>
+</thead>
+<tbody>
+
+<!-- 공지사항 -->
+<c:forEach items="${notice}" var="notice">
+	<tr id="warn">
+		<td><strong id="noticeStrong">공지</strong> </td>
+		<td></td>
+		<td><a href="/notice/view?noticeNo=${notice.noticeNo}&noticeNo=3&"> <strong>${notice.noticeTtl } </strong></a></td>
+		<td><strong style="color: #0D71A4;">관리자</strong></td>
+		<td>${notice.noticeHit }</td>
+		<td>공지</td>
+		<td><fmt:formatDate value="${notice.noticeDate }" pattern="yyyy-MM-dd" /></td>
+	</tr>
+		
+</c:forEach>
+
+<c:forEach items="${boardSearch }" var="board">
+	<tr>
+		<td>${board.reviewNo }</td>
+		<td class="myform">
+			<span class="myratings">${board.score }</span>
+			<input type="radio" name="score${board.reviewNo }" value="5.0" id="rate1"><label for="rate1">★</label>
+			<input type="radio" name="score${board.reviewNo }" value="4.0" id="rate2"><label for="rate2">★</label>
+			<input type="radio" name="score${board.reviewNo }" value="3.0" id="rate3"><label for="rate3">★</label>
+			<input type="radio" name="score${board.reviewNo }" value="2.0" id="rate4"><label for="rate4">★</label>
+			<input type="radio" name="score${board.reviewNo }" value="1.0" id="rate5"><label for="rate5">★</label>
+		</td>
+		<td><a href="${path}/board/rView?reviewNo=${board.reviewNo}">${board.rTitle }</a></td>
+		<td>${board.userNo }</td>
+		<td>${board.rHit }</td>
+		<td>${board.rThumbs }</td>
+		<td><fmt:formatDate value="${board.rInstDate }" pattern="yy-MM-dd"/></td>
+	</tr>
+</c:forEach>
+
+<tr style="border-bottom: 3px solid #84C9E3;"></tr>
+
+</tbody>
+</table>
+
+<span class="pull-right">total : ${paging.totalCount }</span>
+<div class="clearfix"></div>
+
+<c:import url="/WEB-INF/views/board/paging.jsp" />
+
+<br><br><br>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center" style="text-align: center;">
+        	<button type="button" id="btnWrite" class="btn btn-warning btn-icon-text animatebutton"><i class="fa fa-check btn-icon-prepend" style="margin-right: 10px;"></i>글쓰기</button> 
+        	
+       </div>
+    </div>
+</div>
+
+</div><!-- .container -->
+
+

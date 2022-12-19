@@ -6,5 +6,160 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="hyanghee.dao.face.ReviewBoardDao">
+<select id="selectCntAll" resultType="int" parameterType="BoardPaging">
+		SELECT count(*) FROM reviewboard
+	</select>
+	
+	<select id="selectList" resultType="ReviewBoard" parameterType="BoardPaging">
+		SELECT * FROM (
+			SELECT rownum rnum, B.* FROM (
+				SELECT
+					review_no, r_title, user_no,
+					r_hit, r_thumbs, r_inst_date
+					, score
+				FROM reviewboard
+				ORDER BY review_no DESC
+			) B
+		) ReviewBoard
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	
+	<select id="noticeList" resultType="Notice" parameterType="BoardPaging">
+	<![CDATA[
+		SELECT * FROM (
+			SELECT * FROM notice ORDER BY notice_no DESC ) 
+		WHERE ROWNUM <=3
+		ORDER BY notice_no DESC
+	]]>
+	</select>
+	
+	<select id="selectUserInfo" resultType="Users" parameterType="int">
+		SELECT * FROM users
+		WHERE user_no = #{userno }
+	</select>
+	
+	<insert id="insertBoard" parameterType="ReviewBoard">
+		
+		<selectKey order="BEFORE" resultType="int" keyProperty="reviewNo">
+			SELECT reviewboard_seq.nextval FROM dual
+		</selectKey>
+	
+		INSERT INTO reviewboard ( 
+			review_no, r_inst_date, r_title, gym_name, gym_introduce
+			   , classification, price, address, score, review
+			   , r_upt_date, r_delete_date, r_hit
+			   , r_thumbs, user_no, category_no )
+		
+		VALUES ( #{reviewNo}, sysdate, #{rTitle}, #{gymName}, #{gymIntroduce}
+				   , #{classification}, #{price}, #{address}, #{score}, #{review}
+				   , to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+				   , to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+				   , 0, 0, #{userNo}, 4 )
+	</insert>
+	
 
+	<select id="selectBoard" resultType="ReviewBoard" parameterType="ReviewBoard">
+		SELECT
+			review_no, r_inst_date, r_title, gym_name, gym_introduce
+			   , classification, price, address, score, review
+			   , r_upt_date, r_delete_date, r_hit
+			   ,r_thumbs, user_no, category_no
+		FROM reviewboard
+		WHERE review_no = #{reviewNo}
+	</select>
+	
+	<update id="updateBoard" parameterType="ReviewBoard">
+		UPDATE reviewBoard
+		SET r_title = #{rTitle}
+			, gym_name = #{gymName}
+			, gym_introduce = #{gymIntroduce}
+			, classification = #{classification}
+			, price = #{price}
+			, address = #{address}
+			, score = #{score}
+			, review = #{review}
+		WHERE review_no = #{reviewNo}
+	</update>
+
+
+	<delete id="delete" parameterType="ReviewBoard">
+		DELETE reviewboard
+		WHERE review_no = #{reviewNo}	
+	</delete>
+	
+	<select id="getList" resultType="ReviewBoard">
+		SELECT review_no, r_title, user_no, score,
+				r_hit, r_thumbs, r_inst_date
+		FROM reviewboard
+		
+		ORDER BY review_no DESC
+	</select>
+	
+	<select id="getPage" resultType="ReviewBoard">
+        SELECT * FROM reviewboard
+        WHERE review_no = #{reviewNo}
+    </select>
+	
+	<sql id="boardSearch">
+        <trim prefix="AND (" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'T'.toString()">
+                            r_title like '%'||#{keyword}||'%' 
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            gym_introduce like '%'||#{keyword}||'%',
+                            review like '%'||#{keyword}||'%'
+                        </when>
+                         <when test="type == 'TC'.toString()">
+                         	r_title like '%'||#{keyword}||'%',
+                            gym_introduce like '%'||#{keyword}||'%',
+                            review like '%'||#{keyword}||'%'
+                        </when>
+                        
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    
+    </sql>
+
+	<select id="getSearchPaging" resultType="ReviewBoard">
+    
+    <![CDATA[
+        
+        SELECT review_no, r_title, user_no, score,
+					r_hit, r_thumbs, r_inst_date  FROM(
+        
+                SELECT 
+                rownum  as rn, review_no, r_title, user_no, score,
+								r_hit, r_thumbs, r_inst_date
+                  
+                FROM reviewboard WHERE rownum <= #{pageNum} * #{amount} 
+    ]]>            
+                <if test="keyword != null">
+                	<include refid="boardSearch"></include> 
+                </if>
+    
+    <![CDATA[
+                    
+                )
+                    
+        WHERE rn > (#{pageNum} -1) * #{amount}
+    
+    ]]>
+    
+    </select>
+	
+	 <select id="getTotal" resultType="int">
+    	SELECT count(*) FROM reviewboard
+    	
+    	<if test="keyword != null">
+			WHERE review_no > 0 <include refid="boardSearch"></include>
+        </if>
+        
+    </select>
+	
+	
 </mapper>

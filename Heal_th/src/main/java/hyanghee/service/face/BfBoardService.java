@@ -1,30 +1,24 @@
 package hyanghee.service.face;
 
 import java.util.List;
-import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 
 import hyanghee.dto.Beforeafter;
 import hyanghee.util.BoardPaging;
+import hyanghee.util.BoardSearch;
+import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
 public interface BfBoardService {
 
-	/**
-	 * 게시글 목록을 위한 페이징 객체를 생성한다
-	 * 
-	 * 	파라미터 curPage(현재 페이지)
-	 * 	DB에서 조회한 totalCount(총 게시글 수)
-	 * 	두 가지 데이터를 활용하여 페이징객체를 생성하여 반환한다
-	 * 
-	 * @param curPage - 요청 페이지 번호
-	 * @return 계산이 완료된 Paging객체
-	 */
+	//페이징
 	public BoardPaging getPaging(int curPage);
 
 	//게시글 목록
-	public List<Beforeafter> list(BoardPaging paging);
+	public List<Beforeafter> list(BoardPaging boardPaging);
+	
+	//공지사항 목록
+	public List<Notice> notice(BoardPaging boardPaging);
 
 	//게시글 작성
 	public void insertBfBoard(Beforeafter bfBoard);
@@ -40,8 +34,20 @@ public interface BfBoardService {
 
 	//게시글 수정
 	public void update(Beforeafter beforeafter);
+
+	public List<Beforeafter> getSearchPaging(BoardSearch boardSearch);
+
+	public int getTotal(BoardSearch boardSearch);
 	
+	public Beforeafter getPage(int bfNo);
+
+	//포인트
+	public List<Users> updatePoint(int point);
+
+//	public Users getPoint(Users point);
 	
+	public Users getPoint(int point);
+
 
 
 

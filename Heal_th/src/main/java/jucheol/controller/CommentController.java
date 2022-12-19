@@ -26,19 +26,44 @@ public class CommentController {
 	
 	@GetMapping("/board")
 	public void comBoard(
-			Model model
-			, Comment comment
+//			Model model
+//			, Comment comment
 			) {
 		logger.info("/comment/board [GET]");
-		comment.setBoardNo(1);
-		comment.setCategoryNo(1);
+//		comment.setBoardNo(1);
+//		comment.setCategoryNo(1);
+//		List<Comment> commentList = commentService.list(comment);
+//		
+//		for( Comment c : commentList ) logger.info("{}",c);
+//		
+//		//모델값 전달
+//		model.addAttribute("commentList", commentList);
+	}
+
+	
+	@GetMapping("/list")
+	public String comList(
+			Comment comment
+			, int category
+			, int boardno
+			, Model model
+			, HttpSession session
+			) {
+		logger.info("/comment/list [GET]");
+
+		comment.setCategoryNo(category);
+		comment.setBoardNo(boardno);
+		logger.info("comment : {}",comment);
+		
 		List<Comment> commentList = commentService.list(comment);
 		
-		for( Comment c : commentList ) logger.info("{}",c);
+		for( Comment c : commentList ) logger.info("list-{}",c);
 		
 		//모델값 전달
 		model.addAttribute("commentList", commentList);
+		return "comment/list";
 	}
+	
 
 	@PostMapping("/insert")
 	public String comInsert(
@@ -51,7 +76,7 @@ public class CommentController {
 			) {
 		logger.info("/comment/insert [POST]");
 
-		session.setAttribute("userNo", 7777);
+//		session.setAttribute("userNo", 7777);
 
 		comment.setUserNo((int)session.getAttribute("userNo"));
 		comment.setCommentContent(content);
@@ -66,20 +91,21 @@ public class CommentController {
 		
 		//모델값 전달
 		model.addAttribute("commentList", commentList);
-		return "/comment/board";
+//		return "comment/board";
+		return "comment/list";
 	}
 	
 	@PostMapping("/delete")
 	public String comDelete(
 			int commentno
-			, int category
-			, int boardno
+//			, int category
+//			, int boardno
 			, Comment comment
 			, Model model
 			) {
 		comment.setCommentNo(commentno);
-		comment.setCategoryNo(category);
-		comment.setBoardNo(boardno);
+//		comment.setCategoryNo(category);
+//		comment.setBoardNo(boardno);
 		
 		logger.info("/delete[POST]");
 		List<Comment> commentList = commentService.deleteComment(comment);
@@ -88,7 +114,8 @@ public class CommentController {
 
 		//모델값 전달
 		model.addAttribute("commentList", commentList);
-		return "/comment/board";
+//		return "comment/board";
+		return "comment/list";
 	}
 	
 	

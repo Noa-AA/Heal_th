@@ -50,13 +50,22 @@ public interface DgMoneyService {
 	/**
 	 * 관리자 - 페이징된 인출신청리스트 불러오기
 	 * @param wdPaging 
+	 * @param selectOption 
 	 * @return
 	 */
-	public List<WithDraw> getWithDrawList(AdminWithDrawPaging wdPaging);
+	public List<WithDraw> getWithDrawList(AdminWithDrawPaging wdPaging, String selectOption);
 
+	/**
+	 * 득근머니 수정
+	 * @param wd
+	 */
 	public void changeMmoney(WithDraw wd);
 
-
+	/**
+	 * 인출정보 페이징
+	 * @param curPage
+	 * @return
+	 */
 	public AdminWithDrawPaging getWdPaging(String curPage);
 
 }

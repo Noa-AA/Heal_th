@@ -14,23 +14,21 @@ public class Users {
 	private String userName;
 	private String userIntro;
 	private String userJob;
-	private String userPhoto;
 	private Date userJoinDate;
 	private String userBirth;
 	private String userGender;
-	private int dgMoney;
+	private int dgMoney;																	
 	private int point;
 	private int rankingNo;
-	private int kakaNo;
-	private int naverNo;
+	private String jointype;
 	
 
 	public Users() {}
 
 
 	public Users(int userNo, String userId, String userPw, String userNick, String userPhone, String userAddress,
-			String userEmail, String userName, String userIntro, String userJob, String userPhoto, Date userJoinDate,
-			String userBirth, String userGender, int dgMoney, int point, int rankingNo, int kakaNo, int naverNo) {
+			String userEmail, String userName, String userIntro, String userJob, Date userJoinDate, String userBirth,
+			String userGender, int dgMoney, int point, int rankingNo, String jointype) {
 		super();
 		this.userNo = userNo;
 		this.userId = userId;
@@ -42,15 +40,13 @@ public class Users {
 		this.userName = userName;
 		this.userIntro = userIntro;
 		this.userJob = userJob;
-		this.userPhoto = userPhoto;
 		this.userJoinDate = userJoinDate;
 		this.userBirth = userBirth;
 		this.userGender = userGender;
 		this.dgMoney = dgMoney;
 		this.point = point;
 		this.rankingNo = rankingNo;
-		this.kakaNo = kakaNo;
-		this.naverNo = naverNo;
+		this.jointype = jointype;
 	}
 
 
@@ -58,10 +54,9 @@ public class Users {
 	public String toString() {
 		return "Users [userNo=" + userNo + ", userId=" + userId + ", userPw=" + userPw + ", userNick=" + userNick
 				+ ", userPhone=" + userPhone + ", userAddress=" + userAddress + ", userEmail=" + userEmail
-				+ ", userName=" + userName + ", userIntro=" + userIntro + ", userJob=" + userJob + ", userPhoto="
-				+ userPhoto + ", userJoinDate=" + userJoinDate + ", userBirth=" + userBirth + ", userGender="
-				+ userGender + ", dgMoney=" + dgMoney + ", point=" + point + ", rankingNo=" + rankingNo + ", kakaNo="
-				+ kakaNo + ", naverNo=" + naverNo + "]";
+				+ ", userName=" + userName + ", userIntro=" + userIntro + ", userJob=" + userJob + ", userJoinDate="
+				+ userJoinDate + ", userBirth=" + userBirth + ", userGender=" + userGender + ", dgMoney=" + dgMoney
+				+ ", point=" + point + ", rankingNo=" + rankingNo + ", jointype=" + jointype + "]";
 	}
 
 
@@ -165,16 +160,6 @@ public class Users {
 	}
 
 
-	public String getUserPhoto() {
-		return userPhoto;
-	}
-
-
-	public void setUserPhoto(String userPhoto) {
-		this.userPhoto = userPhoto;
-	}
-
-
 	public Date getUserJoinDate() {
 		return userJoinDate;
 	}
@@ -235,24 +220,15 @@ public class Users {
 	}
 
 
-	public int getKakaNo() {
-		return kakaNo;
+	public String getJointype() {
+		return jointype;
 	}
 
 
-	public void setKakaNo(int kakaNo) {
-		this.kakaNo = kakaNo;
+	public void setJointype(String jointype) {
+		this.jointype = jointype;
 	}
 
 
-	public int getNaverNo() {
-		return naverNo;
-	}
 
-
-	public void setNaverNo(int naverNo) {
-		this.naverNo = naverNo;
-	}
-
-	
 }

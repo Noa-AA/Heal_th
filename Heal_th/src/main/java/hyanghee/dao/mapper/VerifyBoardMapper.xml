@@ -7,4 +7,71 @@
   
 <mapper namespace="hyanghee.dao.face.VerifyBoardDao">
 
+<select id="selectCntAll" resultType="int" parameterType="BoardPaging">
+		SELECT count(*) FROM verifyboard
+	</select>
+	
+	<select id="selectList" resultType="VerifyBoard" parameterType="BoardPaging">
+		SELECT * FROM (
+			SELECT rownum rnum, V.* FROM (
+				SELECT
+					verify_no, v_title, user_no,
+					v_hit, v_thumbs, v_inst_date
+				FROM verifyboard
+				ORDER BY verify_no DESC
+			) V
+		) VerifyBoard
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	
+	<select id="selectUserInfo" resultType="Users" parameterType="int">
+		SELECT * FROM users
+		WHERE user_no = #{userno }
+	</select>
+	
+	<insert id="insertVerifyBoard" parameterType="VerifyBoard">
+		
+		<selectKey order="BEFORE" resultType="int" keyProperty="verifyNo">
+			SELECT verifyboard_seq.nextval FROM dual
+		</selectKey>
+	
+		INSERT INTO verifyboard ( 
+			verify_no, v_inst_date, v_title, exercise, time
+			   , kcal, verify_content, v_upt_date, v_delete_date
+			   , v_hit, v_thumbs, user_no, category_no )
+		
+		VALUES ( #{verifyNo}, sysdate, #{vTitle}, #{exercise}, #{time}
+				   , #{kcal}, #{verifyContent}
+				   , to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+				   , to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+				   , 0, 0, #{userNo}, 2 )
+	</insert>
+	
+
+	<select id="selectBoard" resultType="VerifyBoard" parameterType="VerifyBoard">
+		SELECT
+			verify_no, v_inst_date, v_title, exercise, time
+			   , kcal, verify_content, v_upt_date, v_delete_date
+			   , v_hit, v_thumbs, user_no, category_no 
+		FROM verifyboard
+		WHERE verify_no = #{verifyNo}
+	</select>
+	
+	<update id="updateBoard" parameterType="VerifyBoard">
+		UPDATE verifyboard
+		SET v_title = #{vTitle}
+			, exercise = #{exercise}
+			, time = #{time}
+			, kcal = #{kcal}
+			, verify_content = #{verifyContent}
+		WHERE verify_no = #{verifyNo}
+	</update>
+
+
+	<delete id="delete" parameterType="VerifyBoard">
+		DELETE verifyboard
+		WHERE verify_no = #{verifyNo}	
+	</delete>
+
+
 </mapper>

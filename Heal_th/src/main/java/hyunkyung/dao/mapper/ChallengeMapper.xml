@@ -1,38 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 마이바티스3 Mapper DTD -->
+<!-- 마이바티스 3 Mapper DTD -->
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
-<mapper namespace="hyunkyung.dao.face.ChallengeDao">
-<!-- 	전체 챌린지 수 조회 -->
-	<select id="selectCntAll" resultType="int">
-		SELECT count(*) FROM challenge
-	</select>
-	
-<!-- 	챌린지 리스트 -->
-	<select id="selectList" resultType="Challenge" parameterType="Paging">
-		SELECT * FROM (
-    		SELECT rownum rnum, C.* FROM (
-        		SELECT
-            		challenge_no, challenge_kind, challenge_name
-            		, challenge_credate, challenge_enddate
-            	FROM challenge
-            	ORDER BY challenge_no DESC
-    	 	) C   
-    	) CHALLENGE
-    	WHERE rnum BETWEEN #{startNo } AND #{endNo }
-	</select>
-	
-<!-- 	챌린지 상세보기 -->
-	<select id="selectChallenge" resultType="Challenge" parameterType="Challenge">
-		SELECT
-			challenge_no, challenge_kind, challenge_name
-            , challenge_credate, challenge_enddate
-        FROM challenge
-        WHERE challenge_no = #{challengeNo}
-	</select>
-</mapper>    
-    	
 
+<mapper namespace="hyunkyung.dao.face.ChallengeDao">
+
+	<!-- 챌린지 목록 -->
+	<select id="getList" resultType="Challenge">
+		SELECT challenge_no,
+		challenge_kind, challenge_name, challenge_credate, challenge_enddate
+		FROM challenge
+	</select>
+
+	<!-- 챌린지 조회 -->
+	<select id="getPage" resultType="Challenge">
+		SELECT * FROM challenge
+		WHERE challenge_no = #{challengeNo}
+	</select>
+
+	<!-- 검색 조건문 -->
+	<sql id="criteria">
+		<trim prefix="AND (" suffix=")" prefixOverrides="OR">
+			<foreach collection="typeArr" item="type">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							challenge_name like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							challenge_kind like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+
+	</sql>
+
+	<!-- 챌린지 목록(페이징) -->
+	<select id="getListPaging" resultType="Challenge">
+    
+    <![CDATA[
+        
+        select challenge_no, challenge_kind, challenge_name, challenge_credate, challenge_enddate from(
+        
+                select /*+INDEX_DESC(challenge pk_challenge) */ rownum  as rn, challenge_no, challenge_kind, challenge_name, challenge_credate, challenge_enddate
+                  
+                from challenge where rownum <= #{pageNum} * #{amount} 
+    ]]>
+		<if test="keyword != null">
+			<include refid="criteria"></include>
+		</if>
+    
+    <![CDATA[
+                    
+                )
+                    
+        where rn > (#{pageNum} -1) * #{amount}
+    
+    ]]>
+
+	</select>
+
+
+	<!-- 챌린지 총 갯수 -->
+	<select id="getTotal" resultType="int">
+		SELECT count(*) FROM challenge
+
+		<if test="keyword != null">
+			where challenge_no > 0
+			<include refid="criteria"></include>
+		</if>
+	</select>
+
+	<!-- 챌린지 삭제 -->
+	<delete id="delete" parameterType="Challenge">
+		DELETE challenge
+		WHERE challenge_no = #{challengeNo}
+	</delete>
+
+</mapper>    

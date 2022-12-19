@@ -20,6 +20,20 @@ $(document).ready(function(){
 
 </script>
 <style type="text/css">
+@import url('https://webfontworld.github.io/sunn/SUIT.css');
+
+html, body, pre, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, li, ol, th, td, p, blockquote, form, fieldset, legend, menu, nav, section, hgroup, article, header, aside, footer, input, select, textarea, button {
+    margin: 0;
+    padding: 0;
+    list-style:none;
+    font-family: 'SUIT';
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
 .container {
 	position: relative;
 	text-align: center;

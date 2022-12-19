@@ -9,40 +9,51 @@ import org.springframework.stereotype.Service;
 
 import hyunkyung.dao.face.ChallengeDao;
 import hyunkyung.dto.Challenge;
+import hyunkyung.dto.ChallengeFile;
 import hyunkyung.service.face.ChallengeService;
-import hyunkyung.util.Paging;
+import hyunkyung.util.ChlCriteria;
+import yerim.dto.Users;
 
 @Service
 public class ChallengeServiceImpl implements ChallengeService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	
 	@Autowired
-	ChallengeDao challengeDao;
+	private ChallengeDao challengeDao;
 
+	//챌린지 목록
 	@Override
-	public Paging getPaging(int curPage) {
+	public List<Challenge> getList() {
 
-		// 총 게시글 수 조회
-		int totalCount = challengeDao.selectCntAll();
-
-		// 페이징 계산
-		Paging paging = new Paging(totalCount, curPage);
-
-		return paging;
+		return challengeDao.getList();
 	}
 
+	//챌린지 목록(페이징 적용)
 	@Override
-	public List<Challenge> list(Paging paging) {
-		return challengeDao.selectList(paging);
+	public List<Challenge> getListPaging(ChlCriteria cri) {
+		return challengeDao.getListPaging(cri);
+	}
+	
+	//챌린지 상세보기
+	@Override
+	public Challenge getPage(int challengeNo) {
+
+		return challengeDao.getPage(challengeNo);
 	}
 
+	//챌린지 총 갯수
 	@Override
-	public Challenge view(Challenge viewChallenge) {
-		// 조회수 관련된것도 넣기, 컬럼도 추가
-
-		// 상세보기 조회결과 리턴
-		return challengeDao.selectChallenge(viewChallenge);
+	public int getTotal(ChlCriteria cri) {
+		return challengeDao.getTotal(cri);
+	}
+	
+	//챌린지 삭제
+	@Override
+	public void delete(Challenge challenge) {
+		
+		challengeDao.delete(challenge);
 	}
 
+	
 }

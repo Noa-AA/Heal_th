@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import hyanghee.dto.Beforeafter;
 import hyanghee.service.face.BfBoardService;
+import hyanghee.util.BoardPageMaker;
 import hyanghee.util.BoardPaging;
+import hyanghee.util.BoardSearch;
+import jucheol.dto.Comment;
+import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
 
@@ -32,43 +33,62 @@ public class BfBoardController {
 	//서비스 객체
 	@Autowired private BfBoardService bfBoardService;	
 	
-	
-	
-	//게시글 리스트
+	//게시글 리스트 
 	@RequestMapping("/board/bfBoard")
 	public void list(
 			@RequestParam(defaultValue = "0") int curPage
-			, Model model ) {
+			, BoardSearch boardSearch
+			, Model model) {
 		
 		BoardPaging boardPaging = bfBoardService.getPaging(curPage);
 		logger.info("{}", boardPaging);
 		model.addAttribute("BoardPaging", boardPaging);
 		
-		List<Beforeafter> list = bfBoardService.list(boardPaging);
-		for( Beforeafter b : list )	logger.info("{}", b);
-		model.addAttribute("list", list);
+//		List<Beforeafter> list = bfBoardService.list(boardPaging);
+//		for( Beforeafter b : list )	logger.info("{}", b);
+//		model.addAttribute("list", list);
+		
+		//공지사항
+		List<Notice> notice = bfBoardService.notice(boardPaging);
+		for( Notice n : notice )	logger.info("{}", n);
+		model.addAttribute("notice", notice);
+		
+		//검색
+		model.addAttribute("boardSearch", bfBoardService.getSearchPaging(boardSearch));
+		int total = bfBoardService.getTotal(boardSearch);
+		
+		BoardPageMaker pageMake = new BoardPageMaker(boardSearch, total);
+		model.addAttribute("pageMaker", pageMake);
+		
 		
 	}
+	
 	
 	
 	
 	//게시글 작성
-	@GetMapping("/board/bf_write")
+	@GetMapping("/board/bfWrite")
 	public void insertBfBoard() {
 		
-		logger.info("/board/bf_write [GET]");
+		logger.info("/board/bfWrite [GET]");
+		
 
 	}
 	
-	@PostMapping("/board/bf_write")
-	public String insertBfBoardProc(Beforeafter bfBoard,HttpSession session) {
+	@PostMapping("/board/bfWrite")
+	public String insertBfBoardProc(Beforeafter bfBoard, int point, HttpSession session, Model model) {
+		logger.info("/board/bfWrite [POST]");
 		
 		//테스트용 로그인 userno
 		session.setAttribute("userNo", 7777);
 		
-		//작성자, 카테고리 정보 추가
+		//작성자 정보 추가
 		bfBoard.setUserNo( (int) session.getAttribute("userNo") );
-//		bfBoard.setCategoryNo( (int) session.getAttribute("categoryNo") );
+		
+		//포인트
+		Users userno = bfBoardService.getPoint(point);
+		List<Users> user = bfBoardService.updatePoint(point);
+		model.addAttribute("point", point);
 		
 		logger.info("{}", bfBoard);
 		
@@ -79,8 +99,8 @@ public class BfBoardController {
 	
 	//게시글 상세 보기
 	@RequestMapping("board/bfView")
-	public String view(Beforeafter viewBoard, Model model) {
-		logger.info("/board/view - {}", viewBoard);
+	public String view(Beforeafter viewBoard,Comment comment, Model model) {
+		logger.info("{}", viewBoard);
 		
 		//잘못된 게시글 번호 처리
 		if( viewBoard.getBfNo() < 0 ) {
@@ -93,8 +113,9 @@ public class BfBoardController {
 		
 		//모델값 전달
 		model.addAttribute("viewBoard", viewBoard);
+		model.addAttribute("comment", comment);
 		
-		return "board/bfView";
+		return "/board/bfView";
 	}
 
 	//게시글 수정
@@ -114,7 +135,6 @@ public class BfBoardController {
 		//모델값 전달
 		model.addAttribute("updateBoard", beforeafter);
 		
-		
 		//첨부파일 모델값 전달
 //		BoardFile boardFile = boardService.getAttachFile(beforeafter);
 //		model.addAttribute("boardFile", boardFile);
@@ -124,14 +144,7 @@ public class BfBoardController {
 
 	}
 	
-//	@PostMapping("/board/bfUpdate")
-//	public String updateProcess(Beforeafter beforeafter, MultipartFile file) {
-//		logger.debug("{}", beforeafter);
-//		
-//		bfBoardService.update(beforeafter, file);
-//		
-//		return "redirect:/board/view?boardNo=" + beforeafter.getBfNo();
-//	}
+
 	
 	@PostMapping("/board/bfUpdate")
 	public String updateProcess(Beforeafter beforeafter) {
@@ -154,8 +167,14 @@ public class BfBoardController {
 		
 		return "redirect:/board/bfBoard";
 	}
-
+	
+	
+	
 }
+
+
+
+
 
 
 

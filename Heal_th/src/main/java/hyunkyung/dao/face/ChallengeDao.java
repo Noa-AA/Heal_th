@@ -3,32 +3,45 @@ package hyunkyung.dao.face;
 import java.util.List;
 
 import hyunkyung.dto.Challenge;
-import hyunkyung.util.Paging;
+import hyunkyung.dto.ChallengeFile;
+import hyunkyung.util.ChlCriteria;
+import yerim.dto.Users;
 
 public interface ChallengeDao {
-	
-	/**
-	 * 전체 챌린지 수를 조회
-	 * @return 총 챌린지 수
-	 */
-	public int selectCntAll();
 
+	/**
+	 * 챌린지 목록
+	 * @return
+	 */
+	public List<Challenge> getList();
+	
 	/**
 	 * 페이징을 적용하여 챌린지 목록 조회
-	 * 
-	 * @param paging - 페이징 정보 객체
+	 * @param cri - 페이지 기준 정보 객체
 	 * @return 페이징이 적용된 챌린지 목록
 	 */
-	public List<Challenge> selectList(Paging paging);
+    public List<Challenge> getListPaging(ChlCriteria cri);
+    
+    /**
+     * 챌린지 상세보기
+     * @param challengeNo - 조회된 챌린지 번호
+     * @return
+     */
+    public Challenge getPage(int challengeNo);
 
 	/**
-	 * 챌린지 번호를 이용하여 챌린지 조회
-	 * @param viewChallenge - 조회하려는 챌린지 번호
-	 * @return 조회된 챌린지 정보
+	 * 전체 챌린지 수 조회
+	 * 
+	 * @param cri
+	 * @return
 	 */
-	public Challenge selectChallenge(Challenge viewChallenge);
+	public int getTotal(ChlCriteria cri);
+
+	/**
+	 * 챌린지 삭제
+	 * @param challenge - 삭제할 챌린지 번호
+	 */
+	public void delete(Challenge challenge);
 
 	
-	
-
 }

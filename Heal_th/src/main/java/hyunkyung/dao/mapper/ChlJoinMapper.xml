@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스3 Mapper DTD -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="hyunkyung.dao.face.ChlJoinDao">
+
+<!-- 챌린지 정보 조회 -->
+		<select id="selectChlInfo" resultType="Challenge">
+			SELECT *
+			FROM challenge
+			WHERE challenge_no = #{challengeNo }
+		</select>
+	
+<!-- 유저 정보 조회 -->
+	<select id ="selectUserInfo" resultType="Users" parameterType="int">
+		SELECT *
+		FROM users
+		WHERE user_no = #{userno }
+	</select>
+	
+<!-- 	득근머니 잔액 조회 -->
+<!-- 	<select id="selectMmoney" resultType="int" parameterType="int"> -->
+<!-- 		SELECT m_charge, m_use -->
+<!-- 		FROM mmoney_use -->
+<!-- 		WHERE user_no = #{userno } -->
+<!-- 	</select> -->
+
+
+<!-- 가입시 정보 저장 -->
+	<insert id="insertInfo" parameterType="ParticipantList">
+		INSERT INTO participant_list (participant_no, user_no, challenge_no)
+		VALUES (participant_list_seq.nextval, #{userNo}, #{challengeNo})
+	</insert>
+
+
+	<select id="selectMmoney" resultType="MmoneyUse" parameterType="int">
+		SELECT m_charge, m_use
+		FROM mmoney_use
+		WHERE user_no = #{useno }
+	</select>
+</mapper>    

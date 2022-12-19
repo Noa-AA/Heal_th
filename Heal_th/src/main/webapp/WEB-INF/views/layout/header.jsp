@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="/resources/img/favicon.ico" type="image/x-icon"/>
 <meta charset="UTF-8">
 <title>심장이 득근</title>
 
@@ -58,8 +59,12 @@ a {
     text-decoration: none;
 }
 
-header{
-	margin-bottom: 180px;
+input {
+	padding-left: 5px;
+}
+
+header {
+	margin-bottom: 140px;
 }
 
 #topMenu {
@@ -75,6 +80,7 @@ header{
     top: 0;
     left: 0;
  	right: 0;
+ 	min-width: 1920px;
 }
 
 
@@ -132,7 +138,9 @@ header{
 	width: 440px; 
 	background-color: #aaa; 
 	float: right; 
-	background: linear-gradient(120deg, transparent 50px, #3f94d6 0 , #1869a7);
+/*  	background: linear-gradient(120deg, transparent 50px, #3f94d6 0 , #1869a7);  */
+/*  	background: linear-gradient(120deg, transparent 50px, #02a8a8 0 , #4fb783);  */
+ 	background: linear-gradient(120deg, transparent 50px, #7ca3f5 0 , #c583d6); 
 }
 
 #right > ul {
@@ -181,7 +189,7 @@ header{
 #dropMenu {
 	display: none;
 	margin: 0 auto;
-	height: 270px;
+	height: 310px;
 	width: 100%;
 	background-color: #fff;
 	position: fixed;
@@ -210,11 +218,11 @@ header{
     display: flex;
     align-items: center;
     justify-content: center;
-    border-left: 1px solid #eaeaea;
+    border-left: 1px solid #f6f6f6;
 }
 
 #dropMenu > ul > li:last-child {
-	border-right: 1px solid #eaeaea;
+	border-right: 1px solid #f6f6f6;
 }
 
 #dropMenu > ul > li > a {
@@ -223,108 +231,195 @@ header{
     font-weight: 400;
 }
 
+#subvisual {
+    position: absolute;
+    top: 80px;
+    width: 100%;
+    height: 275px;
+    background: linear-gradient(#fbf5fd 0 , #eaecfb);
+    text-align: center;
+}
+
+#subvisual-A {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#subvisual #subv-title {
+    font-family: 'SUIT';
+    font-size: 42px;
+    font-weight: 700;
+}
+
+#subvisual #subv-content {
+    font-family: 'SUIT';
+	font-size: 15px;
+	color: #888888;
+}
+
+#twoDepth {
+	position: absolute;
+    top: 355px;
+    width: 100%;
+    height: 70px;
+    border-bottom: 1px solid silver;
+}
+
+#twoDepth-list {
+	width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	height: 70px;
+}
+
+#twoDepth-list a {
+	padding: 10px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666666;
+    font-size: 18px;
+    font-weight: 400;
+    width: 20%;
+}
+
+.footer {
+    width: 100%;
+    min-width: 1048px;
+	bottom: 0;
+	height: 100px;
+	border-top: 1px solid #ddd;
+	background: #fff;
+	z-index: 99;
+	margin-top: 160px;
+} 
+
+.footer-wrap {
+	width: 1200px;
+	margin: 0 auto;
+	height: 100px;
+	padding: 10px 0;
+}
+
+.big-container h3:nth-child(1){
+	padding-bottom: 64px;
+	padding-top: 10px;
+	font-size: 38px;
+    font-weight: 600;
+}
+
+body {
+	padding-top: 355px;
+}
+
 </style>
 
 </head>
 
 <header class="hover">
-
+<!--
 	<div id="dropMenu" >
 		<ul>
 			<li>
-				<a href="">2-1depth</a>
+				<a href=""></a>
+			</li>
+			<li>
+				<a href=""></a>
+			</li>
+			<li>
+				<a href="/dghelper/healthtest">운동성향 테스트</a>
 			</li>
 			<li>
 				<a href="">2-1depth</a>
 			</li>
 			<li>
-				<a href="">2-1depth</a>
+				<a href="">상</a>
 			</li>
 			<li>
-				<a href="">2-1depth</a>
-			</li>
-			<li>
-				<a href="">2-1depth</a>
-			</li>
-			<li>
-				<a href="">2-1depth</a>
+				<a href="board/bfBoard">비포애프터</a>
 			</li>
 			
 		</ul>
 		
 		<ul>
 			<li>
-				<a href="">2-2depth</a>
+				<a href=""></a>
 			</li>
 			<li>
-				<a href="">2-2depth</a>
+				<a href=""></a>
 			</li>
 			<li>
-				<a href="">2-2depth</a>
+				<a href="/dghelper/healthguide">칼로리 사전</a>
 			</li>
 			<li>
-				<a href="">2-2depth</a>
+				<a href=""></a>
 			</li>
 			<li>
-				<a href="">2-2depth</a>
+				<a href=""></a>
 			</li>
 			<li>
-				<a href="">2-2depth</a>
+				<a href="board/verifyBoard">운동인증</a>
 			</li>
 			
 		</ul>
 		
 		<ul>
 			<li>
-				<a href="">2-3depth</a>
+				<a href=""></a>
+			</li>
+			<li>
+				<a href=""></a>
+			</li>
+			<li>
+				<a href="/dghelper/healthrecord">운동일기장h</a>
+			</li>
+			<li>
+				<a href=""></a>
 			</li>
 			<li>
 				<a href="">2-3depth</a>
 			</li>
 			<li>
-				<a href="">2-3depth</a>
+				<a href="board/dietBoard">식단 공유</a>
 			</li>
-			<li>
-				<a href="">2-3depth</a>
-			</li>
-			<li>
-				<a href="">2-3depth</a>
-			</li>
-			<li>
-				<a href="">2-3depth</a>
-			</li>
-			
 		</ul>
-		
+	
 		
 	</div>
+-->
+
 
 	<div id="topMenu" class="">	
 		<h1 class="logo">
 			<a href="">
-				<img src="/resources/img/logo.png" alt="득근득근">
+<!-- 				<img src="/resources/img/logo_blue.png" alt="득근득근"> -->
+<!-- 				<img src="/resources/img/logo_green.png" alt="득근득근"> -->
+				<img src="/resources/img/logo_purple.png" alt="득근득근">
 			</a>		
-		</h1>
-				
+		</h1>	
+			
 		<div id="menu">
 		<ul>
 			<li>
-				<a href="">챌린지</a>
+				<a href="/challenge/list">챌린지</a>
 			</li>
 			<li>
-				<a href="">운동질문</a>
+				<a href="/chat/chatRoom">운동질문</a>
 			</li>
 			<li>
-				<a href="">운동도우미</a>
+				<a href="/dghelper/healthtest">운동도우미</a>
 			</li>
 			<li>
 				<a href="">출석체크</a>
 			</li>
 			<li>
-				<a href="">득근상점</a>
+				<a href="/store/list">득근상점</a>
 			</li>
 			<li>
-				<a href="">커뮤니티</a>
+				<a href="/board/boardList">커뮤니티</a>
 			</li>
 		</ul>
 		</div> <!-- menu -->
@@ -334,14 +429,14 @@ header{
 			<ul>
 				<li id="login">
 					<img src="/resources/img/loginicon.png">
-					<a href="">
+					<a href="/login/login">
 						로그인
 					</a>
 				</li>
 				
 				<li id="join">
 					<img src="/resources/img/joinicon.png">
-					<a href="">
+					<a href="/login/join">
 					회원가입
 					</a>
 				</li>

@@ -1,5 +1,6 @@
 package changmin.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -89,9 +90,17 @@ public class DgMoneyServiceImpl implements DgMoneyService{
 	}
 
 	@Override
-	public List<WithDraw> getWithDrawList(AdminWithDrawPaging wdPaging) {
+	public List<WithDraw> getWithDrawList(AdminWithDrawPaging wdPaging, String selectOption) {
 
-		return dgMoneyDao.selectWithDrawList(wdPaging);
+		List<WithDraw> list = new ArrayList<WithDraw>();
+		
+		if(selectOption==null||selectOption.equals("orderByNew")||selectOption.equals("")) {
+			list = dgMoneyDao.selectWithDrawList(wdPaging);
+		} else if(selectOption.equals("orderByProc")) {
+			list = dgMoneyDao.selectWithDrawListOrderByProc(wdPaging);
+		}
+		
+		return list;
 	}
 
 }

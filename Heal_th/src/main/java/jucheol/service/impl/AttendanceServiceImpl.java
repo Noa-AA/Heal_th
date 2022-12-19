@@ -1,6 +1,7 @@
 package jucheol.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,11 +21,21 @@ public class AttendanceServiceImpl implements AttendanceService {
 	
 	@Override
 	public Attendance getLastLogin(Attendance attendance) {
-		Attendance lastLogin = attendanceDao.getLastLogin(attendance);
 		
-		logger.info("{}",lastLogin);
-		return lastLogin;
+		return attendanceDao.getLastLogin(attendance);
 	}
+
+	@Override
+	public void addLoginDate(Attendance attendance) {
+		attendanceDao.addLoginDate(attendance);
+		
+	}
+
+	@Override
+	public List<Date> getAtt(Attendance attendance) {
+		return attendanceDao.getAtt(attendance);
+	}
+
 
 
 }

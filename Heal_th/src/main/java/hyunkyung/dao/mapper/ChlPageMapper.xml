@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 마이바티스3 Mapper DTD -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="hyunkyung.dao.face.ChlPageDao">
+	<!-- 유저 정보 조회 -->
+	<select id="selectUserInfo" resultType="Users"
+		parameterType="int">
+		SELECT *
+		FROM users
+		WHERE user_no = #{userno }
+	</select>
+
+	<!-- 내 챌린지 조회 -->
+	<select id="selectjoinList" parameterType="int" resultType="Challenge">
+		SELECT P.challenge_no, C.challenge_kind, C.challenge_name,
+		C.challenge_credate, C.challenge_enddate
+		FROM participant_list P
+		JOIN challenge C ON(P.challenge_no=C.challenge_no)
+		WHERE user_no = #{userNo}
+	</select>	
+	
+	<!-- 내 챌린지 총 갯수 -->
+<!-- 	<select id="getTotal" parameterType="int" resultType="Challenge"> -->
+<!-- 		SELECT count(*) -->
+<!-- 		FROM participant_list P -->
+<!-- 		JOIN challenge C ON(P.challenge_no = C.challenge_no) -->
+<!-- 		WHERE user_no =#{userNo} -->
+<!-- 	</select> -->
+</mapper>    

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yerim.dao.face.MypageDao">
+
+	<select id="selectUserInfo" parameterType="int" resultType="Users">
+		SELECT user_name,user_nick,user_email,user_id,user_phone,user_gender,user_birth,user_job,user_gender,user_address,jointype
+		FROM users
+		WHERE user_no = #{userNo}
+	</select>
+	
+	<update id="updateUserInfo" parameterType="Users">
+		UPDATE users
+		SET
+			user_name =#{userName},
+			user_nick =#{userNick},
+			user_email =#{userEmail},
+			user_id=#{userId},
+			user_phone=#{userPhone},
+			user_gender=#{userGender},
+			user_birth=#{userBirth},
+			user_job=#{userJob},
+			user_address=#{userAddress}
+		WHERE user_no = #{userNo}
+	</update>
+	
+	<select id="selectUserId" resultType="String" parameterType="int"> 
+	
+		SELECT user_id FROM users
+		WHERE user_no = #{userNo}
+	
+	</select>
+	
+	<select id="selectuserPw" resultType="int" parameterType="Users">
+		SELECT count(*) FROM users
+		WHERE user_no=#{userNo} and user_id=#{userId} and user_pw=#{userPw}
+	</select>
+	
+	<select id="selectUserPwByUserNoPw" resultType="int" parameterType="Users">
+		SELECT count(*) FROM users
+		WHERE user_no=#{userNo} and user_pw=#{userPw}
+	</select>
+	<update id="updateUserNewPw" parameterType="Users" >
+		UPDATE users
+		SET user_pw = #{userPw}
+		WHERE user_no =#{userNo}
+	</update>
+
+	 <select id="selectIsProfile" resultType="int" parameterType="PhotoFile">
+	 
+	 	SELECT count(*) FROM PhotoFile
+	 	WHERE user_no =#{userNo}
+	 </select>
+	 <select id="selectfileNo" resultType="int" parameterType="PhotoFile"> 
+	 	SELECT file_no FROM PhotoFile
+	 	WHERE user_no =#{userNo}
+	 
+	 </select>
+	 
+	 <update id="updateProfile" parameterType="PhotoFile" >
+	 	UPDATE photofile
+	 	SET
+			origin_name =#{originName},
+			stored_name =#{storedName}
+		WHERE user_no = #{userNo} and file_no = #{fileNo}
+	 
+	 </update>
+	 
+	  <insert id="insertProfile" parameterType="PhotoFile">
+	  	INSERT INTO photofile (file_no,origin_name,stored_name,user_no)
+	  	VALUES (photoFile_seq.nextval,#{originName},#{storedName},#{userNo})
+	  </insert>
+	  
+	  
+	  <select id="selectStoredName" parameterType="PhotoFile" resultType="PhotoFile">
+	  	SELECT origin_name,stored_name FROM photofile
+	  	WHERE user_no =#{userNo}
+	  </select>
+	  
+	  <select id="selectIsIntro" parameterType="Users" resultType="int">
+	  	SELECT count(*) FROM users
+	  	WHERE user_no= #{userNo} and user_intro =#{userIntro}
+	  
+	  </select>
+	  
+	  <update id="updateIntro" parameterType="Users">
+	  	UPDATE users
+	  	SET user_intro =#{userIntro}
+	  	WHERE user_no =#{userNo}
+	  </update>
+	  
+	  <select id="selectUserIntro" parameterType="Users" resultType="Users">
+	  	SELECT user_intro FROM users
+	  	WHERE user_no =#{userNo}
+	  </select>
+	  
+	  <delete id="deleteByuserNoPw" parameterType="Users">
+	  	DELETE FROM users
+	  	WHERE user_no =#{userNo} and user_pw=#{userPw}
+	  </delete>
+	  
+</mapper>

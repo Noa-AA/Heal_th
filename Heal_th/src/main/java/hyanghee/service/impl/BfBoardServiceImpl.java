@@ -1,11 +1,8 @@
 package hyanghee.service.impl;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +13,8 @@ import hyanghee.dao.face.BfBoardDao;
 import hyanghee.dto.Beforeafter;
 import hyanghee.service.face.BfBoardService;
 import hyanghee.util.BoardPaging;
+import hyanghee.util.BoardSearch;
+import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
 @Service
@@ -31,9 +30,9 @@ public class BfBoardServiceImpl implements BfBoardService {
 		int totalCount = bfBoardDao.selectCntAll();
 				
 		//페이징 계산
-		BoardPaging paging = new BoardPaging(totalCount, curPage);
+		BoardPaging boardPaging = new BoardPaging(totalCount, curPage);
 				
-		return paging;
+		return boardPaging;
 	}
 
 
@@ -131,30 +130,58 @@ public class BfBoardServiceImpl implements BfBoardService {
 //		
 	}
 
-	
 
-//	//비포 애프터 게시글 삭제
-//	@Override
-//	public Map<String, Object> deleteBfArticle(int userid) {
-//		
-//		boardDao.deleteBfArticle(id);
-//		
-//		Map<String, Object> rs = new HashMap<>();
-//		
-//		rs.put("resultCode", "S-1");
-//		rs.put("msg", id + "게시글 삭제 성공");
-//		
-//		return rs;
-//		
-//	}
+	@Override
+	public List<Beforeafter> getSearchPaging(BoardSearch boardSearch) {
+		return bfBoardDao.getSearchPaging(boardSearch);
+	}
 
 
+	@Override
+	public int getTotal(BoardSearch boardSearch) {
+		return bfBoardDao.getTotal(boardSearch);
+	}
 
-//	@Override
-//	public List<Board> list(Paging paging) {
-//
-//		return boardDao.selectList(paging);
-//	}
+
+	@Override
+	public Beforeafter getPage(int bfNo) {
+		return bfBoardDao.getPage(bfNo);
+	}
+
+
+	//포인트 적립
+	@Override
+	public List<Users> updatePoint(int point) {
+		
+//		bfBoardDao.updatePoint(Beforeafter.getUserNo(), 50);
+//		
+//		int point = user.getPoint();
+//		point = point - user.getPoint() + user.getUpdatePoint();	// 기존 포인트 - 사용 포인트 + 획득 포인트
+//		Users.setPoint(point);
+		
+		
+		return bfBoardDao.updatePoint(point);
+	}
+
+
+	@Override
+	public Users getPoint(int point) {
+		return bfBoardDao.getPoint(point);
+	}
+
+
+//	공지사항
+	@Override
+	public List<Notice> notice(BoardPaging boardPaging) {
+		return bfBoardDao.noticeList(boardPaging);
+	}
+
+
+
+
+
+
+
 	
 	
 	
