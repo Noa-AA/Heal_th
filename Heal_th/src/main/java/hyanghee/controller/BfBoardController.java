@@ -20,6 +20,7 @@ import hyanghee.util.BoardPageMaker;
 import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
+import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
 
@@ -32,21 +33,33 @@ public class BfBoardController {
 	//서비스 객체
 	@Autowired private BfBoardService bfBoardService;	
 	
-	
 	//게시글 리스트 
 	@RequestMapping("/board/bfBoard")
 	public void list(
 			@RequestParam(defaultValue = "0") int curPage
+			, BoardSearch boardSearch
 			, Model model) {
 		
 		BoardPaging boardPaging = bfBoardService.getPaging(curPage);
 		logger.info("{}", boardPaging);
 		model.addAttribute("BoardPaging", boardPaging);
 		
+//		List<Beforeafter> list = bfBoardService.list(boardPaging);
+//		for( Beforeafter b : list )	logger.info("{}", b);
+//		model.addAttribute("list", list);
 		
-		List<Beforeafter> list = bfBoardService.list(boardPaging);
-		for( Beforeafter b : list )	logger.info("{}", b);
-		model.addAttribute("list", list);
+		//공지사항
+		List<Notice> notice = bfBoardService.notice(boardPaging);
+		for( Notice n : notice )	logger.info("{}", n);
+		model.addAttribute("notice", notice);
+		
+		//검색
+		model.addAttribute("boardSearch", bfBoardService.getSearchPaging(boardSearch));
+		int total = bfBoardService.getTotal(boardSearch);
+		
+		BoardPageMaker pageMake = new BoardPageMaker(boardSearch, total);
+		model.addAttribute("pageMaker", pageMake);
+		
 		
 	}
 	
@@ -58,11 +71,12 @@ public class BfBoardController {
 	public void insertBfBoard() {
 		
 		logger.info("/board/bfWrite [GET]");
+		
 
 	}
 	
 	@PostMapping("/board/bfWrite")
-	public String insertBfBoardProc(Beforeafter bfBoard,HttpSession session, Model model) {
+	public String insertBfBoardProc(Beforeafter bfBoard, int point, HttpSession session, Model model) {
 		logger.info("/board/bfWrite [POST]");
 		
 		//테스트용 로그인 userno
@@ -72,9 +86,9 @@ public class BfBoardController {
 		bfBoard.setUserNo( (int) session.getAttribute("userNo") );
 		
 		//포인트
-//		int point = bfBoardService.getPoint(userno);
-//		List<Users> Point = bfBoardService.updatePoint(userno);
-//		model.addAttribute("point", point);
+		Users userno = bfBoardService.getPoint(point);
+		List<Users> user = bfBoardService.updatePoint(point);
+		model.addAttribute("point", point);
 		
 		logger.info("{}", bfBoard);
 		
@@ -106,7 +120,7 @@ public class BfBoardController {
 
 	//게시글 수정
 	@GetMapping("/board/bfUpdate")
-	public String update(Beforeafter beforeafter, Comment comment, Model model) {
+	public String update(Beforeafter beforeafter, Model model) {
 		logger.debug("{}", beforeafter);
 		
 		//잘못된 게시글 번호 처리
@@ -120,7 +134,6 @@ public class BfBoardController {
 		
 		//모델값 전달
 		model.addAttribute("updateBoard", beforeafter);
-		model.addAttribute("comment", comment);
 		
 		//첨부파일 모델값 전달
 //		BoardFile boardFile = boardService.getAttachFile(beforeafter);
@@ -157,45 +170,11 @@ public class BfBoardController {
 	
 	
 	
-	//게시글 검색
-	@GetMapping("/board/bfBoard")
-	public void search(Model model, BoardSearch boardSearch) {
-	
-		model.addAttribute("boardSearch", bfBoardService.getSearchPaging(boardSearch));
-		int total = bfBoardService.getTotal(boardSearch);
-		
-		BoardPageMaker pageMake = new BoardPageMaker(boardSearch, total);
-		model.addAttribute("pageMaker", pageMake);
-	}
-
-	//검색 상세보기
-//	@GetMapping("board/searchView")
-//	public void searchView(int bfNo, Model model, BoardSearch boardSearch) {
-//
-//		model.addAttribute("pageInfo", bfBoardService.getPage(bfNo));
-//		
-//		model.addAttribute("boardSearch", boardSearch);
-//	}
-
-	
-//	@PostMapping("/board/bfWrite")
-//	public String insertBfBoardProc(Beforeafter bfBoard,HttpSession session) {
-//		logger.info("/board/bfWrite [POST]");
-//		
-//		//테스트용 로그인 userno
-//		session.setAttribute("userNo", 7777);
-//		
-//		//작성자, 카테고리 정보 추가
-//		bfBoard.setUserNo( (int) session.getAttribute("userNo") );
-//		
-//		logger.info("{}", bfBoard);
-//		
-//		bfBoardService.insertBfBoard(bfBoard);
-//		
-//		return "redirect:/board/bfBoard";
-//	}
-	
 }
+
+
+
+
 
 
 

@@ -28,6 +28,53 @@ table {
 	table-layout: fixed;
 }
 
+#btnList {
+    width: 100px;
+    background: #616161;
+    font-size: 21px;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 5px; 
+    margin: 10px 5px;
+    padding-bottom: 14px; 
+	height: 52px;
+	width: 100px;
+}
+
+#btnDelete {
+    width: 100px;
+    background: #616161;
+    font-size: 21px;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 5px; 
+    margin: 10px 5px;
+    padding-bottom: 14px; 
+	height: 52px;
+	width: 100px;
+}
+
+#btnUpdate {
+    width: 100px;
+    background: #7ca3f5;
+    font-size: 21px;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 5px; 
+    margin: 10px 5px;
+    padding-bottom: 14px; 
+	height: 52px;
+	width: 100px;
+}
 
 </style>
 
@@ -114,7 +161,7 @@ table {
 </table>
 
 <div class="text-center">
-	<button id="btnList" class="btn btn-default">목록</button>
+	<button id="btnList">목록</button>
 	
 	<c:if test="${userNo eq viewBoard.userNo }">
 		<button id="btnUpdate" class="btn btn-primary">수정</button>

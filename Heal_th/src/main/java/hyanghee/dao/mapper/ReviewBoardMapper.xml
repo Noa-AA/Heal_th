@@ -24,6 +24,15 @@
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
+	<select id="noticeList" resultType="Notice" parameterType="BoardPaging">
+	<![CDATA[
+		SELECT * FROM (
+			SELECT * FROM notice ORDER BY notice_no DESC ) 
+		WHERE ROWNUM <=3
+		ORDER BY notice_no DESC
+	]]>
+	</select>
+	
 	<select id="selectUserInfo" resultType="Users" parameterType="int">
 		SELECT * FROM users
 		WHERE user_no = #{userno }
@@ -77,6 +86,80 @@
 		DELETE reviewboard
 		WHERE review_no = #{reviewNo}	
 	</delete>
+	
+	<select id="getList" resultType="ReviewBoard">
+		SELECT review_no, r_title, user_no, score,
+				r_hit, r_thumbs, r_inst_date
+		FROM reviewboard
+		
+		ORDER BY review_no DESC
+	</select>
+	
+	<select id="getPage" resultType="ReviewBoard">
+        SELECT * FROM reviewboard
+        WHERE review_no = #{reviewNo}
+    </select>
+	
+	<sql id="boardSearch">
+        <trim prefix="AND (" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'T'.toString()">
+                            r_title like '%'||#{keyword}||'%' 
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            gym_introduce like '%'||#{keyword}||'%',
+                            review like '%'||#{keyword}||'%'
+                        </when>
+                         <when test="type == 'TC'.toString()">
+                         	r_title like '%'||#{keyword}||'%',
+                            gym_introduce like '%'||#{keyword}||'%',
+                            review like '%'||#{keyword}||'%'
+                        </when>
+                        
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    
+    </sql>
 
-
+	<select id="getSearchPaging" resultType="ReviewBoard">
+    
+    <![CDATA[
+        
+        SELECT review_no, r_title, user_no, score,
+					r_hit, r_thumbs, r_inst_date  FROM(
+        
+                SELECT 
+                rownum  as rn, review_no, r_title, user_no, score,
+								r_hit, r_thumbs, r_inst_date
+                  
+                FROM reviewboard WHERE rownum <= #{pageNum} * #{amount} 
+    ]]>            
+                <if test="keyword != null">
+                	<include refid="boardSearch"></include> 
+                </if>
+    
+    <![CDATA[
+                    
+                )
+                    
+        WHERE rn > (#{pageNum} -1) * #{amount}
+    
+    ]]>
+    
+    </select>
+	
+	 <select id="getTotal" resultType="int">
+    	SELECT count(*) FROM reviewboard
+    	
+    	<if test="keyword != null">
+			WHERE review_no > 0 <include refid="boardSearch"></include>
+        </if>
+        
+    </select>
+	
+	
 </mapper>
