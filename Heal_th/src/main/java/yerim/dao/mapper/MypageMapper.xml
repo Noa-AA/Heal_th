@@ -37,7 +37,7 @@
 		WHERE user_no=#{userNo} and user_id=#{userId} and user_pw=#{userPw}
 	</select>
 	
-	<select id="selectUserPwForNewPw" resultType="int" parameterType="Users">
+	<select id="selectUserPwByUserNoPw" resultType="int" parameterType="Users">
 		SELECT count(*) FROM users
 		WHERE user_no=#{userNo} and user_pw=#{userPw}
 	</select>
@@ -94,5 +94,10 @@
 	  	SELECT user_intro FROM users
 	  	WHERE user_no =#{userNo}
 	  </select>
+	  
+	  <delete id="deleteByuserNoPw" parameterType="Users">
+	  	DELETE FROM users
+	  	WHERE user_no =#{userNo} and user_pw=#{userPw}
+	  </delete>
 	  
 </mapper>

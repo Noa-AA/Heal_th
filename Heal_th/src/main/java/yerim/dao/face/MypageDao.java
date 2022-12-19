@@ -37,7 +37,7 @@ public interface MypageDao {
 	 * @param userPw -회원정보(아이디 제외)
 	 * @return -true/false
 	 */
-	public int selectUserPwForNewPw(Users userPw);
+	public int selectUserPwByUserNoPw(Users userPw);
 
 	/**
 	 * 새로 설정한 비밀번호 update
@@ -97,6 +97,12 @@ public interface MypageDao {
 	 */
 	
 	public Users selectUserIntro(Users user);
+
+	/**
+	 * 회원 탈퇴하기
+	 * @param dropOut
+	 */
+	public void deleteByuserNoPw(Users dropOut);
 
 
 

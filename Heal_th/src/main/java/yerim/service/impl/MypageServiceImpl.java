@@ -144,8 +144,9 @@ public class MypageServiceImpl implements MypageService {
 
 		//세션에 있는 유저번호 DTO에 담기
 		userPw.setUserNo((int)session.getAttribute("userNo"));
-		
-		if(mypageDao.selectUserPwForNewPw(userPw)>0) {
+	
+		if(mypageDao.selectUserPwByUserNoPw(userPw)>0) {
+			logger.info("조회할 정보 {}",userPw);
 			logger.info("현재 사용중인 비밀번호 ");
 			return false;
 		}
@@ -263,5 +264,11 @@ public class MypageServiceImpl implements MypageService {
 		 Users introSelect = mypageDao.selectUserIntro(user);
 		 
 		 return introSelect;
+	}
+	 
+	 @Override
+	public void dropOtuExe(Users dropOut) {
+		 logger.info("dropOutExe 실행");
+		 mypageDao.deleteByuserNoPw(dropOut);
 	}
 }

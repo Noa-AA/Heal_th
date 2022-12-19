@@ -223,5 +223,35 @@ public class MypageController {
 		return "redirect:/mypage/main";
 	}
 	
+
+	@GetMapping("/dropOut")
+	public void userDropOut() {
+		logger.info("dropOut [GET]");
+	}
 	
+	@PostMapping("/dropOut")
+	public String dropOutExe(HttpSession session, Users dropOut,Model model) {
+		logger.info("/mypage/dropOutExe [POST]");
+		
+		
+			
+		//입력된 유저번호 맞는지 확인처리
+		boolean resultDrop = mypageService.getchkPw(dropOut, session);
+		
+		logger.info("비밀번호 일치 여부 {}",resultDrop);
+		
+		if(!resultDrop) { //false = 비밀번호 일치
+			//회원 탈퇴하기
+			mypageService.dropOtuExe(dropOut);
+			//세션 지우기
+			session.invalidate();
+			return "redirect:/login/login";
+		}else { //비밀번호 불일치
+			//모델값 전달
+			model.addAttribute("resultDrop", resultDrop);
+			return "/mypage/dropOut";
+		}
+		
+//		
+	}
 }

@@ -113,4 +113,10 @@ public interface MypageService {
 	 */
 	public Users getIntro(HttpSession session);
 
+	/**
+	 * 탈퇴 처리하기
+	 * @param dropOut -회원 정보
+	 */
+	public void dropOtuExe(Users dropOut);
+
 }
