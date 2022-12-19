@@ -62,7 +62,15 @@ body{
 	
 		
 		<div id="intro">
-			<a href="/mypage/setProfile">${userIntro.userIntro}</a>
+			<c:choose>
+				<c:when test="${userIntro.userIntro == null}">
+					<a href="/mypage/setProfile">한 줄 소개를 작성해주세요</a>
+				</c:when>
+				<c:otherwise>
+					<a href="/mypage/setProfile">${userIntro.userIntro}</a>
+				</c:otherwise>
+			
+			</c:choose>
 		</div>
 	
 		<div id="manageInfo">
@@ -72,7 +80,8 @@ body{
 					<li class="info updateUser"><a href="/mypage/updateInfo">회원 정보 변경</a></li>
 					<li class="info updatePw"><a href="/mypage/updatePw">비밀번호 변경</a></li>
 					<li class="info updayBody">Body 관리</li>
-					<li class="info dropOut">탈퇴하기</li>
+					<li class="info dropOut"><a href="/mypage/dropOut">탈퇴하기</a></li>
+					
 				
 				</ul>
 					

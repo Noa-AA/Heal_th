@@ -52,14 +52,18 @@
 	 	SELECT count(*) FROM PhotoFile
 	 	WHERE user_no =#{userNo}
 	 </select>
+	 <select id="selectfileNo" resultType="int" parameterType="PhotoFile"> 
+	 	SELECT file_no FROM PhotoFile
+	 	WHERE user_no =#{userNo}
 	 
-	 <update id="updateProfile" parameterType="PhotoFile">
+	 </select>
+	 
+	 <update id="updateProfile" parameterType="PhotoFile" >
 	 	UPDATE photofile
 	 	SET
-			file_no = #{fileNo},
 			origin_name =#{originName},
 			stored_name =#{storedName}
-		WHERE user_no = #{userNo}
+		WHERE user_no = #{userNo} and file_no = #{fileNo}
 	 
 	 </update>
 	 

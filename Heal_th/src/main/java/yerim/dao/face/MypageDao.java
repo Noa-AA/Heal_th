@@ -63,6 +63,12 @@ public interface MypageDao {
 	 * @param photoFile
 	 */
 	public void insertProfile(PhotoFile photoFile);
+	/**
+	 * 파일 번호 조회하기
+	 * @param photoFile
+	 * @return -파일 번호
+	 */
+	public int selectfileNo(PhotoFile photoFile);
 
 	/**
 	 * 회원 사진 조회해오기
@@ -91,6 +97,7 @@ public interface MypageDao {
 	 */
 	
 	public Users selectUserIntro(Users user);
+
 
 
 }

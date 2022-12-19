@@ -204,9 +204,18 @@ public class MypageServiceImpl implements MypageService {
 		   photoFile.setStoredName(storedName);
 		   
 		 //파일 insert 또는 update
-		   if(mypageDao.selectIsProfile(photoFile)>0){
+		  
+		  
+		   if(mypageDao.selectIsProfile(photoFile)> 0){
 			   logger.info("사진 있음 -update하기");
+			
+			//파일번호 구하기
+			   int fileNo = mypageDao.selectfileNo(photoFile);
+			   logger.info("파일 번호 : {}",fileNo);
+			   photoFile.setFileNo(fileNo);
+			   
 			   mypageDao.updateProfile(photoFile);
+			  	
 		   }else {
 			   //파일 insert
 			   logger.info("사진 없음 - insert하기");
@@ -218,7 +227,7 @@ public class MypageServiceImpl implements MypageService {
 	 @Override
 	public PhotoFile getPhoto(HttpSession session,PhotoFile profile) {
 		 
-		 logger.info("getPhot - 프로필 사진 가져오기");
+		 logger.info("getPhoto - 프로필 사진 가져오기");
 		 
 		 //세션에 회원 정보 저장하기
 		 profile.setUserNo((int)session.getAttribute("userNo"));
@@ -237,6 +246,7 @@ public class MypageServiceImpl implements MypageService {
 		 logger.info("한줄 소개 : {}",intro);
 		 
 		 if(intro.getUserIntro().equals("") || intro.getUserIntro() == null) { //한줄 소개 안적었을 때의 처리
+			 	logger.info("한줄 소개 없음");
 			 return;
 		 }
 		 
