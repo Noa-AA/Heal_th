@@ -6,15 +6,19 @@ import java.util.List;
 import hyanghee.dto.Beforeafter;
 import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
+import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
 public interface BfBoardService {
 
-	
+	//페이징
 	public BoardPaging getPaging(int curPage);
 
 	//게시글 목록
 	public List<Beforeafter> list(BoardPaging boardPaging);
+	
+	//공지사항 목록
+	public List<Notice> notice(BoardPaging boardPaging);
 
 	//게시글 작성
 	public void insertBfBoard(Beforeafter bfBoard);
@@ -38,6 +42,12 @@ public interface BfBoardService {
 	public Beforeafter getPage(int bfNo);
 
 	//포인트
+	public List<Users> insertPoint(int userno);
+
+	public Users getPoint(Users point);
+
+
+
 
 
 

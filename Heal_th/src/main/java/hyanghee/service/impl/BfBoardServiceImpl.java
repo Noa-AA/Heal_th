@@ -14,6 +14,7 @@ import hyanghee.dto.Beforeafter;
 import hyanghee.service.face.BfBoardService;
 import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
+import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
 @Service
@@ -145,6 +146,25 @@ public class BfBoardServiceImpl implements BfBoardService {
 	@Override
 	public Beforeafter getPage(int bfNo) {
 		return bfBoardDao.getPage(bfNo);
+	}
+
+
+	@Override
+	public List<Users> insertPoint(int userno) {
+		return bfBoardDao.insertPoint(userno);
+	}
+
+
+	@Override
+	public Users getPoint(Users point) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<Notice> notice(BoardPaging boardPaging) {
+		return bfBoardDao.noticeList(boardPaging);
 	}
 
 

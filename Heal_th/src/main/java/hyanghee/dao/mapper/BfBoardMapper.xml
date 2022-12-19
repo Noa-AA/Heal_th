@@ -24,6 +24,15 @@
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
+	<select id="noticeList" resultType="Notice" parameterType="BoardPaging">
+	<![CDATA[
+		SELECT * FROM (
+			SELECT * FROM notice ORDER BY notice_no DESC ) 
+		WHERE ROWNUM <=3
+		ORDER BY notice_no DESC
+	]]>
+	</select>
+	
 	<select id="selectUserInfo" resultType="Users" parameterType="int">
 		SELECT * FROM users
 		WHERE user_no = #{userno }
@@ -170,7 +179,8 @@
 
 
 	<update id="updatePoint">
-		UPDATE user SET point = point + #{point}
+		UPDATE users 
+			SET point = point + #{point}
 		WHERE user_no = #{userno}
 	</update>
 
