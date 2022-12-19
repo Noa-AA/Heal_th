@@ -21,4 +21,11 @@ public interface ScrapDao {
 	 */
 	public List<Scrap> selectList(Scrap scrap);
 
+	/**
+	 * 스크랩 삭제하기
+	 * 
+	 * @param scrapNo 삭제할 스크랩 번호
+	 */
+	public void deleteScrap(int scrapNo);
+
 }
