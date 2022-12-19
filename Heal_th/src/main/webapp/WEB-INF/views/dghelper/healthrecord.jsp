@@ -153,12 +153,11 @@ ul {
 }
 #content {
 	min-height: 250px;
-	width: 550px;
+	width: 550px; 
 	padding: 20px;
 	border-radius: 8px;
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
 	text-align: center;
-	border: 1px solid #9d9d9d;
 }
 
 #recordNo {

@@ -12,7 +12,7 @@
 .text-center {
 	display: flex;
 	justify-content: center;
-	margin-top: 40px;
+	margin-top: 50px;
 }
 
 .pagination {
@@ -51,17 +51,107 @@
 
 /* 테이블~~~ */
 
+#table {
+	margin-top: 16px;
+}
+
 #titleTr {
-	height: 50px;
+	display: flex;
+	height: 56px;
 	border-top: 1px solid #333;
 	border-bottom: 1px solid #e3e3e3;
 	background-color: #f2f7fc;
+	align-items: center;
 }
 
-#contentTr {
+.contentTr {
+	display: flex;
 	height: 50px;
 	border-bottom: 1px solid #e3e3e3;
+	align-items: center;
+	color: #666;
 }
+
+
+/* 번호 */
+.contentTr > td:nth-child(1), #titleTr > th:nth-child(1) {
+	width: 5%;
+	display: flex;
+	justify-content: center;
+}
+
+/* 회원 번호 */
+.contentTr > td:nth-child(2), #titleTr > th:nth-child(2) {
+	width: 5%;
+	display: flex;
+	justify-content: center;
+}
+
+/* 아이디 */
+.contentTr > td:nth-child(3), #titleTr > th:nth-child(3) {
+	width: 10%;
+	display: flex;
+	justify-content: center;
+}
+
+/* 닉네임 */
+.contentTr > td:nth-child(4), #titleTr > th:nth-child(4) {
+	width: 10%;
+	display: flex;
+	justify-content: center;
+}
+
+/* 이름 */
+.contentTr > td:nth-child(5), #titleTr > th:nth-child(5) {
+	width: 8%;
+	display: flex;
+	justify-content: center;
+}
+
+/* 성별 */
+.contentTr > td:nth-child(6), #titleTr > th:nth-child(6) {
+	width: 6%;
+	display: flex;
+	justify-content: center;
+}
+
+/* 가입일 */
+.contentTr > td:nth-child(7), #titleTr > th:nth-child(7) {
+	width: 14%;
+	display: flex;
+	justify-content: center;
+}
+
+/* 이메일 */
+.contentTr > td:nth-child(8), #titleTr > th:nth-child(8) {
+	width: 18%;
+	display: flex;
+	justify-content: center;
+}
+
+/* 회원등급 */
+.contentTr > td:nth-child(9), #titleTr > th:nth-child(9) {
+	width: 6%;
+	display: flex;
+	justify-content: center;
+}
+
+/* 득근머니 */
+.contentTr > td:nth-child(10), #titleTr > th:nth-child(10) {
+	width: 8%;
+	display: flex;
+	justify-content: center;
+}
+
+/* 포인트 */
+.contentTr > td:nth-child(11), #titleTr > th:nth-child(11) {
+	width: 10%;
+	display: flex;
+	justify-content: center;
+}
+
+
+
 
 
 
@@ -73,29 +163,38 @@
 <h3>회원 목록</h3>
 
 
-	<table class="table">
+	<table id="table">
 		<tr id="titleTr">
 			<th>번호</th>
-			<th>회원번호</th>
-			<th>닉네임</th>
+			<th>회원 번호</th>
 			<th>아이디</th>
+			<th>닉네임</th>
 			<th>이름</th>
 			<th>성별</th>
 			<th>가입일</th>
+			<th>이메일</th>
+			<th>회원등급</th>
+			<th>득근머니</th>
 			<th>포인트</th>
 		</tr>
 		
 		<c:forEach items="${userList }" var="u">
 		<c:set var="i" value="${i+1 }" />
-		<tr id="contentTr">
+		<tr class="contentTr">
 			<td>${i }</td>
 			<td>${u.userNo }</td>
-			<td>${u.userNick }</td>
 			<td>${u.userId }</td>
+			<td>${u.userNick }</td>
 			<td>${u.userName }</td>
-			<td>${u.userGender }</td>
-			<td><fmt:formatDate value="${u.userJoinDate }" pattern="a hh:ss" /></td>
-			<td>${u.point }</td>
+			<td>
+				<c:if test="${u.userGender eq 'male'}">남자</c:if>
+				<c:if test="${u.userGender eq 'female'}">여자</c:if>
+			</td>
+			<td><fmt:formatDate value="${u.userJoinDate }" pattern="yyyy년MM월dd일" /></td>
+			<td>${u.userEmail }</td>
+			<td>${u.rankingNo }</td>
+			<td>${u.dgMoney }득근</td>
+			<td>${u.point }포인트</td>
 		</tr>
 		</c:forEach>
 	</table>
@@ -157,6 +256,45 @@
 		
 		</ul>
 	</div>
+	
+	
+<!-- 	<form id="moveForm" method="get"> -->
+<%-- 		<input type="hidden" id="bfNo" name="bfNo" value='<c:out value="${pageInfo.bfNo}"/>'> --%>
+<%-- 		<input type="hidden" name="pageNum" value="${userMaker.userSearch.pageNum }"> --%>
+<%-- 		<input type="hidden" name="amount" value="${userMaker.userSearch.amount }"> --%>
+<%-- 		<input type="hidden" name="keyword" value="${userMaker.userSearch.keyword }"> --%>
+<%-- 		<input type="hidden" name="type" value="${userMaker.userSearch.type }"> --%>
+<!-- 	</form> -->
+	
+	<!-- 검색 기능 -->
+	<div class="row">
+		<form action="/admin/user" method=post name="search">
+
+			<select name="type" id="type">
+				<option value="userNick" <c:out value="${userMaker.userSearch.type eq 'userNick'?'selected':'' }"/> >닉네임</option>
+				<option value="userName" <c:out value="${userMaker.userSearch.type eq 'userName'?'selected':'' }"/> >이름</option>
+			</select>
+			<input id="searchText" type="text" name="keyword" value="${userMaker.userSearch.keyword }" placeholder="search...">
+			<button type="submit">검색</button>
+
+		</form>
+	</div>
+	
+	
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
