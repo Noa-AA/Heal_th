@@ -3,6 +3,7 @@ package daeyeon.dao.face;
 import java.util.List;
 
 import daeyeon.util.AdminPaging;
+import daeyeon.util.UserSearch;
 import yerim.dto.Users;
 
 public interface AdminUserDao {
@@ -23,6 +24,15 @@ public interface AdminUserDao {
 	 * @return - 조회된 회원 리스트
 	 */
 	public List<Users> selectUsers(AdminPaging adminPaging);
+
+	
+	/**
+	 * 검색
+	 * 
+	 * @return
+	 */
+	public int selectSearchCntAll(AdminPaging adminPaging);
+
 
 	
 }
