@@ -26,18 +26,18 @@ public class CommentController {
 	
 	@GetMapping("/board")
 	public void comBoard(
-			Model model
-			, Comment comment
+//			Model model
+//			, Comment comment
 			) {
 		logger.info("/comment/board [GET]");
 //		comment.setBoardNo(1);
 //		comment.setCategoryNo(1);
-		List<Comment> commentList = commentService.list(comment);
-		
-		for( Comment c : commentList ) logger.info("{}",c);
-		
-		//모델값 전달
-		model.addAttribute("commentList", commentList);
+//		List<Comment> commentList = commentService.list(comment);
+//		
+//		for( Comment c : commentList ) logger.info("{}",c);
+//		
+//		//모델값 전달
+//		model.addAttribute("commentList", commentList);
 	}
 
 	
