@@ -15,7 +15,7 @@
 	
 	<!-- /admin/user -->
 	<!-- 회원 전체 리스트 조회 -->
-	<select id="selectUsers" resultType="Users" parameterType="adminPaging">
+	<select id="selectUsers" resultType="Users" parameterType="AdminPaging">
 		SELECT * FROM (
 			SELECT rownum rnum, R.* FROM (
 			      SELECT * FROM users
@@ -27,8 +27,47 @@
 	
 	<!-- admin/userSearch -->
 	<select id="selectSearchCntAll" resultType="int" parameterType="AdminPaging">
-		SELECT count(*) FROM users
+		SELECT count(*) FROM users 
+		<where>
+			<choose>
+				<when test="type != null and type.equals('userNick')">
+					AND user_nick LIKE '%' || #{keyword } || '%'
+				</when>
+				<when test="type != null and type.equals('userName')">
+					AND user_name LIKE '%' || #{keyword } || '%'
+				</when>
+			</choose>
+		</where>
+		ORDER BY user_no DESC
+	</select>
+	
+	
+	<select id="selectSearchUsers" resultType="Users" parameterType="AdminPaging">
+		SELECT * FROM (
+			SELECT rownum rnum, R.* FROM (
+				SELECT * FROM users 
+				<where>
+					<choose>
+						<when test="type != null and type.equals('userNick')">
+							AND user_nick LIKE '%' || #{keyword } || '%'
+						</when>
+						<when test="type != null and type.equals('userName')">
+							AND user_name LIKE '%' || #{keyword } || '%'
+						</when>
+					</choose>
+				</where>
+				ORDER BY user_no 
+				) R
+			) RECORD
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
 	
 </mapper>
+
+
+
+
+
+
+

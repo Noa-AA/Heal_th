@@ -59,6 +59,8 @@ public class ChatServiceImpl implements ChatService {
 		//게시글 목록 조회 - ChatDao 이용
 		List<Users> userList = chatDao.selectUsers(chatIntroPaging); 
 		
+		//나랑 같이 방에 소속된  
+		
 		return userList;
 	}
 	

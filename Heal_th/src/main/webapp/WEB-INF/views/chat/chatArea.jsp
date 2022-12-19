@@ -15,6 +15,9 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+
+
 <script type="text/javascript">
 $(document).ready(function() {
 
@@ -34,7 +37,7 @@ $(document).ready(function() {
             }
     })
     
-	
+    $( 'a:contains("마지")' ).css( 'color', 'red' );
 	
 	
 
@@ -234,6 +237,7 @@ button {
 		<div id="myNick">
 			${roomNo.userNick }
 		</div>
+		<button type="submit" id="searchTxt	" ><i class="fas fa-search"></i></button>
 	</div>
 	
 	<%	Date date = new Date(); %>
@@ -290,15 +294,7 @@ button {
 </div> <!-- chatDiv -->      
 	
 	
-<%-- if (id[0] == "${senderNick }") { --%>
-<!-- 	$("#messages").append( "<div id='senderMsg'><a id='timeS'>" + dateInfo + "</a><a id='msgS'>" + data + "</a></div>"); -->
-<%-- } else if( id[0] != "${senderNick }" && id[0] != "createOk" ) { --%>
-<!-- 	$("#messages").append( "<div id='receiverMsg'><a id='msgR'>" + data + "</a><a id='timeR'>" + dateInfo + "</a></div>"); -->
-<!-- }  -->
-	
-	
-	
-	
+		
 	
 
 
