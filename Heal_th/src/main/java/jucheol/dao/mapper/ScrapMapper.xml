@@ -23,4 +23,9 @@
 		ORDER BY scrap_no desc
 	
 	</select>
+	
+	<delete id="deleteScrap" parameterType="int">
+		DELETE scrap
+		WHERE scrap_no = #{scrapNo}	
+	</delete>
 </mapper>

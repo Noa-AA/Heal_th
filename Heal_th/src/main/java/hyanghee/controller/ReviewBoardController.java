@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import hyanghee.dto.ReviewBoard;
 import hyanghee.service.face.ReviewBoardService;
+import hyanghee.util.BoardPageMaker;
 import hyanghee.util.BoardPaging;
+import hyanghee.util.BoardSearch;
+import saebyeol.dto.Notice;
 
 @Controller
 public class ReviewBoardController {
@@ -32,15 +35,22 @@ public class ReviewBoardController {
 		@RequestMapping("/board/reviewBoard")
 		public void list(
 				@RequestParam(defaultValue = "0") int curPage
-				, Model model ) {
+				, Model model, BoardSearch boardSearch ) {
 			
 			BoardPaging boardPaging = reviewBoardService.getPaging(curPage);
 			logger.info("{}", boardPaging);
 			model.addAttribute("BoardPaging", boardPaging);
 			
-			List<ReviewBoard> list = reviewBoardService.list(boardPaging);
-			for( ReviewBoard b : list )	logger.info("{}", b);
-			model.addAttribute("list", list);
+			List<Notice> notice = reviewBoardService.notice(boardPaging);
+			for( Notice n : notice )	logger.info("{}", n);
+			model.addAttribute("notice", notice);
+			
+			//검색
+			model.addAttribute("boardSearch", reviewBoardService.getSearchPaging(boardSearch));
+			int total = reviewBoardService.getTotal(boardSearch);
+			
+			BoardPageMaker pageMake = new BoardPageMaker(boardSearch, total);
+			model.addAttribute("pageMaker", pageMake);
 			
 		}
 		

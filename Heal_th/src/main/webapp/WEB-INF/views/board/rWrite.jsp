@@ -227,13 +227,7 @@ function updateContents() {
 		<input type="radio" name="score" value="2.0" id="rate4"><label for="rate4">★</label>
 		<input type="radio" name="score" value="1.0" id="rate5"><label for="rate5">★</label>
 		</fieldset>
-	
-	
-
 </div>
-
-
-
 	
 <div class="form-group">
 	<label for=review">후기글 작성</label>

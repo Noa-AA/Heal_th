@@ -63,10 +63,6 @@ public class KakaoLoginServiceImple implements KakaoLoginService {
 			 String birthday =(String)kakao_account.get("birthday"); //생일
 			 String userGender = (String) kakao_account.get("gender"); //성별
 	
-			 //제공되지 않는 것들
-//			 String userName = (String)kakao_account.get("name"); //이름
-//			 String birthyear = (String)kakao_account.get("birthyear"); //출생연도
-//			 String userPhone = (String)kakao_account.get("phone_number"); //연락서
 
 			 //kakao_account속 profile파싱
 			 JSONObject profile = (JSONObject) kakao_account.get("profile");
@@ -88,7 +84,6 @@ public class KakaoLoginServiceImple implements KakaoLoginService {
 			 kakaoUserInfo.setUserNick(userNick);
 			 kakaoUserInfo.setUserEmail(userEmail);
 			 kakaoUserInfo.setUserGender(userGender);
-			 kakaoUserInfo.setUserPhoto(userPhoto);
 		} catch (RestClientException | URISyntaxException | ParseException e) {
 			e.printStackTrace();
 		}

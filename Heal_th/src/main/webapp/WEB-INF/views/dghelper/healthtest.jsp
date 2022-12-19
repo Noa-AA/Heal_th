@@ -14,6 +14,7 @@ $(document).ready(function(){
 		console.log("테스트를 시작합니다 !")
 		$(".start").css("display","none");
 		$(".question1").css("display","block");
+		$(".progress-bar").css("width","26%");
 	})
 	
 	$("#E").click(function(){
@@ -21,6 +22,7 @@ $(document).ready(function(){
 		console.log("E : " + E)
 		$(".question1").css("display","none");
 		$(".question2").css("display","block");
+		$(".progress-bar").css("width","40%");
 	})
 	
 	$("#I").click(function(){
@@ -28,6 +30,7 @@ $(document).ready(function(){
 		console.log("I : " + I)
 		$(".question1").css("display","none");
 		$(".question2").css("display","block");
+		$(".progress-bar").css("width","40%");
 	})
 
 	$("#E2").click(function(){
@@ -35,6 +38,7 @@ $(document).ready(function(){
 		console.log("E : " + E)
 		$(".question2").css("display","none");
 		$(".question3").css("display","block");
+		$(".progress-bar").css("width","54%");
 	})
 	
 	$("#I2").click(function(){
@@ -42,6 +46,7 @@ $(document).ready(function(){
 		console.log("I : " + I)
 		$(".question2").css("display","none");
 		$(".question3").css("display","block");
+		$(".progress-bar").css("width","54%");
 	})
 
 	$("#F3").click(function(){
@@ -49,6 +54,7 @@ $(document).ready(function(){
 		console.log("F : " + F)
 		$(".question3").css("display","none");
 		$(".question4").css("display","block");
+		$(".progress-bar").css("width","68%");
 	})
 	
 	$("#T3").click(function(){
@@ -56,6 +62,7 @@ $(document).ready(function(){
 		console.log("T : " + T)
 		$(".question3").css("display","none");
 		$(".question4").css("display","block");
+		$(".progress-bar").css("width","68%");
 	})
 	
 	$("#E4").click(function(){
@@ -63,6 +70,7 @@ $(document).ready(function(){
 		console.log("E : " + E)
 		$(".question4").css("display","none");
 		$(".question5").css("display","block");
+		$(".progress-bar").css("width","82%");
 	})
 	
 	$("#I4").click(function(){
@@ -70,6 +78,7 @@ $(document).ready(function(){
 		console.log("I : " + I)
 		$(".question4").css("display","none");
 		$(".question5").css("display","block");
+		$(".progress-bar").css("width","82%");
 	})
 
 	$("#T5").click(function(){
@@ -77,6 +86,7 @@ $(document).ready(function(){
 		console.log("T : " + T)
 		$(".question5").css("display","none");
 		$(".question6").css("display","block");
+		$(".progress-bar").css("width","95%");
 	})
 	
 	$("#F5").click(function(){
@@ -84,6 +94,7 @@ $(document).ready(function(){
 		console.log("F : " + F)
 		$(".question5").css("display","none");
 		$(".question6").css("display","block");
+		$(".progress-bar").css("width","95%");
 	})
 
 	$("#T6").click(function(){
@@ -494,6 +505,19 @@ body {
 [class^="result"] p:nth-child(1) {
 	font-size: 30px;
 }
+
+.pro-wrap {
+	position: absolute;
+    top: 245px;
+	width: 400px;
+	box-shadow: 1px 1px 5px 0px rgb(0 0 0 / 3%);
+}
+.progress-bar {
+    width: 12%;
+    height: 20px;
+    animation: progressbar 2s ease-out;
+}
+
 </style>
 <body>
 <div id="subvisual">
@@ -517,9 +541,12 @@ body {
 	<div class="question-title"></div>
 	<div class="question-container">
 		<div class="mbti-content">
+			<div class="pro-wrap">
+				<div class="progress-bar"></div>
+			</div>
 			<div class="start" style="display: block;">
 				<div class="mbti-text">
-					<p>안녕 나는 득근이라고해</p>
+					<p>안녕 ! 나는 득근이라고해</p>
 					<p>밑에 있는 버튼을 눌러서</p>
 					<p>너에게 맞는 운동을 찾아보자 !</p>
 				</div>
@@ -529,6 +556,9 @@ body {
 			</div>
 		</div>
 		<div class="mbti-content">
+			<div class="pro-wrap">
+				<div class="progress-bar"></div>
+			</div>
 			<div class="question1" style="display: none;">
 				<div class="mbti-text">
 					<p>운동을 해야 하지만 바깥의 날씨는 영하 5도...</p>
@@ -540,6 +570,9 @@ body {
 			</div>
 		</div>
 		<div class="mbti-content">
+			<div class="pro-wrap">
+				<div class="progress-bar"></div>
+			</div>
 			<div class="question2" style="display: none;">
 				<div class="mbti-text">
 					<p>집 앞 헬스장에서 그룹 PT 무료체험 이벤트를 하고있다 !</p>
@@ -551,6 +584,9 @@ body {
 			</div>
 		</div>
 		<div class="mbti-content">
+			<div class="pro-wrap">
+				<div class="progress-bar"></div>
+			</div>
 			<div class="question3" style="display: none;">
 				<div class="mbti-text">
 					<p>친구가 운동을 하다가 다쳤다. ㅠ_ㅠ</p>
@@ -562,6 +598,9 @@ body {
 			</div>
 		</div>
 		<div class="mbti-content">
+			<div class="pro-wrap">
+				<div class="progress-bar"></div>
+			</div>
 			<div class="question4" style="display: none;">
 				<div class="mbti-text">
 					<p>헬스장에서 어떤 사람이</p>
@@ -574,6 +613,9 @@ body {
 			</div>
 		</div>
 		<div class="mbti-content">
+			<div class="pro-wrap">
+				<div class="progress-bar"></div>
+			</div>
 			<div class="question5" style="display: none;">
 				<div class="mbti-text">
 					<p>운동을 시작하고 살이 빠지기 시작했다 !</p>
@@ -586,6 +628,9 @@ body {
 			</div>
 		</div>
 		<div class="mbti-content">
+			<div class="pro-wrap">
+				<div class="progress-bar"></div>
+			</div>
 			<div class="question6" style="display: none;">
 				<div class="mbti-text">
 					<p>운동 영양식품이 다 떨어져 가는데,</p>
