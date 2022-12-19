@@ -37,7 +37,7 @@
 		WHERE user_no=#{userNo} and user_id=#{userId} and user_pw=#{userPw}
 	</select>
 	
-	<select id="selectUserPwForNewPw" resultType="int" parameterType="Users">
+	<select id="selectUserPwByUserNoPw" resultType="int" parameterType="Users">
 		SELECT count(*) FROM users
 		WHERE user_no=#{userNo} and user_pw=#{userPw}
 	</select>
@@ -47,4 +47,57 @@
 		WHERE user_no =#{userNo}
 	</update>
 
+	 <select id="selectIsProfile" resultType="int" parameterType="PhotoFile">
+	 
+	 	SELECT count(*) FROM PhotoFile
+	 	WHERE user_no =#{userNo}
+	 </select>
+	 <select id="selectfileNo" resultType="int" parameterType="PhotoFile"> 
+	 	SELECT file_no FROM PhotoFile
+	 	WHERE user_no =#{userNo}
+	 
+	 </select>
+	 
+	 <update id="updateProfile" parameterType="PhotoFile" >
+	 	UPDATE photofile
+	 	SET
+			origin_name =#{originName},
+			stored_name =#{storedName}
+		WHERE user_no = #{userNo} and file_no = #{fileNo}
+	 
+	 </update>
+	 
+	  <insert id="insertProfile" parameterType="PhotoFile">
+	  	INSERT INTO photofile (file_no,origin_name,stored_name,user_no)
+	  	VALUES (photoFile_seq.nextval,#{originName},#{storedName},#{userNo})
+	  </insert>
+	  
+	  
+	  <select id="selectStoredName" parameterType="PhotoFile" resultType="PhotoFile">
+	  	SELECT origin_name,stored_name FROM photofile
+	  	WHERE user_no =#{userNo}
+	  </select>
+	  
+	  <select id="selectIsIntro" parameterType="Users" resultType="int">
+	  	SELECT count(*) FROM users
+	  	WHERE user_no= #{userNo} and user_intro =#{userIntro}
+	  
+	  </select>
+	  
+	  <update id="updateIntro" parameterType="Users">
+	  	UPDATE users
+	  	SET user_intro =#{userIntro}
+	  	WHERE user_no =#{userNo}
+	  </update>
+	  
+	  <select id="selectUserIntro" parameterType="Users" resultType="Users">
+	  	SELECT user_intro FROM users
+	  	WHERE user_no =#{userNo}
+	  </select>
+	  
+	  <delete id="deleteByuserNoPw" parameterType="Users">
+	  	DELETE FROM users
+	  	WHERE user_no =#{userNo} and user_pw=#{userPw}
+	  </delete>
+	  
 </mapper>
