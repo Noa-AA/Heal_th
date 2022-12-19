@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import hyanghee.dto.DietBoard;
 import hyanghee.service.face.DietBoardService;
+import hyanghee.util.BoardPageMaker;
 import hyanghee.util.BoardPaging;
+import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
+import saebyeol.dto.Notice;
 
 @Controller
 public class DietBoardController {
@@ -28,50 +31,54 @@ public class DietBoardController {
 	//서비스 객체
 	@Autowired private DietBoardService dietBoardService;	
 		
+	//게시글 리스트
+	@RequestMapping("/board/dietBoard")
+	public void list(
+			@RequestParam(defaultValue = "0") int curPage
+			, Model model, BoardSearch boardSearch ) {
 		
-		
-		//게시글 리스트
-		@RequestMapping("/board/dietBoard")
-		public void list(
-				@RequestParam(defaultValue = "0") int curPage
-				, Model model ) {
+		BoardPaging boardPaging = dietBoardService.getPaging(curPage);
+		logger.info("{}", boardPaging);
+		model.addAttribute("BoardPaging", boardPaging);
 			
-			BoardPaging boardPaging = dietBoardService.getPaging(curPage);
-			logger.info("{}", boardPaging);
-			model.addAttribute("BoardPaging", boardPaging);
-			
-			List<DietBoard> list = dietBoardService.list(boardPaging);
-			for( DietBoard b : list )	logger.info("{}", b);
-			model.addAttribute("list", list);
-			
-		}
+		List<Notice> notice = dietBoardService.notice(boardPaging);
+		for( Notice n : notice )	logger.info("{}", n);
+		model.addAttribute("notice", notice);
 		
+		//검색
+		model.addAttribute("boardSearch", dietBoardService.getSearchPaging(boardSearch));
+		int total = dietBoardService.getTotal(boardSearch);
 		
-		
-		//게시글 작성
-		@GetMapping("/board/dWrite")
-		public void insertBfBoard() {
-			
-			logger.info("/board/dWrite [GET]");
+		BoardPageMaker pageMake = new BoardPageMaker(boardSearch, total);
+		model.addAttribute("pageMaker", pageMake);
 
-		}
+	}
 		
-		@PostMapping("/board/dWrite")
-		public String insertBoardProc(DietBoard dietBoard,HttpSession session) {
+		
+		
+	//게시글 작성
+	@GetMapping("/board/dWrite")
+	public void insertBfBoard() {
+		logger.info("/board/dWrite [GET]");
+	}
+		
+	
+	@PostMapping("/board/dWrite")
+	public String insertBoardProc(DietBoard dietBoard,HttpSession session) {
+		
+		//테스트용 로그인 userno
+		session.setAttribute("userNo", 7777);
 			
-			//테스트용 로그인 userno
-			session.setAttribute("userNo", 7777);
+		//작성자, 카테고리 정보 추가
+		dietBoard.setUserNo( (int) session.getAttribute("userNo") );
+				
+		logger.info("{}", dietBoard);
+				
+		dietBoardService.insertDietBoard(dietBoard);
 			
-			//작성자, 카테고리 정보 추가
-			dietBoard.setUserNo( (int) session.getAttribute("userNo") );
-//			bfBoard.setCategoryNo( (int) session.getAttribute("categoryNo") );
-			
-			logger.info("{}", dietBoard);
-			
-			dietBoardService.insertDietBoard(dietBoard);
-			
-			return "redirect:/board/dietBoard";
-		}
+		return "redirect:/board/dietBoard";
+		
+	}
 		
 		//게시글 상세 보기
 		@RequestMapping("board/dView")

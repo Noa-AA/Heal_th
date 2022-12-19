@@ -5,6 +5,10 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 
+		$("#cancel").click(function(){
+			console.log("취소하기")
+			history.go(-1)
+		})
 	})
 
 		

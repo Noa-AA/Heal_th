@@ -25,8 +25,13 @@ public class ScrapController {
 	
 	@Autowired private ScrapService scrapService;
 	
-	@GetMapping("/scrap")
+	@GetMapping("/goscrap")
 	public void scrapTest() {
+		logger.info("/scrap/goscrap[GET]");
+	}
+	
+	@GetMapping("/scrap")
+	public void scrap() {
 		logger.info("/scrap/scrap[GET]");
 	}
 	@PostMapping("/add")
@@ -73,10 +78,17 @@ public class ScrapController {
 	}
 	
 	@PostMapping("/delete")
-	public void scrapDelete(
-			int scrapNo
+	public String deleteScrap(
+			Model model
+			,int scrapNo
 			) {
 		logger.info("/scrap/delete[POST]");
+		
+		scrapService.deleteScrap(scrapNo);
+		
+		//모델값 전달
+//		model.addAttribute("commentList", commentList);
+		return "scrap/scrap";
 		
 	}
 	

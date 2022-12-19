@@ -350,8 +350,41 @@ $(document).ready(function(){
 	  } );
 	
 	$("#btnInsert").click(function() {
+		
 		$(this).parents("form").submit();
+		
+// 		$.ajax({
+// 			   url: "/board/bfBoard",
+// 				 data: {point : point},
+// 			   type: "POST"
+// 		   })
+// 		   .done(function(result){
+// 			   const point = result.point; 
+// 			   swal(point.toLocaleString() + "포인트가 적립되었습니다");
+			   
+// 			   const newPoint = Number($("#btnInsert").data("point") + point); 
+// 			   $("#btnInsert").text(newPoint.toLocaleString());
+// 			   $("#btnInsert").data("point", newPoint);
+			   
+// 			   $(".point_number_area").fadeToggle(100);
+// 				htmlWrite(result);  		   
+// 			})
+// 			.fail(function(result){
+// 			   if(!result.responseJSON) {
+// 				   alert("에러");
+// 			   } else {
+// 				   swal(result.responseJSON.errorMsg);
+// 			   }
+// 			})
+
+		})
+		
+		
+		
+		
+		
 	});
+	
 	    
 });
 

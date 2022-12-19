@@ -38,10 +38,10 @@ html {
 
 #btnList {
     width: 100px;
-    background: #ccc;
+    background: #616161;
     font-size: 21px;
     font-weight: bold;
-    color: #c583d6;
+    color: white;
     border: 0 none;
     border-radius: 5px;
     cursor: pointer;
@@ -236,7 +236,7 @@ $(document).ready(function() {
 </table>
 
 <div class="text-center">
-	<button id="btnList" class="btn btn-default">목록</button>
+	<button id="btnList" class="btn btn-primary">목록</button>
 	
 	<c:if test="${userNo eq viewBoard.userNo }">
 		<button id="btnUpdate" class="btn btn-primary">수정</button>
@@ -252,7 +252,7 @@ $(document).ready(function() {
 
 </div><!-- .container end -->
 
-<jsp:include page="../comment/board.jsp" />
+<%-- <jsp:include page="../comment/board.jsp" /> --%>
 
 
 <br><br><br><br><br><br><br><br>
