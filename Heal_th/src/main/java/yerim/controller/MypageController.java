@@ -241,10 +241,8 @@ public class MypageController {
 		logger.info("비밀번호 일치 여부 {}",resultDrop);
 		
 		if(!resultDrop) { //false = 비밀번호 일치
-			//회원 탈퇴하기
-			mypageService.dropOtuExe(dropOut);
-			//세션 지우기
-			session.invalidate();
+			mypageService.dropOtuExe(dropOut); //회원 탈퇴하기
+			session.invalidate();  			//세션 지우기
 			return "redirect:/login/login";
 		}else { //비밀번호 불일치
 			//모델값 전달
