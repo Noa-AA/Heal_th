@@ -158,6 +158,9 @@ ORDER BY chat_time DESC
 		ORDER BY chat_no ASC
 	</select>
 	
+	
+	
+	
 </mapper>
 
 

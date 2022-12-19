@@ -39,29 +39,15 @@ body{
 }
 
 #btnWrite {
-    background: #7474BF;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #7ca3f5, #c583d6);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #7ca3f5, #c583d6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #7ca3f5;
     color: #fff;
 	border: none;
+	border-radius: 7px;
+	font-size: 22px;
 	font-weight: bold;
-	width: 60px;
-	height: 34px;
-	float: right;
-	margin-top: -28px;
+	width: 173px;
+	height: 50px;
 }
-
-/* #totalList { */
-/*     background: #7ca3f5; */
-/*     color: #fff; */
-/* 	border: none; */
-/* 	font-weight: bold; */
-/* 	width: 120px; */
-/* 	height: 34px; */
-/* 	float: right; */
-/* 	margin-top: -32px; */
-/* 	border-radius: 7px; */
-/* } */
 
 #totalList {
     color: #7ca3f5;
@@ -70,7 +56,8 @@ body{
 	width: 120px;
 	height: 34px;
 	float: right;
-	margin-top: -25px;
+    margin-top: 15px;
+	
 }
 
 #search {
@@ -144,6 +131,17 @@ body{
 	margin-bottom: -36px;
 }
 
+#noticeStrong{
+	background: #ff4057;
+    font-weight: bold;
+    color: white;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 16px;
+	
+}
 
 </style>
 
@@ -195,11 +193,23 @@ $(document).ready(function() {
 		moveForm.submit();
 	});
 	
+	
+	//검색창 엔터시 검색 기능 
+	$("#searchText").keydown(function (key) {
+		if (key.keyCode == 13) {
+			 
+            // 엔터키가 눌렸을 때 실행할 내용
+			$("#searchIcon").click();
+       }
+	})
+	
+	
+	//게시글 작성 버튼
 	$("#btnWrite").click(function() {
 		$(location).attr("href", "/board/bfWrite")
 	})
 	
-	//메뉴 버튼
+	//2Depth 메뉴 버튼
 	 $(".tab_menu li").click(function () {
 	        var $this = $(this),
 	            tabId = $this.data("tab"),
@@ -214,10 +224,10 @@ $(document).ready(function() {
 	
 
 
-
 })
-</script>
 
+
+</script>
 
 
 
@@ -295,7 +305,7 @@ $(document).ready(function() {
 
 
 <div id="boardList">
-<span>비포 애프터 게시판</span>
+	<h3 style="font-weight: bold; color: #06364E; font-size: 30px;">비포 애프터 게시판</h3>
 </div>
 
 <!-- <div class="beforeafter" id="search" name="search"> -->
@@ -320,17 +330,16 @@ $(document).ready(function() {
 
     <div>
     	<a href="/board/bfBoard" id="totalList" name="totalList">전체 게시글 보기 ▼</a>
-<!--         <button type="button" id="totalList" name="totalList">전체 게시글 보기 ▼</button>  -->
     </div>
 
 
 
-<br>
-<hr>
+<br><br><br>
 
-<table class="table table-hover table-condensed">
+<div id="anyList">
+<table class="table table-hover">
 <thead>
-	<tr>
+	<tr style="border-top: 3px solid #84C9E3;">
 		<th style="width: 10%;">글번호</th>
 		<th style="width: 45%;">제목</th>
 		<th style="width: 20%;">작성자</th>
@@ -338,30 +347,56 @@ $(document).ready(function() {
 		<th style="width: 10%;">좋아요</th>
 		<th style="width: 15%;">작성일</th>
 	</tr>
+
 </thead>
 <tbody>
-<c:forEach items="${boardSearch }" var="board">
-	<tr>
-		<td>${board.bfNo }</td>
-		<td><a href="${path}/board/bfView?bfNo=${board.bfNo}">${board.bfTitle }</a></td>
-		<td>${board.userNo }</td>
-		<td>${board.bfHit }</td>
-		<td>${board.bfThumbs }</td>
-		<td><fmt:formatDate value="${board.bfInstDate }" pattern="yy-MM-dd"/></td>
+
+<!-- 공지사항 -->
+<c:forEach items="${notice}" var="notice">
+	<tr id="warn">
+		<td><strong id="noticeStrong">공지</strong> </td>
+		<td><a href="/notice/view?noticeNo=${notice.noticeNo}&noticeNo=3&"> <strong>${notice.noticeTtl } </strong></a></td>
+		<td><strong style="color: #0D71A4;">관리자</strong></td>
+		<td>${notice.noticeHit }</td>
+		<td>공지</td>
+		<td><fmt:formatDate value="${notice.noticeDate }" pattern="yyyy-MM-dd" /></td>
+	</tr>
+		
+</c:forEach>
+
+<!-- 일반 게시글 / 검색결과 -->
+<c:forEach items="${boardSearch }" var="boardSearch">
+	<tr id="searchResult">
+		<td>${boardSearch.bfNo }</td>
+		<td><a href="${path}/board/bfView?bfNo=${boardSearch.bfNo}">${boardSearch.bfTitle }</a></td>
+		<td>${boardSearch.userNo }</td>
+		<td>${boardSearch.bfHit }</td>
+		<td>${boardSearch.bfThumbs }</td>
+		<td><fmt:formatDate value="${boardSearch.bfInstDate }" pattern="yy-MM-dd"/></td>
 	</tr>
 </c:forEach>
+
+<tr  style="border-bottom: 3px solid #84C9E3;"></tr>
+
+
 </tbody>
 </table>
+</div>
+
 
 <span class="pull-right">total : ${boardPaging.totalCount }</span>
 <div class="clearfix"></div>
 
 <c:import url="/WEB-INF/views/board/paging.jsp" />
 
+<br><br><br>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 <div class="page-content page-container" id="page-content">
     <div class="padding">
-        <div class="row container d-flex justify-content-center"> 
-        	<button type="button" id="btnWrite">글쓰기</button> 
+        <div class="row container d-flex justify-content-center" style="text-align: center;">
+        	<button type="button" id="btnWrite" class="btn btn-warning btn-icon-text animatebutton"><i class="fa fa-check btn-icon-prepend" style="margin-right: 10px;"></i>글쓰기</button> 
+        	
        </div>
     </div>
 </div>

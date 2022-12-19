@@ -11,6 +11,8 @@ import hyanghee.dao.face.ReviewBoardDao;
 import hyanghee.dto.ReviewBoard;
 import hyanghee.service.face.ReviewBoardService;
 import hyanghee.util.BoardPaging;
+import hyanghee.util.BoardSearch;
+import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
 @Service
@@ -118,6 +120,26 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	public void delete(ReviewBoard reviewNo) {
 		reviewBoardDao.delete(reviewNo);
 		
+	}
+
+	@Override
+	public List<Notice> notice(BoardPaging boardPaging) {
+		return reviewBoardDao.noticeList(boardPaging);
+	}
+
+	@Override
+	public List<ReviewBoard> getSearchPaging(BoardSearch boardSearch) {
+		return reviewBoardDao.getSearchPaging(boardSearch);
+	}
+
+	@Override
+	public int getTotal(BoardSearch boardSearch) {
+		return reviewBoardDao.getTotal(boardSearch);
+	}
+
+	@Override
+	public ReviewBoard getPage(int reviewNo) {
+		return reviewBoardDao.getPage(reviewNo);
 	}
 
 	

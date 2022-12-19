@@ -99,7 +99,6 @@ public class NaverLoginServiceImpl implements NaverLoginService {
 			naverUsers.setUserEmail(userEmail);
 			naverUsers.setUserGender(userGender);
 			naverUsers.setUserBirth(birthyear+userBirthday);
-			naverUsers.setUserPhoto(profile_image);
 			naverUsers.setUserPhone(userPhone);
 		} catch (ParseException e) {
 			

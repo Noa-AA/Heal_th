@@ -5,6 +5,7 @@ import java.util.List;
 import hyanghee.dto.Beforeafter;
 import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
+import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
 public interface BfBoardDao {
@@ -37,6 +38,8 @@ public interface BfBoardDao {
 	 */
 	public Users selectUserInfo(int userno);
 	
+	public Users selectPoint(int point);
+	
 	//게시글 삭제
 	public void delete(Beforeafter bfNo);
 
@@ -59,8 +62,13 @@ public interface BfBoardDao {
 
 	public Beforeafter getPage(int bfNo);
 
-	public void updatePoint(int userNo, int point);
+	//공지사항 목록
+	public List<Notice> noticeList(BoardPaging boardPaging);
+
+	//포인트
+	public Users getPoint(int point);
 	
+	public List<Users> updatePoint(int userno);
 	
 	
 }
