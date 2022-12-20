@@ -15,6 +15,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
 
 
@@ -37,6 +38,8 @@ $(document).ready(function() {
             }
     })
     
+    
+    /* 검색 버튼~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     $("#searchBtn").click(function() {
     	var txtVal = $("#searchText").val();
     	console.log( txtVal );
@@ -45,10 +48,7 @@ $(document).ready(function() {
 		var searchT = $("#messages > div > a:contains('" + txtVal + "')")   	
 		$(searchT).css( 'color', 'red' );
 
-// 		var offset = $(searchT).offset(); //해당 위치 반환
-// 		$("#chatArea").animate({scrollTop: offset.top},400);
-		
-		$(searchT).attr("tabindex", -1).focus();
+,		$(searchT).attr("tabindex", -1).focus();
 		
     })
  
@@ -206,7 +206,10 @@ button {
   justify-content: center;
   align-items: center;
   border: none;
+  font-size: 18px;
+  font-weight: 400;
 }
+
 
 
 
@@ -253,12 +256,19 @@ button {
     justify-content: center
 }
 
-#iBLbel > img{
+.material-symbols-outlined {
 	display: inline-flex;
 	align-items: center;
 	width: 22px;
     height: 22px;
-    background-color: #eee;
+    color: #666666;
+    
+	font-variation-settings:
+	'FILL' 1,
+	'wght' 400,
+	'GRAD' 0,
+	'opsz' 48
+   
 }
 
 #sendBtn{
@@ -273,7 +283,7 @@ button {
     background-color: #7ca3f5;
     justify-content: center;
     padding: 0px;
-}
+} 
 
 
 </style>
@@ -343,9 +353,9 @@ button {
 	    <textarea id="msgInput" autocapitalize="off" placeholder="메시지를 입력해주세요"></textarea>
 	   	
 	   	<div id="inputBottom">
-	   		<div id="iBLbel">
-	   			<img id="picTure">
-	   		</div>
+	   		<button id="iBLbel">
+	   			<span class="material-symbols-outlined">image</span>
+	   		</button>
 	   		
 	    	<input type="button" id="sendBtn" value="전송" /> 
 	    </div><!-- inputBottom 끝 -->

@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import daeyeon.service.face.AdminUserService;
-import daeyeon.util.AdminPaging;
+import daeyeon.util.AdminPaymentPaging;
+import daeyeon.util.AdminUserPaging;
+import unhak.dto.PaymentDto;
 import yerim.dto.Users;
 
 @Controller
@@ -30,42 +32,85 @@ public class AdminUserController {
 	public void userList(Model model, String curPage ) {
 		logger.info("/admin/user [GET]");
 		
-		AdminPaging adminPaging = new AdminPaging();
-		adminPaging = adminUserService.getUserPaging(curPage);
-		logger.info("adminPaging : {} ", adminPaging);
+		AdminUserPaging adminUserPaging = new AdminUserPaging();
+		adminUserPaging = adminUserService.getUserPaging(curPage);
+		logger.info("adminPaging : {} ", adminUserPaging);
 		
-		List<Users> userlist = adminUserService.getUserList(adminPaging);	
+		List<Users> userlist = adminUserService.getUserList(adminUserPaging);	
 		
 		logger.info("Admin user View : {} ", userlist);
 		
 		model.addAttribute("userList", userlist);
-		model.addAttribute("paging", adminPaging);
+		model.addAttribute("paging", adminUserPaging);
 	}
 	
 	
 	//검색하기
 	@PostMapping("/user")
-	public void searchUser(Model model, Users users, AdminPaging adminPaging, String curPage) {
+	public void searchUser(Model model, Users users, AdminUserPaging adminUserPaging, String curPage) {
 		logger.info("/admin/user [POST]");
-		logger.info("adminPaging : {}", adminPaging);
+		logger.info("adminUserPaging : {}", adminUserPaging);
 		
-		AdminPaging searchTK = adminPaging;
+		AdminUserPaging searchTK = adminUserPaging;
 		
-		adminPaging = adminUserService.getSearchPaging(adminPaging, curPage);
+		adminUserPaging = adminUserService.getSearchPaging(adminUserPaging, curPage);
 		
-		adminPaging.setType(searchTK.getType());
-		adminPaging.setKeyword(searchTK.getKeyword());
+		adminUserPaging.setType(searchTK.getType());
+		adminUserPaging.setKeyword(searchTK.getKeyword());
 		
 		logger.info("adminPaging : {} ", searchTK);
 		//검색된 회원 조회
-		List<Users> searchList = adminUserService.userSearchlist(adminPaging);
+		List<Users> searchList = adminUserService.userSearchlist(adminUserPaging);
 		
 		logger.info("searchList : {} ", searchList);
 		
 		model.addAttribute("userList", searchList);
-		model.addAttribute("paging", adminPaging);
+		model.addAttribute("paging", adminUserPaging);
 		
 	}
+	
+	
+	
+	//전체 주문목록
+	@GetMapping("/payment")
+	public void paymentList(Model model, String curPage) {
+		logger.info("/admin/payment [GET]");
+			
+		AdminPaymentPaging adminPaymentPaging = new AdminPaymentPaging();
+		adminPaymentPaging = adminUserService.getPaymentPaging(curPage);
+		logger.info("adminPaging : {} ", adminPaymentPaging);
+			
+		List<PaymentDto> paymentlist = adminUserService.getPaymentList(adminPaymentPaging);	
+//			
+//		logger.info("Admin payment View : {} ", paymentlist);
+//			
+		model.addAttribute("paymentList", paymentlist);
+		model.addAttribute("paging", adminPaymentPaging);
+	}
+	
+	//검색하기
+	@PostMapping("/payment")
+	public void searchPaymentList(Model model, Users users, AdminPaymentPaging adminPaymentPaging, String curPage) {
+		logger.info("/admin/user [POST]");
+		logger.info("adminPaymentPaging : {}", adminPaymentPaging);
+			
+		AdminPaymentPaging searchTK = adminPaymentPaging;
+			
+		adminPaymentPaging = adminUserService.getPaymentSearchPaging(adminPaymentPaging, curPage);
+			
+		adminPaymentPaging.setType(searchTK.getType());
+		adminPaymentPaging.setKeyword(searchTK.getKeyword());
+			
+		logger.info("adminPaymentPaging : {} ", searchTK);
+//		검색된 회원 조회
+		List<PaymentDto> searchPaymentList = adminUserService.paymentSearchlist(adminPaymentPaging);
+			
+		logger.info("Admin searchPaymentList View : {} ", searchPaymentList);
+//			
+		model.addAttribute("paymentList", searchPaymentList);
+		model.addAttribute("paging", adminPaymentPaging);
+			
+		}
 	
 		
 }

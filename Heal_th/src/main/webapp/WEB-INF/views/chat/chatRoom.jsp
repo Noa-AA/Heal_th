@@ -225,7 +225,7 @@ button, input {
 	
 	<div id="roomMenu">
 		<div id="myId">
-			${userId }
+			${userId }님 안녕하세요.
 		</div>
 		<c:forEach items="${roomList }" var="room">
 		
