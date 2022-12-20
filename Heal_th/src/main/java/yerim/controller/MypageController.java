@@ -290,5 +290,10 @@ public class MypageController {
 		
 		return weightList;
 	}
+	
+	@GetMapping("/setBodyInfo")
+	public void setBodyInfo() {
+		
+	}
 
 }

@@ -195,7 +195,7 @@ body{
 					<li class="infoTitle updateTitle" >회원 정보 관리</li>
 					<li class="info updateUser"><a href="/mypage/updateInfo">회원 정보 변경</a></li>
 					<li class="info updatePw"><a href="/mypage/updatePw">비밀번호 변경</a></li>
-					<li class="info updayBody">Body 관리</li>
+					<li class="info updayBody"><a href="/mypage/setBodyInfo">Body 관리</a></li>
 					<li class="info dropOut"><a href="/mypage/dropOut">탈퇴하기</a></li>
 					
 				
@@ -209,8 +209,11 @@ body{
 
 	<div id="graph">
 		<div id="graphMsg" style="display: none;"></div>
+
+		<div id="settings"><img id="settingIcon"src="/resources/img/mypage/settings.png"></div>
 	  <!--Div that will hold the pie chart-->
- 	<div id="linechart_material" style="width: 900px; height: 500px"></div>	
+ 		<div id="linechart_material" style="width: 900px; height: 500px"></div>	
+
 	</div>
 	
 	<div id="BodyInfo">
