@@ -25,17 +25,14 @@ public class ScrapController {
 	
 	@Autowired private ScrapService scrapService;
 	
-	@GetMapping("/goscrap")
-	public void scrapTest() {
-		logger.info("/scrap/goscrap[GET]");
-	}
+	
 	
 	@GetMapping("/scrap")
 	public void scrap() {
 		logger.info("/scrap/scrap[GET]");
 	}
 	@PostMapping("/add")
-	public void addScrap(
+	public String addScrap(
 			HttpSession session
 			,Scrap scrap
 			, int category
@@ -54,6 +51,8 @@ public class ScrapController {
 		scrapService.addScrap(scrap);
 		
 		model.addAttribute("scrap", scrap);
+		
+		return "scrap/scrapAdd";
 		
 	}
 	
@@ -91,5 +90,41 @@ public class ScrapController {
 		return "scrap/scrap";
 		
 	}
+	
+	@PostMapping("/check")
+	public String scrapCheck(
+			HttpSession session
+			,Scrap scrap
+			, int category
+			, int boardno
+			, Model model
+			) {
+		logger.info("/scrap/check[POST]");
+		
+		session.setAttribute("userNo", 7777);
+		
+		scrap.setUserNo((int) session.getAttribute("userNo"));
+		scrap.setBoardNo(boardno);
+		scrap.setCategoryNo(category);
+		logger.info("scrapCheck111 - {}", scrap);
+		
+		scrap = scrapService.scrapCheck(scrap);
+		
+		logger.info("scrapCheck222 - {}", scrap);
+		
+		if(scrap == null) {
+			logger.info("스크랩 없음");
+			scrap = new Scrap();
+			scrap.setBoardNo(boardno);
+			scrap.setCategoryNo(category);
+		} else {
+			model.addAttribute("scrap", scrap);
+			
+		}
+			
+		
+		return "scrap/scrapAdd";
+	}
+	
 	
 }
