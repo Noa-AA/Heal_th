@@ -24,7 +24,7 @@ public class ChatHandler extends TextWebSocketHandler {
 	//로그 객체
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
+//	private List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
 	
 	private Map<WebSocketSession, Integer> sessionRoomNo = new HashMap<WebSocketSession, Integer>();
 	private Map<Integer ,WebSocketSession> userNoSession = new HashMap<Integer ,WebSocketSession>();
@@ -41,7 +41,6 @@ public class ChatHandler extends TextWebSocketHandler {
     	int userNo = (Integer)session.getAttributes().get("userNo");
     	
     	logger.info("들어 왔다이~");
-    	sessionList.add(session);
     	
     	userNoSession.put(userNo, session);
     	if ( session.getAttributes().get("roomNo") != null) {
