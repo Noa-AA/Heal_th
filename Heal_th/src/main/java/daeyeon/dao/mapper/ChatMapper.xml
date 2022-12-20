@@ -9,17 +9,21 @@
 	<!-- /chat/intro -->
 	<!-- 조회할 3이상인 멘토 회원리스트 개수 조회하기 -->
 	<select id="selectCntAll" resultType="int" parameterType="Users">
-		SELECT count(*) FROM USERS
-			WHERE ranking_no >= 3
-		AND user_no != #{userNo } AND user_no NOT IN 
-		(SELECT d.user_no FROM users d      
-    		INNER JOIN (SELECT a.* FROM room_list a             
-        		INNER JOIN (
-        			SELECT * FROM room_list WHERE user_no = #{userNo } ) b 
-        		ON a.room_no = b.room_no
-			WHERE a.user_no != #{userNo }) c
-			ON d.user_no = c.user_no)
-		ORDER BY user_no
+		SELECT count(*) FROM photofile e
+	    FULL JOIN
+	       ( SELECT * FROM USERS 
+				WHERE ranking_no >= 3
+	            AND user_no != #{userNo } AND user_no NOT IN 
+	            (SELECT d.user_no FROM users d      
+	                INNER JOIN (SELECT a.* FROM room_list a             
+	                    INNER JOIN (
+	                        SELECT * FROM room_list WHERE user_no = #{userNo } ) b 
+	                    ON a.room_no = b.room_no
+	                WHERE a.user_no != #{userNo }) c
+				ON d.user_no = c.user_no)
+	        ORDER BY user_no ) f
+	    ON e.user_no = f.user_no 
+	    WHERE f.user_no IS NOT NULL
 	</select>
 	
 	
@@ -28,17 +32,21 @@
 	<select id="selectUsers" resultType="yerim.dto.Users" parameterType="chatIntroPaging">
 		SELECT * FROM (
 		SELECT rownum rnum, R.* FROM (
-			SELECT * FROM USERS
-			WHERE ranking_no >= 3
-				AND user_no != #{userNo } AND user_no NOT IN 
-				(SELECT d.user_no FROM users d      
-		    		INNER JOIN (SELECT a.* FROM room_list a             
-		        		INNER JOIN (
-		        			SELECT * FROM room_list WHERE user_no = #{userNo } ) b 
-		        		ON a.room_no = b.room_no
-					WHERE a.user_no != #{userNo }) c
+			SELECT f.*, e.stored_name FROM photofile e
+		    FULL JOIN
+		       ( SELECT * FROM USERS 
+					WHERE ranking_no >= 3
+		            AND user_no != #{userNo } AND user_no NOT IN 
+		            (SELECT d.user_no FROM users d      
+		                INNER JOIN (SELECT a.* FROM room_list a             
+		                    INNER JOIN (
+		                        SELECT * FROM room_list WHERE user_no = #{userNo } ) b 
+		                    ON a.room_no = b.room_no
+		                WHERE a.user_no != #{userNo }) c
 					ON d.user_no = c.user_no)
-			ORDER BY user_no
+		        ORDER BY user_no ) f
+		    ON e.user_no = f.user_no 
+		    WHERE f.user_no IS NOT NULL
 			) R
 		) RECORD
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
@@ -122,7 +130,7 @@
 								WHERE a.user_no != #{userNo } ) c
 							 ON d.user_no = c.user_no
 						ORDER BY c.room_no DESC ) e
-					INNER JOIN chat f
+					FULL JOIN chat f
 				ON e.room_no = f.room_no ) )
 			WHERE RNK = 1
 		ORDER BY chat_time DESC

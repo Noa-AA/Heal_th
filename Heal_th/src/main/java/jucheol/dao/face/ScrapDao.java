@@ -28,4 +28,12 @@ public interface ScrapDao {
 	 */
 	public void deleteScrap(int scrapNo);
 
+	/**
+	 * 스크랩중인지 확인
+	 * 
+	 * @param scrap
+	 * @return 
+	 */
+	public Scrap scrapCheck(Scrap scrap);
+
 }

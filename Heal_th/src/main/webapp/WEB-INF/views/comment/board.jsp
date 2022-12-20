@@ -15,7 +15,7 @@ function commentListCall() {
 		type: "get"
 		,url: "/comment/list"
 		,data: {
-				boardno:${viewBoard.bfNo }	
+				boardno:${boardNo}
 				,category:${viewBoard.categoryNo }
 			}
 		,dataType: "html"
@@ -31,7 +31,9 @@ function commentListCall() {
 }
 
 $(document).ready(function(){
-	commentListCall(${viewBoard.bfNo }	,${viewBoard.categoryNo })
+
+	
+	commentListCall(${boardNo}	,${viewBoard.categoryNo })
 	
 	 $('#content').focus( ()=>{
 		console.log("입력창 포커스") 
@@ -65,7 +67,7 @@ $(document).ready(function(){
 			,url: "/comment/insert"
 			,data: {
 					content:$("#content").val() //댓글내용
-					,boardno:${viewBoard.bfNo }					// 글번호
+					,boardno:${boardNo}					// 글번호
 					,category:${viewBoard.categoryNo }					// 글 카테고리
 				}
 			,dataType: "html"
