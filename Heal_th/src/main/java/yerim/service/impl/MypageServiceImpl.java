@@ -2,6 +2,9 @@ package yerim.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -12,9 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import changmin.dto.BodyInfo;
 import yerim.dao.face.MypageDao;
 import yerim.dto.PhotoFile;
 import yerim.dto.Users;
@@ -270,5 +273,40 @@ public class MypageServiceImpl implements MypageService {
 	public void dropOtuExe(Users dropOut) {
 		 logger.info("dropOutExe 실행");
 		 mypageDao.deleteByuserNoPw(dropOut);
+	}
+
+	 @Override
+	public void setBodyInfo(BodyInfo bodyInfo) {
+		 logger.info("파라미터 확인 {}",bodyInfo);
+		 //오늘 날짜 구하기
+		
+		 
+		 BodyInfo updateTime = mypageDao.selectTime(bodyInfo);  //DB에 정보 입력한 시간 가져오기 
+	
+		 logger.info("업데이트 시간 : {}",updateTime);
+		 
+		 if(updateTime == null) { //회원이 오늘 업데이느 한 정보가 있음 
+			 logger.info("몸무게 insert 하기");
+			 mypageDao.insertWeight(bodyInfo);
+			 
+			 
+		 } else {
+			 logger.info("몸무게 update하기");
+			 mypageDao.updateWeight(bodyInfo);
+			
+		
+		 }
+		 
+	}
+	 
+	 @Override
+	public List<BodyInfo> getBodyList(BodyInfo bodyInfo,HttpSession session) {
+		 logger.info("body list  시작 " );
+		 //유저번호 저장
+		 bodyInfo.setUserNo((int)session.getAttribute("userNo"));
+		 
+		  List<BodyInfo> weightList = mypageDao.selectWeight(bodyInfo);
+		  
+		 return weightList;
 	}
 }

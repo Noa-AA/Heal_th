@@ -1,7 +1,13 @@
 package yerim.controller;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import changmin.dto.BodyInfo;
 import yerim.dto.PhotoFile;
 import yerim.dto.Users;
 import yerim.service.face.MypageService;
@@ -37,12 +47,13 @@ public class MypageController {
 		Users userIntro = mypageService.getIntro(session);
 		logger.info("한술 소개 : {}",userIntro);
 		
+
 		//모델값으로 storedName 전달하기
 		model.addAttribute("storedName", profilePhoto);
 		//모델값으로 한줄 소개 전달하기
 		model.addAttribute("userIntro", userIntro);
 		
-		
+
 	}
 	
 	@GetMapping("/updateInfo")
@@ -250,6 +261,39 @@ public class MypageController {
 			return "/mypage/dropOut";
 		}
 		
-//		
 	}
+	@ResponseBody
+	@PostMapping("/updateBodyInfo")
+	public BodyInfo  updateWeight(HttpSession session,BodyInfo bodyInfo) {
+
+		logger.info("/updateWeight [POST]");
+		logger.info("bodyInfo {}", bodyInfo);
+		
+		//세션에서 userNo ->가져오기
+		bodyInfo.setUserNo((int)session.getAttribute("userNo"));
+		mypageService.setBodyInfo(bodyInfo);	
+		
+		return bodyInfo;
+	
+		
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("/sendData")
+	public List<BodyInfo> infoData (HttpSession session, BodyInfo info) {
+//		/		/그래프 작성을 위한 자료 조회하기
+		List<BodyInfo> weightList = mypageService.getBodyList(info,session);
+		for(BodyInfo list : weightList) logger.info("list {}", list);
+		
+		logger.info("list {}",weightList);
+		
+		return weightList;
+	}
+	
+	@GetMapping("/setBodyInfo")
+	public void setBodyInfo() {
+		
+	}
+
 }

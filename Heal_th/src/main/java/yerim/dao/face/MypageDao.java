@@ -1,5 +1,8 @@
 package yerim.dao.face;
 
+import java.util.List;
+
+import changmin.dto.BodyInfo;
 import yerim.dto.PhotoFile;
 import yerim.dto.Users;
 
@@ -103,6 +106,34 @@ public interface MypageDao {
 	 * @param dropOut
 	 */
 	public void deleteByuserNoPw(Users dropOut);
+
+	/**
+	 * 회원이 몸무게를 입력한 시간 가져오기
+	 * @param bodyInfo -user_no
+	 * @return - bodaydate
+	 */
+	public BodyInfo selectTime(BodyInfo bodyInfo);
+
+	/**
+	 * 몸무게 업데이트 하기
+	 * @param bodyInfo
+	 */
+	public void updateWeight(BodyInfo bodyInfo);
+
+	/**
+	 * 몸무게 insert 하기
+	 * @param bodyInfo
+	 */
+	public void insertWeight(BodyInfo bodyInfo);
+
+	/**
+	 * 몸무게 리스트 조회하기
+	 * @param bodyInfo
+	 * @return -회원이 update한 몸무게 리스트 
+	 */
+	public List<BodyInfo> selectWeight(BodyInfo bodyInfo);
+
+
 
 
 
