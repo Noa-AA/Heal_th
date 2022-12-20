@@ -96,7 +96,7 @@ h2{
     margin-right: 0px;
 }   
 
-#photo {
+#profilePhoto {
 	width: 160px;
 	height: 160px;
 	background-color: #efefef;
@@ -104,6 +104,10 @@ h2{
 	text-align: center;
 	line-height: 160px;
 	font-size: 18px;
+}
+
+#profilePhoto > img {
+	width: 160px;
 }
 
 #rightCon {
@@ -275,7 +279,7 @@ h2{
 		<ul class="list">
 			<c:forEach items="${userList }" var="userList">
 			<li>
-				<div id="photo">${userList.userPhoto }</div>
+				<img src="${pageContext.request.contextPath}/upload/${userList.storedName}" id="profilePhoto">
 				
 				<!-- 오른쪽 텍스트 부분 -->
 				<div id="rightCon">
