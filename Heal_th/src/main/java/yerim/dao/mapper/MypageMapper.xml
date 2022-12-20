@@ -100,4 +100,28 @@
 	  	WHERE user_no =#{userNo} and user_pw=#{userPw}
 	  </delete>
 	  
+	  <select id="selectTime" parameterType="BodyInfo" resultType="BodyInfo">
+	  	SELECT body_date FROM body_info
+	  	WHERE user_no = #{userNo} and body_date =to_char(sysdate)
+	  
+	  </select>
+	  
+	  <update id="updateWeight" parameterType="BodyInfo">
+	  	UPDATE body_info
+	  	SET weight = #{weight}
+	  	WHERE user_no = #{userNo} and body_date =to_char(sysdate)
+	  </update>
+	  
+	  <insert id="insertWeight" parameterType="BodyInfo">
+	   INSERT INTO body_info (body_no,weight,height,body_date,user_no)
+	   VALUES (body_info_seq.nextval,#{weight},#{height},to_char(sysdate),#{userNo})
+	  
+	  </insert>
+	  <select id="selectWeight" resultType="BodyInfo" parameterType="BodyInfo">
+	  	SELECT body_date,weight,height FROM body_info
+	  	WHERE user_no =#{userNo}
+	  	ORDER BY body_date 
+	  
+	  </select>
+	
 </mapper>
