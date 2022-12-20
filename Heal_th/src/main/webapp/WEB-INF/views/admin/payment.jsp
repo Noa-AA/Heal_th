@@ -15,7 +15,7 @@
 .text-center {
 	display: flex;
 	justify-content: center; 
-	margin-top: 50px;
+	margin-top: 40px;
 }
 
 .pagination {
@@ -72,14 +72,16 @@
 	background-color: #f2f7fc;
 	align-items: center;
 	font-size: 15px;
+	margin-bottom: 10px;
 }
 
 .contentTr {
 	display: flex;
-	height: 50px;
 	border-bottom: 1px solid #e3e3e3;
 	align-items: center;
 	color: #666;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
 }
 
 
@@ -90,58 +92,65 @@
 	justify-content: center;
 }
 
-/* 회원 번호 */
+/* 상품 사진 */
 .contentTr > td:nth-child(2), #titleTr > th:nth-child(2) {
-	width: 5%;
-	display: flex;
-	justify-content: center;
-}
-
-/* 아이디 */
-.contentTr > td:nth-child(3), #titleTr > th:nth-child(3) {
-	width: 10%;
-	display: flex;
-	justify-content: center;
-}
-
-/* 닉네임 */
-.contentTr > td:nth-child(4), #titleTr > th:nth-child(4) {
-	width: 10%;
-	display: flex;
-	justify-content: center;
-}
-
-/* 이름 */
-.contentTr > td:nth-child(5), #titleTr > th:nth-child(5) {
 	width: 8%;
 	display: flex;
 	justify-content: center;
 }
 
-/* 성별 */
-.contentTr > td:nth-child(6), #titleTr > th:nth-child(6) {
-	width: 6%;
+/* 상품사진 컨텐츠 */
+.contentTr > td:nth-child(2) >img {
+	width: 90px;
+	height: 90px;
+	background-color: #eee;
+}
+
+/* 주문번호 */
+.contentTr > td:nth-child(3), #titleTr > th:nth-child(3) {
+	width: 9%;
 	display: flex;
 	justify-content: center;
 }
 
-/* 가입일 */
-.contentTr > td:nth-child(7), #titleTr > th:nth-child(7) {
+/* 회원번호 */
+.contentTr > td:nth-child(4), #titleTr > th:nth-child(4) {
+	width: 5%;
+	display: flex;
+	justify-content: center;
+}
+
+/* 상품명 */
+.contentTr > td:nth-child(5), #titleTr > th:nth-child(5) {
 	width: 14%;
 	display: flex;
 	justify-content: center;
 }
 
-/* 이메일 */
-.contentTr > td:nth-child(8), #titleTr > th:nth-child(8) {
-	width: 18%;
+/* 결제수단 */
+.contentTr > td:nth-child(6), #titleTr > th:nth-child(6) {
+	width: 8%;
 	display: flex;
 	justify-content: center;
 }
 
-/* 회원등급 */
+/* 결제금액 */
+.contentTr > td:nth-child(7), #titleTr > th:nth-child(7) {
+	width: 7%;
+	display: flex;
+	justify-content: center;
+}
+
+/* 결제일자 */
+.contentTr > td:nth-child(8), #titleTr > th:nth-child(8) {
+	width: 10%;
+	display: flex;
+	justify-content: center;
+}
+
+/* 배송지 */
 .contentTr > td:nth-child(9), #titleTr > th:nth-child(9) {
-	width: 6%;
+	width: 24%;
 	display: flex;
 	justify-content: center;
 }
@@ -153,12 +162,7 @@
 	justify-content: center;
 }
 
-/* 포인트 */
-.contentTr > td:nth-child(11), #titleTr > th:nth-child(11) {
-	width: 10%;
-	display: flex;
-	justify-content: center;
-}
+
 
 
 /* 검색부분 --------------------------------------------------------- */
@@ -223,40 +227,35 @@ select::-ms-expand { display:none; }
 </head>
 <body>
 
-<h3>회원 목록</h3>
+<h3>주문 목록</h3>
 
 
 	<table id="table">
 		<tr id="titleTr">
 			<th>번호</th>
+			<th>상품사진</th>
+			<th>주문번호</th>
 			<th>회원 번호</th>
-			<th>아이디</th>
-			<th>닉네임</th>
-			<th>이름</th>
-			<th>성별</th>
-			<th>가입일</th>
-			<th>이메일</th>
-			<th>회원등급</th>
-			<th>득근머니</th>
-			<th>포인트</th>
+			<th>상품명</th>
+			<th>결제수단</th>
+			<th>결제금액</th>
+			<th>결제일자</th>
+			<th>배송지</th>
+			<th>휴대폰 번호</th>
 		</tr>
 		
-		<c:forEach items="${userList }" var="u" varStatus="status">
-		<tr class="contentTr"> 
-			<td><c:out value="${status.count }" /></td>
-			<td>${u.userNo }</td>
-			<td>${u.userId }</td>
-			<td>${u.userNick }</td>
-			<td>${u.userName }</td>
-			<td>
-				<c:if test="${u.userGender eq 'male'}">남자</c:if>
-				<c:if test="${u.userGender eq 'female'}">여자</c:if>
-			</td>
-			<td><fmt:formatDate value="${u.userJoinDate }" pattern="yyyy년MM월dd일" /></td>
-			<td>${u.userEmail }</td>
-			<td>${u.rankingNo }</td>
-			<td>${u.dgMoney }득근</td>
-			<td>${u.point }포인트</td>
+		<c:forEach items="${paymentList }" var="p">
+		<tr class="contentTr">
+			<td>${p.rnum }</td>
+			<td><img /></td>
+			<td>${p.orderNo }</td>
+			<td>${p.userNo }</td>
+			<td>${p.pName }</td>
+			<td>${p.paymentMethod }</td>
+			<td>${p.paymentAmount }원</td>
+			<td><fmt:formatDate value="${p.paymentDate }" pattern="yyyy년 MM월dd일" /></td>
+			<td>${p.address }</td>
+			<td>${p.phoneNo }</td>
 		</tr>
 		</c:forEach>
 	</table>
@@ -273,13 +272,13 @@ select::-ms-expand { display:none; }
 	
 		<%-- 첫 페이지로 이동 --%>
 		<c:if test="${paging.curPage ne 1 }">
-			<li><a href="/admin/user"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
+			<li><a href="/admin/payment"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
 		</c:if>
 		
 		
 		<%-- 이전 페이지로 가기 --%>
 		<c:if test="${paging.curPage > 1 }">
-			<li><a href="/admin/user?curPage=${paging.curPage - 1 }"><span class="material-symbols-outlined">navigate_before</span></a></li>
+			<li><a href="/admin/payment?curPage=${paging.curPage - 1 }"><span class="material-symbols-outlined">navigate_before</span></a></li>
 		</c:if>
 		
 		<%-- 이전 페이지로 가기 (이전으로 갈 페이지 없을때)--%>
@@ -291,10 +290,10 @@ select::-ms-expand { display:none; }
 		<%-- 페이징 리스트 --%>
 		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
 		<c:if test="${paging.curPage eq i }">
-			<li class="active"><a href="/admin/user?curPage=${i }">${i }</a></li>
+			<li class="active"><a href="/admin/payment?curPage=${i }">${i }</a></li>
 		</c:if>
 		<c:if test="${paging.curPage ne i }">
-			<li><a href="/admin/user?curPage=${i }">${i }</a></li>
+			<li><a href="/admin/payment?curPage=${i }">${i }</a></li>
 		</c:if>
 		</c:forEach>
 	
@@ -302,7 +301,7 @@ select::-ms-expand { display:none; }
 		
 		<%-- 다음 페이지로 가기 --%>
 		<c:if test="${paging.curPage < paging.totalPage }">
-			<li><a href="/admin/user?curPage=${paging.curPage + 1 }"><span class="material-symbols-outlined">navigate_next</span></a></li>
+			<li><a href="/admin/payment?curPage=${paging.curPage + 1 }"><span class="material-symbols-outlined">navigate_next</span></a></li>
 		</c:if>
 		
 		<%-- 다음 페이지로 가기 (다음으로 갈 페이지 없을때) --%>
@@ -313,28 +312,20 @@ select::-ms-expand { display:none; }
 	
 		<%-- 끝 페이지로 이동 --%>
 		<c:if test="${paging.curPage ne paging.totalPage }">
-			<li><a href="/admin/user?curPage=${paging.totalPage }" ><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+			<li><a href="/admin/payment?curPage=${paging.totalPage }" ><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
 		</c:if>
 		
 		</ul>
 	</div>
 	
 	
-<!-- 	<form id="moveForm" method="get"> -->
-<%-- 		<input type="hidden" id="bfNo" name="bfNo" value='<c:out value="${pageInfo.bfNo}"/>'> --%>
-<%-- 		<input type="hidden" name="pageNum" value="${userMaker.userSearch.pageNum }"> --%>
-<%-- 		<input type="hidden" name="amount" value="${userMaker.userSearch.amount }"> --%>
-<%-- 		<input type="hidden" name="keyword" value="${userMaker.userSearch.keyword }"> --%>
-<%-- 		<input type="hidden" name="type" value="${userMaker.userSearch.type }"> --%>
-<!-- 	</form> -->
-	
 	<!-- 검색 기능 -->
 	<div class="searchBack">
-		<form action="/admin/user" method=post name="search" id="searchForm">
+		<form action="/admin/payment" method=post name="search" id="searchForm">
 
 			<select name="type" id="type">
-				<option value="userNick" <c:out value="${paging.type eq 'userNick'?'selected':'' }"/> >닉네임</option>
-				<option value="userName" <c:out value="${paging.type eq 'userName'?'selected':'' }"/> >이름</option>
+				<option value="orderNo" <c:out value="${paging.type eq 'orderNo'?'selected':'' }"/> >주문번호</option>
+				<option value="pName" <c:out value="${paging.type eq 'pName'?'selected':'' }"/> >상품명</option>
 			</select>
 			
 			<input id="searchText" type="text" name="keyword" value="${paging.keyword }" placeholder="search...">

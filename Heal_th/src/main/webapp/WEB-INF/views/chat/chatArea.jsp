@@ -15,6 +15,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
 
 
@@ -37,7 +38,23 @@ $(document).ready(function() {
             }
     })
     
-    $( 'a:contains("마지")' ).css( 'color', 'red' );
+    
+    /* 검색 버튼~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+    $("#searchBtn").click(function() {
+    	var txtVal = $("#searchText").val();
+    	console.log( txtVal );
+    	
+    	
+		var searchT = $("#messages > div > a:contains('" + txtVal + "')")   	
+		$(searchT).css( 'color', 'red' );
+
+,		$(searchT).attr("tabindex", -1).focus();
+		
+    })
+ 
+//    		 $("#messages > div > a:contains('" + txtVal + "')").css( 'color', 'red' );
+//     var temp = $("#user-table > tbody > tr > td:nth-child(5n+2):contains('" + k + "')");
+    
 	
 	
 
@@ -46,6 +63,15 @@ $(document).ready(function() {
 </script>
 
 <style type="text/css">
+
+a {
+  text-decoration-line: none;
+}
+
+a:focus, a:hover {
+    text-decoration: none;
+    outline: none;
+}
 
 button {
 	border: 0;
@@ -149,10 +175,42 @@ button {
 
 /* 상대방 닉네임 */
 #myNick {
+	width: 56px;
 	font-size: 18px;
 	font-weight: 600;
 	color: #222;
 } 
+
+/* 인풋 박스 */
+#searchText{
+	width: 200px;
+	height: 32px;
+	border: 2px solid #7ca3f5;
+	border-radius: 30px;
+	transition: 0.4s;
+	padding: 8px 12px;
+	outline: none;
+	font-size: 14px;
+	margin-right: 10px;
+}
+
+#SearchDiv {
+	width: 750px;
+	display: flex;
+    justify-content: flex-end;
+}
+
+#searchBtn {
+  background-color: #fff;
+  color: #7ca3f5;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+
 
 
 /* 메세지 전송 input 폼 */
@@ -198,12 +256,19 @@ button {
     justify-content: center
 }
 
-#iBLbel > img{
+.material-symbols-outlined {
 	display: inline-flex;
 	align-items: center;
 	width: 22px;
     height: 22px;
-    background-color: #eee;
+    color: #666666;
+    
+	font-variation-settings:
+	'FILL' 1,
+	'wght' 400,
+	'GRAD' 0,
+	'opsz' 48
+   
 }
 
 #sendBtn{
@@ -218,7 +283,7 @@ button {
     background-color: #7ca3f5;
     justify-content: center;
     padding: 0px;
-}
+} 
 
 
 </style>
@@ -228,6 +293,7 @@ button {
 <body>
 
 <div id="chatBack">
+	<!-- 상단 프로필 검색 부분 --------------------------- -->
 	<div id="chatTop">
 		<!-- 사진부분 -->
 		<div class="leftImg">
@@ -237,8 +303,13 @@ button {
 		<div id="myNick">
 			${roomNo.userNick }
 		</div>
-		<button type="submit" id="searchTxt	" ><i class="fas fa-search"></i></button>
+		<div id="SearchDiv">
+			<input id="searchText" type="text" name="keyword" >
+			<button id="searchBtn" ><i class="fas fa-search"></i></button>
+		</div>
 	</div>
+	
+	
 	
 	<%	Date date = new Date(); %>
 	<c:set var="now" value="<%=new Date() %>" /> 
@@ -250,10 +321,10 @@ button {
 	    			<%-- 자신의 채팅일때 --%>
 	    			<c:when test="${chatList.userNo eq userNo }">
 	    				<div id='senderMsg'>
-	    					<a id='timeS'>
+	    					<span id='timeS'>
 	    						<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
 								<fmt:formatDate value="${date }" pattern="a hh:ss" />
-	    					</a>
+	    					</span>
 	    					<a id='msgS'>
 	    						${chatList.chatContents }
 	    					</a>
@@ -266,10 +337,10 @@ button {
 	    					<a id='msgR'>
 	    						${chatList.chatContents }
 	    					</a>
-	    					<a id='timeR'>
+	    					<span id='timeR'>
 	    						<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
 								<fmt:formatDate value="${date }" pattern="a hh:ss" />
-	    					</a>
+	    					</span>
 	    				</div>
 	    			</c:otherwise>
 	    		</c:choose>
@@ -282,9 +353,9 @@ button {
 	    <textarea id="msgInput" autocapitalize="off" placeholder="메시지를 입력해주세요"></textarea>
 	   	
 	   	<div id="inputBottom">
-	   		<div id="iBLbel">
-	   			<img id="picTure">
-	   		</div>
+	   		<button id="iBLbel">
+	   			<span class="material-symbols-outlined">image</span>
+	   		</button>
 	   		
 	    	<input type="button" id="sendBtn" value="전송" /> 
 	    </div><!-- inputBottom 끝 -->
@@ -296,6 +367,7 @@ button {
 	
 		
 	
+
 
 
 

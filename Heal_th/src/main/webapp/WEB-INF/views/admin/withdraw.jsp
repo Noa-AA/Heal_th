@@ -26,6 +26,7 @@ function listOrderBy(selectValue){
 			console.log("AJAX 실패")
 		}
 	})
+	
 }
 
 </script>
@@ -58,15 +59,15 @@ select {
 		<div id="orderResult">
 		<table>
 			<tr>
-				<th>인출신청 번호</th>
-				<th>인출신청 날짜</th>
-				<th>인출신청 금액</th>
-				<th>예금주</th>
-				<th>은행명</th>
-				<th>계좌번호</th>
-				<th>회원번호</th>
-				<th>처리상태</th>
-				<th>승인</th>
+				<th width="10%">인출신청 번호</th>
+				<th width="20%">인출신청 날짜</th>
+				<th width="10%">인출신청 금액</th>
+				<th width="10%">예금주</th>
+				<th width="10%">은행명</th>
+				<th width="10%">계좌번호</th>
+				<th width="10%">회원번호</th>
+				<th width="10%">처리상태</th>
+				<th width="10%">승인</th>
 			</tr>
 			<c:forEach items="${withDraw }" var="w">
 			<tr>
