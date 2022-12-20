@@ -9,12 +9,28 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	
+	console.log(${sessionScope.userNo})
 	$("#wdButton").click(function(){
 		if($("#bankName").val()=="" && $("#wdUsername").val()=="" &&$("#wdAccount").val()==""){
 			alert("입력하지 않은 값이 있습니다.");
 			return false;
 		}
+		
+		$.ajax({
+			type: "post"
+			, url: "/message/insert"
+			, data: {
+				userNo: ${sessionScope.userNo},
+				messageCon: "인출신청이 완료되었습니다."
+			}
+			, dataType: "json"
+			, success: function(res){
+				console.log("AJAX 성공")
+				}
+			, error: function(){
+				console.log("AJAX 실패")
+			}
+		})
 	})
 })
 </script>
