@@ -42,9 +42,9 @@
 // 		console.log("방번호 : " + $("."+id[3]).parents("button").click() )
 		
 		if ( id[0] == "${senderNick }" && id[1] != "listChat" ) {
-			$("#messages").append( "<div id='senderMsg'><a id='timeS'>" + dateInfo + "</a><a id='msgS'>" + content[1] + "</a></div>");
+			$("#messages").append( "<div id='senderMsg'><span id='timeS'>" + dateInfo + "</span><a id='msgS'>" + content[1] + "</a></div>");
 		} else if ( id[0] != "${senderNick }" && id[1] != "listChat") {
-			$("#messages").append( "<div id='receiverMsg'><a id='msgR'>" + content[1] + "</a><a id='timeR'>" + dateInfo + "</a></div>");
+			$("#messages").append( "<div id='receiverMsg'><a id='msgR'>" + content[1] + "</a><span id='timeR'>" + dateInfo + "</span></div>");
 		} 
 		
 		if ( id[1] === "listChat" ) {

@@ -133,11 +133,12 @@ public class ChatServiceImpl implements ChatService {
 	//---------- 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
 	@Override
 	public List<RoomList> roomList(Users myUserNo) {
-		logger.info("roomList() - {}", myUserNo);
+		logger.info("●●●●● Service > roomList() - {} ●●●●●", myUserNo);
 			
 		//채팅방 목록 조회 - ChatDao 이용
 		List<RoomList> roomList = chatDao.selectRoomList(myUserNo);
 			
+		logger.info("roomList : {}", roomList);
 		return roomList;
 	}
 	

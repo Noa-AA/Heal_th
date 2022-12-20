@@ -102,7 +102,7 @@ public class ChatController {
 		//3. 포인트가 충족되면 포인트를 증가 및 차감하고 채팅방 만들기 (채팅방만들고 상대방과 자신이 리스트에 추가되기)
 		@RequestMapping("/createChatRoom")
 		public String main(Model model, HttpSession session, int userNo, Users users) {
-			logger.info("/createChatRoom");
+			logger.info("●●●●● /createChatRoom ●●●●●");
 			
 			int yourUserNo = userNo; //상대방 유저넘버
 			int myUserNo = (Integer)session.getAttribute("userNo"); //자신의 유저넘버
@@ -133,7 +133,7 @@ public class ChatController {
 		//3. 채팅룸의 자신의 소속된 채팅방 조회하기
 		@RequestMapping("/chatRoom")
 		public void chatRoom(HttpSession session, Users myUserNo, Model model, RoomList room) {
-			logger.info("/chatRoom");
+			logger.info("●●●●● /chatRoom ●●●●●");
 //			Chat chat = new Chat();
 			
 			myUserNo.setUserNo((Integer)session.getAttribute("userNo"));
@@ -142,7 +142,7 @@ public class ChatController {
 			
 			// 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
 			List<RoomList> roomList = chatService.roomList(myUserNo);
-			
+		
 			//roomList안에 값이 존재할때
 			List<Chat> lastChat = new ArrayList<>();
 			if (roomList != null) {
