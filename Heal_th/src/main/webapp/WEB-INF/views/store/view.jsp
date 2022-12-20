@@ -60,10 +60,15 @@ function calculateToalPrice(){ //현재 주문할 수량과 상품 한 개당 �
 	$("#totalPrice").html(totalPrice + '원');
 }
 
-
 /* 바로구매 버튼 */
 function order(){
 	
+	
+	
+// 	location.href="/store/payment?count=" + $("#count").val
+// 	location.href="/store/payment?price=" + $("#price").val
+	
+	location.href="/store/payment?amount=" + $("#count").val() *$("#price").val()+"&count="+$("#count").val()+"&price="+$("#price").val();
 }
 
 </script>
@@ -119,8 +124,8 @@ height: 400px;
 
 	<div class="text-right">
 		<div class="h4 text-danger text-left">
-			<input type="hidden" value="${viewStore.pPrice}" id="price"
-				name="price"> <span>${viewStore.pPrice}</span>원
+			<input type="hidden" value="${viewStore.pPrice}" id="price"name="price"> 
+			<span>${viewStore.pPrice}</span>원
 		</div>
 	</div>
 
@@ -132,7 +137,7 @@ height: 400px;
 			<span class="input-group-text">수량</span>
 		</div>
 		<input type="number" name="count" id="count" class="form-control"
-			value="1" min="1">
+			value="1" min="1" onchange="calculateToalPrice()">
 	</div>
 	
 	
@@ -142,11 +147,12 @@ height: 400px;
 <div class="text-right mgt-50">
 	<h5>결제금액</h5>
 <!-- 	<h3 name="totalPrice" id="totalPrice" class="font-weight-bold"></h3> -->
-	<h3 id="totalPrice" class="font-weight-bold"></h3>
+	<h3 class="font-weight-bold"></h3>
 </div>
 <div class="text-right">
 
-	<span>${viewStore.pPrice}</span>원
+<%-- 	<span>${viewStore.pPrice}</span>원 --%>
+	<span id="totalPrice" >${totalPrice}</span>
 </div>
 <div class="text-center">
 	<button type="button"
