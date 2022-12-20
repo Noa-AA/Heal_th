@@ -1,13 +1,9 @@
 package yerim.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import changmin.dto.BodyInfo;
 import yerim.dto.PhotoFile;
@@ -282,7 +276,7 @@ public class MypageController {
 	@ResponseBody
 	@PostMapping("/sendData")
 	public List<BodyInfo> infoData (HttpSession session, BodyInfo info) {
-//		/		/그래프 작성을 위한 자료 조회하기
+		//그래프 작성을 위한 자료 조회하기
 		List<BodyInfo> weightList = mypageService.getBodyList(info,session);
 		for(BodyInfo list : weightList) logger.info("list {}", list);
 		
@@ -291,9 +285,5 @@ public class MypageController {
 		return weightList;
 	}
 	
-	@GetMapping("/setBodyInfo")
-	public void setBodyInfo() {
-		
-	}
 
 }

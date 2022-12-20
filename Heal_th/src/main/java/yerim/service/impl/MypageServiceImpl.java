@@ -279,25 +279,28 @@ public class MypageServiceImpl implements MypageService {
 	public void setBodyInfo(BodyInfo bodyInfo) {
 		 logger.info("파라미터 확인 {}",bodyInfo);
 		 //오늘 날짜 구하기
-		
-		 
-		 BodyInfo updateTime = mypageDao.selectTime(bodyInfo);  //DB에 정보 입력한 시간 가져오기 
-	
-		 logger.info("업데이트 시간 : {}",updateTime);
-		 
-		 if(updateTime == null) { //회원이 오늘 업데이느 한 정보가 있음 
-			 logger.info("몸무게 insert 하기");
-			 mypageDao.insertWeight(bodyInfo);
 			 
+			 BodyInfo updateTimeHeight = mypageDao.selectTimeHeghit(bodyInfo);  //DB에 정보 입력한 시간 가져오기 
 			 
-		 } else {
-			 logger.info("몸무게 update하기");
-			 mypageDao.updateWeight(bodyInfo);
+			 logger.info("조회 결과 : {}",updateTimeHeight);
+			 
+			 //----시간 비교
+			 
+			 if(updateTimeHeight  == null) { //둘다 비어있음 
+				 logger.info("몸무게,키 insert 하기");
+				 mypageDao.insertWeightHeight(bodyInfo); //둘다 비어있어서 insert 하기
+//				 logger.info("키 입력 없음 - insert 하기");
+//				 mypageDao.insertHeight(bodyInfo);
+				 
+			 } else {
+				 logger.info("키 몸무게 update");
+				 mypageDao.updateWeightHeight(bodyInfo);
 			
-		
-		 }
+			 }
+			 
+		 } 
 		 
-	}
+//	}
 	 
 	 @Override
 	public List<BodyInfo> getBodyList(BodyInfo bodyInfo,HttpSession session) {
@@ -309,4 +312,5 @@ public class MypageServiceImpl implements MypageService {
 		  
 		 return weightList;
 	}
+
 }

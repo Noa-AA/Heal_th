@@ -112,19 +112,19 @@ public interface MypageDao {
 	 * @param bodyInfo -user_no
 	 * @return - bodaydate
 	 */
-	public BodyInfo selectTime(BodyInfo bodyInfo);
+	public BodyInfo selectTimeHeghit(BodyInfo bodyInfo);
 
 	/**
 	 * 몸무게 업데이트 하기
 	 * @param bodyInfo
 	 */
-	public void updateWeight(BodyInfo bodyInfo);
+	public void updateWeightHeight(BodyInfo bodyInfo);
 
 	/**
 	 * 몸무게 insert 하기
 	 * @param bodyInfo
 	 */
-	public void insertWeight(BodyInfo bodyInfo);
+	public void insertWeightHeight(BodyInfo bodyInfo);
 
 	/**
 	 * 몸무게 리스트 조회하기
@@ -132,6 +132,21 @@ public interface MypageDao {
 	 * @return -회원이 update한 몸무게 리스트 
 	 */
 	public List<BodyInfo> selectWeight(BodyInfo bodyInfo);
+
+//	/**
+//	 * 키 삽입하기
+//	 * @param bodyInfo
+//	 */
+//	public void insertHeight(BodyInfo bodyInfo);
+//
+//	/**
+//	 * 키 업데이트
+//	 * @param bodyInfo
+//	 */
+//	public void updateHeight(BodyInfo bodyInfo);
+
+
+
 
 
 
