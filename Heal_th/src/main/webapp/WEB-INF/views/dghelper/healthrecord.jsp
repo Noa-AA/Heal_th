@@ -38,7 +38,7 @@ $(document).ready(function(){
 							
 							$("#recordlist").html(res)
 							location.reload();
-						}
+ 						}
 						, error: function(){
 							console.log("AJAX 실패")
 						}
