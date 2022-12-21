@@ -180,14 +180,26 @@ $(document).ready(function() {
 
 
 
+<div id="subvisual">
+	<div id="subvisual-A">
+		<p id="subv-title">커뮤니티</p>
+	</div>
+</div>
+<div id="twoDepth">
+	<div id="twoDepth-list">
+		<a href="/board/bfList">소개</a>
+		<a href="/board/bfBoard">비포 애프터</a>
+		<a href="/board/verifyBoard">운동 인증</a>
+		<a href="/board/dietBoard">식단 공유</a>
+		<a href="/board/reviewBoard">시설 후기</a>
+	</div>
+</div>
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
 
 <div class="container" id="container">
-
-<h1 style="text-align: center;">커뮤니티</h1><br><br><br><br>
-
 
 <div class="dietBoard" id="search" name="search">
 
