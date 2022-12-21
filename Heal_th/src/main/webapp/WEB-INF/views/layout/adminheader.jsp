@@ -3,6 +3,7 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
     
  
 <!DOCTYPE html>
@@ -129,10 +130,6 @@ table {
 	width: 100%;
 }
 
-th,td {
-	border: 1px solid silver;
-}
-
 #adminMenuContainer a {
 	color: white;
 }
@@ -140,7 +137,7 @@ th,td {
 .big-container {
     width: 100%;
     margin-left: 340px;
-    height: 800px;
+    height: 784px;
     box-shadow: 1px 0px 10px 0px rgb(0 0 0 / 15%);
     background: #fff;
     padding: 40px;
@@ -158,20 +155,20 @@ th,td {
 	<div id="adminMenuContainer">
 		<h1 class="logo">
 			<a href="">
-				<img src="/resources/img/logo_purple.png" alt="득근득근">
+				<img src="/resources/img/logo_white.png" alt="득근득근">
 			</a>		
 		</h1>
 		<hr>
-		<p>사용자 관리</p>
-		<p>게시글 관리</p>
-		<p>상품 관리</p>
+		<p>사용자 관리</p> 
+		<p><a href="/notice/list">게시글 관리</p>
+		<p><a href="/product/list">상품 관리</p>
 		<p>챌린지 관리</p>
 		<p><a href="/admin/withdraw">득근머니 관리</a></p>
 	</div>
 	
 </header>
 
-<body>
+<body> 
 
 
 	<div class="big-container">

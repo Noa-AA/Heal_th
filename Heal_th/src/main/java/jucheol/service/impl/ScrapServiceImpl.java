@@ -31,4 +31,17 @@ public class ScrapServiceImpl implements ScrapService {
 		
 	}
 
+	@Override
+	public void deleteScrap(int scrapNo) {
+		scrapDao.deleteScrap(scrapNo);
+	}
+
+	@Override
+	public Scrap scrapCheck(Scrap scrap) {
+//		scrap = 
+//		logger.info("scrap-- {}",scrap);
+		return scrapDao.scrapCheck(scrap);
+		
+	}
+
 }

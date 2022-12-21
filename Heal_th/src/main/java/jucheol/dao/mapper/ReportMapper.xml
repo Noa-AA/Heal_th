@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바티스 3 Mapper DTD -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jucheol.dao.face.ReportDao">
+	<select id="reportCheck" resultType="Report" parameterType="Report">
+		SELECT * FROM report
+		WHERE user_no = #{userNo} AND board_no = #{boardNo} AND category_no = #{categoryNo}
+	</select>
+
+	<insert id="addReport" parameterType="Report">
+		INSERT INTO report(report_no, board_no, user_no, category_no)
+		VALUES ( report_seq.nextval, #{boardNo }, #{userNo }, #{categoryNo } )
+	</insert>
+	
+	<delete id="deleteReport" parameterType="int">
+		DELETE report
+		WHERE report_no = #{reportNo}	
+	</delete>
+	
+	<select id="selectList" resultType="Report" parameterType="Report">
+		SELECT a.*, c.category_name,r.report_no, r.user_no FROM (
+			SELECT bf_title AS title, bf_no AS board_no, category_no from beforeafter
+			UNION
+			SELECT r_title, review_no, category_no  from reviewboard
+			UNION
+			SELECT d_title, diet_no, category_no  from dietboard
+			UNION
+			SELECT v_title, verify_no, category_no  from verifyboard
+			)a, report r, category c
+		WHERE r.board_no = a.board_no
+		AND a.category_no = c.category_no
+		ORDER BY report_no desc
+	</select>
+	
+	<delete id="deletePost" parameterType="int">
+		DELETE (
+			SELECT a.*, c.category_name,r.report_no, r.user_no FROM (
+				SELECT bf_title AS title, bf_no AS board_no, category_no from beforeafter
+				UNION
+				SELECT r_title, review_no, category_no  from reviewboard
+				UNION
+				SELECT d_title, diet_no, category_no  from dietboard
+				UNION
+				SELECT v_title, verify_no, category_no  from verifyboard
+				)a, report r, category c
+			WHERE r.board_no = a.board_no
+			AND a.category_no = c.category_no
+		)
+		
+		WHERE report_no = #{reportNo}	
+	</delete>
+</mapper>

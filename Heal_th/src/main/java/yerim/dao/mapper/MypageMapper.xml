@@ -4,6 +4,7 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="yerim.dao.face.MypageDao">
 
+
 	<select id="selectUserInfo" parameterType="int" resultType="Users">
 		SELECT user_name,user_nick,user_email,user_id,user_phone,user_gender,user_birth,user_job,user_gender,user_address,jointype
 		FROM users
@@ -37,7 +38,7 @@
 		WHERE user_no=#{userNo} and user_id=#{userId} and user_pw=#{userPw}
 	</select>
 	
-	<select id="selectUserPwForNewPw" resultType="int" parameterType="Users">
+	<select id="selectUserPwByUserNoPw" resultType="int" parameterType="Users">
 		SELECT count(*) FROM users
 		WHERE user_no=#{userNo} and user_pw=#{userPw}
 	</select>
@@ -46,5 +47,101 @@
 		SET user_pw = #{userPw}
 		WHERE user_no =#{userNo}
 	</update>
+
+	 <select id="selectIsProfile" resultType="int" parameterType="PhotoFile">
+	 
+	 	SELECT count(*) FROM PhotoFile
+	 	WHERE user_no =#{userNo}
+	 </select>
+	 <select id="selectfileNo" resultType="int" parameterType="PhotoFile"> 
+	 	SELECT file_no FROM PhotoFile
+	 	WHERE user_no =#{userNo}
+	 
+	 </select>
+	 
+	 <update id="updateProfile" parameterType="PhotoFile" >
+	 	UPDATE photofile
+	 	SET
+			origin_name =#{originName},
+			stored_name =#{storedName}
+		WHERE user_no = #{userNo} and file_no = #{fileNo}
+	 
+	 </update>
+	 
+	  <insert id="insertProfile" parameterType="PhotoFile">
+	  	INSERT INTO photofile (file_no,origin_name,stored_name,user_no)
+	  	VALUES (photoFile_seq.nextval,#{originName},#{storedName},#{userNo})
+	  </insert>
+	  
+	  
+	  <select id="selectStoredName" parameterType="PhotoFile" resultType="PhotoFile">
+	  	SELECT origin_name,stored_name FROM photofile
+	  	WHERE user_no =#{userNo}
+	  </select>
+	  
+	  <select id="selectIsIntro" parameterType="Users" resultType="int">
+	  	SELECT count(*) FROM users
+	  	WHERE user_no= #{userNo} and user_intro =#{userIntro}
+	  
+	  </select>
+	  
+	  <update id="updateIntro" parameterType="Users">
+	  	UPDATE users
+	  	SET user_intro =#{userIntro}
+	  	WHERE user_no =#{userNo}
+	  </update>
+	  
+	  <select id="selectUserIntro" parameterType="Users" resultType="Users">
+	  	SELECT user_intro FROM users
+	  	WHERE user_no =#{userNo}
+	  </select>
+	  
+	  <delete id="deleteByuserNoPw" parameterType="Users">
+	  	DELETE FROM users
+	  	WHERE user_no =#{userNo} and user_pw=#{userPw}
+	  </delete>
+	  
+	  <select id="selectTimeHeghit" parameterType="BodyInfo" resultType="BodyInfo">
+	  	SELECT body_date FROM body_info
+	  	WHERE user_no = #{userNo} and body_date =to_char(sysdate)
+	  
+	  </select>
+	  
+	  <update id="updateWeightHeight" parameterType="BodyInfo">
+	  	UPDATE body_info
+	  	
+	  		<choose>
+	  			<when test="height == null and weight != null" >
+	  				SET weight = #{weight}
+	  			</when>
+	  			<when test="weight == null and height != null">
+	  		 		SET height=#{height}
+	  			</when>
+	  			<otherwise>
+	  				SET weight = #{weight},height=#{height}
+	  			</otherwise>
+			</choose>	  	
+	  	
+	  	
+	  	WHERE user_no = #{userNo} and body_date =to_char(sysdate)
+	  </update>
+	  
+	  <insert id="insertWeightHeight" parameterType="BodyInfo">
+	   INSERT INTO body_info (body_no,weight,height,body_date,user_no)
+	   VALUES (body_info_seq.nextval,#{weight},#{height},to_char(sysdate),#{userNo})
+	  
+	  </insert>
+	  <select id="selectWeight" resultType="BodyInfo" parameterType="BodyInfo">
+	  	SELECT body_date,weight,height FROM body_info
+	  	WHERE user_no =#{userNo}
+	  	ORDER BY body_date 
+	  </select>
+	  
+	  <select id="selectHeight" parameterType="BodyInfo" resultType="BodyInfo">
+	  
+	  SELECT HEIGHT FROM body_info
+	  WHERE body_no =(SELECT MAX(body_no) FROM body_info WHERE user_no =#{userNo})
+	  
+	  </select>
 
 </mapper>

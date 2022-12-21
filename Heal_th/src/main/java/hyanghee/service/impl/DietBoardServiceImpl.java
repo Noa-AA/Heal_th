@@ -11,6 +11,8 @@ import hyanghee.dao.face.DietBoardDao;
 import hyanghee.dto.DietBoard;
 import hyanghee.service.face.DietBoardService;
 import hyanghee.util.BoardPaging;
+import hyanghee.util.BoardSearch;
+import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
 @Service
@@ -111,6 +113,21 @@ public class DietBoardServiceImpl implements DietBoardService {
 	@Override
 	public void delete(DietBoard dietNo) {
 		dietBoardDao.delete(dietNo);
+	}
+
+	@Override
+	public List<Notice> notice(BoardPaging boardPaging) {
+		return dietBoardDao.noticeList(boardPaging);
+	}
+
+	@Override
+	public List<DietBoard> getSearchPaging(BoardSearch boardSearch) {
+		return dietBoardDao.getSearchPaging(boardSearch);
+	}
+
+	@Override
+	public int getTotal(BoardSearch boardSearch) {
+		return dietBoardDao.getTotal(boardSearch);
 	}
 	
 }

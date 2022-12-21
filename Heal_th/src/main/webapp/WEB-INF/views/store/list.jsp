@@ -1,55 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+
+
+// //검색 버튼
+// $(".search_area button").on("click", function(e) {
+// 	e.preventDefault();
+
+// 	let type = $(".search_area select").val();
+// 	let keyword = $(".search_area input[name='keyword']").val();
+
+// 	if (!keyword) {
+// 		alert("키워드를 입력하세요.");
+// 		return false;
+// 	}
+
+// 	moveForm.find("input[name='type']").val(type);
+// 	moveForm.submit();
+// });
+
+
+
+
+
+
+</script>
 
 <style>
-/* .rewards-container .reward-list li a:hover { */
-/*     box-shadow: 0px 0px 20px rgba(93,142,171,.4); */
-/*     border-color: #5d8eab; */
-/*     z-index: 100; */
-/* } */
-
- 
-
-/* ul { */
-/*     display: block; */
-/*     list-style-type: disc; */
-/*     margin-block-start: 1em; */
-/*     margin-block-end: 1em; */
-/*     margin-inline-start: 0px; */
-/*     margin-inline-end: 0px; */
-/*     padding-inline-start: 40px; */
-/* } */
-
-
-/* body { */
-/* 	padding-top:355px; */
-	
-/* } */
-
-
-/* a{ */
-/* text-decoration : none; */
-/* } */
-
-/* .rewards-container .reward-list { */
-/*     position: relative; */
-/*     display: inline-block; */
-/*     border: 1px solid #333; */
-/* /*     background-color: #fff; */ */
-/* 	box-shadow: 1px 1px 10px 0px rgb(0 0 0/ 30%); */
-/*     width: 400px; */
-/*     height: 300px; */
-/*     padding: 12px; */
-/*     text-align: center; */
-/* /*     box-sizing: border-box; */ */
-/*     cursor: default; */
-/* } */
-
-
-
-
-
-
 
 
 
@@ -63,7 +41,7 @@
 	justify-content: center;
 	/* 	margin: 50px 50px 90px 50px; */
 	margin: auto;
-	gap: 50px 50px;
+ 	gap: 50px 50px; 
 	width: 1200px;
 }
 
@@ -79,7 +57,12 @@
 }
 
 .store-content {
-	margin-top: 30px;
+/* 	margin-top: 30px; */
+	height : 100%;
+	width: 1200px;
+	margin : 0 auto;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .store img {
@@ -112,6 +95,7 @@
 /* button{ */
 /* 	background-color: #c583d6; */
 /* } */
+
 .pageInfo_wrap {
 	text-align: center;
 }
@@ -150,8 +134,80 @@ a:hover {
 }
 
 
+.store-ul{
+	display: flex;
+	flex-wrap: wrap;
+	width : 372px;
+	height: 300px;
+	background-color: #eee;
+	margin-right: 42px;
+	margin-bottom: 10px;
+	
+}
+.store-ul:nth-child(3n) {
+    margin-right: 0px;
+}   
 
 
+#cart{
+	width: 76px;
+	height: 23px;
+	font-size:10px;
+	
+}
+
+
+-------------------
+
+.text-center {
+	display: flex;
+	justify-content: center;
+	margin-top: 40px;
+}
+
+.pagination {
+	display: flex;
+	margin: 0;
+}
+
+.pagination > li{
+	display: flex;
+}
+
+.pagination > li > a {
+	display: flex;
+	margin: 0 4px;
+	width: 40px;
+	height: 40px;
+	border-radius: 20px !important;
+	font-size: 16px;
+	justify-content: center;
+	align-items: center;
+}
+
+---------------
+
+
+.search_area {
+	display: inline-block;
+	text-align: center;
+	margin-top: 30px;
+}
+
+.search_area input {
+	height: 36px;
+	width: 250px;
+}
+
+
+.search_area button {
+	width: 100px;
+	height: 36px;
+}
+
+.search_area select {
+	height: 35px;
+}
 
 </style>
 
@@ -160,7 +216,7 @@ a:hover {
 <body>
 <div id="subvisual">
     <div id="subvisual-A">
-        <p id="subv-title">득근상점</p>
+        <p id="subv-title">득근 상점</p>
 <!--         <p id="subv-content">나의 오늘 운동기록을 매일매일 기록해 봐요</p> -->
     </div>
 </div>
@@ -188,7 +244,7 @@ a:hover {
 <!-- 	</a> -->
 
 
-<h1>게시판 리스트</h1>
+<h1>득근 상점</h1>
 <hr>
 
 <!-- <table class="table table-striped table-hover table-condensed"> -->
@@ -220,7 +276,7 @@ a:hover {
 <!-- 	<li> -->
 <%-- 		<a href="/store/view?prodNo=${StoreDto.prodNo }">${StoreDto.pName }</a> --%>
 
-<!-- <!-- 		<input type="hidden" name="csrftoken" id="csrftoken" value="" /> --> -->
+<!-- <!-- 		<input type="hidden" name="csrftoken" id="csrftoken" value="" /> -->
 <!-- 		<img src=""> -->
 <!-- 		<div class="reward-info"> -->
 <!-- 			<div class="label-tag-box"></div> -->
@@ -244,28 +300,108 @@ a:hover {
 
 
 	<div class="store-list">
-		<c:forEach items="${list }" var="StoreDto">
 
-			<div class="store">
-				<div class="store-thumbnail">
+<!-- 			<div class="store"> -->
+<!-- 				<div class="store-thumbnail"> -->
 <%-- 					<img src="/resources/img/chl_thumbnail/chl_thumb${storenge.storengeNo }.jpg" onerror="this.src='https://shared-comic.pstatic.net/thumb/webtoon/796152/thumbnail/thumbnail_IMAG10_a500c803-99ec-4bf8-92d1-b2a5c60c9789.jpg'"> --%>
 				</div>
 				<div class="store-content">
-					<ul>
+					<c:forEach items="${list }" var="StoreDto">
+					<ul class="store-ul">
 						<li>
 							<a href="/store/view?prodNo=${StoreDto.prodNo }">${StoreDto.pName }</a>
-						</li>
-						<li>가격 : ${StoreDto.pPrice } 원</li>
-						<li>조회수 : ${StoreDto.pHit } 
-						</li>
+						</li><br>
+						<li>가격 : ${StoreDto.pPrice } 원</li><br>
+						<li>조회수 : ${StoreDto.pHit } </li><br>
+					<button id="cart">장바구니에 담기</button>
 					</ul>
+					</c:forEach>
 				</div>
+
+
+
+
+
+			<div class="search_wrap text-center">
+			<div class="search_area">
+				<select name="type" id="type">
+					<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':'' }"/>>제목</option>
+				</select> <input type="text" name="keyword" value="${pageMaker.cri.keyword }">
+				<button>검색</button>
 			</div>
+		</div>
+		
+		
+		
+
+	<form id="moveForm" method="get">
+		<input type="hidden" id="prodNo" name="prodNo" value='<c:out value="${pageInfo.prodNo}"/>'> 
+		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
+		<input type="hidden" name="type" value="${pageMaker.cri.type }">
+	</form>
+
+
+	<div class="text-center">
+		<ul class="pagination pagination-sm">
+	
+		<%-- 첫 페이지로 이동 --%>
+		<c:if test="${paging.curPage ne 1 }">
+			<li><a href="/store/list"> &larr; 처음 </a></li>	
+		</c:if>
+		
+		<%-- 이전 페이징 리스트로 이동 --%>
+		<c:choose>
+		<c:when test="${paging.startPage ne 1 }">
+			<li><a href="/store/list?curPage=${paging.startPage - paging.pageCount }">&laquo;</a></li>
+		</c:when>
+		<c:when test="${paging.startPage eq 1 }">
+			<li class="disabled"><a>&laquo;</a></li>
+		</c:when>
+		</c:choose>
+		
+		<%-- 이전 페이지로 가기 --%>
+		<c:if test="${paging.curPage > 1 }">
+			<li><a href="/store/list?curPage=${paging.curPage - 1 }">&lt;</a></li>
+		</c:if>
+		
+		
+		
+		<%-- 페이징 리스트 --%>
+		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
+	<c:if test="${paging.curPage eq i }">
+		<li class="active"><a href="/store/list?curPage=${i }">${i }</a></li>
+	</c:if>
+		<c:if test="${paging.curPage ne i }">
+			<li><a href="/store/list?curPage=${i }">${i }</a></li>
+		</c:if>
 		</c:forEach>
+	
+		
+		
+		<%-- 다음 페이지로 가기 --%>
+		<c:if test="${paging.curPage < paging.totalPage }">
+			<li><a href="/store/list?curPage=${paging.curPage + 1 }">&gt;</a></li>
+		</c:if>
+		
+		<%-- 다음 페이징 리스트로 이동 --%>
+		<c:choose>
+		<c:when test="${paging.endPage ne paging.totalPage }">
+			<li><a href="/store/list?curPage=${paging.startPage + paging.pageCount }">&raquo;</a></li>
+		</c:when>
+		<c:when test="${paging.endPage eq paging.totalPage }">
+			<li class="disabled"><a>&raquo;</a></li>
+		</c:when>
+		</c:choose>
+	
+		<%-- 끝 페이지로 이동 --%>
+		<c:if test="${paging.curPage ne paging.totalPage }">
+			<li><a href="/store/list?curPage=${paging.totalPage }">끝 &rarr;</a></li>	
+		</c:if>
+		
+		</ul>
 	</div>
 
 </body>
-
 <%@include file="../layout/footer.jsp" %>
 </html>
 

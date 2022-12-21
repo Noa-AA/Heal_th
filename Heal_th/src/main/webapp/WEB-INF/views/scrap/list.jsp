@@ -10,8 +10,8 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 $(document).ready(function(){
-	$(".commentDelete").click(function(){ //삭제하기
-		console.log(".commentDelete click")
+	$(".scrapDelete").click(function(){ //삭제하기
+		console.log(".scrapDelete click")
 		console.log($(this).val())
 		if(confirm("스크랩을 삭제하시겠습니까?")){
 			$.ajax({
@@ -21,12 +21,13 @@ $(document).ready(function(){
 						scrapNo:$(this).val() //댓글번호
 					}
 				,dataType: "html"
-				,success: function(commentList){
-					console.log("scrap삭제AJAX 성공")
-					
+				,success: function(scrapList){
+					console.log("스크랩 불러오기 성공")
+					//응답 데이터 출력
+					$("#scrapList").html(scrapList)
 				}
 				,error: function(){
-					console.log("scrap삭제AJAX 실패")
+					console.log("스크랩 불러오기 실패")
 				}
 			})
 			
@@ -44,16 +45,21 @@ $(document).ready(function(){
 	border : 1px solid #ccc;
 	
 }
+/* #scrapList tbody td{ */
+/* 	 width:400px; */
+/* } */
+#scrapList tr td:nth-child(2){
+	width: 350px;
+}
 
 </style>
-</head>
-<body>
-<h1>스크랩 목록</h1>
-<hr>
+<!-- </head> -->
+<!-- <body> -->
+
 <table id="scrapList">
 <thead>
 <th>게시판 명</th>
-<th style="width:450px">제목</th>
+<th colspan="2" style="width:400px">제목</th>
 </thead>
 <tbody>
 <c:forEach items="${scrapList }" var="scrap">
@@ -62,7 +68,7 @@ $(document).ready(function(){
 <%-- 		<td>카테고리 번호 : ${scrap.categoryNo }</td> --%>
 <%-- 		<td>카테고리 : ${scrap.categoryName } 게시판</td> --%>
 <%-- 		<td>글 번호 : ${scrap.boardNo }</td> --%>
-		<td>${scrap.categoryName } 게시판</td>
+		<td style="width:200px" class="tbodytd">${scrap.categoryName } 게시판</td>
 		<c:choose>
 			<c:when test="${scrap.categoryNo eq 1}"> <!-- bf 게시판 -->
 				<td><a href="/board/bfView?bfNo=${scrap.boardNo}"> ${scrap.title }</a></td>

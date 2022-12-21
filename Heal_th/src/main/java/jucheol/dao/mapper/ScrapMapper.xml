@@ -17,10 +17,26 @@
 			UNION
 			SELECT r_title, review_no, category_no  from reviewboard
 			WHERE user_no = #{userNo }
+			UNION
+			SELECT d_title, diet_no, category_no  from dietboard
+			WHERE user_no = #{userNo }
+			UNION
+			SELECT v_title, verify_no, category_no  from verifyboard
+			WHERE user_no = #{userNo }
 			)a, scrap s, category c
 		WHERE s.board_no = a.board_no
 		AND a.category_no = c.category_no
 		ORDER BY scrap_no desc
 	
+	</select>
+	
+	<delete id="deleteScrap" parameterType="int">
+		DELETE scrap
+		WHERE scrap_no = #{scrapNo}	
+	</delete>
+	
+	<select id="scrapCheck" resultType="Scrap" parameterType="Scrap">
+		SELECT * FROM scrap
+		WHERE user_no = #{userNo} AND board_no = #{boardNo} AND category_no = #{categoryNo}
 	</select>
 </mapper>

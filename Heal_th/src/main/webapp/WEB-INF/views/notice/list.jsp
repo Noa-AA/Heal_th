@@ -14,12 +14,49 @@ $(document).ready(function() { //공지사항으로 이동
 	$("#btnWrite").click(function() {
 		$(location).attr("href", "./write")
 	})
-
 })
+$(document).ready(function(){ //등록 알림창
+    
+    let result = '<c:out value="${result}"/>';
+    
+    checkAlert(result);
+    
+    function checkAlert(result){
+        
+        if(result === ''){
+            reutrn;
+        }
+        
+        if(result === "write success"){
+            alert("공지사항 등록이 완료되었습니다.");
+        }
+        if(result === "delete success"){
+            alert("게시글이 삭제되었습니다.");
+        }
+        
+    }    
+    
+});
 </script>
 <style type="text/css">
 h1{text-align: center;}
 
+.search_area{
+    display: inline-block;
+    margin-top: 30px;
+    margin-left: 260px;
+  }
+  .search_area input{
+      height: 30px;
+    width: 250px;
+  }
+  .search_area button{
+     width: 100px;
+    height: 36px;
+  }
+.bottomBtn{
+	float: right;  
+}
 </style>
 
 <div class="container">
@@ -55,11 +92,20 @@ h1{text-align: center;}
 
 </table>
 
-<button id="btnWrite">글쓰기</button>
+<div class="search_wrap">
+	<div class="search_area">
+		<input type="text" name="keyword" value="${pageMaker.search.keyword }">
+		<button>검색</button>
+	</div>
+</div>
+
+
+<button id="btnWrite" class="bottomBtn">글쓰기</button>
 
 </div>
 
-<%-- <%@include file="../layout/footer.jsp" %> --%>
+<%@include file="../notice/paging.jsp" %>
+
 
 </body>
 </html>

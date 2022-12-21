@@ -9,13 +9,13 @@
 	
 	<!-- /admin/user  -->
 	<!-- 회원의 전체 리스트 수 조회 -->
-	<select id="selectCntAll" resultType="int">
+	<select id="selectUserCntAll" resultType="int">
 		SELECT count(*) FROM users
 	</select>
 	
 	<!-- /admin/user -->
 	<!-- 회원 전체 리스트 조회 -->
-	<select id="selectUsers" resultType="Users" parameterType="adminPaging">
+	<select id="selectUsers" resultType="Users" parameterType="AdminUserPaging">
 		SELECT * FROM (
 			SELECT rownum rnum, R.* FROM (
 			      SELECT * FROM users
@@ -25,5 +25,104 @@
 	</select>
 	
 	
+	<!-- admin/userSearch -->
+	<select id="selectSearchCntAll" resultType="int" parameterType="AdminUserPaging">
+		SELECT count(*) FROM users 
+		<where>
+			<choose>
+				<when test="type != null and type.equals('userNick')">
+					AND user_nick LIKE '%' || #{keyword } || '%'
+				</when>
+				<when test="type != null and type.equals('userName')">
+					AND user_name LIKE '%' || #{keyword } || '%'
+				</when>
+			</choose>
+		</where>
+		ORDER BY user_no
+	</select>
+	
+	
+	<select id="selectSearchUsers" resultType="Users" parameterType="AdminUserPaging">
+		SELECT * FROM (
+			SELECT rownum rnum, R.* FROM (
+				SELECT * FROM users 
+				<where>
+					<choose>
+						<when test="type != null and type.equals('userNick')">
+							AND user_nick LIKE '%' || #{keyword } || '%'
+						</when>
+						<when test="type != null and type.equals('userName')">
+							AND user_name LIKE '%' || #{keyword } || '%'
+						</when>
+					</choose>
+				</where>
+				ORDER BY user_no 
+				) R
+			) RECORD
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	
+	
+	<!-- 회원 결제목록 ============================================================================= -->	
+	
+	<!-- /admin/payment  -->
+	<!-- 전체 결제 목록 수 조회 -->
+	<select id="selectPaymentCntAll" resultType="int">
+		SELECT count(*) FROM payment
+	</select>
+	
+	<!-- /admin/payment -->
+	<!-- 결제목록 리스트 조회 -->
+	<select id="selectPayment" resultType="PaymentDto" parameterType="AdminPaymentPaging">
+		SELECT * FROM (
+			SELECT rownum rnum, R.* FROM (
+			      SELECT * FROM payment
+				) R
+			) RECORD
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<!-- admin/paymentSearch -->
+	<select id="selectPaymentSearchCntAll" resultType="int" parameterType="AdminPaymentPaging">
+		SELECT count(*) FROM payment
+		<where>
+			<choose>
+				<when test="type != null and type.equals('orderNo')">
+					AND order_no LIKE '%' || #{keyword } || '%'
+				</when>
+				<when test="type != null and type.equals('pName')">
+					AND p_name LIKE '%' || #{keyword } || '%'
+				</when>
+			</choose>
+		</where>
+		ORDER BY order_no
+	</select>
+	
+	<select id="selectSearchPayment" resultType="PaymentDto" parameterType="AdminPaymentPaging">
+		SELECT * FROM (
+			SELECT rownum rnum, R.* FROM (
+				SELECT * FROM payment 
+				<where>
+					<choose>
+							<when test="type != null and type.equals('orderNo')">
+								AND order_no LIKE '%' || #{keyword } || '%'
+							</when>
+							<when test="type != null and type.equals('pName')">
+								AND p_name LIKE '%' || #{keyword } || '%'
+							</when>
+					</choose>
+				</where>
+				ORDER BY order_no 
+				) R
+			) RECORD
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
 	
 </mapper>
+
+
+
+
+
+
+

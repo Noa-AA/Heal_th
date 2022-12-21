@@ -16,8 +16,13 @@ $(document).ready(function() {
 <hr>
 
 <form action="./write" method="post">
-<label>제목</label><input type="text" name="noticeTtl" /><br>
-<label>내용</label><textarea rows="10" cols="50" name="noticeContent"></textarea><br>
+<div class="input_wrap">
+	<label>제목</label><input type="text" name="noticeTtl" />
+</div>
+	<div class="input_wrap">
+<label>내용</label><textarea rows="10" cols="50" name="noticeContent"></textarea>
+</div>
+
 
 
 <button type="submit">작성</button><button><a href="./list"/>취소</button>

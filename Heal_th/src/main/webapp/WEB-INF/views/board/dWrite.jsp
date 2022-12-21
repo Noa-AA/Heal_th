@@ -81,13 +81,18 @@
 
 <div>
 	<label for="prodClassification">제품 분류</label>
-	<input>
+	<input id="prodClassification" name="prodClassification">
 	
 </div>
 
 <div>
 	<label for="file">첨부파일</label>
 	<button type="button" id="file" name="file">첨부파일</button>
+</div>
+	<label for="file">내용</label>
+	<textarea id="dContent" name="dContent" required id="dContent"></textarea>
+<div>
+
 </div>
 
 <div class="text-center">

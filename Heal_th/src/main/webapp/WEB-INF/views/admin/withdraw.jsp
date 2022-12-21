@@ -26,6 +26,48 @@ function listOrderBy(selectValue){
 			console.log("AJAX 실패")
 		}
 	})
+	
+}
+
+function withDrawOk(wdNo,wdAmount,userNo){
+	console.log(wdNo); 
+	console.log(wdAmount);
+	console.log(userNo);
+	if(confirm("승인처리 하시겠습니까?")){
+	$.ajax({
+		type: "post",
+		url: "/admin/withdrawProc",
+		data: {
+			wdNo: wdNo,
+			wdAmount: wdAmount,
+			userNo: userNo
+		},
+		dataType: "html",
+		success: (res)=>{
+			console.log("AJAX 성공")
+				$.ajax({
+					type: "post"
+					, url: "/message/insert"
+					, data: {
+						userNo: ${sessionScope.userNo},
+						messageCon: "회원님의 환불계좌로 인출신청하신 금액이 입금되었습니다."
+					}
+					, dataType: "json"
+					, success: function(res){
+						console.log("AJAX 성공")
+						location.reload();
+						}
+					, error: function(){
+						console.log("AJAX 실패")
+						location.reload();
+					}
+				})
+		},
+		error: ()=>{
+			console.log("AJAX 실패")
+		}
+	})
+	}
 }
 
 </script>
@@ -58,15 +100,15 @@ select {
 		<div id="orderResult">
 		<table>
 			<tr>
-				<th>인출신청 번호</th>
-				<th>인출신청 날짜</th>
-				<th>인출신청 금액</th>
-				<th>예금주</th>
-				<th>은행명</th>
-				<th>계좌번호</th>
-				<th>회원번호</th>
-				<th>처리상태</th>
-				<th>승인</th>
+				<th width="10%">인출신청 번호</th>
+				<th width="20%">인출신청 날짜</th>
+				<th width="10%">인출신청 금액</th>
+				<th width="10%">예금주</th>
+				<th width="10%">은행명</th>
+				<th width="10%">계좌번호</th>
+				<th width="10%">회원번호</th>
+				<th width="10%">처리상태</th>
+				<th width="10%">승인</th>
 			</tr>
 			<c:forEach items="${withDraw }" var="w">
 			<tr>
@@ -80,15 +122,15 @@ select {
 				<td>${w.wdProcess }</td>
 				<td>
 				<c:if test="${w.wdProcess eq '미처리'}">
-				<form action="/admin/withdrawProc?wdNo=${w.wdNo }&wdAmount=${w.wdAmount }&userNo=${w.userNo }" method="post">
-						<button onclick="return confirm('정말 처리완료되었습니까?')">승인</button>
-				</form>
+<%-- 				<form action="/admin/withdrawProc?wdNo=${w.wdNo }&wdAmount=${w.wdAmount }&userNo=${w.userNo }" method="post">
+						<button id="confrimButton" onclick="return confirm('정말 처리완료되었습니까?')">승인</button>
+				</form> --%>
+					<button id="confrimButton" type="button" onclick="withDrawOk(${w.wdNo}, ${w.wdAmount }, ${w.userNo })">승인</button>
 				</c:if>
 				</td>
 			</tr>
 			</c:forEach>
 		</table>
-		
 			<div class="text-center">
 			<ul class="pagination pagination-sm">
 		

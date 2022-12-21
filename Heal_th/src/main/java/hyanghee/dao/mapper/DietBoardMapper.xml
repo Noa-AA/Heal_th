@@ -24,6 +24,15 @@
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
+	<select id="noticeList" resultType="Notice" parameterType="BoardPaging">
+	<![CDATA[
+		SELECT * FROM (
+			SELECT * FROM notice ORDER BY notice_no DESC ) 
+		WHERE ROWNUM <=3
+		ORDER BY notice_no DESC
+	]]>
+	</select>
+	
 	<select id="selectUserInfo" resultType="Users" parameterType="int">
 		SELECT * FROM users
 		WHERE user_no = #{userno }
@@ -41,7 +50,6 @@
 			   , d_hit, d_thumbs, user_no, category_no )
 		
 		VALUES ( #{dietNo}, sysdate, #{dTitle}, #{prodClassification}, #{dContent}
-				   , #{kcal}, #{verifyContent}
 				   , to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
 				   , to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
 				   , 0, 0, #{userNo}, 3 )
@@ -70,5 +78,80 @@
 		DELETE dietboard
 		WHERE diet_no = #{dietNo}	
 	</delete>
+	
+	<select id="getList" resultType="DietBoard">
+		SELECT diet_no, d_title, user_no,
+				d_hit, d_thumbs, d_inst_date
+		FROM dietboard
+		
+		ORDER BY diet_no DESC
+	</select>
+	
+	<select id="getPage" resultType="DietBoard">
+        SELECT * FROM dietboard
+        WHERE diet_no = #{dietNo}
+    </select>
+	
+	<sql id="boardSearch">
+        <trim prefix="AND (" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'T'.toString()">
+                            d_title like '%'||#{keyword}||'%' 
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            d_content like '%'||#{keyword}||'%',
+                        </when>
+                         <when test="type == 'TC'.toString()">
+                         	d_title like '%'||#{keyword}||'%',
+                            d_content like '%'||#{keyword}||'%',
+                        </when>
+                        
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    
+    </sql>
+    
+    
+    <select id="getSearchPaging" resultType="DietBoard">
+    
+    <![CDATA[
+        
+        SELECT diet_no, d_title, user_no,
+					d_hit, d_thumbs, d_inst_date  FROM(
+        
+                SELECT 
+                rownum  as rn, diet_no, d_title, user_no,
+								d_hit, d_thumbs, d_inst_date
+                  
+                FROM dietboard WHERE rownum <= #{pageNum} * #{amount} 
+    ]]>            
+                <if test="keyword != null">
+                	<include refid="boardSearch"></include> 
+                </if>
+    
+    <![CDATA[
+                    
+                )
+                    
+        WHERE rn > (#{pageNum} -1) * #{amount}
+    
+    ]]>
+    
+    </select>
+	
+       
+    
+    <select id="getTotal" resultType="int">
+    	SELECT count(*) FROM dietboard
+    	
+    	<if test="keyword != null">
+			WHERE diet_no > 0 <include refid="boardSearch"></include>
+        </if>
+        
+    </select>
 
 </mapper>

@@ -234,7 +234,7 @@ body {
 	margin-bottom: 17px;
 	width: 501px;
 	display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
 }
 
 .chat-container-wrap {
@@ -539,7 +539,7 @@ $(document).ready(function(){
 	}
 	
  	function pooploop(){
-		setInterval(poop, 10000);
+		setInterval(poop, 20000);
 	}
 	
 	pooploop();
