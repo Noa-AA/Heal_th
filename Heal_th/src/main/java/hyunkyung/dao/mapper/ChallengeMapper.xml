@@ -81,4 +81,5 @@
 		WHERE challenge_no = #{challengeNo}
 	</delete>
 
+	
 </mapper>    

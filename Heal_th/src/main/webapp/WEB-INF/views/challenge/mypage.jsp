@@ -2,16 +2,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp"%>
 <style type="text/css">
+#twoDepth-list a:nth-child(3) {
+	color: #b571e9;
+	border-bottom: 2px solid #b571e9;
+	margin-top: 1px;
+	font-weight: 700;
+}
+
+#twoDepth-list a {
+	width: 33.3%;
+}
+
 .mypage-list {
 	width: 1200px;
 }
 
 .user-content {
 	border: 1px solid #333;
+	border-radius: 10px; box-shadow : 1px 1px 10px 0px rgb( 0 0 0/ 30%);
 	width: 1200px;
 	text-align: center;
-	margin: 18px 338px;
+	margin: 52px 338px;
 	line-height: 30px;
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0/ 30%);
+}
+
+.challenge-title {
+	text-align: center;
+	width: 1200px;
+	margin: 18px 338px;
+	font-size: 20px;
 }
 
 .join_list {
@@ -24,6 +44,7 @@
 	margin-bottom: -15px;
 	text-align: center;
 	width: 1200px;
+	margin: 18px 338px;
 }
 
 .join_list img {
@@ -34,7 +55,8 @@
 }
 
 .page-content {
-	margin-top: 400px;
+	margin-top: 40px;
+	text-align: center;
 }
 
 .challenge {
@@ -48,7 +70,7 @@
 	margin-top: 20px;
 }
 
-.challenge-content{
+.challenge-content {
 	margin-top: 30px;
 }
 </style>
@@ -57,7 +79,13 @@
 	<div id="subvisual">
 		<div id="subvisual-A">
 			<p id="subv-title">챌린지 마이페이지</p>
-			<p id="subv-content">나의 챌린지를 확인해보세요</p>
+		</div>
+	</div>
+	<div id="twoDepth">
+		<div id="twoDepth-list">
+			<a href="/challenge/list">챌린지 리스트</a>
+			<a href="/challenge/create">챌린지 만들기</a>
+			<a href="/challenge/mypage">챌린지 마이페이지/인증</a>
 		</div>
 	</div>
 
@@ -68,11 +96,11 @@
 			<div class="user-content">
 				<div>이름 : ${user.userName }</div>
 				<div>아이디 : ${user.userId }</div>
-<%-- 				<div>가입한 챌린지 수 : ${total }</div> --%>
+				<%-- 				<div>가입한 챌린지 수 : ${total }</div> --%>
 			</div>
 
+			<div class="challenge-title"> ${user.userName } 님이 가입한 챌린지</div>
 			<div class="join_list">
-				<div class="challenge-title">가입한 챌린지</div>
 				<c:forEach items="${joinList }" var="joinList">
 					<div class="challenge">
 						<div class="challenge-thumbnail">
@@ -82,7 +110,8 @@
 							<ul>
 								<li>챌린지 번호 : ${joinList.challengeNo }</li>
 								<li>제목 : <a class="move" href='<c:out value="${joinList.challengeNo}"/>'>
-								<c:out value="${joinList.challengeName }"/></a></li>
+										<c:out value="${joinList.challengeName }" />
+									</a></li>
 								<li>종류 : ${joinList.challengeKind }</li>
 								<li>생성일 : <fmt:formatDate value="${joinList.challengeCredate }" pattern="yyyy년 MM월 dd일" /></li>
 								<li>종료일 : <fmt:formatDate value="${joinList.challengeEnddate }" pattern="yyyy년 MM월 dd일" /></li>
@@ -93,13 +122,31 @@
 			</div>
 		</div>
 	</div>
-	
 
+	<form id="moveForm" method="get">
+		<input type="hidden" id="challengeNo" name="challengeNo" value='<c:out value="${pageInfo.challengeNo}"/>'>
+	
+	</form>
 </body>
 <%@include file="../layout/footer.jsp"%>
 
 
 <script>
+//사진인증 페이지
+let moveForm = $("#moveForm");
+$(".move")
+		.on(
+				"click",
+				function(e) {
+					e.preventDefault();
+					moveForm.empty();
+
+					moveForm
+							.append("<input type='hidden' name='challengeNo' value='"
+									+ $(this).attr("href") + "'>");
+					moveForm.attr("action", "/challenge/photopage");
+					moveForm.submit();
+				});
 
 
 </script>
