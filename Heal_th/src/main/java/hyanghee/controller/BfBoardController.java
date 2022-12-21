@@ -40,16 +40,12 @@ public class BfBoardController {
 			, BoardSearch boardSearch
 			, Model model) {
 		
-		BoardPaging boardPaging = bfBoardService.getPaging(curPage);
-		logger.info("{}", boardPaging);
-		model.addAttribute("BoardPaging", boardPaging);
-		
-//		List<Beforeafter> list = bfBoardService.list(boardPaging);
-//		for( Beforeafter b : list )	logger.info("{}", b);
-//		model.addAttribute("list", list);
+		BoardPaging paging = bfBoardService.getPaging(curPage);
+		logger.info("{}", paging);
+		model.addAttribute("BoardPaging", paging);
 		
 		//공지사항
-		List<Notice> notice = bfBoardService.notice(boardPaging);
+		List<Notice> notice = bfBoardService.notice(paging);
 		for( Notice n : notice )	logger.info("{}", n);
 		model.addAttribute("notice", notice);
 		
@@ -68,31 +64,44 @@ public class BfBoardController {
 	
 	//게시글 작성
 	@GetMapping("/board/bfWrite")
-	public void insertBfBoard() {
-		
+	public String insertBfBoard(HttpSession session, Model model) {
 		logger.info("/board/bfWrite [GET]");
 		
+		if(session.getAttribute("userNo")!=null && session.getAttribute("userNo")!="") {
+			int userno = (int) session.getAttribute("userNo");
+			logger.info("userno : {}", userno);
+			
+			Users users = bfBoardService.getUserInfo(userno);
+			logger.info("userInfo : {}", users);
+			model.addAttribute("users", users);
+			
+			int point = bfBoardService.getPoint(userno);
+			logger.info("point: {}", point);
+			model.addAttribute("point", point);
+			
+			return "/board/bfWrite";
+		} else {
+			return "/login/login";
+		}
 
 	}
 	
 	@PostMapping("/board/bfWrite")
-	public String insertBfBoardProc(Beforeafter bfBoard, int point, HttpSession session, Model model) {
+	public String insertBfBoardProc(Beforeafter bfBoard, HttpSession session, Model model) {
 		logger.info("/board/bfWrite [POST]");
 		
 		//테스트용 로그인 userno
-		session.setAttribute("userNo", 7777);
+//		session.setAttribute("userNo", 7777);
 		
 		//작성자 정보 추가
 		bfBoard.setUserNo( (int) session.getAttribute("userNo") );
 		
-		//포인트
-		Users userno = bfBoardService.getPoint(point);
-		List<Users> user = bfBoardService.updatePoint(point);
-		model.addAttribute("point", point);
-		
 		logger.info("{}", bfBoard);
 		
 		bfBoardService.insertBfBoard(bfBoard);
+		
+		int point = (Integer)session.getAttribute("userNo");
+		bfBoardService.updatePoint(point);
 		
 		return "redirect:/board/bfBoard";
 	}
@@ -114,6 +123,7 @@ public class BfBoardController {
 		//모델값 전달
 		model.addAttribute("viewBoard", viewBoard);
 		model.addAttribute("comment", comment);
+		model.addAttribute("boardNo", viewBoard.getBfNo());
 		
 		return "/board/bfView";
 	}

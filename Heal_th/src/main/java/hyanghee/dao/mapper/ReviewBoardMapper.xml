@@ -33,6 +33,11 @@
 	]]>
 	</select>
 	
+	<select id="updateHit" parameterType="ReviewBoard">
+ 		UPDATE reviewboard SET r_hit = r_hit + 1 
+ 		WHERE review_no = #{reviewNo}
+ 	</select>
+	
 	<select id="selectUserInfo" resultType="Users" parameterType="int">
 		SELECT * FROM users
 		WHERE user_no = #{userno }
@@ -46,12 +51,12 @@
 	
 		INSERT INTO reviewboard ( 
 			review_no, r_inst_date, r_title, gym_name, gym_introduce
-			   , classification, price, address, score, review
+			   , classification, price, address, lat, lng, score, review
 			   , r_upt_date, r_delete_date, r_hit
 			   , r_thumbs, user_no, category_no )
 		
 		VALUES ( #{reviewNo}, sysdate, #{rTitle}, #{gymName}, #{gymIntroduce}
-				   , #{classification}, #{price}, #{address}, #{score}, #{review}
+				   , #{classification}, #{price}, #{address}, #{lat}, #{lng}, #{score}, #{review}
 				   , to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
 				   , to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
 				   , 0, 0, #{userNo}, 4 )
@@ -61,7 +66,7 @@
 	<select id="selectBoard" resultType="ReviewBoard" parameterType="ReviewBoard">
 		SELECT
 			review_no, r_inst_date, r_title, gym_name, gym_introduce
-			   , classification, price, address, score, review
+			   , classification, price, address, lat, lng, score, review
 			   , r_upt_date, r_delete_date, r_hit
 			   ,r_thumbs, user_no, category_no
 		FROM reviewboard
@@ -76,6 +81,8 @@
 			, classification = #{classification}
 			, price = #{price}
 			, address = #{address}
+			, lat = #{lat}
+			, lng = #{lng}
 			, score = #{score}
 			, review = #{review}
 		WHERE review_no = #{reviewNo}
@@ -161,5 +168,16 @@
         
     </select>
 	
+	<select id="getPoint" resultType="int" parameterType="Users">
+		SELECT point FROM users
+		WHERE user_no = #{userNo }
+	</select>
+	
+	
+	<update id="updatePoint" parameterType="Users">
+		UPDATE users SET point =
+			point + 50
+		WHERE user_no = #{userNo}
+	</update>
 	
 </mapper>

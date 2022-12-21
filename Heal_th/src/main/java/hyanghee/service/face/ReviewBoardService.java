@@ -2,7 +2,6 @@ package hyanghee.service.face;
 
 import java.util.List;
 
-import hyanghee.dto.Beforeafter;
 import hyanghee.dto.ReviewBoard;
 import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
@@ -34,6 +33,11 @@ public interface ReviewBoardService {
 	public int getTotal(BoardSearch boardSearch);
 
 	public ReviewBoard getPage(int reviewNo);
+
+	//포인트
+	public int getPoint(int userno);
+
+	public void updatePoint(int point);
 	
 	
 	

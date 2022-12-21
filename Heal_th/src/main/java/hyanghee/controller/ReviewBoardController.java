@@ -19,7 +19,9 @@ import hyanghee.service.face.ReviewBoardService;
 import hyanghee.util.BoardPageMaker;
 import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
+import jucheol.dto.Comment;
 import saebyeol.dto.Notice;
+import yerim.dto.Users;
 
 @Controller
 public class ReviewBoardController {
@@ -58,9 +60,25 @@ public class ReviewBoardController {
 		
 		//게시글 작성
 		@GetMapping("/board/rWrite")
-		public void insertBoard() {
-			
+		public String insertBoard(HttpSession session, Model model) {
 			logger.info("/board/rWrite [GET]");
+			
+			if(session.getAttribute("userNo")!=null && session.getAttribute("userNo")!="") {
+				int userno = (int) session.getAttribute("userNo");
+				logger.info("userno : {}", userno);
+				
+				Users users = reviewBoardService.getUserInfo(userno);
+				logger.info("userInfo : {}", users);
+				model.addAttribute("users", users);
+				
+				int point = reviewBoardService.getPoint(userno);
+				logger.info("point: {}", point);
+				model.addAttribute("point", point);
+				
+				return "/board/rWrite";
+			} else {
+				return "/login/login";
+			}
 
 		}
 		
@@ -68,7 +86,7 @@ public class ReviewBoardController {
 		public String insertReviewProc(ReviewBoard reviewBoard,HttpSession session) {
 			
 			//테스트용 로그인 userno
-			session.setAttribute("userNo", 7777);
+			//session.setAttribute("userNo", 7777);
 			
 			//작성자, 카테고리 정보 추가
 			reviewBoard.setUserNo( (int) session.getAttribute("userNo") );
@@ -78,12 +96,15 @@ public class ReviewBoardController {
 			
 			reviewBoardService.insertReview(reviewBoard);
 			
+			int point = (Integer)session.getAttribute("userNo");
+			reviewBoardService.updatePoint(point);
+			
 			return "redirect:/board/reviewBoard";
 		}
 		
 		//게시글 상세 보기
 		@RequestMapping("board/rView")
-		public String view(ReviewBoard viewBoard, Model model) {
+		public String view(ReviewBoard viewBoard, Comment comment, Model model) {
 			logger.info("{}", viewBoard);
 			
 			//잘못된 게시글 번호 처리
@@ -97,6 +118,8 @@ public class ReviewBoardController {
 			
 			//모델값 전달
 			model.addAttribute("viewBoard", viewBoard);
+			model.addAttribute("comment", comment);
+			model.addAttribute("boardNo", viewBoard.getReviewNo());
 			
 			return "board/rView";
 		}

@@ -23,7 +23,7 @@ public interface BfBoardDao {
 	 * @param paging - 페이징 정보 객체
 	 * @return 페이징이 적용된 게시글 목록
 	 */
-	public List<Beforeafter> selectList(BoardPaging boardPaging);
+	public List<Beforeafter> selectList(BoardPaging paging);
 
 	/**
 	 * 게시글 작성 - 등록
@@ -37,8 +37,6 @@ public interface BfBoardDao {
 	 * @return
 	 */
 	public Users selectUserInfo(int userno);
-	
-	public Users selectPoint(int point);
 	
 	//게시글 삭제
 	public void delete(Beforeafter bfNo);
@@ -63,12 +61,14 @@ public interface BfBoardDao {
 	public Beforeafter getPage(int bfNo);
 
 	//공지사항 목록
-	public List<Notice> noticeList(BoardPaging boardPaging);
+	public List<Notice> noticeList(BoardPaging paging);
+
+	//조회수
+	public void updateHit(Beforeafter viewBoard);
 
 	//포인트
-	public Users getPoint(int point);
-	
-	public List<Users> updatePoint(int userno);
-	
+	public int getPoint(int userno);
+
+	public void updatePoint(Users users);
 	
 }
