@@ -12,8 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import daeyeon.dto.Chat;
+import daeyeon.dto.ChatFile;
 import daeyeon.dto.RoomList;
 import daeyeon.service.face.ChatService;
 import daeyeon.util.ChatIntroPaging;
@@ -170,7 +173,7 @@ public class ChatController {
 		//4. 채팅 영역
 		@RequestMapping("/chatArea")
 		public void goChat(Model model, HttpSession session, RoomList roomNo, Users users) {
-			logger.info("/chatArea");
+			logger.info("●●●●● /chatArea ●●●●●");
 			logger.info( "채팅방 번호 : {}", roomNo.getRoomNo() );
 			
 			roomNo.setUserNo((Integer)session.getAttribute("userNo"));
@@ -192,7 +195,24 @@ public class ChatController {
 			model.addAttribute("senderNick", userNick);
 			model.addAttribute("roomNo", roomNo);
 			
+		}
+		
+		
+		//5. 이미지 전송
+		@RequestMapping("/fileup")
+		@ResponseBody
+		public String fileUp( HttpSession session, ChatFile chatFile, MultipartFile file) {
+			logger.info("●●●●● /fileup [POST] - file : {} ●●●●●", file);
 			
+			int userNo = (Integer)session.getAttribute("userNo");
+			int roomNo = (Integer)session.getAttribute("roomNo");
+			
+			chatFile = chatService.fileSave(file, userNo, roomNo);
+			
+			logger.info("chatFile - {}", chatFile);
+			
+			
+			return chatFile.getStoredName();
 		}
 		
 		

@@ -168,7 +168,7 @@
 	
 	<!-- /chat/chatArea -->
 	<!-- 채팅내용 테이블에 저장하기 -->
-	<insert id="insertChat" parameterType="chatRoom">
+	<insert id="insertChat" parameterType="chat">
 		INSERT INTO chat( chat_no, chat_time, chat_contents, room_no, user_no )
 		VALUES ( chat_seq.nextval, to_char(sysdate, 'yyyy.mm.dd hh24:mi:ss'), #{chatContents }, #{roomNo }, #{userNo }  )
 	</insert>
@@ -180,6 +180,18 @@
 		WHERE room_no = #{roomNo }
 		ORDER BY chat_no ASC
 	</select>
+	
+	<!-- chat테이블의 마지막 chat_no구하기 -->
+	<select id="selectChatNo" resultType="int">
+		select max(chat_no) FROM chat
+	</select>
+	
+	<!-- /chat/fileup -->
+	<!-- 첨부파일 테이블에 저장하기 -->
+	<insert id="insertFile" parameterType="chatFile">
+		INSERT INTO chat_file( file_no, chat_no, user_no, origin_name, stored_name, upload_date )
+		VALUES ( chat_file_seq.nextval, #{chatNo }, #{userNo }, #{originName }, #{storedName }, to_char(sysdate, 'yyyy.mm.dd hh24:mi:ss') )
+	</insert>
 	
 	
 	

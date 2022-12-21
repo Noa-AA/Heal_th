@@ -29,6 +29,20 @@ $(document).ready(function() {
 		$('#msgInput').val('')
 	})
 	
+	
+	/* textArea에 글이 없으면 버튼이 비활성화 되게 */
+	$('#msgInput').on("input", function() {
+		if( $('#msgInput').val() == ''){      
+			$('#sendBtn').attr("disabled", true)
+			$('#sendBtn').css('background-color', '#eeeeee')
+		} else {
+			$('#sendBtn').attr("disabled", false)
+			$('#sendBtn').css('background-color', '#7ca3f5')
+		}
+			
+	})
+	
+	
 	/* 전송 버튼에 엔터는 섭밋되게 */
 	$('#msgInput').on('keydown', function(event) {
         if (event.keyCode == 13)
@@ -48,17 +62,49 @@ $(document).ready(function() {
 		var searchT = $("#messages > div > a:contains('" + txtVal + "')")   	
 		$(searchT).css( 'color', 'red' );
 
-,		$(searchT).attr("tabindex", -1).focus();
+		$(searchT).attr("tabindex", -1).focus();
 		
     })
  
-//    		 $("#messages > div > a:contains('" + txtVal + "')").css( 'color', 'red' );
-//     var temp = $("#user-table > tbody > tr > td:nth-child(5n+2):contains('" + k + "')");
     
+    
+	})
 	
 	
+	
+	
+/* 이미지 전송 */
+/* input file onchange시 */
+function fileUp() {
+	
+	var file = $('#file')[0].files[0];
+	console.log("file : ", file)
+	
+	var formData = new FormData();
+		
+	formData.append("file", file);
+		
+	$.ajax({
+		url: "/chat/fileup",
+		type: "post",
+		data: formData,
+		processData: false,
+		contentType: false,
+				   
+		success: function( res ) {
+			console.log("AJAX 성공")
+			console.log("res : ", res)
+			ws.send( res );
+		}
+		, error: function(error) {
+			console.log("AJAX 실패")
 
-})
+		}
+		
+	})
+	
+}
+
 
 </script>
 
@@ -248,7 +294,7 @@ button {
 }
 
 
-#iBLbel{
+#fileForm{
 	display: flex;
     align-items: center;
     width: 32px;
@@ -256,7 +302,16 @@ button {
     justify-content: center
 }
 
-.material-symbols-outlined {
+#file {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+}
+
+
+
+#fileIcon {
 	display: inline-flex;
 	align-items: center;
 	width: 22px;
@@ -280,7 +335,7 @@ button {
     font-weight: 500;
     font-size: 14px;
     color: #fff;
-    background-color: #7ca3f5;
+    background-color: #dddddd;
     justify-content: center;
     padding: 0px;
 } 
@@ -353,11 +408,12 @@ button {
 	    <textarea id="msgInput" autocapitalize="off" placeholder="메시지를 입력해주세요"></textarea>
 	   	
 	   	<div id="inputBottom">
-	   		<button id="iBLbel">
-	   			<span class="material-symbols-outlined">image</span>
-	   		</button>
+	   		<div id="fileForm" >
+	   			<span id="fileIcon"class="material-symbols-outlined">image</span>
+	   			<input type="file" name="file" id="file" onchange="fileUp()">
+	   		</div>
 	   		
-	    	<input type="button" id="sendBtn" value="전송" /> 
+	    	<input type="button" id="sendBtn" value="전송" disabled /> 
 	    </div><!-- inputBottom 끝 -->
 	    
 	</div>
