@@ -73,14 +73,14 @@ $(document).ready(function(){
 			<c:when test="${scrap.categoryNo eq 1}"> <!-- bf 게시판 -->
 				<td><a href="/board/bfView?bfNo=${scrap.boardNo}"> ${scrap.title }</a></td>
 			</c:when>
-			<c:when test="${scrap.categoryNo eq 2}"> <!-- 리뷰 게시판 -->
-				<td><a href="/board/rView?reviewNo=${scrap.boardNo}"> ${scrap.title }</a></td>
+			<c:when test="${scrap.categoryNo eq 2}"> <!-- 운동인증 게시판 -->
+				<td><a href="/board/verifyView?verifyNo=${scrap.boardNo}"> ${scrap.title }</a></td>
 			</c:when>
 			<c:when test="${scrap.categoryNo eq 3}"> <!-- 식단공유 게시판 -->
-				<td><a href="/board/dView?bfNo=${scrap.boardNo}"> ${scrap.title }</a></td>
+				<td><a href="/board/dView?dietNo=${scrap.boardNo}"> ${scrap.title }</a></td>
 			</c:when>
-			<c:otherwise>	<!-- 후기 게시판 -->
-				<td><a href="/board/verifyView?verifyNo=${scrap.boardNo}"> ${scrap.title }</a></td>
+			<c:otherwise>	<!-- 후기, 시설리뷰 게시판 -->
+				<td><a href="/board/rView?reviewNo=${scrap.boardNo}"> ${scrap.title }</a></td>
 			</c:otherwise>
 		</c:choose>
 		<td style="text-align:right"><button class="scrapDelete" value="${scrap.scrapNo}">삭제</button></td>

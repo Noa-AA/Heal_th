@@ -43,17 +43,38 @@ function reportCheck(){
 		}
 	})
 }
+
+function goodCheck(){
+	$.ajax({
+		type: "post"
+		,url: "/good/check"
+		,data: {
+				boardno:${boardNo}
+				,category:${viewBoard.categoryNo }
+			}
+		,dataType: "html"
+		,success: function(good){
+			console.log("goodCheck AJAX 성공")
+			$("#goodContainer").html(good)
+		}
+		,error: function(){
+			console.log("goodCheck AJAX 실패")
+		}
+	})
+}
+
 $(document).ready(function(){
 	scrapCheck()
 	reportCheck()
+	goodCheck()
 	
 })
 </script>
 
 
-<body>
 <div id="addOnsContainer">
 	<div id="scrapContainer"></div>
 	<div id="reportContainer"></div>
+	<div id="goodContainer"></div>
 
 </div>

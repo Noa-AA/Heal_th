@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바티스 3 Mapper DTD -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jucheol.dao.face.GoodDao">
+
+	<select id="goodCheck" resultType="Good" parameterType="Good">
+		SELECT * FROM good
+		WHERE user_no = #{userNo} AND board_no = #{boardNo} AND category_no = #{categoryNo}
+	</select>
+
+	<insert id="addGood" parameterType="Good">
+		INSERT INTO good(good_no, board_no, user_no, category_no)
+		VALUES ( good_seq.nextval, #{boardNo }, #{userNo }, #{categoryNo } )
+	</insert>
+	
+	<delete id="deleteGood" parameterType="Good">
+		DELETE good
+		WHERE good_no = #{goodNo}	
+	</delete>
+	
+	<update id="upGood" parameterType="Good">
+		UPDATE 
+<!-- 			카테고리 -->
+<!-- 			1 - 비포애프터게시판, beforeafter, bf_no -->
+<!-- 			2 - 운동인증게시판, verifyboard, verify_no -->
+<!-- 			3 - 식단공유게시판, dietboard, diet_no -->
+<!-- 			4 - 후기,시설리뷰게시판, reviewboard, review_no -->
+			<choose>
+				<when test="categoryNo == 1">
+					beforeafter
+					SET bf_thumbs = bf_thumbs + 1
+					WHERE bf_no = #{boardNo}
+				</when>
+				<when test="categoryNo == 2">
+					verifyboard
+					SET v_thumbs = v_thumbs + 1
+					WHERE verify_no = #{boardNo}
+				</when>
+				<when test="categoryNo == 3">
+					dietboard
+					SET d_thumbs = d_thumbs + 1
+					WHERE diet_no = #{boardNo}
+				</when>
+				<when test="categoryNo == 4">
+					reviewboard
+					SET r_thumbs = r_thumbs + 1
+					WHERE review_no = #{boardNo}
+				</when>
+			</choose>
+	</update>
+	
+	<update id="downGood" parameterType="Good">
+		UPDATE 
+<!-- 			카테고리 -->
+<!-- 			1 - 비포애프터게시판, beforeafter, bf_no -->
+<!-- 			2 - 운동인증게시판, verifyboard, verify_no -->
+<!-- 			3 - 식단공유게시판, dietboard, diet_no -->
+<!-- 			4 - 후기,시설리뷰게시판, reviewboard, review_no -->
+			<choose>
+				<when test="categoryNo == 1">
+					beforeafter
+					SET bf_thumbs = bf_thumbs - 1
+					WHERE bf_no = #{boardNo}
+				</when>
+				<when test="categoryNo == 2">
+					verifyboard
+					SET v_thumbs = v_thumbs - 1
+					WHERE verify_no = #{boardNo}
+				</when>
+				<when test="categoryNo == 3">
+					dietboard
+					SET d_thumbs = d_thumbs - 1
+					WHERE diet_no = #{boardNo}
+				</when>
+				<when test="categoryNo == 4">
+					reviewboard
+					SET r_thumbs = r_thumbs - 1
+					WHERE review_no = #{boardNo}
+				</when>
+			</choose>
+	</update>
+	
+	<select id="selectGood" resultType="Good" parameterType="Good">
+		SELECT * FROM good
+		WHERE good_no = #{goodNo}
+	</select>
+</mapper>

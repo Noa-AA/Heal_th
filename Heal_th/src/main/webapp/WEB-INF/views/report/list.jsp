@@ -98,19 +98,19 @@ $(document).ready(function(){
 		<td style="width:200px" class="tbodytd">${report.categoryName } 게시판</td>
 		<c:choose>
 			<c:when test="${report.categoryNo eq 1}"> <!-- bf 게시판 -->
-				<td><a href="/board/bfView?bfNo=${report.boardNo}"> ${report.title }</a></td>
+				<td><a href="/board/bfView?bfNo=${report.boardNo}" target='_blank'> ${report.title }</a></td>
 			</c:when>
-			<c:when test="${report.categoryNo eq 2}"> <!-- 리뷰 게시판 -->
-				<td><a href="/board/rView?reviewNo=${report.boardNo}"> ${report.title }</a></td>
+			<c:when test="${report.categoryNo eq 2}"> <!-- 운동인증 게시판 -->
+				<td><a href="/board/verifyView?verifyNo=${report.boardNo}" target='_blank'> ${report.title }</a></td>
 			</c:when>
 			<c:when test="${report.categoryNo eq 3}"> <!-- 식단공유 게시판 -->
-				<td><a href="/board/dView?bfNo=${report.boardNo}"> ${report.title }</a></td>
+				<td><a href="/board/dView?dietNo=${report.boardNo}" target='_blank'> ${report.title }</a></td>
 			</c:when>
-			<c:otherwise>	<!-- 후기 게시판 -->
-				<td><a href="/board/verifyView?verifyNo=${report.boardNo}"> ${report.title }</a></td>
+			<c:otherwise>	<!-- 후기, 시설리뷰 게시판 -->
+				<td><a href="/board/rView?reviewNo=${report.boardNo}" target='_blank'> ${report.title }</a></td>
 			</c:otherwise>
 		</c:choose>
-		<td style="text-align:right"><button class="reportDelete" value="${report.reportNo}">신고삭제</button></td>
+		<td style="text-align:right"><button class="reportDelete" value="${report.reportNo}">신고반려</button></td>
 		<td style="text-align:right"><button class="postDelete" value="${report.reportNo}">게시글삭제</button></td>
 	</tr>
 </c:forEach>

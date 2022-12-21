@@ -43,11 +43,11 @@ $("#cancelScrap").click(function(){
 				}
 			,dataType: "html"
 			,success: function(res){
-				console.log("addScrap AJAX 성공")
+				console.log("cancelScrap AJAX 성공")
 				scrapCheck()
 			}
 			,error: function(){
-				console.log("addScrap AJAX 실패")
+				console.log("cancelScrap AJAX 실패")
 			}
 		})
 		
