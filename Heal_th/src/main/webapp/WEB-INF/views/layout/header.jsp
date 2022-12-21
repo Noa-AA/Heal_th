@@ -139,7 +139,7 @@ header {
 
 #menu > ul > li {
 	height: 100%;
-    width: 150px;
+    width: 160px;
 }
 
 #menu > ul > li > a {
@@ -227,59 +227,6 @@ header {
   'opsz' 40
 }
 
-
-/* 드롭다운 메뉴~~ */
-
-.hover {
-	box-shadow: 0 0 0px rgb(0 0 0 / 0%) !important;;
-	border-bottom: 1px solid #eeeeee;
-}
-
-
-#dropMenu {
-	display: none;
-	margin: 0 auto;
-	height: 310px;
-	width: 100%;
-	background-color: #fff;
-	position: fixed;
-	box-shadow: 0 0 10px rgb(0 0 0 / 8%);
-	top: 0;
-}
-
-#dropMenu > ul {
-	display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#dropMenu > ul:nth-child(1) {
-	padding-top: 80px;
-	margin-top: 34px;
-}
-
-#dropMenu > ul:last-child {
-	margin-bottom: 34px;
-}
-
-#dropMenu > ul > li {
-    width: 150px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-left: 1px solid #f6f6f6;
-}
-
-#dropMenu > ul > li:last-child {
-	border-right: 1px solid #f6f6f6;
-}
-
-#dropMenu > ul > li > a {
-	height: 20px;
-    color: #666;
-    font-weight: 400;
-}
 
 #subvisual {
     position: absolute;
@@ -398,9 +345,6 @@ body {
 			</li>
 			<li>
 				<a href="/dghelper/healthtest">운동도우미</a>
-			</li>
-			<li>
-				<a href="">출석체크</a>
 			</li>
 			<li>
 				<a href="/store/list">득근상점</a>
