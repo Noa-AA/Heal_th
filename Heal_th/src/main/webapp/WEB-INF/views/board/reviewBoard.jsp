@@ -28,10 +28,6 @@ td:nth-child(2) {
 	height:80px;
 }
 
-/* tr{ */
-/* height:50px; */
-/* } */
-
 body{
 	font-family: 'Noto Sans','NotoSansWeb',Verdana,"맑은 고딕",Malgun Gothic,Dotum,돋움,Gulim,굴림,sans-serif;
 	margin: 0;
@@ -229,10 +225,24 @@ $(document).ready(function() {
 
 </script>
 
+<div id="subvisual">
+	<div id="subvisual-A">
+		<p id="subv-title">커뮤니티</p>
+	</div>
+</div>
+<div id="twoDepth">
+	<div id="twoDepth-list">
+		<a href="/board/boardList">소개</a>
+		<a href="/board/bfBoard">비포 애프터</a>
+		<a href="/board/verifyBoard">운동 인증</a>
+		<a href="/board/dietBoard">식단 공유</a>
+		<a href="/board/reviewBoard">시설 후기</a>
+	</div>
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 <div class="container" id="container">
-
-<h1 style="text-align: center;">커뮤니티</h1><br><br><br><br>
-
 
 <div class="reviewBord" id="search" name="search">
 
@@ -347,6 +357,8 @@ $(document).ready(function() {
 
 </tbody>
 </table>
+
+<br>
 
 <span class="pull-right">total : ${paging.totalCount }</span>
 <div class="clearfix"></div>

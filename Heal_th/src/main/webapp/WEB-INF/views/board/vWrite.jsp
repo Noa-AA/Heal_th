@@ -59,6 +59,7 @@ $(document).ready(function() {
 	
 	$("#btnWrite").click(function() {
 		$(this).parents("form").submit();
+		alert("50 포인트가 적립되었습니다");
 	});
 	
 })
@@ -115,19 +116,7 @@ $(document).ready(function() {
 
 </form>
 
-<!-- 스마트 에디터 스킨 적용 -->
-<script type="text/javascript">
-var oEditors = [];
-nhn.husky.EZCreator.createInIFrame({
-	oAppRef: oEditors,
-	elPlaceHolder: "content",
-	sSkinURI: "/resources/se2/SmartEditor2Skin.html",
-	fCreator: "createSEditor2"
-})
-</script>
 
-
-</div>
 
 </body>
 </html>

@@ -36,7 +36,7 @@
 	margin-right: 15px;
 }
 
-#btnWrite {
+#btnInsert {
     width: 100px;
     background: #7ca3f5;
     font-size: 21px;
@@ -59,7 +59,16 @@
 
 
 <script type="text/javascript">
+$(document).ready(function(){
+	
+	$("#btnInsert").click(function() {
+		
+		$(this).parents("form").submit();
+		
+		alert("50 포인트가 적립됐습니다");
+	})
 
+})
 
 
 </script>
@@ -98,7 +107,7 @@
 <div class="text-center">
 	
 		<a class="btn block" id="btnCancle" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/reviewBoard" >취소</a>
-	<button type="submit" class="btn btn-primary" id="btnWrite">등록</button>
+	<button type="submit" class="btn btn-primary" id="btnInsert">등록</button>
 </div>
 
 <div>

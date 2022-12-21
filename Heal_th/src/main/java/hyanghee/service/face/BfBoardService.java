@@ -15,11 +15,11 @@ public interface BfBoardService {
 	public BoardPaging getPaging(int curPage);
 
 	//게시글 목록
-	public List<Beforeafter> list(BoardPaging boardPaging);
+	public List<Beforeafter> list(BoardPaging paging);
 	
 	//공지사항 목록
-	public List<Notice> notice(BoardPaging boardPaging);
-
+	public List<Notice> notice(BoardPaging paging);
+	
 	//게시글 작성
 	public void insertBfBoard(Beforeafter bfBoard);
 
@@ -42,20 +42,10 @@ public interface BfBoardService {
 	public Beforeafter getPage(int bfNo);
 
 	//포인트
-	public List<Users> updatePoint(int point);
-
-//	public Users getPoint(Users point);
+	public int getPoint(int userno);
 	
-	public Users getPoint(int point);
-
-
-
-
-
-
-
+	public void updatePoint(int point);
 	
-
 
 	
 	

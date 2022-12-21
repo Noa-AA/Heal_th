@@ -35,4 +35,12 @@ public interface DietBoardDao {
 	
 	public DietBoard getPage(int dietNo);
 	
+	//조회수
+	public void updateHit(DietBoard viewBoard);
+
+	//포인트
+	public int getPoint(int userno);
+
+	public void updatePoint(Users users);
+	
 }

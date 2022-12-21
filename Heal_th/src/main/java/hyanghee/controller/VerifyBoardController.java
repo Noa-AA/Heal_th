@@ -17,8 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import hyanghee.dto.VerifyBoard;
 import hyanghee.service.face.VerifyBoardService;
+import hyanghee.util.BoardPageMaker;
 import hyanghee.util.BoardPaging;
+import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
+import saebyeol.dto.Notice;
+import yerim.dto.Users;
 
 @Controller
 public class VerifyBoardController {
@@ -34,32 +38,61 @@ public class VerifyBoardController {
 	@RequestMapping("board/verifyBoard")
 	public void list(
 			@RequestParam(defaultValue = "0") int curPage
+			, BoardSearch boardSearch
 			, Model model ) {
 		
-		BoardPaging boardPaging = verifyBoardService.getPaging(curPage);
-		logger.debug("{}", boardPaging);
-		model.addAttribute("boardPaging", boardPaging);
+		BoardPaging paging = verifyBoardService.getPaging(curPage);
+		logger.debug("{}", paging);
+		model.addAttribute("boardPaging", paging);
 		
-		List<VerifyBoard> list = verifyBoardService.list(boardPaging);
-		for( VerifyBoard v : list )	logger.debug("{}", v);
-		model.addAttribute("list", list);
+		//공지사항
+		List<Notice> notice = verifyBoardService.notice(paging);
+		for( Notice n : notice )	logger.info("{}", n);
+		model.addAttribute("notice", notice);
+		
+//		List<VerifyBoard> list = verifyBoardService.list(paging);
+//		for( VerifyBoard v : list )	logger.debug("{}", v);
+//		model.addAttribute("list", list);
+		
+		//검색
+		model.addAttribute("boardSearch", verifyBoardService.getSearchPaging(boardSearch));
+		int total = verifyBoardService.getTotal(boardSearch);
+		
+		BoardPageMaker pageMake = new BoardPageMaker(boardSearch, total);
+		model.addAttribute("pageMaker", pageMake);
 
 	}
 	
 
 	//게시글 작성
 	@GetMapping("/board/vWrite")
-	public void insertVerifyBoard() {
-		
+	public String insertVerifyBoard(HttpSession session, Model model) {
 		logger.info("/board/vWrite [GET]");
-
+		
+		if(session.getAttribute("userNo")!=null && session.getAttribute("userNo")!="") {
+			int userno = (int) session.getAttribute("userNo");
+			logger.info("userno : {}", userno);
+			
+			Users users = verifyBoardService.getUserInfo(userno);
+			logger.info("userInfo : {}", users);
+			model.addAttribute("users", users);
+			
+			int point = verifyBoardService.getPoint(userno);
+			logger.info("point: {}", point);
+			model.addAttribute("point", point);
+			
+			return "/board/vWrite";
+		} else {
+			return "/login/login";
+		}
+		
 	}
 	
 	@PostMapping("/board/vWrite")
 	public String insertVerifyBoardProc(VerifyBoard verifyBoard,HttpSession session) {
 		
 		//테스트용 로그인 userno
-		session.setAttribute("userNo", 7777);
+		//session.setAttribute("userNo", 7777);
 		
 		//작성자, 카테고리 정보 추가
 		verifyBoard.setUserNo( (int) session.getAttribute("userNo") );
@@ -69,12 +102,15 @@ public class VerifyBoardController {
 		
 		verifyBoardService.insertVerifyBoard(verifyBoard);
 		
+		int point = (Integer)session.getAttribute("userNo");
+		verifyBoardService.updatePoint(point);
+		
 		return "redirect:/board/verifyBoard";
 	}
 	
 	//게시글 상세 보기
 	@RequestMapping("board/verifyView")
-	public String view(VerifyBoard viewBoard, Model model) {
+	public String view(VerifyBoard viewBoard, Comment comment, Model model) {
 		logger.info("{}", viewBoard);
 		
 		//잘못된 게시글 번호 처리
@@ -88,13 +124,15 @@ public class VerifyBoardController {
 		
 		//모델값 전달
 		model.addAttribute("viewBoard", viewBoard);
+		model.addAttribute("comment", comment);
+		model.addAttribute("boardNo", viewBoard.getVerifyNo());
 		
 		return "/board/verifyView";
 	}
 
 	//게시글 수정
 	@GetMapping("/board/vUpdate")
-	public String update(VerifyBoard verifyBoard, Comment comment, Model model) {
+	public String update(VerifyBoard verifyBoard, Model model) {
 		logger.debug("{}", verifyBoard);
 		
 		//잘못된 게시글 번호 처리
@@ -108,7 +146,6 @@ public class VerifyBoardController {
 		
 		//모델값 전달
 		model.addAttribute("updateBoard", verifyBoard);
-		model.addAttribute("comment", comment);
 		
 		//첨부파일 모델값 전달
 //		BoardFile boardFile = boardService.getAttachFile(beforeafter);

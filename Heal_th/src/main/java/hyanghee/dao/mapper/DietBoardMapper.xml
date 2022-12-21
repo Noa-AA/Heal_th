@@ -33,6 +33,11 @@
 	]]>
 	</select>
 	
+	<select id="updateHit" parameterType="DietBoard">
+ 		UPDATE dietboard SET d_hit = d_hit + 1 
+ 		WHERE diet_no = #{dietNo}
+ 	</select>
+	
 	<select id="selectUserInfo" resultType="Users" parameterType="int">
 		SELECT * FROM users
 		WHERE user_no = #{userno }
@@ -153,5 +158,19 @@
         </if>
         
     </select>
+
+
+<!-- 	포인트 -->
+	<select id="getPoint" resultType="int" parameterType="Users">
+		SELECT point FROM users
+		WHERE user_no = #{userNo }
+	</select>
+	
+	<update id="updatePoint" parameterType="Users">
+		UPDATE users SET point =
+			point + 50
+		WHERE user_no = #{userNo}
+	</update>
+	
 
 </mapper>
