@@ -60,6 +60,8 @@ function calculateToalPrice(){ //현재 주문할 수량과 상품 한 개당 �
 	$("#totalPrice").html(totalPrice + '원');
 }
 
+//이해를 하는게 중요....-변민재-
+
 /* 바로구매 버튼 */
 function order(){
 	
@@ -152,7 +154,8 @@ height: 400px;
 <div class="text-right">
 
 <%-- 	<span>${viewStore.pPrice}</span>원 --%>
-	<span id="totalPrice" >${totalPrice}</span>
+<%-- 	<span id="totalPrice" value="${viewStore.pPrice}">${totalPrice}</span> --%>
+	<span id="totalPrice" >${viewStore.pPrice}</span>
 </div>
 <div class="text-center">
 	<button type="button"
@@ -172,7 +175,7 @@ height: 400px;
 	</div>
 
 </div>
-
+<%@include file="../layout/footer.jsp" %>
 
 </body>
 </html>
