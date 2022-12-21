@@ -95,10 +95,11 @@ public class ReportController {
 	public String deleteReport(
 			Model model
 			,int reportNo
+			,Report report
 			) {
 		logger.info("/report/delete[POST]");
-		
-		reportService.deleteReport(reportNo);
+		report.setReportNo(reportNo);
+		reportService.deleteReport(report);
 		
 		return "report/report";
 	}
@@ -107,10 +108,11 @@ public class ReportController {
 	public String deletePost(
 			Model model
 			,int reportNo
+			,Report report
 			) {
 		logger.info("/report/deletePost[POST]");
-		
-		reportService.deletePost(reportNo);
+		report.setReportNo(reportNo);
+		reportService.deletePost(report);
 		
 		return "report/report";
 	}

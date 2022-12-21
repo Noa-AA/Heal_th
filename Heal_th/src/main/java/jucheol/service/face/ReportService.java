@@ -26,7 +26,7 @@ public interface ReportService {
 	 * 
 	 * @param reportNo 취소할 신고 번호
 	 */
-	public void deleteReport(int reportNo);
+	public void deleteReport(Report report);
 
 	/**
 	 * 신고목록 불러오기
@@ -38,9 +38,10 @@ public interface ReportService {
 
 	/**
 	 * 게시글 삭제하기
-	 * @param reportNo
+	 * @param report
 	 */
-	public void deletePost(int reportNo);
+	public void deletePost(Report report);
+
 
 
 }

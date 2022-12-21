@@ -24,9 +24,9 @@ public interface ReportDao {
 	/**
 	 * 신고 취소하기
 	 * 
-	 * @param reportNo 취소할 신고 번호
+	 * @param report 취소할 신고 번호
 	 */
-	public void deleteReport(int reportNo);
+	public void deleteReport(Report report);
 
 	/**
 	 * 신고 목록 불러오기
@@ -39,8 +39,16 @@ public interface ReportDao {
 	/**
 	 * 신고글 삭제하기
 	 * 
-	 * @param reportNo
+	 * @param report
 	 */
-	public void deletePost(int reportNo);
+	public void deletePost(Report report);
+
+	/**
+	 * 레포트번호로 글번호 카테고리번호 불러오기
+	 * 
+	 * @param report
+	 */
+	public Report selectOne(Report report);
+
 
 }

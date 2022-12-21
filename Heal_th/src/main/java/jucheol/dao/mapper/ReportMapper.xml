@@ -14,7 +14,7 @@
 		VALUES ( report_seq.nextval, #{boardNo }, #{userNo }, #{categoryNo } )
 	</insert>
 	
-	<delete id="deleteReport" parameterType="int">
+	<delete id="deleteReport" parameterType="Report">
 		DELETE report
 		WHERE report_no = #{reportNo}	
 	</delete>
@@ -31,24 +31,39 @@
 			)a, report r, category c
 		WHERE r.board_no = a.board_no
 		AND a.category_no = c.category_no
+        AND a.category_no = r.category_no
 		ORDER BY report_no desc
 	</select>
 	
-	<delete id="deletePost" parameterType="int">
-		DELETE (
-			SELECT a.*, c.category_name,r.report_no, r.user_no FROM (
-				SELECT bf_title AS title, bf_no AS board_no, category_no from beforeafter
-				UNION
-				SELECT r_title, review_no, category_no  from reviewboard
-				UNION
-				SELECT d_title, diet_no, category_no  from dietboard
-				UNION
-				SELECT v_title, verify_no, category_no  from verifyboard
-				)a, report r, category c
-			WHERE r.board_no = a.board_no
-			AND a.category_no = c.category_no
-		)
-		
+	<select id="selectOne" resultType="Report" parameterType="Report">
+		SELECT * FROM report
 		WHERE report_no = #{reportNo}	
+	</select>
+	<delete id="deletePost" parameterType="Report">
+		DELETE 
+<!-- 			카테고리 -->
+<!-- 			1 - 비포애프터게시판, beforeafter, bf_no -->
+<!-- 			2 - 운동인증게시판, verifyboard, verify_no -->
+<!-- 			3 - 식단공유게시판, dietboard, diet_no -->
+<!-- 			4 - 후기,시설리뷰게시판, reviewboard, review_no -->
+			<choose>
+				<when test="categoryNo == 1">
+					beforeafter
+					WHERE bf_no = #{boardNo}
+				</when>
+				<when test="categoryNo == 2">
+					verifyboard
+					WHERE verify_no = #{boardNo}
+				</when>
+				<when test="categoryNo == 3">
+					dietboard
+					WHERE diet_no = #{boardNo}
+				</when>
+				<when test="categoryNo == 4">
+					reviewboard
+					WHERE review_no = #{boardNo}
+				</when>
+			</choose>
+		
 	</delete>
 </mapper>

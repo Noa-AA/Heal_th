@@ -30,8 +30,8 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public void deleteReport(int reportNo) {
-		reportDao.deleteReport(reportNo);
+	public void deleteReport(Report report) {
+		reportDao.deleteReport(report);
 	}
 
 	@Override
@@ -40,8 +40,12 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public void deletePost(int reportNo) {
-		reportDao.deletePost(reportNo);
+	public void deletePost(Report report) {
+		report = reportDao.selectOne(report);
+		logger.info("deletePost - {}",report);
+		reportDao.deletePost(report);
+		reportDao.deleteReport(report);
 	}
+
 
 }
