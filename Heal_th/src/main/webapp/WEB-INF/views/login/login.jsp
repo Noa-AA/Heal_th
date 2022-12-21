@@ -33,17 +33,30 @@ $(document).ready(function(){
 
 
 <style type="text/css">
-
+body{
+	padding-top: 0;
+}
 #loginForm{
 	width: 1400px;
 	margin: 0 auto;
 	text-align: center;
-
+	padding-top: 150px;
+}
+#boxArea{
+	height: 526px;
+    width: 457px;
+    position: absolute;
+    left: 600px;
+}
 }
 
 button{
 	border:  none;
 }
+
+
+
+
 </style>
 <body>
 
@@ -59,61 +72,63 @@ button{
 
 
 <div id="loginForm">
-<h1 class="letterLogin">로그인</h1>
-	<div id="chkLogin"></div>
+	<div id="boxArea">
 	
-	<form action="/login/login" method="post">
+		<h1 class="letterLogin">로그인</h1>
+			<div id="chkLogin"></div>
+			
+			<form action="/login/login" method="post">
+				
+			
+				<div id="id">
+					아이디
+					<input type="text" name="userId" placeholder="아이디를 입력하세요" id="userId" value="<%=savedId%>">
+				</div>
+				
+				<div id="pw">
+					비밀번호 
+					<input type="password" name="userPw" placeholder="비밀번호를 입력하세요" id="userPw">
+				</div>
+				
+				<c:if test="${isLogin == false}">
+					<div id="resultLogin">
+						<span style="color:red;" id="resultMsg">아이디 또는 비밀번호를 다시 한번 확인해주세요</span>
+					</div>
+				</c:if>
+				
+				<div id="isSave">
+					<input type="checkbox" id="saveId" name ="saveId" value="saveId">아이디 저장
+				</div>
 		
-	
-		<div id="id">
-			아이디
-			<input type="text" name="userId" placeholder="아이디를 입력하세요" id="userId" value="<%=savedId%>">
-		</div>
-		
-		<div id="pw">
-			비밀번호 
-			<input type="password" name="userPw" placeholder="비밀번호를 입력하세요" id="userPw">
-		</div>
-		
-		<c:if test="${isLogin == false}">
-			<div id="resultLogin">
-				<span style="color:red;" id="resultMsg">아이디 또는 비밀번호를 다시 한번 확인해주세요</span>
+				<button id="btnLogin" >로그인</button>	
+			</form>
+			
+			
+			
+			<div id="joina">
+				<a href="/login/join">회원가입</a>
 			</div>
-		</c:if>
-		
-		<div id="isSave">
-			<input type="checkbox" id="saveId" name ="saveId" value="saveId">아이디 저장
-		</div>
-
-		<button id="btnLogin" >로그인</button>	
-	</form>
-	
-	
-	
-	<div id="joina">
-		<a href="/login/join">회원가입</a>
+			
+			<!-- 네이버 로그인 버튼 노출 영역 -->
+			<div id="naverLogin">
+				<a id="btnNaver" href="${naverURL}"><img src="<%=request.getContextPath() %>/resources/img/login/btnG_완성형.png" width="223"></a>
+			
+			</div>
+			
+			<!-- 카카오 로그인 버튼 노출 영역 -->
+			<div id="kakoLogin">
+				<a id="btnKakao" href="${kakaoURL}"><img src="<%=request.getContextPath() %>/resources/img/login/kakao_login_medium_narrow.png" width="223"></a>
+			</div>
+			
+			<div id="searchId">
+				<a href="/login/searchId">아이디찾기</a>
+			</div>
+			
+			<div id="searchPw">
+				<a href="/login/searchPw">비밀번호 찾기</a>
+			
+			</div>
 	</div>
-	
-	<!-- 네이버 로그인 버튼 노출 영역 -->
-	<div id="naverLogin">
-		<a id="btnNaver" href="${naverURL}"><img src="<%=request.getContextPath() %>/resources/img/login/btnG_완성형.png" width="223"></a>
-	
-	</div>
-	
-	<!-- 카카오 로그인 버튼 노출 영역 -->
-	<div id="kakoLogin">
-		<a id="btnKakao" href="${kakaoURL}"><img src="<%=request.getContextPath() %>/resources/img/login/kakao_login_medium_narrow.png" width="223"></a>
-	</div>
-	
-	<div id="searchId">
-		<a href="/login/searchId">아이디찾기</a>
-	</div>
-	
-	<div id="searchPw">
-		<a href="/login/searchPw">비밀번호 찾기</a>
-	
-	</div>
-	
 	
 </div>
 </body>
