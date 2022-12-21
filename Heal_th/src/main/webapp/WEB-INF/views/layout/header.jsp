@@ -36,6 +36,11 @@ $(document).ready(function(){
 	});
 	
 	
+	$("#goLogin").click(function() {
+		alert("로그인 시 이용 가능합니다.");
+		$(location).attr("href", "/login/login")
+	})
+		
 })
 
 
@@ -360,6 +365,10 @@ body {
 	padding-top: 355px;
 }
 
+#goLogin{
+	cursor: pointer;
+}
+
 </style>
 
 
@@ -384,7 +393,8 @@ body {
 				<a href="/challenge/list">챌린지</a>
 			</li>
 			<li>
-				<a href="/chat/chatRoom">운동질문</a>
+				<c:if test="${empty userNo }"><a id="goLogin">운동질문</a></c:if> <!-- 비로그인 상황 -->
+				<c:if test="${not empty userNo }"><a href="/chat/intro">운동질문</a></c:if> <!-- 로그인 상황 -->
 			</li>
 			<li>
 				<a href="/dghelper/healthtest">운동도우미</a>
@@ -424,19 +434,19 @@ body {
 		</c:if> <!-- 비로그인상황 끝 -->
 		
 		<!-- 로그인 상황일때 -->	
-		<c:if test="${not empty userNo	 }">
+		<c:if test="${not empty userNo }">
 		<div id="right">
 			<ul>
 				<li id="logout">
 <!-- 					<img src="/resources/img/loginicon.png"> -->
-					<a href="/login/login">
+					<a href="/mypage/logout">
 						<span class="material-symbols-outlined">logout</span>로그아웃
 					</a>
 				</li>
 				
-				<li id="mypage">
+				<li id="mp">
 <!-- 					<img src="/resources/img/joinicon.png"> -->
-					<a href="/login/join">
+					<a href="/mypage/main">
 					<span class="material-symbols-outlined">perm_contact_calendar</span>마이페이지
 					</a>
 				</li>
