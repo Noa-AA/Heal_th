@@ -8,7 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import daeyeon.dto.Chat;
 import daeyeon.dto.ChatFile;
-import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
 import daeyeon.util.ChatIntroPaging;
 import yerim.dto.Users;
