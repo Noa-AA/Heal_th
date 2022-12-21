@@ -24,6 +24,20 @@
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
+	<select id="updateHit" parameterType="VerifyBoard">
+ 		UPDATE verifyboard SET v_hit = v_hit + 1 
+ 		WHERE verify_no = #{verifyNo}
+ 	</select>
+ 	
+ 	<select id="noticeList" resultType="Notice" parameterType="BoardPaging">
+		<![CDATA[
+			SELECT * FROM (
+				SELECT * FROM notice ORDER BY notice_no DESC ) 
+			WHERE ROWNUM <=3
+			ORDER BY notice_no DESC
+		]]>
+	</select>
+	
 	<select id="selectUserInfo" resultType="Users" parameterType="int">
 		SELECT * FROM users
 		WHERE user_no = #{userno }
@@ -72,6 +86,96 @@
 		DELETE verifyboard
 		WHERE verify_no = #{verifyNo}	
 	</delete>
+	
+	<select id="getList" resultType="VerifyBoard">
+		SELECT verify_no, v_title, user_no,
+				v_hit, v_thumbs, v_inst_date
+		FROM verifyboard
+		
+		ORDER BY verify_no DESC
+	</select>
+	
+	<select id="getPage" resultType="VerifyBoard">
+        SELECT * FROM verifyboard
+        WHERE verify_no = #{verifyNo}
+    </select>
+	
+	
+    <sql id="boardSearch">
+        <trim prefix="AND (" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'T'.toString()">
+                            v_title like '%'||#{keyword}||'%' 
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            verify_content like '%'||#{keyword}||'%',
+                        </when>
+                         <when test="type == 'TC'.toString()">
+                         	v_title like '%'||#{keyword}||'%',
+                            verify_content like '%'||#{keyword}||'%',
+                        </when>
+                        
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    
+    </sql>
+    
+    
+    <select id="getSearchPaging" resultType="VerifyBoard">
+    
+    <![CDATA[
+        
+        SELECT verify_no, v_title, user_no,
+					v_hit, v_thumbs, v_inst_date  FROM(
+        
+                SELECT 
+                rownum  as rn, verify_no, v_title, user_no,
+								v_hit, v_thumbs, v_inst_date
+                  
+                FROM verifyboard WHERE rownum <= #{pageNum} * #{amount} 
+    ]]>            
+                <if test="keyword != null">
+                	<include refid="boardSearch"></include> 
+                </if>
+    
+    <![CDATA[
+                    
+                )
+                    
+        WHERE rn > (#{pageNum} -1) * #{amount}
+    
+    ]]>
+    
+    </select>
+	
+       
+    
+    <select id="getTotal" resultType="int">
+    	SELECT count(*) FROM verifyboard
+    	
+    	<if test="keyword != null">
+			WHERE verify_no > 0 <include refid="boardSearch"></include>
+        </if>
+        
+    </select>
+	
+	
+	
+	<select id="getPoint" resultType="int" parameterType="Users">
+		SELECT point FROM users
+		WHERE user_no = #{userNo }
+	</select>
+	
+	
+	<update id="updatePoint" parameterType="Users">
+		UPDATE users SET point =
+			point + 50
+		WHERE user_no = #{userNo}
+	</update>
 
 
 </mapper>

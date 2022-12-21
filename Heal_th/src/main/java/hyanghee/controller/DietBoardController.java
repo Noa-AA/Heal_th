@@ -21,6 +21,7 @@ import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
 import saebyeol.dto.Notice;
+import yerim.dto.Users;
 
 @Controller
 public class DietBoardController {
@@ -58,8 +59,27 @@ public class DietBoardController {
 		
 	//게시글 작성
 	@GetMapping("/board/dWrite")
-	public void insertBfBoard() {
+	public String insertBfBoard(HttpSession session, Model model) {
 		logger.info("/board/dWrite [GET]");
+		
+		if(session.getAttribute("userNo")!=null && session.getAttribute("userNo")!="") {
+			int userno = (int) session.getAttribute("userNo");
+			logger.info("userno : {}", userno);
+			
+			Users users = dietBoardService.getUserInfo(userno);
+			logger.info("userInfo : {}", users);
+			model.addAttribute("users", users);
+			
+			int point = dietBoardService.getPoint(userno);
+			logger.info("point: {}", point);
+			model.addAttribute("point", point);
+			
+			return "/board/dWrite";
+		} else {
+			return "/login/login";
+		}
+
+		
 	}
 		
 	
@@ -75,6 +95,9 @@ public class DietBoardController {
 		logger.info("{}", dietBoard);
 				
 		dietBoardService.insertDietBoard(dietBoard);
+		
+		int point = (Integer)session.getAttribute("userNo");
+		dietBoardService.updatePoint(point);
 			
 		return "redirect:/board/dietBoard";
 		
@@ -82,7 +105,7 @@ public class DietBoardController {
 		
 		//게시글 상세 보기
 		@RequestMapping("board/dView")
-		public String view(DietBoard viewBoard, Model model) {
+		public String view(DietBoard viewBoard, Comment comment, Model model) {
 			logger.info("{}", viewBoard);
 			
 			//잘못된 게시글 번호 처리
@@ -96,13 +119,15 @@ public class DietBoardController {
 			
 			//모델값 전달
 			model.addAttribute("viewBoard", viewBoard);
+			model.addAttribute("comment", comment);
+			model.addAttribute("boardNo", viewBoard.getDietNo());
 			
 			return "board/dView";
 		}
 
 		//게시글 수정
 		@GetMapping("/board/dUpdate")
-		public String update(DietBoard dietBoard, Comment comment, Model model) {
+		public String update(DietBoard dietBoard, Model model) {
 			logger.debug("{}", dietBoard);
 			
 			//잘못된 게시글 번호 처리
@@ -116,7 +141,6 @@ public class DietBoardController {
 			
 			//모델값 전달
 			model.addAttribute("updateBoard", dietBoard);
-			model.addAttribute("comment", comment);
 			
 			//첨부파일 모델값 전달
 //			BoardFile boardFile = boardService.getAttachFile(beforeafter);

@@ -230,14 +230,24 @@ $(document).ready(function() {
 </script>
 
 
+<div id="subvisual">
+	<div id="subvisual-A">
+		<p id="subv-title">커뮤니티</p>
+	</div>
+</div>
+<div id="twoDepth">
+	<div id="twoDepth-list">
+		<a href="/board/bfList">소개</a>
+		<a href="/board/bfBoard">비포 애프터</a>
+		<a href="/board/verifyBoard">운동 인증</a>
+		<a href="/board/dietBoard">식단 공유</a>
+		<a href="/board/reviewBoard">시설 후기</a>
+	</div>
+</div>
 
-
-
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 <div class="container" id="container">
-
-<h1 style="text-align: center;">커뮤니티</h1><br><br><br><br>
-
 
 <div class="beforeafter" id="search" name="search">
 
@@ -261,16 +271,14 @@ $(document).ready(function() {
 
 <br><br><br><br>
 
-<div id="community" name="community">
-	<ul class="tab_menu" style="text-align: center;">
-		<li data-tab="tab-1" class="on" id="tab"><a href="/board/bfBoard" style="color: white; font-weight: bold;" id="comDepth" class="tabCon" >비포 애프터</a></li>
-		<li data-tab="tab-2" id="tab"><a href="/board/verifyBoard" id="comDepth" class="tabCon">운동 인증</a></li>
-		<li data-tab="tab-3" id="tab"><a href="/board/dietBoard" id="comDepth" class="tabCon">식단 공유</a></li>
-		<li data-tab="tab-4" id="tab"><a href="/board/reviewBoard" id="comDepth" class="tabCon">시설 리뷰</a></li>
-	</ul>
-</div>
-
-<br><br>
+<!-- <div id="community" name="community"> -->
+<!-- 	<ul class="tab_menu" style="text-align: center;"> -->
+<!-- 		<li data-tab="tab-1" class="on" id="tab"><a href="/board/bfBoard" style="color: white; font-weight: bold;" id="comDepth" class="tabCon" >비포 애프터</a></li> -->
+<!-- 		<li data-tab="tab-2" id="tab"><a href="/board/verifyBoard" id="comDepth" class="tabCon">운동 인증</a></li> -->
+<!-- 		<li data-tab="tab-3" id="tab"><a href="/board/dietBoard" id="comDepth" class="tabCon">식단 공유</a></li> -->
+<!-- 		<li data-tab="tab-4" id="tab"><a href="/board/reviewBoard" id="comDepth" class="tabCon">시설 리뷰</a></li> -->
+<!-- 	</ul> -->
+<!-- </div> -->
 
 <div class="pageInfo_wrap">
 		<div class="pageInfo_area">
@@ -376,7 +384,7 @@ $(document).ready(function() {
 	</tr>
 </c:forEach>
 
-<tr  style="border-bottom: 3px solid #84C9E3;"></tr>
+<tr style="border-bottom: 3px solid #84C9E3;"></tr>
 
 
 </tbody>
@@ -384,7 +392,6 @@ $(document).ready(function() {
 </div>
 
 
-<span class="pull-right">total : ${boardPaging.totalCount }</span>
 <div class="clearfix"></div>
 
 <c:import url="/WEB-INF/views/board/paging.jsp" />
@@ -403,4 +410,5 @@ $(document).ready(function() {
 
 </div>
 
+<%@include file="../layout/footer.jsp" %>
 

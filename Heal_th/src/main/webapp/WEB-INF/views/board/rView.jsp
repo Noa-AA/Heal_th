@@ -20,6 +20,67 @@
 <script scr="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- <script scr="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></script> -->
 
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=161720a43a30c2dc196fb23834b51086&libraries=services"></script>
+<script>
+window.onload = function() {
+	
+	var ps = new daum.maps.services.Places();
+	//마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+	var infowindow = new daum.maps.InfoWindow({
+		zIndex : 1
+	});
+	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+	var options = { //지도를 생성할 때 필요한 기본 옵션
+// 			center : new daum.maps.LatLng(33.450701, 126.570667),
+			center : new daum.maps.LatLng('${viewBoard.lat}', '${viewBoard.lng}'),
+		level : 3
+	//지도의 레벨(확대, 축소 정도)
+	};
+	
+// 	console.log(container, options)
+	
+	//지도를 생성합니다
+	var map = new daum.maps.Map(container, options);
+	
+	
+	//지도를 클릭한 위치에 표출할 마커입니다
+	var marker = new daum.maps.Marker({
+		// 지도 중심좌표에 마커를 생성합니다 
+		position : map.getCenter()
+	});
+	
+	//지도에 마커를 표시합니다
+	marker.setMap(map);
+	
+// 	// 주소-좌표 변환 객체를 생성합니다
+// 	var geocoder = new kakao.maps.services.Geocoder();
+	
+// 	//위도, 경도 정보를 가져옵니다 
+// 	var latlng = mouseEvent.latLng;
+	
+// 	var message = '좌표 (경도,위도) : ' + latlng.getLat() + ', ' + latlng.getLng();
+	    
+// 	var resultDiv = document.getElementById('map'); 
+// 	    resultDiv.innerHTML = message;
+	
+//      // 해당 주소에 대한 좌표를 받아서
+//      var coords = new daum.maps.LatLng(result.y, result.x);
+//      // 지도를 보여준다.
+//      mapContainer.style.display = "block";
+//      map.relayout();
+//      // 지도 중심을 변경한다.
+//      map.setCenter(coords);
+//      // 마커를 결과값으로 받은 위치로 옮긴다.
+//      marker.setPosition(coords)
+     
+	
+} //window.onload end
+
+
+
+
+</script>  
 
 
 
@@ -35,6 +96,19 @@ html {
 /*     height: 100%; */
 	height: 1300px;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{padding: 0;}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
 
 #btnList {
     width: 100px;
@@ -126,9 +200,6 @@ margin-top: 3px;
 </style>
 
 
-<!-- 스마트 에디터 2 로드 -->
-<script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
-
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -175,6 +246,19 @@ $(document).ready(function() {
 <h1>게시글 상세보기</h1>
 <hr>
 
+
+
+
+<br><br><hr><br><br>
+
+
+
+<!-- <div id="map" style="width:100%;height:350px;"></div> -->
+
+<!-- <input type="text" id="address" name="address" class="form-control"> -->
+<!-- <button id="search">찾기</button> -->
+
+
 <table class="table table-bordered">
 
 <tr>
@@ -220,6 +304,13 @@ $(document).ready(function() {
 </tr>
 
 <tr>
+	<td  colspan="4" style="border: none; display: none;">위치: ${viewBoard.lat}</td>
+</tr>
+<tr>
+	<td  colspan="4" style="border: none; display: none;">위치: ${viewBoard.lng}</td>
+</tr>
+
+<tr>
 	<td class="info" colspan="4" style="text-align: center">후기</td>
 </tr>
 
@@ -234,6 +325,14 @@ $(document).ready(function() {
 
 
 </table>
+
+
+<!-- 지도 -->
+<input type="hidden" value="${viewBoard.lat }" id="latVal">
+<input type="hidden" value="${viewBoard.lng }" id="lngVal">
+<div id="map" style="width:600px;height:350px;"></div>
+
+
 
 <div class="text-center">
 	<button id="btnList" class="btn btn-primary">목록</button>
@@ -252,6 +351,7 @@ $(document).ready(function() {
 
 </div><!-- .container end -->
 
+<%-- <jsp:include page="../addOns/addOn.jsp" /> --%>
 <%-- <jsp:include page="../comment/board.jsp" /> --%>
 
 
