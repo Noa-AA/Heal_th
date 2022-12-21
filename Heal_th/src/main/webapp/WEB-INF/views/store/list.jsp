@@ -216,7 +216,7 @@ a:hover {
 <body>
 <div id="subvisual">
     <div id="subvisual-A">
-        <p id="subv-title">득근상점</p>
+        <p id="subv-title">득근 상점</p>
 <!--         <p id="subv-content">나의 오늘 운동기록을 매일매일 기록해 봐요</p> -->
     </div>
 </div>

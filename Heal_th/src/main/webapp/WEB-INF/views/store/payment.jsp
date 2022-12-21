@@ -98,7 +98,55 @@
 
 </script>
 
+<style>
 
+
+body{
+	margin-left: 25%;
+	margin-right: 25%;
+}
+.price_span_label{
+	float: left;
+}
+
+.total_price_red{
+	font-size: 25px;
+}
+.total_price_label{
+	margin-top: 5px;
+}
+
+.total_info_div{
+/* 	position:absolute; */
+	top: 0;
+	right : 0;
+	width : 300px;
+	border : 1px solid #333;
+	border-top-width:2px;	
+	
+}
+.total_info_price_div{
+	width: 90%;
+    margin: auto;
+	position: relative;
+}
+.total_info_div ul{
+	list-style: none;
+}
+.total_info_div li{
+	text-align: right;
+	margin-top:10px;
+}
+.strong_red{
+	color: red;
+}
+
+/* .buy{ */
+/* 	position : absolute; */
+/* 	top :30px; */
+/* 	left:30px; */
+/* } */
+</style>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -107,40 +155,36 @@
 <body>
 
 
-<h1>Text 결제</h1>
-
+<div class="buy">
 구매자 정보 <br>
 이름 : <span>${user.userName } </span><br>
 아이디 : <span>${user.userId }</span><br>
 닉네임 : <span>${user.userNick }</span><br>
 휴대폰 번호 : <span>${user.userPhone }</span><br>
+</div>
 <br>
 <hr>
 <br>
+<div class="get">
 받는사람 정보<br>
 이름 : <span>${user.userName } </span><br>
 주소 : <span>${user.userAddress }</span><br>
 휴대폰 번호 : <span>${user.userPhone }</span><br>
+</div>
 
 
 <hr>
 
-결제정보
-총 상품가격 : <span>${param.amount} 원</span>
-<div id="btnarea"> 
-			<button type="button" id="btnpay" onclick='requestPay()'><span>결제하기</span></button> 
-		<button type="button" id="btncancel" onclick="location.href='/store/payment'"><span>취소하기</span></button> 
-		</div> 
+<!-- 결제정보 -->
+<%-- 총 상품가격 : <span>${param.amount} 원</span> --%>
+
 		
+					<!-- 주문 종합 정보 -->
 					<div class="total_info_div">
 					<!-- 가격 종합 정보 -->
 					<div class="total_info_price_div">	
 		
-								<ul>
-								
-								
-								
-								
+						<ul>
 							<li>
 								<span class="price_span_label">상품 금액</span>
 								<span class="totalPrice_span">${param.price}</span>원
@@ -149,25 +193,21 @@
 								<span class="price_span_label">상품 개수</span>
 								<span class="totalPrice_span">${param.count}</span>개
 							</li>
-							
-							
-							
-							
-							
-
 							<li class="price_total_li">
 								<strong class="price_span_label total_price_label">최종 결제 금액</strong>
 								<strong class="strong_red">
-									<span class="total_price_red finalTotalPrice_span">
-										${param.amount}
-									</span>원
+									<span class="total_price_red ">
+										${param.amount}원
+									</span>
 								</strong>
-							</li>
-							<li class="point_li">
-
 							</li>
 						</ul>
 						</div>
 						</div>
+						
+						<div id="btnarea"> 
+		<button type="button" id="btnpay" onclick='requestPay()'><span>결제하기</span></button> 
+		<button type="button" id="btncancel" onclick="history.go(-1)"><span>취소하기</span></button> 
+</div> 
 </body>
 </html>
