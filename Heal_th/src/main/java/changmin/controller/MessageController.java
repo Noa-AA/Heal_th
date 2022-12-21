@@ -23,6 +23,7 @@ public class MessageController {
 	
 	@Autowired MessageService messageService;
 	
+	//알림메시지 조회
 	@RequestMapping(value="/message/view", method=RequestMethod.GET)
 	public void messageView(HttpSession session,Model model) {
 		logger.info("/message/view [GET]");
@@ -35,6 +36,7 @@ public class MessageController {
 		model.addAttribute("messageList", list);
 	}
 	
+	//알림메시지 추가
 	@ResponseBody
 	@RequestMapping(value="/message/insert", method=RequestMethod.POST)
 	public void messagePush(HttpSession session, MyMessage myMessage) {
