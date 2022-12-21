@@ -4,6 +4,7 @@ import java.util.List;
 
 import saebyeol.dto.Notice;
 import saebyeol.utill.SaebyeolPaging;
+import saebyeol.utill.Search;
 
 public interface NoticeDao {
 
@@ -26,6 +27,8 @@ public interface NoticeDao {
 	 */
 	public void updateHit(Notice viewNotice);
 
+	public List<Notice> getSearch(Search search);
+	
 	/**
 	 * 게시글 번호를 이용해서 게시글 조회
 	 * @param viewNotice - 조회하려는 게시글 번호
@@ -51,5 +54,7 @@ public interface NoticeDao {
 	 * @param notice
 	 */
 	public void delete(Notice notice);
+
+
 
 }

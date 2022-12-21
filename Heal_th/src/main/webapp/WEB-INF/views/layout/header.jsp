@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -57,6 +58,17 @@ html, body, pre, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, li, ol, th, td, p, bloc
 a {
     color: #000;
     text-decoration: none;
+    text-decoration-line: none;
+}
+
+a:focus, a:hover {
+    text-decoration: none;
+    outline: none;
+}
+
+button {
+	border: 0;
+	outline: 0;
 }
 
 input {
@@ -95,6 +107,10 @@ header {
     align-items: center;
 }
 
+.logo a > img {
+    width: 160px;
+}
+
 
 #menu {
 	margin: 0 auto;
@@ -130,12 +146,16 @@ header {
     position: relative;
 }
 
+#menu > ul > li > a:hover {
+	color: #7ca3f5;
+}
+
 
 
 #right {
 	position: relative;
 	height: 100%; 
-	width: 440px; 
+	width: 460px; 
 	background-color: #aaa; 
 	float: right; 
 /*  	background: linear-gradient(120deg, transparent 50px, #3f94d6 0 , #1869a7);  */
@@ -152,10 +172,11 @@ header {
 }
 
 #right > ul > li {
-	margin-left: 30px;
+	margin-left: 26px;
 	display: flex;
     align-items: center;
 }
+
 
 #login > img {
 	margin-right: 6px;
@@ -170,12 +191,36 @@ header {
 }
 
 #right > ul > li > a {
-	display: block;
+	display: flex;
+	align-items: center;
 	font-size: 16px;
 	font-weight: 400;
 	color: #fff;
 }
 
+#right > ul > li > a > span {
+	margin-right: 3px;
+}
+
+
+/* 로그인 아이콘 */
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 20
+  
+}
+
+/* 회원가입 아이콘 */
+.person {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 40
+}
 
 
 /* 드롭다운 메뉴~~ */
@@ -317,80 +362,12 @@ body {
 
 </style>
 
+
+
+
 </head>
 
 <header class="hover">
-<!--
-	<div id="dropMenu" >
-		<ul>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href="/dghelper/healthtest">운동성향 테스트</a>
-			</li>
-			<li>
-				<a href="">2-1depth</a>
-			</li>
-			<li>
-				<a href="">상</a>
-			</li>
-			<li>
-				<a href="board/bfBoard">비포애프터</a>
-			</li>
-			
-		</ul>
-		
-		<ul>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href="/dghelper/healthguide">칼로리 사전</a>
-			</li>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href="board/verifyBoard">운동인증</a>
-			</li>
-			
-		</ul>
-		
-		<ul>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href="/dghelper/healthrecord">운동일기장h</a>
-			</li>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href="">2-3depth</a>
-			</li>
-			<li>
-				<a href="board/dietBoard">식단 공유</a>
-			</li>
-		</ul>
-	
-		
-	</div>
--->
-
 
 	<div id="topMenu" class="">	
 		<h1 class="logo">
@@ -424,24 +401,49 @@ body {
 		</ul>
 		</div> <!-- menu -->
 	
-		
+	
+		<!-- 비로그인 상황일때 -->	
+		<c:if test="${empty userNo }">
 		<div id="right">
 			<ul>
 				<li id="login">
-					<img src="/resources/img/loginicon.png">
+<!-- 					<img src="/resources/img/loginicon.png"> -->
 					<a href="/login/login">
-						로그인
+						<span class="material-symbols-outlined">login</span>로그인
 					</a>
 				</li>
 				
 				<li id="join">
-					<img src="/resources/img/joinicon.png">
+<!-- 					<img src="/resources/img/joinicon.png"> -->
 					<a href="/login/join">
-					회원가입
+					<span class="material-symbols-outlined person">person_add</span>회원가입
 					</a>
 				</li>
 			</ul>
 		</div>
+		</c:if> <!-- 비로그인상황 끝 -->
+		
+		<!-- 로그인 상황일때 -->	
+		<c:if test="${not empty userNo	 }">
+		<div id="right">
+			<ul>
+				<li id="logout">
+<!-- 					<img src="/resources/img/loginicon.png"> -->
+					<a href="/login/login">
+						<span class="material-symbols-outlined">logout</span>로그아웃
+					</a>
+				</li>
+				
+				<li id="mypage">
+<!-- 					<img src="/resources/img/joinicon.png"> -->
+					<a href="/login/join">
+					<span class="material-symbols-outlined">perm_contact_calendar</span>마이페이지
+					</a>
+				</li>
+			</ul>
+		</div>
+		</c:if> <!-- 비로그인상황 끝 -->
+		
 	</div>	<!-- topMenu -->
 
 	

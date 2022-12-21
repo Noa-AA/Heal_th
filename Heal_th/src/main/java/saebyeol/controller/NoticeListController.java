@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import saebyeol.dto.Notice;
 import saebyeol.service.face.NoticeService;
+import saebyeol.utill.PageMaker;
 import saebyeol.utill.SaebyeolPaging;
+import saebyeol.utill.Search;
 
 @Controller
 @RequestMapping("/notice")
@@ -30,8 +33,8 @@ public class NoticeListController {
 	@Autowired NoticeService noticeService;
 	
 	@RequestMapping("/list")
-	public void list(@RequestParam(defaultValue = "0") int curPage, Model model ) {
-		
+	public void list(@RequestParam(defaultValue = "0") int curPage, Model model, Search search ) {
+		logger.info("list");
 		SaebyeolPaging paging = noticeService.getPaging(curPage);
 		logger.debug("{}", paging);
 		model.addAttribute("paging", paging);
@@ -40,11 +43,14 @@ public class NoticeListController {
 		for( Notice n : list )	logger.debug("{}", n);
 		model.addAttribute("list", list);
 		
-	
+		model.addAttribute("search", noticeService.getSearch(search));
+		
+	 
 	}
 	
 	@RequestMapping("/view")
 	public String view(Notice viewNotice, Model model) {
+		logger.info("/notice/write");
 		
 		viewNotice = noticeService.view(viewNotice);
 		
@@ -61,9 +67,11 @@ public class NoticeListController {
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String write(Notice notice) {
+	public String write(Notice notice, RedirectAttributes rttr) {
 		
 		noticeService.write(notice);
+		
+		rttr.addFlashAttribute("result", "write success");
 		
 		return "redirect:/notice/list";
 		
@@ -79,16 +87,18 @@ public class NoticeListController {
 	}
 	
 	@PostMapping("/update")
-	public String updateProcess(Notice notice) {
+	public String updateProcess(Notice notice, RedirectAttributes rttr) {
 		logger.info("{}",notice);
 		noticeService.update(notice);
+		rttr.addFlashAttribute("result", "update success");
 		
 		return "redirect:/notice/view?noticeNo=" + notice.getNoticeNo();
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(Notice notice) {
+	public String delete(Notice notice, RedirectAttributes rttr) {
 		noticeService.delete(notice);
+		rttr.addFlashAttribute("result", "delete success");
 		
 		return "redirect:/notice/list";
 	}
