@@ -25,9 +25,10 @@
 		<td>${w.wdProcess }</td>
 		<td>
 		<c:if test="${w.wdProcess eq '미처리'}">
-		<form action="/admin/withdrawProc?wdNo=${w.wdNo }&wdAmount=${w.wdAmount }&userNo=${w.userNo }" method="post">
-				<button onclick="return confirm('정말 처리완료되었습니까?')">승인</button>
-		</form>
+<%-- 				<form action="/admin/withdrawProc?wdNo=${w.wdNo }&wdAmount=${w.wdAmount }&userNo=${w.userNo }" method="post">
+						<button id="confrimButton" onclick="return confirm('정말 처리완료되었습니까?')">승인</button>
+				</form> --%>
+			<button id="confrimButton" type="button" onclick="withDrawOk(${w.wdNo}, ${w.wdAmount }, ${w.userNo })">승인</button>
 		</c:if>
 		</td>
 	</tr>
