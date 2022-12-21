@@ -4,6 +4,12 @@
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+
+	
+	//아이디 저장 체크시 처리
+	if($("#userId").val() != ""){
+		$("#saveId").attr("checked",true)
+	}
 	 //아이디 입력창에 포커스 주기
     $("input").eq(0).focus()
 	
@@ -20,7 +26,7 @@ $(document).ready(function(){
 	
 
 })
-
+	
 
 
 </script>
@@ -41,6 +47,17 @@ button{
 </style>
 <body>
 
+<%//쿠키값 얻기
+	Cookie [] cookie = request.getCookies();
+		String savedId = "";
+	for(Cookie cookieId : cookie) {
+		 if(cookieId.getName().equals("userId")) {
+			 savedId = cookieId.getValue();
+		 }
+	} 
+%>
+
+
 <div id="loginForm">
 <h1 class="letterLogin">로그인</h1>
 	<div id="chkLogin"></div>
@@ -50,7 +67,7 @@ button{
 	
 		<div id="id">
 			아이디
-			<input type="text" name="userId" placeholder="아이디를 입력하세요" id="userId">
+			<input type="text" name="userId" placeholder="아이디를 입력하세요" id="userId" value="<%=savedId%>">
 		</div>
 		
 		<div id="pw">
@@ -63,6 +80,10 @@ button{
 				<span style="color:red;" id="resultMsg">아이디 또는 비밀번호를 다시 한번 확인해주세요</span>
 			</div>
 		</c:if>
+		
+		<div id="isSave">
+			<input type="checkbox" id="saveId" name ="saveId" value="saveId">아이디 저장
+		</div>
 
 		<button id="btnLogin" >로그인</button>	
 	</form>

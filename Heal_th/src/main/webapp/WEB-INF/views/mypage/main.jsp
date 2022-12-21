@@ -81,10 +81,6 @@
           
       }
       
-
-      
-      
-      
       var options = {
     	        chart: {
     	          title: '나의 몸무게',
@@ -203,6 +199,7 @@ body{
 					<li class="info updateUser"><a href="/mypage/updateInfo">회원 정보 변경</a></li>
 					<li class="info updatePw"><a href="/mypage/updatePw">비밀번호 변경</a></li>
 					<li class="info dropOut"><a href="/mypage/dropOut">탈퇴하기</a></li>
+					<li class="info logOut"><a href="/mypage/logout">로그아웃</a></li>
 					
 				
 				</ul>

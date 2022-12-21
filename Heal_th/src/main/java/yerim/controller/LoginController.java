@@ -2,7 +2,9 @@ package yerim.controller;
 
 import java.net.http.HttpRequest;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -37,7 +39,7 @@ public class LoginController {
 	@Autowired KakaoLoginService kakaoLoginService;
 	
 	 @GetMapping("/login/login")
-	 public void login(Model model,HttpSession session) {
+	 public void login(Model model,HttpSession session,HttpServletRequest request) {
 		 //로그인 화면 
 		 logger.info("/login/login [GET]");
 		 
@@ -47,21 +49,28 @@ public class LoginController {
 		 
 		 //카카오 로그인을 위한 URL 호출
 		 String kakaoURL = kakaoLoginService.getURL();
+		
+		 
+		 
+		 
 		 
 		 //모델값으로 URL전달
 		 model.addAttribute("naverURL", naverURL);
 		 model.addAttribute("kakaoURL", kakaoURL);
 		 
+		
 	 
 	 }
 
  
 	 @PostMapping("/login/login")
-	 public String loginProc(Users login, HttpSession session, Model model) {
+	 public String loginProc(Users login, HttpSession session, Model model,String saveId, HttpServletResponse response) {
 		 logger.info("/login/login [POST]");
-		 
+		 logger.info("체크박스 확인 {}",saveId); //체크시 on , 아니면 null
 		 //아이디 확인하기 
 		 boolean isLogin = loginService.checkLogin(login);
+		 //쿠키 생성
+		 Cookie cookie =  null; //세션에 유저 아이디 저장하기
 		 
 		 if(isLogin) {//로그인 성공시
 			 logger.info("login성공");
@@ -70,7 +79,23 @@ public class LoginController {
 			 //userNo 세션에 저장
 			 session.setAttribute("userNo", userNo);
 			 session.setAttribute("userId", login.getUserId());
+			 
+			 
+			 //아이디 저장 체크 여부에 따라 저장하기
+			 if(saveId != null) {//쿠키에 아이디 저장하기
+				 cookie = new Cookie("userId",login.getUserId());	
+				 cookie.setMaxAge(60*60*24*30); //쿠키의 생존 기간 1개월
+			 }else {
+				 cookie = new Cookie("userId", "");
+				 cookie.setMaxAge(0);
+				 
+			 }
+			
+			 //dmdekqdp 쿠키값 저장
+			 response.addCookie(cookie);
 			 logger.info("userNo : {}. userId : {}",session.getAttribute("userNo"),session.getAttribute("userId"));
+			
+			 
 			 //아이디가 있을 때 
 			 return "redirect:/main";
 			 

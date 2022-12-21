@@ -289,5 +289,14 @@ public class MypageController {
 		return weightList;
 	}
 	
-
+	@GetMapping("/logout")
+	public String logOut(HttpSession session) {
+		
+		//로그아웃하기
+		session.invalidate();
+		
+		return "redirect:/login/login";
+		
+		
+	}
 }
