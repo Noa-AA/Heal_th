@@ -137,15 +137,11 @@
 	  	ORDER BY body_date 
 	  </select>
 	  
-<!-- 	 <insert id="insertHeight" parameterType="BodyInfo"> -->
-<!-- 	 	INSERT INTO body_info (body_no,weight,height,body_date,user_no) -->
-<!-- 	   VALUES (body_info_seq.nextval,#{weight},#{height},to_char(sysdate),#{userNo}) -->
-	 
-<!-- 	 </insert>	 -->
-	 
-<!-- 	 <update id="updateHeight" parameterType="BodyInfo"> -->
-<!-- 	 	UPDATE body_info -->
-<!-- 	 	SET height =#{height} -->
-<!-- 	 	WHERE user_no = #{userNo} and body_date =to_char(sysdate) -->
-<!-- 	 </update> -->
+	  <select id="selectHeight" parameterType="BodyInfo" resultType="BodyInfo">
+	  
+	  SELECT HEIGHT FROM body_info
+	  WHERE body_no =(SELECT MAX(body_no) FROM body_info WHERE user_no =#{userNo})
+	  
+	  </select>
+
 </mapper>

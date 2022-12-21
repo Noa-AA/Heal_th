@@ -26,7 +26,6 @@
 
 				drawChart()
 				$("#weight").val("")
-				$("#height").val("")
 				
 			},
 			error : function(){
@@ -233,7 +232,7 @@ body{
 		<div id="heightArea">
 				<div id="intputHeight">
 					<label for="height">키
-						<input type="text" id="height" name="height" ><span>cm</span>
+						<input type="text" id="height" name="height" value ="${bodyInfo.height} " ><span>cm</span>
 					</label>
 				</div>
 

@@ -138,6 +138,14 @@ public interface MypageService {
 
 	public List<BodyInfo> getBodyList(BodyInfo bodyInfo, HttpSession session);
 
+	/**
+	 * 회원 키 조회해오기
+	 * @param session -회원번호 담은 session
+	 * @param bodyInfo 
+	 * @return
+	 */
+	public BodyInfo getHeigiht(HttpSession session, BodyInfo bodyInfo);
+
 
 
 

@@ -36,18 +36,18 @@ public class MypageServiceImpl implements MypageService {
 	@Autowired EmailCode emailCode;
 
 	@Autowired ServletContext context;
+	
 	@Override
 	public Users getuserInfo(int userNo) {
 		logger.info("getuserInfo - userNo :{}",userNo);
-		
 		return mypageDao.selectUserInfo(userNo);
 	}
 
 	@Override
 	public String sendEmailCode(Users userEmail) {
-		
 		return emailCode.sendEmailCode(userEmail);
 	}
+	
 	@Override
 	public boolean chkEmailCode(HttpSession session, String emailCode) {
 
@@ -289,8 +289,6 @@ public class MypageServiceImpl implements MypageService {
 			 if(updateTimeHeight  == null) { //둘다 비어있음 
 				 logger.info("몸무게,키 insert 하기");
 				 mypageDao.insertWeightHeight(bodyInfo); //둘다 비어있어서 insert 하기
-//				 logger.info("키 입력 없음 - insert 하기");
-//				 mypageDao.insertHeight(bodyInfo);
 				 
 			 } else {
 				 logger.info("키 몸무게 update");
@@ -300,7 +298,6 @@ public class MypageServiceImpl implements MypageService {
 			 
 		 } 
 		 
-//	}
 	 
 	 @Override
 	public List<BodyInfo> getBodyList(BodyInfo bodyInfo,HttpSession session) {
@@ -311,6 +308,17 @@ public class MypageServiceImpl implements MypageService {
 		  List<BodyInfo> weightList = mypageDao.selectWeight(bodyInfo);
 		  
 		 return weightList;
+	}
+	 
+	 @Override
+	public BodyInfo getHeigiht(HttpSession session,BodyInfo bodyInfo) {
+
+		 logger.info("getHeight 실행");
+		 
+		 //세션에서 번호 추출해서 DTO에 담기
+		 bodyInfo.setUserNo((int)session.getAttribute("userNo"));
+		 
+		 return mypageDao.selectHeight(bodyInfo);
 	}
 
 }

@@ -30,7 +30,7 @@ public class MypageController {
 	@Autowired MypageService mypageService;
 	
 	@RequestMapping("/main")
-	public void mypage(HttpSession session, Model model,PhotoFile profile) {
+	public void mypage(HttpSession session, Model model,PhotoFile profile,BodyInfo bodyInfo) {
 		logger.info("/mypag/main [GET]");
 		
 		//회원 프로필 사진 조회해오기
@@ -41,12 +41,16 @@ public class MypageController {
 		Users userIntro = mypageService.getIntro(session);
 		logger.info("한술 소개 : {}",userIntro);
 		
+		//g회원 키 조회해오기
+		BodyInfo height = mypageService.getHeigiht(session,bodyInfo);
+		logger.info("회원 키 {}",height);
 
 		//모델값으로 storedName 전달하기
 		model.addAttribute("storedName", profilePhoto);
 		//모델값으로 한줄 소개 전달하기
 		model.addAttribute("userIntro", userIntro);
-		
+		//모델값으로 키 전달하기
+		model.addAttribute("bodyInfo", height);
 
 	}
 	

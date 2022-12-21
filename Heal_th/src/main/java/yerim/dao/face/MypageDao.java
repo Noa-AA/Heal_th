@@ -133,17 +133,12 @@ public interface MypageDao {
 	 */
 	public List<BodyInfo> selectWeight(BodyInfo bodyInfo);
 
-//	/**
-//	 * 키 삽입하기
-//	 * @param bodyInfo
-//	 */
-//	public void insertHeight(BodyInfo bodyInfo);
-//
-//	/**
-//	 * 키 업데이트
-//	 * @param bodyInfo
-//	 */
-//	public void updateHeight(BodyInfo bodyInfo);
+	/**
+	 * 회원 키 조회하기
+	 * @param bodyInfo -유저번호가 담긴 DTO
+	 * @return -조회된 키
+	 */
+	public BodyInfo selectHeight(BodyInfo bodyInfo);
 
 
 
