@@ -83,6 +83,13 @@ $(document).ready(function(){
 	margin: 0 auto;
 	text-align: center;
 }
+
+.container button{
+	background: #7ca3f5;
+	border: none;
+	padding: 2px;
+	border-radius: 5px;
+}
 </style>
 </head>
 <body>

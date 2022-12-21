@@ -64,6 +64,5 @@ public class BodyInfo {
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-	
-	
+
 }
