@@ -381,6 +381,11 @@ h2{
 			<li><a href="/chat/intro?curPage=${paging.totalPage }" ><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
 		</c:if>
 		
+		<%-- 끝 페이지로 이동 (끝으로갈게 없을때) --%>
+		<c:if test="${paging.curPage eq paging.totalPage }">
+			<li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+		</c:if>
+		
 		</ul>
 	</div>
 	
