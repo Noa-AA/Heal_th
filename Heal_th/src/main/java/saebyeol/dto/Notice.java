@@ -11,11 +11,12 @@ public class Notice {
 	private String noticeContent;
 	private String noticeFile;
 	private int userNo;
+	private int adminNo;
 	
 	public Notice() {}
 
 	public Notice(int noticeNo, String noticeTtl, Date noticeDate, int noticeHit, String noticeContent,
-			String noticeFile, int userNo) {
+			String noticeFile, int userNo, int adminNo) {
 		super();
 		this.noticeNo = noticeNo;
 		this.noticeTtl = noticeTtl;
@@ -24,13 +25,14 @@ public class Notice {
 		this.noticeContent = noticeContent;
 		this.noticeFile = noticeFile;
 		this.userNo = userNo;
+		this.adminNo = adminNo;
 	}
 
 	@Override
 	public String toString() {
 		return "Notice [noticeNo=" + noticeNo + ", noticeTtl=" + noticeTtl + ", noticeDate=" + noticeDate
 				+ ", noticeHit=" + noticeHit + ", noticeContent=" + noticeContent + ", noticeFile=" + noticeFile
-				+ ", userNo=" + userNo + "]";
+				+ ", userNo=" + userNo + ", adminNo=" + adminNo + "]";
 	}
 
 	/**
@@ -131,6 +133,21 @@ public class Notice {
 		this.userNo = userNo;
 	}
 
+	/**
+	 * @return the adminNo
+	 */
+	public int getAdminNo() {
+		return adminNo;
+	}
+
+	/**
+	 * @param adminNo the adminNo to set
+	 */
+	public void setAdminNo(int adminNo) {
+		this.adminNo = adminNo;
+	}
+	
+	
 	
 	
 	

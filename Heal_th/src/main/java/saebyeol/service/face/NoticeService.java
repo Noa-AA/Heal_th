@@ -4,6 +4,7 @@ import java.util.List;
 
 import saebyeol.dto.Notice;
 import saebyeol.utill.SaebyeolPaging;
+import saebyeol.utill.Search;
 
 public interface NoticeService {
 
@@ -27,6 +28,13 @@ public interface NoticeService {
 	 */
 	public List<Notice> list(SaebyeolPaging paging);
 
+	/**
+	* 게시글 검색
+	* @param search
+	* @return
+			*/
+	public List<Notice> getSearch(Search search);
+	
 	/**
 	 * 게시글 상세보기 
 	 * 
@@ -53,4 +61,6 @@ public interface NoticeService {
 	 * @param notice
 	 */
 	public void delete(Notice notice);
+
+
 }

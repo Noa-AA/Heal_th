@@ -23,13 +23,34 @@ $(document).ready(function() { //공지사항으로 이동
 	$("#btnDelete").click(function() {
 		$(location).attr("href", "/notice/delete?noticeNo=${viewNotice.noticeNo}")
 	})
-
 })
+
+$(document).ready(function(){ //수정 알림창
+	    
+	    let result = '<c:out value="${result}"/>';
+	    
+	    checkAlert(result);
+	    
+	    function checkAlert(result){
+	        
+	        if(result === ''){
+	            reutrn;
+	        }
+	        
+	        if(result === "update success"){
+	            alert("게시글이 수정되었습니다.");
+	        }
+	        
+	    }    
+	    
+	});
 </script>
 
 <style type="text/css">
 table{margin: auto;}
-
+.bottomBtn{
+	float: right;  
+}
 </style>
 
 <body>
@@ -60,7 +81,9 @@ table{margin: auto;}
 
 <hr>
 
+<div class="bottomBtn">
 <button id="btnUpdate">수정</button> <button id="btnDelete">삭제</button> <button id="btnWrite">글쓰기</button> <button id="btnList">목록</button>
+</div>
 
 </div>
 </body>

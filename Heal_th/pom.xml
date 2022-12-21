@@ -71,7 +71,20 @@
 	        <scope>runtime</scope> 
 	 </dependency> 
 
+		<!-- thumbnail 라이브러리 -->
+		<!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
+		<dependency>
+		    <groupId>net.coobird</groupId>
+		    <artifactId>thumbnailator</artifactId>
+		    <version>0.4.14</version>
+		</dependency>
 
+		<!-- jackson-dataformat 라이브러리 -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.dataformat</groupId>
+		    <artifactId>jackson-dataformat-xml</artifactId>
+		    <version>2.13.3</version>
+		</dependency>
 
 
 
