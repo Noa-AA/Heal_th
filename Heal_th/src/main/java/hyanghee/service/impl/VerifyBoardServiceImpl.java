@@ -11,6 +11,8 @@ import hyanghee.dao.face.VerifyBoardDao;
 import hyanghee.dto.VerifyBoard;
 import hyanghee.service.face.VerifyBoardService;
 import hyanghee.util.BoardPaging;
+import hyanghee.util.BoardSearch;
+import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
 @Service
@@ -50,6 +52,9 @@ public class VerifyBoardServiceImpl implements VerifyBoardService {
 
 	@Override
 	public VerifyBoard view(VerifyBoard viewBoard) {
+		
+		verifyBoardDao.updateHit(viewBoard);
+		
 		return verifyBoardDao.selectBoard(viewBoard);
 	}
 
@@ -113,6 +118,40 @@ public class VerifyBoardServiceImpl implements VerifyBoardService {
 	public void delete(VerifyBoard verifyNo) {
 		verifyBoardDao.delete(verifyNo);
 		
+	}
+
+	@Override
+	public int getPoint(int userno) {
+		return verifyBoardDao.getPoint(userno);
+	}
+
+	@Override
+	public void updatePoint(int point) {
+		Users users = new Users();
+		
+		users.setUserNo(point);
+		verifyBoardDao.updatePoint(users);
+		
+	}
+
+	@Override
+	public List<Notice> notice(BoardPaging paging) {
+		return verifyBoardDao.noticeList(paging);
+	}
+
+	@Override
+	public int getTotal(BoardSearch boardSearch) {
+		return verifyBoardDao.getTotal(boardSearch);
+	}
+
+	@Override
+	public List<VerifyBoard> getSearchPaging(BoardSearch boardSearch) {
+		return verifyBoardDao.getSearchPaging(boardSearch);
+	}
+
+	@Override
+	public VerifyBoard getPage(int verifyNo) {
+		return verifyBoardDao.getPage(verifyNo);
 	}
 
 	

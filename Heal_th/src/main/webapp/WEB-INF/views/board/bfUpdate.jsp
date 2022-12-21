@@ -423,7 +423,7 @@ $(document).ready(function(){
                             <br>
 
 			<h4 style="color: black">다짐글</h4><br><br>
-				<textarea rows="20" cols="50" id="beforeCon" name="beforeCon" value="${updateBoard.beforeCon }" placeholder="다짐글을 작성해주세요"></textarea>
+			<textarea rows="20" cols="50" id="beforeCon" name="beforeCon" value="${updateBoard.beforeCon }" placeholder="다짐글을 작성해주세요"></textarea>
 				
 			</div>                            
 				

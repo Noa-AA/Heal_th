@@ -31,6 +31,18 @@ table {
 	table-layout: fixed;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{padding: 0;}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
 
 </style>
 
@@ -79,7 +91,7 @@ table {
 </table>
 
 <div class="text-center">
-	<button id="btnList" class="btn btn-default">목록</button>
+	<button id="btnList">목록</button>
 	
 	<c:if test="${userNo eq viewBoard.userNo }">
 		<button id="btnUpdate" class="btn btn-primary">수정</button>
@@ -95,7 +107,8 @@ table {
 
 </div><!-- .container end -->
 
-<jsp:include page="../comment/board.jsp" />
+<%-- <jsp:include page="../addOns/addOn.jsp" /> --%>
+<%-- <jsp:include page="../comment/board.jsp" /> --%>
 
 
 <br><br><br><br><br><br><br><br>

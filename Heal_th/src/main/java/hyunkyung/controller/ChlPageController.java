@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import hyunkyung.dto.Challenge;
 import hyunkyung.service.face.ChlPageService;
@@ -44,26 +46,38 @@ public class ChlPageController {
 			model.addAttribute("joinList", joinList);
 			logger.info("controller joinList : {}", joinList);
 			
-			//내가 가입한 챌린지 총 갯수
-//			Challenge total = chlPageService.getTotal(userno);
-//			model.addAttribute("total", total);
-//			logger.info("total 갯수 : {} ", total);
-			
 			return "challenge/mypage";
 		}else {
 			return "/login/login";
 		}
 	}
 
-	// 원하는 챌린지 클릭후 인증용 사진 첨부
-//	@PostMapping("/challenge/mypage")
-//	public void mypagePOST(HttpSession session, Model model) {
-//		logger.info("/challenge/mypage[POST]");
-//		
-//	}
+
 	
+	//사진인증 페이지 조회
 	@GetMapping("/challenge/photopage")
-	public void challengeGetPhotopage() {
+	public void challengeGetPhotopage(int challengeNo, Model model, HttpSession session) {
 		logger.info("/challenge/photopage [GET]");
+		
+		//챌린지 정보 조회
+		model.addAttribute("pageInfo", chlPageService.getPage(challengeNo));
+		
+		
+		int userno = (int) session.getAttribute("userNo");
+		Users user = chlPageService.getUserInfo(userno);
+		logger.info("userInfo : {}", user);
+		model.addAttribute("user",user);
+		
+		//인증한 사진들 리스트
+		model.addAttribute("list", chlPageService.getPhoto(challengeNo));
+	}
+	
+	@PostMapping("/challenge/photopage")
+	public void challengePostPhotopage(
+			MultipartFile file,
+			@RequestParam("file") MultipartFile fileupload
+			) {
+		logger.info("/challenge/photopage [POST]");
+//		chlPageService.filesave(file);
 	}
 }

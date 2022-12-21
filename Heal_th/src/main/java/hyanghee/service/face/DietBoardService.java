@@ -31,4 +31,9 @@ public interface DietBoardService {
 
 	public int getTotal(BoardSearch boardSearch);
 
+	//포인트
+	public int getPoint(int userno);
+
+	public void updatePoint(int point);
+
 }

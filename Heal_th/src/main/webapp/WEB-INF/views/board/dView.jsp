@@ -133,6 +133,7 @@ table {
 
 </div><!-- .container end -->
 
+<%-- <jsp:include page="../addOns/addOn.jsp" /> --%>
 <%-- <jsp:include page="../comment/board.jsp" /> --%>
 
 

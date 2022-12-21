@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../layout/adminheader.jsp" %>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
 <script type="text/javascript">
 function showValue(target){
 	const selectValue = target.value;
@@ -90,6 +92,53 @@ select {
 	margin-bottom: 20px;
 }
 
+/* 페이징 부분 */
+
+.text-center {
+	display: flex;
+	justify-content: center; 
+	margin-top: 50px;
+}
+
+.pagination {
+	display: flex;
+	margin: 0;
+}
+
+.pagination > li{
+	display: flex;
+}
+
+.pagination > li > a {
+	display: flex;
+	margin: 0 4px;
+	width: 40px;
+	height: 40px;
+	border-radius: 20px !important;
+	font-size: 16px;
+	justify-content: center;
+	align-items: center;
+	color: #7ca3f5;
+}
+
+.none:hover {
+	cursor: default;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+	background-color: #7ca3f5;
+    border-color: #7ca3f5;
+}
+
+
+.material-symbols-outlined {
+	font-variation-settings:
+	'FILL' 0,
+	'wght' 400,
+	'GRAD' 0,
+	'opsz' 48
+}
+
 </style>
 	<div class="medium-container">
 		<h3>인출신청내역 조회</h3><br>
@@ -131,66 +180,66 @@ select {
 			</tr>
 			</c:forEach>
 		</table>
-			<div class="text-center">
-			<ul class="pagination pagination-sm">
+	<!-- 페이징 부분 -->
+	<div class="text-center">
+		<ul class="pagination pagination-sm">
+	
+		<%-- 첫 페이지로 이동 (이동할게 없을때) --%>
+		<c:if test="${paging.curPage eq 1 }">
+			<li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
+		</c:if>
+	
+		<%-- 첫 페이지로 이동 --%>
+		<c:if test="${paging.curPage ne 1 }">
+			<li><a href="/admin/withdraw"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
+		</c:if>
 		
-			<%-- 첫 페이지로 이동 --%>
-			<c:if test="${paging.curPage ne 1 }">
-				<li><a href="/admin/withdraw">&larr; 처음</a></li>	
-			</c:if>
-			
-			<%-- 이전 페이징 리스트로 이동 --%>
-			<c:choose>
-			<c:when test="${paging.startPage ne 1 }">
-				<li><a href="/admin/withdraw?curPage=${paging.startPage - paging.pageCount }">&laquo;</a></li>
-			</c:when>
-			<c:when test="${paging.startPage eq 1 }">
-				<li class="disabled"><a>&laquo;</a></li>
-			</c:when>
-			</c:choose>
-			
-			<%-- 이전 페이지로 가기 --%>
-			<c:if test="${paging.curPage > 1 }">
-				<li><a href="/admin/withdraw?curPage=${paging.curPage - 1 }">&lt;</a></li>
-			</c:if>
-			
-			
-			
-			<%-- 페이징 리스트 --%>
-			<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
-			<c:if test="${paging.curPage eq i }">
-				<li class="active"><a href="/admin/withdraw?curPage=${i }">${i }</a></li>
-			</c:if>
-			<c:if test="${paging.curPage ne i }">
-				<li><a href="/admin/withdraw?curPage=${i }">${i }</a></li>
-			</c:if>
-			</c:forEach>
+		
+		<%-- 이전 페이지로 가기 --%>
+		<c:if test="${paging.curPage > 1 }">
+			<li><a href="/admin/withdraw?curPage=${paging.curPage - 1 }"><span class="material-symbols-outlined">navigate_before</span></a></li>
+		</c:if>
+		
+		<%-- 이전 페이지로 가기 (이전으로 갈 페이지 없을때)--%>
+		<c:if test="${paging.curPage <= 1 }">
+			<li><a class="none"><span class="material-symbols-outlined">navigate_before</span></a></li>
+		</c:if>
 		
 			
-			
-			<%-- 다음 페이지로 가기 --%>
-			<c:if test="${paging.curPage < paging.totalPage }">
-				<li><a href="/admin/withdraw?curPage=${paging.curPage + 1 }">&gt;</a></li>
-			</c:if>
-			
-			<%-- 다음 페이징 리스트로 이동 --%>
-			<c:choose>
-			<c:when test="${paging.endPage ne paging.totalPage }">
-				<li><a href="/admin/withdraw?curPage=${paging.startPage + paging.pageCount }">&raquo;</a></li>
-			</c:when>
-			<c:when test="${paging.endPage eq paging.totalPage }">
-				<li class="disabled"><a>&raquo;</a></li>
-			</c:when>
-			</c:choose>
+		<%-- 페이징 리스트 --%>
+		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
+		<c:if test="${paging.curPage eq i }">
+			<li class="active"><a href="/admin/withdraw?curPage=${i }">${i }</a></li>
+		</c:if>
+		<c:if test="${paging.curPage ne i }">
+			<li><a href="/admin/withdraw?curPage=${i }">${i }</a></li>
+		</c:if>
+		</c:forEach>
+	
 		
-			<%-- 끝 페이지로 이동 --%>
-			<c:if test="${paging.curPage ne paging.totalPage }">
-				<li><a href="/admin/withdraw?curPage=${paging.totalPage }">끝 &rarr;</a></li>	
-			</c:if>
-			
-			</ul>
-		</div>
-		</div>
+		
+		<%-- 다음 페이지로 가기 --%>
+		<c:if test="${paging.curPage < paging.totalPage }">
+			<li><a href="/admin/withdraw?curPage=${paging.curPage + 1 }"><span class="material-symbols-outlined">navigate_next</span></a></li>
+		</c:if>
+		
+		<%-- 다음 페이지로 가기 (다음으로 갈 페이지 없을때) --%>
+		<c:if test="${paging.curPage >= paging.totalPage }">
+			<li><a class="none"><span class="material-symbols-outlined">navigate_next</span></a></li>
+		</c:if>
+		
+	
+		<%-- 끝 페이지로 이동 --%>
+		<c:if test="${paging.curPage ne paging.totalPage }">
+			<li><a href="/admin/withdraw?curPage=${paging.totalPage }" ><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+		</c:if>
+		
+		<%-- 끝 페이지로 이동 (끝으로갈게 없을때) --%>
+        <c:if test="${paging.curPage eq paging.totalPage }">
+            <li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>
+        </c:if>
+		</ul>
+	</div>
 	</div>
 </div>
 </body>

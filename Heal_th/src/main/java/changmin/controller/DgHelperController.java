@@ -259,6 +259,7 @@ public class DgHelperController {
 		return dgmagotchi.getDgmaExp();
 	}
 	
+	//득마고치 채팅 추가
 	@ResponseBody
 	@RequestMapping(value="/dghelper/dgmaChat", method=RequestMethod.POST)
 	public boolean dgmaChatPost(Dgmachat dgmachat) {
@@ -271,6 +272,7 @@ public class DgHelperController {
 		return true;
 	}
 
+	//득마고치 채팅 조회
 	@RequestMapping(value="/dghelper/dgmaChat", method=RequestMethod.GET)
 	public void dgmaChatGet(Dgmachat dgmachat, Model model) {
 		logger.info("/dghelper/dgmaChat [GET]");

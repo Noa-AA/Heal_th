@@ -29,6 +29,8 @@ public class ChlCompleteController {
 	@PostMapping("/challenge/complete")
 	public void completeProc(Challenge challenge, Model model) {
 		logger.info("/challenge/complete [POST]");
+	
+	
 	}
 	
 }

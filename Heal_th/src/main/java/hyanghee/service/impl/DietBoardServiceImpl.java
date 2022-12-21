@@ -51,6 +51,9 @@ public class DietBoardServiceImpl implements DietBoardService {
 	
 	@Override
 	public DietBoard view(DietBoard viewBoard) {
+		
+		dietBoardDao.updateHit(viewBoard);
+		
 		return dietBoardDao.selectBoard(viewBoard);
 	}
 
@@ -128,6 +131,19 @@ public class DietBoardServiceImpl implements DietBoardService {
 	@Override
 	public int getTotal(BoardSearch boardSearch) {
 		return dietBoardDao.getTotal(boardSearch);
+	}
+
+	@Override
+	public int getPoint(int userno) {
+		return dietBoardDao.getPoint(userno);
+	}
+
+	@Override
+	public void updatePoint(int point) {
+		Users users = new Users();
+		
+		users.setUserNo(point);
+		dietBoardDao.updatePoint(users);
 	}
 	
 }

@@ -130,6 +130,8 @@ public class DietBoard {
 		this.categoryNo = categoryNo;
 	}
 
+	
+
 		
 	
 	

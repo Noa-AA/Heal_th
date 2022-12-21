@@ -1,5 +1,7 @@
 package hyunkyung.service.impl;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +35,11 @@ public class ChlJoinServiceImpl implements ChlJoinService{
 		return chlJoinDao.selectUserInfo(userno);
 	}
 
-//	//득근머니 잔액 조회
-//	@Override
-//	public int getMmoney(int userno) {
-//		return chlJoinDao.selectMmoney(userno);
-//	}
-
-
+	//득근머니 잔액 조회
+	@Override
+	public MmoneyUse getMmoney(int userno) {
+		return chlJoinDao.selectMmoney(userno);
+	}
 	
 	//가입시 정보저장
 	@Override
@@ -50,10 +50,14 @@ public class ChlJoinServiceImpl implements ChlJoinService{
 	}
 
 
-	@Override
-	public MmoneyUse getMmoney(int userno) {
-		return chlJoinDao.selectMmoney(userno);
-	}
+	//예치금 입력
+//	@Override
+//	public List<MmoneyUse> insertMoney(int mUse) {
+//		
+//		return chlJoinDao.insertMoney(mUse);
+//	}
+
+
 
 
 

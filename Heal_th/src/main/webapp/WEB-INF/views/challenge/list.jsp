@@ -3,6 +3,17 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <style type="text/css">
+#twoDepth-list a:nth-child(1){
+   color: #b571e9;
+   border-bottom: 2px solid #b571e9;
+   margin-top: 1px;
+   font-weight: 700;
+}
+
+#twoDepth-list a{
+	width: 33.3%;
+}
+
 .title {
 	margin-bottom: 40px;
 }
@@ -14,7 +25,7 @@
 	margin: auto;
 	gap: 50px 50px;
 	width: 1200px;
-	margin-top: 400px;
+	margin-top: 40px;
 }
 
 .challenge {
@@ -103,7 +114,13 @@ a:hover {
 <div id="subvisual">
 	<div id="subvisual-A">
 		<p id="subv-title">챌린지 목록</p>
-		<p id="subv-content">원하는 챌린지를 눌러주세요</p>
+	</div>
+</div>
+<div id="twoDepth">
+	<div id="twoDepth-list">
+		<a href="/challenge/list">챌린지 리스트</a>
+		<a href="/challenge/create">챌린지 만들기</a>
+		<a href="/challenge/mypage">챌린지 마이페이지/인증</a>
 	</div>
 </div>
 	<div class="challenge-list">
