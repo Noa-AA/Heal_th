@@ -4,7 +4,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import daeyeon.dto.Chat;
+import daeyeon.dto.ChatFile;
 import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
 import daeyeon.util.ChatIntroPaging;
@@ -128,6 +131,17 @@ public interface ChatService {
 	 * @return List<Chat> - 조회한 채팅내역
 	 */
 	public List<Chat> gerChatList(RoomList roomNo);
+
+	
+	/**
+	 * chat/fileup
+	 * 
+	 * 첨부된 파일 DB에 저장하기
+	 * 
+	 * @param inputFile - 첨부파일 정보
+	 * @return 
+	 */
+	public ChatFile fileSave(MultipartFile file, int userNo, int roomNo);
 
 	
 	

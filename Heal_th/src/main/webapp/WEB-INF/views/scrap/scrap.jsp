@@ -19,6 +19,7 @@ function scrapListCall() {
 			console.log("스크랩 불러오기 성공")
 			//응답 데이터 출력
 			$("#scrapList").html(scrapList)
+			console.log(scrapList)
 		}
 		,error: function(){
 			console.log("스크랩 불러오기 실패")

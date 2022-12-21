@@ -3,6 +3,7 @@ package daeyeon.dao.face;
 import java.util.List;
 
 import daeyeon.dto.Chat;
+import daeyeon.dto.ChatFile;
 import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
 import daeyeon.util.ChatIntroPaging;
@@ -146,6 +147,27 @@ public interface ChatDao {
 	 * @return List<Chat> - 채팅내용
 	 */
 	public List<Chat> selectChat(RoomList roomNo);
+
+
+	/**
+	 * chat테이블의 chat_no 마지막값 구하기
+	 * 
+	 * @return
+	 */
+	public int selectChatNo();	
+	
+	/**
+	 * chat/fileup
+	 *
+	 * 파일 저장하기
+	 * 
+	 * @param chatFile - insert 파일정보
+	 */
+	public void insertFile(ChatFile chatFile);
+
+
+	
+	
 
 
 	

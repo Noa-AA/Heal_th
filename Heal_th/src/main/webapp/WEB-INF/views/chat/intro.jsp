@@ -96,7 +96,7 @@ h2{
     margin-right: 0px;
 }   
 
-#photo {
+#profilePhoto {
 	width: 160px;
 	height: 160px;
 	background-color: #efefef;
@@ -104,6 +104,10 @@ h2{
 	text-align: center;
 	line-height: 160px;
 	font-size: 18px;
+}
+
+#profilePhoto > img {
+	width: 160px;
 }
 
 #rightCon {
@@ -275,7 +279,7 @@ h2{
 		<ul class="list">
 			<c:forEach items="${userList }" var="userList">
 			<li>
-				<div id="photo">${userList.userPhoto }</div>
+				<img src="${pageContext.request.contextPath}/upload/${userList.storedName}" id="profilePhoto">
 				
 				<!-- 오른쪽 텍스트 부분 -->
 				<div id="rightCon">
@@ -375,6 +379,11 @@ h2{
 		<%-- 끝 페이지로 이동 --%>
 		<c:if test="${paging.curPage ne paging.totalPage }">
 			<li><a href="/chat/intro?curPage=${paging.totalPage }" ><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+		</c:if>
+		
+		<%-- 끝 페이지로 이동 (끝으로갈게 없을때) --%>
+		<c:if test="${paging.curPage eq paging.totalPage }">
+			<li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
 		</c:if>
 		
 		</ul>

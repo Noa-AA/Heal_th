@@ -3,6 +3,7 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
     
  
 <!DOCTYPE html>
@@ -159,8 +160,8 @@ table {
 		</h1>
 		<hr>
 		<p>사용자 관리</p> 
-		<p>게시글 관리</p>
-		<p>상품 관리</p>
+		<p><a href="/notice/list">게시글 관리</p>
+		<p><a href="/product/list">상품 관리</p>
 		<p>챌린지 관리</p>
 		<p><a href="/admin/withdraw">득근머니 관리</a></p>
 	</div>

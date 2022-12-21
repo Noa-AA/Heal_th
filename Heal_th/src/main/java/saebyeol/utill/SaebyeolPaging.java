@@ -14,6 +14,10 @@ public class SaebyeolPaging {
 
 	private int startNo; //화면에 보이는 게시글의 시작 번호
 	private int endNo; //화면에 보이는 게시글의 끝 번호
+	
+	private String keyword; //검색키워드
+	private String type;
+	private String[] typeArr;
 
 	
 	//디폴트 생성자 - 페이징 로직이 처리되지 않는다
@@ -81,12 +85,16 @@ public class SaebyeolPaging {
 	
 	
 	
+	
+
 	@Override
 	public String toString() {
-		return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
-				+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-				+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
+		return "SaebyeolPaging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount
+				+ ", totalPage=" + totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage="
+				+ endPage + ", startNo=" + startNo + ", endNo=" + endNo + ", keyword=" + keyword + ", type=" + type
+				+ ", typeArr=" + typeArr + "]";
 	}
+
 
 	public int getCurPage() {
 		return curPage;
@@ -159,4 +167,55 @@ public class SaebyeolPaging {
 	public void setEndNo(int endNo) {
 		this.endNo = endNo;
 	}
+
+
+	/**
+	 * @return the keyword
+	 */
+	public String getKeyword() {
+		return keyword;
+	}
+
+
+	/**
+	 * @param keyword the keyword to set
+	 */
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
+		this.typeArr = type.split("");
+	}
+
+
+	/**
+	 * @return the typeArr
+	 */
+	public String[] getTypeArr() {
+		return typeArr;
+	}
+
+
+	/**
+	 * @param typeArr the typeArr to set
+	 */
+	public void setTypeArr(String[] typeArr) {
+		this.typeArr = typeArr;
+	}
+	
+	
 }

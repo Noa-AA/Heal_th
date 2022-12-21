@@ -241,10 +241,9 @@ select::-ms-expand { display:none; }
 			<th>포인트</th>
 		</tr>
 		
-		<c:forEach items="${userList }" var="u">
-		<c:set var="i" value="${i+1 }" />
-		<tr class="contentTr">
-			<td>${i }</td>
+		<c:forEach items="${userList }" var="u" varStatus="status">
+		<tr class="contentTr"> 
+			<td><c:out value="${status.count }" /></td>
 			<td>${u.userNo }</td>
 			<td>${u.userId }</td>
 			<td>${u.userNick }</td>
@@ -317,17 +316,14 @@ select::-ms-expand { display:none; }
 			<li><a href="/admin/user?curPage=${paging.totalPage }" ><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
 		</c:if>
 		
+		<%-- 끝 페이지로 이동 (끝으로갈게 없을때) --%>
+		<c:if test="${paging.curPage eq paging.totalPage }">
+			<li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+		</c:if>
+		
 		</ul>
 	</div>
 	
-	
-<!-- 	<form id="moveForm" method="get"> -->
-<%-- 		<input type="hidden" id="bfNo" name="bfNo" value='<c:out value="${pageInfo.bfNo}"/>'> --%>
-<%-- 		<input type="hidden" name="pageNum" value="${userMaker.userSearch.pageNum }"> --%>
-<%-- 		<input type="hidden" name="amount" value="${userMaker.userSearch.amount }"> --%>
-<%-- 		<input type="hidden" name="keyword" value="${userMaker.userSearch.keyword }"> --%>
-<%-- 		<input type="hidden" name="type" value="${userMaker.userSearch.type }"> --%>
-<!-- 	</form> -->
 	
 	<!-- 검색 기능 -->
 	<div class="searchBack">

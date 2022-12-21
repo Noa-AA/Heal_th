@@ -2,6 +2,9 @@ package yerim.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -12,9 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
+import changmin.dto.BodyInfo;
 import yerim.dao.face.MypageDao;
 import yerim.dto.PhotoFile;
 import yerim.dto.Users;
@@ -33,18 +36,18 @@ public class MypageServiceImpl implements MypageService {
 	@Autowired EmailCode emailCode;
 
 	@Autowired ServletContext context;
+	
 	@Override
 	public Users getuserInfo(int userNo) {
 		logger.info("getuserInfo - userNo :{}",userNo);
-		
 		return mypageDao.selectUserInfo(userNo);
 	}
 
 	@Override
 	public String sendEmailCode(Users userEmail) {
-		
 		return emailCode.sendEmailCode(userEmail);
 	}
+	
 	@Override
 	public boolean chkEmailCode(HttpSession session, String emailCode) {
 
@@ -271,4 +274,51 @@ public class MypageServiceImpl implements MypageService {
 		 logger.info("dropOutExe 실행");
 		 mypageDao.deleteByuserNoPw(dropOut);
 	}
+
+	 @Override
+	public void setBodyInfo(BodyInfo bodyInfo) {
+		 logger.info("파라미터 확인 {}",bodyInfo);
+		 //오늘 날짜 구하기
+			 
+			 BodyInfo updateTimeHeight = mypageDao.selectTimeHeghit(bodyInfo);  //DB에 정보 입력한 시간 가져오기 
+			 
+			 logger.info("조회 결과 : {}",updateTimeHeight);
+			 
+			 //----시간 비교
+			 
+			 if(updateTimeHeight  == null) { //둘다 비어있음 
+				 logger.info("몸무게,키 insert 하기");
+				 mypageDao.insertWeightHeight(bodyInfo); //둘다 비어있어서 insert 하기
+				 
+			 } else {
+				 logger.info("키 몸무게 update");
+				 mypageDao.updateWeightHeight(bodyInfo);
+			
+			 }
+			 
+		 } 
+		 
+	 
+	 @Override
+	public List<BodyInfo> getBodyList(BodyInfo bodyInfo,HttpSession session) {
+		 logger.info("body list  시작 " );
+		 //유저번호 저장
+		 bodyInfo.setUserNo((int)session.getAttribute("userNo"));
+		 
+		  List<BodyInfo> weightList = mypageDao.selectWeight(bodyInfo);
+		  
+		 return weightList;
+	}
+	 
+	 @Override
+	public BodyInfo getHeigiht(HttpSession session,BodyInfo bodyInfo) {
+
+		 logger.info("getHeight 실행");
+		 
+		 //세션에서 번호 추출해서 DTO에 담기
+		 bodyInfo.setUserNo((int)session.getAttribute("userNo"));
+		 
+		 return mypageDao.selectHeight(bodyInfo);
+	}
+
 }

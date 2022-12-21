@@ -15,6 +15,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
 
 
@@ -28,6 +29,20 @@ $(document).ready(function() {
 		$('#msgInput').val('')
 	})
 	
+	
+	/* textArea에 글이 없으면 버튼이 비활성화 되게 */
+	$('#msgInput').on("input", function() {
+		if( $('#msgInput').val() == ''){      
+			$('#sendBtn').attr("disabled", true)
+			$('#sendBtn').css('background-color', '#eeeeee')
+		} else {
+			$('#sendBtn').attr("disabled", false)
+			$('#sendBtn').css('background-color', '#7ca3f5')
+		}
+			
+	})
+	
+	
 	/* 전송 버튼에 엔터는 섭밋되게 */
 	$('#msgInput').on('keydown', function(event) {
         if (event.keyCode == 13)
@@ -37,15 +52,72 @@ $(document).ready(function() {
             }
     })
     
-    $( 'a:contains("마지")' ).css( 'color', 'red' );
-	
-	
+    
+    /* 검색 버튼~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+    $("#searchBtn").click(function() {
+    	var txtVal = $("#searchText").val();
+    	console.log( txtVal );
+    	
+    	
+		var searchT = $("#messages > div > a:contains('" + txtVal + "')")   	
+		$(searchT).css( 'color', 'red' );
 
-})
+		$(searchT).attr("tabindex", -1).focus();
+		
+    })
+ 
+    
+    
+	})
+	
+	
+	
+	
+/* 이미지 전송 */
+/* input file onchange시 */
+function fileUp() {
+	
+	var file = $('#file')[0].files[0];
+	console.log("file : ", file)
+	
+	var formData = new FormData();
+		
+	formData.append("file", file);
+		
+	$.ajax({
+		url: "/chat/fileup",
+		type: "post",
+		data: formData,
+		processData: false,
+		contentType: false,
+				   
+		success: function( res ) {
+			console.log("AJAX 성공")
+			console.log("res : ", res)
+			ws.send( res );
+		}
+		, error: function(error) {
+			console.log("AJAX 실패")
+
+		}
+		
+	})
+	
+}
+
 
 </script>
 
 <style type="text/css">
+
+a {
+  text-decoration-line: none;
+}
+
+a:focus, a:hover {
+    text-decoration: none;
+    outline: none;
+}
 
 button {
 	border: 0;
@@ -149,10 +221,42 @@ button {
 
 /* 상대방 닉네임 */
 #myNick {
+	width: 56px;
 	font-size: 18px;
 	font-weight: 600;
 	color: #222;
 } 
+
+/* 인풋 박스 */
+#searchText{
+	width: 200px;
+	height: 32px;
+	border: 2px solid #7ca3f5;
+	border-radius: 30px;
+	transition: 0.4s;
+	padding: 8px 12px;
+	outline: none;
+	font-size: 14px;
+	margin-right: 10px;
+}
+
+#SearchDiv {
+	width: 750px;
+	display: flex;
+    justify-content: flex-end;
+}
+
+#searchBtn {
+  background-color: #fff;
+  color: #7ca3f5;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+
 
 
 /* 메세지 전송 input 폼 */
@@ -190,7 +294,7 @@ button {
 }
 
 
-#iBLbel{
+#fileForm{
 	display: flex;
     align-items: center;
     width: 32px;
@@ -198,12 +302,28 @@ button {
     justify-content: center
 }
 
-#iBLbel > img{
+#file {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+}
+
+
+
+#fileIcon {
 	display: inline-flex;
 	align-items: center;
 	width: 22px;
     height: 22px;
-    background-color: #eee;
+    color: #666666;
+    
+	font-variation-settings:
+	'FILL' 1,
+	'wght' 400,
+	'GRAD' 0,
+	'opsz' 48
+   
 }
 
 #sendBtn{
@@ -215,10 +335,10 @@ button {
     font-weight: 500;
     font-size: 14px;
     color: #fff;
-    background-color: #7ca3f5;
+    background-color: #dddddd;
     justify-content: center;
     padding: 0px;
-}
+} 
 
 
 </style>
@@ -228,6 +348,7 @@ button {
 <body>
 
 <div id="chatBack">
+	<!-- 상단 프로필 검색 부분 --------------------------- -->
 	<div id="chatTop">
 		<!-- 사진부분 -->
 		<div class="leftImg">
@@ -237,8 +358,13 @@ button {
 		<div id="myNick">
 			${roomNo.userNick }
 		</div>
-		<button type="submit" id="searchTxt	" ><i class="fas fa-search"></i></button>
+		<div id="SearchDiv">
+			<input id="searchText" type="text" name="keyword" >
+			<button id="searchBtn" ><i class="fas fa-search"></i></button>
+		</div>
 	</div>
+	
+	
 	
 	<%	Date date = new Date(); %>
 	<c:set var="now" value="<%=new Date() %>" /> 
@@ -250,10 +376,10 @@ button {
 	    			<%-- 자신의 채팅일때 --%>
 	    			<c:when test="${chatList.userNo eq userNo }">
 	    				<div id='senderMsg'>
-	    					<a id='timeS'>
+	    					<span id='timeS'>
 	    						<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
 								<fmt:formatDate value="${date }" pattern="a hh:ss" />
-	    					</a>
+	    					</span>
 	    					<a id='msgS'>
 	    						${chatList.chatContents }
 	    					</a>
@@ -266,10 +392,10 @@ button {
 	    					<a id='msgR'>
 	    						${chatList.chatContents }
 	    					</a>
-	    					<a id='timeR'>
+	    					<span id='timeR'>
 	    						<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
 								<fmt:formatDate value="${date }" pattern="a hh:ss" />
-	    					</a>
+	    					</span>
 	    				</div>
 	    			</c:otherwise>
 	    		</c:choose>
@@ -282,11 +408,12 @@ button {
 	    <textarea id="msgInput" autocapitalize="off" placeholder="메시지를 입력해주세요"></textarea>
 	   	
 	   	<div id="inputBottom">
-	   		<div id="iBLbel">
-	   			<img id="picTure">
+	   		<div id="fileForm" >
+	   			<span id="fileIcon"class="material-symbols-outlined">image</span>
+	   			<input type="file" name="file" id="file" onchange="fileUp()">
 	   		</div>
 	   		
-	    	<input type="button" id="sendBtn" value="전송" /> 
+	    	<input type="button" id="sendBtn" value="전송" disabled /> 
 	    </div><!-- inputBottom 끝 -->
 	    
 	</div>
@@ -296,6 +423,7 @@ button {
 	
 		
 	
+
 
 
 
