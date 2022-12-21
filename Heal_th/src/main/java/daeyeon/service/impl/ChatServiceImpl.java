@@ -1,17 +1,22 @@
 package daeyeon.service.impl;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import changmin.util.DgHelperPaging;
 import daeyeon.dao.face.ChatDao;
 import daeyeon.dto.Chat;
+import daeyeon.dto.ChatFile;
 import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
 import daeyeon.service.face.ChatService;
@@ -22,6 +27,9 @@ import yerim.dto.Users;
 public class ChatServiceImpl implements ChatService {
 
 	@Autowired ChatDao chatDao;
+	
+	//서블릿 컨텍스트 객체
+	@Autowired ServletContext context;
 	
 	//로그 객체
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -195,20 +203,88 @@ public class ChatServiceImpl implements ChatService {
 		return chatList;
 	}
 	
+	
+	// /chat/fileup
+	//---------- 첨부된 파일 DB에 저장하기
+	@Override
+	public ChatFile fileSave(MultipartFile file, int userNo, int roomNo) {
+		logger.info("fileSave() - {}", file);
+		
+		//파일의 크기가 0일 때 파일 업로드 처리 중단
+		if( file.getSize() <= 0 ) {
+			logger.info("파일의 크기가 0, 처리 중단!");
+					
+			return null;
+		}
+		
+		//파일이 저장될 경로 (RealPath)
+		String storedPath = context.getRealPath("upload");
+		logger.info("{}", storedPath);
+		
+		//upload폴더가 존재하지 않으면 생성한다
+		File storedFolder = new File(storedPath);
+		storedFolder.mkdir();
+		
+		//저장될 파일 이름 생성하기
+		String storedName = file.getOriginalFilename(); //원본파일명
+		storedName += UUID.randomUUID().toString().split("-")[0];
+		logger.info("storedName {}", storedName);
+		
+		//실제 저장될 파일 객체
+		File dest = new File(storedFolder, storedName);
+		
+		try {
+			
+			//업로드된 파일을 upload폴더에 저장하기
+			file.transferTo(dest);
+			
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		// 채팅(CHAT) 테이블에 chat으로 먼저 추가하기
+		Chat chat = new Chat();
+		chat.setUserNo(userNo);
+		chat.setRoomNo(roomNo);
+		chat.setChatContents(storedName);
+		
+		chatDao.insertChat(chat);
+				
+		
+		//---------------------------------------------------------
+		
+		//DB에 기록할 정보 객체 - DTO
+		ChatFile chatFile = new ChatFile();
+				
+		
+		
+		chatFile.setOriginName(file.getOriginalFilename());
+		chatFile.setStoredName(storedName);
+		chatFile.setUserNo(userNo);
+		
+		//chat의 마지막 chat_no 구하기
+		chatFile.setChatNo(chatDao.selectChatNo()); 
+		
+		chatDao.insertFile(chatFile);
+		
+		return chatFile;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

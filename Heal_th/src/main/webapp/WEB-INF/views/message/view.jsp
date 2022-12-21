@@ -12,8 +12,19 @@
 	padding: 20px;
 	box-shadow: 0 7px 20px rgb(0 0 0 / 17%);
 	z-index: 1000;
-} 
+	overflow-y: scroll;
+}
 
+.messageBox::-webkit-scrollbar {
+	border-radius: 10px;
+	width: 7px;
+}
+
+.messageBox::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: silver;
+	width: 5px;
+}
 .messageBox:after {
     position: absolute;
     top: -13px;

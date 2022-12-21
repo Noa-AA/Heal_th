@@ -17,14 +17,16 @@
 			url: "/mypage/updateBodyInfo",
 			data :{
 		
-				weight : $("#weight").val() //몸무게 입력
-			
+				weight : $("#weight").val(), //몸무게 입력
+				height: $("#height").val() //키 입력 
+				
 			},
 			success: function(res){
 				console.log("그래프 호출 성공")
 
 				drawChart()
 				$("#weight").val("")
+				
 			},
 			error : function(){
 				console.log("ajax실패")
@@ -54,8 +56,6 @@
           
       //data 영역
       // Create our data table out of JSON data loaded from server.
-//       var data = new google.visualization.DataTable(jsonData);
-      
       
       console.log(jsonData.responseJSON.length)
       if(jsonData.responseJSON.length == 0){
@@ -78,16 +78,13 @@
     	  data.addRow([jsonData.responseJSON[i].bodyDate, jsonData.responseJSON[i].weight])
       }
       
+          
       }
-      
-
-      
-      
       
       var options = {
     	        chart: {
     	          title: '나의 몸무게',
-//     	          subtitle: 'in millions of dollars (USD)'
+    	          subtitle: '단위: kg'
     	        },
     	        width: 900,
     	        height: 500
@@ -156,6 +153,12 @@ body{
     top: 685px;
     left: 500px;
 }
+#btnArea{
+    left: 800px;
+    position: absolute;
+    top: 1000px;
+}
+
 </style>
 
 <body>
@@ -195,8 +198,8 @@ body{
 					<li class="infoTitle updateTitle" >회원 정보 관리</li>
 					<li class="info updateUser"><a href="/mypage/updateInfo">회원 정보 변경</a></li>
 					<li class="info updatePw"><a href="/mypage/updatePw">비밀번호 변경</a></li>
-					<li class="info updayBody"><a href="/mypage/setBodyInfo">Body 관리</a></li>
 					<li class="info dropOut"><a href="/mypage/dropOut">탈퇴하기</a></li>
+					<li class="info logOut"><a href="/mypage/logout">로그아웃</a></li>
 					
 				
 				</ul>
@@ -210,7 +213,6 @@ body{
 	<div id="graph">
 		<div id="graphMsg" style="display: none;"></div>
 
-		<div id="settings"><img id="settingIcon"src="/resources/img/mypage/settings.png"></div>
 	  <!--Div that will hold the pie chart-->
  		<div id="linechart_material" style="width: 900px; height: 500px"></div>	
 
@@ -218,21 +220,33 @@ body{
 	
 	<div id="BodyInfo">
 		<div id="inputInfo">
-			<label for="weight">
-				<input type="text" id="weight" name="weight">
+			<label for="weight">몸무게
+				<input type="text" id="weight" name="weight"><span>kg</span>
 			</label>
 		
 		</div>
+		
+		<div id="heightArea">
+				<div id="intputHeight">
+					<label for="height">키
+						<input type="text" id="height" name="height" value ="${bodyInfo.height} " ><span>cm</span>
+					</label>
+				</div>
+
+		</div>
+	</div>
+	<div id="btnArea">
 		<div id="btnBody">
 			<button type="button" id="btnBodyInfo" >입력하기</button>
 		</div>
-		
-		<div id="msg">
-			<span>키는 그래프를 클릭하여 상세보기에서 입력해주세요</span>
-		</div>
+	
 	</div>
 
-</div>
+</div>	
+		
+
+
+
 
 
 </body>
