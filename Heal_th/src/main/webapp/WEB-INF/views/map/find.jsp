@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="../layout/header.jsp" />
-<body>
 <style>
 #map{left:280px;}
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
@@ -41,9 +40,40 @@
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 
+#twoDepth-list a:nth-child(1){
+	color: #b571e9;
+	border-bottom: 2px solid #b571e9;
+	margin-top: 1px;
+	font-weight: 700;
+}
+
+.big-container h3:nth-child(1){
+	text-align: center;
+}
+
+.big-container {
+	width: 1200px;
+	margin: 0 auto;
+}
 </style>
+<body>
+<div id="subvisual">
+   <div id="subvisual-A">
+      <p id="subv-title">운동 도우미</p>
+   </div>
+</div>
+<div id="twoDepth">
+	<div id="twoDepth-list">
+		<a href="/map/find">운동 시설 추천</a>
+		<a href="/dghelper/healthrecord">운동 일기장</a>
+		<a href="/dghelper/healthtest">운동 성향 테스트</a>
+		<a href="/dghelper/healthguide">칼로리 사전</a>
+		<a href="/dghelper/dgmagotchi">득근이 키우기</a>
+	</div>
+</div>
 <!-- appkey=5398ad247816ce4ac9d9a7374d499494 -->
-<h1>주변 시설찾기</h1>
+<div class="big-container">
+<h3>주변 시설찾기</h3>
 <hr>
 <div class="map_wrap">
         <div class="option">
@@ -375,6 +405,7 @@ function removeAllChildNods(el) {
     }
 }
 </script>
-
+</div>
 </body>
+<jsp:include page="../layout/footer.jsp" />
 </html>
