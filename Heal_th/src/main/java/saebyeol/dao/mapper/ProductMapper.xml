@@ -7,10 +7,56 @@
     
 <mapper namespace="saebyeol.dao.face.ProductDao">
 
-	<select id="listProduct" resultType="Product">
-		SELECT prod_no, p_name, p_price, p_image1, p_detail
-		FROM product
-		ORDER BY prod_no DESC
+	<insert id="productEnroll" parameterType="Product">
+ 	<selectKey order="BEFORE" resultType="int" keyProperty="prodNo">
+ 		SELECT notice_seq.nextval FROM dual
+ 	</selectKey>
+		INSERT INTO product(prod_no, p_name, p_price, p_image1, p_image2, p_detail, p_stock, p_date, p_hit, p_cate_no)
+		VALUES(#{prodNo}, #{pName}, #{pPrice}, #{pImage1}, #{pImage2}, #{pDetail}, #{pStock}, sysdate, 0, #{pCateNo})
+	</insert>
+	
+	<select id="cateList" resultType="Prodcategory">
+		SELECT * FROM prodcategory ORDER BY p_cate_no
+	</select>
+	
+	<select id="selectList" resultType="Product">
+		SELECT * FROM(
+			SELECT rownum rnum, P. * FROM(
+				SELECT
+					prod_no, p_name, p_price, p_image1, p_date, p_stock, p_cate_no
+				FROM product
+				ORDER BY prod_no DESC
+			)P
+		)PRODUCT
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 
+	   
+	<select id="selectCntAll" resultType="int">
+		SELECT count(*) FROM product
+ 	</select>
+ 	
+ 	<select id="selectProduct" resultType="Product" parameterType="Product">
+ 		SELECT
+			prod_no, p_name, p_price, p_image1, p_image2,p_detail, p_date, p_stock, p_sell, p_cate_no
+		FROM product
+		WHERE prod_no = #{prodNo} 
+ 	</select>
+ 	
+ 	<update id="updateProduct" parameterType="Product">
+ 	UPDATE product
+ 	SET p_name = #{pName}, p_price = #{pPrice}, p_detail = #{pDetail}, p_stock = #{pStock}, p_cate_no = #{pCateNo}
+ 	WHERE prod_no = #{prodNo} 
+ 	</update>
+ 	
+ 	<delete id="delete" parameterType="Product">
+ 	DELETE product
+ 	WHERE prod_no = #{prodNo}
+ 	</delete>
+ 	
+ 	<insert id="imageEnroll">
+ 		INSERT INTO product_image(file_name, upload_path, uuid, prod_no) VALUES(#{fileName}, #{uploadPath}, #{uuid}, #{prodNo})
+ 	</insert>
+		
+		
 </mapper>

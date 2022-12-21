@@ -8,13 +8,16 @@
  <mapper namespace="saebyeol.dao.face.NoticeDao">
  
  	<!-- 페이징 처리 -->
- 	<select id="selectCntAll" resultType="int">
+ 	<select id="selectCntAll" resultType="int" parameterType="SaebyeolPaging">
  		SELECT count(*) FROM notice
+ 		<if test="keyword != null">
+			WHERE notice_ttl like '%'||#{keyword}||'%'
+        </if>
  	</select>
  	
  	<!-- 게시글 목록 -->
  	<select id="selectList" resultType="Notice" parameterType="SaebyeolPaging">
- 		SELECT * FROM (
+		SELECT * FROM (
  			SELECT rownum rnum, N.* FROM(
  				SELECT
  					notice_no, notice_ttl, notice_date, 
@@ -31,6 +34,7 @@
  		UPDATE notice SET notice_hit = notice_hit + 1 
  		WHERE notice_no = #{noticeNo}
  	</select>
+ 	
  	
  	<!-- 게시글 선택 -->
  	<select id="selectNotice" resultType="Notice" parameterType="Notice">
@@ -61,6 +65,37 @@
  	DELETE notice
  	WHERE notice_no = #{noticeNo}
  	</delete>
+
+
+ 	<select id="getSearch" resultType="Notice">
+    
+    <![CDATA[
+        
+        SELECT notice_no, notice_ttl, notice_date, notice_hit, notice_content, notice_file 
+        
+        	 FROM(
+        
+                SELECT 
+                rownum rn, notice_no, notice_ttl, notice_date, notice_hit, notice_content, notice_file
+                  
+                FROM notice WHERE rownum <= #{pageNum} * #{amount} 
+    ]]>            
+                <if test="keyword != null">
+                	and notice_ttl like '%'||#{keyword}||'%'
+                </if>
+    
+    <![CDATA[
+                    
+                )
+                    
+        WHERE rn > (#{pageNum} -1) * #{amount}
+    
+    ]]>
+    
+    </select>
+    
+   
+    
  	
 
 </mapper>

@@ -11,6 +11,7 @@ import saebyeol.dao.face.NoticeDao;
 import saebyeol.dto.Notice;
 import saebyeol.service.face.NoticeService;
 import saebyeol.utill.SaebyeolPaging;
+import saebyeol.utill.Search;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
@@ -40,6 +41,13 @@ public class NoticeServiceImpl implements NoticeService {
 		
 		return noticeDao.selectList(paging);
 	}
+	
+	@Override
+	public List<Notice> getSearch(Search search) {
+		return noticeDao.getSearch(search);
+	}
+
+	
 	
 	@Override
 	public Notice view(Notice viewNotice) {
@@ -78,6 +86,7 @@ public class NoticeServiceImpl implements NoticeService {
 		noticeDao.delete(notice);
 		
 	}
+	
 
 }
 
