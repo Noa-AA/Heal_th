@@ -1,5 +1,7 @@
 package hyunkyung.dao.face;
 
+import java.util.List;
+
 import hyunkyung.dto.Challenge;
 import hyunkyung.dto.MmoneyUse;
 import hyunkyung.dto.ParticipantList;
@@ -27,7 +29,8 @@ public interface ChlJoinDao {
 	 * @param userno
 	 * @return
 	 */
-//	public int selectMmoney(int userno);
+	public MmoneyUse selectMmoney(int userno);
+
 	
 	/**
 	 * 가입시 정보 저장
@@ -37,5 +40,10 @@ public interface ChlJoinDao {
 	public int insertInfo(ParticipantList pList);
 
 	
-	public MmoneyUse selectMmoney(int userno);
+	/**
+	 * 예치금 입력
+	 * @param mUse
+	 * @return
+	 */
+//	public List<MmoneyUse> insertMoney(int mUse);
 }

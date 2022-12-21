@@ -1,5 +1,7 @@
 package hyunkyung.service.face;
 
+import java.util.List;
+
 import hyunkyung.dto.Challenge;
 import hyunkyung.dto.MmoneyUse;
 import hyunkyung.dto.ParticipantList;
@@ -27,7 +29,7 @@ public interface ChlJoinService {
 	 * @param userno
 	 * @return
 	 */
-//	public int getMmoney(int userno);
+	public MmoneyUse getMmoney(int userno);
 
 	
 	/**
@@ -40,7 +42,12 @@ public interface ChlJoinService {
 
 	
 	
-	public MmoneyUse getMmoney(int userno);
+	/**
+	 * 득근머니 사용금액(예치금) 입력
+	 * @param mUse
+	 * @return
+	 */
+//	public List<MmoneyUse> insertMoney(int mUse);
 
 	
 

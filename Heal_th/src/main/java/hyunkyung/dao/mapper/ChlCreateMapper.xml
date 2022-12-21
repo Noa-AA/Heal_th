@@ -7,11 +7,10 @@
 <mapper namespace="hyunkyung.dao.face.ChlCreateDao">
 	<!-- 챌린지 만들기 -->
 	<insert id="insertChl" parameterType="Challenge">
-		INSERT INTO challenge
-		(challenge_no, challenge_kind, challenge_name, m_no,
+		INSERT INTO challenge (challenge_no, challenge_kind, challenge_name,
 		challenge_credate, challenge_enddate)
 		VALUES (challenge_seq.nextval,
-		#{challengeKind}, #{challengeName}, #{mNo}, #{challengeCredate},
+		#{challengeKind}, #{challengeName}, #{challengeCredate},
 		#{challengeEnddate})
 	</insert>
 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import hyunkyung.dto.Challenge;
 import hyunkyung.dto.ChallengeFile;
+import hyunkyung.dto.ParticipantList;
 import hyunkyung.util.ChlCriteria;
 import yerim.dto.Users;
 
@@ -42,6 +43,14 @@ public interface ChallengeDao {
 	 * @param challenge - 삭제할 챌린지 번호
 	 */
 	public void delete(Challenge challenge);
+
+	
+	/**
+	 * 챌린지 참여자 목록에서 유저번호 가져오기
+	 * @param userno
+	 * @return
+	 */
+//	public ParticipantList getUserInfo(int userno);
 
 	
 }

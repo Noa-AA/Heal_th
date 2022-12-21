@@ -4,6 +4,10 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <style type="text/css">
+#twoDepth-list a{
+	width: 33.3%;
+}
+
 .title {
 	margin-bottom: 40px;
 }
@@ -12,7 +16,7 @@
 	border: 1px solid #333;
 	width: 750px;
 	height: 570px;
-	margin-top: 400px;
+	margin-top: 40px;
 }
 
 #btnDelete {
@@ -38,7 +42,6 @@ label {
 
 input {
 	padding: 5px;
-	/* 	font-size: 17px; */
 }
 
 textarea {
@@ -70,7 +73,13 @@ textarea {
 	<div id="subvisual">
 		<div id="subvisual-A">
 			<p id="subv-title">상세 조회 페이지</p>
-			<p id="subv-content">해당 챌린지에 대한 상세 내용입니다</p>
+		</div>
+	</div>
+	<div id="twoDepth">
+		<div id="twoDepth-list">
+			<a href="/challenge/list">챌린지 리스트</a>
+			<a href="/challenge/create">챌린지 만들기</a>
+			<a href="/challenge/mypage">챌린지 마이페이지/인증</a>
 		</div>
 	</div>
 	<div class="container">
@@ -118,16 +127,11 @@ textarea {
 			form.submit();
 		});
 
-		//삭제 버튼 (관리자만 보이게해야함)
-		// 		$("#btnDelete")
-		// 				.click(
-		// 						function() {
-		// 							location.href = "/challenge/delete?challengeNo=${pageInfo.challengeNo }"
-		// 						});
+		
 
 		//삭제 버튼 (관리자만 보이게해야함)
 		function cancelok() {
-			if (confirm("진짜로 거래를 삭제하시겠습니까?")) {
+			if (confirm("해당 챌린지를 삭제하시겠습니까?")) {
 				alert("정상적으로 처리 되었습니다.");
 				return location.href = "/challenge/delete?challengeNo=${pageInfo.challengeNo }";
 			} else {
