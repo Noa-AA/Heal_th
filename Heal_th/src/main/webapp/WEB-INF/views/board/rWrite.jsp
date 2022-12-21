@@ -118,9 +118,6 @@ margin-top: 3px;
 </style>
 
 
-<!-- 스마트 에디터 2 로드 -->
-<script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
-
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -145,14 +142,11 @@ $(document).ready(function() {
 	
 	$("#btnWrite").click(function() {
 		$(this).parents("form").submit();
+		alert("50 포인트가 적립됐습니다");
 	});
 	
 })
 
-function updateContents() {
-	//스마트 에디터에 작성된 내용을 #content에 반영한다
-	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", [])
-}
 </script>
 
 </head>
@@ -201,10 +195,104 @@ function updateContents() {
 <div class="form-group">
 	<h3>위치</h3>
 	<label for="address">시설 위치</label>
-	<input type="text" id="address" name="address" class="form-control">
+	
+	<input type="text" id="address" name="address" placeholder="주소">
+	<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+	<input type="hidden" id="lat" name="lat">
+	<input type="hidden" id="lng" name="lng">
+	
+		<div id="map" name="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
 </div>
 
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=161720a43a30c2dc196fb23834b51086&libraries=services"></script>
+<script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+            level: 5 // 지도의 확대 레벨
+        };
 
+    //지도를 미리 생성
+    var map = new daum.maps.Map(mapContainer, mapOption);
+    //주소-좌표 변환 객체를 생성
+    var geocoder = new daum.maps.services.Geocoder();
+    //마커를 미리 생성
+    var marker = new daum.maps.Marker({
+        position: new daum.maps.LatLng(37.537187, 127.005476),
+        map: map
+    });
+
+
+    function sample5_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = data.address; // 최종 주소 변수
+
+                // 주소 정보를 해당 필드에 넣는다.
+                document.getElementById("address").value = addr;
+                // 주소로 상세 정보를 검색
+                geocoder.addressSearch(data.address, function(results, status) {
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === daum.maps.services.Status.OK) {
+
+                        var result = results[0]; //첫번째 결과의 값을 활용
+
+                        // 해당 주소에 대한 좌표를 받아서
+                        var coords = new daum.maps.LatLng(result.y, result.x);
+                        // 지도를 보여준다.
+                        mapContainer.style.display = "block";
+                        map.relayout();
+                        // 지도 중심을 변경한다.
+                        map.setCenter(coords);
+                        // 마커를 결과값으로 받은 위치로 옮긴다.
+                        marker.setPosition(coords)
+                        
+                        $("#lat").value = latlng.getLat(); //start_lat 필드에 위도 값 저장
+	  					$("#lng").value = latlng.getLng(); //start_lon 필드에 경도 값 저장
+                    }
+                });
+            }
+        }).open();
+    }
+    
+
+
+//  function getInfo() {
+//      // 지도의 현재 중심좌표를 얻어옵니다 
+//      var center = map.getCenter(); 
+     
+//      // 지도의 현재 레벨을 얻어옵니다
+//      var level = map.getLevel();
+     
+//      // 지도타입을 얻어옵니다
+//      var mapTypeId = map.getMapTypeId(); 
+     
+//      // 지도의 현재 영역을 얻어옵니다 
+//      var bounds = map.getBounds();
+     
+//      // 영역의 남서쪽 좌표를 얻어옵니다 
+//      var swLatLng = bounds.getSouthWest(); 
+     
+//      // 영역의 북동쪽 좌표를 얻어옵니다 
+//      var neLatLng = bounds.getNorthEast(); 
+     
+//      // 영역정보를 문자열로 얻어옵니다. ((남,서), (북,동)) 형식입니다
+//      var boundsStr = bounds.toString();
+     
+     
+//      var message = '지도 중심좌표는 위도 ' + center.getLat() + ', <br>';
+//      message += '경도 ' + center.getLng() + ' 이고 <br>';
+//      message += '지도 레벨은 ' + level + ' 입니다 <br> <br>';
+//      message += '지도 타입은 ' + mapTypeId + ' 이고 <br> ';
+//      message += '지도의 남서쪽 좌표는 ' + swLatLng.getLat() + ', ' + swLatLng.getLng() + ' 이고 <br>';
+//      message += '북동쪽 좌표는 ' + neLatLng.getLat() + ', ' + neLatLng.getLng() + ' 입니다';
+     
+//      // 개발자도구를 통해 직접 message 내용을 확인해 보세요.
+//      // ex) console.log(message);
+//  }
+    
+</script>
 
 
 <br><br><hr><br><br>
@@ -243,16 +331,6 @@ function updateContents() {
 </div>
 </form>
 
-<!-- 스마트 에디터 스킨 적용 -->
-<script type="text/javascript">
-var oEditors = [];
-nhn.husky.EZCreator.createInIFrame({
-	oAppRef: oEditors,
-	elPlaceHolder: "content",
-	sSkinURI: "/resources/se2/SmartEditor2Skin.html",
-	fCreator: "createSEditor2"
-})
-</script>
 
 </div><!-- .container end -->
 

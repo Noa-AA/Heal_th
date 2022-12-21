@@ -58,6 +58,9 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	//게시글 상세보기
 	@Override
 	public ReviewBoard view(ReviewBoard viewBoard) {
+		
+		reviewBoardDao.updateHit(viewBoard);
+		
 		return reviewBoardDao.selectBoard(viewBoard);
 	}
 
@@ -140,6 +143,21 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	@Override
 	public ReviewBoard getPage(int reviewNo) {
 		return reviewBoardDao.getPage(reviewNo);
+	}
+
+//	포인트
+	@Override
+	public int getPoint(int userno) {
+		return reviewBoardDao.getPoint(userno);
+	}
+
+	@Override
+	public void updatePoint(int point) {
+		Users users = new Users();
+		
+		users.setUserNo(point);
+		reviewBoardDao.updatePoint(users);
+		
 	}
 
 	

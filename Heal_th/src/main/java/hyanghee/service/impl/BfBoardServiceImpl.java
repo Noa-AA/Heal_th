@@ -30,9 +30,9 @@ public class BfBoardServiceImpl implements BfBoardService {
 		int totalCount = bfBoardDao.selectCntAll();
 				
 		//페이징 계산
-		BoardPaging boardPaging = new BoardPaging(totalCount, curPage);
+		BoardPaging paging = new BoardPaging(totalCount, curPage);
 				
-		return boardPaging;
+		return paging;
 	}
 
 
@@ -46,9 +46,9 @@ public class BfBoardServiceImpl implements BfBoardService {
 
 	//게시글
 	@Override
-	public List<Beforeafter> list(BoardPaging boardPaging) {
+	public List<Beforeafter> list(BoardPaging paging) {
 
-		return bfBoardDao.selectList(boardPaging);
+		return bfBoardDao.selectList(paging);
 	}
 
 
@@ -71,6 +71,10 @@ public class BfBoardServiceImpl implements BfBoardService {
 
 	@Override
 	public Beforeafter view(Beforeafter viewBoard) {
+		
+		//조회수 증가
+		bfBoardDao.updateHit(viewBoard);
+		
 		return bfBoardDao.selectBoard(viewBoard);
 	}
 
@@ -149,32 +153,29 @@ public class BfBoardServiceImpl implements BfBoardService {
 	}
 
 
-	//포인트 적립
-	@Override
-	public List<Users> updatePoint(int point) {
-		
-//		bfBoardDao.updatePoint(Beforeafter.getUserNo(), 50);
-//		
-//		int point = user.getPoint();
-//		point = point - user.getPoint() + user.getUpdatePoint();	// 기존 포인트 - 사용 포인트 + 획득 포인트
-//		Users.setPoint(point);
-		
-		
-		return bfBoardDao.updatePoint(point);
-	}
-
-
-	@Override
-	public Users getPoint(int point) {
-		return bfBoardDao.getPoint(point);
-	}
-
-
 //	공지사항
 	@Override
-	public List<Notice> notice(BoardPaging boardPaging) {
-		return bfBoardDao.noticeList(boardPaging);
+	public List<Notice> notice(BoardPaging paging) {
+		return bfBoardDao.noticeList(paging);
 	}
+
+
+	@Override
+	public int getPoint(int userno) {
+		return bfBoardDao.getPoint(userno);
+	}
+
+
+	@Override
+	public void updatePoint(int point) {
+		Users users = new Users();
+		
+		users.setUserNo(point);
+		bfBoardDao.updatePoint(users);
+		
+	}
+
+
 
 
 

@@ -7,7 +7,7 @@
   
 <mapper namespace="hyanghee.dao.face.BfBoardDao">
 
-	<select id="selectCntAll" resultType="int" parameterType="BoardPaging">
+	<select id="selectCntAll" resultType="int">
 		SELECT count(*) FROM beforeafter
 	</select>
 	
@@ -30,12 +30,12 @@
  	</select>
 	
 	<select id="noticeList" resultType="Notice" parameterType="BoardPaging">
-	<![CDATA[
-		SELECT * FROM (
-			SELECT * FROM notice ORDER BY notice_no DESC ) 
-		WHERE ROWNUM <=3
-		ORDER BY notice_no DESC
-	]]>
+		<![CDATA[
+			SELECT * FROM (
+				SELECT * FROM notice ORDER BY notice_no DESC ) 
+			WHERE ROWNUM <=3
+			ORDER BY notice_no DESC
+		]]>
 	</select>
 	
 	<select id="selectUserInfo" resultType="Users" parameterType="int">
@@ -100,9 +100,6 @@
 		DELETE beforeafter
 		WHERE bf_no = #{bfNo}	
 	</delete>
-	
-	
-	
 	
 	<select id="getList" resultType="Beforeafter">
 		SELECT bf_no, bf_title, user_no,
@@ -182,15 +179,17 @@
         
     </select>
 
-	<select id="getPoint" resultType="Users" parameterType="int">
-		SELECT * FROM users
-		WHERE point = #{point }
+	<select id="getPoint" resultType="int" parameterType="Users">
+		SELECT point FROM users
+		WHERE user_no = #{userNo }
 	</select>
+	
+	
 
-	<update id="updatePoint">
-		UPDATE users 
-			SET point = point + #{point}
-		WHERE user_no = #{userno}
+	<update id="updatePoint" parameterType="Users">
+		UPDATE users SET point =
+			point + 50
+		WHERE user_no = #{userNo}
 	</update>
 
 	

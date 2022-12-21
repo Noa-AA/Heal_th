@@ -12,6 +12,8 @@ public class ReviewBoard {
 	private String classification;
 	private String price;
 	private String address;
+	private Double lng;
+	private Double lat;
 	private Double score;
 	private String review;
 	private Date rUptDate;
@@ -24,8 +26,8 @@ public class ReviewBoard {
 	public ReviewBoard() {	}
 
 	public ReviewBoard(int reviewNo, Date rInstDate, String rTitle, String gymName, String gymIntroduce,
-			String classification, String price, String address, Double score, String review, Date rUptDate,
-			Date rDeleteDate, int rHit, int rThumbs, int userNo, int categoryNo) {
+			String classification, String price, String address, Double lng, Double lat, Double score, String review,
+			Date rUptDate, Date rDeleteDate, int rHit, int rThumbs, int userNo, int categoryNo) {
 		super();
 		this.reviewNo = reviewNo;
 		this.rInstDate = rInstDate;
@@ -35,6 +37,8 @@ public class ReviewBoard {
 		this.classification = classification;
 		this.price = price;
 		this.address = address;
+		this.lng = lng;
+		this.lat = lat;
 		this.score = score;
 		this.review = review;
 		this.rUptDate = rUptDate;
@@ -49,9 +53,9 @@ public class ReviewBoard {
 	public String toString() {
 		return "ReviewBoard [reviewNo=" + reviewNo + ", rInstDate=" + rInstDate + ", rTitle=" + rTitle + ", gymName="
 				+ gymName + ", gymIntroduce=" + gymIntroduce + ", classification=" + classification + ", price=" + price
-				+ ", address=" + address + ", score=" + score + ", review=" + review + ", rUptDate=" + rUptDate
-				+ ", rDeleteDate=" + rDeleteDate + ", rHit=" + rHit + ", rThumbs=" + rThumbs + ", userNo=" + userNo
-				+ ", categoryNo=" + categoryNo + "]";
+				+ ", address=" + address + ", lng=" + lng + ", lat=" + lat + ", score=" + score + ", review=" + review
+				+ ", rUptDate=" + rUptDate + ", rDeleteDate=" + rDeleteDate + ", rHit=" + rHit + ", rThumbs=" + rThumbs
+				+ ", userNo=" + userNo + ", categoryNo=" + categoryNo + "]";
 	}
 
 	public int getReviewNo() {
@@ -118,6 +122,22 @@ public class ReviewBoard {
 		this.address = address;
 	}
 
+	public Double getLng() {
+		return lng;
+	}
+
+	public void setLng(Double lng) {
+		this.lng = lng;
+	}
+
+	public Double getLat() {
+		return lat;
+	}
+
+	public void setLat(Double lat) {
+		this.lat = lat;
+	}
+
 	public Double getScore() {
 		return score;
 	}
@@ -182,6 +202,8 @@ public class ReviewBoard {
 		this.categoryNo = categoryNo;
 	}
 
+	
+	
 		
 	
 	
