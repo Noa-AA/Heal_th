@@ -200,9 +200,11 @@ $(document).ready(function() {
 	<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 	<input type="hidden" id="lat" name="lat">
 	<input type="hidden" id="lng" name="lng">
-	
-		<div id="map" name="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
 </div>
+	
+<div id="map" name="map" style="width:300px;height:300px;margin-top:10px;display:none"></div>
+
+
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=161720a43a30c2dc196fb23834b51086&libraries=services"></script>
@@ -248,8 +250,10 @@ $(document).ready(function() {
                         // 마커를 결과값으로 받은 위치로 옮긴다.
                         marker.setPosition(coords)
                         
-                        $("#lat").value = latlng.getLat(); //start_lat 필드에 위도 값 저장
-	  					$("#lng").value = latlng.getLng(); //start_lon 필드에 경도 값 저장
+                        $("#lat").val( coords.getLat() ); //start_lat 필드에 위도 값 저장
+	  					$("#lng").val( coords.getLng() ); //start_lon 필드에 경도 값 저장
+//                         $("#lat").value = latlng.getLat(); //start_lat 필드에 위도 값 저장
+// 	  					$("#lng").value = latlng.getLng(); //start_lon 필드에 경도 값 저장
                     }
                 });
             }
@@ -258,39 +262,39 @@ $(document).ready(function() {
     
 
 
-//  function getInfo() {
-//      // 지도의 현재 중심좌표를 얻어옵니다 
-//      var center = map.getCenter(); 
+ function getInfo() {
+     // 지도의 현재 중심좌표를 얻어옵니다 
+     var center = map.getCenter(); 
      
-//      // 지도의 현재 레벨을 얻어옵니다
-//      var level = map.getLevel();
+     // 지도의 현재 레벨을 얻어옵니다
+     var level = map.getLevel();
      
-//      // 지도타입을 얻어옵니다
-//      var mapTypeId = map.getMapTypeId(); 
+     // 지도타입을 얻어옵니다
+     var mapTypeId = map.getMapTypeId(); 
      
-//      // 지도의 현재 영역을 얻어옵니다 
-//      var bounds = map.getBounds();
+     // 지도의 현재 영역을 얻어옵니다 
+     var bounds = map.getBounds();
      
-//      // 영역의 남서쪽 좌표를 얻어옵니다 
-//      var swLatLng = bounds.getSouthWest(); 
+     // 영역의 남서쪽 좌표를 얻어옵니다 
+     var swLatLng = bounds.getSouthWest(); 
      
-//      // 영역의 북동쪽 좌표를 얻어옵니다 
-//      var neLatLng = bounds.getNorthEast(); 
+     // 영역의 북동쪽 좌표를 얻어옵니다 
+     var neLatLng = bounds.getNorthEast(); 
      
-//      // 영역정보를 문자열로 얻어옵니다. ((남,서), (북,동)) 형식입니다
-//      var boundsStr = bounds.toString();
+     // 영역정보를 문자열로 얻어옵니다. ((남,서), (북,동)) 형식입니다
+     var boundsStr = bounds.toString();
      
      
-//      var message = '지도 중심좌표는 위도 ' + center.getLat() + ', <br>';
-//      message += '경도 ' + center.getLng() + ' 이고 <br>';
-//      message += '지도 레벨은 ' + level + ' 입니다 <br> <br>';
-//      message += '지도 타입은 ' + mapTypeId + ' 이고 <br> ';
-//      message += '지도의 남서쪽 좌표는 ' + swLatLng.getLat() + ', ' + swLatLng.getLng() + ' 이고 <br>';
-//      message += '북동쪽 좌표는 ' + neLatLng.getLat() + ', ' + neLatLng.getLng() + ' 입니다';
+     var message = '지도 중심좌표는 위도 ' + center.getLat() + ', <br>';
+     message += '경도 ' + center.getLng() + ' 이고 <br>';
+     message += '지도 레벨은 ' + level + ' 입니다 <br> <br>';
+     message += '지도 타입은 ' + mapTypeId + ' 이고 <br> ';
+     message += '지도의 남서쪽 좌표는 ' + swLatLng.getLat() + ', ' + swLatLng.getLng() + ' 이고 <br>';
+     message += '북동쪽 좌표는 ' + neLatLng.getLat() + ', ' + neLatLng.getLng() + ' 입니다';
      
-//      // 개발자도구를 통해 직접 message 내용을 확인해 보세요.
-//      // ex) console.log(message);
-//  }
+     // 개발자도구를 통해 직접 message 내용을 확인해 보세요.
+     // ex) console.log(message);
+ }
     
 </script>
 
@@ -298,10 +302,6 @@ $(document).ready(function() {
 <br><br><hr><br><br>
 
 
-<!-- <div id="map" style="width:100%;height:350px;"></div> -->
-
-<!-- <input type="text" id="address" name="address" class="form-control"> -->
-<!-- <button id="search">찾기</button> -->
 
 <div class="form-group">
 	<h3>후기</h3><br>

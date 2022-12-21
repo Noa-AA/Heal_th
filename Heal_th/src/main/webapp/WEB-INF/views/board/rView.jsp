@@ -32,7 +32,8 @@ window.onload = function() {
 	});
 	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 	var options = { //지도를 생성할 때 필요한 기본 옵션
-		center : new daum.maps.LatLng(33.450701, 126.570667),
+// 			center : new daum.maps.LatLng(33.450701, 126.570667),
+			center : new daum.maps.LatLng('${viewBoard.lat}', '${viewBoard.lng}'),
 		level : 3
 	//지도의 레벨(확대, 축소 정도)
 	};
@@ -42,70 +43,44 @@ window.onload = function() {
 	//지도를 생성합니다
 	var map = new daum.maps.Map(container, options);
 	
+	
 	//지도를 클릭한 위치에 표출할 마커입니다
 	var marker = new daum.maps.Marker({
 		// 지도 중심좌표에 마커를 생성합니다 
 		position : map.getCenter()
 	});
+	
 	//지도에 마커를 표시합니다
 	marker.setMap(map);
 	
-	// 주소-좌표 변환 객체를 생성합니다
-	var geocoder = new kakao.maps.services.Geocoder();
+// 	// 주소-좌표 변환 객체를 생성합니다
+// 	var geocoder = new kakao.maps.services.Geocoder();
 	
-	//지도에 클릭 이벤트를 등록합니다
-	//지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-	daum.maps.event.addListener(map, 'click', function(mouseEvent) {
-			
-		// 클릭한 위도, 경도 정보를 가져옵니다 
-		var latlng = mouseEvent.latLng;
-		
-		var message = '좌표 (경도,위도) : ' + latlng.getLat() + ', ' + latlng.getLng();
-		    
-		var resultDiv = document.getElementById('result'); 
-		    resultDiv.innerHTML = message;
-		
-		// 마커 위치를 클릭한 위치로 옮깁니다
-		marker.setPosition(latlng);
+// 	//위도, 경도 정보를 가져옵니다 
+// 	var latlng = mouseEvent.latLng;
 	
-// 	  $("#lat").value = latlng.getLat(); //start_lat 필드에 위도 값 저장
-// 	  $("#lng").value = latlng.getLng(); //start_lon 필드에 경도 값 저장
-		
-	});
-
+// 	var message = '좌표 (경도,위도) : ' + latlng.getLat() + ', ' + latlng.getLng();
+	    
+// 	var resultDiv = document.getElementById('map'); 
+// 	    resultDiv.innerHTML = message;
+	
+//      // 해당 주소에 대한 좌표를 받아서
+//      var coords = new daum.maps.LatLng(result.y, result.x);
+//      // 지도를 보여준다.
+//      mapContainer.style.display = "block";
+//      map.relayout();
+//      // 지도 중심을 변경한다.
+//      map.setCenter(coords);
+//      // 마커를 결과값으로 받은 위치로 옮긴다.
+//      marker.setPosition(coords)
+     
+	
 } //window.onload end
 
 
-    function searchAddrFromCoords(coords, callback) {
-    // 좌표로 행정동 주소 정보를 요청합니다
-    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
-}
-
-function searchDetailAddrFromCoords(coords, callback) {
-    // 좌표로 법정동 상세 주소 정보를 요청합니다
-    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
-}
 
 
-
-//지도에 마커를 표시하는 함수입니다
-function displayMarker(place) {
-	
-	
-	// 마커를 생성하고 지도에 표시합니다
-	var marker = new daum.maps.Marker({
-		map : map,
-		position : new daum.maps.LatLng(place.y, place.x)
-	});
-
-	//지도에 마커를 표시합니다
-	marker.setMap(map);
-
-}
-
-
-
-</script>
+</script>  
 
 
 
@@ -275,56 +250,6 @@ $(document).ready(function() {
 
 
 <br><br><hr><br><br>
-<!-- <script>
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-        mapOption = {
-            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-            level: 5 // 지도의 확대 레벨
-        };
-
-    
-    console.log()
-    
-    //지도를 미리 생성
-    var map = new daum.maps.Map(mapContainer, mapOption);
-    //주소-좌표 변환 객체를 생성
-    var geocoder = new daum.maps.services.Geocoder();
-    //마커를 미리 생성
-    var marker = new daum.maps.Marker({
-        position: new daum.maps.LatLng(37.537187, 127.005476),
-        map: map
-    });
-
-
-    function sample5_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                var addr = data.address; // 최종 주소 변수
-
-                // 주소 정보를 해당 필드에 넣는다.
-                document.getElementById("address").value = addr;
-                // 주소로 상세 정보를 검색
-                geocoder.addressSearch(data.address, function(results, status) {
-                    // 정상적으로 검색이 완료됐으면
-                    if (status === daum.maps.services.Status.OK) {
-
-                        var result = results[0]; //첫번째 결과의 값을 활용
-
-                        // 해당 주소에 대한 좌표를 받아서
-                        var coords = new daum.maps.LatLng(result.y, result.x);
-                        // 지도를 보여준다.
-                        mapContainer.style.display = "block";
-                        map.relayout();
-                        // 지도 중심을 변경한다.
-                        map.setCenter(coords);
-                        // 마커를 결과값으로 받은 위치로 옮긴다.
-                        marker.setPosition(coords)
-                    }
-                });
-            }
-        }).open();
-    }
-</script> -->
 
 
 
