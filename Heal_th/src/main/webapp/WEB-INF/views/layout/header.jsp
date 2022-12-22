@@ -207,14 +207,27 @@ header {
 	margin-right: 3px;
 }
 
+#alram {
+	position: fixed;
+	top:30px;
+	right:30px;
+}
+
+#alram img {
+	width:20px;
+}
+
+#alram button {
+	background-color:transparent;
+}
 
 /* 로그인 아이콘 */
 .lG, .lO, .mP, .person {
   font-variation-settings:
   'FILL' 0 ,
   'wght' 400,
-  'GRAD' 0 ,
-  'opsz' 48 !important;
+  'GRAD' 0,
+  'opsz' 48
   
 }
 
@@ -385,6 +398,9 @@ body {
 					</a>
 				</li>
 			</ul>
+			<div id="alram">
+			<button><img src="/resources/img/bell.png"></button>
+			</div>
 		</div>
 		</c:if> <!-- 비로그인상황 끝 -->
 		

@@ -210,9 +210,8 @@ public class ChatController {
 			chatFile = chatService.fileSave(file, userNo, roomNo);
 			
 			logger.info("chatFile - {}", chatFile);
-
-			model.addAttribute("storedName", chatFile.getStoredName());
 			
+			model.addAttribute("storedName", chatFile.getStoredName());
 			
 			return chatFile.getStoredName();
 		}
