@@ -464,7 +464,7 @@ button {
 	    						<span id='timeImgR'>
 	    							<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
 									<fmt:formatDate value="${date }" pattern="a hh:ss" />
-	    						</span>
+	    						</span> 
 	    					</div>
 	    				</c:if>
 	    			

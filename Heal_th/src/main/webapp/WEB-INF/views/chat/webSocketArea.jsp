@@ -55,7 +55,7 @@
 			$("."+socMsg[3]).html( socMsg[2] );
 			$('#myId').after( $("."+socMsg[3]).parents("button") );
 		} 
-		
+		 
 		//이미지 메세지
 		if ( socMsg[0] == "${senderNick }" && socMsg[1] == "+IMG+"){
 			$("#messages").append( "<div id='senderImg'><span id='timeImgS'>" + dateInfo + "</span><img src='${pageContext.request.contextPath}/upload/" + socMsg[2] + "' id='imgS' ></div>");
