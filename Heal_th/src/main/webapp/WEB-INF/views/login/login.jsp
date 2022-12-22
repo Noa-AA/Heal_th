@@ -24,6 +24,11 @@ $(document).ready(function(){
 		    $("#resultMsg").html("");
 	})
 	
+	
+	//버튼 클릭시 제출
+	$("#btnLogin").click(function(){
+		$("#loginForm").submit()
+	})
 
 })
 	
@@ -36,18 +41,20 @@ $(document).ready(function(){
 body{
 	padding-top: 0;
 }
-#loginForm{
+#loginPage{
 	width: 1400px;
 	margin: 0 auto;
 	text-align: center;
-	padding-top: 150px;
+	padding-top: 100px;
 }
 #boxArea{
-	height: 526px;
-    width: 457px;
-    position: absolute;
-    left: 600px;
-}
+    height: 626px;
+    width: 490px;
+    position: relative;
+    left: 490px;
+    background-color: #F5F5F5;
+    box-shadow: 0px 5px 25px 14px lightgrey;
+    border-radius: 12px;
 }
 
 button{
@@ -55,8 +62,199 @@ button{
 }
 
 
+#loginArea{
+	margin-top: 41px;
+    height: 192px;
+    position: relative;
+    margin: 41px 21px 0;
+}
+
+form{
+	height: 192px;
+
+}
+
+#id,#pw{
+	height:66px;
+	outline: none;
+	width: 449px;
+}
+
+#pw{
+	position: relative;
+    top: 20px;
+    width: 446px;
+    left: 0px;
+}
 
 
+
+#isSave{
+	 position: absolute;
+    left: 0px;
+    width: 113px;
+    top: 150px;
+    margin-top: 17px;
+    height: 25px;
+}
+
+
+.formName{
+	font-size: 17px;
+	color: gray;
+}
+
+.saveId{
+	font-size: 17px;
+}
+
+#userId,#userPw{
+
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    width: 400px;
+    margin-left: 20px;
+    font-size:17px;
+    background-color:#F5F5F5;
+}
+
+#userId{
+    position: absolute;
+    top: 35px;
+    width: 444px;
+    left: -17px;
+    height: 30px;
+    
+}
+input{
+	outline: none;
+}
+
+input::placeholder{
+	font-size: 15px;
+
+}
+#idLabel{
+	margin-right: 15px;
+    position: absolute;
+    top: 5px;
+    left: 8px;
+    color: gray;
+
+}
+#pwLabel{
+     position: absolute;
+    width: 67px;
+    left: 4px;
+
+}
+
+#userPw{
+      position: absolute;
+    top: 33px;
+    width: 444px;
+    left: -17px;
+    height: 30px;
+    
+}
+#btnArea,#socialLogin{
+
+	margin-top:40px;
+}
+
+#searchArea{
+    width: 201px;
+    position: relative;
+    top: -26px;
+    left: 267px;
+    height: 28px;
+}
+
+#searchId{
+    float: left;
+    position: absolute;
+    left: -3px;
+    padding: 0 10px 0px 10px;
+}
+#searchPw{
+    position: absolute;
+    left: 91px;
+    padding-left: 10px;
+    border-left: 1px solid gray;
+
+}
+
+#btnArea{
+	 position: absolute;
+    height: 51px;
+    top: 359px;
+    width: 491px;
+}
+
+#loginExe,#joinExe{
+ 	position: absolute;
+    width: 205px;
+    height: 43px;
+
+}
+
+.btn{
+      width: 200px;
+    height: 41px;
+
+}
+
+.login{
+	background:#7ca3f5;
+    border: none;
+}
+.join{
+	    width: 200px;
+    height: 41px;
+    border: 2px solid #7ca3f5;
+    background: transparent;
+
+}
+
+#loginExe{
+	left: 23px;
+}
+
+#joinExe{
+	    left: 264px;
+}
+#socialLogin{
+	position: relative;
+    top: 32px;
+
+}
+
+#naverLogin{
+	osition: absolute;
+    left: 41px;
+}
+
+#socialLogin img{
+    width: 443px;
+    height: 55px;
+}
+#kakaoLogin{
+	position: absolute;
+    top: 65px;
+    left: 25px;
+}
+
+.btnTitle{
+	 font-size: 20px;
+    font-weight: 600;
+}
+.title_login{
+	color:white;
+}
+.title_join{
+	color: #7ca3f5;
+}
 </style>
 <body>
 
@@ -71,22 +269,30 @@ button{
 %>
 
 
-<div id="loginForm">
+<div id="loginPage">
 	<div id="boxArea">
 	
-		<h1 class="letterLogin">로그인</h1>
-			<div id="chkLogin"></div>
+		<div id="title">
+			<img id="loginImg" src="/resources/img/login/HealLogo.png">		
+		</div>
+		
+			<div id="loginArea">
 			
-			<form action="/login/login" method="post">
+			<form action="/login/login" method="post" id="loginForm">
 				
 			
 				<div id="id">
-					아이디
+					<label for="userId"  id="idLabel">
+						<span class="formName">아이디</span>
+					</label>
 					<input type="text" name="userId" placeholder="아이디를 입력하세요" id="userId" value="<%=savedId%>">
+									
 				</div>
 				
 				<div id="pw">
-					비밀번호 
+					<label for="userPw" id="pwLabel">
+						<span class="formName">비밀번호 </span>
+					</label>
 					<input type="password" name="userPw" placeholder="비밀번호를 입력하세요" id="userPw">
 				</div>
 				
@@ -97,37 +303,47 @@ button{
 				</c:if>
 				
 				<div id="isSave">
-					<input type="checkbox" id="saveId" name ="saveId" value="saveId">아이디 저장
+					<input type="checkbox" id="saveId" name ="saveId" value="saveId"><span class="formName saveId" style="padding-left: 6px;">아이디 저장</span>
 				</div>
 		
-				<button id="btnLogin" >로그인</button>	
 			</form>
+		</div>
+				
+			<div id="searchArea">
+				<div id="searchId">
+					<a href="/login/searchId"><span class="formName">아이디찾기</span></a>
+				</div>
+				
+				<div id="searchPw">
+					<a href="/login/searchPw"><span class="formName">비밀번호 찾기</span></a>
+				</div>
+			</div>
+
+
+			<div id="btnArea">
+				<div id="loginExe">
+					<button class="btn login" type="button" ><span class="btnTitle title_login">로그인</span></button>	
+				</div>
 			
-			
-			
-			<div id="joina">
-				<a href="/login/join">회원가입</a>
+				<div id="joinExe">
+					<button class="btn join" onclick="location.href='/login/join'"><span class="btnTitle title_join">회원가입</span></button>
+				</div>
 			</div>
 			
-			<!-- 네이버 로그인 버튼 노출 영역 -->
-			<div id="naverLogin">
-				<a id="btnNaver" href="${naverURL}"><img src="<%=request.getContextPath() %>/resources/img/login/btnG_완성형.png" width="223"></a>
 			
+			<div id="socialLogin">			<!-- 네이버 로그인 버튼 노출 영역 -->
+				<div id="naverLogin">
+					<a id="btnNaver" href="${naverURL}"><img src="<%=request.getContextPath() %>/resources/img/login/buttonNaverLogin.png" width="223"></a>
+				
+				</div>
+				
+				<!-- 카카오 로그인 버튼 노출 영역 -->
+				<div id="kakaoLogin">
+					<a id="btnKakao" href="${kakaoURL}"><img src="<%=request.getContextPath() %>/resources/img/login/kakao_login_medium_wide.png" width="223"></a>
+				</div>
+				
 			</div>
-			
-			<!-- 카카오 로그인 버튼 노출 영역 -->
-			<div id="kakoLogin">
-				<a id="btnKakao" href="${kakaoURL}"><img src="<%=request.getContextPath() %>/resources/img/login/kakao_login_medium_narrow.png" width="223"></a>
-			</div>
-			
-			<div id="searchId">
-				<a href="/login/searchId">아이디찾기</a>
-			</div>
-			
-			<div id="searchPw">
-				<a href="/login/searchPw">비밀번호 찾기</a>
-			
-			</div>
+
 	</div>
 	
 </div>

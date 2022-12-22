@@ -145,5 +145,5 @@ body {
 		</div>
 	</div>
 </body>
-<%@include file="./layout/footer.jsp" %>
+<%-- <%@include file="./layout/footer.jsp" %> --%>
 </html>
