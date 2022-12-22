@@ -196,7 +196,7 @@ public class ChatController {
 			model.addAttribute("roomNo", roomNo);
 			
 		}
-		
+		 
 		
 		//5. 이미지 전송
 		@RequestMapping("/fileup")
