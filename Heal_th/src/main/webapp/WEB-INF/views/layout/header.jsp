@@ -222,24 +222,14 @@ header {
 }
 
 /* 로그인 아이콘 */
-.material-symbols-outlined {
+.lG, .lO, .mP, .person {
   font-variation-settings:
-  'FILL' 0,
+  'FILL' 0 ,
   'wght' 400,
   'GRAD' 0,
   'opsz' 48
   
 }
-
-/* 회원가입 아이콘 */
-.person {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 40
-}
-
 
 #subvisual {
     position: absolute;
@@ -376,7 +366,7 @@ body {
 				<li id="login">
 <!-- 					<img src="/resources/img/loginicon.png"> -->
 					<a href="/login/login">
-						<span class="material-symbols-outlined">login</span>로그인
+						<span class="material-symbols-outlined lG">login</span>로그인
 					</a>
 				</li>
 				
@@ -397,14 +387,14 @@ body {
 				<li id="logout">
 <!-- 					<img src="/resources/img/loginicon.png"> -->
 					<a href="/mypage/logout">
-						<span class="material-symbols-outlined">logout</span>로그아웃
+						<span class="material-symbols-outlined lO">logout</span>로그아웃
 					</a>
 				</li>
 				
 				<li id="mp">
 <!-- 					<img src="/resources/img/joinicon.png"> -->
 					<a href="/mypage/main">
-					<span class="material-symbols-outlined">perm_contact_calendar</span>마이페이지
+					<span class="material-symbols-outlined mP">perm_contact_calendar</span>마이페이지
 					</a>
 				</li>
 			</ul>
