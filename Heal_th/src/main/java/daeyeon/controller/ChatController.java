@@ -199,9 +199,9 @@ public class ChatController {
 		
 		
 		//5. 이미지 전송
-		@RequestMapping("/fileup")
+		@RequestMapping(value = "/fileup", produces = "application/text; charset=utf8")
 		@ResponseBody
-		public String fileUp( HttpSession session, ChatFile chatFile, MultipartFile file) {
+		public String fileUp( HttpSession session, ChatFile chatFile, MultipartFile file, Model model ) {
 			logger.info("●●●●● /fileup [POST] - file : {} ●●●●●", file);
 			
 			int userNo = (Integer)session.getAttribute("userNo");
@@ -210,6 +210,8 @@ public class ChatController {
 			chatFile = chatService.fileSave(file, userNo, roomNo);
 			
 			logger.info("chatFile - {}", chatFile);
+
+			model.addAttribute("storedName", chatFile.getStoredName());
 			
 			
 			return chatFile.getStoredName();
