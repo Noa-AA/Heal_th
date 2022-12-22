@@ -106,9 +106,9 @@
 </script>
 
 <style type="text/css">
-/* body{ */
-/* 	padding-top:0; */
-/* } */
+body{ 
+ 	padding-top:0;
+} 
 #mypage{
 	width: 1200px;
 	margin: 0 auto;
