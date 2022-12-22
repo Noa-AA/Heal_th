@@ -234,7 +234,8 @@ h2{
 	font-size: 16px;
 	justify-content: center;
 	align-items: center;
-}
+	color: #7ca3f5;
+} 
 
 .none:hover {
 	cursor: default;
