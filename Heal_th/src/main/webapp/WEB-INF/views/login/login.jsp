@@ -194,13 +194,13 @@ input::placeholder{
 
 #loginExe,#joinExe{
  	position: absolute;
-    width: 205px;
+    width: 213px;
     height: 43px;
 
 }
 
 .btn{
-      width: 200px;
+    width: 213px;
     height: 41px;
 
 }
@@ -210,7 +210,6 @@ input::placeholder{
     border: none;
 }
 .join{
-	    width: 200px;
     height: 41px;
     border: 2px solid #7ca3f5;
     background: transparent;
@@ -222,17 +221,18 @@ input::placeholder{
 }
 
 #joinExe{
-	    left: 264px;
+	    left: 258px;
 }
 #socialLogin{
 	position: relative;
     top: 32px;
+    height: 123px;
 
 }
 
 #naverLogin{
-	osition: absolute;
-    left: 41px;
+	position: absolute;
+    left: 25px;
 }
 
 #socialLogin img{
