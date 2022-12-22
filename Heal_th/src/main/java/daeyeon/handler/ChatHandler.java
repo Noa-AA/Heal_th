@@ -106,7 +106,7 @@ public class ChatHandler extends TextWebSocketHandler {
     	if(!message.getPayload().contains("+IMG+")) {
     		chatService.addChat(chat);
     	}
-    }
+    } 
 
     // 클라이언트와 연결을 끊었을 때 실행되는 메소드
     // afterConnectionClosed : 웹소켓이 연결이 종료되면 호출되는 함수

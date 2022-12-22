@@ -196,7 +196,7 @@ public class ChatController {
 			model.addAttribute("roomNo", roomNo);
 			
 		}
-		
+		 
 		
 		//5. 이미지 전송
 		@RequestMapping(value = "/fileup", produces = "application/text; charset=utf8")

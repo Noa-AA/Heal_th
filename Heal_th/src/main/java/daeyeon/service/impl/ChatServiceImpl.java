@@ -241,7 +241,7 @@ public class ChatServiceImpl implements ChatService {
 		//실제 저장될 파일 객체
 		File dest = new File(storedFolder, storedName);
 		
-		try {
+		try { 
 			
 			//업로드된 파일을 upload폴더에 저장하기
 			file.transferTo(dest);
