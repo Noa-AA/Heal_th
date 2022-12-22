@@ -322,7 +322,7 @@ input::placeholder{
 
 			<div id="btnArea">
 				<div id="loginExe">
-					<button class="btn login" type="button" ><span class="btnTitle title_login">로그인</span></button>	
+					<button class="btn login" type="button" id="btnLogin"><span class="btnTitle title_login">로그인</span></button>	
 				</div>
 			
 				<div id="joinExe">
