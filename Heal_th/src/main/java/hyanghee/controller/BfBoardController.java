@@ -12,13 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import hyanghee.dto.Beforeafter;
 import hyanghee.service.face.BfBoardService;
-import hyanghee.util.BoardPageMaker;
 import hyanghee.util.BoardPaging;
-import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
@@ -33,32 +30,72 @@ public class BfBoardController {
 	//서비스 객체
 	@Autowired private BfBoardService bfBoardService;	
 	
-	//게시글 리스트 
-	@RequestMapping("/board/bfBoard")
-	public void list(
-			@RequestParam(defaultValue = "0") int curPage
-			, BoardSearch boardSearch
-			, Model model) {
+	@GetMapping("/board/bfBoard")
+	public void list(Model model, String curPage) {
+		logger.info("/board/bfBoard [GET]");
 		
-		BoardPaging paging = bfBoardService.getPaging(curPage);
-		logger.info("{}", paging);
-		model.addAttribute("BoardPaging", paging);
+		BoardPaging paging = new BoardPaging();
+		paging = bfBoardService.getPaging(curPage);
+		logger.info("paging : {}", paging);
+		
+		//게시글 목록
+		List<Beforeafter> list = bfBoardService.getList(paging);
+		for( Beforeafter b : list )	logger.info("{}", b);
+		model.addAttribute("list", list);
 		
 		//공지사항
 		List<Notice> notice = bfBoardService.notice(paging);
 		for( Notice n : notice )	logger.info("{}", n);
 		model.addAttribute("notice", notice);
 		
-		//검색
-		model.addAttribute("boardSearch", bfBoardService.getSearchPaging(boardSearch));
-		int total = bfBoardService.getTotal(boardSearch);
+	}
+	
+	@PostMapping("/board/bfBoard")
+	public void search(Beforeafter beforeafter, Model model, BoardPaging paging, String curPage) {
+		logger.info("/board/bfBoard [POST]");
 		
-		BoardPageMaker pageMake = new BoardPageMaker(boardSearch, total);
-		model.addAttribute("pageMaker", pageMake);
+		BoardPaging search = paging;
+		paging = bfBoardService.getSearchPaging(paging, curPage);
+		
+		paging.setType(search.getType());
+		paging.setKeyword(search.getKeyword());
+		
+		logger.info("paging : {} ", search);
+		
+		List<Beforeafter> searchList = bfBoardService.searchList(paging);
+		
+		model.addAttribute("list", searchList);
+		model.addAttribute("paging", paging);
 		
 		
 	}
 	
+	
+	
+//	@RequestMapping("/board/bfBoard")
+//	public void list(
+//			@RequestParam(defaultValue = "0") int curPage
+//			, BoardSearch boardSearch
+//			, Model model) {
+//		
+//		BoardPaging paging = bfBoardService.getPaging(curPage);
+//		logger.info("{}", paging);
+//		model.addAttribute("BoardPaging", paging);
+//		
+//		//공지사항
+//		List<Notice> notice = bfBoardService.notice(paging);
+//		for( Notice n : notice )	logger.info("{}", n);
+//		model.addAttribute("notice", notice);
+//		
+//		//검색
+//		model.addAttribute("boardSearch", bfBoardService.getSearchPaging(boardSearch));
+//		int total = bfBoardService.getTotal(boardSearch);
+//		
+//		BoardPageMaker pageMake = new BoardPageMaker(boardSearch, total);
+//		model.addAttribute("pageMaker", pageMake);
+//		
+//		
+//	}
 	
 	
 	
@@ -108,7 +145,7 @@ public class BfBoardController {
 	
 	//게시글 상세 보기
 	@RequestMapping("board/bfView")
-	public String view(Beforeafter viewBoard,Comment comment, Model model) {
+	public String view(Beforeafter viewBoard, HttpSession session, Comment comment, Model model) {
 		logger.info("{}", viewBoard);
 		
 		//잘못된 게시글 번호 처리
@@ -130,7 +167,7 @@ public class BfBoardController {
 
 	//게시글 수정
 	@GetMapping("/board/bfUpdate")
-	public String update(Beforeafter beforeafter, Model model) {
+	public String update(Beforeafter beforeafter, HttpSession session, Model model) {
 		logger.debug("{}", beforeafter);
 		
 		//잘못된 게시글 번호 처리
@@ -157,7 +194,7 @@ public class BfBoardController {
 
 	
 	@PostMapping("/board/bfUpdate")
-	public String updateProcess(Beforeafter beforeafter) {
+	public String updateProcess(Beforeafter beforeafter, HttpSession session) {
 		logger.debug("{}", beforeafter);
 		
 		bfBoardService.update(beforeafter);
@@ -168,7 +205,7 @@ public class BfBoardController {
 	
 	//게시글 삭제
 	@RequestMapping("/board/bfDelete")
-	public String delete(Beforeafter bfNo) {
+	public String delete(Beforeafter bfNo, HttpSession session) {
 		
 		logger.info("{}", bfNo);
 		
@@ -177,6 +214,8 @@ public class BfBoardController {
 		
 		return "redirect:/board/bfBoard";
 	}
+	
+	
 	
 	
 	

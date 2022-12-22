@@ -99,6 +99,54 @@ body{
   border: none;
 }
 
+/* 페이징 부분 */
+
+.text-center {
+	display: flex;
+	justify-content: center; 
+	margin-top: 50px;
+}
+
+.pagination {
+	display: flex;
+	margin: 0;
+}
+
+.pagination > li{
+	display: flex;
+}
+
+.pagination > li > a {
+	display: flex;
+	margin: 0 4px;
+	width: 40px;
+	height: 40px;
+	border-radius: 20px !important;
+	font-size: 16px;
+	justify-content: center;
+	align-items: center;
+	color: #7ca3f5;
+}
+
+.none:hover {
+	cursor: default;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+	background-color: #7ca3f5;
+    border-color: #7ca3f5;
+}
+
+
+.material-symbols-outlined {
+	font-variation-settings:
+	'FILL' 0,
+	'wght' 400,
+	'GRAD' 0,
+	'opsz' 48
+}
+
+
 /* .container{margin-top:200px;text-align:center} */
 
 /* 탭메뉴 공통 */
@@ -237,7 +285,7 @@ $(document).ready(function() {
 </div>
 <div id="twoDepth">
 	<div id="twoDepth-list">
-		<a href="/board/bfList">소개</a>
+		<a href="/board/boardList">소개</a>
 		<a href="/board/bfBoard">비포 애프터</a>
 		<a href="/board/verifyBoard">운동 인증</a>
 		<a href="/board/dietBoard">식단 공유</a>
@@ -251,25 +299,62 @@ $(document).ready(function() {
 
 <div class="beforeafter" id="search" name="search">
 
+<form action="/board/bfBoard" method="post">
+	<div class="search_wrap">
+		<div class="search_area">
+			<select name="type" id="type">
+				<option value="bfTitle" <c:out value="${paging.type eq 'bfTitle'?'selected':'' }"/>>제목</option>
+				<option value="beforeCon" <c:out value="${paging.type eq 'beforeCon'?'selected':'' }"/>>내용</option>
+				<option value="afterCon" <c:out value="${paging.type eq 'afterCon'?'selected':'' }"/>>제목+내용</option>
+			</select> 
+				
+				<input id="searchText" type="text" name="keyword" value="${paging.keyword }" placeholder="search...">
+					<button id="searchIcon"><i class="fas fa-search"></i></button>
+		</div>
+	</div>
+</form>
 
-<div class="search_wrap">
-		
-			<div class="search_area">
-				<select name="type" id="type">
-					<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option>
-					<option value="C" <c:out value="${pageMaker.boardSearch.type eq 'C'?'selected':'' }"/>>내용</option>
-					<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option>
-				</select> 
-				
-					<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search...">
-				<button id="searchIcon"><i class="fas fa-search"></i></button>
-				
-				
-			</div>
+</div>
+
+
+
+<div class="pageInfo_wrap">
+		<div class="pageInfo_area">
+			<ul id="pageInfo" class="pageInfo">
+
+				<c:if test="${paging.prev}">
+					<li class="pageInfo_btn previous"><a href="${paging.startPage - 1}">Previous</a></li>
+				</c:if>
+
+				<c:forEach var="num" begin="${paging.startPage}" end="${paging.endPage}">
+					<li class="pageInfo_btn ${paging.pageNum == num ? "active":"" }"></li>
+				</c:forEach>
+
+				<c:if test="${paging.next}">
+					<li class="pageInfo_btn next"><a href="${paging.endPage + 1 }">Next</a></li>
+				</c:if>
+
+			</ul>
 		</div>
 	</div>
 
+	<form id="moveForm" method="get">
+		<input type="hidden" id="bfNo" name="bfNo" value='<c:out value="${pageInfo.bfNo}"/>'>
+		<input type="hidden" name="pageNum" value="${paging.pageNum }">
+		<input type="hidden" name="amount" value="${paging.amount }">
+		<input type="hidden" name="keyword" value="${paging.keyword }">
+		<input type="hidden" name="type" value="${paging.type }">
+	</form>
+
+
+
+
 <br><br><br><br>
+
+
+
+
+
 
 <!-- <div id="community" name="community"> -->
 <!-- 	<ul class="tab_menu" style="text-align: center;"> -->
@@ -280,33 +365,48 @@ $(document).ready(function() {
 <!-- 	</ul> -->
 <!-- </div> -->
 
-<div class="pageInfo_wrap">
-		<div class="pageInfo_area">
-			<ul id="pageInfo" class="pageInfo">
+<!-- <form action="/board/bfBoard" method="get"> -->
+<!-- 	<div class="search_wrap"> -->
+<!-- 		<div class="search_area"> -->
+<!-- 			<select name="type" id="type"> -->
+<%-- 				<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option> --%>
+<%-- 				<option value="C" <c:out value="${pageMaker.boardSearch.type eq 'C'?'selected':'' }"/>>내용</option> --%>
+<%-- 				<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option> --%>
+<!-- 			</select>  -->
+				
+<%-- 				<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search..."> --%>
+<!-- 					<button id="searchIcon"><i class="fas fa-search"></i></button> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- </form> -->
 
-				<c:if test="${pageMaker.prev}">
-					<li class="pageInfo_btn previous"><a href="${pageMaker.startPage - 1}">Previous</a></li>
-				</c:if>
+<!-- <div class="pageInfo_wrap"> -->
+<!-- 		<div class="pageInfo_area"> -->
+<!-- 			<ul id="pageInfo" class="pageInfo"> -->
 
-				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-					<li class="pageInfo_btn ${pageMaker.boardSearch.pageNum == num ? "active":"" }"></li>
-				</c:forEach>
+<%-- 				<c:if test="${pageMaker.prev}"> --%>
+<%-- 					<li class="pageInfo_btn previous"><a href="${pageMaker.startPage - 1}">Previous</a></li> --%>
+<%-- 				</c:if> --%>
 
-				<c:if test="${pageMaker.next}">
-					<li class="pageInfo_btn next"><a href="${pageMaker.endPage + 1 }">Next</a></li>
-				</c:if>
+<%-- 				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}"> --%>
+<%-- 					<li class="pageInfo_btn ${pageMaker.boardSearch.pageNum == num ? "active":"" }"></li> --%>
+<%-- 				</c:forEach> --%>
 
-			</ul>
-		</div>
-	</div>
+<%-- 				<c:if test="${pageMaker.next}"> --%>
+<%-- 					<li class="pageInfo_btn next"><a href="${pageMaker.endPage + 1 }">Next</a></li> --%>
+<%-- 				</c:if> --%>
 
-	<form id="moveForm" method="get">
-		<input type="hidden" id="bfNo" name="bfNo" value='<c:out value="${pageInfo.bfNo}"/>'>
-		<input type="hidden" name="pageNum" value="${pageMaker.boardSearch.pageNum }">
-		<input type="hidden" name="amount" value="${pageMaker.boardSearch.amount }">
-		<input type="hidden" name="keyword" value="${pageMaker.boardSearch.keyword }">
-		<input type="hidden" name="type" value="${pageMaker.boardSearch.type }">
-	</form>
+<!-- 			</ul> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+
+<!-- 	<form id="moveForm" method="get"> -->
+<%-- 		<input type="hidden" id="bfNo" name="bfNo" value='<c:out value="${pageInfo.bfNo}"/>'> --%>
+<%-- 		<input type="hidden" name="pageNum" value="${pageMaker.boardSearch.pageNum }"> --%>
+<%-- 		<input type="hidden" name="amount" value="${pageMaker.boardSearch.amount }"> --%>
+<%-- 		<input type="hidden" name="keyword" value="${pageMaker.boardSearch.keyword }"> --%>
+<%-- 		<input type="hidden" name="type" value="${pageMaker.boardSearch.type }"> --%>
+<!-- 	</form> -->
 	
 
 <br><br><br><br>
@@ -373,7 +473,7 @@ $(document).ready(function() {
 </c:forEach>
 
 <!-- 일반 게시글 / 검색결과 -->
-<c:forEach items="${boardSearch }" var="boardSearch">
+<c:forEach items="${list }" var="boardSearch">
 	<tr id="searchResult">
 		<td>${boardSearch.bfNo }</td>
 		<td><a href="${path}/board/bfView?bfNo=${boardSearch.bfNo}">${boardSearch.bfTitle }</a></td>
@@ -392,9 +492,70 @@ $(document).ready(function() {
 </div>
 
 
-<div class="clearfix"></div>
+<!-- 페이징 부분 -->
+	<div class="text-center">
+		<ul class="pagination pagination-sm">
+	
+		<%-- 첫 페이지로 이동 (이동할게 없을때) --%>
+		<c:if test="${paging.curPage eq 1 }">
+			<li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
+		</c:if>
+	
+		<%-- 첫 페이지로 이동 --%>
+		<c:if test="${paging.curPage ne 1 }">
+			<li><a href="/board/bfBoard"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
+		</c:if>
+		
+		
+		<%-- 이전 페이지로 가기 --%>
+		<c:if test="${paging.curPage > 1 }">
+			<li><a href="/board/bfBoard?curPage=${paging.curPage - 1 }"><span class="material-symbols-outlined">navigate_before</span></a></li>
+		</c:if>
+		
+		<%-- 이전 페이지로 가기 (이전으로 갈 페이지 없을때)--%>
+		<c:if test="${paging.curPage <= 1 }">
+			<li><a class="none"><span class="material-symbols-outlined">navigate_before</span></a></li>
+		</c:if>
+		
+			
+		<%-- 페이징 리스트 --%>
+		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="i">
+		<c:if test="${paging.curPage eq i }">
+			<li class="active"><a href="/board/bfBoard?curPage=${i }">${i }</a></li>
+		</c:if>
+		<c:if test="${paging.curPage ne i }">
+			<li><a href="/board/bfBoard?curPage=${i }">${i }</a></li>
+		</c:if>
+		</c:forEach>
+	
+		
+		
+		<%-- 다음 페이지로 가기 --%>
+		<c:if test="${paging.curPage < paging.totalPage }">
+			<li><a href="/board/bfBoard?curPage=${paging.curPage + 1 }"><span class="material-symbols-outlined">navigate_next</span></a></li>
+		</c:if>
+		
+		<%-- 다음 페이지로 가기 (다음으로 갈 페이지 없을때) --%>
+		<c:if test="${paging.curPage >= paging.totalPage }">
+			<li><a class="none"><span class="material-symbols-outlined">navigate_next</span></a></li>
+		</c:if>
+		
+	
+		<%-- 끝 페이지로 이동 --%>
+		<c:if test="${paging.curPage ne paging.totalPage }">
+			<li><a href="/board/bfBoard?curPage=${paging.totalPage }" ><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+		</c:if>
+		
+		<%-- 끝 페이지로 이동 (끝으로갈게 없을때) --%>
+		<c:if test="${paging.curPage eq paging.totalPage }">
+			<li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+		</c:if>
+		
+		</ul>
+	</div>
 
-<c:import url="/WEB-INF/views/board/paging.jsp" />
+
+
 
 <br><br><br>
 
@@ -408,7 +569,10 @@ $(document).ready(function() {
     </div>
 </div>
 
+
+
 </div>
+
 
 <%@include file="../layout/footer.jsp" %>
 

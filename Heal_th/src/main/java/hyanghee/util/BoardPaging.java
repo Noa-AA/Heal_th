@@ -15,10 +15,6 @@ public class BoardPaging {
 		private int startNo; //화면에 보이는 게시글의 시작 번호
 		private int endNo; //화면에 보이는 게시글의 끝 번호
 		
-		private int bfNo;
-		private int verifyNo;
-		private int dietNo;
-		private int reviewNo;
 		private String type;
 		private String keyword;
 		
@@ -84,34 +80,13 @@ public class BoardPaging {
 		}
 
 
-		public BoardPaging(int curPage, int totalCount, int listCount, int totalPage, int pageCount, int startPage,
-				int endPage, int startNo, int endNo, int bfNo, int verifyNo, int dietNo, int reviewNo, String type,
-				String keyword) {
-			super();
-			this.curPage = curPage;
-			this.totalCount = totalCount;
-			this.listCount = listCount;
-			this.totalPage = totalPage;
-			this.pageCount = pageCount;
-			this.startPage = startPage;
-			this.endPage = endPage;
-			this.startNo = startNo;
-			this.endNo = endNo;
-			this.bfNo = bfNo;
-			this.verifyNo = verifyNo;
-			this.dietNo = dietNo;
-			this.reviewNo = reviewNo;
-			this.type = type;
-			this.keyword = keyword;
-		}
 
 
 		@Override
 		public String toString() {
 			return "BoardPaging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount
 					+ ", totalPage=" + totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage
-					+ ", endPage=" + endPage + ", startNo=" + startNo + ", endNo=" + endNo + ", bfNo=" + bfNo
-					+ ", verifyNo=" + verifyNo + ", dietNo=" + dietNo + ", reviewNo=" + reviewNo + ", type=" + type
+					+ ", endPage=" + endPage + ", startNo=" + startNo + ", endNo=" + endNo + ", type=" + type
 					+ ", keyword=" + keyword + "]";
 		}
 
@@ -206,46 +181,6 @@ public class BoardPaging {
 		}
 
 
-		public int getBfNo() {
-			return bfNo;
-		}
-
-
-		public void setBfNo(int bfNo) {
-			this.bfNo = bfNo;
-		}
-
-
-		public int getVerifyNo() {
-			return verifyNo;
-		}
-
-
-		public void setVerifyNo(int verifyNo) {
-			this.verifyNo = verifyNo;
-		}
-
-
-		public int getDietNo() {
-			return dietNo;
-		}
-
-
-		public void setDietNo(int dietNo) {
-			this.dietNo = dietNo;
-		}
-
-
-		public int getReviewNo() {
-			return reviewNo;
-		}
-
-
-		public void setReviewNo(int reviewNo) {
-			this.reviewNo = reviewNo;
-		}
-
-
 		public String getType() {
 			return type;
 		}
@@ -264,17 +199,8 @@ public class BoardPaging {
 		public void setKeyword(String keyword) {
 			this.keyword = keyword;
 		}
-		
-		
 
 
-//		@Override
-//		public String toString() {
-//			return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
-//					+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-//					+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
-//		}
-		
 		
 		
 
