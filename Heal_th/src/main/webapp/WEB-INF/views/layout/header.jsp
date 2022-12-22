@@ -207,26 +207,29 @@ header {
 	margin-right: 3px;
 }
 
+#alram {
+	position: fixed;
+	top:30px;
+	right:30px;
+}
+
+#alram img {
+	width:20px;
+}
+
+#alram button {
+	background-color:transparent;
+}
 
 /* 로그인 아이콘 */
-.material-symbols-outlined {
+.lG, .lO, .mP, .person {
   font-variation-settings:
-  'FILL' 0,
+  'FILL' 0 ,
   'wght' 400,
   'GRAD' 0,
-  'opsz' 20
+  'opsz' 48
   
 }
-
-/* 회원가입 아이콘 */
-.person {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 40
-}
-
 
 #subvisual {
     position: absolute;
@@ -363,7 +366,7 @@ body {
 				<li id="login">
 <!-- 					<img src="/resources/img/loginicon.png"> -->
 					<a href="/login/login">
-						<span class="material-symbols-outlined">login</span>로그인
+						<span class="material-symbols-outlined lG">login</span>로그인
 					</a>
 				</li>
 				
@@ -384,17 +387,20 @@ body {
 				<li id="logout">
 <!-- 					<img src="/resources/img/loginicon.png"> -->
 					<a href="/mypage/logout">
-						<span class="material-symbols-outlined">logout</span>로그아웃
+						<span class="material-symbols-outlined lO">logout</span>로그아웃
 					</a>
 				</li>
 				
 				<li id="mp">
 <!-- 					<img src="/resources/img/joinicon.png"> -->
 					<a href="/mypage/main">
-					<span class="material-symbols-outlined">perm_contact_calendar</span>마이페이지
+					<span class="material-symbols-outlined mP">perm_contact_calendar</span>마이페이지
 					</a>
 				</li>
 			</ul>
+			<div id="alram">
+			<button><img src="/resources/img/bell.png"></button>
+			</div>
 		</div>
 		</c:if> <!-- 비로그인상황 끝 -->
 		
