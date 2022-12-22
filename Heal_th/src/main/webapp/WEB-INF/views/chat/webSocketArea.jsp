@@ -24,7 +24,7 @@
 		
 		console.log( data )
 		
-// 		$("."+id[2])
+		
 		//12시 넘으면 오후 12시 안넘으면 오전 표시
 		if( date.getHours() >= 12 ) {
 			var dateInfo = "오후 " + (date.getHours()-12) + ":" + date.getMinutes();
@@ -32,29 +32,38 @@
 			var dateInfo = "오전 " + date.getHours() + ":" + date.getMinutes();
 		}
 		
-		var id = data.split(" : ");
-		var content = data.split(" : ");
-		
-		//메세지가 온 버튼의 상위 버튼 클릭
-// 		$("."+id[2]).parents("button").click()
-		
-		
-// 		console.log("방번호 : " + $("."+id[3]).parents("button").click() )
-		
-		if ( id[0] == "${senderNick }" && id[1] != "listChat" ) {
-			$("#messages").append( "<div id='senderMsg'><span id='timeS'>" + dateInfo + "</span><a id='msgS'>" + content[1] + "</a></div>");
-		} else if ( id[0] != "${senderNick }" && id[1] != "listChat") {
-			$("#messages").append( "<div id='receiverMsg'><a id='msgR'>" + content[1] + "</a><span id='timeR'>" + dateInfo + "</span></div>");
-		} 
-		
-		if ( id[1] === "listChat" ) {
-			$("."+id[3]).html( content[2] );
-			$('#myId').after( $("."+id[3]).parents("button") );
-		} 
-		
-		
-		
+		var socMsg = data.split(" : ");
 
+//		일반 메세지일때
+// 		socMsg[0] : 보낸사람닉네임  &  socMsg[1] : 메세지 컨텐츠 내용  &  socMsg[2] : 룸번호
+	
+//		미리보기 메세지일때
+// 		socMsg[0] : 보낸사람닉네임  &  socMsg[1] : "listchat"(구별자)  &  socMsg[2] : 메세지 컨텐츠 내용  &  socMsg[3] : 룸번호
+		
+//		이미지 메세지일때
+// 		socMsg[0] : 보낸사람닉네임  &  socMsg[1] : "+IMG+"(구별자)  &  socMsg[2] : 파일이름  &  socMsg[3] : 룸번호
+		
+		//일반 메세지
+		if ( socMsg[0] == "${senderNick }" && socMsg[1] != "listChat" && socMsg[1] != "+IMG+" ) {
+			$("#messages").append( "<div id='senderMsg'><span id='timeS'>" + dateInfo + "</span><a id='msgS'>" + socMsg[1] + "</a></div>");
+		} else if ( socMsg[0] != "${senderNick }" && socMsg[1] != "listChat" && socMsg[1] != "+IMG+" ) {
+			$("#messages").append( "<div id='receiverMsg'><a id='msgR'>" + socMsg[1] + "</a><span id='timeR'>" + dateInfo + "</span></div>");
+		} 
+		
+		//왼쪽 미리보기 메세지
+		if ( socMsg[1] === "listChat" ) {
+			$("."+socMsg[3]).html( socMsg[2] );
+			$('#myId').after( $("."+socMsg[3]).parents("button") );
+		} 
+		
+		//이미지 메세지
+		if ( socMsg[0] == "${senderNick }" && socMsg[1] == "+IMG+"){
+			$("#messages").append( "<div id='senderImg'><span id='timeImgS'>" + dateInfo + "</span><img src='${pageContext.request.contextPath}/upload/" + socMsg[2] + "' id='imgS' ></div>");
+		} else if ( socMsg[0] != "${senderNick }" && socMsg[1] == "+IMG+") {
+			$("#messages").append( "<div id='receiverImg'><img src='${pageContext.request.contextPath}/upload/" + socMsg[2] + "' id='imgR' ><span id='timeImgR'>" + dateInfo + "</span></div>");
+		}
+
+		
 	}
 
 	// 서버와 연결을 끊었을 때

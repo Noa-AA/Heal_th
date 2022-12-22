@@ -1,8 +1,6 @@
 package daeyeon.handler;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -41,6 +39,9 @@ public class ChatHandler extends TextWebSocketHandler {
     	int userNo = (Integer)session.getAttributes().get("userNo");
     	
     	logger.info("들어 왔다이~");
+    	logger.info("session : {}", session);
+    	logger.info("userNo : {}", userNo); 
+    	
     	
     	userNoSession.put(userNo, session);
     	if ( session.getAttributes().get("roomNo") != null) {
@@ -81,8 +82,17 @@ public class ChatHandler extends TextWebSocketHandler {
     		
     		//같은방 유저에게 메세지 보내기
     		if( sessionRoomNo.get(userNoSession.get(userNoKey)) == roomNo ) {
-    			userNoSession.get(userNoKey).sendMessage(new TextMessage(userNick + " : " + message.getPayload() + " : " + roomNo));
+    			
+    			//메세지가 이미지 형식일때
+    			if( message.getPayload().contains("+IMG+") ) {
+    				userNoSession.get(userNoKey).sendMessage(new TextMessage(userNick + " : " + "+IMG+" + " : " + message.getPayload() + " : " + roomNo));
+    			} else {
+    				//일반 메세지일때
+    				userNoSession.get(userNoKey).sendMessage(new TextMessage(userNick + " : " + message.getPayload() + " : " + roomNo));
+    			}
     		}
+    		
+    		//룸리스트에 미리보기 메세지 보내기 - 다른방에있는 사람도 자신한테 온건 볼수 있어야함
     		userNoSession.get(userNoKey).sendMessage(new TextMessage(userNick + " : " + "listChat" + " : " + message.getPayload() + " : " + roomNo));
     		
     	}
@@ -93,8 +103,9 @@ public class ChatHandler extends TextWebSocketHandler {
     	chat.setUserNo(userNo);
     	
     	//--- chat 테이블에 채팅 데이터 집어넣기
-    	chatService.addChat(chat);
-    	
+    	if(!message.getPayload().contains("+IMG+")) {
+    		chatService.addChat(chat);
+    	}
     }
 
     // 클라이언트와 연결을 끊었을 때 실행되는 메소드

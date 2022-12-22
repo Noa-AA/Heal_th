@@ -227,8 +227,16 @@ public class ChatServiceImpl implements ChatService {
 		
 		//저장될 파일 이름 생성하기
 		String storedName = file.getOriginalFilename(); //원본파일명
+		
+		//파일이 이미지일때만 확장자뒤에 표시해주기
+		if(storedName.contains(".png") || storedName.contains(".jpg") || storedName.contains(".jpeg")) {
+			logger.info(">>>>>>>>>>>>>>> png가 포함되어있습니다. ★★★★");
+			storedName += "+IMG+";
+		} 
+			
+		logger.info("★★★★ storedName {} ★★★★", storedName);
 		storedName += UUID.randomUUID().toString().split("-")[0];
-		logger.info("storedName {}", storedName);
+		logger.info("★★★★ storedName {} ★★★★", storedName);
 		
 		//실제 저장될 파일 객체
 		File dest = new File(storedFolder, storedName);
