@@ -55,8 +55,8 @@ public class JoinServiceImpl implements JoinService {
 		 
 		//네이버 클라우드 플랫폼 호출----------------------------------------
 		logger.info("네이버 문자 보내기 ");
-		Sms send = new Sms();
-		send.sendSms(userPhone.getUserPhone().toString(),numMsg);
+//		Sms send = new Sms();
+//		send.sendSms(userPhone.getUserPhone().toString(),numMsg);
 		
 		logger.info("네이버 문자 보내기 끝");
 		return numMsg;

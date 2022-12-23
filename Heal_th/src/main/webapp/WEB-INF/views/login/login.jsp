@@ -348,6 +348,6 @@ input::placeholder{
 	
 </div>
 </body>
-
+<jsp:include page="../layout/footer.jsp"/>
 
 </html>
