@@ -7,93 +7,43 @@
   
 <mapper namespace="hyanghee.dao.face.BfBoardDao">
 	
-	<!-- 전체 조회 -->
-	<select id="selectCntAll" resultType="int"> 
+
+	<select id="selectCntAll" resultType="int">
 		SELECT count(*) FROM beforeafter
 	</select>
 	
-	<select id="selectList" resultType="Beforeafter" parameterType="BoardPaging">
-		SELECT * FROM (
-			SELECT rownum rnum, B.* FROM (
-				SELECT
-					bf_no, bf_title, user_no,
-					bf_hit, bf_thumbs, bf_inst_date
-				FROM beforeafter
-				ORDER BY bf_no DESC
-			) B
-		) Beforeafter
-		WHERE rnum BETWEEN #{startNo } AND #{endNo }
-	</select>
-
-	<select id="noticeList" resultType="Notice" parameterType="BoardSearch">
+<!-- 	<select id="selectList" resultType="Beforeafter" parameterType="BoardSearch"> -->
+<!-- 		SELECT * FROM ( -->
+<!-- 			SELECT rownum rnum, B.* FROM ( -->
+<!-- 				SELECT -->
+<!-- 					bf_no, bf_title, user_no, -->
+<!-- 					bf_hit, bf_thumbs, bf_inst_date -->
+<!-- 				FROM beforeafter -->
+<!-- 				ORDER BY bf_no DESC -->
+<!-- 			) B -->
+<!-- 		) Beforeafter -->
+<!-- 		WHERE rnum BETWEEN #{startNo } AND #{endNo } -->
+<!-- 	</select> -->
+	
+	<select id="updateHit" parameterType="Beforeafter">
+ 		UPDATE beforeafter SET bf_hit = bf_hit + 1 
+ 		WHERE bf_no = #{bfNo}
+ 	</select>
+	
+	<select id="notice" resultType="Notice" parameterType="BoardSearch">
 		<![CDATA[
- 			SELECT * FROM ( 
-				SELECT * FROM notice ORDER BY notice_no DESC ) 
+			SELECT * FROM ( 
+ 				SELECT * FROM notice ORDER BY notice_no DESC )  
  			WHERE ROWNUM <=3 
  			ORDER BY notice_no DESC 
- 		]]> 
+ 		]]>
 	</select>
 	
-	<select id="searchCntAll" resultType="int" parameterType="BoardPaging">
-	    SELECT count(*) FROM beforeafter
-	    
-        <where>
-			<choose>
-            	<when test="type != null and type.equals('bfTitle')">
-					AND bf_title like '%'||#{keyword}||'%' 
-				</when>
-				<when test="type != null and type.equals('beforeCon')">
-                	AND before_con like '%'||#{keyword}||'%' 
-			    </when>
-                <when test="type != null and type.equals('afterCon')">
-					AND after_con like '%'||#{keyword}||'%'
-                </when>
-			</choose>
-		</where>
-		ORDER BY bf_no 
-	</select>    
-	
-	
-	<select id="searchList" resultType="Beforeafter" parameterType="BoardPaging">
-		SELECT * FROM (
-			SELECT rownum rnum, B.* FROM (
-				SELECT * FROM beforeafter 
-				<where>
-					<choose>
-						<when test="type != null and type.equals('bfTitle')">
-							AND bf_title like '%'||#{keyword}||'%' 
-						</when>
-						<when test="type != null and type.equals('beforeCon')">
-		                	AND before_con like '%'||#{keyword}||'%' 
-					    </when>
-		                <when test="type != null and type.equals('afterCon')">
-							AND after_con like '%'||#{keyword}||'%'
-		                </when>
-					</choose>
-				</where>
-				ORDER BY bf_no 
-				) B
-			) Beforeafter
-		WHERE rnum BETWEEN #{startNo } AND #{endNo }
-	</select>
-
 	<select id="selectUserInfo" resultType="Users" parameterType="int">
 		SELECT * FROM users
 		WHERE user_no = #{userno }
 	</select>
 	
-	<select id="getPoint" resultType="int" parameterType="Users">
-		SELECT point FROM users
-		WHERE user_no = #{userNo }
-	</select>
-	
-
-	<update id="updatePoint" parameterType="Users">
-		UPDATE users SET point =
-			point + 50
-		WHERE user_no = #{userNo}
-	</update>	
-
 	<insert id="insertBfBoard" parameterType="Beforeafter">
 		
 		<selectKey order="BEFORE" resultType="int" keyProperty="bfNo">
@@ -116,11 +66,7 @@
 				   , 0, #{userNo}, 1 )
 	</insert>
 	
-	<select id="updateHit" parameterType="Beforeafter">
- 		UPDATE beforeafter SET bf_hit = bf_hit + 1 
- 		WHERE bf_no = #{bfNo}
- 	</select>
-	
+
 	<select id="selectBoard" resultType="Beforeafter" parameterType="Beforeafter">
 		SELECT
 			bf_no, category_no, bf_title, user_no,
@@ -155,102 +101,6 @@
 		DELETE beforeafter
 		WHERE bf_no = #{bfNo}	
 	</delete>
-
-
-
-<!-- 	<select id="selectCntAll" resultType="int"> -->
-<!-- 		SELECT count(*) FROM beforeafter -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="selectList" resultType="Beforeafter" parameterType="BoardPaging"> -->
-<!-- 		SELECT * FROM ( -->
-<!-- 			SELECT rownum rnum, B.* FROM ( -->
-<!-- 				SELECT -->
-<!-- 					bf_no, bf_title, user_no, -->
-<!-- 					bf_hit, bf_thumbs, bf_inst_date -->
-<!-- 				FROM beforeafter -->
-<!-- 				ORDER BY bf_no DESC -->
-<!-- 			) B -->
-<!-- 		) Beforeafter -->
-<!-- 		WHERE rnum BETWEEN #{startNo } AND #{endNo } -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="updateHit" parameterType="Beforeafter"> -->
-<!--  		UPDATE beforeafter SET bf_hit = bf_hit + 1  -->
-<!--  		WHERE bf_no = #{bfNo} -->
-<!--  	</select> -->
-	
-<!-- 	<select id="noticeList" resultType="Notice" parameterType="BoardSearch"> -->
-<!-- 		<![CDATA[ -->
-<!-- 			SELECT * FROM ( -->
-<!-- 				SELECT * FROM notice ORDER BY notice_no DESC )  -->
-<!-- 			WHERE ROWNUM <=3 -->
-<!-- 			ORDER BY notice_no DESC -->
-<!-- 		]]> -->
-<!-- 	</select> -->
-	
-<!-- 	<select id="selectUserInfo" resultType="Users" parameterType="int"> -->
-<!-- 		SELECT * FROM users -->
-<!-- 		WHERE user_no = #{userno } -->
-<!-- 	</select> -->
-	
-<!-- 	<insert id="insertBfBoard" parameterType="Beforeafter"> -->
-		
-<!-- 		<selectKey order="BEFORE" resultType="int" keyProperty="bfNo"> -->
-<!-- 			SELECT beforeafter_seq.nextval FROM dual -->
-<!-- 		</selectKey> -->
-	
-<!-- 		INSERT INTO beforeafter (  -->
-<!-- 			bf_no, bf_inst_date, bf_title, height, gender -->
-<!-- 			   , weight, bf_exercise, g_weight, s_date -->
-<!-- 			   , e_date, sele_exercise, before_con -->
-<!-- 			   , c_weight, g_result, after_con -->
-<!-- 			   , bf_upt_date, bf_delete_date, bf_hit -->
-<!-- 			   , bf_thumbs, user_no, category_no ) -->
-		
-<!-- 		VALUES ( #{bfNo}, sysdate, #{bfTitle}, #{height}, #{gender} -->
-<!-- 				   , #{weight}, #{bfExercise}, #{gWeight}, #{sDate} -->
-<!-- 				   , #{eDate}, #{seleExercise}, #{beforeCon} -->
-<!-- 				   , #{cWeight}, #{gResult}, #{afterCon} -->
-<!-- 				   ,  to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 0 -->
-<!-- 				   , 0, #{userNo}, 1 ) -->
-<!-- 	</insert> -->
-	
-
-<!-- 	<select id="selectBoard" resultType="Beforeafter" parameterType="Beforeafter"> -->
-<!-- 		SELECT -->
-<!-- 			bf_no, category_no, bf_title, user_no, -->
-<!-- 			bf_hit, bf_thumbs, bf_inst_date, -->
-<!-- 			height, gender, weight, bf_exercise, g_weight, -->
-<!-- 			s_date, e_date, sele_exercise, before_con, c_weight, -->
-<!-- 			g_result, after_con -->
-<!-- 		FROM beforeafter -->
-<!-- 		WHERE bf_no = #{bfNo} -->
-<!-- 	</select> -->
-	
-<!-- 	<update id="updateBoard" parameterType="Beforeafter"> -->
-<!-- 		UPDATE beforeafter -->
-<!-- 		SET bf_title = #{bfTitle} -->
-<!-- 			, height = #{height} -->
-<!-- 			, gender = #{gender} -->
-<!-- 			, weight = #{weight} -->
-<!-- 			, bf_exercise = #{bfExercise} -->
-<!-- 			, g_weight = #{gWeight} -->
-<!-- 			, s_date = #{sDate} -->
-<!-- 			, e_date = #{eDate} -->
-<!-- 			, sele_exercise = #{seleExercise} -->
-<!-- 			, before_con = #{beforeCon} -->
-<!-- 			, c_weight = #{cWeight} -->
-<!-- 			, g_result = #{gResult} -->
-<!-- 			, after_con = #{afterCon} -->
-<!-- 		WHERE bf_no = #{bfNo} -->
-<!-- 	</update> -->
-
-
-<!-- 	<delete id="delete" parameterType="Beforeafter"> -->
-<!-- 		DELETE beforeafter -->
-<!-- 		WHERE bf_no = #{bfNo}	 -->
-<!-- 	</delete> -->
 	
 <!-- 	<select id="getList" resultType="Beforeafter"> -->
 <!-- 		SELECT bf_no, bf_title, user_no, -->
@@ -266,84 +116,83 @@
 <!--     </select> -->
 	
 	
-<!--     <sql id="boardSearch"> -->
-<!--         <trim prefix="AND (" suffix=")" prefixOverrides="OR"> -->
-<!--             <foreach collection="typeArr" item="type"> -->
-<!--                 <trim prefix="OR"> -->
-<!--                     <choose> -->
-<!--                         <when test="type == 'T'.toString()"> -->
-<!--                             bf_title like '%'||#{keyword}||'%'  -->
-<!--                         </when> -->
-<!--                         <when test="type == 'C'.toString()"> -->
-<!--                             before_con like '%'||#{keyword}||'%', -->
-<!--                             after_con like '%'||#{keyword}||'%' -->
-<!--                         </when> -->
-<!--                          <when test="type == 'TC'.toString()"> -->
-<!--                          	bf_title like '%'||#{keyword}||'%', -->
-<!--                             before_con like '%'||#{keyword}||'%', -->
-<!--                             after_con like '%'||#{keyword}||'%' -->
-<!--                         </when> -->
+    <sql id="boardSearch">
+        <trim prefix="AND (" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'T'.toString()">
+                            bf_title like '%'||#{keyword}||'%' 
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            before_con like '%'||#{keyword}||'%',
+                            after_con like '%'||#{keyword}||'%'
+                        </when>
+                         <when test="type == 'TC'.toString()">
+                         	bf_title like '%'||#{keyword}||'%',
+                            before_con like '%'||#{keyword}||'%',
+                            after_con like '%'||#{keyword}||'%'
+                        </when>
                         
-<!--                     </choose> -->
-<!--                 </trim> -->
-<!--             </foreach> -->
-<!--         </trim> -->
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
     
-<!--     </sql> -->
+    </sql>
     
     
-<!--     <select id="getSearchPaging" resultType="Beforeafter"> -->
-    
-<!--     <![CDATA[ -->
-        
-<!--         SELECT bf_no, bf_title, user_no, -->
-<!-- 					bf_hit, bf_thumbs, bf_inst_date  FROM( -->
-        
-<!--                 SELECT  -->
-<!--                 rownum  as rn, bf_no, bf_title, user_no, -->
-<!-- 								bf_hit, bf_thumbs, bf_inst_date -->
+    <select id="getSearchPaging" resultType="Beforeafter">
+         
+         SELECT bf_no, bf_title, user_no, 
+ 					bf_hit, bf_thumbs, bf_inst_date  FROM( 
+            select rownum rn, d.* from (
+                 SELECT 
+                  bf_no, bf_title, user_no, 
+ 								bf_hit, bf_thumbs, bf_inst_date 
                   
-<!--                 FROM beforeafter WHERE rownum <= #{pageNum} * #{amount}  -->
-<!--     ]]>             -->
-<!--                 <if test="keyword != null"> -->
-<!--                 	<include refid="boardSearch"></include>  -->
-<!--                 </if> -->
-    
-<!--     <![CDATA[ -->
+                 FROM beforeafter
+                                 <if test="keyword != null">
+                	WHERE bf_title LIKE  '%${keyword}%'
+                </if>
+                 
+                order by bf_no desc
+                ) d
+            
+        ) 
+         WHERE rn between  ( #{curPage}-1) *10 and  #{curPage}*10
+  
+                 
                     
-<!--                 ) -->
-                    
-<!--         WHERE rn > (#{pageNum} -1) * #{amount} -->
     
-<!--     ]]> -->
-    
-<!--     </select> -->
+    </select>
 	
        
     
-<!--     <select id="getTotal" resultType="int"> -->
-<!--     	SELECT count(*) FROM beforeafter -->
+    <select id="getTotal" resultType="int">
+    	SELECT count(*) FROM beforeafter
     	
-<!--     	<if test="keyword != null"> -->
-<!-- 			WHERE bf_no > 0 <include refid="boardSearch"></include> -->
-<!--         </if> -->
+    	<if test="keyword != null">
+			WHERE bf_no > 0 <include refid="boardSearch"></include>
+        </if>
         
-<!--     </select> -->
+    </select>
 
-<!-- 	<select id="getPoint" resultType="int" parameterType="Users"> -->
-<!-- 		SELECT point FROM users -->
-<!-- 		WHERE user_no = #{userNo } -->
-<!-- 	</select> -->
+	<select id="getPoint" resultType="int" parameterType="Users">
+		SELECT point FROM users
+		WHERE user_no = #{userNo }
+	</select>
 	
 	
 
-<!-- 	<update id="updatePoint" parameterType="Users"> -->
-<!-- 		UPDATE users SET point = -->
-<!-- 			point + 50 -->
-<!-- 		WHERE user_no = #{userNo} -->
-<!-- 	</update> -->
+	<update id="updatePoint" parameterType="Users">
+		UPDATE users SET point =
+			point + 50
+		WHERE user_no = #{userNo}
+	</update>
 
-	
+
+
 </mapper>
 
 
