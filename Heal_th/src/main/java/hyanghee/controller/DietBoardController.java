@@ -12,12 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import hyanghee.dto.DietBoard;
 import hyanghee.service.face.DietBoardService;
 import hyanghee.util.BoardPageMaker;
-import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
 import saebyeol.dto.Notice;
@@ -34,15 +32,10 @@ public class DietBoardController {
 		
 	//게시글 리스트
 	@RequestMapping("/board/dietBoard")
-	public void list(
-			@RequestParam(defaultValue = "0") int curPage
-			, Model model, BoardSearch boardSearch ) {
+	public void list(BoardSearch boardSearch, Model model) {
 		
-		BoardPaging boardPaging = dietBoardService.getPaging(curPage);
-		logger.info("{}", boardPaging);
-		model.addAttribute("BoardPaging", boardPaging);
-			
-		List<Notice> notice = dietBoardService.notice(boardPaging);
+		//공지사항
+		List<Notice> notice = dietBoardService.notice(boardSearch);
 		for( Notice n : notice )	logger.info("{}", n);
 		model.addAttribute("notice", notice);
 		
@@ -51,6 +44,7 @@ public class DietBoardController {
 		int total = dietBoardService.getTotal(boardSearch);
 		
 		BoardPageMaker pageMake = new BoardPageMaker(boardSearch, total);
+		logger.info("{}", pageMake);
 		model.addAttribute("pageMaker", pageMake);
 
 	}
@@ -82,7 +76,7 @@ public class DietBoardController {
 		
 	}
 		
-	
+//	@Autowired private FileuploadService fileuploadService;
 	@PostMapping("/board/dWrite")
 	public String insertBoardProc(DietBoard dietBoard,HttpSession session) {
 		

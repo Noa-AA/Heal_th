@@ -10,21 +10,21 @@
 		SELECT count(*) FROM reviewboard
 	</select>
 	
-	<select id="selectList" resultType="ReviewBoard" parameterType="BoardPaging">
-		SELECT * FROM (
-			SELECT rownum rnum, B.* FROM (
-				SELECT
-					review_no, r_title, user_no,
-					r_hit, r_thumbs, r_inst_date
-					, score
-				FROM reviewboard
-				ORDER BY review_no DESC
-			) B
-		) ReviewBoard
-		WHERE rnum BETWEEN #{startNo } AND #{endNo }
-	</select>
+<!-- 	<select id="selectList" resultType="ReviewBoard" parameterType="BoardPaging"> -->
+<!-- 		SELECT * FROM ( -->
+<!-- 			SELECT rownum rnum, B.* FROM ( -->
+<!-- 				SELECT -->
+<!-- 					review_no, r_title, user_no, -->
+<!-- 					r_hit, r_thumbs, r_inst_date -->
+<!-- 					, score -->
+<!-- 				FROM reviewboard -->
+<!-- 				ORDER BY review_no DESC -->
+<!-- 			) B -->
+<!-- 		) ReviewBoard -->
+<!-- 		WHERE rnum BETWEEN #{startNo } AND #{endNo } -->
+<!-- 	</select> -->
 	
-	<select id="noticeList" resultType="Notice" parameterType="BoardPaging">
+	<select id="notice" resultType="Notice" parameterType="BoardPaging">
 	<![CDATA[
 		SELECT * FROM (
 			SELECT * FROM notice ORDER BY notice_no DESC ) 
@@ -94,18 +94,18 @@
 		WHERE review_no = #{reviewNo}	
 	</delete>
 	
-	<select id="getList" resultType="ReviewBoard">
-		SELECT review_no, r_title, user_no, score,
-				r_hit, r_thumbs, r_inst_date
-		FROM reviewboard
+<!-- 	<select id="getList" resultType="ReviewBoard"> -->
+<!-- 		SELECT review_no, r_title, user_no, score, -->
+<!-- 				r_hit, r_thumbs, r_inst_date -->
+<!-- 		FROM reviewboard -->
 		
-		ORDER BY review_no DESC
-	</select>
+<!-- 		ORDER BY review_no DESC -->
+<!-- 	</select> -->
 	
-	<select id="getPage" resultType="ReviewBoard">
-        SELECT * FROM reviewboard
-        WHERE review_no = #{reviewNo}
-    </select>
+<!-- 	<select id="getPage" resultType="ReviewBoard"> -->
+<!--         SELECT * FROM reviewboard -->
+<!--         WHERE review_no = #{reviewNo} -->
+<!--     </select> -->
 	
 	<sql id="boardSearch">
         <trim prefix="AND (" suffix=")" prefixOverrides="OR">
@@ -131,33 +131,28 @@
         </trim>
     
     </sql>
-
-	<select id="getSearchPaging" resultType="ReviewBoard">
     
-    <![CDATA[
-        
-        SELECT review_no, r_title, user_no, score,
-					r_hit, r_thumbs, r_inst_date  FROM(
-        
-                SELECT 
-                rownum  as rn, review_no, r_title, user_no, score,
-								r_hit, r_thumbs, r_inst_date
+    <select id="getSearchPaging" resultType="ReviewBoard">
+         
+         SELECT review_no, r_title, user_no, score,
+					r_hit, r_thumbs, r_inst_date  FROM( 
+            select rownum rn, d.* from (
+                 SELECT 
+	                  review_no, r_title, user_no, score,
+						r_hit, r_thumbs, r_inst_date 
                   
-                FROM reviewboard WHERE rownum <= #{pageNum} * #{amount} 
-    ]]>            
-                <if test="keyword != null">
-                	<include refid="boardSearch"></include> 
+                 FROM reviewboard
+                                 <if test="keyword != null">
+                	WHERE r_title LIKE  '%${keyword}%'
                 </if>
-    
-    <![CDATA[
-                    
-                )
-                    
-        WHERE rn > (#{pageNum} -1) * #{amount}
-    
-    ]]>
-    
+                 
+                order by review_no desc
+                ) d
+            
+        ) 
+         WHERE rn between  ( #{curPage}-1) *10 and  #{curPage}*10
     </select>
+    
 	
 	 <select id="getTotal" resultType="int">
     	SELECT count(*) FROM reviewboard

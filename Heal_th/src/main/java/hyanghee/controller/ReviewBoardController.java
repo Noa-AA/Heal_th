@@ -35,15 +35,9 @@ public class ReviewBoardController {
 		
 		//게시글 리스트
 		@RequestMapping("/board/reviewBoard")
-		public void list(
-				@RequestParam(defaultValue = "0") int curPage
-				, Model model, BoardSearch boardSearch ) {
+		public void list(Model model, BoardSearch boardSearch) {
 			
-			BoardPaging boardPaging = reviewBoardService.getPaging(curPage);
-			logger.info("{}", boardPaging);
-			model.addAttribute("BoardPaging", boardPaging);
-			
-			List<Notice> notice = reviewBoardService.notice(boardPaging);
+			List<Notice> notice = reviewBoardService.notice(boardSearch);
 			for( Notice n : notice )	logger.info("{}", n);
 			model.addAttribute("notice", notice);
 			

@@ -20,6 +20,13 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@900&display=swap');
 
+body{overflow-x: hidden}
+
+#content{
+max-width: 1200px;
+display: block;
+}
+
 #card {
   height: 200vh;
 }
@@ -112,7 +119,7 @@ section {
   min-height: 100vh;
 /*   padding: 2em; */
   margin: auto;
-  max-width: 800px;
+  max-width: 1200px;
 }
 
 section h2 {
@@ -120,14 +127,16 @@ section h2 {
 }
 
 section p {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+@import url(//fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
+font-family: 'Karla Tamil Inclined', sans-serif;
+/*   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; */
 }
 
 #rightAni{
 	display: inline-block;
 	padding: 0;
 	margin: 0;
-	
+	max-width: 1000px;
 }
 
 
@@ -149,11 +158,53 @@ section p {
 	padding: 10px 0;
 }
 
+#animation {
+  min-height: 100vh;
+  margin: auto;
+}
+
+#scroll-img {
+            width:300px; height:300px; margin:10px;
+            border: none;
+            background-image: url('https://i.postimg.cc/8CxhqXbq/pexels-andrea-piacquadio-3760259.jpg'); 
+            background-size: 100% 100%;
+            background-attachment: scroll;
+        }
+
+#verifyBoard{
+	width:300px; height:300px; margin:10px;
+	border: none;
+/* 	background-image: url('https://i.postimg.cc/4NJD6qZ4/pexels-cottonbro-studio-4761779.jpg');  */
+	background-image: url('https://i.postimg.cc/pLnMr8RK/pexels-david-gomes-2647471.jpg');
+	background-size: 100% 100%;
+	background-attachment: scroll;
+}
+
+#dietBoard{
+	width:300px; height:300px; margin:10px;
+	border: none;
+	background-image: url('https://i.postimg.cc/C10gW1yk/pexels-jane-doan-1105166.jpg'); 
+	background-size: 100% 100%;
+	background-attachment: scroll;
+}
+
+#reviewBoard{
+	width:300px; height:300px; margin:10px;
+	border: none;
+	background-image: url('https://i.postimg.cc/t4Sbqm2T/pexels-shotpot-4047159.jpg'); 
+	background-size: 100% 100%;
+	background-attachment: scroll;
+}
+
 </style>
 
 
 <script type="text/javascript">
-AOS.init(); 
+AOS.init({
+	easing: 'ease-out-back',
+    duration: 1000
+}); 
+
 </script>
 
 </head>
@@ -176,6 +227,8 @@ AOS.init();
 
 <br><br><br><br><br><br><br>
 
+<div id="content">
+
 <fieldset id="card">
 <!-- First container -->
   <div class="container container_solid">
@@ -194,38 +247,129 @@ AOS.init();
 
 
 
+<br><br><br><br><br>
+
+<section>
+
 <div data-aos="fade-right" 
         	 data-aos-offset="200" 
              data-aos-easing="ease-out-cubic"
              data-aos-duration="2000" 
-             id="rightAni"
-             >
-             
-            <h2>Lorem ipsum dolor sit amet.</h2>
-	  <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+             id="rightAni" style="display: inline-block; margin-left: 300px;">
+
+	  <h2>Before & After</h2><br>
+	  <p style="font-size: 15px;">비포 애프터 게시판은 자신에게 적합한 운동 종목을 선택하여 특정 기간 동안 원하는 목표를 향해 달려나가는 순간을 공유하는 공간입니다.</p>
+	  <p>비포 애프터 게시판에서는 운동 시작 전 과 후의 모습을 기록하여 목표 달성 후의 짜릿한 성취감을 느낄 수 있습니다.</p>
+	  <p>또한 많은 사람들에게 나만의 성공 노하우를 전수하여 많은 사람들이 자신의 목표를 이뤄낼 수 있도록 도와줄 수 있습니다.</p>
+	  <p>비포 애프터 게시판에서 아름다운 성공의 순간을 기록해주세요</p>
 </div>
 
-<div data-aos="zoom-in-up" 
+
+<div data-aos="fade-up" 
         	 data-aos-offset="200" 
              data-aos-easing="ease-out-cubic"
              data-aos-duration="2000" 
-             >
+             id="animation"
+             style="margin-right: -300px; display: block; margin-top: -200px;">
              
-            <h2>Lorem ipsum dolor sit amet.</h2>
-	  <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+	  <div id="scroll-img" style=" float: right; maring-top: 600px; display: inline-block;"></div>
+</div>
+
+</section>
+
+
+<!-- 운동 인증 게시판 -->
+<section>
+
+
+<div data-aos="fade-up" 
+        	 data-aos-offset="200" 
+             data-aos-easing="ease-out-cubic"
+             data-aos-duration="2000" 
+             id="animation"
+             style="margin-left: 300px; float: left; display: block;">
+             
+	  <div id="verifyBoard"></div>
+</div>
+
+<div data-aos="fade-left" 
+        	 data-aos-offset="200" 
+             data-aos-easing="ease-out-cubic"
+             data-aos-duration="2000" 
+             id="rightAni" style="display: inline-block; margin-right: -332px; margin-left: -150px; float: right; margin-top: 81px;">
+
+	  <h2>Verify Board</h2><br>
+	  <p style="font-size: 15px;">운동 인증 게시판은 자신의 데일리 운동을 기록하고 공유하는 공간입니다.</p>
+	  <p>운동 인증 게시판에서 특정 목표와 상관 없이 자신의 운동 습관을 살펴볼 수 있습니다.</p>
+	  <p>또한 많은 사용자들에게 자신만의 운동법을 공유하고 운동하기 좋은 습관을 만들 수 있도록 도와줄 수 있습니다.</p>
+	  <p>운동 인증 게시판에서 자신만의 데일리 운동을 기록해주세요</p>
+</div>
+
+</section>
+
+
+
+<!-- 식단 공유 게시판 -->
+<section>
+
+<div data-aos="fade-right" 
+        	 data-aos-offset="200" 
+             data-aos-easing="ease-out-cubic"
+             data-aos-duration="2000" 
+             id="rightAni" style="display: inline-block; margin-left: 300px;">
+
+	  <h2>Diet Board</h2><br>
+	  <p style="font-size: 15px;">식단 공유 게시판은 자신이 세운 목표에 맞춰 건강한 식단을 공유하는 게시판입니다.</p>
+	  <p>식단 공유 게시판에서는 체중 감량, 체중 증량 등에 상관 없이 건강하고 맛있는 자신만의 특별 레시피를 공유할 수 있습니다.</p>
+	  <p>이를 통해 많은 사람들이 건강하고 맛있는 레시피로 원하는 목표를 이루는데 도움을 줄 수 있습니다.</p>
+	  <p>식단 공유 게시판에서 자신만의 식단을 기록해주세요</p>
 </div>
 
 
+<div data-aos="fade-up" 
+        	 data-aos-offset="200" 
+             data-aos-easing="ease-out-cubic"
+             data-aos-duration="2000" 
+             id="animation"
+             style="margin-right: -300px; display: block; margin-top: -200px;">
+             
+	  <div id="dietBoard" style=" float: right; maring-top: 600px; display: inline-block;"></div>
+</div>
 
-<br><br><br><br><br><br><br><br>
-
-<section>
-	  <h2>Lorem ipsum dolor sit amet.</h2>
-	  <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-	  <p>
-	    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
-	  </p>
 </section>
+
+
+<!-- 시설 후기 게시판 -->
+<section style="height: 300px;">
+
+
+<div data-aos="fade-up" 
+        	 data-aos-offset="200" 
+             data-aos-easing="ease-out-cubic"
+             data-aos-duration="2000" 
+             id="animation"
+             style="margin-left: 300px; float: left; display: block;">
+             
+	  <div id="reviewBoard"></div>
+</div>
+
+<div data-aos="fade-left" 
+        	 data-aos-offset="200" 
+             data-aos-easing="ease-out-cubic"
+             data-aos-duration="2000" 
+             id="rightAni" style="display: inline-block; margin-right: -332px; margin-left: -150px; float: right; margin-top: 81px;">
+
+	  <h2>Review Board</h2><br>
+	  <p style="font-size: 15px;">시설 후기 게시판은 자신이 다녔던 운동 시설의 후기를 공간입니다.</p>
+	  <p>시설 후기 게시판에서는 원하는 운동 종목과 지역에 맞춰 다양한 시설들의 생생한 후기를 들을 수 있습니다.</p>
+	  <p>또한 많은 사람들에게 나만의 성공 노하우를 전수하여 많은 사람들이 자신의 목표를 이뤄낼 수 있도록 도와줄 수 있습니다.</p>
+	  <p>비포 애프터 게시판에서 아름다운 성공의 순간을 기록해주세요</p>
+</div>
+
+</section>
+
+
+</div>
 
 <%@include file="../layout/footer.jsp" %>	
 

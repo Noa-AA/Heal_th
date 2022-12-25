@@ -62,9 +62,9 @@
 $(document).ready(function(){
 	
 	$("#btnInsert").click(function() {
+		confirm("게시글을 등록하시겠습니까?");
 		
 		$(this).parents("form").submit();
-		
 		alert("50 포인트가 적립됐습니다");
 	})
 

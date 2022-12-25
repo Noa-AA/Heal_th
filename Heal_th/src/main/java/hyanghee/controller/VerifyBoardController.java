@@ -12,13 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import hyanghee.dto.VerifyBoard;
 import hyanghee.service.face.VerifyBoardService;
 import hyanghee.util.BoardPageMaker;
-import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
 import saebyeol.dto.Notice;
@@ -36,23 +33,12 @@ public class VerifyBoardController {
 	
 	//운동인증 게시판 목록
 	@RequestMapping("board/verifyBoard")
-	public void list(
-			@RequestParam(defaultValue = "0") int curPage
-			, BoardSearch boardSearch
-			, Model model ) {
-		
-		BoardPaging paging = verifyBoardService.getPaging(curPage);
-		logger.debug("{}", paging);
-		model.addAttribute("boardPaging", paging);
+	public void list(BoardSearch boardSearch, Model model ) {
 		
 		//공지사항
-		List<Notice> notice = verifyBoardService.notice(paging);
+		List<Notice> notice = verifyBoardService.notice(boardSearch);
 		for( Notice n : notice )	logger.info("{}", n);
 		model.addAttribute("notice", notice);
-		
-//		List<VerifyBoard> list = verifyBoardService.list(paging);
-//		for( VerifyBoard v : list )	logger.debug("{}", v);
-//		model.addAttribute("list", list);
 		
 		//검색
 		model.addAttribute("boardSearch", verifyBoardService.getSearchPaging(boardSearch));

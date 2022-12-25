@@ -3,7 +3,6 @@ package hyanghee.dao.face;
 import java.util.List;
 
 import hyanghee.dto.VerifyBoard;
-import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
@@ -11,9 +10,6 @@ import yerim.dto.Users;
 public interface VerifyBoardDao {
 
 	public int selectCntAll();
-
-	//목록
-	public List<VerifyBoard> selectList(BoardPaging boardPaging);
 
 	//유저 정보
 	public Users selectUserInfo(int userno);
@@ -39,13 +35,11 @@ public interface VerifyBoardDao {
 	public void updatePoint(Users users);
 
 	//공지사항
-	public List<Notice> noticeList(BoardPaging paging);
+	public List<Notice> notice(BoardSearch boardSearch);
 
 	public int getTotal(BoardSearch boardSearch);
 
 	public List<VerifyBoard> getSearchPaging(BoardSearch boardSearch);
-
-	public VerifyBoard getPage(int verifyNo);
 
 	
 	

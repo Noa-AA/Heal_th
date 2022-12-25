@@ -10,11 +10,6 @@ import yerim.dto.Users;
 
 public interface VerifyBoardService {
 
-	public BoardPaging getPaging(int curPage);
-
-	//게시글 목록
-	public List<VerifyBoard> list(BoardPaging boardPaging);
-
 	//게시글 작성
 	public void insertVerifyBoard(VerifyBoard verifyBoard);
 
@@ -37,15 +32,11 @@ public interface VerifyBoardService {
 	public void updatePoint(int point);
 
 	//공지사항
-	public List<Notice> notice(BoardPaging paging);
+	public List<Notice> notice(BoardSearch boardSearch);
 
 	//검색
 	public int getTotal(BoardSearch boardSearch);
 
 	public List<VerifyBoard> getSearchPaging(BoardSearch boardSearch);
-	
-	public VerifyBoard getPage(int verifyNo);
-
-	
 
 }

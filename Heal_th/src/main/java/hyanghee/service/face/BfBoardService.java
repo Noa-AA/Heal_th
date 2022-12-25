@@ -4,8 +4,6 @@ import java.util.List;
 
 
 import hyanghee.dto.Beforeafter;
-import hyanghee.util.BoardPageMaker;
-import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
