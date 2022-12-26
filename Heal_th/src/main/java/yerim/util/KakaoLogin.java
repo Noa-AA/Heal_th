@@ -62,17 +62,17 @@ public class KakaoLogin {
 		//요청 
 		HttpEntity<String> request = new HttpEntity<>(headers);
 		restTempalte.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+		logger.info("토큰 요청 완료");
 	
 		//HTTP POST 요청 및 응답
 		ResponseEntity<String> response = restTempalte.postForEntity(new URI(apiURL), request, String.class);
-		logger.info("토큰 요청 완료");
 		
 		String access_token ="";
 		if(response.getStatusCode() == HttpStatus.OK) {
 			
 			logger.info("요청 완료 -토큰 받기");
 			
-			try {
+			try {//access_Toketn만 파싱
 				JSONParser parser = new JSONParser();
 				JSONObject obj = (JSONObject)parser.parse(response.getBody());
 			
