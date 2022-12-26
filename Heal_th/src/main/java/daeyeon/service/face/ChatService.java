@@ -143,6 +143,15 @@ public interface ChatService {
 	public ChatFile fileSave(MultipartFile file, int userNo, int roomNo);
 
 	
+	/**
+	 * 
+	 * 
+	 * @param roomNo 상대방 회원번호
+	 * @return - 상대방 프로필 storedName
+	 */
+	public String getReciverProfile(RoomList roomNo);
+
+	
 	
 
 

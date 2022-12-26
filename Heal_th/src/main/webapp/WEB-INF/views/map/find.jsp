@@ -6,7 +6,7 @@
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:15px;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(220, 220, 220, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+#menu_wrap {position:absolute;top:15px;left:0;bottom:0;width:250px; height: 595px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(220, 220, 220, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
@@ -85,9 +85,9 @@
                 </form>
             </div>
         </div>
-    <div id="map" style="width:1000px;height:600px;position:relative;overflow:hidden;"></div>
+    <div id="map" style="width:75%;height:600px;position:relative;overflow:hidden;"></div>
 
-    <div id="menu_wrap" class="bg_white">
+    <div id="menu_wrap"  class="bg_white">
         <ul id="placesList"></ul>
         <div id="pagination"></div>
     </div>

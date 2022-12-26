@@ -116,24 +116,27 @@
 	<!-- /chat/chatRoom -->
 	<!-- 자신의 회원번호가 속한 채팅방번호와 상대방 닉네임과 그사람과의 마지막채팅 조회하기 -->
 	<select id="selectRoomList"  resultType="daeyeon.dto.RoomList" parameterType="Users">
-		SELECT user_no, chat_time, room_no, user_nick FROM (
-			SELECT user_no, room_no, chat_time, user_nick,
-				RANK() OVER (PARTITION BY room_no ORDER BY chat_time DESC) AS RNK
-				FROM ( SELECT e.user_no, e.room_no, e.user_nick, f.chat_time
-						FROM
-					       ( SELECT c.room_no, d.user_nick, d.user_no FROM users d      
-					            INNER JOIN
-					                (SELECT a.* FROM room_list a             
-					                   INNER JOIN (
-										SELECT * FROM room_list WHERE user_no = #{userNo } ) b 
-									ON a.room_no = b.room_no
-								WHERE a.user_no != #{userNo } ) c
-							 ON d.user_no = c.user_no
-						ORDER BY c.room_no DESC ) e
-					FULL JOIN chat f
-				ON e.room_no = f.room_no ) )
-			WHERE RNK = 1
-		ORDER BY chat_time DESC
+		SELECT h.stored_name, g.user_no, g.chat_time, g.room_no, g.user_nick FROM photofile h
+			INNER JOIN
+			( SELECT user_no, chat_time, room_no, user_nick FROM (
+				SELECT user_no, room_no, chat_time, user_nick,
+					RANK() OVER (PARTITION BY room_no ORDER BY chat_time DESC) AS RNK
+					FROM ( SELECT e.user_no, e.room_no, e.user_nick, f.chat_time
+							FROM
+						       ( SELECT c.room_no, d.user_nick, d.user_no FROM users d      
+						            INNER JOIN
+						                (SELECT a.* FROM room_list a             
+						                   INNER JOIN (
+											SELECT * FROM room_list WHERE user_no = #{userNo } ) b 
+										ON a.room_no = b.room_no
+									WHERE a.user_no != #{userNo } ) c
+								 ON d.user_no = c.user_no
+							ORDER BY c.room_no DESC ) e
+						FULL JOIN chat f
+					ON e.room_no = f.room_no ) )
+				WHERE RNK = 1
+			ORDER BY chat_time DESC NULLS LAST) g
+		ON h.user_no = g.user_no 
 	</select>
 	
 	
@@ -159,11 +162,26 @@
 	</select>
 	
 	<!-- /chat/chatArea -->
+	<!-- 방번호로 상대방 프로필 사진 가져오기 -->
+	<select id="selectReciverProfile" resultType="string" parameterType="RoomList">
+		SELECT d.stored_name FROM photofile d
+    		INNER JOIN 
+      		( SELECT a.user_no FROM users a
+				INNER JOIN (
+				SELECT * FROM room_list WHERE room_no = #{roomNo }) b
+			ON a.user_no = b.user_no
+			WHERE a.user_no != #{userNo } ) c
+		ON d.user_no = c.user_no
+	</select>
+	
+	<!-- /chat/chatArea -->
 	<!-- 내 유저번호로 내 닉네임 조회하기 -->
 	<select id="selectSenderNick" resultType="string" parameterType="int" >
 		SELECT user_nick FROM users
 		WHERE user_no = #{myUserNo }
 	</select>
+	
+	
 
 	
 	<!-- /chat/chatArea -->
