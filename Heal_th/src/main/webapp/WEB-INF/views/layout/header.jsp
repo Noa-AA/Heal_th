@@ -207,26 +207,29 @@ header {
 	margin-right: 3px;
 }
 
+#alram {
+	position: fixed;
+	top:30px;
+	right:30px;
+}
+
+#alram img {
+	width:20px;
+}
+
+#alram button {
+	background-color:transparent;
+}
 
 /* 로그인 아이콘 */
-.material-symbols-outlined {
+.lG, .lO, .mP, .person {
   font-variation-settings:
-  'FILL' 0,
+  'FILL' 0 ,
   'wght' 400,
   'GRAD' 0,
-  'opsz' 20
+  'opsz' 48
   
 }
-
-/* 회원가입 아이콘 */
-.person {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 40
-}
-
 
 #subvisual {
     position: absolute;
@@ -316,9 +319,76 @@ body {
 	cursor: pointer;
 }
 
+.messageBox {
+	position: absolute;
+	top: 65px;
+	right: 5px;
+	width: 400px;
+	height: 250px;
+	border-radius: 15px;
+	padding: 20px;
+	box-shadow: 0 7px 20px rgb(0 0 0 / 17%);
+	z-index: 1000;
+	overflow-y: scroll;
+}
+
+.messageBox::-webkit-scrollbar {
+	border-radius: 10px;
+	width: 7px;
+}
+
+.messageBox::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: silver;
+	width: 5px;
+}
+.messageBox:after {
+    position: absolute;
+    top: -13px;
+    right: 45px;
+    width: 0;
+    height: 0;
+    border-right: 11px solid rgba(0,0,0,0);
+    border-bottom: 13px solid #fff;
+    border-left: 11px solid rgba(0,0,0,0);
+    content: "";
+    filter: drop-shadow(0px 7px 20px rgba(0, 0, 0, 0.17));
+}
+
+
 </style>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".messageBox").hide();
+	var count = 0;
+	$("#myAlert").click(function(){
+		
+		if(count%2==0){
+			
+			$.ajax({
+				type: "get",
+				url: "/message/view",
+				data: {
+				},
+				dataType: "html",
+				success: (res)=>{
+					console.log("AJAX 성공")
+					$("#message-result").html(res)
+				},
+				error: ()=>{
+					console.log("AJAX 실패")
+				}
+			})
 
+			$(".messageBox").show();
+		} else if(count%2==1){
+			$(".messageBox").hide();
+		}
+		count++;
+	})
+});
+</script>
 
 
 </head>
@@ -363,7 +433,7 @@ body {
 				<li id="login">
 <!-- 					<img src="/resources/img/loginicon.png"> -->
 					<a href="/login/login">
-						<span class="material-symbols-outlined">login</span>로그인
+						<span class="material-symbols-outlined lG">login</span>로그인
 					</a>
 				</li>
 				
@@ -384,17 +454,23 @@ body {
 				<li id="logout">
 <!-- 					<img src="/resources/img/loginicon.png"> -->
 					<a href="/mypage/logout">
-						<span class="material-symbols-outlined">logout</span>로그아웃
+						<span class="material-symbols-outlined lO">logout</span>로그아웃
 					</a>
 				</li>
 				
 				<li id="mp">
 <!-- 					<img src="/resources/img/joinicon.png"> -->
 					<a href="/mypage/main">
-					<span class="material-symbols-outlined">perm_contact_calendar</span>마이페이지
+					<span class="material-symbols-outlined mP">perm_contact_calendar</span>마이페이지
 					</a>
 				</li>
 			</ul>
+			<div id="alram">
+			<button id="myAlert"><img src="/resources/img/bell.png"></button>
+				<div class="messageBox">
+					<div id="message-result"></div>
+				</div>
+			</div>
 		</div>
 		</c:if> <!-- 비로그인상황 끝 -->
 		

@@ -127,7 +127,7 @@ textarea {
 	margin: 20px 0 20px 0;
 }
 
-ul {
+.textcenter ul {
 	list-style:none;
 }
 
@@ -217,7 +217,7 @@ ul {
 	justify-content: right;
 }
 
-button {
+.big-container button {
 	width: 150px;
 }
 

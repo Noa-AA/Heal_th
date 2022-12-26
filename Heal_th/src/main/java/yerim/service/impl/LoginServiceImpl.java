@@ -77,7 +77,7 @@ public class LoginServiceImpl implements LoginService {
 			searchId.setUserName((String)session.getAttribute("userName"));
 			searchId.setUserEmail((String)session.getAttribute("userEmail"));	
 		
-		logger.info("userName : {}, userEmai :{}",session.getAttribute("userName"),session.getAttribute("userEmail"));
+		logger.info("userName : {}, userEmail :{}",session.getAttribute("userName"),session.getAttribute("userEmail"));
 		String getUserId = "";
 		if(sessionCode.equals(emailCode)) {
 			logger.info("이메일 인증 성공");

@@ -90,7 +90,7 @@ $(document).ready(function(){
 	
 	$("#chkemailCode").click(function(){
 				console.log("인증번호 확인하기 버튼 클릭 ")
-				$.ajax({
+			$.ajax({
 			type:"post"
 			,url:"/login/codeIdChk"
 			,data :{
