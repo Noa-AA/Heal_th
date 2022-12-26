@@ -454,11 +454,9 @@
  <style type="text/css">
  #joinBody{
  	background-color: white;
+	padding-top:0;
  
  }
-body{
-	padding-top:0;
-}
  
 
 #boxArea{
@@ -798,9 +796,9 @@ top:154px;
 						<div id="smschk" >
 							<input type="text" name="code" id="code" class="inputInfo">
 							<div id="btnsmschk">
+						</div>
 								<button type="button" id="btn_code"><span class="btnTitle btnsmsCodeChk">인증번호 확인</span></button>			
 							</div>
-						</div>
 							<div id="result_code" class="resMsg"></div>
 					</div>					
 					
