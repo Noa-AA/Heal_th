@@ -626,13 +626,15 @@ top:154px;
 <div id="joinArea">
 	<div id="boxArea">
 		<div id="title">
-				<div id="hLogo">
-					<img id="logoImg" src="/resources/img/logo_purple.png">
-				</div>
-				<div id="intro_description"><p class="notice">네이버 아이디로 회원가입 추가적인 정보를 기입해주세요!</p> 
-				<span class="notice">아이디는 수정이 불가합니다</span>
-				</div>
+			<div id="hLogo">
+				<img id="logoImg" src="/resources/img/logo_purple.png">
 			</div>
+			
+			<div id="intro_description">
+				<p class="notice">네이버 아이디로 회원가입 추가적인 정보를 기입해주세요!</p> 
+				<span class="notice">아이디는 수정이 불가합니다</span>
+			</div>
+		</div>
 			
 		<div id="formArea">
 			<form action="/login/join" method="post" id="joinNaverform">
