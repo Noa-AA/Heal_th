@@ -81,7 +81,7 @@ button, input {
 	display: flex;
 	justify-content: space-between;
 	width: 1200px;
-	height: 530px;
+	height: 700px;
 	margin: 0 auto;
 }
 
@@ -179,6 +179,14 @@ button, input {
 	width: 900px;
 }
 
+/* 비어있을때 채팅 부분 */
+#emptyChatArea {
+	width: 900px;
+	height: 700px;
+	border: 1px solid #eee;
+	background-color: #f8f8f8;
+}
+
 
 /* 2dept menu */
 
@@ -204,7 +212,7 @@ button, input {
 <body>
 <div id="subvisual">
 	<div id="subvisual-A">
-		<p id="subv-title">운동 질문하기</p>
+		<p id="subv-title">멘토와 채팅하기</p>
 		<p id="subv-content">챌린지, 운동을 하며 궁금했던 점을 멘토들에게 궁금한점을 물어보세요.</p>
 	</div>
 </div>
@@ -234,7 +242,7 @@ button, input {
 			<button class="roomBtn" onclick="goChat(${room.roomNo })" >
 				
 				<div class="left">
-					<img src="https://webimage.10x10.co.kr/eventIMG/2022/118925/etcitemban20220623180508.JPEG">
+					<img src="${pageContext.request.contextPath}/upload/${room.storedName}">
 				</div>
 				
 				<div class="right">
@@ -257,9 +265,9 @@ button, input {
 	</div>
 	
 	<div id="result">
-		<c:if test="${empty roomList }">
-			<div>비어있다</div>
-		</c:if>
+			<div id="emptyChatArea">비어있다
+				
+			</div>
 	</div>
 </div>
 

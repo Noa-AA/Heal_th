@@ -28,6 +28,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 	@Override
 	public void addLoginDate(Attendance attendance) {
 		attendanceDao.addLoginDate(attendance);
+		attendanceDao.updatePoint(attendance.getUserNo());
 		
 	}
 

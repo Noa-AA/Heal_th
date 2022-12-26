@@ -172,6 +172,14 @@ public class ChatServiceImpl implements ChatService {
 	}
 	
 	// /chat/chatArea
+	//---------- 상대방 프로필 가져오기
+	@Override
+	public String getReciverProfile(RoomList roomNo) {
+		logger.info("getReciverProfile() - {}", roomNo);
+		return chatDao.selectReciverProfile(roomNo);
+	}
+	
+	// /chat/chatArea
 	//---------- 본인의 닉네임 조회하기
 	@Override
 	public String getSenderNick(HttpSession session) {
