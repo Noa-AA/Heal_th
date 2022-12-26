@@ -464,7 +464,7 @@
     height: 1680px;
 
 }
-input:focus{
+.inputInfo:focus{
 	border-bottom-color:#7ca3f5; 
 }
  
@@ -524,7 +524,6 @@ input:focus{
 	font-size: 17px;
 	color:gray;
 	 position: absolute;
-    top: 0px;
     margin: 10px 0 0;
 }
 
