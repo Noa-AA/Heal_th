@@ -145,6 +145,7 @@ public class ChatController {
 			
 			// 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
 			List<RoomList> roomList = chatService.roomList(myUserNo);
+			logger.info("roomList : {}", roomList);
 		
 			//roomList안에 값이 존재할때
 			List<Chat> lastChat = new ArrayList<>();
@@ -157,9 +158,6 @@ public class ChatController {
 			
 			
 			model.addAttribute("createRoomNo", session.getAttribute("createRoomNo"));
-			
-			logger.info("roomList : {}", roomList);
-			logger.info("lastChat : {}", lastChat);
 			
 //			채팅방 번호 전달 - Model객체 이용
 			model.addAttribute("roomList", roomList);
@@ -180,6 +178,10 @@ public class ChatController {
 			
 //			상대방 이름 가져오기
 			roomNo.setUserNick( chatService.getReciverNick(roomNo) );
+			
+			//상대방 사진 가져오기
+			roomNo.setStoredName( chatService.getReciverProfile(roomNo) );
+			logger.info( "구해온 상대방 사진 : {}", roomNo.getStoredName() );
 			
 			session.setAttribute("roomNo", roomNo.getRoomNo());
 			

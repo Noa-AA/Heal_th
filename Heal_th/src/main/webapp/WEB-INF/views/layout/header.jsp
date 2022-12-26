@@ -330,7 +330,7 @@ body {
 
 	<div id="topMenu" class="">	
 		<h1 class="logo">
-			<a href="">
+			<a href="/main">
 <!-- 				<img src="/resources/img/logo_blue.png" alt="득근득근"> -->
 <!-- 				<img src="/resources/img/logo_green.png" alt="득근득근"> -->
 				<img src="/resources/img/logo_purple.png" alt="득근득근">
@@ -343,8 +343,8 @@ body {
 				<a href="/challenge/list">챌린지</a>
 			</li>
 			<li>
-				<c:if test="${empty userNo }"><a id="goLogin">운동질문</a></c:if> <!-- 비로그인 상황 -->
-				<c:if test="${not empty userNo }"><a href="/chat/intro">운동질문</a></c:if> <!-- 로그인 상황 -->
+				<c:if test="${empty userNo }"><a id="goLogin">멘토와 채팅하기</a></c:if> <!-- 비로그인 상황 -->
+				<c:if test="${not empty userNo }"><a href="/chat/intro">멘토와 채팅하기</a></c:if> <!-- 로그인 상황 -->
 			</li>
 			<li>
 				<a href="/dghelper/healthtest">운동도우미</a>

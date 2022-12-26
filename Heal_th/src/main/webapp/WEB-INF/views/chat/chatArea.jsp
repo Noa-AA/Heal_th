@@ -29,6 +29,8 @@ $(document).ready(function() {
 	$("#sendBtn").on("click", function() {
 		sendMessage();
 		$('#msgInput').val('')
+		$('#sendBtn').attr("disabled", true)
+		$('#sendBtn').css('background-color', '#d8d8d8')
 	})
 	
 	
@@ -36,7 +38,7 @@ $(document).ready(function() {
 	$('#msgInput').on("input", function() {
 		if( $('#msgInput').val() == ''){      
 			$('#sendBtn').attr("disabled", true)
-			$('#sendBtn').css('background-color', '#eeeeee')
+			$('#sendBtn').css('background-color', '#d8d8d8')
 		} else {
 			$('#sendBtn').attr("disabled", false)
 			$('#sendBtn').css('background-color', '#7ca3f5')
@@ -131,7 +133,7 @@ button {
 
 #chatArea {
 	width: 900px;
-	height: 300px;
+	height: 470px;
 	padding-top: 26px;
 	overflow: hidden auto;
 }
@@ -243,13 +245,13 @@ button {
 #chatBack {
 	border: 1px solid #eee;
 	margin-left: -1px;
-	height: 530px;
+	height: 700px;
 }
 
 #chatTop {
 	display: flex;
 	width: 900px; 
-	height: 70px; 
+	height: 69px; 
 	border-bottom: 1px solid #eee; 
 	justify-content: flex-start;
 	align-items: center;
@@ -358,7 +360,9 @@ button {
     opacity: 0;
 }
 
-
+#file:hover {
+	cursor: pointer;
+}
 
 #fileIcon {
 	display: inline-flex;
@@ -401,7 +405,7 @@ button {
 	<div id="chatTop">
 		<!-- 사진부분 -->
 		<div class="leftImg">
-			<img src="https://img.freepik.com/premium-photo/a-cat-near-a-computer-mouse-work-in-the-office-at-the-computer-square-format_199743-1487.jpg">
+			<img src="${pageContext.request.contextPath}/upload/${roomNo.storedName}">
 		</div>
 		<!-- 닉네임 -->
 		<div id="myNick">
