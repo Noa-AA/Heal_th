@@ -70,7 +70,22 @@ $(document).ready(function(){
 	
 })
 </script>
-
+<style>
+#addOnsContainer{
+    width: 300px;
+    display: flex;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    justify-content: space-between;
+}
+#addOnsContainer button{
+	background-color: transparent;
+}
+#addOnsContainer button img{
+	 width : 70px;
+	 height : 70px;	
+}
+</style>
 
 <div id="addOnsContainer">
 	<div id="scrapContainer"></div>
