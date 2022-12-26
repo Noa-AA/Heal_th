@@ -11,25 +11,25 @@
 		SELECT count(*) FROM verifyboard
 	</select>
 	
-	<select id="selectList" resultType="VerifyBoard" parameterType="BoardPaging">
-		SELECT * FROM (
-			SELECT rownum rnum, V.* FROM (
-				SELECT
-					verify_no, v_title, user_no,
-					v_hit, v_thumbs, v_inst_date
-				FROM verifyboard
-				ORDER BY verify_no DESC
-			) V
-		) VerifyBoard
-		WHERE rnum BETWEEN #{startNo } AND #{endNo }
-	</select>
+<!-- 	<select id="selectList" resultType="VerifyBoard" parameterType="BoardPaging"> -->
+<!-- 		SELECT * FROM ( -->
+<!-- 			SELECT rownum rnum, V.* FROM ( -->
+<!-- 				SELECT -->
+<!-- 					verify_no, v_title, user_no, -->
+<!-- 					v_hit, v_thumbs, v_inst_date -->
+<!-- 				FROM verifyboard -->
+<!-- 				ORDER BY verify_no DESC -->
+<!-- 			) V -->
+<!-- 		) VerifyBoard -->
+<!-- 		WHERE rnum BETWEEN #{startNo } AND #{endNo } -->
+<!-- 	</select> -->
 	
 	<select id="updateHit" parameterType="VerifyBoard">
  		UPDATE verifyboard SET v_hit = v_hit + 1 
  		WHERE verify_no = #{verifyNo}
  	</select>
  	
- 	<select id="noticeList" resultType="Notice" parameterType="BoardPaging">
+ 	<select id="notice" resultType="Notice" parameterType="BoardPaging">
 		<![CDATA[
 			SELECT * FROM (
 				SELECT * FROM notice ORDER BY notice_no DESC ) 
@@ -95,10 +95,10 @@
 		ORDER BY verify_no DESC
 	</select>
 	
-	<select id="getPage" resultType="VerifyBoard">
-        SELECT * FROM verifyboard
-        WHERE verify_no = #{verifyNo}
-    </select>
+<!-- 	<select id="getPage" resultType="VerifyBoard"> -->
+<!--         SELECT * FROM verifyboard -->
+<!--         WHERE verify_no = #{verifyNo} -->
+<!--     </select> -->
 	
 	
     <sql id="boardSearch">
@@ -124,35 +124,27 @@
     
     </sql>
     
-    
     <select id="getSearchPaging" resultType="VerifyBoard">
-    
-    <![CDATA[
-        
-        SELECT verify_no, v_title, user_no,
-					v_hit, v_thumbs, v_inst_date  FROM(
-        
-                SELECT 
-                rownum  as rn, verify_no, v_title, user_no,
-								v_hit, v_thumbs, v_inst_date
+         
+         SELECT verify_no, v_title, user_no, 
+ 					v_hit, v_thumbs, v_inst_date  FROM( 
+            select rownum rn, d.* from (
+                 SELECT 
+                  verify_no, v_title, user_no, 
+ 								v_hit, v_thumbs, v_inst_date 
                   
-                FROM verifyboard WHERE rownum <= #{pageNum} * #{amount} 
-    ]]>            
-                <if test="keyword != null">
-                	<include refid="boardSearch"></include> 
+                 FROM verifyboard
+                                 <if test="keyword != null">
+                	WHERE v_title LIKE  '%${keyword}%'
                 </if>
-    
-    <![CDATA[
-                    
-                )
-                    
-        WHERE rn > (#{pageNum} -1) * #{amount}
-    
-    ]]>
-    
+                 
+                order by verify_no desc
+                ) d
+            
+        ) 
+         WHERE rn between  ( #{curPage}-1) *10 and  #{curPage}*10
     </select>
 	
-       
     
     <select id="getTotal" resultType="int">
     	SELECT count(*) FROM verifyboard

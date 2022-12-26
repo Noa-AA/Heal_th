@@ -62,9 +62,9 @@
 $(document).ready(function(){
 	
 	$("#btnInsert").click(function() {
+		confirm("게시글을 등록하시겠습니까?");
 		
 		$(this).parents("form").submit();
-		
 		alert("50 포인트가 적립됐습니다");
 	})
 
@@ -97,6 +97,9 @@ $(document).ready(function(){
 <div>
 	<label for="file">첨부파일</label>
 	<button type="button" id="file" name="file">첨부파일</button>
+	
+<%-- 	<jsp:include page="../file/upload.jsp" />  --%>
+	
 </div>
 	<label for="file">내용</label>
 	<textarea id="dContent" name="dContent" required id="dContent"></textarea>

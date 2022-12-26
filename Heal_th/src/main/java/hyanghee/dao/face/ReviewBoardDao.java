@@ -2,7 +2,6 @@ package hyanghee.dao.face;
 
 import java.util.List;
 
-import hyanghee.dto.Beforeafter;
 import hyanghee.dto.ReviewBoard;
 import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
@@ -31,14 +30,12 @@ public interface ReviewBoardDao {
 	public void delete(ReviewBoard reviewNo);
 
 	//공지사항 목록
-	public List<Notice> noticeList(BoardPaging boardPaging);
+	public List<Notice> notice(BoardSearch boardSearch);
 
 	//검색기능
 	public List<ReviewBoard> getSearchPaging(BoardSearch boardSearch);
 
 	public int getTotal(BoardSearch boardSearch);
-
-	public ReviewBoard getPage(int reviewNo);
 
 	//조회수
 	public void updateHit(ReviewBoard viewBoard);

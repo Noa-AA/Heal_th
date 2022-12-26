@@ -4,24 +4,26 @@ import java.util.Arrays;
 
 public class BoardSearch {
 
-    private int pageNum;
-    private int amount;
+    private int curPage; //현재 페이지
+    private int amount; //한 페이지 당 보여질 개시글 갯수
     private String keyword;
     private String type;
     private String[] typeArr;
+    
+    
     
     public BoardSearch() {
 		this(1,10);
 	}
 
-	public BoardSearch(int pageNum, int amount) {
-		this.pageNum = pageNum;
+	public BoardSearch(int curPage, int amount) {
+		this.curPage = curPage;
         this.amount = amount;
 	}
 
-	public BoardSearch(int pageNum, int amount, String keyword, String type, String[] typeArr) {
+	public BoardSearch(int curPage, int amount, String keyword, String type, String[] typeArr) {
 		super();
-		this.pageNum = pageNum;
+		this.curPage = curPage;
 		this.amount = amount;
 		this.keyword = keyword;
 		this.type = type;
@@ -30,16 +32,16 @@ public class BoardSearch {
 
 	@Override
 	public String toString() {
-		return "BoardSearch [pageNum=" + pageNum + ", amount=" + amount + ", keyword=" + keyword + ", type=" + type
+		return "BoardSearch [curPage=" + curPage + ", amount=" + amount + ", keyword=" + keyword + ", type=" + type
 				+ ", typeArr=" + Arrays.toString(typeArr) + "]";
 	}
 
-	public int getPageNum() {
-		return pageNum;
+	public int getcurPage() {
+		return curPage;
 	}
 
-	public void setPageNum(int pageNum) {
-		this.pageNum = pageNum;
+	public void setcurPage(int curPage) {
+		this.curPage = curPage;
 	}
 
 	public int getAmount() {

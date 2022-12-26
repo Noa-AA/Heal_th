@@ -12,13 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import hyanghee.dto.VerifyBoard;
 import hyanghee.service.face.VerifyBoardService;
 import hyanghee.util.BoardPageMaker;
-import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
 import saebyeol.dto.Notice;
@@ -32,27 +29,19 @@ public class VerifyBoardController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	//서비스 객체
-	@Autowired private VerifyBoardService verifyBoardService;	
+	@Autowired private VerifyBoardService verifyBoardService;
+	
+	//첨부 파일
+//	@Autowired private FileuploadService fileuploadService; 
 	
 	//운동인증 게시판 목록
 	@RequestMapping("board/verifyBoard")
-	public void list(
-			@RequestParam(defaultValue = "0") int curPage
-			, BoardSearch boardSearch
-			, Model model ) {
-		
-		BoardPaging paging = verifyBoardService.getPaging(curPage);
-		logger.debug("{}", paging);
-		model.addAttribute("boardPaging", paging);
+	public void list(BoardSearch boardSearch, Model model ) {
 		
 		//공지사항
-		List<Notice> notice = verifyBoardService.notice(paging);
+		List<Notice> notice = verifyBoardService.notice(boardSearch);
 		for( Notice n : notice )	logger.info("{}", n);
 		model.addAttribute("notice", notice);
-		
-//		List<VerifyBoard> list = verifyBoardService.list(paging);
-//		for( VerifyBoard v : list )	logger.debug("{}", v);
-//		model.addAttribute("list", list);
 		
 		//검색
 		model.addAttribute("boardSearch", verifyBoardService.getSearchPaging(boardSearch));
@@ -89,7 +78,9 @@ public class VerifyBoardController {
 	}
 	
 	@PostMapping("/board/vWrite")
-	public String insertVerifyBoardProc(VerifyBoard verifyBoard,HttpSession session) {
+	public String insertVerifyBoardProc(VerifyBoard verifyBoard,HttpSession session
+//			, List<MultipartFile> multiFile
+			) {
 		
 		//테스트용 로그인 userno
 		//session.setAttribute("userNo", 7777);
@@ -101,6 +92,10 @@ public class VerifyBoardController {
 		logger.info("{}", verifyBoard);
 		
 		verifyBoardService.insertVerifyBoard(verifyBoard);
+		
+//		 int boardNo = bfBoard.getBfNo(); //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
+//	     int categoryNo = 2;//----------------카테고리번호 넣어주세여~
+//	     fileuploadService.insertFile(multiFile, boardNo, categoryNo);
 		
 		int point = (Integer)session.getAttribute("userNo");
 		verifyBoardService.updatePoint(point);

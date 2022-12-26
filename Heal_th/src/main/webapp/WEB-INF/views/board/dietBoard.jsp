@@ -109,6 +109,52 @@ body{
   border: none;
 }
 
+/* 페이징 부분 */
+.text-center {
+	display: flex;
+	justify-content: center; 
+	margin-top: 50px;
+}
+
+.pagination {
+	display: flex;
+	margin: 0;
+}
+
+.pagination > li{
+	display: flex;
+}
+
+.pagination > li > a {
+	display: flex;
+	margin: 0 4px;
+	width: 40px;
+	height: 40px;
+	border-radius: 20px !important;
+	font-size: 16px;
+	justify-content: center;
+	align-items: center;
+	color: #7ca3f5;
+}
+
+.none:hover {
+	cursor: default;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+	background-color: #7ca3f5;
+    border-color: #7ca3f5;
+}
+
+
+.material-symbols-outlined {
+	font-variation-settings:
+	'FILL' 0,
+	'wght' 400,
+	'GRAD' 0,
+	'opsz' 48
+}
+
 </style>
 
 <script type="text/javascript">
@@ -133,7 +179,7 @@ $(document).ready(function() {
 	$(".pageInfo a").on("click", function(e) {
 		e.preventDefault();
 
-		moveForm.find("input[name='pageNum']").val($(this).attr("href"));
+		moveForm.find("input[name='curPage']").val($(this).attr("href"));
 		moveForm.attr("action", "/board/dietBoard");
 		moveForm.submit();
 
@@ -155,7 +201,7 @@ $(document).ready(function() {
 
 		moveForm.find("input[name='type']").val(type);
 		moveForm.find("input[name='keyword']").val(keyword);
-		moveForm.find("input[name='pageNum']").val(1);
+		moveForm.find("input[name='curPage']").val(1);
 		moveForm.submit();
 	});
 	
@@ -180,14 +226,26 @@ $(document).ready(function() {
 
 
 
+<div id="subvisual">
+	<div id="subvisual-A">
+		<p id="subv-title">커뮤니티</p>
+	</div>
+</div>
+<div id="twoDepth">
+	<div id="twoDepth-list">
+		<a href="/board/boardList">소개</a>
+		<a href="/board/bfBoard">비포 애프터</a>
+		<a href="/board/verifyBoard">운동 인증</a>
+		<a href="/board/dietBoard">식단 공유</a>
+		<a href="/board/reviewBoard">시설 후기</a>
+	</div>
+</div>
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 
 
 <div class="container" id="container">
-
-<h1 style="text-align: center;">커뮤니티</h1><br><br><br><br>
-
 
 <div class="dietBoard" id="search" name="search">
 
@@ -221,7 +279,7 @@ $(document).ready(function() {
 				</c:if>
 
 				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-					<li class="pageInfo_btn ${pageMaker.boardSearch.pageNum == num ? "active":"" }"></li>
+					<li class="pageInfo_btn ${pageMaker.boardSearch.curPage == num ? "active":"" }"></li>
 				</c:forEach>
 
 				<c:if test="${pageMaker.next}">
@@ -234,7 +292,7 @@ $(document).ready(function() {
 
 	<form id="moveForm" method="get">
 		<input type="hidden" id="dietNo" name="dietNo" value='<c:out value="${pageInfo.dietNo}"/>'>
-		<input type="hidden" name="pageNum" value="${pageMaker.boardSearch.pageNum }">
+		<input type="hidden" name="curPage" value="${pageMaker.boardSearch.curPage }">
 		<input type="hidden" name="amount" value="${pageMaker.boardSearch.amount }">
 		<input type="hidden" name="keyword" value="${pageMaker.boardSearch.keyword }">
 		<input type="hidden" name="type" value="${pageMaker.boardSearch.type }">
@@ -297,10 +355,68 @@ $(document).ready(function() {
 </tbody>
 </table>
 
-<span class="pull-right">total : ${paging.totalCount }</span>
-<div class="clearfix"></div>
+	<div class="text-center">
+		<ul class="pagination pagination-sm">
+	
+		<%-- 첫 페이지로 이동 (이동할게 없을때) --%>
+		<c:if test="${pageMaker.curPage eq 1 }">
+			<li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
+		</c:if>
+	
+		<%-- 첫 페이지로 이동 --%>
+		<c:if test="${pageMaker.curPage ne 1 }">
+			<li><a href="/board/dietBoard"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
+		</c:if>
+		
+		
+		<%-- 이전 페이지로 가기 --%>
+		<c:if test="${pageMaker.curPage > 1 }">
+			<li><a href="/board/dietBoard?curPage=${pageMaker.curPage - 1 }"><span class="material-symbols-outlined">navigate_before</span></a></li>
+		</c:if>
+		
+		<%-- 이전 페이지로 가기 (이전으로 갈 페이지 없을때) --%>
+		<c:if test="${pageMaker.curPage <= 1 }">
+			<li><a class="none"><span class="material-symbols-outlined">navigate_before</span></a></li>
+		</c:if>
+		
+			
+		<%-- 페이징 리스트 --%>
+		<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="i">
+		<c:if test="${pageMaker.curPage eq i }">
+			<li class="active"><a href="/board/dietBoard?curPage=${i }">${i }</a></li>
+		</c:if>
+		
+		<c:if test="${pageMaker.curPage ne i }">
+			<li><a href="/board/dietBoard?curPage=${i }">${i }</a></li>
+		</c:if>
+		</c:forEach>
+	
+		
+		
+		<%-- 다음 페이지로 가기 --%>
+		<c:if test="${pageMaker.curPage < pageMaker.totalPage }">
+			<li><a href="/board/dietBoard?curPage=${pageMaker.curPage + 1 }"><span class="material-symbols-outlined">navigate_next</span></a></li>
+		</c:if>
+		
+		<%-- 다음 페이지로 가기 (다음으로 갈 페이지 없을때) --%>
+		<c:if test="${pageMaker.curPage >= pageMaker.totalPage }">
+			<li><a class="none"><span class="material-symbols-outlined">navigate_next</span></a></li>
+		</c:if>
+		
+	
+		<%-- 끝 페이지로 이동 --%>
+		<c:if test="${pageMaker.curPage ne pageMaker.totalPage }">
+			<li><a href="/board/dietBoard?curPage=${pageMaker.totalPage }" ><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+		</c:if>
+		
+		<%-- 끝 페이지로 이동 (끝으로갈게 없을때) --%>
+		<c:if test="${pageMaker.curPage eq pageMaker.totalPage }">
+			<li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+		</c:if>
+		
+		</ul>
+	</div>
 
-<c:import url="/WEB-INF/views/board/paging.jsp" />
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 <div class="page-content page-container" id="page-content">

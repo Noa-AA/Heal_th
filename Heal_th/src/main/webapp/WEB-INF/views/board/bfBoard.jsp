@@ -35,7 +35,6 @@ body{
 
 #container{
 	width: 1200px;
-	height: 1800px;
 }
 
 #btnWrite {
@@ -45,8 +44,11 @@ body{
 	border-radius: 7px;
 	font-size: 22px;
 	font-weight: bold;
-	width: 173px;
+	width: 132px;
 	height: 50px;
+	float: right;
+	margin-top: -104px;
+	display: block;
 }
 
 #totalList {
@@ -99,31 +101,50 @@ body{
   border: none;
 }
 
-/* .container{margin-top:200px;text-align:center} */
-
-/* 탭메뉴 공통 */
-.tab_menu{
-	width:800px;
- 	margin:30px auto 0;
-	list-style:none;
+/* 페이징 부분 */
+.text-center {
+	display: flex;
+	justify-content: center; 
+	margin-top: 50px;
 }
-.tab_menu li{border:1px solid #ccc; list-style:none;}
 
-/* 탭메뉴 버튼 */
-.tab_menu {display:table;table-layout:fixed;}
-.tab_menu li{display:table-cell;padding:20px 0;cursor:pointer; background:white;}
-.tab_menu li.on{
-	background:#7ca3f5; 
-	color: white;
-	font-size: 20px;
-	text-align: center;
- }
-.tab_menu li+li{border-left:none;}
+.pagination {
+	display: flex;
+	margin: 0;
+}
 
-#comDepth{
-	font-size: 20px;
-	text-align: center;
-	text-decoration: none;
+.pagination > li{
+	display: flex;
+}
+
+.pagination > li > a {
+	display: flex;
+	margin: 0 4px;
+	width: 40px;
+	height: 40px;
+	border-radius: 20px !important;
+	font-size: 16px;
+	justify-content: center;
+	align-items: center;
+	color: #7ca3f5;
+}
+
+.none:hover {
+	cursor: default;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+	background-color: #7ca3f5;
+    border-color: #7ca3f5;
+}
+
+
+.material-symbols-outlined {
+	font-variation-settings:
+	'FILL' 0,
+	'wght' 400,
+	'GRAD' 0,
+	'opsz' 48
 }
 
 #boardList{
@@ -141,6 +162,30 @@ body{
     padding-left: 10px;
     border-radius: 16px;
 	
+}
+
+#article ul{
+	display: block;
+	margin: 0;
+    padding: 0;
+    line-height: 4;
+    border-bottom: 1px solid #ccc;
+}
+
+#searchResult:hover{
+	background-color: #F7F7F7;
+}
+
+#boardUrl{
+	font-size: 20px; 
+	font-weight: bold; 
+}
+
+.ellipsis {
+	display:-webkit-box;
+	-webkit-box-orient:vertical;
+	overflow:hidden;
+	-webkit-line-clamp:1;
 }
 
 </style>
@@ -167,7 +212,7 @@ $(document).ready(function() {
 	$(".pageInfo a").on("click", function(e) {
 		e.preventDefault();
 
-		moveForm.find("input[name='pageNum']").val($(this).attr("href"));
+		moveForm.find("input[name='curPage']").val($(this).attr("href"));
 		moveForm.attr("action", "/board/bfBoard");
 		moveForm.submit();
 
@@ -189,7 +234,7 @@ $(document).ready(function() {
 
 		moveForm.find("input[name='type']").val(type);
 		moveForm.find("input[name='keyword']").val(keyword);
-		moveForm.find("input[name='pageNum']").val(1);
+		moveForm.find("input[name='curPage']").val(1);
 		moveForm.submit();
 	});
 	
@@ -237,7 +282,7 @@ $(document).ready(function() {
 </div>
 <div id="twoDepth">
 	<div id="twoDepth-list">
-		<a href="/board/bfList">소개</a>
+		<a href="/board/boardList">소개</a>
 		<a href="/board/bfBoard">비포 애프터</a>
 		<a href="/board/verifyBoard">운동 인증</a>
 		<a href="/board/dietBoard">식단 공유</a>
@@ -249,92 +294,20 @@ $(document).ready(function() {
 
 <div class="container" id="container">
 
-<div class="beforeafter" id="search" name="search">
-
-
-<div class="search_wrap">
-		
-			<div class="search_area">
-				<select name="type" id="type">
-					<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option>
-					<option value="C" <c:out value="${pageMaker.boardSearch.type eq 'C'?'selected':'' }"/>>내용</option>
-					<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option>
-				</select> 
-				
-					<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search...">
-				<button id="searchIcon"><i class="fas fa-search"></i></button>
-				
-				
-			</div>
-		</div>
-	</div>
 
 <br><br><br><br>
 
-<!-- <div id="community" name="community"> -->
-<!-- 	<ul class="tab_menu" style="text-align: center;"> -->
-<!-- 		<li data-tab="tab-1" class="on" id="tab"><a href="/board/bfBoard" style="color: white; font-weight: bold;" id="comDepth" class="tabCon" >비포 애프터</a></li> -->
-<!-- 		<li data-tab="tab-2" id="tab"><a href="/board/verifyBoard" id="comDepth" class="tabCon">운동 인증</a></li> -->
-<!-- 		<li data-tab="tab-3" id="tab"><a href="/board/dietBoard" id="comDepth" class="tabCon">식단 공유</a></li> -->
-<!-- 		<li data-tab="tab-4" id="tab"><a href="/board/reviewBoard" id="comDepth" class="tabCon">시설 리뷰</a></li> -->
-<!-- 	</ul> -->
-<!-- </div> -->
-
-<div class="pageInfo_wrap">
-		<div class="pageInfo_area">
-			<ul id="pageInfo" class="pageInfo">
-
-				<c:if test="${pageMaker.prev}">
-					<li class="pageInfo_btn previous"><a href="${pageMaker.startPage - 1}">Previous</a></li>
-				</c:if>
-
-				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-					<li class="pageInfo_btn ${pageMaker.boardSearch.pageNum == num ? "active":"" }"></li>
-				</c:forEach>
-
-				<c:if test="${pageMaker.next}">
-					<li class="pageInfo_btn next"><a href="${pageMaker.endPage + 1 }">Next</a></li>
-				</c:if>
-
-			</ul>
-		</div>
-	</div>
-
-	<form id="moveForm" method="get">
-		<input type="hidden" id="bfNo" name="bfNo" value='<c:out value="${pageInfo.bfNo}"/>'>
-		<input type="hidden" name="pageNum" value="${pageMaker.boardSearch.pageNum }">
-		<input type="hidden" name="amount" value="${pageMaker.boardSearch.amount }">
-		<input type="hidden" name="keyword" value="${pageMaker.boardSearch.keyword }">
-		<input type="hidden" name="type" value="${pageMaker.boardSearch.type }">
-	</form>
 	
 
 <br><br><br><br>
 
 
+
+
 <div id="boardList">
-	<h3 style="font-weight: bold; color: #06364E; font-size: 30px;">비포 애프터 게시판</h3>
+	<h3 style="font-weight: bold; color: #06364E; font-size: 30px; float: left;">비포 애프터 게시판</h3>
 </div>
 
-<!-- <div class="beforeafter" id="search" name="search"> -->
-
-
-<!-- <div class="search_wrap"> -->
-		
-<!-- 			<div class="search_area"> -->
-<!-- 				<select name="type" id="type"> -->
-<%-- 					<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option> --%>
-<%-- 					<option value="C" <c:out value="${pageMaker.boardSearch.type eq 'C'?'selected':'' }"/>>내용</option> --%>
-<%-- 					<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option> --%>
-<!-- 				</select>  -->
-				
-<%-- 					<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search..."> --%>
-<!-- 				<button id="searchIcon"><i class="fas fa-search"></i></button> -->
-				
-				
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
 
     <div>
     	<a href="/board/bfBoard" id="totalList" name="totalList">전체 게시글 보기 ▼</a>
@@ -342,59 +315,110 @@ $(document).ready(function() {
 
 
 
-<br><br><br>
+<br><br><br><br>
 
-<div id="anyList">
-<table class="table table-hover">
-<thead>
-	<tr style="border-top: 3px solid #84C9E3;">
-		<th style="width: 10%;">글번호</th>
-		<th style="width: 45%;">제목</th>
-		<th style="width: 20%;">작성자</th>
-		<th style="width: 10%;">조회수</th>
-		<th style="width: 10%;">좋아요</th>
-		<th style="width: 15%;">작성일</th>
-	</tr>
-
-</thead>
-<tbody>
-
-<!-- 공지사항 -->
+<div id="article" style="border-top: 3px solid #84C9E3;">
 <c:forEach items="${notice}" var="notice">
-	<tr id="warn">
-		<td><strong id="noticeStrong">공지</strong> </td>
-		<td><a href="/notice/view?noticeNo=${notice.noticeNo}&noticeNo=3&"> <strong>${notice.noticeTtl } </strong></a></td>
-		<td><strong style="color: #0D71A4;">관리자</strong></td>
-		<td>${notice.noticeHit }</td>
-		<td>공지</td>
-		<td><fmt:formatDate value="${notice.noticeDate }" pattern="yyyy-MM-dd" /></td>
-	</tr>
+	<ul id="noticeUl" style="list-style: none;">
+		<li style="float: left; margin-right: 100px; display: block;" id="noticeLi"><strong id="noticeStrong">공지</strong></li>
+		<li style="float: left; display: block;"><a href="/notice/view?noticeNo=${notice.noticeNo}&noticeNo=3&"><strong>${notice.noticeTtl }</strong></a></li>
+		<li style="float: right; margin-left: 8px; display: block;"><strong style="color: #0D71A4;">관리자</strong></li>
+		<li style="float: right; margin-left: 8px; display: block;" >|</li>
+		<li style="float: right; margin-left: 8px; display: block;">조회수 ${notice.noticeHit }</li>
+		<li style="float: right; margin-left: 8px; display: block;" >|</li>
+<!-- 		<li style="float: left; margin-right: 20px;"><strong style="color: #0D71A4;">공지</strong></li> -->
+		<li style="float: right; margin-left: 20px; display: block;">작성일 <fmt:formatDate value="${notice.noticeDate }" pattern="yy-MM-dd" /></li><br>
+	</ul>
 		
 </c:forEach>
 
 <!-- 일반 게시글 / 검색결과 -->
 <c:forEach items="${boardSearch }" var="boardSearch">
-	<tr id="searchResult">
-		<td>${boardSearch.bfNo }</td>
-		<td><a href="${path}/board/bfView?bfNo=${boardSearch.bfNo}">${boardSearch.bfTitle }</a></td>
-		<td>${boardSearch.userNo }</td>
-		<td>${boardSearch.bfHit }</td>
-		<td>${boardSearch.bfThumbs }</td>
-		<td><fmt:formatDate value="${boardSearch.bfInstDate }" pattern="yy-MM-dd"/></td>
-	</tr>
+	<ul id="searchResult" style="list-style: none;">
+		<li style="float: left; display: none;" >${boardSearch.bfNo }</li>
+		<li style="float: left; line-height:380%;"><a href="${path}/board/bfView?bfNo=${boardSearch.bfNo}" id="boardUrl">${boardSearch.bfTitle }</a></li><br>
+		<li style="float: left;" class="ellipsis" >${boardSearch.beforeCon }</li><br>
+		<li style="float: left;" class="ellipsis" >${boardSearch.afterCon }</li><br>
+		<li style="float: left; margin-right: 8px;" ><strong style="color: #0D71A4;">${boardSearch.userNick }</strong></li>
+		<li style="float: left; margin-right: 8px;" >|</li>
+		<li style="float: left; margin-right: 8px;" >작성일 <fmt:formatDate value="${boardSearch.bfInstDate }" pattern="yy-MM-dd"/></li>
+		<li style="float: left; margin-right: 8px;" >|</li>
+		<li style="float: left; margin-right: 8px;" >조회수 ${boardSearch.bfHit }</li>
+		<li style="float: left; margin-right: 8px;" >|</li>
+		<li style="float: left;">좋아요 ${boardSearch.bfThumbs }</li><br>
+	</ul>
 </c:forEach>
 
-<tr style="border-bottom: 3px solid #84C9E3;"></tr>
+<div style="border-top: 3px solid #84C9E3;"></div>
 
-
-</tbody>
-</table>
 </div>
 
 
-<div class="clearfix"></div>
 
-<c:import url="/WEB-INF/views/board/paging.jsp" />
+	<div class="text-center">
+		<ul class="pagination pagination-sm">
+	
+		<%-- 첫 페이지로 이동 (이동할게 없을때) --%>
+		<c:if test="${pageMaker.curPage eq 1 }">
+			<li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
+		</c:if>
+	
+		<%-- 첫 페이지로 이동 --%>
+		<c:if test="${pageMaker.curPage ne 1 }">
+			<li><a href="/board/bfBoard"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
+		</c:if>
+		
+		
+		<%-- 이전 페이지로 가기 --%>
+		<c:if test="${pageMaker.curPage > 1 }">
+			<li><a href="/board/bfBoard?curPage=${pageMaker.curPage - 1 }"><span class="material-symbols-outlined">navigate_before</span></a></li>
+		</c:if>
+		
+		<%-- 이전 페이지로 가기 (이전으로 갈 페이지 없을때) --%>
+		<c:if test="${pageMaker.curPage <= 1 }">
+			<li><a class="none"><span class="material-symbols-outlined">navigate_before</span></a></li>
+		</c:if>
+		
+			
+		<%-- 페이징 리스트 --%>
+		<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="i">
+		<c:if test="${pageMaker.curPage eq i }">
+			<li class="active"><a href="/board/bfBoard?curPage=${i }">${i }</a></li>
+		</c:if>
+		
+		<c:if test="${pageMaker.curPage ne i }">
+			<li><a href="/board/bfBoard?curPage=${i }">${i }</a></li>
+		</c:if>
+		</c:forEach>
+	
+		
+		
+		<%-- 다음 페이지로 가기 --%>
+		<c:if test="${pageMaker.curPage < pageMaker.totalPage }">
+			<li><a href="/board/bfBoard?curPage=${pageMaker.curPage + 1 }"><span class="material-symbols-outlined">navigate_next</span></a></li>
+		</c:if>
+		
+		<%-- 다음 페이지로 가기 (다음으로 갈 페이지 없을때) --%>
+		<c:if test="${pageMaker.curPage >= pageMaker.totalPage }">
+			<li><a class="none"><span class="material-symbols-outlined">navigate_next</span></a></li>
+		</c:if>
+		
+	
+		<%-- 끝 페이지로 이동 --%>
+		<c:if test="${pageMaker.curPage ne pageMaker.totalPage }">
+			<li><a href="/board/bfBoard?curPage=${pageMaker.totalPage }" ><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+		</c:if>
+		
+		<%-- 끝 페이지로 이동 (끝으로갈게 없을때) --%>
+		<c:if test="${pageMaker.curPage eq pageMaker.totalPage }">
+			<li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+		</c:if>
+		
+		</ul>
+	</div>
+
+
+
 
 <br><br><br>
 
@@ -408,7 +432,56 @@ $(document).ready(function() {
     </div>
 </div>
 
+<div class="beforeafter" id="search" name="search">
+
+<form action="/board/bfBoard" method="get">
+	<div class="search_wrap">
+		<div class="search_area">
+			<select name="type" id="type">
+				<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option>
+				<option value="C" <c:out value="${pageMaker.boardSearch.type eq 'C'?'selected':'' }"/>>내용</option>
+				<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option>
+			</select> 
+				
+				<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search...">
+					<button id="searchIcon"><i class="fas fa-search"></i></button>
+		</div>
+	</div>
+</form>
+
+<div class="pageInfo_wrap">
+		<div class="pageInfo_area">
+			<ul id="pageInfo" class="pageInfo">
+
+				<c:if test="${pageMaker.prev}">
+					<li class="pageInfo_btn previous"><a href="${pageMaker.startPage - 1}">Previous</a></li>
+				</c:if>
+
+				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+					<li class="pageInfo_btn ${pageMaker.boardSearch.curPage == num ? "active":"" }"></li>
+				</c:forEach>
+
+				<c:if test="${pageMaker.next}">
+					<li class="pageInfo_btn next"><a href="${pageMaker.endPage + 1 }">Next</a></li>
+				</c:if>
+
+			</ul>
+		</div>
+	</div>
+
+	<form id="moveForm" method="get">
+		<input type="hidden" id="bfNo" name="bfNo" value='<c:out value="${pageInfo.bfNo}"/>'>
+		<input type="hidden" name="curPage" value="${pageMaker.boardSearch.curPage }">
+		<input type="hidden" name="amount" value="${pageMaker.boardSearch.amount }">
+		<input type="hidden" name="keyword" value="${pageMaker.boardSearch.keyword }">
+		<input type="hidden" name="type" value="${pageMaker.boardSearch.type }">
+	</form>
+
+
+</div>
+
 </div>
 
 <%@include file="../layout/footer.jsp" %>
+
 
