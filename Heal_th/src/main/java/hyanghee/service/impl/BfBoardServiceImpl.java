@@ -102,6 +102,11 @@ public class BfBoardServiceImpl implements BfBoardService {
 		return bfBoardDao.selectUserNick(userno);
 	}
 
+	@Override
+	public int getPhoto(int userno) {
+		return bfBoardDao.getPhoto(userno);
+	}
+
 
 
 }

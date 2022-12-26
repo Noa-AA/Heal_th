@@ -144,12 +144,12 @@
     
     <select id="getSearchPaging" resultType="Beforeafter">
          
-         SELECT bf_no, bf_title, user_no, user_nick, 
- 					bf_hit, bf_thumbs, bf_inst_date  FROM( 
+         SELECT bf_no, bf_title, user_no, user_nick, before_con,
+ 					after_con, bf_hit, bf_thumbs, bf_inst_date  FROM( 
             select rownum rn, d.* from (
                  SELECT 
-                  bf_no, bf_title, user_no, user_nick,
- 								bf_hit, bf_thumbs, bf_inst_date 
+                  bf_no, bf_title, user_no, user_nick, before_con,
+ 								after_con, bf_hit, bf_thumbs, bf_inst_date 
                   
                  FROM beforeafter
                                  <if test="keyword != null">

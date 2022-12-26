@@ -30,7 +30,10 @@ public class ReviewBoardController {
 		private final Logger logger = LoggerFactory.getLogger(this.getClass());
 				
 		//서비스 객체
-		@Autowired private ReviewBoardService reviewBoardService;	
+		@Autowired private ReviewBoardService reviewBoardService;
+		
+		//첨부 파일
+//		@Autowired private FileuploadService fileuploadService; 
 		
 		
 		//게시글 리스트
@@ -77,7 +80,9 @@ public class ReviewBoardController {
 		}
 		
 		@PostMapping("/board/rWrite")
-		public String insertReviewProc(ReviewBoard reviewBoard,HttpSession session) {
+		public String insertReviewProc(ReviewBoard reviewBoard,HttpSession session
+//				, List<MultipartFile> multiFile
+				) {
 			
 			//테스트용 로그인 userno
 			//session.setAttribute("userNo", 7777);
@@ -89,6 +94,10 @@ public class ReviewBoardController {
 			logger.info("{}", reviewBoard);
 			
 			reviewBoardService.insertReview(reviewBoard);
+			
+//			 int boardNo = bfBoard.getBfNo(); //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
+//		     int categoryNo = 4;//----------------카테고리번호 넣어주세여~
+//		     fileuploadService.insertFile(multiFile, boardNo, categoryNo);
 			
 			int point = (Integer)session.getAttribute("userNo");
 			reviewBoardService.updatePoint(point);

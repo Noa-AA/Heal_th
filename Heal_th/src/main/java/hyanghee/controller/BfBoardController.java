@@ -21,6 +21,7 @@ import jucheol.dto.Comment;
 import saebyeol.dto.Notice;
 import yerim.dto.PhotoFile;
 import yerim.dto.Users;
+import yerim.service.face.MypageService;
 
 
 @Controller
@@ -31,6 +32,9 @@ public class BfBoardController {
 			
 	//서비스 객체
 	@Autowired private BfBoardService bfBoardService;
+	
+	//프로필 사진
+//	@Autowired MypageService mypageService;
 	
 	//첨부 파일
 //	@Autowired private FileuploadService fileuploadService; 
@@ -44,8 +48,19 @@ public class BfBoardController {
 		model.addAttribute("notice", notice);
 		
 		//유저 프로필 사진
-		model.addAttribute("storedName", profile.getUserNo());
-		logger.info("profile {}", profile);
+//		PhotoFile profilePhoto = mypageService.getPhoto(session, profile);
+//		logger.info("프로필 {}",profilePhoto);
+//		
+//		model.addAttribute("storedName", profile.getUserNo());
+//		logger.info("profile {}", profile);
+		
+//		Users users = bfBoardService.getUserInfo(userno);
+//		logger.info("userInfo : {}", users);
+//		model.addAttribute("users", users);
+//		
+//		int fileno = bfBoardService.getPhoto(userno);
+//		logger.info("storedName: {}", fileno);
+//		model.addAttribute("storedName", fileno);
 		
 		//검색
 		model.addAttribute("boardSearch", bfBoardService.getSearchPaging(boardSearch));
@@ -88,7 +103,9 @@ public class BfBoardController {
 	}
 	
 	@PostMapping("/board/bfWrite")
-	public String insertBfBoardProc(Beforeafter bfBoard,  HttpSession session, Model model) {
+	public String insertBfBoardProc(Beforeafter bfBoard, HttpSession session
+//			, List<MultipartFile> multiFile
+			) {
 		logger.info("/board/bfWrite [POST]");
 		logger.info("file/write[POST]");
 		
@@ -102,9 +119,9 @@ public class BfBoardController {
 		
 		bfBoardService.insertBfBoard(bfBoard);
 		
-//		 int boardNo = 3; //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
-//	     int categoryNo = 2;//----------------카테고리번호 넣어주세여~
-//	     fileuploadService.insertFile(multiFile,boardNo,categoryNo);
+//		 int boardNo = bfBoard.getBfNo(); //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
+//	     int categoryNo = 1;//----------------카테고리번호 넣어주세여~
+//	     fileuploadService.insertFile(multiFile, boardNo, categoryNo);
 		
 		
 		int point = (Integer)session.getAttribute("userNo");
@@ -115,19 +132,6 @@ public class BfBoardController {
 		return "redirect:/board/bfBoard";
 	}
 	
-	
-	//첨부 파일
-//	@PostMapping("/write")
-//	   public void fileupload(
-//	         List<MultipartFile> multiFile //-----------추가해주세여~
-//	         ) {
-//	      logger.info("file/write[POST]");
-//	      //-------- 여기부터
-//	      int boardNo = 3; //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
-//	      int categoryNo = 2;//----------------카테고리번호 넣어주세여~
-//	      fileuploadService.insertFile(multiFile,boardNo,categoryNo);
-//	      //-------- 여기까지
-//	   }
 	
 	
 	//게시글 상세 보기

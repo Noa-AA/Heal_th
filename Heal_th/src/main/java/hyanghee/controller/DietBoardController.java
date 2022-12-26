@@ -28,7 +28,10 @@ public class DietBoardController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 				
 	//서비스 객체
-	@Autowired private DietBoardService dietBoardService;	
+	@Autowired private DietBoardService dietBoardService;
+	
+	//첨부 파일
+//	@Autowired private FileuploadService fileuploadService; 
 		
 	//게시글 리스트
 	@RequestMapping("/board/dietBoard")
@@ -78,7 +81,9 @@ public class DietBoardController {
 		
 //	@Autowired private FileuploadService fileuploadService;
 	@PostMapping("/board/dWrite")
-	public String insertBoardProc(DietBoard dietBoard,HttpSession session) {
+	public String insertBoardProc(DietBoard dietBoard,HttpSession session
+//			, List<MultipartFile> multiFile
+			) {
 		
 		//테스트용 로그인 userno
 		session.setAttribute("userNo", 7777);
@@ -89,6 +94,10 @@ public class DietBoardController {
 		logger.info("{}", dietBoard);
 				
 		dietBoardService.insertDietBoard(dietBoard);
+		
+//		 int boardNo = bfBoard.getBfNo(); //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
+//	     int categoryNo = 3;//----------------카테고리번호 넣어주세여~
+//	     fileuploadService.insertFile(multiFile, boardNo, categoryNo);
 		
 		int point = (Integer)session.getAttribute("userNo");
 		dietBoardService.updatePoint(point);

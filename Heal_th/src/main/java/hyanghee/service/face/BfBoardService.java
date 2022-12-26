@@ -42,6 +42,8 @@ public interface BfBoardService {
 
 	public String getUserNick(int userno);
 
+	public int getPhoto(int userno);
+
 
 
 	

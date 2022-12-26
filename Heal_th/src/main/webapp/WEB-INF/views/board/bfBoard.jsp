@@ -35,7 +35,6 @@ body{
 
 #container{
 	width: 1200px;
-	height: 1800px;
 }
 
 #btnWrite {
@@ -165,6 +164,30 @@ body{
 	
 }
 
+#article ul{
+	display: block;
+	margin: 0;
+    padding: 0;
+    line-height: 4;
+    border-bottom: 1px solid #ccc;
+}
+
+#searchResult:hover{
+	background-color: #F7F7F7;
+}
+
+#boardUrl{
+	font-size: 20px; 
+	font-weight: bold; 
+}
+
+.ellipsis {
+	display:-webkit-box;
+	-webkit-box-orient:vertical;
+	overflow:hidden;
+	-webkit-line-clamp:1;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -279,6 +302,8 @@ $(document).ready(function() {
 <br><br><br><br>
 
 
+
+
 <div id="boardList">
 	<h3 style="font-weight: bold; color: #06364E; font-size: 30px; float: left;">비포 애프터 게시판</h3>
 </div>
@@ -290,53 +315,42 @@ $(document).ready(function() {
 
 
 
-<br><br><br>
+<br><br><br><br>
 
-<div id="anyList">
-<table class="table table-hover">
-<thead>
-	<tr style="border-top: 3px solid #84C9E3;">
-		<th style="width: 10%;">글번호</th>
-		<th style="width: 45%;">제목</th>
-		<th style="width: 20%;">작성자</th>
-		<th style="width: 10%;">조회수</th>
-		<th style="width: 10%;">좋아요</th>
-		<th style="width: 15%;">작성일</th>
-	</tr>
-
-</thead>
-<tbody>
-
-<!-- 공지사항 -->
+<div id="article" style="border-top: 3px solid #84C9E3;">
 <c:forEach items="${notice}" var="notice">
-	<tr id="warn">
-		<td><strong id="noticeStrong">공지</strong> </td>
-		<td><a href="/notice/view?noticeNo=${notice.noticeNo}&noticeNo=3&"> <strong>${notice.noticeTtl } </strong></a></td>
-		<td><strong style="color: #0D71A4;">관리자</strong></td>
-		<td>${notice.noticeHit }</td>
-		<td><strong style="color: #0D71A4;">공지</strong></td>
-		<td><fmt:formatDate value="${notice.noticeDate }" pattern="yy-MM-dd" /></td>
-	</tr>
+	<ul id="noticeUl" style="list-style: none;">
+		<li style="float: left; margin-right: 100px; display: block;" id="noticeLi"><strong id="noticeStrong">공지</strong></li>
+		<li style="float: left; display: block;"><a href="/notice/view?noticeNo=${notice.noticeNo}&noticeNo=3&"><strong>${notice.noticeTtl }</strong></a></li>
+		<li style="float: right; margin-left: 8px; display: block;"><strong style="color: #0D71A4;">관리자</strong></li>
+		<li style="float: right; margin-left: 8px; display: block;" >|</li>
+		<li style="float: right; margin-left: 8px; display: block;">조회수 ${notice.noticeHit }</li>
+		<li style="float: right; margin-left: 8px; display: block;" >|</li>
+<!-- 		<li style="float: left; margin-right: 20px;"><strong style="color: #0D71A4;">공지</strong></li> -->
+		<li style="float: right; margin-left: 20px; display: block;">작성일 <fmt:formatDate value="${notice.noticeDate }" pattern="yy-MM-dd" /></li><br>
+	</ul>
 		
 </c:forEach>
 
 <!-- 일반 게시글 / 검색결과 -->
 <c:forEach items="${boardSearch }" var="boardSearch">
-	<tr id="searchResult">
-		<td>${boardSearch.bfNo }</td>
-		<td><a href="${path}/board/bfView?bfNo=${boardSearch.bfNo}">${boardSearch.bfTitle }</a></td>
-		<td>${boardSearch.userNick }</td>
-		<td>${boardSearch.bfHit }</td>
-		<td>${boardSearch.bfThumbs }</td>
-		<td><fmt:formatDate value="${boardSearch.bfInstDate }" pattern="yy-MM-dd"/></td>
-	</tr>
+	<ul id="searchResult" style="list-style: none;">
+		<li style="float: left; display: none;" >${boardSearch.bfNo }</li>
+		<li style="float: left; line-height:380%;"><a href="${path}/board/bfView?bfNo=${boardSearch.bfNo}" id="boardUrl">${boardSearch.bfTitle }</a></li><br>
+		<li style="float: left;" class="ellipsis" >${boardSearch.beforeCon }</li><br>
+		<li style="float: left;" class="ellipsis" >${boardSearch.afterCon }</li><br>
+		<li style="float: left; margin-right: 8px;" ><strong style="color: #0D71A4;">${boardSearch.userNick }</strong></li>
+		<li style="float: left; margin-right: 8px;" >|</li>
+		<li style="float: left; margin-right: 8px;" >작성일 <fmt:formatDate value="${boardSearch.bfInstDate }" pattern="yy-MM-dd"/></li>
+		<li style="float: left; margin-right: 8px;" >|</li>
+		<li style="float: left; margin-right: 8px;" >조회수 ${boardSearch.bfHit }</li>
+		<li style="float: left; margin-right: 8px;" >|</li>
+		<li style="float: left;">좋아요 ${boardSearch.bfThumbs }</li><br>
+	</ul>
 </c:forEach>
 
-<tr style="border-bottom: 3px solid #84C9E3;"></tr>
+<div style="border-top: 3px solid #84C9E3;"></div>
 
-
-</tbody>
-</table>
 </div>
 
 
@@ -469,4 +483,5 @@ $(document).ready(function() {
 </div>
 
 <%@include file="../layout/footer.jsp" %>
+
 

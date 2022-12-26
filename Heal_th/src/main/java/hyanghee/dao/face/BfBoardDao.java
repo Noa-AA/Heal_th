@@ -70,6 +70,8 @@ public interface BfBoardDao {
 
 	public String selectUserNick(int userno);
 
+	public int getPhoto(int userno);
+
 
 
 	

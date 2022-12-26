@@ -419,6 +419,9 @@ $(document).ready(function(){
 				                  <label for="file">첨부파일</label><br>
 				                  	<button type="button" style="border: none; background:#ccc; font-weight:bold; color:black; border-radius:5px; width: 75px; height: 31px;">첨부파일</button>
 								</div>
+								
+<%-- 								<jsp:include page="../file/upload.jsp" />  --%>
+
 								<br><br>
 			                        <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)" value="다음">
 						</fieldset>
