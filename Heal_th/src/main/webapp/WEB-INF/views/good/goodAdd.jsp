@@ -18,7 +18,8 @@ $("#goGood").click(function(){
 		,success: function(res){
 			console.log("addGood AJAX 성공")
 			alert("좋아요 감사랑합니다")
-			goodCheck()
+// 			goodCheck()
+			location.reload()
 			
 
 		}
@@ -39,7 +40,8 @@ $("#cancelGood").click(function(){
 			,dataType: "html"
 			,success: function(res){
 				console.log("cancelGood AJAX 성공")
-				goodCheck()
+// 				goodCheck()
+				location.reload()
 			}
 			,error: function(){
 				console.log("cancelGood AJAX 실패")
@@ -53,10 +55,10 @@ $("#cancelGood").click(function(){
 
 </script>
 <c:choose>
-	<c:when test="${good.goodNo eq 0}">
-		<button type="button" id="goGood">좋아요</button>
+	<c:when test="${good.goodNo eq 0}"><!-- 좋아요 -->
+		<button type="button" id="goGood"><img src="/resources/img/addOns/goodNo.png" alt="goodNo"></button>
 	</c:when>
-	<c:otherwise>
-		<button type="button" id="cancelGood">좋아요취소</button>
+	<c:otherwise><!-- 좋아요취소 -->
+		<button type="button" id="cancelGood"><img src="/resources/img/addOns/goodOk.png" alt="goodOk"></button>
 	</c:otherwise>
 </c:choose>

@@ -25,4 +25,10 @@
 		WHERE user_no = #{userNo}
 	</select>
 	
+	<update id="updatePoint" parameterType="int">
+		UPDATE users SET point =
+			point + 10
+		WHERE user_no = #{userNo}
+	</update>
+	
 </mapper>

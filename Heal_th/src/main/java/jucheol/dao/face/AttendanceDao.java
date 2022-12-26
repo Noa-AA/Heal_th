@@ -32,4 +32,12 @@ public interface AttendanceDao {
 	 */
 	public List<Date> getAtt(Attendance attendance);
 
+
+	/**
+	 * 포인트 증가
+	 * 
+	 * @param i
+	 */
+	public void updatePoint(int i);
+
 }

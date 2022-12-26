@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<jsp:include page="../layout/header.jsp" />
 <script type="text/javascript">
 function scrapListCall() {
 	$.ajax({
@@ -32,10 +26,33 @@ $(document).ready(function(){
 })
 
 </script>
+<style type="text/css">
+#scrapListTable{
+	margin : 0 auto;
+}
+#scrapListTable th{
+	text-align: center;
+}
+#scrapListTable th,td{
+	border : 1px solid #ccc;
+	
+}
+/* #scrapList tbody td{ */
+/* 	 width:400px; */
+/* } */
+#scrapListTable tr td:nth-child(2){
+	width: 350px;
+}
+
+</style>
 </head>
 <body>
-<h1>스크랩 목록</h1>
-<hr>
+<div id="subvisual">
+	<div id="subvisual-A">
+		<p id="subv-title">스크랩 목록</p>
+	</div>
+</div>
 <div id="scrapList"></div>
 </body>
+<jsp:include page="../layout/footer.jsp" />
 </html>
