@@ -98,22 +98,23 @@ public class NaverLogin {
 		      BufferedReader br;
 		      if (responseCode == 200) { // 정상 호출
 		        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+//		        
 		      } else {  // 에러 발생
 		        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 		      }
 		      String inputLine;
 		      while ((inputLine = br.readLine()) != null) {
 		        res.append(inputLine);
+//		   
 		      }
 		      br.close();
 		    
 		    } catch (Exception e) {
 		    	e.printStackTrace();
 		    }
-					
-		    if (responseCode == 200) { //정상호출일 때 파싱하기
-		    	//access_token 파싱하기 
-		    	
+//					
+//		    if (responseCode == 200) { //정상호출일 때 파싱하기
+//		     access_token 파싱하기 
 		    	try {
 		    		JSONParser parser = new JSONParser();
 					Object obj = parser.parse(res.toString());
@@ -123,11 +124,13 @@ public class NaverLogin {
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
+		    
+		    //
 		    	
 		        return accessToken;
-		    }
+//		    }
 		    
-		    return null;
+//		    return null;
 	}
 	
 	
@@ -198,7 +201,7 @@ public class NaverLogin {
 	}
 
 	private String readBody(InputStream body) {
-		InputStreamReader streamReader = new InputStreamReader(body);
+		InputStreamReader streamReader = new InputStreamReader(body);//body = con.getInpuStream()
 		try(BufferedReader lineReader = new BufferedReader(streamReader)){
 			StringBuilder responseBody= new StringBuilder();
 			String line;

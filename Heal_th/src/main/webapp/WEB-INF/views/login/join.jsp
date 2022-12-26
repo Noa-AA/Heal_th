@@ -467,14 +467,15 @@ input:focus{
     position: relative;
     background-color: white;
     border-radius: 12px;
-   	box-shadow: 2px 2px 5px 2px lightgrey;
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
     margin: 0 auto;
  }
  
 
  #title {
- 	padding: 40px 70px;
+ 	padding: 61px 0px;
     height: 150px;
+    text-align: center;
  }
  
  
@@ -498,8 +499,7 @@ input:focus{
 	    position: absolute;
     height: 50px;
     left: 60px;
-/*     top: 1492px; */
-margin: 16px 0 0 0;
+	margin: 16px 0 0 0;
 }
  
 .resMsg{
@@ -741,6 +741,8 @@ top:154px;
 					<div id="checkId">
 						<button type="button" id="btn_checkId"><span class="btnTitle isId">중복확인</span></button>
 					</div>
+					
+					
 					<div id="pw"  class="inputArea">
 						<label for="userPw">
 							<span class="formTitle pw">비밀번호</span>
@@ -767,6 +769,8 @@ top:154px;
 						<input type="text" name="userNick" id="userNick" class="inputInfo">
 						<div id="nickAlert" class="resMsg"></div>
 					</div>
+					
+					
 					<div id="forPhone">
 						<div id="phone" class="inputArea">
 							<label for="userPhone">
