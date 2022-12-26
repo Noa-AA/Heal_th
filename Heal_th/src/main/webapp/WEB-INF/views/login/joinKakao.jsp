@@ -8,8 +8,15 @@ $(document).ready(function(){
 
 	  //회원 본인 인증 
   $("#btn_userchk").click(function(){
-	console.log("btn_userchk클릭")
-	 $("#smschk").toggle()
+		console.log("btn_userchk클릭")
+	 	
+	 	if($("#userPhone").val()==null || $("#userPhone").val()==""){
+	 		console.log("전화번호 누락")
+	 		$("#userchkAlert").html("전화번호로 입력해주세요")
+	 		$("#userchkAlert").css("color","red")
+	 		return false
+	 	}else{
+	 		$("#codeChk").css("display","block")
 	 //보인인증을 위한 문자 보내는 요청하기
 		 $.ajax({
 			 type:"post"
@@ -20,12 +27,15 @@ $(document).ready(function(){
 			,dataType:"json"
 			,success:function(res){
 				console.log("문자 요청 성공")
+				
 			}
 			,error: function(){
 	  			console.log("문자요청 실패")
 		  			alert("전화번호를 확인해주세요")
 	  		}
+			
 		 })
+	 }	
 		 
 });//문자보내기 완료 
 	
@@ -108,56 +118,58 @@ $("#joinbtn").click(function(){
  
 
     
-   //메시지 영역 초기화
-   $("#userName").focus(function(){ //이름 메시지 영역 초기화
-	   $("#nameAlert").html("")
-   })
-   
-   $("#userEmail").focus(function(){//이메일 메시지 영역 초기화
-	   $("#emailAlert").html("")
-   })
-   
-   $("#userId").focus(function(){//아이디 메시지 영역 초기화
-	   $("#checkIdResult").html("")
-   })
-   
-    $("#userPw").focus(function(){//비밀번호 메시지 영역 초기화
-	   $("#pwAlert").html("")
-   })
-    $("#userPwChk").focus(function(){//비밀번호 확인 메시지 영역 초기화
-	   $("#pwAgain").html("")
-   })
-   
-    $("#userNick").focus(function(){//닉네임 메시지 영역 초기화
-	   $("#nickAlert").html("")
-   })
-   
-   $("#userPhone").focus(function(){//휴대폰 메시지 영역 초기화
-	   $("#result_code").html("")
-   })
-   
-
-   $("#male").focus(function(){//성별 메시지 영역 초기화
-	   $("#genderAlert").html("")
-   })
-   
-   $("#female").focus(function(){//성별 메시지 영역 초기화
-	   $("#genderAlert").html("")
-   })
-   
-   $("#userBirth").focus(function(){//생년월일 메시지 영역 초기화
-	   $("#birthAlert").html("")
-   })
-   
-   $("#userJob").focus(function(){//직업 메시지 영역 초기화
-	   $("#jobAlert").html("")
-   })
-   
-   $("#detailAddress").focus(function(){//주소 메시지 영역 초기화
-	   $("#addressAlert").html("")
-   })
-   
-
+    //메시지 영역 초기화
+	   $("#userName").focus(function(){ //이름 메시지 영역 초기화
+		   $("#nameAlert").html("")
+	   })
+	   
+	   $("#userEmail").focus(function(){//이메일 메시지 영역 초기화
+		   $("#emailAlert").html("")
+	   })
+	   
+	   $("#userId").focus(function(){//아이디 메시지 영역 초기화
+		   $("#checkIdResult").html("")
+	   })
+	   
+	    $("#userPw").focus(function(){//비밀번호 메시지 영역 초기화
+		   $("#pwAlert").html("")
+	   })
+	    $("#userPwChk").focus(function(){//비밀번호 확인 메시지 영역 초기화
+		   $("#pwAgain").html("")
+	   })
+	   
+	    $("#userNick").focus(function(){//닉네임 메시지 영역 초기화
+		   $("#nickAlert").html("")
+	   })
+	   
+	   
+	
+	   $("#userPhone").focus(function(){//휴대폰 메시지 영역 초기화
+		   $("#userchkAlert").html("")
+	   })
+	   $("#code").focus(function(){//휴대폰 메시지 영역 초기화
+		   $("#result_code").html("")
+	   })
+	   $("#male").focus(function(){//성별 메시지 영역 초기화
+		   $("#genderAlert").html("")
+	   })
+	   
+	   $("#female").focus(function(){//성별 메시지 영역 초기화
+		   $("#genderAlert").html("")
+	   })
+	   
+	   $("#userBirth").focus(function(){//생년월일 메시지 영역 초기화
+		   $("#birthAlert").html("")
+	   })
+	   
+	   $("#userJob").focus(function(){//직업 메시지 영역 초기화
+		   $("#jobAlert").html("")
+	   })
+	   
+	   $("#detailAddress").focus(function(){//주소 메시지 영역 초기화
+		   $("#addressAlert").html("")
+	   })
+	   
     
 	
 })
@@ -299,54 +311,54 @@ $("#joinbtn").click(function(){
 </script>
 
 <script>
-    function addressFind() {
-            	console.log("주소검색");
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
-
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
-
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("extraAddress").value = extraAddr;
-                
-                } else {
-                    document.getElementById("extraAddress").value = '';
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('postcode').value = data.zonecode;
-                document.getElementById("useraddress").value = addr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("detailAddress").focus();
-            }
-        }).open();
-    }
+function addressFind() {
+	console.log("주소검색");
+	new daum.Postcode({
+		oncomplete: function(data) {
+		    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+		
+		    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+		    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+		    var addr = ''; // 주소 변수
+		    var extraAddr = ''; // 참고항목 변수
+		
+		    //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+		    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+		        addr = data.roadAddress;
+		    } else { // 사용자가 지번 주소를 선택했을 경우(J)
+		        addr = data.jibunAddress;
+		    }
+		
+		    // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+		    if(data.userSelectedType === 'R'){
+		        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+		        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+		        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+		            extraAddr += data.bname;
+		        }
+		        // 건물명이 있고, 공동주택일 경우 추가한다.
+		        if(data.buildingName !== '' && data.apartment === 'Y'){
+		            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		        }
+		        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+		        if(extraAddr !== ''){
+		            extraAddr = ' (' + extraAddr + ')';
+		        }
+		        // 조합된 참고항목을 해당 필드에 넣는다.
+		        document.getElementById("extraAddress").value = extraAddr;
+		    
+		    } else {
+		        document.getElementById("extraAddress").value = '';
+		    }
+		
+		    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+		    document.getElementById('postcode').value = data.zonecode;
+		    document.getElementById("userAddress").value = addr;
+		    // 커서를 상세주소 필드로 이동한다.
+		    document.getElementById("detailAddress").focus();
+		}
+	}).open();
+   }
     
     
  
@@ -716,7 +728,7 @@ top:154px;
 					</div>
 						
 						
-				<div id="birth" class="inputArea">>
+				<div id="birth" class="inputArea">
 					<label for="birth">
 						<span class="formTitle birth">생년월일</span>
 					</label>

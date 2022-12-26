@@ -45,7 +45,14 @@
  			  //회원 본인 인증 
 			  $("#btn_userchk").click(function(){
 				console.log("btn_userchk클릭")
-				 	$("#codeChk").css("display","block")
+				 	
+				 	if($("#userPhone").val()==null || $("#userPhone").val()==""){
+				 		console.log("전화번호 누락")
+				 		$("#userchkAlert").html("전화번호로 입력해주세요")
+				 		$("#userchkAlert").css("color","red")
+				 		return false
+				 	}else{
+				 		$("#codeChk").css("display","block")
 				 //보인인증을 위한 문자 보내는 요청하기
 					 $.ajax({
 						 type:"post"
@@ -62,7 +69,9 @@
 				  			console.log("문자요청 실패")
 	 			  			alert("전화번호를 확인해주세요")
 				  		}
+						
 					 })
+				 }	 
 					 
 		});//문자보내기 완료 
 				
