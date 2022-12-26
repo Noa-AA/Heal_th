@@ -64,26 +64,8 @@ $(document).ready(function(){
 	})
 })
 </script>
-<style type="text/css">
-#reportList{
-	border : 1px solid #ccc;
-}
-#reportList th,td{
-	border : 1px solid #ccc;
-	
-}
-/* #scrapList tbody td{ */
-/* 	 width:400px; */
-/* } */
-#reportList tr td:nth-child(2){
-	width: 350px;
-}
 
-</style>
-<!-- </head> -->
-<!-- <body> -->
-
-<table id="reportList">
+<table id="reportListTable">
 <thead>
 <th>게시판 명</th>
 <th colspan="3" style="width:400px">제목</th>

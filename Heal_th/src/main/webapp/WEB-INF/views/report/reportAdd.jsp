@@ -53,10 +53,10 @@ $("#cancelReport").click(function(){
 
 </script>
 <c:choose>
-	<c:when test="${report.reportNo eq 0}">
-		<button type="button" id="goReport">신고하기</button>
+	<c:when test="${report.reportNo eq 0}"><!-- 신고하기 -->
+		<button type="button" id="goReport"><img src="/resources/img/addOns/reportNo.png" alt="reportNo"></button>
 	</c:when>
-	<c:otherwise>
-		<button type="button" id="cancelReport">신고취소</button>
+	<c:otherwise><!-- 신고취소 -->
+		<button type="button" id="cancelReport"><img src="/resources/img/addOns/reportOk.png" alt="reportOk"></button>
 	</c:otherwise>
 </c:choose>

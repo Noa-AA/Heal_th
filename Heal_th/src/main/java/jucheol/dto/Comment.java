@@ -15,11 +15,12 @@ public class Comment {
 	private int boardNo;
 	private int categoryNo;
 	private String userNick;
+	private String profileStoreName;
 	
 	public Comment() {	}
 
 	public Comment(int commentNo, String commentContent, int userNo, Date commentDate, int verifyNo, int rewiewNo,
-			int bfNo, int dietNo, int boardNo, int categoryNo, String userNick) {
+			int bfNo, int dietNo, int boardNo, int categoryNo, String userNick, String profileStoreName) {
 		super();
 		this.commentNo = commentNo;
 		this.commentContent = commentContent;
@@ -32,6 +33,7 @@ public class Comment {
 		this.boardNo = boardNo;
 		this.categoryNo = categoryNo;
 		this.userNick = userNick;
+		this.profileStoreName = profileStoreName;
 	}
 
 	@Override
@@ -39,7 +41,7 @@ public class Comment {
 		return "Comment [commentNo=" + commentNo + ", commentContent=" + commentContent + ", userNo=" + userNo
 				+ ", commentDate=" + commentDate + ", verifyNo=" + verifyNo + ", rewiewNo=" + rewiewNo + ", bfNo="
 				+ bfNo + ", dietNo=" + dietNo + ", boardNo=" + boardNo + ", categoryNo=" + categoryNo + ", userNick="
-				+ userNick + "]";
+				+ userNick + ", profileStoreName=" + profileStoreName + "]";
 	}
 
 	public int getCommentNo() {
@@ -130,8 +132,13 @@ public class Comment {
 		this.userNick = userNick;
 	}
 
-	
+	public String getProfileStoreName() {
+		return profileStoreName;
+	}
 
-	
+	public void setProfileStoreName(String profileStoreName) {
+		this.profileStoreName = profileStoreName;
+	}
+
 	
 }

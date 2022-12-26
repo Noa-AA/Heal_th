@@ -1,13 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<title>Insert title here</title>
+
+</head>
+<body>
+<form action="./write" method="post" enctype="multipart/form-data">
+<button type="button" id="fileUpload" onclick="fileup()">사진 올리기</button>
+<input type="file" id="imageUp" name="multiFile" accept="image/*" onchange="setPreview(event)" multiple/><br><br>
+<div id="imgContainer"></div>
+<button>작성</button>
+</form>
 <style type="text/css">
 #imageUp{
 display: none;
 }
 </style>
-<button type="button" id="fileUpload" onclick="fileup()">사진 올리기</button>
-<input type="file" id="imageUp" name="multiFile" accept="image/*" onchange="setPreview(event)" multiple/><br><br>
-<div id="imgContainer"></div>
 <script type="text/javascript">
 function setPreview(event) {
 	$("#imgContainer").empty()
@@ -50,3 +63,5 @@ var fileup =() =>{
 	$("#imageUp").click()
 }
 </script>
+</body>
+</html>
