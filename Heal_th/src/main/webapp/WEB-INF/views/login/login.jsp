@@ -38,7 +38,7 @@ $(document).ready(function(){
 
 
 <style type="text/css">
-body{
+#loginBody{
 	padding-top: 0;
 }
 #loginPage{
@@ -256,7 +256,7 @@ input::placeholder{
 	color: #7ca3f5;
 }
 </style>
-<body>
+<body id="loginBody">
 
 <%//쿠키값 얻기
 	Cookie [] cookie = request.getCookies();
