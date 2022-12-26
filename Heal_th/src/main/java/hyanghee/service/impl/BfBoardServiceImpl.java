@@ -97,6 +97,13 @@ public class BfBoardServiceImpl implements BfBoardService {
 		return bfBoardDao.getTotal(boardSearch);
 	}
 
+	@Override
+	public String getUserNick(int userno) {
+		return bfBoardDao.selectUserNick(userno);
+	}
+
+
+
 }
 
 	

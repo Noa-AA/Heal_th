@@ -114,6 +114,52 @@ body{
 	
 }
 
+/* 페이징 부분 */
+.text-center {
+	display: flex;
+	justify-content: center; 
+	margin-top: 50px;
+}
+
+.pagination {
+	display: flex;
+	margin: 0;
+}
+
+.pagination > li{
+	display: flex;
+}
+
+.pagination > li > a {
+	display: flex;
+	margin: 0 4px;
+	width: 40px;
+	height: 40px;
+	border-radius: 20px !important;
+	font-size: 16px;
+	justify-content: center;
+	align-items: center;
+	color: #7ca3f5;
+}
+
+.none:hover {
+	cursor: default;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+	background-color: #7ca3f5;
+    border-color: #7ca3f5;
+}
+
+
+.material-symbols-outlined {
+	font-variation-settings:
+	'FILL' 0,
+	'wght' 400,
+	'GRAD' 0,
+	'opsz' 48
+}
+
 </style>
 
 <script type="text/javascript">

@@ -45,8 +45,11 @@ body{
 	border-radius: 7px;
 	font-size: 22px;
 	font-weight: bold;
-	width: 173px;
+	width: 132px;
 	height: 50px;
+	float: right;
+	margin-top: -104px;
+	display: block;
 }
 
 #totalList {
@@ -143,34 +146,6 @@ body{
 	'wght' 400,
 	'GRAD' 0,
 	'opsz' 48
-}
-
-
-/* .container{margin-top:200px;text-align:center} */
-
-/* 탭메뉴 공통 */
-.tab_menu{
-	width:800px;
- 	margin:30px auto 0;
-	list-style:none;
-}
-.tab_menu li{border:1px solid #ccc; list-style:none;}
-
-/* 탭메뉴 버튼 */
-.tab_menu {display:table;table-layout:fixed;}
-.tab_menu li{display:table-cell;padding:20px 0;cursor:pointer; background:white;}
-.tab_menu li.on{
-	background:#7ca3f5; 
-	color: white;
-	font-size: 20px;
-	text-align: center;
- }
-.tab_menu li+li{border-left:none;}
-
-#comDepth{
-	font-size: 20px;
-	text-align: center;
-	text-decoration: none;
 }
 
 #boardList{
@@ -296,144 +271,18 @@ $(document).ready(function() {
 
 <div class="container" id="container">
 
-<div class="beforeafter" id="search" name="search">
-
-<!-- <form action="/board/bfBoard" method="post"> -->
-<!-- 	<div class="search_wrap"> -->
-<!-- 		<div class="search_area"> -->
-<!-- 			<select name="type" id="type"> -->
-<%-- 				<option value="bfTitle" <c:out value="${paging.type eq 'bfTitle'?'selected':'' }"/>>제목</option> --%>
-<%-- 				<option value="beforeCon" <c:out value="${paging.type eq 'beforeCon'?'selected':'' }"/>>내용</option> --%>
-<%-- 				<option value="afterCon" <c:out value="${paging.type eq 'afterCon'?'selected':'' }"/>>제목+내용</option> --%>
-<!-- 			</select>  -->
-				
-<%-- 				<input id="searchText" type="text" name="keyword" value="${paging.keyword }" placeholder="search..."> --%>
-<!-- 					<button id="searchIcon"><i class="fas fa-search"></i></button> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-<!-- </form> -->
-
-<!-- </div> -->
-
-
-
-<!-- <div class="pageInfo_wrap"> -->
-<!-- 		<div class="pageInfo_area"> -->
-<!-- 			<ul id="pageInfo" class="pageInfo"> -->
-
-<%-- 				<c:if test="${paging.prev}"> --%>
-<%-- 					<li class="pageInfo_btn previous"><a href="${paging.startPage - 1}">Previous</a></li> --%>
-<%-- 				</c:if> --%>
-
-<%-- 				<c:forEach var="num" begin="${paging.startPage}" end="${paging.endPage}"> --%>
-<%-- 					<li class="pageInfo_btn ${paging.pageNum == num ? "active":"" }"></li> --%>
-<%-- 				</c:forEach> --%>
-
-<%-- 				<c:if test="${paging.next}"> --%>
-<%-- 					<li class="pageInfo_btn next"><a href="${paging.endPage + 1 }">Next</a></li> --%>
-<%-- 				</c:if> --%>
-
-<!-- 			</ul> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-
-<!-- 	<form id="moveForm" method="get"> -->
-<%-- 		<input type="hidden" id="bfNo" name="bfNo" value='<c:out value="${pageInfo.bfNo}"/>'> --%>
-<%-- 		<input type="hidden" name="pageNum" value="${paging.pageNum }"> --%>
-<%-- 		<input type="hidden" name="amount" value="${paging.amount }"> --%>
-<%-- 		<input type="hidden" name="keyword" value="${paging.keyword }"> --%>
-<%-- 		<input type="hidden" name="type" value="${paging.type }"> --%>
-<!-- 	</form> -->
-
-
-
 
 <br><br><br><br>
 
-
-
-
-
-
-<!-- <div id="community" name="community"> -->
-<!-- 	<ul class="tab_menu" style="text-align: center;"> -->
-<!-- 		<li data-tab="tab-1" class="on" id="tab"><a href="/board/bfBoard" style="color: white; font-weight: bold;" id="comDepth" class="tabCon" >비포 애프터</a></li> -->
-<!-- 		<li data-tab="tab-2" id="tab"><a href="/board/verifyBoard" id="comDepth" class="tabCon">운동 인증</a></li> -->
-<!-- 		<li data-tab="tab-3" id="tab"><a href="/board/dietBoard" id="comDepth" class="tabCon">식단 공유</a></li> -->
-<!-- 		<li data-tab="tab-4" id="tab"><a href="/board/reviewBoard" id="comDepth" class="tabCon">시설 리뷰</a></li> -->
-<!-- 	</ul> -->
-<!-- </div> -->
-
-<form action="/board/bfBoard" method="get">
-	<div class="search_wrap">
-		<div class="search_area">
-			<select name="type" id="type">
-				<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option>
-				<option value="C" <c:out value="${pageMaker.boardSearch.type eq 'C'?'selected':'' }"/>>내용</option>
-				<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option>
-			</select> 
-				
-				<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search...">
-					<button id="searchIcon"><i class="fas fa-search"></i></button>
-		</div>
-	</div>
-</form>
-
-<div class="pageInfo_wrap">
-		<div class="pageInfo_area">
-			<ul id="pageInfo" class="pageInfo">
-
-				<c:if test="${pageMaker.prev}">
-					<li class="pageInfo_btn previous"><a href="${pageMaker.startPage - 1}">Previous</a></li>
-				</c:if>
-
-				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-					<li class="pageInfo_btn ${pageMaker.boardSearch.curPage == num ? "active":"" }"></li>
-				</c:forEach>
-
-				<c:if test="${pageMaker.next}">
-					<li class="pageInfo_btn next"><a href="${pageMaker.endPage + 1 }">Next</a></li>
-				</c:if>
-
-			</ul>
-		</div>
-	</div>
-
-	<form id="moveForm" method="get">
-		<input type="hidden" id="bfNo" name="bfNo" value='<c:out value="${pageInfo.bfNo}"/>'>
-		<input type="hidden" name="curPage" value="${pageMaker.boardSearch.curPage }">
-		<input type="hidden" name="amount" value="${pageMaker.boardSearch.amount }">
-		<input type="hidden" name="keyword" value="${pageMaker.boardSearch.keyword }">
-		<input type="hidden" name="type" value="${pageMaker.boardSearch.type }">
-	</form>
 	
 
 <br><br><br><br>
 
 
 <div id="boardList">
-	<h3 style="font-weight: bold; color: #06364E; font-size: 30px;">비포 애프터 게시판</h3>
+	<h3 style="font-weight: bold; color: #06364E; font-size: 30px; float: left;">비포 애프터 게시판</h3>
 </div>
 
-<!-- <div class="beforeafter" id="search" name="search"> -->
-
-
-<!-- <div class="search_wrap"> -->
-		
-<!-- 			<div class="search_area"> -->
-<!-- 				<select name="type" id="type"> -->
-<%-- 					<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option> --%>
-<%-- 					<option value="C" <c:out value="${pageMaker.boardSearch.type eq 'C'?'selected':'' }"/>>내용</option> --%>
-<%-- 					<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option> --%>
-<!-- 				</select>  -->
-				
-<%-- 					<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search..."> --%>
-<!-- 				<button id="searchIcon"><i class="fas fa-search"></i></button> -->
-				
-				
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</div> -->
 
     <div>
     	<a href="/board/bfBoard" id="totalList" name="totalList">전체 게시글 보기 ▼</a>
@@ -465,8 +314,8 @@ $(document).ready(function() {
 		<td><a href="/notice/view?noticeNo=${notice.noticeNo}&noticeNo=3&"> <strong>${notice.noticeTtl } </strong></a></td>
 		<td><strong style="color: #0D71A4;">관리자</strong></td>
 		<td>${notice.noticeHit }</td>
-		<td>공지</td>
-		<td><fmt:formatDate value="${notice.noticeDate }" pattern="yyyy-MM-dd" /></td>
+		<td><strong style="color: #0D71A4;">공지</strong></td>
+		<td><fmt:formatDate value="${notice.noticeDate }" pattern="yy-MM-dd" /></td>
 	</tr>
 		
 </c:forEach>
@@ -476,7 +325,7 @@ $(document).ready(function() {
 	<tr id="searchResult">
 		<td>${boardSearch.bfNo }</td>
 		<td><a href="${path}/board/bfView?bfNo=${boardSearch.bfNo}">${boardSearch.bfTitle }</a></td>
-		<td>${boardSearch.userNo }</td>
+		<td>${boardSearch.userNick }</td>
 		<td>${boardSearch.bfHit }</td>
 		<td>${boardSearch.bfThumbs }</td>
 		<td><fmt:formatDate value="${boardSearch.bfInstDate }" pattern="yy-MM-dd"/></td>
@@ -569,10 +418,55 @@ $(document).ready(function() {
     </div>
 </div>
 
+<div class="beforeafter" id="search" name="search">
+
+<form action="/board/bfBoard" method="get">
+	<div class="search_wrap">
+		<div class="search_area">
+			<select name="type" id="type">
+				<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option>
+				<option value="C" <c:out value="${pageMaker.boardSearch.type eq 'C'?'selected':'' }"/>>내용</option>
+				<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option>
+			</select> 
+				
+				<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search...">
+					<button id="searchIcon"><i class="fas fa-search"></i></button>
+		</div>
+	</div>
+</form>
+
+<div class="pageInfo_wrap">
+		<div class="pageInfo_area">
+			<ul id="pageInfo" class="pageInfo">
+
+				<c:if test="${pageMaker.prev}">
+					<li class="pageInfo_btn previous"><a href="${pageMaker.startPage - 1}">Previous</a></li>
+				</c:if>
+
+				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+					<li class="pageInfo_btn ${pageMaker.boardSearch.curPage == num ? "active":"" }"></li>
+				</c:forEach>
+
+				<c:if test="${pageMaker.next}">
+					<li class="pageInfo_btn next"><a href="${pageMaker.endPage + 1 }">Next</a></li>
+				</c:if>
+
+			</ul>
+		</div>
+	</div>
+
+	<form id="moveForm" method="get">
+		<input type="hidden" id="bfNo" name="bfNo" value='<c:out value="${pageInfo.bfNo}"/>'>
+		<input type="hidden" name="curPage" value="${pageMaker.boardSearch.curPage }">
+		<input type="hidden" name="amount" value="${pageMaker.boardSearch.amount }">
+		<input type="hidden" name="keyword" value="${pageMaker.boardSearch.keyword }">
+		<input type="hidden" name="type" value="${pageMaker.boardSearch.type }">
+	</form>
 
 
 </div>
 
+</div>
 
 <%@include file="../layout/footer.jsp" %>
 

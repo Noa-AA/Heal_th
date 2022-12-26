@@ -24,6 +24,7 @@ public class Beforeafter {
 	private int bfHit;
 	private int bfThumbs;
 	private int userNo;
+	private String userNick;
 	private int categoryNo;
 	
 	public Beforeafter() {	}
@@ -31,7 +32,7 @@ public class Beforeafter {
 	public Beforeafter(int bfNo, Date bfInstDate, String bfTitle, int height, String gender, int weight,
 			String bfExercise, String gWeight, String sDate, String eDate, String seleExercise, String beforeCon,
 			String cWeight, String gResult, String afterCon, Date bfUptDate, Date bfDeleteDate, int bfHit, int bfThumbs,
-			int userNo, int categoryNo) {
+			int userNo, String userNick, int categoryNo) {
 		super();
 		this.bfNo = bfNo;
 		this.bfInstDate = bfInstDate;
@@ -53,6 +54,7 @@ public class Beforeafter {
 		this.bfHit = bfHit;
 		this.bfThumbs = bfThumbs;
 		this.userNo = userNo;
+		this.userNick = userNick;
 		this.categoryNo = categoryNo;
 	}
 
@@ -63,7 +65,7 @@ public class Beforeafter {
 				+ gWeight + ", sDate=" + sDate + ", eDate=" + eDate + ", seleExercise=" + seleExercise + ", beforeCon="
 				+ beforeCon + ", cWeight=" + cWeight + ", gResult=" + gResult + ", afterCon=" + afterCon
 				+ ", bfUptDate=" + bfUptDate + ", bfDeleteDate=" + bfDeleteDate + ", bfHit=" + bfHit + ", bfThumbs="
-				+ bfThumbs + ", userNo=" + userNo + ", categoryNo=" + categoryNo + "]";
+				+ bfThumbs + ", userNo=" + userNo + ", userNick=" + userNick + ", categoryNo=" + categoryNo + "]";
 	}
 
 	public int getBfNo() {
@@ -226,6 +228,14 @@ public class Beforeafter {
 		this.userNo = userNo;
 	}
 
+	public String getUserNick() {
+		return userNick;
+	}
+
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
+
 	public int getCategoryNo() {
 		return categoryNo;
 	}
@@ -233,6 +243,8 @@ public class Beforeafter {
 	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
 	}
+
+	
 
 	
 	

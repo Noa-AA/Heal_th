@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import hyanghee.dto.Beforeafter;
 import hyanghee.service.face.BfBoardService;
@@ -20,6 +19,7 @@ import hyanghee.util.BoardPageMaker;
 import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
 import saebyeol.dto.Notice;
+import yerim.dto.PhotoFile;
 import yerim.dto.Users;
 
 
@@ -30,15 +30,22 @@ public class BfBoardController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 			
 	//서비스 객체
-	@Autowired private BfBoardService bfBoardService;	
+	@Autowired private BfBoardService bfBoardService;
+	
+	//첨부 파일
+//	@Autowired private FileuploadService fileuploadService; 
 	
 	@RequestMapping("/board/bfBoard")
-	public void list(BoardSearch boardSearch, Model model) {
+	public void list(BoardSearch boardSearch, PhotoFile profile, HttpSession session, Model model) {
 		
 		//공지사항
 		List<Notice> notice = bfBoardService.notice(boardSearch);
 		for( Notice n : notice )	logger.info("{}", n);
 		model.addAttribute("notice", notice);
+		
+		//유저 프로필 사진
+		model.addAttribute("storedName", profile.getUserNo());
+		logger.info("profile {}", profile);
 		
 		//검색
 		model.addAttribute("boardSearch", bfBoardService.getSearchPaging(boardSearch));
@@ -65,6 +72,10 @@ public class BfBoardController {
 			logger.info("userInfo : {}", users);
 			model.addAttribute("users", users);
 			
+			String userNick = bfBoardService.getUserNick(userno);
+			logger.info("userNick : {}", userNick);
+			model.addAttribute("userNick", userNick);
+			
 			int point = bfBoardService.getPoint(userno);
 			logger.info("point: {}", point);
 			model.addAttribute("point", point);
@@ -77,8 +88,9 @@ public class BfBoardController {
 	}
 	
 	@PostMapping("/board/bfWrite")
-	public String insertBfBoardProc(Beforeafter bfBoard, HttpSession session, Model model) {
+	public String insertBfBoardProc(Beforeafter bfBoard,  HttpSession session, Model model) {
 		logger.info("/board/bfWrite [POST]");
+		logger.info("file/write[POST]");
 		
 		//테스트용 로그인 userno
 //		session.setAttribute("userNo", 7777);
@@ -90,11 +102,33 @@ public class BfBoardController {
 		
 		bfBoardService.insertBfBoard(bfBoard);
 		
+//		 int boardNo = 3; //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
+//	     int categoryNo = 2;//----------------카테고리번호 넣어주세여~
+//	     fileuploadService.insertFile(multiFile,boardNo,categoryNo);
+		
+		
 		int point = (Integer)session.getAttribute("userNo");
 		bfBoardService.updatePoint(point);
 		
+		
+		
 		return "redirect:/board/bfBoard";
 	}
+	
+	
+	//첨부 파일
+//	@PostMapping("/write")
+//	   public void fileupload(
+//	         List<MultipartFile> multiFile //-----------추가해주세여~
+//	         ) {
+//	      logger.info("file/write[POST]");
+//	      //-------- 여기부터
+//	      int boardNo = 3; //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
+//	      int categoryNo = 2;//----------------카테고리번호 넣어주세여~
+//	      fileuploadService.insertFile(multiFile,boardNo,categoryNo);
+//	      //-------- 여기까지
+//	   }
+	
 	
 	//게시글 상세 보기
 	@RequestMapping("board/bfView")

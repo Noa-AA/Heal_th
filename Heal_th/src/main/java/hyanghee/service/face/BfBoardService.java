@@ -18,7 +18,7 @@ public interface BfBoardService {
 
 	//유저 정보 찾기
 	public Users getUserInfo(int userno);
-
+	
 	//게시글 삭제
 	public void delete(Beforeafter bfNo);
 
@@ -38,7 +38,12 @@ public interface BfBoardService {
 	public int getPoint(int userno);
 	
 	//포인트 + 50 주기
-	public void updatePoint(int point);	
+	public void updatePoint(int point);
+
+	public String getUserNick(int userno);
+
+
+
 	
 	
 	
