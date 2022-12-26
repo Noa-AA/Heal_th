@@ -99,18 +99,72 @@ $(document).ready(function(){
 <style>
 #inputContainer{
 	text-align: center;
+	padding-bottom: 20px;
 }
 #content{
-	width: 650px;
+	width: 90%;
 	height: 50px;
 }
 #write{
 	height: 50px;
+	width: 50px;
 }
 
+#commentBoard{
+    margin: 0 auto;
+	width: 700px;
+	background-color: aliceblue;
+}
+
+#commentList{
+    padding: 20px 20px 0 20px;
+    width: 100%;
+}
+
+#commentListTable {
+	border: 10px #ccc;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+#commentSpace {
+	height: 10px;
+}
+
+.commentOne {
+	margin-bottom: 50px;
+}
+
+.pIcon {
+	width: 70px;
+	height: 70px;
+	border-radius: 71px;
+}
+
+/*  #commentListTable tr,td{  */
+/*  	border: solid 1px #ccc;  */
+/*  }  */
+.userNick {
+	font-weight: 900;
+}
+
+.commentContent {
+	background-image: url("/resources/img/addOns/sb.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+    padding-left: 30px;
+}
+
+.commentDelete {
+	cursor:pointer;
+	width: 20px;
+	height: 20px;
+}
 </style>
-</head>
-<body>
+
 <div id="commentBoard">
 
 <div id="commentList"></div> <!-- 댓글 List 적용될 div -->
@@ -119,10 +173,10 @@ $(document).ready(function(){
 <form action="./insert"> <!-- 댓글 입력 폼 -->
 <input type="text" name="content" id="content" placeholder="내용을 입력하세요">
 <button disabled="disabled" style="display: none;"></button>
-<button type="button" id="write">작성하기</button>
+<button type="button" id="write">작성</button>
 </form>
 </div>
 
 </div>  <!-- End commentBoard --> 
-</body>
+
 <!-- </html> -->
