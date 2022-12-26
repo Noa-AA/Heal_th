@@ -5,6 +5,9 @@
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+<link rel="stylesheet" href="style.css">
+
 <!-- --------------------------스크립트 시작 -->
 <script type="text/javascript">
 $(document).ready(function() {
@@ -87,7 +90,7 @@ h2{
     margin-right: 40px;
     margin-bottom: 40px;
 /*     border: 1px solid #e2e2e2; */
-	box-shadow: 1px 1px 8px 0px rgb(0 0 0 / 14%);
+	box-shadow: 1px 1px 8px 0px rgb(0 0 0 / 10%);
     border-radius: 20px;
     padding: 20px;
 }
@@ -237,6 +240,11 @@ h2{
 	color: #7ca3f5;
 } 
 
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+	background-color: #7ca3f5;
+    border-color: #7ca3f5;
+}
+
 .none:hover {
 	cursor: default;
 }
@@ -251,6 +259,61 @@ h2{
 }
 
 
+/* 검색부분 --------------------------------------------------------- */
+
+#searchForm {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#searchText{
+	width: 360px;
+	height: 40px;
+	border: 2px solid #7ca3f5;
+	border-radius: 30px;
+	transition: 0.4s;
+	padding: 8px 12px;
+	outline: none;
+	font-size: 14px;
+}
+
+#searchText:hover{
+  box-shadow: 0px 0px .5px 1px #7ca3f5;
+  width: 380px;
+}
+
+#searchIcon{
+  margin-left: -40px;
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  color: #7ca3f5;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: none;
+}
+
+#type{
+	width: 100px;
+	height: 40px;
+	border: 2px solid #7ca3f5;
+	border-radius: 30px;
+	transition: 0.4s;
+	padding: 8px 12px;
+	outline: none;
+	margin-right: 4px;
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    background: url(/resources/img/admin/expand_more.png) no-repeat 86% 50%;
+    font-size: 13px;
+    font-weight: 500;
+    color: #666;
+}
+
+select::-ms-expand { display:none; } 
 
 </style>
 
@@ -258,7 +321,7 @@ h2{
 <!-- 1depth visual -->
 <div id="subvisual">
 	<div id="subvisual-A">
-		<p id="subv-title">운동 질문하기</p>
+		<p id="subv-title">멘토와 채팅하기</p>
 		<p id="subv-content">챌린지, 운동을 하며 궁금했던 점을 멘토들에게 궁금한점을 물어보세요.</p>
 	</div>
 </div>
@@ -390,7 +453,24 @@ h2{
 		</ul>
 	</div>
 	
+	
 </div>
+
+
+<!-- 검색 기능 -->
+	<div class="searchBack">
+		<form action="/admin/user" method=post name="search" id="searchForm">
+
+			<select name="type" id="type">
+				<option value="userNick"  >닉네임</option>
+				<option value="userName"  >이름</option>
+			</select>
+			
+			<input id="searchText" type="text" name="keyword" placeholder="search...">
+			<button type="submit" id="searchIcon" ><i class="fas fa-search"></i></button>
+
+		</form>
+	</div>
 
 
 
