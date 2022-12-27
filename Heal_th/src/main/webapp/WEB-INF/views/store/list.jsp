@@ -222,79 +222,15 @@ a:hover {
 </div>
 <div id="twoDepth">
     <div id="twoDepth-list">
-        <a href="/map/find">운동 시설 추천</a>
-        <a href="/dghelper/healthrecord">운동 일기장</a>
-        <a href="/dghelper/healthtest">운동 성향 테스트</a>
-        <a href="/dghelper/healthguide">칼로리 사전</a>
-        <a href="/dghelper/dgmagotchi">득근이 키우기</a>
+        <a href="/store/cartlist">장바구니 바로가기</a>
+
     </div>
 </div>
-<!-- <div class="rewards-container"> -->
-<!-- 	<a href="/store/view"> -->
-<!-- 		<div class="thumbnail"> -->
-<!-- 			<div onclick=""> -->
-<!-- 			</div> -->
-<!-- 			<div class="like-ani-default like-ani-6359">♥</div> -->
-<!-- 			<div class="like-section like-section-6359" onclick="Landing.clickLike(6359)"> -->
-<!-- 			<span id="likeCount">50</span> -->
-<!-- 			" ♥ " -->
-<!-- 		</div> -->
-<!-- 		</div> -->
-<!-- 	<input type="hidden" name="csrftoken" id="csrftoken" value="957ef7cb-4e22-401c-afd8-31a5d3db2cfc" /> -->
-<!-- 	</a> -->
+
 
 
 <h1>득근 상점</h1>
 <hr>
-
-<!-- <table class="table table-striped table-hover table-condensed"> -->
-<!-- <thead> -->
-<!-- 	<tr> -->
-<!-- 		<th style="width: 10%;">상품번호</th> -->
-<!-- 		<th style="width: 45%;">상품명</th> -->
-<!-- 		<th style="width: 20%;">가격</th> -->
-<!-- 		<th style="width: 10%;">조회수</th> -->
-<!-- 		<th style="width: 15%;">등록일</th> -->
-<!-- 	</tr> -->
-<!-- </thead> -->
-<!-- <tbody> -->
-<%-- <c:forEach items="${list }" var="StoreDto"> --%>
-<!-- 	<tr> -->
-<%-- 		<td>${StoreDto.prodNo }</td> --%>
-<%-- 		<td><a href="/store/view?prodNo=${StoreDto.prodNo }">${StoreDto.pName }</a></td> --%>
-<%-- 		<td>${StoreDto.pPrice }</td> --%>
-<%-- 		<td>${StoreDto.pHit }</td> --%>
-<%-- 		<td><fmt:formatDate value="${StoreDto.pDate }" pattern="yy-MM-dd HH:mm:ss"/></td> --%>
-<!-- 	</tr> -->
-<%-- </c:forEach> --%>
-<!-- </tbody> -->
-<!-- </table> -->
-
-<!-- <div class="rewards-container"> -->
-<%-- <c:forEach items="${list }" var="StoreDto"> --%>
-<!-- <ul class="rewards-list"> -->
-<!-- 	<li> -->
-<%-- 		<a href="/store/view?prodNo=${StoreDto.prodNo }">${StoreDto.pName }</a> --%>
-
-<!-- <!-- 		<input type="hidden" name="csrftoken" id="csrftoken" value="" /> -->
-<!-- 		<img src=""> -->
-<!-- 		<div class="reward-info"> -->
-<!-- 			<div class="label-tag-box"></div> -->
-
-<!-- 			<div class="meta"> -->
-<!-- 				<span class="snowflake-cost">  -->
-<!-- 				<i class="fa fa-snowflake-o" -->
-<%-- 					aria-hidden="true"></i> 가격 : ${StoreDto.pPrice } 원 --%>
-<!--  				</span> <br> -->
-<%--  				<span class="quantity"> 조회수 : ${StoreDto.pHit } </span> --%>
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</li> -->
-<!-- </ul> -->
-<%-- </c:forEach> --%>
-<!--  </div><div class="rewards-container"> 끝 -->
-
-
 
 
 
@@ -303,21 +239,21 @@ a:hover {
 
 <!-- 			<div class="store"> -->
 <!-- 				<div class="store-thumbnail"> -->
-<%-- 					<img src="/resources/img/chl_thumbnail/chl_thumb${storenge.storengeNo }.jpg" onerror="this.src='https://shared-comic.pstatic.net/thumb/webtoon/796152/thumbnail/thumbnail_IMAG10_a500c803-99ec-4bf8-92d1-b2a5c60c9789.jpg'"> --%>
 				</div>
 				<div class="store-content">
 					<c:forEach items="${list }" var="StoreDto">
 					<ul class="store-ul">
 						<li>
 							<a href="/store/view?prodNo=${StoreDto.prodNo }">${StoreDto.pName }</a>
-						</li><br>
-						<li>가격 : ${StoreDto.pPrice } 원</li><br>
-						<li>조회수 : ${StoreDto.pHit } </li><br>
-					<button id="cart">장바구니에 담기</button>
+						</li>
+						<li>가격 : ${StoreDto.pPrice } 원</li>
+						<li>조회수 : ${StoreDto.pHit } </li>
+					<button id="cart"  ><a href="/store/cart?prodNo=${StoreDto.prodNo }">장바구니에 담기</a></button>
+
+
 					</ul>
 					</c:forEach>
 				</div>
-
 
 
 
