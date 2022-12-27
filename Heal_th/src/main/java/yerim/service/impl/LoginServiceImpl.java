@@ -129,7 +129,7 @@ public class LoginServiceImpl implements LoginService {
 		return msgNum;
 	}
 	@Override
-	public String smsCodeChk(String smsCode, HttpSession session) {
+	public boolean smsCodeChk(String smsCode, HttpSession session) {
 		logger.info("smsCodeChk - 아이디 조회해오기");
 		
 		//세션에 담긴 인증번호
@@ -143,18 +143,13 @@ public class LoginServiceImpl implements LoginService {
 		
 		
 		//인증번호 같으면  아이디 조회해오기
-		String getUserIdSms = "";
 		if(sessionSmsCode.equals(smsCode)) {
 			logger.info("문자인증 성공");
-			//아이디 조회해오기
-			getUserIdSms = loginDao.selectByNamePhone(searchIdBySms);
-			
-			//세션 지우기
-			session.removeAttribute("sendMsg");
-			return getUserIdSms;
+			session.removeAttribute("sendMsg");	//세션 지우기
+			return true;
 		}else {
 			logger.info("인증 실패 코드 불일치");
-			return "false";
+			return false;
 		}
 	}
 	
@@ -164,13 +159,19 @@ public class LoginServiceImpl implements LoginService {
 		logger.info("아이디 찾기 결과 - 아이디 조회하기");
 		
 		//이메일 인증으로 아이디 찾기
+		String getUserId = "";
 		if(searchId.getUserEmail() != null) {
-			String getUserId = loginDao.selectByIdForEamil(searchId);
-			logger.info(getUserId);
+			logger.info("메일 인증으로 아이디 찾기");
+			getUserId = loginDao.selectByIdForEamil(searchId);
 			
+		}else if(searchId.getUserPhone() != null) { //문자 인증으로 아이디 찾기
+			logger.info("문자인증으로 아이디 찾기");
+			getUserId = loginDao.selectByNamePhone(searchId);
 		}
 		
-		return null;
+		
+		logger.info(getUserId);
+		return getUserId;
 	}
 	
 	@Override
@@ -189,7 +190,7 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Override
 	public String sendMsg(Users searchPw) {
-Random ranNum = new Random();
+		Random ranNum = new Random();
 		
 		String msgCode = "";
 		//6자리 난수 생성하기

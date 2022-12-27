@@ -24,7 +24,7 @@
    	
    	</select>
    	
-   	<select id="selectById" resultType="string" parameterType="Users">
+   	<select id="selectByIdForEamil" resultType="string" parameterType="Users">
    		SELECT user_id FROM users
    		WHERE user_name = #{userName} and user_email = #{userEmail}
    	
