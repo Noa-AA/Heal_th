@@ -13,17 +13,26 @@
 <jsp:include page="../layout/header.jsp" />
 
 <style type="text/css">
-table {
-	table-layout: fixed;
+
+/* subVisual */
+#twoDepth-list a {
+	padding: 10px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666666;
+    font-size: 18px;
+    font-weight: 400;
+    width: 20%;
 }
 
-table, th {
-	text-align: center;
+#twoDepth-list a:nth-child(3) {
+    color: #b571e9;
+    border-bottom: 2px solid #b571e9;
+    margin-top: 1px;
+    font-weight: 700;
 }
 
-td:nth-child(2) {
-	text-align: left;
-}
 
 body{
 	font-family: 'Noto Sans','NotoSansWeb',Verdana,"맑은 고딕",Malgun Gothic,Dotum,돋움,Gulim,굴림,sans-serif;
@@ -31,10 +40,7 @@ body{
 	padding: 0;
 }
 
-#container{
-	width: 1200px;
-	height: 1800px;
-}
+#container{ width: 1200px; }
 
 #btnInsert {
     background: #7ca3f5;
@@ -45,6 +51,8 @@ body{
 	font-weight: bold;
 	width: 173px;
 	height: 50px;
+	float: right;
+	display: block;
 }
 
 #totalList {
@@ -102,17 +110,6 @@ body{
 	margin-bottom: -36px;
 }
 
-#noticeStrong{
-	background: #ff4057;
-    font-weight: bold;
-    color: white;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-right: 10px;
-    padding-left: 10px;
-    border-radius: 16px;
-	
-}
 
 /* 페이징 부분 */
 .text-center {
@@ -159,6 +156,45 @@ body{
 	'GRAD' 0,
 	'opsz' 48
 }
+
+/* 공지사항 / 게시글 내용 */
+#noticeStrong{
+	background: #ff4057;
+    font-weight: bold;
+    color: white;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 16px;
+    font-size: 18px;
+}
+
+#article ul{
+	display: block;
+	margin: 0;
+    padding: 0;
+    line-height: 4;
+    border-bottom: 1px solid #ccc;
+}
+
+
+#searchResult:hover{ background-color: #F7F7F7; }
+
+#boardUrl{ font-size: 20px; font-weight: bold; }
+
+.ellipsis {
+	display:-webkit-box;
+	-webkit-box-orient:vertical;
+	overflow:hidden;
+	-webkit-line-clamp:1;
+}
+
+#pIcon{display: block; width: 14px; margin-right:8px; margin-top: 20px;}
+
+#thumbnail{border-radius: 10px; width: 259px; height: 150px; margin-top: -113px; }
+
+#imgNone{display: none;}
 
 </style>
 
@@ -246,48 +282,51 @@ $(document).ready(function() {
 	</div>
 </div>
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 <div class="container" id="container">
+
+
+<div id="boardList">
+	<h3 style="font-weight: bold; margin-bottom: 37px; color: #06364E; font-size: 50px;">운동 인증 게시판</h3>
+</div><br>
+
+
+
 <div class="verify" id="search" name="search">
 
-
-<div class="search_wrap">
-		
-			<div class="search_area">
+	<form action="/board/verifyBoard" method="get">
+		<div class="search_wrap">
+			<div class="search_area" style="margin-left: 785px;">
 				<select name="type" id="type">
 					<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option>
 					<option value="C" <c:out value="${pageMaker.boardSearch.type eq 'C'?'selected':'' }"/>>내용</option>
 					<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option>
 				</select> 
-				
+					
 					<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search...">
-				<button id="searchIcon"><i class="fas fa-search"></i></button>
-				
-				
+					<button id="searchIcon"><i class="fas fa-search"></i></button>
+					
 			</div>
 		</div>
-	</div>
+	</form>	
 
-<br><br><br><br>
-
-<div class="pageInfo_wrap">
+	<div class="pageInfo_wrap">
 		<div class="pageInfo_area">
 			<ul id="pageInfo" class="pageInfo">
-
+	
 				<c:if test="${pageMaker.prev}">
 					<li class="pageInfo_btn previous"><a href="${pageMaker.startPage - 1}">Previous</a></li>
 				</c:if>
-
+	
 				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
 					<li class="pageInfo_btn ${pageMaker.boardSearch.curPage == num ? "active":"" }"></li>
 				</c:forEach>
-
+	
 				<c:if test="${pageMaker.next}">
 					<li class="pageInfo_btn next"><a href="${pageMaker.endPage + 1 }">Next</a></li>
 				</c:if>
-
+	
 			</ul>
 		</div>
 	</div>
@@ -300,67 +339,79 @@ $(document).ready(function() {
 		<input type="hidden" name="type" value="${pageMaker.boardSearch.type }">
 	</form>
 	
-
-<br><br><br><br>
-
-<div id="boardList">
-	<h3 style="font-weight: bold; color: #06364E; font-size: 30px;">운동 인증 게시판</h3>
 </div>
 
-<div>
-	<a href="/board/verifyBoard" id="totalList" name="totalList">전체 게시글 보기 ▼</a>
-</div>
+    <div>
+    	<a href="/board/verifyBoard" id="totalList" name="totalList" style="float: left; margin-top: -25px;">전체 게시글 보기 ▼</a>
+    </div>
 
+<div id="article" style="border-top: 3px solid #84C9E3; margin-top: 22px;">
+<c:forEach items="${notice}" var="notice">
+	<ul id="noticeUl" style="list-style: none; line-height: 3;">
+		<li style="float: left; margin-right: 100px; display: inline;"><strong id="noticeStrong">공지</strong></li>
+		<li style="font-size: 18px; display: inline;"><a href="/notice/view?noticeNo=${notice.noticeNo}&noticeNo=3&"><strong>${notice.noticeTtl }</strong></a></li>
+		<li style="float: right; margin-top: 7px; display: inline;">작성일 <fmt:formatDate value="${notice.noticeDate }" pattern="yy-MM-dd" /></li>
+		<li style="float: right; margin-top: 7px; margin-right: 8px; display: inline;" >|</li>
+		<li style="float: right; margin-top: 7px; margin-right: 8px; display: inline;">조회수 ${notice.noticeHit }</li>
+		<li style="float: right; margin-top: 7px; margin-right: 8px; display: inline;" >|</li>
+		<li style="float: right; margin-top: 7px; margin-right: 8px; display: inline;"><strong style="color: #0D71A4;">관리자</strong></li>
+		<li style="display: none;" ></li><br>
+	</ul>
+		
+</c:forEach>
+
+<!-- 일반 게시글 / 검색결과 -->
+<c:forEach items="${boardSearch }" var="boardSearch">
+	<ul id="searchResult" style="list-style: none;">
+		<li style="float: left; display: none;" >${boardSearch.verifyNo }</li>
+		<li style="float: left; line-height:380%;"><a href="${path}/board/verifyView?verifyNo=${boardSearch.verifyNo}" id="boardUrl">${boardSearch.vTitle }</a></li><br>
+		<li style="float: left;" class="ellipsis" >${boardSearch.afterCon }</li><br>
+		
+		<li style="float: right;">
+		
+			<c:set var="fileSto" value="${null }"/>
+			<c:forEach items="${fileMapList }" var="fileMap">
+			<c:if test="${fileMap.bfNo eq boardSearch.bfNo}">
+				<c:set var="fileSto" value="${fileMap.fileList[0].fileSto }"/>
+			</c:if>
+			</c:forEach>
+			
+			<c:if test="${fileOri == null}">
+				<img id="imgNone">
+			</c:if>	
+			<c:if test="${fileSto != null}">
+				<img src="${pageContext.request.contextPath}/upload/${fileSto }" id="thumbnail">
+			</c:if>		
+			
+		</li>
+		
+		<li style="float: left;" >
+			<c:if test="${storedName == null }">
+				<img src="/resources/img/mypage/userprofile.png" class="pIcon" id="pIcon">
+			</c:if>
+			<c:if test="${storedName != null}">
+				<img src="${pageContext.request.contextPath}/upload/${storedName.storedName}" class="pIcon" id="pIcon">
+			</c:if>
+		</li>
+		<li style="float: left; margin-right: 8px;" ><strong style="color: #0D71A4;">${boardSearch.userNo }</strong></li>
+		<li style="float: left; margin-right: 8px;" >|</li>
+		<li style="float: left; margin-right: 8px;" >작성일 <fmt:formatDate value="${boardSearch.vInstDate }" pattern="yy-MM-dd"/></li>
+		<li style="float: left; margin-right: 8px;" >|</li>
+		<li style="float: left; margin-right: 8px;" >조회수 ${boardSearch.vHit }</li>
+		<li style="float: left; margin-right: 8px;" >|</li>
+		<li style="float: left;">좋아요 ${boardSearch.vThumbs }</li><br>
+	</ul>
+</c:forEach>
+
+<div style="border-top: 3px solid #84C9E3;"></div>
+
+</div>
 
 
 <br><br><br>
 
-<table class="table table-hover">
-<thead>
-	<tr style="border-top: 3px solid #84C9E3;">
-		<th style="width: 10%;">글번호</th>
-		<th style="width: 45%;">제목</th>
-		<th style="width: 20%;">작성자</th>
-		<th style="width: 10%;">조회수</th>
-		<th style="width: 10%;">좋아요</th>
-		<th style="width: 15%;">작성일</th>
-	</tr>
-</thead>
-<tbody>
 
-<!-- 공지사항 -->
-<c:forEach items="${notice}" var="notice">
-	<tr id="warn">
-		<td><strong id="noticeStrong">공지</strong> </td>
-		<td><a href="/notice/view?noticeNo=${notice.noticeNo}&noticeNo=3&"> <strong>${notice.noticeTtl } </strong></a></td>
-		<td><strong style="color: #0D71A4;">관리자</strong></td>
-		<td>${notice.noticeHit }</td>
-		<td>공지</td>
-		<td><fmt:formatDate value="${notice.noticeDate }" pattern="yyyy-MM-dd" /></td>
-	</tr>
-		
-</c:forEach>
-
-<!-- 일반게시글 / 검색 결과 -->
-<c:forEach items="${boardSearch }" var="board">
-	<tr id="searchResult">
-		<td>${board.verifyNo }</td>
-		<td><a href="${path}/board/verifyView?verifyNo=${board.verifyNo}">${board.vTitle }</a></td>
-		<td>${board.userNo }</td>
-		<td>${board.vHit }</td>
-		<td>${board.vThumbs }</td>
-		<td><fmt:formatDate value="${board.vInstDate }" pattern="yy-MM-dd"/></td>
-	</tr>
-</c:forEach>
-
-</tbody>
-
-<tr  style="border-bottom: 3px solid #84C9E3;"></tr>
-
-</table>
-
-
-<div class="text-center">
+<div class="text-center" style="margin-top: 10px;">
 		<ul class="pagination pagination-sm">
 	
 		<%-- 첫 페이지로 이동 (이동할게 없을때) --%>
@@ -423,11 +474,13 @@ $(document).ready(function() {
 	</div>
 
 
+<br><br><br>
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 <div class="page-content page-container" id="page-content">
     <div class="padding">
-        <div class="row container d-flex justify-content-center" style="text-align: center;">
+        <div class="row container d-flex justify-content-center" style="text-align: center; float: right; margin-top: -105px;">
         	<button type="button" id="btnInsert" class="btn btn-warning btn-icon-text animatebutton"><i class="fa fa-check btn-icon-prepend" style="margin-right: 10px;"></i>글쓰기</button> 
         	
        </div>

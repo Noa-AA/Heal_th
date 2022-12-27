@@ -21,6 +21,11 @@
 
 <style type="text/css">
 
+a {
+    color: #000;
+    text-decoration: none;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -189,7 +194,7 @@ $(document).ready(function() {
 
 <div class="form-group">
 	<label for="file">첨부파일</label>
-<%-- 	<jsp:include page="../file/upload.jsp" />  --%>
+	<jsp:include page="../file/upload.jsp" /> 
 </div>	
 
 
