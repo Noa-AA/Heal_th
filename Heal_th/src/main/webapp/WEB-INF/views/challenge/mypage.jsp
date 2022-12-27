@@ -19,7 +19,8 @@
 
 .user-content {
 	border: 1px solid #333;
-	border-radius: 10px; box-shadow : 1px 1px 10px 0px rgb( 0 0 0/ 30%);
+	border-radius: 10px;
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0/ 30%);
 	width: 1200px;
 	text-align: center;
 	margin: 52px 338px;
@@ -96,10 +97,9 @@
 			<div class="user-content">
 				<div>이름 : ${user.userName }</div>
 				<div>아이디 : ${user.userId }</div>
-				<%-- 				<div>가입한 챌린지 수 : ${total }</div> --%>
 			</div>
 
-			<div class="challenge-title"> ${user.userName } 님이 가입한 챌린지</div>
+			<div class="challenge-title">${user.userName } 님이 가입한 챌린지</div>
 			<div class="join_list">
 				<c:forEach items="${joinList }" var="joinList">
 					<div class="challenge">
@@ -125,7 +125,7 @@
 
 	<form id="moveForm" method="get">
 		<input type="hidden" id="challengeNo" name="challengeNo" value='<c:out value="${pageInfo.challengeNo}"/>'>
-	
+
 	</form>
 </body>
 <%@include file="../layout/footer.jsp"%>
@@ -134,20 +134,13 @@
 <script>
 //사진인증 페이지
 let moveForm = $("#moveForm");
-$(".move")
-		.on(
-				"click",
-				function(e) {
-					e.preventDefault();
-					moveForm.empty();
-
-					moveForm
-							.append("<input type='hidden' name='challengeNo' value='"
-									+ $(this).attr("href") + "'>");
-					moveForm.attr("action", "/challenge/photopage");
-					moveForm.submit();
-				});
-
-
+$(".move").on("click",function(e) {
+		e.preventDefault();
+		moveForm.empty();
+		moveForm.append("<input type='hidden' name='challengeNo' value='"
+					 	+ $(this).attr("href") + "'>");
+		moveForm.attr("action", "/challenge/photopage");
+		moveForm.submit();
+		});
 </script>
 </html>

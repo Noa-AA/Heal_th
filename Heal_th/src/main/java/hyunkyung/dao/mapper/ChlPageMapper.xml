@@ -7,8 +7,8 @@
 
 <mapper namespace="hyunkyung.dao.face.ChlPageDao">
 	<!-- 유저 정보 조회 -->
-	<select id="selectUserInfo" resultType="Users"
-		parameterType="int">
+	<select id="selectUserInfo" resultType="Users" parameterType="int">
+	/* ChlPageMapper.selectUserInfo */
 		SELECT *
 		FROM users
 		WHERE user_no = #{userno }
@@ -16,33 +16,93 @@
 
 	<!-- 내 챌린지 조회 -->
 	<select id="selectjoinList" parameterType="int" resultType="Challenge">
+	/* ChlPageMapper.selectjoinList */
 		SELECT P.challenge_no, C.challenge_kind, C.challenge_name,
 		C.challenge_credate, C.challenge_enddate
 		FROM participant_list P
-		JOIN challenge C ON(P.challenge_no=C.challenge_no)
+		JOIN challenge C ON(P.challenge_no=C.challenge_no AND status = 1)
 		WHERE user_no = #{userNo}
 	</select>	
 	
 	
 	<!-- 사진인증 페이지 이동 -->
 	<select id="getPage" resultType="Challenge">
+	/* ChlPageMapper.getPage */
 		SELECT * 
 		FROM challenge
 		WHERE challenge_no = #{challengeNo}
+			AND status = 1
 	</select>
 	
-	<!-- 회원이 인증한 사진 리스트 조회 -->
-	<select id="getPhoto" parameterType="int" resultType="ChallengeFile">
+	
+	<!-- 챌린지 방별로 전체 사진 리스트 조회 -->
+	<select id="getPhoto" parameterType="int" resultType="ChallengeContent">
+	/* ChlPageMapper.getPhoto */
 		SELECT *
+		FROM challenge_page P
+		JOIN challenge_file F ON(P.chpage_no = F.chpage_no)
+		WHERE challenge_no = #{challengeNo}
+		
+	</select>
+	
+	
+	<!-- 파일 존재 여부 확인 -->
+	<select id="selectFile" resultType="int">
+	/* ChlPageMapper.selectFile */
+		SELECT count(*) 
+		FROM challenge_page P
+		JOIN challenge_file F ON(P.chpage_no = F.chpage_no)
+		WHERE challenge_no = #{challengeNo}
+			AND ch_writer = #{chWriter} 
+			AND ch_date = to_date(sysdate)
+	</select>	
+	
+	<!-- 파일 번호 조회 -->
+	<select id="selectfileNo" resultType="int" parameterType="ChallengeContent">
+	/* ChlPageMapper.selectfileNo */
+		SELECT F.cfile_no 
 		FROM challenge_page P
 		JOIN challenge_file F ON(P.chpage_no = F.chpage_no)
 		WHERE challenge_no = #{challengeNo}
 	</select>
 	
-	<!-- 이미지 파일 삽입 -->
-<!-- 	<insert id="insertFile" parameterType="ChallengeFile"> -->
-<!-- 		INSERT INTO challenge_file(cfile_no, originfile, storedfile) -->
-<!-- 		VALUES (#{cfileNo}, #{originfile}, #{storedfile}) -->
-<!-- 	</insert> -->
+	<!-- 파일 업데이트하기 -->
+	<delete id="updateFile">
+	/* ChlPageMapper.updateFile */
+		DELETE FROM challenge_file a
+		WHERE
+		    a.chpage_no = (
+		        SELECT
+		            b.chpage_no
+		        FROM
+		            challenge_page b
+		        WHERE
+		                b.challenge_no = #{challengeNo}
+		            AND b.ch_writer = #{chWriter}
+		            AND b.ch_date = TO_DATE(sysdate)
+		    );
+		    
+		DELETE FROM challenge_page
+		WHERE
+				b.challenge_no = #{challengeNo}
+			AND b.ch_writer = #{chWriter}
+			AND b.ch_date = TO_DATE(sysdate);
+	</delete>
+	
+	<!-- 인증 파일 등록하기 -->
+	<insert id="insertFile">
+	/* ChlPageMapper.insertFile */
+		INSERT ALL 
+		    INTO challenge_page (chpage_no, ch_date, ch_writer, challenge_no) 
+		    VALUES (challenge_page_seq.NEXTVAL, sysdate, #{chWriter}, #{challengeNo})
+		    <foreach collection="list" item="item" index="i">
+			    INTO challenge_file (cfile_no, originfile, storedfile, cfilesize, regi_date, chpage_no)
+			    VALUES ((SELECT MAX(cfile_no) + 1 + #{i} from challenge_file), #{item.originfile}, #{item.storedfile}, #{item.cfilesize}, sysdate, challenge_page_seq.nextval)
+		    </foreach>
+		SELECT
+		    *
+		FROM
+		    dual
+	</insert>
 	
 </mapper>    

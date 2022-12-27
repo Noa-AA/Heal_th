@@ -9,15 +9,19 @@
 
 	<!-- 챌린지 목록 -->
 	<select id="getList" resultType="Challenge">
+	/* ChallengeMapper.getList */
 		SELECT challenge_no,
 		challenge_kind, challenge_name, challenge_credate, challenge_enddate
 		FROM challenge
+		WHERE status = 1
 	</select>
 
 	<!-- 챌린지 조회 -->
 	<select id="getPage" resultType="Challenge">
+	/* ChallengeMapper.getPage */
 		SELECT * FROM challenge
 		WHERE challenge_no = #{challengeNo}
+			AND status = 1
 	</select>
 
 	<!-- 검색 조건문 -->
@@ -41,6 +45,7 @@
 
 	<!-- 챌린지 목록(페이징) -->
 	<select id="getListPaging" resultType="Challenge">
+	/* ChallengeMapper.getListPaging */
     
     <![CDATA[
         
@@ -49,6 +54,7 @@
                 select /*+INDEX_DESC(challenge pk_challenge) */ rownum  as rn, challenge_no, challenge_kind, challenge_name, challenge_credate, challenge_enddate
                   
                 from challenge where rownum <= #{pageNum} * #{amount} 
+                	AND status = 1
     ]]>
 		<if test="keyword != null">
 			<include refid="criteria"></include>
@@ -67,19 +73,25 @@
 
 	<!-- 챌린지 총 갯수 -->
 	<select id="getTotal" resultType="int">
+	/* ChallengeMapper.getTotal */
 		SELECT count(*) FROM challenge
 
 		<if test="keyword != null">
 			where challenge_no > 0
+				AND status = 1
 			<include refid="criteria"></include>
 		</if>
 	</select>
 
 	<!-- 챌린지 삭제 -->
-	<delete id="delete" parameterType="Challenge">
-		DELETE challenge
+	<update id="delete" parameterType="Challenge">
+	/* ChallengeMapper.delete */
+		UPDATE challenge
+		SET status = 0
 		WHERE challenge_no = #{challengeNo}
-	</delete>
+	</update>
+
+
 
 	
 </mapper>    
