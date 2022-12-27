@@ -55,21 +55,21 @@
 			   , weight, bf_exercise, g_weight, s_date
 			   , e_date, sele_exercise, before_con
 			   , c_weight, g_result, after_con
-			   , bf_upt_date, bf_delete_date, bf_hit
-			   , bf_thumbs, user_no, user_nick, category_no )
+			   , bf_hit
+			   , bf_thumbs, user_no, category_no )
 		
 		VALUES ( #{bfNo}, sysdate, #{bfTitle}, #{height}, #{gender}
 				   , #{weight}, #{bfExercise}, #{gWeight}, #{sDate}
 				   , #{eDate}, #{seleExercise}, #{beforeCon}
 				   , #{cWeight}, #{gResult}, #{afterCon}
-				   ,  to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS'), 0
-				   , 0, #{userNo}, #{userNick}, 1 )
+				   , 0
+				   , 0, #{userNo}, 1 )
 	</insert>
 	
 
 	<select id="selectBoard" resultType="Beforeafter" parameterType="Beforeafter">
 		SELECT
-			bf_no, category_no, bf_title, user_no, user_nick,
+			bf_no, category_no, bf_title, user_no,
 			bf_hit, bf_thumbs, bf_inst_date,
 			height, gender, weight, bf_exercise, g_weight,
 			s_date, e_date, sele_exercise, before_con, c_weight,
@@ -144,11 +144,11 @@
     
     <select id="getSearchPaging" resultType="Beforeafter">
          
-         SELECT bf_no, bf_title, user_no, user_nick, before_con,
+         SELECT bf_no, bf_title, user_no, before_con,
  					after_con, bf_hit, bf_thumbs, bf_inst_date  FROM( 
             select rownum rn, d.* from (
                  SELECT 
-                  bf_no, bf_title, user_no, user_nick, before_con,
+                  bf_no, bf_title, user_no, before_con,
  								after_con, bf_hit, bf_thumbs, bf_inst_date 
                   
                  FROM beforeafter
@@ -192,10 +192,6 @@
 	</update>
 
 
-	<select id="selectUserNick" resultType="string" parameterType="int">
-		SELECT user_nick FROM users
-		WHERE user_no = #{userNo }
-	</select>
 
 
 </mapper>

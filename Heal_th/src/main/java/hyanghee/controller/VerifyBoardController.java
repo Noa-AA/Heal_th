@@ -12,12 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import hyanghee.dto.VerifyBoard;
 import hyanghee.service.face.VerifyBoardService;
 import hyanghee.util.BoardPageMaker;
 import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
+import jucheol.service.face.FileuploadService;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
@@ -32,7 +34,7 @@ public class VerifyBoardController {
 	@Autowired private VerifyBoardService verifyBoardService;
 	
 	//첨부 파일
-//	@Autowired private FileuploadService fileuploadService; 
+	@Autowired private FileuploadService fileuploadService; 
 	
 	//운동인증 게시판 목록
 	@RequestMapping("board/verifyBoard")
@@ -79,7 +81,7 @@ public class VerifyBoardController {
 	
 	@PostMapping("/board/vWrite")
 	public String insertVerifyBoardProc(VerifyBoard verifyBoard,HttpSession session
-//			, List<MultipartFile> multiFile
+			, List<MultipartFile> multiFile
 			) {
 		
 		//테스트용 로그인 userno
@@ -87,15 +89,14 @@ public class VerifyBoardController {
 		
 		//작성자, 카테고리 정보 추가
 		verifyBoard.setUserNo( (int) session.getAttribute("userNo") );
-//		bfBoard.setCategoryNo( (int) session.getAttribute("categoryNo") );
 		
 		logger.info("{}", verifyBoard);
 		
 		verifyBoardService.insertVerifyBoard(verifyBoard);
 		
-//		 int boardNo = bfBoard.getBfNo(); //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
-//	     int categoryNo = 2;//----------------카테고리번호 넣어주세여~
-//	     fileuploadService.insertFile(multiFile, boardNo, categoryNo);
+		 int boardNo = verifyBoard.getVerifyNo(); 
+	     int categoryNo = 2;
+	     fileuploadService.insertFile(multiFile, boardNo, categoryNo);
 		
 		int point = (Integer)session.getAttribute("userNo");
 		verifyBoardService.updatePoint(point);
