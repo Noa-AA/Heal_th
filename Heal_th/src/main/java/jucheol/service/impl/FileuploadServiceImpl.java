@@ -30,7 +30,7 @@ public class FileuploadServiceImpl implements FileuploadService{
 	@Autowired ServletContext context;
 	
 	public void insertFile(List<MultipartFile> multiFile ,int boardNo, int categoryNo) {
-		
+		System.out.println(multiFile);
 		//빈 파일일 경우
 		if( multiFile.size() <= 0 ) {
 			return;

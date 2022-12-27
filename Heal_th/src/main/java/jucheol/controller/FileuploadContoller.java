@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import jucheol.dto.Comment;
 import jucheol.dto.Fileupload;
 import jucheol.service.face.FileuploadService;
 
@@ -59,9 +58,39 @@ public class FileuploadContoller {
 			) {
 		logger.info("file/write[POST]");
 		//-------- 여기부터
-		int boardNo = 3; //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
-		int categoryNo = 2;//----------------카테고리번호 넣어주세여~
+		int boardNo = 4; //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
+		int categoryNo = 3;//----------------카테고리번호 넣어주세여~
+		
+		logger.info("{}",multiFile);
 		fileuploadService.insertFile(multiFile,boardNo,categoryNo);
 		//-------- 여기까지
+	}
+	
+	@GetMapping("/update")
+	public void fileupdate(
+			Model model
+			) {
+		logger.info("/file/update[get]");
+		
+		int boardNo = 1; //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
+		int categoryNo = 4;//----------------카테고리번호 넣어주세여~
+		model.addAttribute("boardNo", boardNo);
+		model.addAttribute("categoryNo", categoryNo);
+		
+	}
+	@GetMapping("/updateList")
+	public void updateList(
+			Fileupload fileupload
+			, Model model
+			, int boardNo
+			, int category
+			) {
+		logger.info("/file/updateList[GET]");
+		fileupload.setBoardNo(boardNo);
+		fileupload.setCategoryNo(category);
+		List<Fileupload> fileList = fileuploadService.getFileList(fileupload);
+		for( Fileupload f : fileList ) logger.info("fileList-{}",f);
+		model.addAttribute("fileList", fileList);
+		
 	}
 }

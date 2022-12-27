@@ -158,15 +158,21 @@ $(document).ready(function(){
     padding-left: 30px;
 }
 
-.commentDelete {
-	cursor:pointer;
+.commentDelete{
+	background-color: transparent;
+}
+.commentDeleteBtn {
 	width: 20px;
 	height: 20px;
+}
+.commentP{
+	padding: 20px 0 0 20px;
 }
 </style>
 
 <div id="commentBoard">
 
+<h4 class="commentP">댓글</h2>
 <div id="commentList"></div> <!-- 댓글 List 적용될 div -->
 <br>
 <div id="inputContainer">

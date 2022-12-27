@@ -61,7 +61,7 @@
 				<c:set var="userNo" value="${userNo }" />
 				<c:choose>
 					<c:when test="${comment.userNo eq userNo}">
-						<td style="text-align: right"><img alt="" src="/resources/img/addOns/delete.png" class="commentDelete" value="${comment.commentNo}"></td>
+						<td style="text-align: right"><button class="commentDelete" value="${comment.commentNo}"><img alt="" src="/resources/img/addOns/delete.png" class="commentDeleteBtn"></button></td>
 						<%-- <button class="commentDelete" value="${comment.commentNo}">삭제</button> --%>
 					</c:when>
 					<c:otherwise>
