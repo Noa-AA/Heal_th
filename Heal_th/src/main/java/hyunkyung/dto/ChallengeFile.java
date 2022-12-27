@@ -12,9 +12,6 @@ public class ChallengeFile {
 	private int chpageNo;
 	
 	
-	//썸네일 이미지
-//	private String cThumbImg; 
-	
 	public ChallengeFile() {
 	}
 

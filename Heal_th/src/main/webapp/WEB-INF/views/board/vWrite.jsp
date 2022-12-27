@@ -70,7 +70,7 @@ $(document).ready(function() {
 
 <h1>운동 인증</h1>
 
-<form action="/board/vWrite" method="post">
+<form action="/board/vWrite" method="post" enctype="multipart/form-data">
 
 <table>
 	<tr>

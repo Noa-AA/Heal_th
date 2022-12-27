@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import hyunkyung.dto.Challenge;
-import hyunkyung.dto.ParticipantList;
 import hyunkyung.service.face.ChallengeService;
 import hyunkyung.util.ChlCriteria;
 import hyunkyung.util.ChlPageMakerDTO;
-import yerim.dto.Users;
 
 @Controller
 @RequestMapping("/challenge")
@@ -60,4 +58,5 @@ public class ChallengeController {
 
 		return "redirect:/challenge/list";
 	}
+	
 }

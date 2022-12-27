@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import hyanghee.dto.ReviewBoard;
 import hyanghee.service.face.ReviewBoardService;
@@ -20,6 +21,7 @@ import hyanghee.util.BoardPageMaker;
 import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
+import jucheol.service.face.FileuploadService;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
@@ -33,7 +35,7 @@ public class ReviewBoardController {
 		@Autowired private ReviewBoardService reviewBoardService;
 		
 		//첨부 파일
-//		@Autowired private FileuploadService fileuploadService; 
+		@Autowired private FileuploadService fileuploadService; 
 		
 		
 		//게시글 리스트
@@ -81,7 +83,7 @@ public class ReviewBoardController {
 		
 		@PostMapping("/board/rWrite")
 		public String insertReviewProc(ReviewBoard reviewBoard,HttpSession session
-//				, List<MultipartFile> multiFile
+				, List<MultipartFile> multiFile
 				) {
 			
 			//테스트용 로그인 userno
@@ -89,15 +91,14 @@ public class ReviewBoardController {
 			
 			//작성자, 카테고리 정보 추가
 			reviewBoard.setUserNo( (int) session.getAttribute("userNo") );
-//			bfBoard.setCategoryNo( (int) session.getAttribute("categoryNo") );
 			
 			logger.info("{}", reviewBoard);
 			
 			reviewBoardService.insertReview(reviewBoard);
 			
-//			 int boardNo = bfBoard.getBfNo(); //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
-//		     int categoryNo = 4;//----------------카테고리번호 넣어주세여~
-//		     fileuploadService.insertFile(multiFile, boardNo, categoryNo);
+			 int boardNo = reviewBoard.getReviewNo(); //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
+		     int categoryNo = 4;//----------------카테고리번호 넣어주세여~
+		     fileuploadService.insertFile(multiFile, boardNo, categoryNo);
 			
 			int point = (Integer)session.getAttribute("userNo");
 			reviewBoardService.updatePoint(point);

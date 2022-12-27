@@ -41,7 +41,7 @@ public interface LoginService {
 	 * @param session
 	 * @return
 	 */
-	public String codeChk(String emailCode, HttpSession session);
+	public boolean codeChk(String emailCode, HttpSession session);
 
 	
 	/**
@@ -66,6 +66,13 @@ public interface LoginService {
 	 */
 	public String smsCodeChk(String smsCode, HttpSession session);
 
+	/**
+	 * 아이디 찾기 결과 - 유저 아이디 조회하기 
+	 * @param searchId
+	 * @return
+	 */
+	public String findUserId(Users searchId);
+	
 	/**
 	 * 비밀번호 찾기를 위한 회원 조회
 	 * @param searchPw -회원이 입력한회원 정보
@@ -104,5 +111,7 @@ public interface LoginService {
 	 * @return 
 	 */
 	public boolean setNewPw(Users userUpdatePw, HttpSession session);
+
+	
 
 }

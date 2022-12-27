@@ -27,6 +27,13 @@ body {
 	padding: 0;
 }
 
+#banner {
+	position:relative;
+	top:-60px;
+	width:2000px;
+	margin:0 auto;
+}
+
 .main-first-wrap {
 	width: 1100px;
 	margin: 0 auto;
@@ -66,8 +73,12 @@ body {
 	width: 90px;
 }
 
-.main-second-wrap p {
+.main-second-wrap a {
     font-size: 32px;
+}
+
+.main-second-wrap a:hover {
+    font-size: 35px;
 }
 
 .main-second-wrap #first {
@@ -113,7 +124,7 @@ body {
 .main-third-wrap {
 	width: 1500px;
 	margin: 0 auto;
-	margin-top: 100px;
+	margin-top: 120px;
 }
 
 .main-fourth-wrap {
@@ -151,7 +162,9 @@ body {
 }
 </style>
 <body>
-<img src="/resources/img/main-banner.png" style="position:relative; top:-60px;"/>
+<div id="banner">
+	<img src="/resources/img/main-banner.png"/>
+</div>
 	<div class="main-first-wrap">
 		<div class="left">
 			<img src="/resources/img/main-model.png"/>
@@ -167,19 +180,19 @@ body {
 	<div class="main-second-wrap">
 		<div id="first">
 			<p><img src="/resources/img/challenge.gif"></p>
-			<p>Challenge</p> 
+			<a href="/challenge/list">Challenge</a> 
 		</div>
 		<div id="second">
 			<p><img src="/resources/img/chatting.gif"></p>
-			<p>Chatting</p>
+			<a href="/chat/intro">Chatting</a>
 		</div>
 		<div id="third">
 			<p><img src="/resources/img/helper.gif"></p>
-			<p>Helper</p>
+			<a href="/dghelper/healthtest">Helper</a>
 		</div>
 		<div id="fourth">
 			<p><img src="/resources/img/shopping.gif"></p>
-			<p>Store</p>
+			<a href="/store/list">Store</a>
 		</div>
 	</div>
 <!-- 	<div class="main-third-wrap">

@@ -61,6 +61,7 @@ public interface NoticeService {
 	 * @param notice
 	 */
 	public void delete(Notice notice);
-
+	
+	public int  getTotal(Search search);
 
 }

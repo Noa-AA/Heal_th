@@ -3,17 +3,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="../layout/adminheader.jsp" />
-
+<script src="https://cdn.ckeditor.com/ckeditor5/35.4.0/classic/ckeditor.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$("#enrollbtn").click(function(){ //등록 버튼
-		$("enrollForm").submit();
-	})
-// 	$("#cancelbtn").click(function(){  //취소 버튼
-// 		$(location).attr("href", "./list")
-// 	})
+	ClassicEditor
+	.create(document.querySelector('#pDetail_textarea'))
+	.catch(error=>{
+		console.error(error);
+	});
 	
+	let enrollForm = $("#enrollForm")
+	
+	$("#cancelBtn").click(function(){ //취소 버튼
+	
+	location.href="/product/list"
+	
+});
+	
+	$("#enrollbtn").click(function(){ //등록 버튼
+		e.preventDefault();
+	
+		enrollForm.submit();
+		
+	})
+
+
 	/* 이미지 업로드 */
 	$("input[type='file']").on("change",function(e){ 
 		
@@ -130,44 +145,97 @@ $(document).ready(function() {
 </script>
 
 <style type="text/css">
-	#result_card img{
-		max-width: 50%;
-	    height: auto;
-	    display: block;
-	    padding: 5px;
-	    margin-top: 10px;
-	    margin: auto;	
-	}
-	#result_card {
-		position: relative;
-	}
-	.imgDeleteBtn{
-	    position: absolute;
-	    top: 0;
-	    right: 5%;
-	    background-color: #ef7d7d;
-	    color: wheat;
-	    font-weight: 900;
-	    width: 30px;
-	    height: 30px;
-	    border-radius: 50%;
-	    line-height: 26px;
-	    text-align: center;
-	    border: none;
-	    display: block;
-	    cursor: pointer;	
+.ck-content {						/* ckeditor 높이 */
+    height: 170px;
+}
+.admin_content_wrap{
+overflow: scroll
+}
+/* 관리자 컨텐츠 메인 영역 */
+.form_section{
+	width: 95%;
+    margin-left: 2%;
+    margin-top: 20px;
+    border: 1px solid #dbdde2;
+    background-color: #efefef;	
+}
+.form_section_title{
+	padding: 20px 35px;	
+}
+.form_section_title label{
+	display: block;
+    font-size: 20px;
+    font-weight: 800;
+}
+.form_section_content{
+	padding: 20px 35px;
+    border-top: 1px solid #dbdde2;	
+}
+.form_section_content input{
+	width: 98%;
+    height: 25px;
+    font-size: 20px;
+    padding: 5px 1%;
+}
+.form_section_content select{
+	width: 98%;
+    height: 35px;
+    font-size: 20px;
+    text-align-last: center;
+}
+
+
+/* 버튼 영역 */
+.btn_section{
+	text-align: center;
+	margin: 80px 0;
+}
+.btn{
+    min-width: 180px;
+    padding: 4px 30px;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 40px;
+}
+.enroll_btn{
+	background-color: #dbdde2;
+	margin-left:15px;
+}
+#enrollBtn:hover {
+    background-color: #c9cbd0;
+}
+#result_card {
+	position: relative;
+}
+.imgDeleteBtn{
+    position: absolute;
+    top: 0;
+    right: 5%;
+    background-color: #ef7d7d;
+    color: wheat;
+    font-weight: 900;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    line-height: 26px;
+    text-align: center;
+    border: none;
+    display: block;
+    cursor: pointer;	
 	}
 </style>
 
 <body>
 
-<div class="adminContentMain">
+<div class="admin_content_wrap">
+ <div class="admin_content_subject"><span>상품 등록</span></div>
+	<div class="admin_content_main">
 	<form action="/product/enroll" method="post" id="enrollForm">
-		<div class="formSection">
-		<div class="formSectionTitle">
-			<label>카테고리</label>
-		</div>
-		<div class="formSectionContent">
+		<div class="form_section">
+			<div class="form_section_title">
+				<label>카테고리</label>
+			</div>
+		<div class="form_section_content">
 			<div class="cate_wrap">
 				<select name="pCateNo">
 					<option value="none" selected>=== 상품분류 ===</option>
@@ -177,57 +245,56 @@ $(document).ready(function() {
 				</select>
 			</div>
 		</div>
-		<div class="formSection">
-			<div class="formSectionTitle">
+		<div class="form_section">
+			<div class="form_section_title">
 				<label>상품명</label>
 			</div>
-			<div class="formSectionContent">
+			<div class="form_section_content">
 				<input name="pName">
-		</div>
-		<div class="formSection">
-			<div class="formSectionTitle">
+			</div>
+		</div>	
+		<div class="form_section">	
+			<div class="form_section_title">
 				<label>상품 가격</label>
 			</div>
-			<div class="formSectionContent">
-				<input name="pPrice">
+			<div class="form_section_content">
+				<input name="pPrice" value="0">
 			</div>
 		</div>
-		<div class="formSection">
-			<div class="formSectionTitle">
+		<div class="form_section">
+			<div class="form_section_title">
 				<label>상세정보</label>
 			</div>
-			<div class="formSectionContent">
-				<input name="pDetail">
+			<div class="form_section_content">
+				<textarea name="pDetail" id="pDetail_textarea"></textarea>
 			</div>
 		</div>
-		<div class="formSection">
-			<div class="formSectionTitle">
+		<div class="form_section">
+			<div class="form_section_title">
 				<label>재고수량</label>
 			</div>
-			<div class="formSectionContent">
-				<input name="pStock">
-			</div>
-		<div class="formSection">
-			<div class="formSectionTitle">
-				<label>상품 이미지</label>
-			</div>
-			<div class="formSectionContent">
-				<input type="file" multiple="multiple" name="pImage1" style="height: 30px;">
-				<div id="uploadResult">
-<!-- 					<div id="result_card"> -->
-<!-- 						<div class="imgDeleteBtn">X</div> -->
-<!-- 						<img src="/product/display?fileName=gg.jpg"> -->
-<!-- 					</div>					 -->
-				</div>
+			<div class="form_section_content">
+				<input name="pStock" value="0">
 			</div>
 		</div>
-	<div class="btnSection">
-		<button id="enrollbtn">등록</button>
-		<button id="cancelbtn"><a href="./list">취소</a></button>
+		<div class="form_section">
+			<div class="form_section_title">
+				<label>상품 이미지</label>
+			</div>
+			<div class="form_section_content">
+				<input type="file" multiple="multiple" name="pImage1" style="height: 30px;">
+				<div id="uploadResult">
+				</div>	
+			</div>
+		</div>
+	</div>	
+	<div class="btn_section">
+		<button id="enrollBtn" class="btn enroll_btn">등록</button>
+		<button id="cancelBtn" class="btn">취소</button>
 	</div>
 	</form><br>
 </div>
-
+</div>
 
 </body>
 </html>

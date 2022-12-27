@@ -3,11 +3,12 @@ package hyunkyung.service.face;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import hyunkyung.dto.Challenge;
-import hyunkyung.dto.ChallengeFile;
+import hyunkyung.dto.ChallengeContent;
 import yerim.dto.Users;
 
 public interface ChlPageService {
@@ -41,13 +42,24 @@ public interface ChlPageService {
 	 * @param challengeNo
 	 * @return
 	 */
-	public List<ChallengeFile> getPhoto(int challengeNo);
+	public List<ChallengeContent> getPhoto(int challengeNo);
 
+	
 	/**
-	 * 업로드된 파일을 처리 
-	 * @param file
+	 * 인증용 사진 upload 하기 
+	 * @param chlPhoto - 사진 파일
+	 * @param chlFile
 	 */
-//	public void filesave(MultipartFile file);
+	public void upload(MultipartFile[] chlPhoto, Map<String, Object> data);
+
+
+	
+	
+	
+
+
+
+
 	
 	
 	

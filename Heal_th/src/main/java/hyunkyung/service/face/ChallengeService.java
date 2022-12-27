@@ -3,10 +3,7 @@ package hyunkyung.service.face;
 import java.util.List;
 
 import hyunkyung.dto.Challenge;
-import hyunkyung.dto.ChallengeFile;
-import hyunkyung.dto.ParticipantList;
 import hyunkyung.util.ChlCriteria;
-import yerim.dto.Users;
 
 public interface ChallengeService {
 
@@ -42,6 +39,12 @@ public interface ChallengeService {
 	 * @param challenge
 	 */
 	public void delete(Challenge challenge);
+
+
+	
+	
+	
+	
 
 	
 

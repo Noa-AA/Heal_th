@@ -16,8 +16,6 @@ public class ReviewBoard {
 	private Double lat;
 	private Double score;
 	private String review;
-	private Date rUptDate;
-	private Date rDeleteDate;
 	private int rHit;
 	private int rThumbs;
 	private int userNo;
@@ -27,7 +25,7 @@ public class ReviewBoard {
 
 	public ReviewBoard(int reviewNo, Date rInstDate, String rTitle, String gymName, String gymIntroduce,
 			String classification, String price, String address, Double lng, Double lat, Double score, String review,
-			Date rUptDate, Date rDeleteDate, int rHit, int rThumbs, int userNo, int categoryNo) {
+			int rHit, int rThumbs, int userNo, int categoryNo) {
 		super();
 		this.reviewNo = reviewNo;
 		this.rInstDate = rInstDate;
@@ -41,8 +39,6 @@ public class ReviewBoard {
 		this.lat = lat;
 		this.score = score;
 		this.review = review;
-		this.rUptDate = rUptDate;
-		this.rDeleteDate = rDeleteDate;
 		this.rHit = rHit;
 		this.rThumbs = rThumbs;
 		this.userNo = userNo;
@@ -54,8 +50,7 @@ public class ReviewBoard {
 		return "ReviewBoard [reviewNo=" + reviewNo + ", rInstDate=" + rInstDate + ", rTitle=" + rTitle + ", gymName="
 				+ gymName + ", gymIntroduce=" + gymIntroduce + ", classification=" + classification + ", price=" + price
 				+ ", address=" + address + ", lng=" + lng + ", lat=" + lat + ", score=" + score + ", review=" + review
-				+ ", rUptDate=" + rUptDate + ", rDeleteDate=" + rDeleteDate + ", rHit=" + rHit + ", rThumbs=" + rThumbs
-				+ ", userNo=" + userNo + ", categoryNo=" + categoryNo + "]";
+				+ ", rHit=" + rHit + ", rThumbs=" + rThumbs + ", userNo=" + userNo + ", categoryNo=" + categoryNo + "]";
 	}
 
 	public int getReviewNo() {
@@ -154,22 +149,6 @@ public class ReviewBoard {
 		this.review = review;
 	}
 
-	public Date getrUptDate() {
-		return rUptDate;
-	}
-
-	public void setrUptDate(Date rUptDate) {
-		this.rUptDate = rUptDate;
-	}
-
-	public Date getrDeleteDate() {
-		return rDeleteDate;
-	}
-
-	public void setrDeleteDate(Date rDeleteDate) {
-		this.rDeleteDate = rDeleteDate;
-	}
-
 	public int getrHit() {
 		return rHit;
 	}
@@ -202,7 +181,6 @@ public class ReviewBoard {
 		this.categoryNo = categoryNo;
 	}
 
-	
 	
 		
 	
