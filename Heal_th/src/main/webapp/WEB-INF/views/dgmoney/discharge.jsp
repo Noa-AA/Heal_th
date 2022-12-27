@@ -60,10 +60,25 @@ a {
 	margin: 5px;	
 }
 
-input, #wdButton {
+input {
 	width: 230px;
+	height: 36px;
+	border: 1px solid silver;
+}
+#wdButton {
+	width: 230px;
+    height: 36px;
+    background-color: transparent;
+    border: 2px solid #7ca3f5;
+    color:#7ca3f5;
+    font-size:17px;
+    border-radius: 8px;
+    padding-top: 5px;
+}
+
+input {
+	padding-left: 5px;
 	text-align: center;
-	padding: 2px;
 }
 
 #wdButton {
