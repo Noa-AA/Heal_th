@@ -4,33 +4,21 @@ import java.util.Date;
 
 public class CartDto {
 
-//    cart_no     number          not null,
-//    user_no      number    not null,
-//    prod_no      number          not null,
-//    cart_stock   number          not null,
-//    add_date     date            default sysdate,
-	
 	private int cartNo;
 	private int userNo;
 	private int prodNo;
 	private int cartStock;
-	private Date addDate;
+	private Date addDate; 
+	private String pName;
+	private int pPrice;
+	private String pImage1;
 	
 	public CartDto() {	}
-
-	public CartDto(int cartNo, int userNo, int prodNo, int cartStock, Date addDate) {
-		super();
-		this.cartNo = cartNo;
-		this.userNo = userNo;
-		this.prodNo = prodNo;
-		this.cartStock = cartStock;
-		this.addDate = addDate;
-	}
 
 	@Override
 	public String toString() {
 		return "CartDto [cartNo=" + cartNo + ", userNo=" + userNo + ", prodNo=" + prodNo + ", cartStock=" + cartStock
-				+ ", addDate=" + addDate + "]";
+				+ ", addDate=" + addDate + ", pName=" + pName + ", pPrice=" + pPrice + ", pImage1=" + pImage1 + "]";
 	}
 
 	public int getCartNo() {
@@ -72,6 +60,44 @@ public class CartDto {
 	public void setAddDate(Date addDate) {
 		this.addDate = addDate;
 	}
+
+	public String getpName() {
+		return pName;
+	}
+
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+
+	public int getpPrice() {
+		return pPrice;
+	}
+
+	public void setpPrice(int pPrice) {
+		this.pPrice = pPrice;
+	}
+
+	public String getpImage1() {
+		return pImage1;
+	}
+
+	public void setpImage1(String pImage1) {
+		this.pImage1 = pImage1;
+	}
+
+	public CartDto(int cartNo, int userNo, int prodNo, int cartStock, Date addDate, String pName, int pPrice,
+			String pImage1) {
+		super();
+		this.cartNo = cartNo;
+		this.userNo = userNo;
+		this.prodNo = prodNo;
+		this.cartStock = cartStock;
+		this.addDate = addDate;
+		this.pName = pName;
+		this.pPrice = pPrice;
+		this.pImage1 = pImage1;
+	}
+
 	
 	
 	
