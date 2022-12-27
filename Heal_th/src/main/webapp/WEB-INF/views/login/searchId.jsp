@@ -489,16 +489,6 @@ position: absolute;
 			<button type="button" id="btnfindId" style="margin-right: 40px;">아이디 찾기</button>
 			<button type="button" id="btnCancel" onclick="cancel()">취소하기</button>
 		</div>
-		
-	
-<!-- 		<div id="result"> -->
-<!-- 			<div id="resultMsg"></div> -->
-<!-- 			<div id="btnToLogin"> -->
-<!-- 				<button type="button" id ="toLogin" onclick="location.href='/login/login'" style="display:none;">로그인하기</button> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-	
-	
 	</div>
 </div>
 
