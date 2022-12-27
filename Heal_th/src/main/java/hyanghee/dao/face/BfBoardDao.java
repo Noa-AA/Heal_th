@@ -51,8 +51,6 @@ public interface BfBoardDao {
 	//게시글 수정
 	public void updateBoard(Beforeafter beforeafter);
 
-//	public List<Beforeafter> getList();
-	
 	public List<Beforeafter> getSearchPaging(BoardSearch boardSearch);
 
 	public int getTotal(BoardSearch boardSearch);
@@ -67,12 +65,6 @@ public interface BfBoardDao {
 	public int getPoint(int userno);
 
 	public void updatePoint(Users users);
-
-	public String selectUserNick(int userno);
-
-	public int getPhoto(int userno);
-
-
 
 	
 }

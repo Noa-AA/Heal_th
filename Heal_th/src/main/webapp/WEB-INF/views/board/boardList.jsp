@@ -83,7 +83,6 @@ display: block;
 
 .container_solid .title_wrapper h1 {
   /* the text background */
-/*   background: url(https://images.unsplash.com/photo-1575058752200-a9d6c0f41945?&q=85); */
   background-image: url(https://i.postimg.cc/YSbJhmR8/pexels-pixabay-34514.jpg);
   background-size: 100vw auto;
   background-position: center;
@@ -99,9 +98,8 @@ display: block;
 }
 
 .container_image {
-  /* Grab a free image from unsplash */
   /* background-image: url(https://images.unsplash.com/photo-1575058752200-a9d6c0f41945?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ); */
-  background-image: url(https://i.postimg.cc/YSbJhmR8/pexels-pixabay-34514.jpg);
+background-image: url('/resources/img/board/font.jpg');
   /* background-size:100vw auto; */
   background-size:100% auto;
   background-position: center;
@@ -117,7 +115,6 @@ display: block;
 
 section {
   min-height: 100vh;
-/*   padding: 2em; */
   margin: auto;
   max-width: 1200px;
 }
@@ -166,7 +163,7 @@ font-family: 'Karla Tamil Inclined', sans-serif;
 #scroll-img {
             width:300px; height:300px; margin:10px;
             border: none;
-            background-image: url('https://i.postimg.cc/8CxhqXbq/pexels-andrea-piacquadio-3760259.jpg'); 
+            background-image: url('/resources/img/board/board1.png');
             background-size: 100% 100%;
             background-attachment: scroll;
         }
@@ -174,8 +171,7 @@ font-family: 'Karla Tamil Inclined', sans-serif;
 #verifyBoard{
 	width:300px; height:300px; margin:10px;
 	border: none;
-/* 	background-image: url('https://i.postimg.cc/4NJD6qZ4/pexels-cottonbro-studio-4761779.jpg');  */
-	background-image: url('https://i.postimg.cc/pLnMr8RK/pexels-david-gomes-2647471.jpg');
+	 background-image: url('/resources/img/board/board.png');
 	background-size: 100% 100%;
 	background-attachment: scroll;
 }
@@ -183,7 +179,7 @@ font-family: 'Karla Tamil Inclined', sans-serif;
 #dietBoard{
 	width:300px; height:300px; margin:10px;
 	border: none;
-	background-image: url('https://i.postimg.cc/C10gW1yk/pexels-jane-doan-1105166.jpg'); 
+	background-image: url('/resources/img/board/board2.png');
 	background-size: 100% 100%;
 	background-attachment: scroll;
 }
@@ -191,7 +187,7 @@ font-family: 'Karla Tamil Inclined', sans-serif;
 #reviewBoard{
 	width:300px; height:300px; margin:10px;
 	border: none;
-	background-image: url('https://i.postimg.cc/t4Sbqm2T/pexels-shotpot-4047159.jpg'); 
+	background-image: url('/resources/img/board/board3.png');
 	background-size: 100% 100%;
 	background-attachment: scroll;
 }
@@ -371,9 +367,9 @@ AOS.init({
 
 </div>
 
-<%@include file="../layout/footer.jsp" %>	
 
 </body>
 
+<%@include file="../layout/footer.jsp" %>	
 
 </html>

@@ -51,12 +51,9 @@
 	
 		INSERT INTO dietboard ( 
 			diet_no, d_inst_date, d_title, prod_classification, d_content
-			   , d_upt_date, d_delete_date
 			   , d_hit, d_thumbs, user_no, category_no )
 		
 		VALUES ( #{dietNo}, sysdate, #{dTitle}, #{prodClassification}, #{dContent}
-				   , to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
-				   , to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
 				   , 0, 0, #{userNo}, 3 )
 	</insert>
 	
@@ -64,7 +61,6 @@
 	<select id="selectBoard" resultType="DietBoard" parameterType="DietBoard">
 		SELECT
 			diet_no, d_inst_date, d_title, prod_classification, d_content
-			   , d_upt_date, d_delete_date
 			   , d_hit, d_thumbs, user_no, category_no 
 		FROM dietboard
 		WHERE diet_no = #{dietNo}
