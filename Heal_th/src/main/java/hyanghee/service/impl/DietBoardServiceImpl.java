@@ -22,33 +22,19 @@ public class DietBoardServiceImpl implements DietBoardService {
 
 	@Autowired DietBoardDao dietBoardDao;
 
-	@Override
-	public BoardPaging getPaging(int curPage) {
-		//총 게시글 수 조회
-		int totalCount = dietBoardDao.selectCntAll();
-						
-		//페이징 계산
-		BoardPaging boardPaging = new BoardPaging(totalCount, curPage);
-				
-		return boardPaging;
-	}
-
-	@Override
-	public List<DietBoard> list(BoardPaging boardPaging) {
-		return dietBoardDao.selectList(boardPaging);
-	}
-
+	//게시글 등록
 	@Override
 	public void insertDietBoard(DietBoard dietBoard) {
 		dietBoardDao.insertDietBoard(dietBoard);
 	}
 
-	
+	//유저 정보 찾기
 	@Override
 	public Users getUserInfo(int userno) {
 		return dietBoardDao.selectUserInfo(userno);
 	}
 	
+	//게시글 상세보기
 	@Override
 	public DietBoard view(DietBoard viewBoard) {
 		
@@ -57,6 +43,7 @@ public class DietBoardServiceImpl implements DietBoardService {
 		return dietBoardDao.selectBoard(viewBoard);
 	}
 
+	//게시글 수정
 	@Override
 	public void update(DietBoard dietBoard) {
 		//게시글 처리
@@ -113,31 +100,37 @@ public class DietBoardServiceImpl implements DietBoardService {
 		
 	}
 
+	//게시글 삭제
 	@Override
 	public void delete(DietBoard dietNo) {
 		dietBoardDao.delete(dietNo);
 	}
 
+	//공지사항
 	@Override
-	public List<Notice> notice(BoardPaging boardPaging) {
-		return dietBoardDao.noticeList(boardPaging);
+	public List<Notice> notice(BoardSearch boardSearch) {
+		return dietBoardDao.notice(boardSearch);
 	}
 
+	//게시글 검색 / 목록
 	@Override
 	public List<DietBoard> getSearchPaging(BoardSearch boardSearch) {
 		return dietBoardDao.getSearchPaging(boardSearch);
 	}
 
+	//전체 게시글
 	@Override
 	public int getTotal(BoardSearch boardSearch) {
 		return dietBoardDao.getTotal(boardSearch);
 	}
 
+	//포인트 정보
 	@Override
 	public int getPoint(int userno) {
 		return dietBoardDao.getPoint(userno);
 	}
-
+	
+	//포인트 주기
 	@Override
 	public void updatePoint(int point) {
 		Users users = new Users();

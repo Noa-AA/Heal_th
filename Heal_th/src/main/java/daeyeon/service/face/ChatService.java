@@ -8,7 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import daeyeon.dto.Chat;
 import daeyeon.dto.ChatFile;
-import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
 import daeyeon.util.ChatIntroPaging;
 import yerim.dto.Users;
@@ -142,6 +141,15 @@ public interface ChatService {
 	 * @return 
 	 */
 	public ChatFile fileSave(MultipartFile file, int userNo, int roomNo);
+
+	
+	/**
+	 * 
+	 * 
+	 * @param roomNo 상대방 회원번호
+	 * @return - 상대방 프로필 storedName
+	 */
+	public String getReciverProfile(RoomList roomNo);
 
 	
 	

@@ -2,16 +2,43 @@
     pageEncoding="UTF-8"%>
 
 <%@include file="./layout/header.jsp" %>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script><!-- 이거 -->
+<script type="text/javascript">
+$(document).ready(function(){
+	<%-- 여기부터 --%>
+	function checkPopup() {
+		var sessionData = <%=session.getAttribute("userNo")%>
+		if(null==sessionData || !sessionData){// 로그인 안됐을경우
+		}else{
+			if($.cookie('checkCookie')!="check"){
+				console.log("쿠키 없음")
+				window.open('/check/check', '_blank','width=500, height=500, left=600, top=200');
+			}else{
+				console.log("쿠키 있음")
+			}
+		}
+	}
+	checkPopup()
+	<%-- 여기까지 --%>
+})
+</script>
 <style type="text/css">
 body {
 	padding: 0;
 }
 
+#banner {
+	position:relative;
+	top:-60px;
+	width:2000px;
+	margin:0 auto;
+}
+
 .main-first-wrap {
-	width: 1600px;
+	width: 1100px;
 	margin: 0 auto;
 	display: flex;
+	padding-bottom: 120px;
 }
 
 .main-first-wrap img {
@@ -19,57 +46,85 @@ body {
 }
 
 .main-first-wrap .left {
-	width: 750px;
+	width: 550px;
 	margin: 10px;
 	display: flex;
 	margin-top: 50px;
+    justify-content: center;
 }
 
 .main-first-wrap .right {
-	width: 750px;
+	width: 550px;
 	margin: 10px;
 	display: flex;
-	flex-direction: column;
-	padding-top: 100px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .main-second-wrap {
 	width: 100%;
-	border: 1px solid silver;
-	height: 600px;
+	height: 200px;
 	display: flex;
-	margin-top: 100px;
+	justify-content: center;
+}
+
+.main-second-wrap img {
+	width: 90px;
+}
+
+.main-second-wrap a {
+    font-size: 32px;
+}
+
+.main-second-wrap a:hover {
+    font-size: 35px;
 }
 
 .main-second-wrap #first {
-	width: 25%;
-	height: 600px;
-	border: 1px solid silver;
-	
+	width: 300px;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+    margin: 20px;
+    border-radius: 3px;
+    flex-direction: column;
 }
 
 .main-second-wrap #second {
-	width: 25%;
-	height: 600px;
-	border: 1px solid silver;
+	width: 300px;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+    margin: 20px;
+    border-radius: 3px;
+    flex-direction: column;
 }
 
 .main-second-wrap #third {
-	width: 25%;
-	height: 600px;
-	border: 1px solid silver;
+	width: 300px;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+    margin: 20px;
+    border-radius: 3px;
+    flex-direction: column;
 }
 
 .main-second-wrap #fourth {
-	width: 25%;
-	height: 600px;
-	border: 1px solid silver;
+	width: 300px;
+	display: flex;
+	justify-content: center;
+    align-items: center;
+    margin: 20px;
+    border-radius: 3px;
+    flex-direction: column;
 }
 
 .main-third-wrap {
 	width: 1500px;
 	margin: 0 auto;
-	margin-top: 100px;
+	margin-top: 120px;
 }
 
 .main-fourth-wrap {
@@ -107,37 +162,46 @@ body {
 }
 </style>
 <body>
+<div id="banner">
+	<img src="/resources/img/main-banner.png"/>
+</div>
 	<div class="main-first-wrap">
 		<div class="left">
-			<img src="/resources/img/logo_purple.png"/>
+			<img src="/resources/img/main-model.png"/>
 		</div>
 		<div class="right">
-			<h3>운동의 패러다임을 바꾸다</h3><br><br>
-			<p>Heal_th는 현대인의 지친 몸을 어쩌구 저쩌구</p>
-			<p>Heal_th는 현대인의 지친 몸을 어쩌구 저쩌구</p>
+			<h1>운동의 패러다임을 바꾸다</h1><br><br>
+			<p>Heal_th는 누구나 건강한 삶을 누리는 세상을 꿈꿉니다.</p>
+			<p>이러한 뜻을 함께하는 사람들이 모여 도전과 성장, 소통과 협력으로</p>
+			<p>고운세상의 아름다운 문화를 만들어 갑니다.</p>
+			<p>모두가 건강해지는 그날까지 Heal_th와 함께해요.</p>
 		</div>
 	</div>
 	<div class="main-second-wrap">
 		<div id="first">
-		<p>챌린지</p>
+			<p><img src="/resources/img/challenge.gif"></p>
+			<a href="/challenge/list">Challenge</a> 
 		</div>
 		<div id="second">
-		<p>운동 질문</p>
+			<p><img src="/resources/img/chatting.gif"></p>
+			<a href="/chat/intro">Chatting</a>
 		</div>
 		<div id="third">
-		<p>운동 도우미</p>
+			<p><img src="/resources/img/helper.gif"></p>
+			<a href="/dghelper/healthtest">Helper</a>
 		</div>
 		<div id="fourth">
-		<p>득근 상점</p>
+			<p><img src="/resources/img/shopping.gif"></p>
+			<a href="/store/list">Store</a>
 		</div>
 	</div>
-	<div class="main-third-wrap">
+<!-- 	<div class="main-third-wrap">
 		<h1>WHO WE ARE</h1>
 		<p>어쩌구저쩌구</p>
-	</div>
+	</div> -->
 	
 	<div class="main-fourth-wrap">
-		<h1>NEWS ROOM</h1>
+		<h1>Community</h1>
 		<div class="newsroom-wrap">
 			<div id="newsroom-first"></div>
 			<div id="newsroom-second"></div>
@@ -145,5 +209,5 @@ body {
 		</div>
 	</div>
 </body>
-<%@include file="./layout/footer.jsp" %>
+<jsp:include page="./layout/footer.jsp"/>
 </html>

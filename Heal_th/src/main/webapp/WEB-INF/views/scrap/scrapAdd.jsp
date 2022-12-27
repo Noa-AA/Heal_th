@@ -58,10 +58,10 @@ $("#cancelScrap").click(function(){
 
 </script>
 <c:choose>
-	<c:when test="${scrap.scrapNo eq 0}">
-		<button type="button" id="goScrap">스크랩하기</button>
+	<c:when test="${scrap.scrapNo eq 0}"><!-- 스크랩하기 -->
+		<button type="button" id="goScrap"><img src="/resources/img/addOns/scrapNo.png" alt="scrapNo"></button>
 	</c:when>
-	<c:otherwise>
-		<button type="button" id="cancelScrap">스크랩취소</button>
+	<c:otherwise><!-- 스크랩취소 -->
+		<button type="button" id="cancelScrap"><img src="/resources/img/addOns/scrapOk.png" alt="scrapOk"></button>
 	</c:otherwise>
 </c:choose>

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import hyanghee.dao.face.VerifyBoardDao;
 import hyanghee.dto.VerifyBoard;
 import hyanghee.service.face.VerifyBoardService;
-import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
@@ -22,23 +21,6 @@ public class VerifyBoardServiceImpl implements VerifyBoardService {
 
 	@Autowired VerifyBoardDao verifyBoardDao;
 
-	@Override
-	public BoardPaging getPaging(int curPage) {
-		//총 게시글 수 조회
-		int totalCount = verifyBoardDao.selectCntAll();
-								
-		//페이징 계산
-		BoardPaging boardPaging = new BoardPaging(totalCount, curPage);
-		
-		return boardPaging;
-	}
-
-	@Override
-	public List<VerifyBoard> list(BoardPaging boardPaging) {
-		return verifyBoardDao.selectList(boardPaging);
-		
-	}
-	
 	@Override
 	public Users getUserInfo(int userno) {
 		return verifyBoardDao.selectUserInfo(userno);
@@ -135,8 +117,8 @@ public class VerifyBoardServiceImpl implements VerifyBoardService {
 	}
 
 	@Override
-	public List<Notice> notice(BoardPaging paging) {
-		return verifyBoardDao.noticeList(paging);
+	public List<Notice> notice(BoardSearch boardSearch) {
+		return verifyBoardDao.notice(boardSearch);
 	}
 
 	@Override
@@ -149,10 +131,6 @@ public class VerifyBoardServiceImpl implements VerifyBoardService {
 		return verifyBoardDao.getSearchPaging(boardSearch);
 	}
 
-	@Override
-	public VerifyBoard getPage(int verifyNo) {
-		return verifyBoardDao.getPage(verifyNo);
-	}
 
 	
 	

@@ -127,7 +127,7 @@ textarea {
 	margin: 20px 0 20px 0;
 }
 
-ul {
+.textcenter ul {
 	list-style:none;
 }
 
@@ -180,11 +180,17 @@ ul {
 }
 
 #delete, #save {
-	border: none;
-	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
-	background-color: #7ca3f5;
-	height: 40px;
-	border-radius: 8px;
+	width: 108px;
+    height: 36px;
+    background-color: transparent;
+    border: 2px solid #7ca3f5;
+    color:#7ca3f5;
+    font-size:17px;
+    border-radius: 8px;
+}
+
+#save {
+	width: 130px;
 }
 
 #delete, #recordDate, #recordNo {
@@ -215,10 +221,6 @@ ul {
 .content-3 {
 	display: flex;
 	justify-content: right;
-}
-
-button {
-	width: 150px;
 }
 
 .write-container {

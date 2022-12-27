@@ -103,7 +103,7 @@
 .contentTr > td:nth-child(2) >img {
 	width: 90px;
 	height: 90px;
-	background-color: #eee;
+	border: 1px solid #eee;
 }
 
 /* 주문번호 */
@@ -122,7 +122,7 @@
 
 /* 상품명 */
 .contentTr > td:nth-child(5), #titleTr > th:nth-child(5) {
-	width: 14%;
+	width: 12%;
 	display: flex;
 	justify-content: center;
 }
@@ -150,17 +150,38 @@
 
 /* 배송지 */
 .contentTr > td:nth-child(9), #titleTr > th:nth-child(9) {
-	width: 24%;
+	width: 20%;
 	display: flex;
 	justify-content: center;
 }
 
-/* 득근머니 */
+/* 휴대폰번호 */
 .contentTr > td:nth-child(10), #titleTr > th:nth-child(10) {
 	width: 8%;
 	display: flex;
 	justify-content: center;
 }
+
+/* 결제현황 */
+.contentTr > td:nth-child(11), #titleTr > th:nth-child(11) {
+	width: 6%;
+	display: flex;
+	justify-content: center;
+}
+
+/* 결제현황 컨텐츠 */
+.contentTr > td:nth-child(11) {
+	width: 70px;
+	display: flex;
+	justify-content: center;
+	border: 1px solid #7ca3f5;
+	padding: 4px 2px;
+	color: #7ca3f5;
+	border-radius: 4px;
+	margin-left: 10px;
+}
+
+
 
 
 
@@ -242,12 +263,13 @@ select::-ms-expand { display:none; }
 			<th>결제일자</th>
 			<th>배송지</th>
 			<th>휴대폰 번호</th>
+			<th>결제현황</th>
 		</tr>
 		
 		<c:forEach items="${paymentList }" var="p">
 		<tr class="contentTr">
 			<td>${p.rnum }</td>
-			<td><img /></td>
+			<td><img src="${pageContext.request.contextPath}/upload/${p.pImage1}" /></td>
 			<td>${p.orderNo }</td>
 			<td>${p.userNo }</td>
 			<td>${p.pName }</td>
@@ -256,6 +278,7 @@ select::-ms-expand { display:none; }
 			<td><fmt:formatDate value="${p.paymentDate }" pattern="yyyy년 MM월dd일" /></td>
 			<td>${p.address }</td>
 			<td>${p.phoneNo }</td>
+			<td>결제완료</td>
 		</tr>
 		</c:forEach>
 	</table>

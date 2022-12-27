@@ -187,6 +187,12 @@ $(document).ready(function() {
 	<input type="text" id="price" name="price" class="form-control">
 </div>	
 
+<div class="form-group">
+	<label for="file">첨부파일</label>
+<%-- 	<jsp:include page="../file/upload.jsp" />  --%>
+</div>	
+
+
 
 <br><br><hr><br><br>
 

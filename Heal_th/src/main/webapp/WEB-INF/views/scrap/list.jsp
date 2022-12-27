@@ -37,26 +37,9 @@ $(document).ready(function(){
 	})
 })
 </script>
-<style type="text/css">
-#scrapList{
-	border : 1px solid #ccc;
-}
-#scrapList th,td{
-	border : 1px solid #ccc;
-	
-}
-/* #scrapList tbody td{ */
-/* 	 width:400px; */
-/* } */
-#scrapList tr td:nth-child(2){
-	width: 350px;
-}
 
-</style>
-<!-- </head> -->
-<!-- <body> -->
 
-<table id="scrapList">
+<table id="scrapListTable">
 <thead>
 <th>게시판 명</th>
 <th colspan="2" style="width:400px">제목</th>
@@ -83,7 +66,7 @@ $(document).ready(function(){
 				<td><a href="/board/rView?reviewNo=${scrap.boardNo}"> ${scrap.title }</a></td>
 			</c:otherwise>
 		</c:choose>
-		<td style="text-align:right"><button class="scrapDelete" value="${scrap.scrapNo}">삭제</button></td>
+		<td style="text-align:center"><button class="scrapDelete" value="${scrap.scrapNo}">삭제</button></td>
 	</tr>
 </c:forEach>
 </tbody>

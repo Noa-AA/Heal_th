@@ -2,8 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!DOCTYPE html>
@@ -27,6 +29,8 @@ $(document).ready(function() {
 	$("#sendBtn").on("click", function() {
 		sendMessage();
 		$('#msgInput').val('')
+		$('#sendBtn').attr("disabled", true)
+		$('#sendBtn').css('background-color', '#d8d8d8')
 	})
 	
 	
@@ -34,7 +38,7 @@ $(document).ready(function() {
 	$('#msgInput').on("input", function() {
 		if( $('#msgInput').val() == ''){      
 			$('#sendBtn').attr("disabled", true)
-			$('#sendBtn').css('background-color', '#eeeeee')
+			$('#sendBtn').css('background-color', '#d8d8d8')
 		} else {
 			$('#sendBtn').attr("disabled", false)
 			$('#sendBtn').css('background-color', '#7ca3f5')
@@ -72,7 +76,6 @@ $(document).ready(function() {
 	
 	
 	
-	
 /* 이미지 전송 */
 /* input file onchange시 */
 function fileUp() {
@@ -90,10 +93,12 @@ function fileUp() {
 		data: formData,
 		processData: false,
 		contentType: false,
-				   
+		
 		success: function( res ) {
 			console.log("AJAX 성공")
 			console.log("res : ", res)
+			
+			/* 결과값을 주소로  */
 			ws.send( res );
 		}
 		, error: function(error) {
@@ -128,11 +133,12 @@ button {
 
 #chatArea {
 	width: 900px;
-	height: 300px;
+	height: 470px;
 	padding-top: 26px;
 	overflow: hidden auto;
 }
 
+/* 채팅을 보냈을때 --------------------------- */
 /* 내 채팅 */
 #senderMsg {
 	text-align: right;
@@ -187,6 +193,51 @@ button {
 	line-height: 22px;
 }
 
+
+/* 이미지를 보냈을때 --------------------------- */
+/* 내가 보낸 이미지 */
+#senderImg {
+	text-align: right;
+	margin-right: 20px;
+	margin-bottom: 8px;
+}
+
+#senderImg > #imgS {
+	max-width: 400px;
+    max-height: 200px;
+}
+
+#senderImg > #timeImgS {
+	width: 50px;
+	vertical-align: bottom;
+	padding-right: 5px;
+	color: #888888;
+	font-size: 12px;
+	line-height: 16px;
+}
+
+
+/* 상대방이 보낸 이미지 */
+#receiverImg {
+	text-align: left;
+	margin-left: 20px;
+	margin-bottom: 8px;
+}
+
+#receiverImg > #imgR {
+	max-width: 400px;
+    max-height: 200px;
+}
+
+#receiverImg > #timeImgR {
+	width: 50px;
+	vertical-align: bottom;
+	padding-left: 5px;
+	color: #888888;
+	font-size: 12px;
+	line-height: 16px;
+}
+
 /* ----------------------------------------채팅 생기는부분 끝~~~~~ */
 
 
@@ -194,13 +245,13 @@ button {
 #chatBack {
 	border: 1px solid #eee;
 	margin-left: -1px;
-	height: 530px;
+	height: 700px;
 }
 
 #chatTop {
 	display: flex;
 	width: 900px; 
-	height: 70px; 
+	height: 69px; 
 	border-bottom: 1px solid #eee; 
 	justify-content: flex-start;
 	align-items: center;
@@ -309,7 +360,9 @@ button {
     opacity: 0;
 }
 
-
+#file:hover {
+	cursor: pointer;
+}
 
 #fileIcon {
 	display: inline-flex;
@@ -352,7 +405,7 @@ button {
 	<div id="chatTop">
 		<!-- 사진부분 -->
 		<div class="leftImg">
-			<img src="https://img.freepik.com/premium-photo/a-cat-near-a-computer-mouse-work-in-the-office-at-the-computer-square-format_199743-1487.jpg">
+			<img src="${pageContext.request.contextPath}/upload/${roomNo.storedName}">
 		</div>
 		<!-- 닉네임 -->
 		<div id="myNick">
@@ -372,32 +425,68 @@ button {
 	<div id="chatArea">
 	    <div id="messages">
 	    	<c:forEach items="${chatList }" var="chatList">
+	    		 <c:set var = "str" value = "${chatList.chatContents }"/>
 	    		<c:choose> 
-	    			<%-- 자신의 채팅일때 --%>
-	    			<c:when test="${chatList.userNo eq userNo }">
-	    				<div id='senderMsg'>
-	    					<span id='timeS'>
-	    						<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
-								<fmt:formatDate value="${date }" pattern="a hh:ss" />
-	    					</span>
-	    					<a id='msgS'>
-	    						${chatList.chatContents }
-	    					</a>
-	    				</div> 
+	    		
+	    			<%-- 자신의 채팅일때 ======================================== --%>
+	    			<c:when test="${chatList.userNo eq userNo }" >
+	    			
+	    				<%-- 채팅이 이미지파일일때 --%>
+	    				<c:if test="${fn:contains(str, '+IMG+')}">
+	    					<div id='senderImg'>
+	    						<span id='timeImgS'>
+	    							<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
+									<fmt:formatDate value="${date }" pattern="a hh:ss" />
+	    						</span>
+	    						<img src="${pageContext.request.contextPath}/upload/${chatList.chatContents }" id="imgS">
+	    					</div>
+	    				</c:if>
+	    				
+	    				<%-- 채팅이 일반 채팅일때 --%>
+	    				<c:if test="${not fn:contains(str, '+IMG+')}">
+		    				<div id='senderMsg'>
+		    					<span id='timeS'>
+		    						<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
+									<fmt:formatDate value="${date }" pattern="a hh:ss" />
+		    					</span>
+		    					<a id='msgS'>
+		    						${chatList.chatContents }
+		    					</a>
+		    				</div> 
+	    				</c:if>
+	    				
 	    			</c:when>
 	    			
-	    			<%-- 상대방의 채팅일때 --%>
+	    			
+	    			<%-- 상대방의 채팅일때 ======================================== --%>
 	    			<c:otherwise>
-	    				<div id='receiverMsg'>
-	    					<a id='msgR'>
-	    						${chatList.chatContents }
-	    					</a>
-	    					<span id='timeR'>
-	    						<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
-								<fmt:formatDate value="${date }" pattern="a hh:ss" />
-	    					</span>
-	    				</div>
+	    				
+	    				<%-- 채팅이 이미지파일일때 --%>
+	    				<c:if test="${fn:contains(str, '+IMG+')}">
+	    					<div id='receiverImg'>
+	    						<img src="${pageContext.request.contextPath}/upload/${chatList.chatContents }" id="imgR">
+	    						<span id='timeImgR'>
+	    							<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
+									<fmt:formatDate value="${date }" pattern="a hh:ss" />
+	    						</span> 
+	    					</div>
+	    				</c:if>
+	    			
+	    			
+	    				<%-- 채팅이 일반 채팅일때 --%>
+	    				<c:if test="${not fn:contains(str, '+IMG+')}">
+		    				<div id='receiverMsg'>
+		    					<a id='msgR'>
+		    						${chatList.chatContents }
+		    					</a>
+		    					<span id='timeR'>
+		    						<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
+									<fmt:formatDate value="${date }" pattern="a hh:ss" />
+		    					</span>
+		    				</div>
+	    				</c:if>
 	    			</c:otherwise>
+	    			
 	    		</c:choose>
 	    	</c:forEach>
 	    </div>

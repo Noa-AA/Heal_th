@@ -95,7 +95,7 @@ a {
     margin-top: 2px;
     width: 100%;
     box-sizing: border-box;
-    font-family: montserrat;
+/*     font-family: montserrat; */
     color: #2C3E50;
     font-size: 16px;
     letter-spacing: 1px;
@@ -273,6 +273,7 @@ $(document).ready(function(){
 		
 	var current_fs, next_fs, previous_fs; //fieldsets
 	var opacity;
+	
 
 	$(".next").click(function(){
 	    
@@ -298,7 +299,18 @@ $(document).ready(function(){
 	        }, 
 	        duration: 600
 	    });
+	    
+	    if($("#bfTitle").val() == ''){
+	    	
+	    	alert("제목을 입력해주세요");
+	    		return false;
+	    } 
+	    		
+	    	
+	    
 	});
+	
+
 
 	$(".previous").click(function(){
 	    
@@ -384,7 +396,7 @@ $(document).ready(function(){
                 <div class="row">
                     <div class="col-md-12 mx-0">
                     
-                        <form id="msform" method="post" action="/board/bfWrite">
+                        <form id="msform" method="post" action="/board/bfWrite" enctype="multipart/form-data">
                         
                         
                             <!-- progressbar -->
@@ -407,9 +419,10 @@ $(document).ready(function(){
 								<label for=	"height">신장</label>
 									<input type="text" id="height" name="height" placeholder="160cm">
 				                <br>
-				                 <label for="gender">성별</label>
-									<input type="text" id="gender" name="gender" placeholder="여성/남성">
-				                 <br>
+				                 <label for="gender" style="margin-right: 15px;">성별</label><br>
+									<input type="radio" id="gender" name="gender" value="female" style="width: 14px; margin-top: 16px;"><span style="margin-left: 20px; display: block; margin-top: -39px;">여성</span>
+									<input type="radio" id="gender" name="gender" value="male" style=" display: block; width: 14px; margin-top: -14px; margin-left: 61px"><span style="margin-left: 80px; display: block; margin-top: -39px;">남성</span>
+				                 <br><br>
 				                 <label for="weight">몸무게</label>
 									<input type="text" id="weight" name="weight" placeholder="50kg">
 				                  <br>
@@ -419,6 +432,9 @@ $(document).ready(function(){
 				                  <label for="file">첨부파일</label><br>
 				                  	<button type="button" style="border: none; background:#ccc; font-weight:bold; color:black; border-radius:5px; width: 75px; height: 31px;">첨부파일</button>
 								</div>
+								
+								<jsp:include page="../file/upload.jsp" /> 
+
 								<br><br>
 			                        <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)" value="다음">
 						</fieldset>

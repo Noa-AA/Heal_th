@@ -54,6 +54,12 @@ public interface NoticeDao {
 	 * @param notice
 	 */
 	public void delete(Notice notice);
+	
+	public List<Notice> getList();
+	
+	public int getTotal(Search search);
+	
+	public Notice getPage(int noticeNo);
 
 
 

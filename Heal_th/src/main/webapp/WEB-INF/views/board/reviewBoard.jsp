@@ -142,6 +142,54 @@ span{display: none;}
     border-radius: 16px;
 	
 }
+
+/* 페이징 부분 */
+.text-center {
+	display: flex;
+	justify-content: center; 
+	margin-top: 50px;
+}
+
+.pagination {
+	display: flex;
+	margin: 0;
+}
+
+.pagination > li{
+	display: flex;
+}
+
+.pagination > li > a {
+	display: flex;
+	margin: 0 4px;
+	width: 40px;
+	height: 40px;
+	border-radius: 20px !important;
+	font-size: 16px;
+	justify-content: center;
+	align-items: center;
+	color: #7ca3f5;
+}
+
+.none:hover {
+	cursor: default;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+	background-color: #7ca3f5;
+    border-color: #7ca3f5;
+}
+
+
+.material-symbols-outlined {
+	font-variation-settings:
+	'FILL' 0,
+	'wght' 400,
+	'GRAD' 0,
+	'opsz' 48
+}
+
+
 </style>
 
 <script type="text/javascript">
@@ -166,7 +214,7 @@ $(document).ready(function() {
 	$(".pageInfo a").on("click", function(e) {
 		e.preventDefault();
 
-		moveForm.find("input[name='pageNum']").val($(this).attr("href"));
+		moveForm.find("input[name='curPage']").val($(this).attr("href"));
 		moveForm.attr("action", "/board/reviewBoard");
 		moveForm.submit();
 
@@ -188,7 +236,7 @@ $(document).ready(function() {
 
 		moveForm.find("input[name='type']").val(type);
 		moveForm.find("input[name='keyword']").val(keyword);
-		moveForm.find("input[name='pageNum']").val(1);
+		moveForm.find("input[name='curPage']").val(1);
 		moveForm.submit();
 	});
 	
@@ -275,7 +323,7 @@ $(document).ready(function() {
 				</c:if>
 
 				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-					<li class="pageInfo_btn ${pageMaker.boardSearch.pageNum == num ? "active":"" }"></li>
+					<li class="pageInfo_btn ${pageMaker.boardSearch.curPage == num ? "active":"" }"></li>
 				</c:forEach>
 
 				<c:if test="${pageMaker.next}">
@@ -288,7 +336,7 @@ $(document).ready(function() {
 
 	<form id="moveForm" method="get">
 		<input type="hidden" id="reviewNo" name="reviewNo" value='<c:out value="${pageInfo.reviewNo}"/>'>
-		<input type="hidden" name="pageNum" value="${pageMaker.boardSearch.pageNum }">
+		<input type="hidden" name="curPage" value="${pageMaker.boardSearch.curPage }">
 		<input type="hidden" name="amount" value="${pageMaker.boardSearch.amount }">
 		<input type="hidden" name="keyword" value="${pageMaker.boardSearch.keyword }">
 		<input type="hidden" name="type" value="${pageMaker.boardSearch.type }">
@@ -360,10 +408,71 @@ $(document).ready(function() {
 
 <br>
 
-<span class="pull-right">total : ${paging.totalCount }</span>
-<div class="clearfix"></div>
 
-<c:import url="/WEB-INF/views/board/paging.jsp" />
+	<div class="text-center">
+		<ul class="pagination pagination-sm">
+	
+		<%-- 첫 페이지로 이동 (이동할게 없을때) --%>
+		<c:if test="${pageMaker.curPage eq 1 }">
+			<li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
+		</c:if>
+	
+		<%-- 첫 페이지로 이동 --%>
+		<c:if test="${pageMaker.curPage ne 1 }">
+			<li><a href="/board/reviewBoard"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
+		</c:if>
+		
+		
+		<%-- 이전 페이지로 가기 --%>
+		<c:if test="${pageMaker.curPage > 1 }">
+			<li><a href="/board/reviewBoard?curPage=${pageMaker.curPage - 1 }"><span class="material-symbols-outlined">navigate_before</span></a></li>
+		</c:if>
+		
+		<%-- 이전 페이지로 가기 (이전으로 갈 페이지 없을때) --%>
+		<c:if test="${pageMaker.curPage <= 1 }">
+			<li><a class="none"><span class="material-symbols-outlined">navigate_before</span></a></li>
+		</c:if>
+		
+			
+		<%-- 페이징 리스트 --%>
+		<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="i">
+		<c:if test="${pageMaker.curPage eq i }">
+			<li class="active"><a href="/board/verifyBoard?curPage=${i }">${i }</a></li>
+		</c:if>
+		
+		<c:if test="${pageMaker.curPage ne i }">
+			<li><a href="/board/reviewBoard?curPage=${i }">${i }</a></li>
+		</c:if>
+		</c:forEach>
+	
+		
+		
+		<%-- 다음 페이지로 가기 --%>
+		<c:if test="${pageMaker.curPage < pageMaker.totalPage }">
+			<li><a href="/board/reviewBoard?curPage=${pageMaker.curPage + 1 }"><span class="material-symbols-outlined">navigate_next</span></a></li>
+		</c:if>
+		
+		<%-- 다음 페이지로 가기 (다음으로 갈 페이지 없을때) --%>
+		<c:if test="${pageMaker.curPage >= pageMaker.totalPage }">
+			<li><a class="none"><span class="material-symbols-outlined">navigate_next</span></a></li>
+		</c:if>
+		
+	
+		<%-- 끝 페이지로 이동 --%>
+		<c:if test="${pageMaker.curPage ne pageMaker.totalPage }">
+			<li><a href="/board/reviewBoard?curPage=${pageMaker.totalPage }" ><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+		</c:if>
+		
+		<%-- 끝 페이지로 이동 (끝으로갈게 없을때) --%>
+		<c:if test="${pageMaker.curPage eq pageMaker.totalPage }">
+			<li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+		</c:if>
+		
+		</ul>
+	</div>
+
+
+
 
 <br><br><br>
 

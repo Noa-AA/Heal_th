@@ -22,25 +22,7 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	
 	@Autowired ReviewBoardDao reviewBoardDao;
 
-	@Override
-	public BoardPaging getPaging(int curPage) {
-		//총 게시글 수 조회
-		int totalCount = reviewBoardDao.selectCntAll();
-						
-		//페이징 계산
-		BoardPaging boardPaging = new BoardPaging(totalCount, curPage);
-		
-		return boardPaging;
-	}
 
-	//게시글 목록
-	@Override
-	public List<ReviewBoard> list(BoardPaging boardPaging) {
-		
-		return reviewBoardDao.selectList(boardPaging);
-		
-	}
-	
 	//유저 정보
 	@Override
 	public Users getUserInfo(int userno) {
@@ -126,8 +108,8 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	}
 
 	@Override
-	public List<Notice> notice(BoardPaging boardPaging) {
-		return reviewBoardDao.noticeList(boardPaging);
+	public List<Notice> notice(BoardSearch boardSearch) {
+		return reviewBoardDao.notice(boardSearch);
 	}
 
 	@Override
@@ -138,11 +120,6 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	@Override
 	public int getTotal(BoardSearch boardSearch) {
 		return reviewBoardDao.getTotal(boardSearch);
-	}
-
-	@Override
-	public ReviewBoard getPage(int reviewNo) {
-		return reviewBoardDao.getPage(reviewNo);
 	}
 
 //	포인트
