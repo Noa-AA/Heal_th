@@ -186,6 +186,8 @@ function validate(){
 }
 #titleForHead{
 	font-size: 30px;
+    font-weight: 600;
+    color: gray;
 }
 
 .formTitle{
@@ -279,11 +281,6 @@ position: absolute;
 	font-size: 17px;
 	color:white;
 }
-
-#btnGotoSearchPw:hover,#btnCancel:hover{
-	box-shadow: 5px 19px 12px #ddd;
-}
-
 
 #btnCancel{
 	margin-left: 40px;
