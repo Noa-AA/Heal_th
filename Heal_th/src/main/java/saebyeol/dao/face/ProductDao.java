@@ -3,9 +3,9 @@ package saebyeol.dao.face;
 import java.util.List;
 
 import saebyeol.dto.AttachImage;
+import saebyeol.dto.Criteria;
 import saebyeol.dto.Prodcategory;
 import saebyeol.dto.Product;
-import saebyeol.utill.SaebyeolPaging;
 
 public interface ProductDao {
 
@@ -16,28 +16,39 @@ public interface ProductDao {
 	public List<Prodcategory> cateList();
 	
 	//상품 목록
-	public List<Product> selectList(SaebyeolPaging paging);
+	public List<Product> getList(Criteria cri);
 	
 	//총 상품 수
-	public int selectCntAll();
+	public int getTotal(Criteria cri);
 
 	//상품보기
-	public Product selectProduct(Product viewProduct);
+	public Product getDetail(int prodNo);
 	
 	//상품수정
-	public void updateProduct(Product product);
+	public int modify(Product product);
 
 	//상품삭제
-	public void delete(Product product);
+	public int delete(int prodNo);
 	   
 	//이미지 등록
 	public void imageEnroll(AttachImage attach);
 	
-	//상품 검색
-	public List<Product> getProductList(SaebyeolPaging paging);
+	//지정 상품 이미지 전체 삭제
+	public void deleteImageAll(int prodNo);
 	
-	//총 갯수
-	public int ProductTotal(SaebyeolPaging paging);
+	//지정 상품 이미지 정보 얻기
+	public List<AttachImage> getAttachInfo(int prodNo);
+	
+	//상품 검색
+	public List<Product> getProductList(Criteria cri);
+
+	//상품 정보
+	public Product getInfo(int prodNo);
+
+	
+	
+
+	
 	
 	
 }

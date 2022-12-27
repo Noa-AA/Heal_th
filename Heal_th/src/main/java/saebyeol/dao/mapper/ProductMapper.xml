@@ -7,56 +7,91 @@
     
 <mapper namespace="saebyeol.dao.face.ProductDao">
 
-	<insert id="productEnroll" parameterType="Product">
+	<insert id="productEnroll">
  	<selectKey order="BEFORE" resultType="int" keyProperty="prodNo">
- 		SELECT notice_seq.nextval FROM dual
+ 		SELECT product_seq.nextval FROM dual
  	</selectKey>
 		INSERT INTO product(prod_no, p_name, p_price, p_image1, p_image2, p_detail, p_stock, p_date, p_hit, p_cate_no)
 		VALUES(#{prodNo}, #{pName}, #{pPrice}, #{pImage1}, #{pImage2}, #{pDetail}, #{pStock}, sysdate, 0, #{pCateNo})
 	</insert>
 	
+	<!-- 카테고리 -->
 	<select id="cateList" resultType="Prodcategory">
 		SELECT * FROM prodcategory ORDER BY p_cate_no
 	</select>
 	
-	<select id="selectList" resultType="Product">
+	<!-- 상품 리스트 -->
+  	<select id="getList" resultType="Product">
+  	
+	  	<![CDATA[
 		SELECT * FROM(
-			SELECT rownum rnum, P. * FROM(
-				SELECT
-					prod_no, p_name, p_price, p_image1, p_date, p_stock, p_cate_no
-				FROM product
-				ORDER BY prod_no DESC
-			)P
-		)PRODUCT
-		WHERE rnum BETWEEN #{startNo } AND #{endNo }
-	</select>
+		    SELECT /*+INDEX_DESC(product SYS_C007976)*/ rownum as rn, prod_no, p_name,
+		        p_cate_no, p_price, p_image1, p_date
+		    FROM product 
+		    WHERE 
+		]]>    
+		
+		    <if test="keyword != null">
+		    
+			    p_name like '%' || #{keyword} || '%' and
+			    
+		    </if>
+		     
+		<![CDATA[    
+		    rownum <= #{pageNum} * #{amount} 
+		    )
+		where rn > (#{pageNum} -1) * #{amount}		  	
+  		]]>
+  	
+  	</select>
 
-	   
-	<select id="selectCntAll" resultType="int">
+	<!-- 상품 총 개수 -->   
+	<select id="getTotal" resultType="int">
 		SELECT count(*) FROM product
+		
+		<if test="keyword != null">
+  		
+  			where p_name like '%' || #{keyword} || '%'
+  		</if>
+  		
  	</select>
  	
- 	<select id="selectProduct" resultType="Product" parameterType="Product">
+ 	<!-- 제품 상세 -->
+ 	<select id="getDetail" resultType="Product">
  		SELECT
 			prod_no, p_name, p_price, p_image1, p_image2,p_detail, p_date, p_stock, p_sell, p_cate_no
 		FROM product
 		WHERE prod_no = #{prodNo} 
  	</select>
  	
- 	<update id="updateProduct" parameterType="Product">
+ 	<!-- 제품 수정 -->
+ 	<update id="modify">
  	UPDATE product
  	SET p_name = #{pName}, p_price = #{pPrice}, p_detail = #{pDetail}, p_stock = #{pStock}, p_cate_no = #{pCateNo}
  	WHERE prod_no = #{prodNo} 
  	</update>
  	
+ 	<!-- 제품 삭제 -->
  	<delete id="delete" parameterType="Product">
  	DELETE product
  	WHERE prod_no = #{prodNo}
  	</delete>
  	
+ 	<!-- 이미지 등록 -->
  	<insert id="imageEnroll">
  		INSERT INTO product_image(file_name, upload_path, uuid, prod_no) VALUES(#{fileName}, #{uploadPath}, #{uuid}, #{prodNo})
  	</insert>
+ 	
+ 	<!-- 이미지 전체 삭제 -->
+ 	<insert id="deleteImageAll">
+ 		DELETE FROM product_image WHERE prod_no = #{prodNo}
+ 	</insert>
+ 	
+ 	<select id="getAttachInfo" resultType="Product">
+	
+		SELECT * FROM p_image1 WHERE prod_no = #{prodNo}
+	
+	</select>
 		
 		
 </mapper>

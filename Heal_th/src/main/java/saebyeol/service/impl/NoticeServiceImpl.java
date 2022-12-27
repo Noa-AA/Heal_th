@@ -47,7 +47,10 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDao.getSearch(search);
 	}
 
-	
+	@Override
+	public int getTotal(Search search) {
+		return noticeDao.getTotal(search);
+	}
 	
 	@Override
 	public Notice view(Notice viewNotice) {
@@ -87,6 +90,7 @@ public class NoticeServiceImpl implements NoticeService {
 		
 	}
 	
+
 
 }
 
