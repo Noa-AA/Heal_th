@@ -154,12 +154,12 @@ public class LoginServiceImpl implements LoginService {
 	}
 	
 	@Override
-	public String findUserId(Users searchId) {
+	public Users findUserId(Users searchId) {
 
 		logger.info("아이디 찾기 결과 - 아이디 조회하기");
 		
 		//이메일 인증으로 아이디 찾기
-		String getUserId = "";
+		Users getUserId = new Users();
 		if(searchId.getUserEmail() != null) {
 			logger.info("메일 인증으로 아이디 찾기");
 			getUserId = loginDao.selectByIdForEamil(searchId);
@@ -170,7 +170,7 @@ public class LoginServiceImpl implements LoginService {
 		}
 		
 		
-		logger.info(getUserId);
+		logger.info("조회 결과 {}",getUserId);
 		return getUserId;
 	}
 	

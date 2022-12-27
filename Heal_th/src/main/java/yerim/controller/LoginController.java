@@ -214,9 +214,9 @@ public class LoginController {
 	 public void ResultsearchId(Users searchId,Model model) {
 		 
 		 logger.info("아이디 찾기 결과 확인 ");
-		 
-		 //이메일 인증으로 아이디 찾기 
-		 String userId = loginService.findUserId(searchId);
+		
+		 Users userId = loginService.findUserId(searchId);
+		 logger.info("아이디찾기 결과 : {}",userId);
 		 model.addAttribute("userId", userId);
 		 
 	 }

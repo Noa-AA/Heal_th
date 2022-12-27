@@ -5,7 +5,19 @@
 <div id="findIdResult">
 	
 	<div id="resultId">
-		<span id="pringId">회원님의 아이디 는 ${userId }입니다.</span>
+		<c:choose>
+			<c:when test="${userId.jointype eq'Kakao'}">
+				<span id="printIdK">회원님은 카카오아이디로 회원가입하셨습니다.</span>
+				
+			</c:when>
+			<c:when test="${userId.jointype eq'Naver'}">">
+				<span id="printIdN">회원님은 네이버아이디로 회원가입하셨습니다.</span>
+			</c:when>	
+			<c:otherwise>
+				<span id="prinㅅId">회원님의 아이디 는 ${userId.userId }입니다.</span>
+			</c:otherwise>
+		</c:choose>
+		
 		
 	</div>
 	<div id="btnArea">

@@ -71,7 +71,7 @@ public interface LoginService {
 	 * @param searchId
 	 * @return
 	 */
-	public String findUserId(Users searchId);
+	public Users findUserId(Users searchId);
 	
 	/**
 	 * 비밀번호 찾기를 위한 회원 조회
