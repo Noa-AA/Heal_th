@@ -87,10 +87,12 @@ $(document).ready(function(){
 					console.log("인증번호 검사 성공")
 					 $("#searchPwResult").html("인증성공")
 					$("#searchPwResult").css("color","green")
+					$("#btnGotoSearchPw").attr("disabled",false)
 				}else {
 					console.log("인증번호 검사 실패")
 					 $("#searchPwResult").html("인증실패! 인증번호를 확인해주세요")
 					$("#searchPwResult").css("color","red")
+					$("#btnGotoSearchPw").attr("disabled",true)
 				}
 			}
 			,error :function(){
@@ -273,7 +275,7 @@ position: absolute;
 #btnGotoSearchPw,#btnCancel{
 	width: 190px;
     height: 47px;
-      border-radius: 8px;
+     border-radius: 8px;
 }
 
 #btnGotoSearchPw{
@@ -332,7 +334,7 @@ position: absolute;
 				</label>
 				<input type="text" name="userPhone" id="userPhone"  class="inputInfo" placeholder="전화번호를 입력해주세요">
 				<div id="btnGetCode">
-					<button type="button" id="btnSearchPw"><span class="btnTitle btnsmsCodeChk">인증번호 받기</span></button>
+					<button type="button" id="btnSearchPw">인증번호 받기</button>
 				</div>
 				<div id="userchkAlert" class="resMsg"></div>
 				
@@ -344,7 +346,7 @@ position: absolute;
 				<input type="text" name="pwSmsCode" id="pwSmsCode"  class="inputInfo"  placeholder="인증번호를 입력해주세요" disabled>
 				</label>
 				<div id="btnsmschk">
-					<button type="button" id="btn_code"><span class="btnTitle btnsmsCodeChk">인증번호 확인</span></button>			
+					<button type="button" id="btn_code">인증번호 확인</button>			
 				</div>
 				<div id="searchPwResult" class="resMsg"></div>
 			</div>

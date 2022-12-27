@@ -171,19 +171,15 @@ public class LoginController {
 	 
 	 @ResponseBody
 	 @PostMapping("/login/codeIdChk")
-	 public String codeIdChk(String emailCode,HttpSession session,Model model) {
+	 public boolean codeIdChk(String emailCode,HttpSession session) {
 		 
 		 logger.info("/codeIdChk 실행");
 		 
-		 String searchId =loginService.codeChk(emailCode,session);
-		 logger.info(searchId);
+		 boolean searchId =loginService.codeChk(emailCode,session);
+		 logger.info("인증번호 결과 {}",searchId);
 		 return searchId;
 	 }
 	 
-	 @RequestMapping("/login/searchIdResult")
-	 public void ResultsearchId() {
-		 	logger.info("아이디 찾기 완료");
-	 }
 	 
 	 @ResponseBody
 	 @PostMapping("/login/searchIdBySms")
@@ -217,6 +213,16 @@ public class LoginController {
 		 logger.info("아이디 찾기 성공 -{}",searchBySms);
 		 return searchBySms;
 	 }
+	 
+	 @PostMapping("/login/searchIdResult")
+	 public void ResultsearchId(Users searchId,Model model) {
+		 
+		 logger.info("아이디 찾기 결과 확인 ");
+		 
+		 //이메일 인증으로 아이디 찾기 
+		 String userId = loginService.findUserId(searchId);
+	 }
+
 	 
 	 @RequestMapping("/login/searchPw")
 	 public void searchPw() {
