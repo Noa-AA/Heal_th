@@ -20,7 +20,7 @@ public class AdminLoginController {
 	 
 	 @Autowired AdminLoginService adminLoginService;
 	 
-	 @RequestMapping("admin/adminLogin")
+	 @RequestMapping("/admin/adminLogin")
 	 public void adminLogin() {
 		 logger.info("/admin/adminLogin [GET]");
 		 

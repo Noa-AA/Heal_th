@@ -70,7 +70,7 @@ $(document).ready(function() {
 
 <h1>운동 인증</h1>
 
-<form action="/board/vWrite" method="post">
+<form action="/board/vWrite" method="post" enctype="multipart/form-data">
 
 <table>
 	<tr>
@@ -96,6 +96,7 @@ $(document).ready(function() {
 	<tr>
 		<td>첨부파일</td>
 		<td><button>첨부파일</button></td>
+<%-- 		<jsp:include page="../file/upload.jsp" />  --%>
 	</tr>
 	
 	<tr>
@@ -106,6 +107,8 @@ $(document).ready(function() {
 	</tr>
 	
 </table>
+
+
 
 <div class="text-center">
 	

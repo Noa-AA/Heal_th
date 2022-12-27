@@ -122,7 +122,7 @@ function validateCkh(){
 
 </style>
 
-<body>
+<body id="newPwBody">
 
 <div id="newPw">
 

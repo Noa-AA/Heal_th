@@ -90,6 +90,8 @@ a {
 
 </table>
 
+<%-- <jsp:include page="../file/file.jsp" /> <!-- 뷰페이지 사진목록 자리에 넣기 --> --%>
+
 <div class="text-center">
 	<button id="btnList">목록</button>
 	

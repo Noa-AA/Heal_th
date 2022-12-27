@@ -15,6 +15,7 @@ public class BoardPaging {
 		private int startNo; //화면에 보이는 게시글의 시작 번호
 		private int endNo; //화면에 보이는 게시글의 끝 번호
 		
+		private String type;
 		private String keyword;
 		
 		
@@ -29,19 +30,6 @@ public class BoardPaging {
 			makePaging();
 		}
 		
-		public BoardPaging(int totalCount) {
-			setTotalCount(totalCount);
-			
-			makePaging();
-		}
-		
-		public BoardPaging(int totalCount, int curPage, int listCount) {
-			setTotalCount(totalCount);
-			setCurPage(curPage);
-			setListCount(listCount);	//화면에 보여질 게시글 개수 지정하기
-			
-			makePaging();
-		}
 		
 		public BoardPaging(int totalCount, int curPage, int listCount, int pageCount) {
 			setTotalCount(totalCount);
@@ -51,8 +39,6 @@ public class BoardPaging {
 			
 			makePaging();
 		}
-		
-		
 		
 		
 		//페이지 정보를 생성(계산)하는 메소드
@@ -94,20 +80,14 @@ public class BoardPaging {
 		}
 
 
-//		@Override
-//		public String toString() {
-//			return "Paging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount + ", totalPage="
-//					+ totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage + ", endPage=" + endPage
-//					+ ", startNo=" + startNo + ", endNo=" + endNo + "]";
-//		}
-		
-		
+
+
 		@Override
 		public String toString() {
 			return "BoardPaging [curPage=" + curPage + ", totalCount=" + totalCount + ", listCount=" + listCount
 					+ ", totalPage=" + totalPage + ", pageCount=" + pageCount + ", startPage=" + startPage
-					+ ", endPage=" + endPage + ", startNo=" + startNo + ", endNo=" + endNo + ", keyword=" + keyword
-					+ "]";
+					+ ", endPage=" + endPage + ", startNo=" + startNo + ", endNo=" + endNo + ", type=" + type
+					+ ", keyword=" + keyword + "]";
 		}
 
 
@@ -201,6 +181,16 @@ public class BoardPaging {
 		}
 
 
+		public String getType() {
+			return type;
+		}
+
+
+		public void setType(String type) {
+			this.type = type;
+		}
+
+
 		public String getKeyword() {
 			return keyword;
 		}
@@ -209,6 +199,9 @@ public class BoardPaging {
 		public void setKeyword(String keyword) {
 			this.keyword = keyword;
 		}
+
+
+		
 		
 
 		

@@ -19,19 +19,18 @@ public class Beforeafter {
 	private String cWeight;
 	private String gResult;
 	private String afterCon;
-	private Date bfUptDate;
-	private Date bfDeleteDate;
 	private int bfHit;
 	private int bfThumbs;
 	private int userNo;
+	private String userNick;
 	private int categoryNo;
 	
 	public Beforeafter() {	}
 
 	public Beforeafter(int bfNo, Date bfInstDate, String bfTitle, int height, String gender, int weight,
 			String bfExercise, String gWeight, String sDate, String eDate, String seleExercise, String beforeCon,
-			String cWeight, String gResult, String afterCon, Date bfUptDate, Date bfDeleteDate, int bfHit, int bfThumbs,
-			int userNo, int categoryNo) {
+			String cWeight, String gResult, String afterCon, int bfHit, int bfThumbs, int userNo, String userNick,
+			int categoryNo) {
 		super();
 		this.bfNo = bfNo;
 		this.bfInstDate = bfInstDate;
@@ -48,11 +47,10 @@ public class Beforeafter {
 		this.cWeight = cWeight;
 		this.gResult = gResult;
 		this.afterCon = afterCon;
-		this.bfUptDate = bfUptDate;
-		this.bfDeleteDate = bfDeleteDate;
 		this.bfHit = bfHit;
 		this.bfThumbs = bfThumbs;
 		this.userNo = userNo;
+		this.userNick = userNick;
 		this.categoryNo = categoryNo;
 	}
 
@@ -61,9 +59,9 @@ public class Beforeafter {
 		return "Beforeafter [bfNo=" + bfNo + ", bfInstDate=" + bfInstDate + ", bfTitle=" + bfTitle + ", height="
 				+ height + ", gender=" + gender + ", weight=" + weight + ", bfExercise=" + bfExercise + ", gWeight="
 				+ gWeight + ", sDate=" + sDate + ", eDate=" + eDate + ", seleExercise=" + seleExercise + ", beforeCon="
-				+ beforeCon + ", cWeight=" + cWeight + ", gResult=" + gResult + ", afterCon=" + afterCon
-				+ ", bfUptDate=" + bfUptDate + ", bfDeleteDate=" + bfDeleteDate + ", bfHit=" + bfHit + ", bfThumbs="
-				+ bfThumbs + ", userNo=" + userNo + ", categoryNo=" + categoryNo + "]";
+				+ beforeCon + ", cWeight=" + cWeight + ", gResult=" + gResult + ", afterCon=" + afterCon + ", bfHit="
+				+ bfHit + ", bfThumbs=" + bfThumbs + ", userNo=" + userNo + ", userNick=" + userNick + ", categoryNo="
+				+ categoryNo + "]";
 	}
 
 	public int getBfNo() {
@@ -186,22 +184,6 @@ public class Beforeafter {
 		this.afterCon = afterCon;
 	}
 
-	public Date getBfUptDate() {
-		return bfUptDate;
-	}
-
-	public void setBfUptDate(Date bfUptDate) {
-		this.bfUptDate = bfUptDate;
-	}
-
-	public Date getBfDeleteDate() {
-		return bfDeleteDate;
-	}
-
-	public void setBfDeleteDate(Date bfDeleteDate) {
-		this.bfDeleteDate = bfDeleteDate;
-	}
-
 	public int getBfHit() {
 		return bfHit;
 	}
@@ -226,6 +208,14 @@ public class Beforeafter {
 		this.userNo = userNo;
 	}
 
+	public String getUserNick() {
+		return userNick;
+	}
+
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
+
 	public int getCategoryNo() {
 		return categoryNo;
 	}
@@ -233,6 +223,8 @@ public class Beforeafter {
 	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
 	}
+
+	
 
 	
 	

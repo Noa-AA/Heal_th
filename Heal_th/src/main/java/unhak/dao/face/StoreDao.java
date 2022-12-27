@@ -40,6 +40,8 @@ public interface StoreDao  {
 	 * @return 조회된 상품 번호
 	 */
 	public StoreDto selectStore(StoreDto viewStore);
+	
+	
 
 	/**
 	 * 카트담기

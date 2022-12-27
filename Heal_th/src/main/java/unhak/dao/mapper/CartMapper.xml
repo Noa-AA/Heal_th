@@ -7,22 +7,43 @@
 
     
  <mapper namespace="unhak.dao.face.CartDao">
+  <!-- 유저 정보 조회 -->
+	<select id ="selectUserInfo" resultType="Users" parameterType="int">
+		SELECT *
+		FROM users
+		WHERE user_no = #{userno }
+	</select>
  
  
 <!-- 	카트 담기  -->
-	<insert id="addCart">
- 		insert into tbl_cart (cart_no, user_no, prod_no, cart_stock)
-   		 values (tbl_cart_seq.nextval, #{user_no}, #{prod_no}, #{cart_stock})
+	<insert id="insertcart" parameterType="CartDto">
+ 		insert into cart (cart_no, user_no, prod_no,add_date)
+   		 values (cart_seq.nextval, #{userNo}, #{prodNo},sysdate)
 	</insert>
+
+ 
+<!-- 	카트 담기  -->
+<!-- 	<insert id="insertcart" parameterType="CartDto"> -->
+<!--  		insert into cart (cart_no, user_no, prod_no,cart_stock,add_date) -->
+<!--    		 values (cart_seq.nextval, #{userNo}, #{prodNo},#{cart_stock},sysdate) -->
+<!-- 	</insert> -->
  
  
  
- 
+ <!-- 카트 조회 --> 
+ 	<select id="getCart" parameterType="int" resultType="CartDto"> 
+		SELECT p.prod_no,p.p_name,p.p_price,p.p_image1,c.user_no FROM product p
+		INNER JOIN cart c
+ 		   on p.prod_no = c.prod_no
+		WHERE c.user_no = #{userNo}
+
+ 	</select>
+
  
  	<!-- 카트 삭제 -->
 	<delete id="deleteCart">
 	
-		delete from cart where cart_no = #{cart_no}
+		delete from cart where prod_no = #{prodNo}
 	
 	</delete>
 	

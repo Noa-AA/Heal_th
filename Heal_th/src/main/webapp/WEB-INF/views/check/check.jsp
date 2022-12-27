@@ -36,6 +36,7 @@ $(document).ready(()=>{
 			alert("오늘의 출석체크는 이미 하셨습니다")
 			return false
 		}else{
+			
 			console.log("goCheck click")
 			console.log(${today})
 			$(".cal").find("td:eq(${today-1})").css({
@@ -93,6 +94,7 @@ $(document).ready(()=>{
 			$("#stamp").css(
 				"animation","kenburns-top 0.2s cubic-bezier(0.165, 0.840, 0.440, 1.000) reverse both"
 			)
+			alert("10 포인트가 적립됐습니다")
 		}
 		
 		$.ajax({

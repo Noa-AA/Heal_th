@@ -83,14 +83,14 @@ public class StoreController {
 		return "store/view";
 	}	
 	
-	//장바구니 조회
-	@RequestMapping(value="/cart")
-	public String cartview() {
-		
-		
-		return null;
-	}
-	
+//	//장바구니 조회
+//	@RequestMapping(value="/cart")
+//	public String cartview() {
+//		
+//		
+//		return null;
+//	}
+//	
 	
 	
 	
@@ -106,15 +106,15 @@ public class StoreController {
 //		return 1; //나중에 바꿀것
 //	}
 	
-	  @PostMapping("/cart/{id}/{itemId}")
-	    public String addCartItem(@PathVariable("id") Integer id, @PathVariable("itemId") Integer itemId, int amount) {
-
-//	        User user = userPageService.findUser(id);
-//	        Item item = itemService.itemView(itemId);
+//	  @PostMapping("/cart/{id}/{itemId}")
+//	    public String addCartItem(@PathVariable("id") Integer id, @PathVariable("itemId") Integer itemId, int amount) {
 //
-//	        cartService.addCart(user, item, amount);
-
-	        return "redirect:/item/view/{itemId}";
-	    }
+////	        User user = userPageService.findUser(id);
+////	        Item item = itemService.itemView(itemId);
+////
+////	        cartService.addCart(user, item, amount);
+//
+//	        return "redirect:/item/view/{itemId}";
+//	    }
 	
 }

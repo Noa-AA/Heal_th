@@ -423,7 +423,7 @@ $(document).ready(function(){
                             <br>
 
 			<h4 style="color: black">다짐글</h4><br><br>
-			<textarea rows="20" cols="50" id="beforeCon" name="beforeCon" value="${updateBoard.beforeCon }" placeholder="다짐글을 작성해주세요"></textarea>
+			<textarea rows="20" cols="50" id="beforeCon" name="beforeCon" placeholder="다짐글을 작성해주세요">${updateBoard.beforeCon }</textarea>
 				
 			</div>                            
 				
@@ -455,7 +455,7 @@ $(document).ready(function(){
 				<br><br><br>
 	                            
 				<h3>후기글</h3><br><br>
-					<textarea rows="20" cols="50" id="afterCon" name="afterCon" value="${updateBoard.afterCon }" placeholder="후기글을 작성해주세요"></textarea>
+					<textarea rows="20" cols="50" id="afterCon" name="afterCon" placeholder="후기글을 작성해주세요">${updateBoard.afterCon }</textarea>
 				
                                  
                                  </div>

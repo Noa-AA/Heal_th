@@ -117,6 +117,15 @@ public interface ChatDao {
 	 * @return - 같은 채팅방의 상대방 이름
 	 */
 	public String selectReciverNick(RoomList roomNo);
+	
+	
+	/**
+	 * chat/chatArea
+	 * 
+	 * @param roomNo - 룸번호
+	 * @return - 상대방 프로필 사진
+	 */
+	public String selectReciverProfile(RoomList roomNo);
 
 
 	/**
@@ -164,6 +173,8 @@ public interface ChatDao {
 	 * @param chatFile - insert 파일정보
 	 */
 	public void insertFile(ChatFile chatFile);
+
+
 
 
 	

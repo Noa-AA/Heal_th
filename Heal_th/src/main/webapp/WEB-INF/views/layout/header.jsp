@@ -36,6 +36,11 @@ $(document).ready(function(){
 	});
 	
 	
+	$("#goLogin").click(function() {
+		alert("로그인 시 이용 가능합니다.");
+		$(location).attr("href", "/login/login")
+	})
+		
 })
 
 
@@ -134,7 +139,7 @@ header {
 
 #menu > ul > li {
 	height: 100%;
-    width: 150px;
+    width: 160px;
 }
 
 #menu > ul > li > a {
@@ -202,78 +207,28 @@ header {
 	margin-right: 3px;
 }
 
+#alram {
+	position: fixed;
+	top:30px;
+	right:30px;
+}
+
+#alram img {
+	width:20px;
+}
+
+#alram button {
+	background-color:transparent;
+}
 
 /* 로그인 아이콘 */
-.material-symbols-outlined {
+.lG, .lO, .mP, .person {
   font-variation-settings:
-  'FILL' 0,
+  'FILL' 0 ,
   'wght' 400,
   'GRAD' 0,
-  'opsz' 20
+  'opsz' 48
   
-}
-
-/* 회원가입 아이콘 */
-.person {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 40
-}
-
-
-/* 드롭다운 메뉴~~ */
-
-.hover {
-	box-shadow: 0 0 0px rgb(0 0 0 / 0%) !important;;
-	border-bottom: 1px solid #eeeeee;
-}
-
-
-#dropMenu {
-	display: none;
-	margin: 0 auto;
-	height: 310px;
-	width: 100%;
-	background-color: #fff;
-	position: fixed;
-	box-shadow: 0 0 10px rgb(0 0 0 / 8%);
-	top: 0;
-}
-
-#dropMenu > ul {
-	display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#dropMenu > ul:nth-child(1) {
-	padding-top: 80px;
-	margin-top: 34px;
-}
-
-#dropMenu > ul:last-child {
-	margin-bottom: 34px;
-}
-
-#dropMenu > ul > li {
-    width: 150px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-left: 1px solid #f6f6f6;
-}
-
-#dropMenu > ul > li:last-child {
-	border-right: 1px solid #f6f6f6;
-}
-
-#dropMenu > ul > li > a {
-	height: 20px;
-    color: #666;
-    font-weight: 400;
 }
 
 #subvisual {
@@ -360,9 +315,81 @@ body {
 	padding-top: 355px;
 }
 
+#goLogin{
+	cursor: pointer;
+}
+
+.messageBox {
+	position: absolute;
+	top: 65px;
+	right: 5px;
+	width: 400px;
+	height: 250px;
+	border-radius: 15px;
+	padding: 20px;
+	box-shadow: 0 7px 20px rgb(0 0 0 / 17%);
+	z-index: 1000;
+	overflow-y: scroll;
+	background-color:white;
+}
+
+.messageBox::-webkit-scrollbar {
+	border-radius: 10px;
+	width: 7px;
+}
+
+.messageBox::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: silver;
+	width: 5px;
+}
+.messageBox:after {
+    position: absolute;
+    top: -13px;
+    right: 45px;
+    width: 0;
+    height: 0;
+    border-right: 11px solid rgba(0,0,0,0);
+    border-bottom: 13px solid #fff;
+    border-left: 11px solid rgba(0,0,0,0);
+    content: "";
+    filter: drop-shadow(0px 7px 20px rgba(0, 0, 0, 0.17));
+}
+
+
 </style>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".messageBox").hide();
+	var count = 0;
+	$("#myAlert").click(function(){
+		
+		if(count%2==0){
+			
+			$.ajax({
+				type: "get",
+				url: "/message/view",
+				data: {
+				},
+				dataType: "html",
+				success: (res)=>{
+					console.log("AJAX 성공")
+					$("#message-result").html(res)
+				},
+				error: ()=>{
+					console.log("AJAX 실패")
+				}
+			})
 
+			$(".messageBox").show();
+		} else if(count%2==1){
+			$(".messageBox").hide();
+		}
+		count++;
+	})
+});
+</script>
 
 
 </head>
@@ -371,7 +398,7 @@ body {
 
 	<div id="topMenu" class="">	
 		<h1 class="logo">
-			<a href="">
+			<a href="/main">
 <!-- 				<img src="/resources/img/logo_blue.png" alt="득근득근"> -->
 <!-- 				<img src="/resources/img/logo_green.png" alt="득근득근"> -->
 				<img src="/resources/img/logo_purple.png" alt="득근득근">
@@ -384,13 +411,11 @@ body {
 				<a href="/challenge/list">챌린지</a>
 			</li>
 			<li>
-				<a href="/chat/chatRoom">운동질문</a>
+				<c:if test="${empty userNo }"><a id="goLogin">멘토와 채팅하기</a></c:if> <!-- 비로그인 상황 -->
+				<c:if test="${not empty userNo }"><a href="/chat/intro">멘토와 채팅하기</a></c:if> <!-- 로그인 상황 -->
 			</li>
 			<li>
 				<a href="/dghelper/healthtest">운동도우미</a>
-			</li>
-			<li>
-				<a href="">출석체크</a>
 			</li>
 			<li>
 				<a href="/store/list">득근상점</a>
@@ -409,7 +434,7 @@ body {
 				<li id="login">
 <!-- 					<img src="/resources/img/loginicon.png"> -->
 					<a href="/login/login">
-						<span class="material-symbols-outlined">login</span>로그인
+						<span class="material-symbols-outlined lG">login</span>로그인
 					</a>
 				</li>
 				
@@ -424,23 +449,29 @@ body {
 		</c:if> <!-- 비로그인상황 끝 -->
 		
 		<!-- 로그인 상황일때 -->	
-		<c:if test="${not empty userNo	 }">
+		<c:if test="${not empty userNo }">
 		<div id="right">
 			<ul>
 				<li id="logout">
 <!-- 					<img src="/resources/img/loginicon.png"> -->
-					<a href="/login/login">
-						<span class="material-symbols-outlined">logout</span>로그아웃
+					<a href="/mypage/logout">
+						<span class="material-symbols-outlined lO">logout</span>로그아웃
 					</a>
 				</li>
 				
-				<li id="mypage">
+				<li id="mp">
 <!-- 					<img src="/resources/img/joinicon.png"> -->
-					<a href="/login/join">
-					<span class="material-symbols-outlined">perm_contact_calendar</span>마이페이지
+					<a href="/mypage/main">
+					<span class="material-symbols-outlined mP">perm_contact_calendar</span>마이페이지
 					</a>
 				</li>
 			</ul>
+			<div id="alram">
+			<button id="myAlert"><img src="/resources/img/bell.png"></button>
+				<div class="messageBox" style="display:none;">
+					<div id="message-result"></div>
+				</div>
+			</div>
 		</div>
 		</c:if> <!-- 비로그인상황 끝 -->
 		

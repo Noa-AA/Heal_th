@@ -12,8 +12,6 @@ public class VerifyBoard {
 	private String verifyContent;
 	private int vHit;
 	private Date vInstDate;
-	private Date vUptDate;
-	private Date vDeleteDate;
 	private int vThumbs;
 	private int userNo;
 	private int categoryNo;
@@ -21,7 +19,7 @@ public class VerifyBoard {
 	public VerifyBoard() {	}
 
 	public VerifyBoard(int verifyNo, String vTitle, String exercise, String time, int kcal, String verifyContent,
-			int vHit, Date vInstDate, Date vUptDate, Date vDeleteDate, int vThumbs, int userNo, int categoryNo) {
+			int vHit, Date vInstDate, int vThumbs, int userNo, int categoryNo) {
 		super();
 		this.verifyNo = verifyNo;
 		this.vTitle = vTitle;
@@ -31,8 +29,6 @@ public class VerifyBoard {
 		this.verifyContent = verifyContent;
 		this.vHit = vHit;
 		this.vInstDate = vInstDate;
-		this.vUptDate = vUptDate;
-		this.vDeleteDate = vDeleteDate;
 		this.vThumbs = vThumbs;
 		this.userNo = userNo;
 		this.categoryNo = categoryNo;
@@ -42,8 +38,7 @@ public class VerifyBoard {
 	public String toString() {
 		return "VerifyBoard [verifyNo=" + verifyNo + ", vTitle=" + vTitle + ", exercise=" + exercise + ", time=" + time
 				+ ", kcal=" + kcal + ", verifyContent=" + verifyContent + ", vHit=" + vHit + ", vInstDate=" + vInstDate
-				+ ", vUptDate=" + vUptDate + ", vDeleteDate=" + vDeleteDate + ", vThumbs=" + vThumbs + ", userNo="
-				+ userNo + ", categoryNo=" + categoryNo + "]";
+				+ ", vThumbs=" + vThumbs + ", userNo=" + userNo + ", categoryNo=" + categoryNo + "]";
 	}
 
 	public int getVerifyNo() {
@@ -108,22 +103,6 @@ public class VerifyBoard {
 
 	public void setvInstDate(Date vInstDate) {
 		this.vInstDate = vInstDate;
-	}
-
-	public Date getvUptDate() {
-		return vUptDate;
-	}
-
-	public void setvUptDate(Date vUptDate) {
-		this.vUptDate = vUptDate;
-	}
-
-	public Date getvDeleteDate() {
-		return vDeleteDate;
-	}
-
-	public void setvDeleteDate(Date vDeleteDate) {
-		this.vDeleteDate = vDeleteDate;
 	}
 
 	public int getvThumbs() {

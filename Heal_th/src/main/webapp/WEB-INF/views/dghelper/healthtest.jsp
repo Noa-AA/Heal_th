@@ -310,7 +310,7 @@ function clip(){
     left: -268px;
 }
 
-button {
+.big-container button {
 	padding: 10px;
 	margin: 10px !important;
 }

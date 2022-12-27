@@ -8,8 +8,15 @@ $(document).ready(function(){
 
 	  //회원 본인 인증 
   $("#btn_userchk").click(function(){
-	console.log("btn_userchk클릭")
-	 $("#smschk").toggle()
+		console.log("btn_userchk클릭")
+	 	
+	 	if($("#userPhone").val()==null || $("#userPhone").val()==""){
+	 		console.log("전화번호 누락")
+	 		$("#userchkAlert").html("전화번호로 입력해주세요")
+	 		$("#userchkAlert").css("color","red")
+	 		return false
+	 	}else{
+	 		$("#codeChk").css("display","block")
 	 //보인인증을 위한 문자 보내는 요청하기
 		 $.ajax({
 			 type:"post"
@@ -20,12 +27,15 @@ $(document).ready(function(){
 			,dataType:"json"
 			,success:function(res){
 				console.log("문자 요청 성공")
+				
 			}
 			,error: function(){
 	  			console.log("문자요청 실패")
 		  			alert("전화번호를 확인해주세요")
 	  		}
+			
 		 })
+	 }	
 		 
 });//문자보내기 완료 
 	
@@ -108,56 +118,58 @@ $("#joinbtn").click(function(){
  
 
     
-   //메시지 영역 초기화
-   $("#userName").focus(function(){ //이름 메시지 영역 초기화
-	   $("#nameAlert").html("")
-   })
-   
-   $("#userEmail").focus(function(){//이메일 메시지 영역 초기화
-	   $("#emailAlert").html("")
-   })
-   
-   $("#userId").focus(function(){//아이디 메시지 영역 초기화
-	   $("#checkIdResult").html("")
-   })
-   
-    $("#userPw").focus(function(){//비밀번호 메시지 영역 초기화
-	   $("#pwAlert").html("")
-   })
-    $("#userPwChk").focus(function(){//비밀번호 확인 메시지 영역 초기화
-	   $("#pwAgain").html("")
-   })
-   
-    $("#userNick").focus(function(){//닉네임 메시지 영역 초기화
-	   $("#nickAlert").html("")
-   })
-   
-   $("#userPhone").focus(function(){//휴대폰 메시지 영역 초기화
-	   $("#result_code").html("")
-   })
-   
-
-   $("#male").focus(function(){//성별 메시지 영역 초기화
-	   $("#genderAlert").html("")
-   })
-   
-   $("#female").focus(function(){//성별 메시지 영역 초기화
-	   $("#genderAlert").html("")
-   })
-   
-   $("#userBirth").focus(function(){//생년월일 메시지 영역 초기화
-	   $("#birthAlert").html("")
-   })
-   
-   $("#userJob").focus(function(){//직업 메시지 영역 초기화
-	   $("#jobAlert").html("")
-   })
-   
-   $("#detailAddress").focus(function(){//주소 메시지 영역 초기화
-	   $("#addressAlert").html("")
-   })
-   
-
+    //메시지 영역 초기화
+	   $("#userName").focus(function(){ //이름 메시지 영역 초기화
+		   $("#nameAlert").html("")
+	   })
+	   
+	   $("#userEmail").focus(function(){//이메일 메시지 영역 초기화
+		   $("#emailAlert").html("")
+	   })
+	   
+	   $("#userId").focus(function(){//아이디 메시지 영역 초기화
+		   $("#checkIdResult").html("")
+	   })
+	   
+	    $("#userPw").focus(function(){//비밀번호 메시지 영역 초기화
+		   $("#pwAlert").html("")
+	   })
+	    $("#userPwChk").focus(function(){//비밀번호 확인 메시지 영역 초기화
+		   $("#pwAgain").html("")
+	   })
+	   
+	    $("#userNick").focus(function(){//닉네임 메시지 영역 초기화
+		   $("#nickAlert").html("")
+	   })
+	   
+	   
+	
+	   $("#userPhone").focus(function(){//휴대폰 메시지 영역 초기화
+		   $("#userchkAlert").html("")
+	   })
+	   $("#code").focus(function(){//휴대폰 메시지 영역 초기화
+		   $("#result_code").html("")
+	   })
+	   $("#male").focus(function(){//성별 메시지 영역 초기화
+		   $("#genderAlert").html("")
+	   })
+	   
+	   $("#female").focus(function(){//성별 메시지 영역 초기화
+		   $("#genderAlert").html("")
+	   })
+	   
+	   $("#userBirth").focus(function(){//생년월일 메시지 영역 초기화
+		   $("#birthAlert").html("")
+	   })
+	   
+	   $("#userJob").focus(function(){//직업 메시지 영역 초기화
+		   $("#jobAlert").html("")
+	   })
+	   
+	   $("#detailAddress").focus(function(){//주소 메시지 영역 초기화
+		   $("#addressAlert").html("")
+	   })
+	   
     
 	
 })
@@ -299,196 +311,473 @@ $("#joinbtn").click(function(){
 </script>
 
 <script>
-    function addressFind() {
-            	console.log("주소검색");
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
-
-                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                    addr = data.roadAddress;
-                } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                    addr = data.jibunAddress;
-                }
-
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R'){
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                        extraAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if(data.buildingName !== '' && data.apartment === 'Y'){
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if(extraAddr !== ''){
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("extraAddress").value = extraAddr;
-                
-                } else {
-                    document.getElementById("extraAddress").value = '';
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('postcode').value = data.zonecode;
-                document.getElementById("useraddress").value = addr;
-                // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("detailAddress").focus();
-            }
-        }).open();
-    }
+function addressFind() {
+	console.log("주소검색");
+	new daum.Postcode({
+		oncomplete: function(data) {
+		    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+		
+		    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+		    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+		    var addr = ''; // 주소 변수
+		    var extraAddr = ''; // 참고항목 변수
+		
+		    //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+		    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+		        addr = data.roadAddress;
+		    } else { // 사용자가 지번 주소를 선택했을 경우(J)
+		        addr = data.jibunAddress;
+		    }
+		
+		    // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+		    if(data.userSelectedType === 'R'){
+		        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+		        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+		        if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+		            extraAddr += data.bname;
+		        }
+		        // 건물명이 있고, 공동주택일 경우 추가한다.
+		        if(data.buildingName !== '' && data.apartment === 'Y'){
+		            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		        }
+		        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+		        if(extraAddr !== ''){
+		            extraAddr = ' (' + extraAddr + ')';
+		        }
+		        // 조합된 참고항목을 해당 필드에 넣는다.
+		        document.getElementById("extraAddress").value = extraAddr;
+		    
+		    } else {
+		        document.getElementById("extraAddress").value = '';
+		    }
+		
+		    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+		    document.getElementById('postcode').value = data.zonecode;
+		    document.getElementById("userAddress").value = addr;
+		    // 커서를 상세주소 필드로 이동한다.
+		    document.getElementById("detailAddress").focus();
+		}
+	}).open();
+   }
     
     
  
 </script>
  
  <style type="text/css">
-#joinarea {
- 	width:500px;
- 	margin : 0 auto;
+ #joinBody{
+ 	background-color: white;
+ 
  }
- </style>
-<body>
-<div id="joinarea">
-	<div id="intro">
-			<h1>카카오 아이디로 회원가입</h1>
-			<div id="intro_description">추가적인 정보를 기입해주세요 ! 아이디는 수정이 불가합니다</div>
-		</div>
-		
-		
-	<form action="/login/join" method="post" id="joinKakaoform">
-		<div id="howJoin">
-				<input id="joinType" name="joinType" value="KaKao" style="display: none;">
-			</div>
-		<div id="name">		
-		 	<label for="userName">이름
-	 		<input type="text" name="userName" id="userName" >
-	 		</label> 
-		</div>
-		
-		<div id="nameAlert"></div>
-	
-		<div id="email">
-			<label for="userEmail">이메일
-			<input type="text" name="userEmail" id="userEmail" value="${kakaoInfo.userEmail}">
-			</label>
-		</div>
-		
-		<div id="emailAlert"></div>
-		
-		<div id="id">
-			<label for="userId">아이디
-			<input type="text" name="userId" id="userId" value="${kakaoInfo.userId}" readonly="readonly">
-			</label>
-		</div>
-	
-		<div id="checkIdResult"></div>
-	
-		<div id="pw">
-			<label for="userPw">비밀번호
-			<input type="password" name="userPw" id="userPw">
-			</label>
-		</div>
-		<div id="pwAlert"></div>
-		
-		
-		<div id="pwChk">
-			<label for="userPwChk">비밀번호 확인
-			<input type="password" name="userPwChk" id="userPwChk">
-			</label>
-		</div>
-		<div id="pwAgain"></div>
-		
-		
-		
-		<div id="nick">
-			<label for="userNick">닉네임
-			<input type="text" name="userNick" id="userNick" value="${kakaoInfo.userNick}">
-			</label>
-		</div>
-			<div id="nickAlert"></div>
-		
-		<div id="phone">
-			<label for="userPhone">연락처
-			<input type="text" name="userPhone" id="userPhone" value="${naverJoin.userPhone}">
-			</label>
-			
-			<div id="userchk">
-				<button type="button" id="btn_userchk">본인인증</button>
-		</div>
-		
-			<div id="smschk" style="display:none;">
-				<input type="text" name="code" id="code">
-				<button type="button" id="btn_code">인증번호 확인</button>			
-			</div>
-			
-			<div id="result_code"></div>
-			
-		</div>
-		
-		<div id="gender">
-			<label for="userGender">성별			
-			<input type="radio" name="userGender" value="M" id="male">남성
-			<input type="radio" name="userGender" value="F" id="female">여성
-			</label>
-		</div>
-		<div id="genderAlert"></div>
-			
-			
-		<div id="birth">
-			<label for="birth">생년월일
-				<input type="text" id="userBirth"name="userBirth" placeholder="생년월일 예)19930101" value="${naverJoin.userBirth }">
-			</label>
-		</div>
-		
-		<div id="birthAlert"></div>
-		
-		<div id="job">
-			<label for="userJob">직업</label>
-			<select name="userJob" id="userJob">
-				<option value="" selected disabled>선택해주세요</option>
-				<option value="staff">회사원</option>
-				<option value="teacher">교사</option>
-				<option value="publicOfficial">공무원</option>
-				<option value="trainer">트레이너</option>
-				<option value="business">자영업</option>
-				<option value="student">학생</option>
-				<option value="etc">기타</option>
-			</select>
-				
-		</div>
-		<div id="jobAlert"></div>
-		
-	
-	
-		<div id="address">
-			<label for="userAddress">주소</label>
-				<input type="text" name="userAddress" id="postcode" placeholder="우편번호">
-				<input type="button" onclick="addressFind()" name="userAddress" value="우편번호 찾기"><br>
-				<input type="text" name="userAddress" id="useraddress" placeholder="주소"><br>
-				<input type="text" name="userAddress" id="detailAddress" placeholder="상세주소">
-				<input type="text" name="userAddress" id="extraAddress" placeholder="참고항목">
-		</div>
-			<div id="addressAlert"></div>
-			
-			
-		<button type="button" id="joinbtn">가입 완료</button>
-		<button  type="button" id="joinCancel">가입 취소</button>
-	</form>
+body{
+	padding-top:0;
+}
+ 
 
-	<div id="addressChk"></div>
-	
-</div>
+#boxArea{
+	margin: 0px 60px;
+    height: 1680px;
+
+}
+input:focus{
+	border-bottom-color:#7ca3f5; 
+}
+ 
+#joinArea {
+	width: 542px;
+    height: 1680px;
+    position: relative;
+    background-color: white;
+    border-radius: 12px;
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
+    margin: 0 auto;
+ }
+ 
+
+ #title {
+ 	padding: 40px 70px; 
+    height: 189px;
+    width: 422px;
+    padding: 50px 0px;
+   text-align: center;
+ }
+ 
+ #hLogo{
+ text-align: center;
+ }
+ 
+ #intro_description{
+     width: 422px;
+    font-size: 16px;
+    margin-top: 42px;
+ }
+ #logoImg{
+ 		
+    text-align: center;
+    left: 160px;
+    width: 223px;
+ 
+ }
+ 
+#formArea{
+    height: 1680px;
+
+}
+
+#btnArea{
+	    position: absolute;
+    height: 50px;
+    left: 60px;
+margin: 16px 0 0 0;
+}
+ 
+.resMsg{
+	position: absolute;
+    top: 85px;
+    margin: 7px 0 0;
+}
+
+.inputArea{
+	margin: 0;
+	position:relative;
+	height:114px;
+}
+.formTitle{
+	font-size: 17px;
+	color:gray;
+	 position: absolute;
+    top: 0px;
+    margin: 10px 0 0;
+}
+
+.inputInfo{
+	width: 422px;
+    height: 33px;
+    margin-left: 0;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid lightgray;
+    position:absolute;
+    top:39px;
+     font-size: 17px;
+}
+.inputAddress{
+    height: 33px;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid lightgray;
+	font-size: 17px;
+}
+
+#userPhone,#postcode,#code{
+width: 312px;
+}
+
+#btnsmschk{
+	    position: absolute;
+    top: 14px;
+    left: 314px;
+}
+#userJob{
+    width: 171px;
+    height: 32px;
+    position: absolute;
+    top: 53px;
+    border: 2px solid lightgray;
+}
+
+#userJob:focus{
+	 border: 3px solid #7ca3f5;
+}
+
+#checkId{
+	width: 111px;
+    height: 38px;
+    position: absolute;
+    left: 374px;
+    top: 414px;
+
+}
+
+#btn_checkId,#btn_userchk,#btnaddressFind,#btn_code{
+	width: 108px;
+    height: 36px;
+    background-color: transparent;
+    border: 2px solid #7ca3f5;
+    color:#7ca3f5;
+    font-size:17px;
+    border-radius: 8px;
+}
+
+#btn_checkId:hover,#btn_userchk:hover,#btnaddressFind:hover,#btn_code:hover{
+	color: white;
+    background-color: #7ca3f5;
+    width: 108px;
+    height: 36px;
+    border-radius: 8px;
+}
+#userchk{
+	 width: 111px;
+    height: 38px;
+    position: absolute;
+    left: 314px;
+    top: 35px;
+
+}
+
+#codeChk{
+ 	height: 88px;
+    top: -1px;
+
+}
+#code{
+	top:16px;
+}
+#genderchk{
+
+    position: absolute;
+    top: 38px;
+    width: 200px;
+    height: 45px;
+}
+#femaleArea{
+    position: absolute;
+    width: 100px;
+    left: 100px;
+    top: -1px
+}
+.male,.female{
+	padding-left: 8px;
+    position: absolute;
+    top: -10px;
+}
+
+#address{
+height: 180px;
+
+}
+#postcode{
+    position: absolute;
+
+}
+
+#userAddress{
+    position: absolute;
+    top:76px;
+
+}
+#detailAddress{
+    position: absolute;
+    top: 113px;
+}
+#extraAddress{
+	position: absolute;
+    top: 113px;
+    left: 218px;
+    
+
+}
+
+#result_code{
+	    top: 55px;
+}
+#btnaddressFind{
+	border: none;
+    position: absolute;
+    left: 314px;
+    top: 36px;
+    border: 2px solid #7CA3F4;
+    padding: 0 5px;
+}
+
+#joinbtn,#joinCancel{
+	width: 190px;
+    height: 47px;
+      border-radius: 8px;
+}
+#joinbtn{
+	background-color: #7ca3f5;
+	font-size: 17px;
+	color:white;
+}
+#joinCancel{
+	margin-left: 40px;
+	font-size: 17px;
+    color: #7ca3f5;
+    background-color: transparent;
+    border:2px solid #7ca3f5;
+}
+
+#addressAlert{
+top:154px;
+}
+
+#genderAlert{
+	top:70px;
+}
+ </style>
+<body >
+	<div id="joinArea">
+		<div id="boxArea">
+		<div id="title">
+			<div id="hLogo">
+				<img id="logoImg" src="/resources/img/logo_purple.png">
+			</div>
+			
+			<div id="intro_description">
+				<p class="notice">카카오 아이디로 회원가입 추가적인 정보를 기입해주세요!</p> 
+				<span class="notice">아이디는 수정이 불가합니다</span>
+			</div>
+		</div>
+				
+			<div id="formArea">
+				<form action="/login/join" method="post" id="joinKakaoform">
+					<div id="howJoin">
+							<input id="joinType" name="joinType" value="KaKao" style="display: none;">
+						</div>
+					<div id="name" class="inputArea">		
+					 	<label for="userName">
+			 				<span class="formTitle name">이름</span>
+			 			</label> 
+				 		<input type="text" name="userName" id="userName"  class="inputInfo">
+						<div id="nameAlert"  class="resMsg"></div>
+					</div>
+					
+				
+					<div id="email" class="inputArea">
+						<label for="userEmail">
+							<span class="formTitle email">이메일</span>
+						</label>
+						<input type="text" name="userEmail" id="userEmail"  class="inputInfo" value="${kakaoInfo.userEmail}">
+						<div id="emailAlert" class="resMsg"></div>
+					</div>
+					
+					
+					<div id="id" class="inputArea">
+						<label for="userId">
+							<span class="formTitle id">아이디</span>
+						</label>
+						<input type="text" name="userId" id="userId" class="inputInfo"  value="${kakaoInfo.userId}" readonly="readonly">
+						<div id="checkIdResult" class="resMsg"></div>
+					</div>
+				
+				
+					
+					<div id="pw"  class="inputArea">
+						<label for="userPw">
+							<span class="formTitle pw">비밀번호</span>
+						</label>
+						<input type="password" name="userPw" id="userPw" class="inputInfo">
+						<div id="pwAlert" class="resMsg"></div>
+					</div>
+					
+					<div id="pwChk" class="inputArea">
+						<label for="userPwChk">
+							<span class="formTitle pwCheck">비밀번호 확인</span>
+						</label>
+						<input type="password" name="userPwChk" id="userPwChk" class="inputInfo">
+						<div id="pwAgain" class="resMsg"></div>
+					</div>
+					
+					
+					
+					<div id="nick" class="inputArea">
+						<label for="userNick">
+							<span class="formTitle nickName">닉네임</span>
+						</label>
+						
+						<input type="text" name="userNick" id="userNick" class="inputInfo" value="${kakaoInfo.userNick}">
+						<div id="nickAlert" class="resMsg"></div>
+						
+					</div>
+					<div id="forPhone">
+						<div id="phone" class="inputArea">
+								<label for="userPhone">
+									<span class="formTitle mobilePhone">연락처</span>
+								</label>
+								<input type="text" name="userPhone" id="userPhone"  class="inputInfo" value="${naverJoin.userPhone}">
+								
+								<div id="userchk">
+									<button type="button" id="btn_userchk">본인인증</button>
+								</div>
+								<div id="userchkAlert" class="resMsg"></div>
+						</div>
+					</div>
+					
+					<div id="codeChk" class="inputArea" style="display:none;" >
+						<div id="smschk" >
+							<input type="text" name="code" id="code" class="inputInfo">
+							<div id="btnsmschk">
+								<button type="button" id="btn_code"><span class="btnTitle btnsmsCodeChk">인증번호 확인</span></button>			
+							</div>
+						</div>
+							<div id="result_code" class="resMsg"></div>
+					</div>
+						
+					
+					<div id="gender" class="inputArea">
+						<div id="genderTitle">
+							<span class="formTitle gender">성별</span>			
+						</div>
+						
+						<div id="genderchk">
+							<div id="maleArea"><input type="radio" name="userGender" value="M" id="male"><span class="formTitle male">남성</span></div>
+							<div id="femaleArea"><input type="radio" name="userGender" value="F" id="female"><span class="formTitle female">여성</span></div>
+						</div>
+						<div id="genderAlert" class="resMsg"></div>
+					</div>
+						
+						
+				<div id="birth" class="inputArea">
+					<label for="birth">
+						<span class="formTitle birth">생년월일</span>
+					</label>
+						<input type="text" id="userBirth"name="userBirth" placeholder="생년월일 예)19930101" class="inputInfo" value="${naverJoin.userBirth }">
+					<div id="birthAlert"></div>
+				</div>
+					
+				
+					<div id="job" class="inputArea">
+						<label for="userJob">
+							<span class="formTitle job">직업</span>
+						</label>
+						<select name="userJob" id="userJob">
+							<option value="" selected disabled>선택해주세요</option>
+							<option value="회사원">회사원</option>
+							<option value="교사">교사</option>
+							<option value="공무원">공무원</option>
+							<option value="트레이너">트레이너</option>
+							<option value="자영업">자영업</option>
+							<option value="학생">학생</option>
+							<option value="기타">기타</option>
+						</select>
+							
+						<div id="jobAlert" class="resMsg"></div>
+					</div>
+					
+				
+				
+					<div id="address" class="inputArea">
+						<label for="userAddress"><span class="formTitle address">주소</span></label>
+							<input type="text" name="userAddress" id="postcode" placeholder="우편번호" class="inputInfo">
+							<input type="button" onclick="addressFind()" id="btnaddressFind" name="userAddress" value="우편번호 찾기"><br>
+							<input type="text" name="userAddress" id="userAddress" placeholder="주소" class="inputInfo"><br>
+							<input type="text" name="userAddress" id="detailAddress" placeholder="상세주소" class="inputAddress">
+							<input type="text" name="userAddress" id="extraAddress" placeholder="참고항목" class="inputAddress">
+						<div id="addressAlert" class="resMsg"></div>
+					</div>
+					
+					
+					<div id="btnArea">
+							<button type="button" id="joinbtn">가입 완료</button>
+							<button  type="button" id="joinCancel">가입 취소</button>
+					</div>
+				</form>
+			
+			</div>
+		</div>
+	</div>
 
 </body>
+<jsp:include page="../layout/footer.jsp"/>
 </html>
