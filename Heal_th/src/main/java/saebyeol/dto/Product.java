@@ -18,7 +18,8 @@ public class Product {
 	private int pStock;
 	private int pDelivery;
 	private int pSell;
-	private int pCateNo;
+	private String pCateNo;
+	private String pCateName;
 	private int userNo;
 	private int adminNo;
 	
@@ -26,11 +27,9 @@ public class Product {
 	
 	public Product() {}
 
-	
-	
 	public Product(int prodNo, String pName, int pPrice, String pImage1, String pImage2, String pDetail, Date pDate,
-			int pHit, String pSteaming, String pCart, int pStock, int pDelivery, int pSell, int pCateNo, int userNo,
-			int adminNo, List<AttachImage> imageList) {
+			int pHit, String pSteaming, String pCart, int pStock, int pDelivery, int pSell, String pCateNo,
+			String pCateName, int userNo, int adminNo, List<AttachImage> imageList) {
 		super();
 		this.prodNo = prodNo;
 		this.pName = pName;
@@ -46,24 +45,20 @@ public class Product {
 		this.pDelivery = pDelivery;
 		this.pSell = pSell;
 		this.pCateNo = pCateNo;
+		this.pCateName = pCateName;
 		this.userNo = userNo;
 		this.adminNo = adminNo;
 		this.imageList = imageList;
 	}
-
-	
-
 
 	@Override
 	public String toString() {
 		return "Product [prodNo=" + prodNo + ", pName=" + pName + ", pPrice=" + pPrice + ", pImage1=" + pImage1
 				+ ", pImage2=" + pImage2 + ", pDetail=" + pDetail + ", pDate=" + pDate + ", pHit=" + pHit
 				+ ", pSteaming=" + pSteaming + ", pCart=" + pCart + ", pStock=" + pStock + ", pDelivery=" + pDelivery
-				+ ", pSell=" + pSell + ", pCateNo=" + pCateNo + ", userNo=" + userNo + ", adminNo=" + adminNo
-				+ ", imageList=" + imageList + "]";
+				+ ", pSell=" + pSell + ", pCateNo=" + pCateNo + ", pCateName=" + pCateName + ", userNo=" + userNo
+				+ ", adminNo=" + adminNo + ", imageList=" + imageList + "]";
 	}
-
-
 
 	/**
 	 * @return the prodNo
@@ -250,15 +245,22 @@ public class Product {
 	/**
 	 * @return the pCateNo
 	 */
-	public int getpCateNo() {
+	public String getpCateNo() {
 		return pCateNo;
 	}
 
 	/**
 	 * @param pCateNo the pCateNo to set
 	 */
-	public void setpCateNo(int pCateNo) {
+	public void setpCateNo(String pCateNo) {
 		this.pCateNo = pCateNo;
+		if(pCateNo.equals("10")) {
+			this.pCateName = "운동용품";
+		} else if(pCateNo.equals("20")) {
+			this.pCateName = "보조제";
+		} else {
+			this.pCateName = "다이어트 음식";
+		}
 	}
 
 	/**
@@ -305,6 +307,20 @@ public class Product {
 	 */
 	public void setImageList(List<AttachImage> imageList) {
 		this.imageList = imageList;
+	}
+
+	/**
+	 * @return the pCateName
+	 */
+	public String getpCateName() {
+		return pCateName;
+	}
+
+	/**
+	 * @param pCateName the pCateName to set
+	 */
+	public void setpCateName(String pCateName) {
+		this.pCateName = pCateName;
 	}
 	
 	

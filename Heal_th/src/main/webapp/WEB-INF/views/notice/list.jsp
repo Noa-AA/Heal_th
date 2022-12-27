@@ -39,32 +39,89 @@ $(document).ready(function(){ //등록 알림창
 });
 </script>
 <style type="text/css">
-h1{text-align: center;}
+.admin_content_subject{	/* 관리자 컨텐츠 제목 영역 */
+    font-size: 40px;
+    font-weight: bolder;
+    padding-left: 15px;
+    background: linear-gradient(to right, #3f94d6 0 , #1869a7);
+    height: 80px;
+    line-height: 80px;
+    color: white;	
+}
 
+.btnWrap{
+	margin: 15px 2px;
+}
+.menuBtn{
+	width: 130px; 
+	height: 50px;
+	background-color: white;
+	border: 1px solid #3f94d6;
+	color: #1869a7;
+	padding: 5px;
+}
+.menuBtn:hover{
+color: white; 
+background: linear-gradient(to right, #3f94d6 0 , #1869a7);
+}
+
+#btnNotice{
+	border-top-left-radius: 20px;
+	border-bottom-left-radius: 20px;
+}
+#btnAll{
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
 .search_area{
-    display: inline-block;
-    margin-top: 30px;
-    margin-left: 260px;
+	padding-top: 30px;
   }
-  .search_area input{
-      height: 30px;
-    width: 250px;
-  }
-  .search_area button{
-     width: 100px;
-    height: 36px;
-  }
+.search_area input{
+    height: 30px;
+  width: 250px;
+}
+.search_area button{
+   width: 25px;
+  height: 26px;
+}
+
+	/* 검색 영역 */
+.search_wrap{
+	margin-top:15px;
+	text-align: center;
+}
+.search_input{
+    position: relative;
+    text-align:center;	
+}
+.search_input input[name='keyword']{
+	padding: 4px 10px;
+    font-size: 15px;
+    height: 25px;
+    line-height: 20px;
+}
+.search_btn{
+	height: 50px;
+    width: 30px;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    position: absolute;
+    margin-left: 5px;
+    background-color: ##acbed0;
+}
 .bottomBtn{
 	float: right;  
+	
 }
-</style>
 
+</style>
 <div class="container">
 
-<h1>공지사항</h1>
-<button type="button" class="btn btn btn-default" id="btnAll">전체글 관리</button> <button type="button" class="btn btn-default" id="btnNotice">공지사항</button>
-<hr>
-
+<div class="admin_content_subject"><span>게시물 관리</span></div>
+<div class="btnWrap">
+<h3><button type="button" id="btnNotice" class="menuBtn">공지사항</button><button type="button" id="btnAll" class="menuBtn">신고글 관리</button></h3>
+</div>
 <table class="table table-hover">
 <thead>
 	<tr>
@@ -79,7 +136,7 @@ h1{text-align: center;}
 <c:forEach items="${list }" var="notice">
 	<tr>
 		<td>${notice.noticeNo }</td>
-		<td><a href="/notice/view?noticeNo=${notice.noticeNo }" style="color: black;">${notice.noticeTtl }</td>
+		<td><a href="/notice/view?noticeNo=${notice.noticeNo }">${notice.noticeTtl }</a></td>
 		<td>${notice.userNo }</td>
 <%-- 		<fmt:formatDate value="${notice.noticeDate }" var="dateValue" pattern="yyyy.MM.dd HH:mm:ss"/> --%>
 		<td><fmt:formatDate value="${notice.noticeDate }" pattern="yyyy-MM-dd" /></td>
@@ -94,16 +151,18 @@ h1{text-align: center;}
 
 <div class="search_wrap">
 	<div class="search_area">
-		<input type="text" name="keyword" value="${pageMaker.search.keyword }">
-		<button>검색</button>
+		<div class="search_input">
+			<input type="text" name="keyword" value="${pageMaker.search.keyword }">
+			<button class='search_btn'>
+				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+			</button>
+		</div>
 	</div>
 </div>
-
 
 <button id="btnWrite" class="bottomBtn">글쓰기</button>
 
 </div>
-
 <%@include file="../notice/paging.jsp" %>
 
 
