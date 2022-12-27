@@ -330,6 +330,7 @@ body {
 	box-shadow: 0 7px 20px rgb(0 0 0 / 17%);
 	z-index: 1000;
 	overflow-y: scroll;
+	background-color:white;
 }
 
 .messageBox::-webkit-scrollbar {
@@ -467,7 +468,7 @@ $(document).ready(function(){
 			</ul>
 			<div id="alram">
 			<button id="myAlert"><img src="/resources/img/bell.png"></button>
-				<div class="messageBox">
+				<div class="messageBox" style="display:none;">
 					<div id="message-result"></div>
 				</div>
 			</div>

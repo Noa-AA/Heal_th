@@ -67,7 +67,7 @@ $(document).ready(function(){
 			if(${wdCnt}>0){
 				alert("이미 신청한 내역이 있습니다.");
 			} else {
-				window.open("/dgmoney/discharge?wdAmount="+$("#wdAmount").val(),"discharge","width=540,height=400, left=600, top=200");
+				window.open("/dgmoney/discharge?wdAmount="+$("#wdAmount").val(),"discharge","width=560,height=425, left=600, top=200");
 			}
 		} else {
 			alert("보유중인 금액이 충분한지 확인해주세요.");
@@ -85,10 +85,19 @@ $(document).ready(function(){
 }
 
 .container button{
-	background: #7ca3f5;
-	border: none;
-	padding: 2px;
-	border-radius: 5px;
+	width: 108px;
+    height: 36px;
+    background-color: transparent;
+    border: 2px solid #7ca3f5;
+    color:#7ca3f5;
+    font-size:17px;
+    border-radius: 8px;
+}
+
+.container input{
+	height: 36px;
+	border: 1px solid silver;
+	margin-right: 5px;
 }
 </style>
 </head>
