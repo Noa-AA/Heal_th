@@ -135,6 +135,8 @@ button, input {
 }
 
 .left > img {
+	width: 44px;
+	height: 44px;
 	border-radius: 20px;
 }
 
