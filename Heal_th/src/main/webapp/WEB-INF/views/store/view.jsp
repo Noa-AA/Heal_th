@@ -10,44 +10,14 @@ $(document).ready(function() {
 		location.href = "/store/list"
 	})
 })
-</script>
-<script type="text/javascript">
-// $(document).ready(function() {
-// $(".addCart_btn").click(function(){
-// 	console.log("addCart_btn click")
-// 	   	var prodNo = ${viewStore.prodNo}
-// 		var uesrNo = ${viewStore.userNo}
-// // 		var pName = ${viewStore.pName}
-// // 	   var cartStock = $("#cart_stock").val();
 
-// 	console.log("prod_no : "+ prodNo)
-// // 	console.log("cartStock : "+ cartStock)
-// 	   $.ajax({
-// 		    type : "post", 
-// 		    url : "/store/cart", 
-// 		    dataType : "json",
-// 		    data : {
-// 		    	prodNo : prodNo,
-// 		    	userNo : userNo
-// // 		    	pName : pName
-// // 			     cartStock : cartStock
-// 			     },
-// 		    success : function(result){
-// 		     alert("카트 담기 성공");
-// // 		     $("#cart_stock").val("1");
-// 		    },
-// 		    error : function(){
-// 		     alert("카트 담기 실패");
-// 		    }
-// 		   });
-// 	});
-// });
+
 
 $(document).ready(function(){
 	
-	calculteTotalPrice();
 	
 	$("#count").change(function() {
+		console.log("수량확인")
 		calculateToalPrice();
 	});
 });
@@ -56,22 +26,32 @@ function calculateToalPrice(){ //현재 주문할 수량과 상품 한 개당 �
 	var count =$("#count").val();
 	var price =$("#price").val();
 	var totalPrice = price*count;
-	
+	console.log("함수확인")
 	$("#totalPrice").html(totalPrice + '원');
 }
 
-//이해를 하는게 중요....-변민재-
 
 /* 바로구매 버튼 */
 function order(){
 	
 	
 	
-// 	location.href="/store/payment?count=" + $("#count").val
-// 	location.href="/store/payment?price=" + $("#price").val
 	
 	location.href="/store/payment?amount=" + $("#count").val() *$("#price").val()+"&count="+$("#count").val()+"&price="+$("#price").val();
-}
+};
+
+
+// $(".addCart_btn").click(function(){
+//  var gdsNum = $("#prodNo").val();
+//  var cartStock = $(".numBox").val();
+    
+//  var data = {
+// 		 prodNo : prodNo,
+//    cartStock : cartStock
+//    };
+
+
+
 
 </script>
 
@@ -87,6 +67,8 @@ function order(){
 .mgt-50{
 	margin-top:50px;
 }
+
+
 .repImgDiv{
 	margin-right: 15px;
 	height: auto;
@@ -103,11 +85,15 @@ height: 400px;
 	width:50%;
 }
 
+.paymoney{
+	margin-right: 25%;
+}
+
 </style>
 
 
 
-
+<form>
 
 
 <!-- <div layout:fragment="content" style="margin-left:25%;margin-right:25%"></div> -->
@@ -136,7 +122,7 @@ height: 400px;
 
 	<div class="input-group w-50">
 		<div class="input-group-prepend">
-			<span class="input-group-text">수량</span>
+			<span class="input-group-text button_quantity">수량</span>
 		</div>
 		<input type="number" name="count" id="count" class="form-control"
 			value="1" min="1" onchange="calculateToalPrice()">
@@ -146,35 +132,32 @@ height: 400px;
 </div>
 <!-- big 종료 -->
 <hr class="my-4">
-<div class="text-right mgt-50">
+<div class="text-right mgt-50 paymoney">
 	<h5>결제금액</h5>
-<!-- 	<h3 name="totalPrice" id="totalPrice" class="font-weight-bold"></h3> -->
 	<h3 class="font-weight-bold"></h3>
 </div>
-<div class="text-right">
+<div class="text-right paymoney">
 
-<%-- 	<span>${viewStore.pPrice}</span>원 --%>
-<%-- 	<span id="totalPrice" value="${viewStore.pPrice}">${totalPrice}</span> --%>
-	<span id="totalPrice" >${viewStore.pPrice}</span>
+	<span id="totalPrice"  class="paymoney">${viewStore.pPrice}원</span>
 </div>
 <div class="text-center">
-	<button type="button"
-		class="btn btn-light border border-primary btn-lg">장바구니 담기</button>
+	<button type="button" class="addCart_btn"><a href="/store/cart?prodNo=${viewStore.prodNo }">장바구니에 담기</a></button>
 	<button type="button" class="btn btn-primary btn-lg"  onclick="order()">주문하기</button>
-	<button id="btnList" class="btn btn-default btn-lg">목록</button>
+	<button type="button" id="btnList" class="btn btn-default btn-lg" >목록</button>
 
 </div>
 
 
 
 <div class="jumbotron jumbotron-fluid mgt-30">
-	<div class="container">
+	<div class="container ">
 		<h4 class="dispaly-5">상품 상세 설명</h4>
 		<hr class="my-4">
 		<p class="lead">${viewStore.pDetail }</p>
 	</div>
 
 </div>
+</form>
 <%@include file="../layout/footer.jsp" %>
 
 </body>
