@@ -34,10 +34,15 @@
 		INSERT INTO participant_list (participant_no, user_no, challenge_no)
 		VALUES (participant_list_seq.nextval, #{userNo}, #{challengeNo})
 	</insert>
+	
+	<select id="selectParticipant" resultType="int">
+		SELECT
+		    COUNT(*)
+		FROM
+		    participant_list
+		WHERE
+		        challenge_no = #{challengeNo}
+		    AND user_no = #{userNo}
+	</select>
 
-<!-- 예치금 삽입 -->
-<!-- 	<insert id="insertMoney" parameterType="int"> -->
-<!-- 		INSERT INTO mmoney_use(m_no, m_use, user_no) -->
-<!-- 		VALUES (mmoney_use_seq.nextval, #{mUse}, #{userNo}) -->
-<!-- 	</insert> -->
 </mapper>    
