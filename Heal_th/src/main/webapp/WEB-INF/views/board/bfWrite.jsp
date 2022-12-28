@@ -34,6 +34,8 @@
     padding: 0;
 }
 
+header{margin-bottom: 140px;}
+
 body{padding: 0;}
 
 /* header <a>Tag style */
@@ -111,7 +113,7 @@ a:focus, a:hover {
     box-sizing: border-box;
     width: 750px;
     height: 800px;
-    margin-left: 220px;
+    margin-left: 95px;
     padding-bottom: 20px;
 
     /*stacking fieldsets above each other*/
@@ -206,7 +208,7 @@ a:focus, a:hover {
     color: lightgrey;
     width: 800px;
     text-align: center;
-    margin-left: 195px;
+    margin-left: 67px;
 }
 
 
@@ -273,9 +275,6 @@ a:focus, a:hover {
     background: #7ca3f5;
 }
 
-#contents{
-	width: 1200px;
-}
 
 </style>
 
@@ -402,10 +401,10 @@ $(document).ready(function(){
 
 <div id="contents">
 <!-- MultiStep Form -->
-<div class="container-fluid" id="grad1" style="width: 1200px;">
-    <div class="row justify-content-center mt-0" style="width: 1200px;">
-        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2" style="width: 1200px;">
-            <div class="card px-0 pt-4 pb-0 mt-3 mb-3" style="width: 1200px;">
+<div class="container-fluid" id="grad1">
+    <div class="row justify-content-center mt-0">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                 <h1><strong style="font-size: 40px; text-align: center;">Before & After 게시글</strong></h1><br><br>
                 <p style="font-size: 15px; text-align: center;">게시글을 작성해주세요</p><br><br>
                 <div class="row">

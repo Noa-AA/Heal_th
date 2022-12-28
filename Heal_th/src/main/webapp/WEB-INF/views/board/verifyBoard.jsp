@@ -365,7 +365,7 @@ $(document).ready(function() {
 	<ul id="searchResult" style="list-style: none;">
 		<li style="float: left; display: none;" >${boardSearch.verifyNo }</li>
 		<li style="float: left; line-height:380%;"><a href="${path}/board/verifyView?verifyNo=${boardSearch.verifyNo}" id="boardUrl">${boardSearch.vTitle }</a></li><br>
-		<li style="float: left;" class="ellipsis" >${boardSearch.afterCon }</li><br>
+		<li style="float: left;" class="ellipsis" >${boardSearch.verifyContent }</li><br>
 		
 		<li style="float: right;">
 		
@@ -376,7 +376,7 @@ $(document).ready(function() {
 			</c:if>
 			</c:forEach>
 			
-			<c:if test="${fileOri == null}">
+			<c:if test="${fileSto == null}">
 				<img id="imgNone">
 			</c:if>	
 			<c:if test="${fileSto != null}">
