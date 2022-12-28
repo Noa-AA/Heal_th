@@ -13,6 +13,27 @@
 
 
 <style type="text/css">
+
+/* subVisual */
+#twoDepth-list a {
+	padding: 10px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666666;
+    font-size: 18px;
+    font-weight: 400;
+    width: 20%;
+}
+
+#twoDepth-list a:nth-child(4) {
+    color: #b571e9;
+    border-bottom: 2px solid #b571e9;
+    margin-top: 1px;
+    font-weight: 700;
+}
+
+
 table {
 	table-layout: fixed;
 }

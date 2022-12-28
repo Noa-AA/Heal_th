@@ -16,11 +16,34 @@
 
 <style type="text/css">
 
+#twoDepth-list a {
+	padding: 10px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666666;
+    font-size: 18px;
+    font-weight: 400;
+    width: 20%;
+}
+
+#twoDepth-list a:nth-child(2) {
+    color: #b571e9;
+    border-bottom: 2px solid #b571e9;
+    margin-top: 1px;
+    font-weight: 700;
+}
+
+
+
+/* body css */
+
 body{
 	font-family: 'Noto Sans','NotoSansWeb',Verdana,"맑은 고딕",Malgun Gothic,Dotum,돋움,Gulim,굴림,sans-serif;
 	margin: 0;
 	padding: 0;
 }
+
 
 #container{ width: 1200px;}
 
@@ -141,8 +164,8 @@ width: 100px;
 	'opsz' 48
 }
 
-/* #boardList{ font-size: 24px; margin-bottom: -36px; } */
 
+/* 공지사항 / 게시글 내용 */
 #noticeStrong{
 	background: #ff4057;
     font-weight: bold;
@@ -178,6 +201,8 @@ width: 100px;
 #pIcon{display: block; width: 14px; margin-right:8px; margin-top: 20px;}
 
 #thumbnail{border-radius: 10px; width: 259px; height: 150px; margin-top: -113px; }
+
+#imgNone{display: none;}
 
 </style>
 
@@ -289,7 +314,6 @@ $(document).ready(function() {
 	<h3 style="font-weight: bold; margin-bottom: 37px; color: #06364E; font-size: 50px;">비포 애프터 게시판</h3>
 </div>
 
-<br>
 
 
 <div class="beforeafter" id="search" name="search">
@@ -343,9 +367,9 @@ $(document).ready(function() {
 
 
 
-    <div>
-    	<a href="/board/bfBoard" id="totalList" name="totalList" style="float: left; margin-top: -25px;">전체 게시글 보기 ▼</a>
-    </div>
+<div>
+   	<a href="/board/bfBoard" id="totalList" name="totalList" style="float: left; margin-top: -25px;">전체 게시글 보기 ▼</a>
+</div>
 
 
 
@@ -380,20 +404,13 @@ $(document).ready(function() {
 				<c:set var="fileSto" value="${fileMap.fileList[0].fileSto }"/>
 			</c:if>
 			</c:forEach>
-			
 			<c:if test="${fileSto == null}">
-				<img style="display: none;">
+				<img id="imgNone">
 			</c:if>	
 			<c:if test="${fileSto != null}">
 				<img src="${pageContext.request.contextPath}/upload/${fileSto }" id="thumbnail">
 			</c:if>		
 			
-<%-- 			<c:if test="${fileSto == null}"> --%>
-<!-- 				<img style="display: none;"> -->
-<%-- 			</c:if>	 --%>
-<%-- 			<c:if test="${fileSto != null}"> --%>
-<%-- 				<img src="${pageContext.request.contextPath}/upload/${files.fileSto }" width="20px" height="20px"> --%>
-<%-- 			</c:if>		 --%>
 		</li>
 		
 		<li style="float: left;" >
@@ -482,7 +499,6 @@ $(document).ready(function() {
 		
 		</ul>
 	</div>
-
 
 
 

@@ -41,10 +41,10 @@
 				<%-- 		<td>댓글번호 : ${comment.commentNo } </td> --%>
 				<td rowspan="2" style="width: 45px">
 					<c:if test="${comment.profileStoreName == null }">
-				<a href="/mypage/setProfile"><img src="/resources/img/mypage/userprofile.png" class="pIcon"></a>
-				</c:if>
-				<c:if test="${comment.profileStoreName != null}">
-					<a href="/mypage/setProfile"><img src="${pageContext.request.contextPath}/upload/${comment.profileStoreName}" class="pIcon">
+						<img src="/resources/img/mypage/userprofile.png" class="pIcon"></a>
+					</c:if>
+					<c:if test="${comment.profileStoreName != null}">
+						<img src="${pageContext.request.contextPath}/upload/${comment.profileStoreName}" class="pIcon">
 					</c:if>
 				</td>
 				<td style="width: 430px">
