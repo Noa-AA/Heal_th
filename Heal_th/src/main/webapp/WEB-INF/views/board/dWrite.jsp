@@ -19,6 +19,8 @@
     padding: 0;
 }
 
+header {margin-bottom: 0px; }
+
 #btnCancle {
     width: 100px;
     background: #616161;
@@ -33,10 +35,11 @@
     padding-bottom: 14px; 
 	height: 52px;
 	width: 100px;
-	margin-right: 15px;
+	margin-left: 195px;
+	margin-right: 18px;
 }
 
-#btnInsert {
+#btnWrite {
     width: 100px;
     background: #7ca3f5;
     font-size: 21px;
@@ -322,7 +325,6 @@ $(document).ready(function(){
 	});
 	
 	$("#btnInsert").click(function() {
-		confirm("게시글을 등록하시겠습니까?");
 		
 		$(this).parents("form").submit();
 		alert("50 포인트가 적립됐습니다");
@@ -399,7 +401,7 @@ $(document).ready(function(){
 								<h2 style="text-align: center;">게시글을 등록하시겠습니까?</h2>
 							<br><br><br>
                                     <a class="btn block" id="btnCancle" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/verifyBoard" >취소</a>
-									<button type="submit" class="btn btn-primary" id="btnWrite">등록</button>
+									<button type="submit" id="btnWrite">등록</button>
 							</div>
 						</fieldset>
                         

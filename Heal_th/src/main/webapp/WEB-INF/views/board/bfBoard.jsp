@@ -398,14 +398,13 @@ $(document).ready(function() {
 		
 		<li style="float: right;">
 		
-			<c:set var="fileOri" value="${null }"/>
+			<c:set var="fileSto" value="${null }"/>
 			<c:forEach items="${fileMapList }" var="fileMap">
 			<c:if test="${fileMap.bfNo eq boardSearch.bfNo}">
-				<c:set var="fileOri" value="${fileMap.fileList[0].fileOri }"/>
+				<c:set var="fileSto" value="${fileMap.fileList[0].fileSto }"/>
 			</c:if>
 			</c:forEach>
-			
-			<c:if test="${fileOri == null}">
+			<c:if test="${fileSto == null}">
 				<img id="imgNone">
 			</c:if>	
 			<c:if test="${fileSto != null}">
