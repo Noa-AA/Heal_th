@@ -13,4 +13,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * from board_file
 		WHERE board_no = #{boardNo} AND category_no = #{categoryNo}
 	</select>
+	
+	<delete id="deleteFile" parameterType="Fileupload">
+		DELETE board_file
+		WHERE board_no = #{boardNo} AND category_no = #{categoryNo}
+	</delete>
 </mapper>

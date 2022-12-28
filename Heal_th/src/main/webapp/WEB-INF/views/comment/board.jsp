@@ -32,7 +32,7 @@ function commentListCall() {
 
 $(document).ready(function(){
 
-	
+
 	commentListCall(${boardNo}	,${viewBoard.categoryNo })
 	
 	 $('#content').focus( ()=>{
@@ -148,6 +148,9 @@ $(document).ready(function(){
 /*  }  */
 .userNick {
 	font-weight: 900;
+	font-size:20px;
+	float: none;
+    margin-right: 7px;
 }
 
 .commentContent {
@@ -158,15 +161,22 @@ $(document).ready(function(){
     padding-left: 30px;
 }
 
-.commentDelete {
-	cursor:pointer;
+.commentDelete{
+	background-color: transparent;
+}
+.commentDeleteBtn {
 	width: 20px;
 	height: 20px;
+}
+.commentP{
+	padding: 20px 0 0 30px;
+	font-weight: 700;
 }
 </style>
 
 <div id="commentBoard">
 
+<h4 class="commentP">댓글</h2>
 <div id="commentList"></div> <!-- 댓글 List 적용될 div -->
 <br>
 <div id="inputContainer">

@@ -49,8 +49,10 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public List<Comment> deleteComment(Comment comment) {
-		
-		commentDao.deleteComment(comment);
+//		Comment comment = new Comment(); //------추가
+//		comment.setBoardNo(0);		//-------추가
+//		comment.setCategoryNo(0); //---------추가
+		commentDao.deleteComment(comment);	//---추가
 		logger.info("deletecomment : {}",comment);
 
 		return commentDao.selectList(comment);

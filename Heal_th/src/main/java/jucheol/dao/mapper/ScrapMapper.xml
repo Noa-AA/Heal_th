@@ -11,21 +11,24 @@
 	</insert>
 	
 	<select id="selectList" resultType="Scrap" parameterType="Scrap">
-		SELECT a.*, c.category_name,s.scrap_no, s.user_no FROM (
-			SELECT bf_title as title, bf_no as board_no, category_no from beforeafter
-			WHERE user_no = #{userNo }
-			UNION
-			SELECT r_title, review_no, category_no  from reviewboard
-			WHERE user_no = #{userNo }
-			UNION
-			SELECT d_title, diet_no, category_no  from dietboard
-			WHERE user_no = #{userNo }
-			UNION
-			SELECT v_title, verify_no, category_no  from verifyboard
-			WHERE user_no = #{userNo }
-			)a, scrap s, category c
-		WHERE s.board_no = a.board_no
-		AND a.category_no = c.category_no
+		with example as(
+		    SELECT bf_title AS title, bf_no AS board_no, category_no FROM beforeafter
+		    UNION
+		    SELECT r_title, review_no, category_no  FROM reviewboard
+		    UNION
+		    SELECT d_title, diet_no, category_no  FROM dietboard
+		    UNION
+		    SELECT v_title, verify_no, category_no  FROM verifyboard
+		)
+	
+		SELECT s.*,c.category_name, e.title FROM(
+		
+		    select scrap_no, board_no,user_no,category_no FROM scrap
+		    WHERE user_no = ${userNo}
+		)s, category c, example e
+		WHERE s.category_no = c.category_no
+		AND e.board_no = s.board_no
+		AND e.category_no = s.category_no
 		ORDER BY scrap_no desc
 	
 	</select>

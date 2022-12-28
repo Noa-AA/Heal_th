@@ -39,7 +39,7 @@ public class GoodController {
 			) {
 		logger.info("/good/check[POST]");
 		
-		session.setAttribute("userNo", 7777);
+//		session.setAttribute("userNo", 7777);
 		
 		good.setUserNo((int) session.getAttribute("userNo"));
 		good.setBoardNo(boardno);
@@ -75,7 +75,7 @@ public class GoodController {
 		logger.info("/good/add[POST]");
 		
 		//-----------테스트용 유저삽입
-		session.setAttribute("userNo", 7777);
+//		session.setAttribute("userNo", 7777);
 		
 		good.setUserNo((int) session.getAttribute("userNo"));
 		good.setBoardNo(boardno);

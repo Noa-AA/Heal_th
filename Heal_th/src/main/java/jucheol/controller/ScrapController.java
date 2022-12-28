@@ -42,12 +42,12 @@ public class ScrapController {
 		logger.info("/scrap/add[POST]");
 		
 		//-----------테스트용 유저삽입
-		session.setAttribute("userNo", 7777);
+//		session.setAttribute("userNo", 7777);
 		
 		scrap.setUserNo((int) session.getAttribute("userNo"));
 		scrap.setBoardNo(boardno);
 		scrap.setCategoryNo(category);
-		
+		logger.info("scrap-{}",scrap);
 		scrapService.addScrap(scrap);
 		
 		model.addAttribute("scrap", scrap);
@@ -65,7 +65,7 @@ public class ScrapController {
 		logger.info("/scrap/list[GET]");
 
 		//-----------테스트용 유저삽입
-		session.setAttribute("userNo", 7777);
+//		session.setAttribute("userNo", 7777);
 		
 		scrap.setUserNo((int) session.getAttribute("userNo"));
 		
@@ -101,7 +101,7 @@ public class ScrapController {
 			) {
 		logger.info("/scrap/check[POST]");
 		
-		session.setAttribute("userNo", 7777);
+//		session.setAttribute("userNo", 7777);
 		
 		scrap.setUserNo((int) session.getAttribute("userNo"));
 		scrap.setBoardNo(boardno);

@@ -19,7 +19,7 @@ $("#goScrap").click(function(){
 			console.log("addScrap AJAX 성공")
 			
 			if(confirm("글이 저장되었습니다\n스크랩 목록으로 이동하시겠습니까?")){
-				location.replace('/scrap/list') //로그인 페이지 이동
+				location.replace('/scrap/scrap') //스크랩목록 페이지 이동
 				
 			}else{
 				scrapCheck()

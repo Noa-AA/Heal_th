@@ -96,8 +96,8 @@ public class DietBoardController {
 				
 		dietBoardService.insertDietBoard(dietBoard);
 		
-		 int boardNo = dietBoard.getDietNo(); //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
-	     int categoryNo = 3;//----------------카테고리번호 넣어주세여~
+		 int boardNo = dietBoard.getDietNo();
+	     int categoryNo = 3;
 	     fileuploadService.insertFile(multiFile, boardNo, categoryNo);
 		
 		int point = (Integer)session.getAttribute("userNo");
