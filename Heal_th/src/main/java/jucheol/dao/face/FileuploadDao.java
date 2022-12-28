@@ -22,4 +22,12 @@ public interface FileuploadDao {
 	public List<Fileupload> getFileList(Fileupload fileupload);
 
 
+	/**
+	 * 카테고리, 글번호를 이용해 파일 삭제
+	 * 
+	 * @param fileUpload
+	 */
+	public void deleteFile(Fileupload fileUpload);
+
+
 }

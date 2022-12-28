@@ -14,7 +14,7 @@
 $(document).ready(function() {
 	
 	$("#btnUpdate").click(function() {
-		location.href = "/file/update"
+		location.href = "/file/updateview"
 	})
 	
 })
@@ -30,7 +30,7 @@ $(document).ready(function() {
 
 <form action="/file/write" method="post" enctype="multipart/form-data">
 <jsp:include page="../file/upload.jsp" /> <!-- 작성페이지 파일업로드 자리에 넣기 -->
-<button>전송</button>
+<button>작성</button>
 </form>
 <button id="btnUpdate">수정</button>
 <jsp:include page="../file/file.jsp" /> <!-- 뷰페이지 사진목록 자리에 넣기 -->

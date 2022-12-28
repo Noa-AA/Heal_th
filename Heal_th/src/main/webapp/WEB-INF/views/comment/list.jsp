@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script type="text/javascript">
@@ -41,15 +40,15 @@
 			<tr>
 				<%-- 		<td>댓글번호 : ${comment.commentNo } </td> --%>
 				<td rowspan="2" style="width: 45px">
-					<c:if test="${storedName == null }">
-						<img src="/resources/img/mypage/userprofile.png" class="pIcon">
-					</c:if>
-					<c:if test="${storedName != null}">
-						<img src="${pageContext.request.contextPath}/upload/${storedName.storedName}" class="pIcon">
+					<c:if test="${comment.profileStoreName == null }">
+				<a href="/mypage/setProfile"><img src="/resources/img/mypage/userprofile.png" class="pIcon"></a>
+				</c:if>
+				<c:if test="${comment.profileStoreName != null}">
+					<a href="/mypage/setProfile"><img src="${pageContext.request.contextPath}/upload/${comment.profileStoreName}" class="pIcon">
 					</c:if>
 				</td>
-				<td style="width: 300px">
-					<span class="userNick">${comment.userNick } </span>
+				<td style="width: 430px">
+					<span class="userNick">${comment.userNick }</span>
 					(<fmt:formatDate value="${comment.commentDate }" pattern="yy-MM-dd  HH:mm:ss" />)
 				</td>
 				<td style="width: 15px"></td>

@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:forEach items="${fileList }" var="files">
 	<div>
-		<img src="${pageContext.request.contextPath}/upload/${files.fileSto }" width="100px" height="100px"/>
-		<button type="button" class="deleteBtn${files.fileNo }">삭제</button>
+		<img src="${pageContext.request.contextPath}/upload/${files.fileSto }" width="100px" height="100px"/><br>
+		<button type="button" class="deleteBtn"><img alt="" src="/resources/img/addOns/delete.png" class="deleteBtnImg"></button>
 	</div>
 </c:forEach>

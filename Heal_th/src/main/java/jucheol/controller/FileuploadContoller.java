@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jucheol.dto.Fileupload;
 import jucheol.service.face.FileuploadService;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("/file")
@@ -57,20 +58,20 @@ public class FileuploadContoller {
 			List<MultipartFile> multiFile //-----------추가해주세여~
 			) {
 		logger.info("file/write[POST]");
+		for( MultipartFile m : multiFile ) logger.info("multiFile-{}",m);
 		//-------- 여기부터
-		int boardNo = 4; //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
-		int categoryNo = 3;//----------------카테고리번호 넣어주세여~
+		int boardNo = 1; //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
+		int categoryNo = 4;//----------------카테고리번호 넣어주세여~
 		
-		logger.info("{}",multiFile);
 		fileuploadService.insertFile(multiFile,boardNo,categoryNo);
 		//-------- 여기까지
 	}
 	
-	@GetMapping("/update")
-	public void fileupdate(
+	@GetMapping("/updateview")
+	public void fileupdateview(
 			Model model
 			) {
-		logger.info("/file/update[get]");
+		logger.info("/file/updateview[get]");
 		
 		int boardNo = 1; //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
 		int categoryNo = 4;//----------------카테고리번호 넣어주세여~
@@ -92,5 +93,17 @@ public class FileuploadContoller {
 		for( Fileupload f : fileList ) logger.info("fileList-{}",f);
 		model.addAttribute("fileList", fileList);
 		
+	}
+	@PostMapping("/update")
+	public void updatefile(
+			List<MultipartFile> multiFile
+			) {
+		
+		logger.info("/file/updatefile[post]");
+		for( MultipartFile m : multiFile ) logger.info("multiFile-{}",m);
+		
+		int boardNo = 1; //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
+		int categoryNo = 4;//----------------카테고리번호 넣어주세여~
+		fileuploadService.updateFile(multiFile,boardNo,categoryNo);
 	}
 }

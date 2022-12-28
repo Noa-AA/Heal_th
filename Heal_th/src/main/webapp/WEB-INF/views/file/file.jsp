@@ -36,6 +36,7 @@
 }
 
 .swiper-slide {
+	height: 500px;
 	text-align: center;
 	font-size: 18px;
 	background: #fff;
@@ -54,12 +55,7 @@
 	align-items: center;
 }
 
-.swiper-slide img {
-	display: block;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
+
 
 .swiper {
 	width: 100%;
@@ -98,7 +94,46 @@
 	display: block;
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
+	object-fit: contain;
+}
+#photoContainer {
+	width: 500px;
+	height: 20%;
+	margin: 0 auto;
+	
+}
+
+.mySwiper2 img{
+ 	width: 500px;
+ 	height: 500px;
+}
+.mySwiper img{
+	width: 100px;
+	height: 100px;
+}
+.swiper-button-next{
+	background: url(/resources/img/addOns/buttonNext.png) no-repeat;
+	background-size: 100% auto;
+	background-position: center;
+	opacity: 50%;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none
+}
+.swiper-button-prev{
+	background: url(/resources/img/addOns/buttonPrev.png) no-repeat;
+	background-size: 100% auto;
+	background-position: center;
+	opacity: 50%;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none
+}
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none;
 }
 </style>
 
@@ -150,49 +185,6 @@ $(document).ready(function(){
 	
 })
 </script>
-<style>
-#photoContainer {
-	width: 500px;
-	height: 20%;
-	margin: 0 auto;
-	
-}
-
-.mySwiper2 img{
-	width: 500px;
-	height: 500px;
-}
-.mySwiper img{
-	width: 100px;
-	height: 100px;
-}
-.swiper-button-next{
-	background: url(/resources/img/addOns/buttonNext.png) no-repeat;
-	background-size: 100% auto;
-	background-position: center;
-	opacity: 50%;
-	-webkit-user-select:none;
-	-moz-user-select:none;
-	-ms-user-select:none;
-	user-select:none
-}
-.swiper-button-prev{
-	background: url(/resources/img/addOns/buttonPrev.png) no-repeat;
-	background-size: 100% auto;
-	background-position: center;
-	opacity: 50%;
-	-webkit-user-select:none;
-	-moz-user-select:none;
-	-ms-user-select:none;
-	user-select:none
-}
-.swiper-button-next::after,
-.swiper-button-prev::after {
-  display: none;
-}
-</style>
-<h1>사진사진</h1>
-<hr>
 
 <div id="photoContainer"></div>
 

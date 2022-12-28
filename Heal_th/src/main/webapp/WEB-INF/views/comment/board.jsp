@@ -32,7 +32,7 @@ function commentListCall() {
 
 $(document).ready(function(){
 
-	
+
 	commentListCall(${boardNo}	,${viewBoard.categoryNo })
 	
 	 $('#content').focus( ()=>{
@@ -148,6 +148,9 @@ $(document).ready(function(){
 /*  }  */
 .userNick {
 	font-weight: 900;
+	font-size:20px;
+	float: none;
+    margin-right: 7px;
 }
 
 .commentContent {
@@ -166,7 +169,8 @@ $(document).ready(function(){
 	height: 20px;
 }
 .commentP{
-	padding: 20px 0 0 20px;
+	padding: 20px 0 0 30px;
+	font-weight: 700;
 }
 </style>
 

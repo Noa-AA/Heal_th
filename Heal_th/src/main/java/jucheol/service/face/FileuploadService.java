@@ -25,6 +25,15 @@ public interface FileuploadService {
 	 */
 	public List<Fileupload> getFileList(Fileupload fileupload);
 
+	/**
+	 * 기존파일 지우고 새로 올리기
+	 * 
+	 * @param multiFile
+	 * @param boardNo
+	 * @param categoryNo
+	 */
+	public void updateFile(List<MultipartFile> multiFile, int boardNo, int categoryNo);
+
 	
 	
 }
