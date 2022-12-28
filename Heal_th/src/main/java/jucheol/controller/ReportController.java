@@ -128,7 +128,7 @@ public class ReportController {
 		//-----------테스트용 유저삽입
 //		session.setAttribute("userNo", 7777);
 		
-		report.setUserNo((int) session.getAttribute("userNo"));
+//		report.setUserNo((int) session.getAttribute("userNo"));
 		
 		List<Report> reportList = reportService.selectList(report);
 		for( Report r : reportList )logger.info("reportList {}",r);

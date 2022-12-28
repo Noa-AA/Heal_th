@@ -54,6 +54,7 @@ $("#cancelGood").click(function(){
 })
 
 </script>
+
 <c:choose>
 	<c:when test="${good.goodNo eq 0}"><!-- 좋아요 -->
 		<button type="button" id="goGood"><img src="/resources/img/addOns/goodNo.png" alt="goodNo"></button>
