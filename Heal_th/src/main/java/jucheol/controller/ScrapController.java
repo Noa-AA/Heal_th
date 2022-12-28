@@ -47,7 +47,7 @@ public class ScrapController {
 		scrap.setUserNo((int) session.getAttribute("userNo"));
 		scrap.setBoardNo(boardno);
 		scrap.setCategoryNo(category);
-		
+		logger.info("scrap-{}",scrap);
 		scrapService.addScrap(scrap);
 		
 		model.addAttribute("scrap", scrap);
