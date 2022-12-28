@@ -1,10 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@include file="../layout/header.jsp"%>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <style type="text/css">
-#twoDepth-list a{
+#twoDepth-list a:nth-child(1) {
+	color: #b571e9;
+	border-bottom: 2px solid #b571e9;
+	margin-top: 1px;
+	font-weight: 700;
+}
+
+#twoDepth-list a {
 	width: 33.3%;
 }
 
@@ -12,11 +19,12 @@
 	margin-bottom: 40px;
 }
 
-.container {
+.view-container {
 	border: 1px solid #333;
 	width: 750px;
-	height: 570px;
+	height: 530px;
 	margin-top: 40px;
+	margin: 0 auto;
 }
 
 #btnDelete {
@@ -27,17 +35,21 @@
 	height: 25px;
 	background-position: 117px 49px;
 	border: 0 none;
+	margin: 8px 6px;
 }
 
-.input_wrap {
+.chl_wrap {
 	position: relative;
 	text-align: center;
+	line-height: 30px;
+	margin-top: 40px;
 }
 
 label {
-	display: block;
+	display: inline-block;
 	margin: 10px 0;
 	/* 	font-size: 20px; */
+	margin: 0px 16px;
 }
 
 input {
@@ -70,51 +82,71 @@ textarea {
 </style>
 </head>
 <body>
+	<!-- 관리자 로그인 상태일때 -->
+	<c:if test="${!empty adminNo && empty userId}">
+		<jsp:include page="../layout/adminheader.jsp" />
+	</c:if>
+
+	<!-- 회원 로그인 상태일때 -->
+	<c:if test="${empty adminNo}">
+		<%@include file="../layout/header.jsp"%>
+		<%-- 		<jsp:include page="./layout/subvisual.jsp" /> --%>
+	</c:if>
+	
 	<div id="subvisual">
 		<div id="subvisual-A">
-			<p id="subv-title">상세 조회 페이지</p>
+			<p id="subv-title">챌린지 상세보기</p>
 		</div>
 	</div>
 	<div id="twoDepth">
 		<div id="twoDepth-list">
-			<a href="/challenge/list">챌린지 리스트</a>
-			<a href="/challenge/create">챌린지 만들기</a>
-			<a href="/challenge/mypage">챌린지 마이페이지/인증</a>
+			<div id="twoDepth-list">
+				<a href="/challenge/list">챌린지 리스트</a>
+				<a href="/challenge/create">챌린지 만들기</a>
+				<a href="/challenge/mypage">챌린지 마이페이지</a>
+			</div>
 		</div>
 	</div>
-	<div class="container">
+
+	<div class="view-container">
 		<div style="text-align: right;">
-			<!-- 			<button id="btnDelete" onclick="return confirm('정말 삭제하실건가요?')"></button> -->
 			<form method="get" action="./list" onsubmit="return cancelok(); ">
-				<button type="submit" id="btnDelete"></button>
+				<!-- 	관리자만 버튼 보이게 -->
+				<c:if test="${! empty adminNo}">
+					<button type="submit" id="btnDelete"></button>
+				</c:if>
 			</form>
 		</div>
-		<div class="input_wrap">
-			<label>챌린지 번호</label> <input name="challengeNo" readonly="readonly" value='<c:out value="${pageInfo.challengeNo}"/>'>
+		<div class="chl_wrap">
+			<label>챌린지 번호</label>
+			<input name="challengeNo" readonly="readonly" value='<c:out value="${pageInfo.challengeNo}"/>'>
 		</div>
-		<div class="input_wrap">
-			<label>챌린지 종류</label> <input name="challengeKind" readonly="readonly" value='<c:out value="${pageInfo.challengeKind}"/>'>
+		<div class="chl_wrap">
+			<label>챌린지 종류</label>
+			<input name="challengeKind" readonly="readonly" value='<c:out value="${pageInfo.challengeKind}"/>'>
 		</div>
-		<div class="input_wrap">
-			<label>챌린지 이름</label> <input name="challengeName" readonly="readonly" value='<c:out value="${pageInfo.challengeName}"/>'>
+		<div class="chl_wrap">
+			<label>챌린지 이름</label>
+			<input name="challengeName" readonly="readonly" value='<c:out value="${pageInfo.challengeName}"/>'>
 		</div>
-		<div class="input_wrap">
-			<label>챌린지 생성일</label> <input name="challengeCredate" readonly="readonly" value='<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${pageInfo.challengeCredate}"/>'>
+		<div class="chl_wrap">
+			<label>챌린지 생성일</label>
+			<input name="challengeCredate" readonly="readonly" value='<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${pageInfo.challengeCredate}"/>'>
 		</div>
-		<div class="input_wrap">
-			<label>챌린지 종료일</label> <input name="challengeEnddate" readonly="readonly" value='<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${pageInfo.challengeEnddate}"/>'>
+		<div class="chl_wrap">
+			<label>챌린지 종료일</label>
+			<input name="challengeEnddate" readonly="readonly" value='<fmt:formatDate pattern="yyyy년 MM월 dd일" value="${pageInfo.challengeEnddate}"/>'>
 		</div>
 
 
 		<div class="btn_wrap">
 			<button class="btn" id="list_btn" onclick="location.href='/challenge/list'">목록으로</button>
-			<a class="btn" id="join_btn">가입하기</a>
+			<button class="btn" id="join_btn">가입하기</button>
 		</div>
 	</div>
 
 	<form id="joinForm" action="/challenge/join" method="get">
 		<input type="hidden" id="challengeNo" name="challengeNo" value='<c:out value="${pageInfo.challengeNo}"/>'>
-
 	</form>
 
 
@@ -126,8 +158,6 @@ textarea {
 			form.attr("action", "/challenge/join");
 			form.submit();
 		});
-
-		
 
 		//삭제 버튼 (관리자만 보이게해야함)
 		function cancelok() {

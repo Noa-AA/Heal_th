@@ -65,7 +65,7 @@ public class LoginServiceImpl implements LoginService {
 	
 	
 	@Override
-	public String codeChk(String emailCode, HttpSession session) {
+	public boolean codeChk(String emailCode, HttpSession session) {
 		logger.info("codeChk 실행");
 		logger.info("emailCode : {}, session : {}",emailCode, 	session.getAttribute("emailResult"));
 		
@@ -81,16 +81,14 @@ public class LoginServiceImpl implements LoginService {
 		String getUserId = "";
 		if(sessionCode.equals(emailCode)) {
 			logger.info("이메일 인증 성공");
-			//인증 성공 시 아이디 조회해오기
-			getUserId = loginDao.selectById(searchId);
-			logger.info(getUserId);
+
 			session.removeAttribute(sessionCode);
-			return getUserId;
+			return true;
 		}else {
 			logger.info("인증 실패 코드 불일치");
 			getUserId="false";
 			logger.info("실패 {}",getUserId);
-			return "false";
+			return false;
 		}
 	}
 	
@@ -158,6 +156,21 @@ public class LoginServiceImpl implements LoginService {
 			logger.info("인증 실패 코드 불일치");
 			return "false";
 		}
+	}
+	
+	@Override
+	public String findUserId(Users searchId) {
+
+		logger.info("아이디 찾기 결과 - 아이디 조회하기");
+		
+		//이메일 인증으로 아이디 찾기
+		if(searchId.getUserEmail() != null) {
+			String getUserId = loginDao.selectByIdForEamil(searchId);
+			logger.info(getUserId);
+			
+		}
+		
+		return null;
 	}
 	
 	@Override

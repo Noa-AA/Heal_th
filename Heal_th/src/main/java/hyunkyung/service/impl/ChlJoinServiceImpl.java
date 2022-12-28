@@ -1,6 +1,7 @@
 package hyunkyung.service.impl;
 
-import java.util.List;
+
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,12 +51,12 @@ public class ChlJoinServiceImpl implements ChlJoinService{
 	}
 
 
-	//예치금 입력
-//	@Override
-//	public List<MmoneyUse> insertMoney(int mUse) {
-//		
-//		return chlJoinDao.insertMoney(mUse);
-//	}
+	@Override
+	public int selectParticipant(Map<String, Object> data) {
+		return chlJoinDao.selectParticipant(data);
+	}
+
+
 
 
 

@@ -79,7 +79,7 @@ $(document).ready(function(){
 <body>
 
 <div id="container" name="container">
-<form action="/board/dWrite" method="post">
+<form action="/board/dWrite" method="post" enctype="multipart/form-data">
 
 <h1>식단 공유</h1>
 

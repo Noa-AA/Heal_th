@@ -41,7 +41,7 @@ public class ReportController {
 			) {
 		logger.info("/report/check[POST]");
 		
-		session.setAttribute("userNo", 7777);
+//		session.setAttribute("userNo", 7777);
 		
 		report.setUserNo((int) session.getAttribute("userNo"));
 		report.setBoardNo(boardno);
@@ -77,7 +77,7 @@ public class ReportController {
 		logger.info("/report/add[POST]");
 		
 		//-----------테스트용 유저삽입
-		session.setAttribute("userNo", 7777);
+//		session.setAttribute("userNo", 7777);
 		
 		report.setUserNo((int) session.getAttribute("userNo"));
 		report.setBoardNo(boardno);
@@ -126,7 +126,7 @@ public class ReportController {
 		logger.info("/report/list[GET]");
 
 		//-----------테스트용 유저삽입
-		session.setAttribute("userNo", 7777);
+//		session.setAttribute("userNo", 7777);
 		
 		report.setUserNo((int) session.getAttribute("userNo"));
 		

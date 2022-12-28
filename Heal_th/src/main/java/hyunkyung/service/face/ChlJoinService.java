@@ -1,6 +1,7 @@
 package hyunkyung.service.face;
 
-import java.util.List;
+
+import java.util.Map;
 
 import hyunkyung.dto.Challenge;
 import hyunkyung.dto.MmoneyUse;
@@ -39,15 +40,11 @@ public interface ChlJoinService {
 	 */
 	public int insert(ParticipantList pList);
 
+	public int selectParticipant(Map<String, Object> data);
+
 
 	
 	
-	/**
-	 * 득근머니 사용금액(예치금) 입력
-	 * @param mUse
-	 * @return
-	 */
-//	public List<MmoneyUse> insertMoney(int mUse);
 
 	
 

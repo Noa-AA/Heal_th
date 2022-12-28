@@ -40,13 +40,6 @@ public interface BfBoardService {
 	//포인트 + 50 주기
 	public void updatePoint(int point);
 
-	public String getUserNick(int userno);
-
-	public int getPhoto(int userno);
 
 
-
-	
-	
-	
 }

@@ -47,7 +47,15 @@ $(document).ready(function(){ //수정 알림창
 </script>
 
 <style type="text/css">
-table{margin: auto;}
+table{
+	width: 500px;
+	table-layout: fixed;
+	text-align: center;
+}
+.content{
+   	width: 300px;
+    height: 500px;
+}
 .bottomBtn{
 	float: right;  
 }
@@ -56,13 +64,13 @@ table{margin: auto;}
 <body>
 
 <div class="container">
-<button type="button" class="btn btn btn-default" id="btnAll">전체글 관리</button> <button type="button" class="btn btn-default" id="btnNotice">공지사항</button>
+<!-- <button type="button" class="btn btn btn-default" id="btnAll">전체글 관리</button> <button type="button" class="btn btn-default" id="btnNotice">공지사항</button> -->
 <hr>
 
-<table border="1px">
+<table class="table table-bordered">
 <tr>
-	<td>제목</td>
-	<td>${viewNotice.noticeTtl }</td>
+	<td style="height: 70px;">제목</td>
+	<td colspan="5">${viewNotice.noticeTtl }</td>
 </tr>
 <tr>
 	<td>글번호</td>
@@ -75,14 +83,15 @@ table{margin: auto;}
 	<td>${viewNotice.noticeHit }</td>
 </tr>
 <tr>
-	<td>${viewNotice.noticeContent }</td>
+	<td class="content" colspan="6">${viewNotice.noticeContent }</td>
 </tr>
 </table>
 
 <hr>
 
 <div class="bottomBtn">
-<button id="btnUpdate">수정</button> <button id="btnDelete">삭제</button> <button id="btnWrite">글쓰기</button> <button id="btnList">목록</button>
+<button id="btnUpdate" class="btn btn-default">수정</button> <button id="btnDelete" class="btn btn-default">삭제</button> 
+<button id="btnWrite" class="btn btn-default">글쓰기</button> <button id="btnList" class="btn btn-default">목록</button>
 </div>
 
 </div>

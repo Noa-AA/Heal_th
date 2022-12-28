@@ -36,7 +36,7 @@ public class NoticeListController {
 	public void list(@RequestParam(defaultValue = "0") int curPage, Model model, Search search ) {
 		logger.info("list");
 		SaebyeolPaging paging = noticeService.getPaging(curPage);
-		logger.debug("{}", paging);
+		logger.info("{}", paging);
 		model.addAttribute("paging", paging);
 		
 		List<Notice> list = noticeService.list(paging);
@@ -44,7 +44,11 @@ public class NoticeListController {
 		model.addAttribute("list", list);
 		
 		model.addAttribute("search", noticeService.getSearch(search));
+		int total = noticeService.getTotal(search);
 		
+		PageMaker pageMake = new PageMaker(search, total);
+		
+		model.addAttribute("pageMaker", pageMake);
 	 
 	}
 	
