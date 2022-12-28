@@ -61,9 +61,12 @@ $(document).ready(function(){
 			,success:function(res){
 				console.log(res)
 				console.log("이메일 번호 보내기 ")
-				if(res == true) {
+				if(res) {
 					console.log("회원 있음")
 					$("#emailCode").attr("disabled",false)
+					$("#emailAlert").html("회원님의 이메일을 확인해주세요")
+					$("#emailAlert").css("color","green")
+					
 					$("#emailCode").focus()
 				}else {
 					console.log("회원 없음")
@@ -90,7 +93,7 @@ $(document).ready(function(){
 			,data :{
 				emailCode : $("#emailCode").val()
 			}
-			,dataType:"text"
+			,dataType:"json"
 			,success:function(res){
 				console.log(res)
 				console.log("이메일 인증하기 ")
@@ -98,14 +101,12 @@ $(document).ready(function(){
 					console.log("아이디 찾기 성공")
 					$("#searchIdbyEmailResult").html("인증 성공")
 					$("#searchIdbyEmailResult").css("color","green")
-// 					$("#searchId").css("display","none")
-// 					$("#btnCancel").css("display","none")
-// 					$("#resultMsg").html("회원님의 아이디는"+res+"입니다.")
-// 					$("#toLogin").show()
+					$("#btnfindId").attr("disabled",false)
 				}else  {
 					console.log("이메일 인증 실패")
 					$("#searchIdbyEmailResult").html("<p>인증 실패. 인증번호를 한번 더 확인해주세요</p>")
 					$("#searchIdbyEmailResult").css("color","red")
+					$("#btnfindId").attr("disabled",true)
 				}
 				
 			}
@@ -133,22 +134,23 @@ $(document).ready(function(){
 			,success:function(res){
 				console.log(res)
 				console.log("문자 번호 보내기 ")
-				if(res == true) {
+				if(res) {
 					console.log("회원 있음")
-					$("#smsAlert").attr("disabled",false)
-					$("#smsAlert").focus()
+					$("#smsCode").attr("disabled",false)
+					$("#smsCode").focus()
+					
 				}else {
 					console.log("회원 없음")
 					$("#smsAlert").html("일치하는 회원정보가 없습니다. 아이디 또는 전화번호를 확인해주세요")
 					$("#smsAlert").css("color","red")
-					
+			
 				}
 				
 			}
 			,error : function(){
 				
 			}
-		}); //이메일 보내기 요청 완료 
+		}); //문자 보내기 요청 완료 
 			
 	})//인증하기 버튼 클릭 
 	
@@ -162,22 +164,20 @@ $(document).ready(function(){
 			,data :{
 				smsCode : $("#smsCode").val()
 			}
-			,dataType:"text"
+			,dataType:"json"
 			,success:function(res){
 				console.log(res)
 				console.log("문자 인증하기 ")
-				if(res != "false") {
+				if(res) {
 					console.log("아이디 찾기 성공")
 					$("#searchIdbySmsResult").html("인증 성공")
 					$("#searchIdbySmsResult").css("color","green")
-// 					$("#searchId").css("display","none")
-// 					$("#btnCancel").css("display","none")
-// 					$("#resultMsg").html("회원님의 아이디는"+res+"입니다.")
-// 					$("#toLogin").show()
+					$("#btnfindId").attr("disabled",false)
 				}else  {
 					console.log("이메일 인증 실패")
-					$("#searchIdbySmsResult").html("<p>인증 실패. 인증번호를 한번 더 확인해주세요</p>")
+					$("#searchIdbySmsResult").html("<p>인증 실패 인증번호를 한번 더 확인해주세요</p>")
 					$("#searchIdbySmsResult").css("color","red")
+					$("#btnfindId").attr("disabled",true)
 				}
 				
 			}
@@ -193,7 +193,7 @@ $(document).ready(function(){
 			
 			if(validateEmail()){
 				console.log("이메일  인증으로 아이디 찾기")
-// 				$("#searchIdByEmailForm").submit();
+				$("#searchIdByEmailForm").submit();
 				
 			}else if(validateSms()){
 				console.log("전화번호 인증으로 아이디 찾기")
@@ -333,7 +333,7 @@ function cancel(){
 #userEmail,#emailCode,#userPhone,#smsCode{
 	width: 315px;
 }
-#btnCancel,#btnfindId{
+#btnfindId{
 	width: 190px;
     height: 47px;
       border-radius: 8px;
@@ -342,6 +342,17 @@ function cancel(){
 	color:white;
 
 }
+#btnCancel{
+	width: 190px;
+    height: 47px;
+      border-radius: 8px;
+	background-color: transparent;
+	 border:2px solid #7ca3f5;
+	font-size: 17px;
+	color:#7ca3f5;
+	
+}
+
 .selectForm{
 	font-size: 17px;
 	color:gray;
@@ -367,6 +378,15 @@ position: absolute;
     height: 50px;
     left: 60px;
 	margin: 30px 0 0 0;
+}
+
+.resMsg{
+    position: absolute;
+    top: 87px;
+}
+
+#searchIdByEmail,#searchIdBySms{
+    margin-right: 10px;
 }
 </style>
 
@@ -466,19 +486,9 @@ position: absolute;
 		</div>
 		
 		<div id="btnArea">
-			<button type="button" id="btnfindId" >아이디 찾기</button>
+			<button type="button" id="btnfindId" style="margin-right: 40px;">아이디 찾기</button>
 			<button type="button" id="btnCancel" onclick="cancel()">취소하기</button>
 		</div>
-		
-	
-<!-- 		<div id="result"> -->
-<!-- 			<div id="resultMsg"></div> -->
-<!-- 			<div id="btnToLogin"> -->
-<!-- 				<button type="button" id ="toLogin" onclick="location.href='/login/login'" style="display:none;">로그인하기</button> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-	
-	
 	</div>
 </div>
 
