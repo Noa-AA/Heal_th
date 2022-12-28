@@ -19,11 +19,11 @@ $(document).ready(function() {
 		goChat( createRoomNo );
 	}
 		
-	
 	/* 리스트를 누르면 해당리스트는 안눌리기 */
 	$(".roomBtn").click(function() {
 		
 		$(this).attr("disabled", true);
+		$(this).css("background-color", "#f4f4f4");
 		
 		$(".roomBtn").not(this).attr("disabled", false);
 		
@@ -122,7 +122,7 @@ button, input {
 }
 
 .roomBtn:hover {
-	background-color: #f0f0f0;
+	background-color: #f4f4f4;
 }
 
 /* 왼쪽 사진부분 */
