@@ -33,8 +33,8 @@ public class testController {
 			) {
 		logger.info("addontest");
 		
-		viewBoard.setCategoryNo(2);
-		model.addAttribute("boardNo", 3);
+		viewBoard.setCategoryNo(4);
+		model.addAttribute("boardNo", 1);
 		model.addAttribute("viewBoard", viewBoard);
 		
 	}

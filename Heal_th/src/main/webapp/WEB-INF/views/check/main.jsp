@@ -17,7 +17,7 @@ $(document).ready(function(){
 		}else{
 			if($.cookie('checkCookie')!="check"){
 				console.log("쿠키 없음")
-				window.open('/check/check', '_blank','width=500, height=500, left=600, top=200');
+				window.open('/check/check', '_blank','width=500, height=700, left=600, top=200');
 			}else{
 				console.log("쿠키 있음")
 			}
