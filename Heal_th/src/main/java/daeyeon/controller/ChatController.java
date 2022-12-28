@@ -25,7 +25,7 @@ import yerim.dto.Users;
 @Controller
 @RequestMapping("/chat")
 public class ChatController {
-
+ 
 		//로그 객체
 		private final Logger logger = LoggerFactory.getLogger(this.getClass());
 		

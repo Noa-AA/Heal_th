@@ -6,7 +6,7 @@
 
 <mapper namespace="daeyeon.dao.face.ChatDao"> 
 	
-	<!-- /chat/intro -->
+	<!-- /chat/intro --> 
 	<!-- 조회할 3이상인 멘토 회원리스트 개수 조회하기 -->
 	<select id="selectCntAll" resultType="int" parameterType="Users">
 		SELECT count(*) FROM photofile e

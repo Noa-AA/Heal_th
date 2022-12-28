@@ -96,8 +96,8 @@ public class ReviewBoardController {
 			
 			reviewBoardService.insertReview(reviewBoard);
 			
-			 int boardNo = reviewBoard.getReviewNo(); //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
-		     int categoryNo = 4;//----------------카테고리번호 넣어주세여~
+			 int boardNo = reviewBoard.getReviewNo();
+		     int categoryNo = 4;
 		     fileuploadService.insertFile(multiFile, boardNo, categoryNo);
 			
 			int point = (Integer)session.getAttribute("userNo");
