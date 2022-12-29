@@ -8,10 +8,11 @@ public class Scrap {
 	private int categoryNo;
 	private String categoryName; 
 	private String title;
+	private int curpage;
 	
 	public Scrap() {	}
 
-	public Scrap(int scrapNo, int userNo, int boardNo, int categoryNo, String categoryName, String title) {
+	public Scrap(int scrapNo, int userNo, int boardNo, int categoryNo, String categoryName, String title, int curpage) {
 		super();
 		this.scrapNo = scrapNo;
 		this.userNo = userNo;
@@ -19,12 +20,13 @@ public class Scrap {
 		this.categoryNo = categoryNo;
 		this.categoryName = categoryName;
 		this.title = title;
+		this.curpage = curpage;
 	}
 
 	@Override
 	public String toString() {
 		return "Scrap [scrapNo=" + scrapNo + ", userNo=" + userNo + ", boardNo=" + boardNo + ", categoryNo="
-				+ categoryNo + ", categoryName=" + categoryName + ", title=" + title + "]";
+				+ categoryNo + ", categoryName=" + categoryName + ", title=" + title + ", curpage=" + curpage + "]";
 	}
 
 	public int getScrapNo() {
@@ -73,6 +75,14 @@ public class Scrap {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public int getCurpage() {
+		return curpage;
+	}
+
+	public void setCurpage(int curpage) {
+		this.curpage = curpage;
 	}
 
 	
