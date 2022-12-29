@@ -38,7 +38,6 @@ $(document).ready(function(){
 	}
 	
 	//DB에 있는 성별에 따라 체크 되게 하기
-
 	$("input[name='userGender'][value='${userInfo.userGender}']").prop("checked",true);
 	
 	
@@ -354,8 +353,8 @@ function cancel(){
 			
 			<div id="gender">
 				<label for="userGender">성별			
-				<input type="radio" name="userGender" value="M" id="male" >남성
-				<input type="radio" name="userGender" value="F" id="female">여성
+					<input type="radio" name="userGender" value="M" id="male" onclick="return false;"  >남성
+					<input type="radio" name="userGender" value="F" id="female" onclick="return false;">여성
 				</label>
 			</div>
 			
@@ -368,7 +367,7 @@ function cancel(){
 			
 				<div id="job">
 				<label for="userJob">직업
-					<input type="text" id="userJobFromDB" value="${userInfo.userJob }" readonly="readonly">
+					<input type="text" id="userJobFromDB" value="${userInfo.userJob}" readonly="readonly">
 				</label>
 				<select name="userJob" id="userJob">
 					<option value="" selected disabled>선택해주세요</option>

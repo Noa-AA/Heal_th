@@ -34,7 +34,7 @@
 	</select>
 	
 	<select id="selectuserPw" resultType="int" parameterType="Users">
-		SELECT count(*) FROM users
+		SELECT count(*) FROMusers
 		WHERE user_no=#{userNo} and user_id=#{userId} and user_pw=#{userPw}
 	</select>
 	

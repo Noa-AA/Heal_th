@@ -59,8 +59,8 @@ $(document).ready(function(){
     width: 490px;
     position: relative;
     left: 490px;
-    background-color: #F5F5F5;
-    box-shadow: 0px 5px 25px 14px lightgrey;
+    background-color: white;
+    box-shadow: 0px 5px 25px 5px lightgrey;
     border-radius: 12px;
 }
 
@@ -123,7 +123,7 @@ form{
     width: 400px;
     margin-left: 20px;
     font-size:17px;
-    background-color:#F5F5F5;
+    background-color: white;
 }
 
 #userId{

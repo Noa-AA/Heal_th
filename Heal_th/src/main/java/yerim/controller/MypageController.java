@@ -80,6 +80,7 @@ public class MypageController {
 		
 		//주소 정보만 model값으로 넘기기
 		model.addAttribute("address", address);
+		
 	}
 	
 	@PostMapping("/updateInfo")
@@ -90,7 +91,7 @@ public class MypageController {
 		mypageService.updateInfo(session,userInfo);
 		
 		
-		return "/mypage/main";
+		return "redirect:/mypage/main";
 	}
 	
 	
