@@ -192,7 +192,7 @@ public class AttendanceController {
 		logger.info("checkCookie-MaxAge : {}",checkCookie.getMaxAge());
         
 		logger.info("cookieTestValue - {}",checkCookie.getValue());
-		
+		checkCookie.setPath("/check/main");
 		resp.addCookie(checkCookie);
 		
 		//-----------여기까지
