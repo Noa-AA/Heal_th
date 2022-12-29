@@ -84,4 +84,8 @@ public interface AdminUserDao {
 
 
 	
+	// 향희님과 주철님이 쓰실 포인트에 따라 ranking_no update 구문
+	public void updateRnoByPoint(int userNo);
+	
+	
 }
