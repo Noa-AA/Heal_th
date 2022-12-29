@@ -165,11 +165,13 @@ public class AttendanceController {
 	@GetMapping("/cookie")
 	public void cookieTest(
 			HttpServletResponse resp //-----------이거
+			, HttpSession session
 			) {
 		logger.info("/check/cookietest[GET]");
 		
+		int userNo = (int) session.getAttribute("userNo");
 		//------------여기부터
-		Cookie checkCookie = new Cookie("checkCookie","check");
+		Cookie checkCookie = new Cookie("checkCookie"+userNo,"check"+userNo);
 		
 		//---쿠키 24시까지만 유지
 		// 현재 시간
@@ -192,7 +194,7 @@ public class AttendanceController {
 		logger.info("checkCookie-MaxAge : {}",checkCookie.getMaxAge());
         
 		logger.info("cookieTestValue - {}",checkCookie.getValue());
-		checkCookie.setPath("/check/main");
+		checkCookie.setPath("/main");
 		resp.addCookie(checkCookie);
 		
 		//-----------여기까지
