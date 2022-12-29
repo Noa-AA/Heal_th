@@ -1,10 +1,8 @@
 package yerim.controller;
 
-import java.net.http.HttpRequest;
 import java.time.LocalTime;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -19,13 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 import yerim.dto.Users;
 import yerim.service.face.KakaoLoginService;
 import yerim.service.face.LoginService;
 import yerim.service.face.NaverLoginService;
-import yerim.util.NaverLogin;
 
 @Controller
 public class LoginController {
@@ -205,10 +201,10 @@ public class LoginController {
 	 
 	 @ResponseBody
 	 @PostMapping("/login/checkSmsCode")
-	 public String smsCodeChk(String smsCode,HttpSession session) {
+	 public boolean smsCodeChk(String smsCode,HttpSession session) {
 		 logger.info("/login/chedkSmScode");
 		 
-		 String searchBySms = loginService.smsCodeChk(smsCode,session);
+		 boolean searchBySms = loginService.smsCodeChk(smsCode,session);
 		 
 		 logger.info("아이디 찾기 성공 -{}",searchBySms);
 		 return searchBySms;
@@ -218,9 +214,11 @@ public class LoginController {
 	 public void ResultsearchId(Users searchId,Model model) {
 		 
 		 logger.info("아이디 찾기 결과 확인 ");
+		
+		 Users userId = loginService.findUserId(searchId);
+		 logger.info("아이디찾기 결과 : {}",userId);
+		 model.addAttribute("userId", userId);
 		 
-		 //이메일 인증으로 아이디 찾기 
-		 String userId = loginService.findUserId(searchId);
 	 }
 
 	 

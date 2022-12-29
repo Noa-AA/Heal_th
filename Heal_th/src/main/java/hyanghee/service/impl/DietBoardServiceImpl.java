@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 import hyanghee.dao.face.DietBoardDao;
 import hyanghee.dto.DietBoard;
 import hyanghee.service.face.DietBoardService;
-import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
+import jucheol.dao.face.CommentDao;
+import jucheol.dao.face.FileuploadDao;
+import jucheol.dto.Comment;
+import jucheol.dto.Fileupload;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
@@ -20,7 +23,16 @@ public class DietBoardServiceImpl implements DietBoardService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	//게시글
 	@Autowired DietBoardDao dietBoardDao;
+	
+	//첨부 파일
+	@Autowired FileuploadDao fileuploadDao;
+	
+	//댓글
+	@Autowired CommentDao commentDao;
+	
+	
 
 	//게시글 등록
 	@Override
@@ -103,6 +115,21 @@ public class DietBoardServiceImpl implements DietBoardService {
 	//게시글 삭제
 	@Override
 	public void delete(DietBoard dietNo) {
+		
+		//첨부파일
+		Fileupload fileUpload = new Fileupload();
+		fileUpload.setBoardNo(dietNo.getDietNo());
+		fileUpload.setCategoryNo(3);
+				
+		//댓글
+		Comment comment = new Comment();
+				
+		comment.setBoardNo(0);		
+		comment.setCategoryNo(0); 
+		commentDao.deleteComment(comment);	
+		
+		fileuploadDao.deleteFile(fileUpload);
+		
 		dietBoardDao.delete(dietNo);
 	}
 

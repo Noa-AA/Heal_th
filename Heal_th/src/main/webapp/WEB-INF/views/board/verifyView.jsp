@@ -43,6 +43,53 @@ a {
     text-decoration: none;
 }
 
+#btnList {
+    width: 100px;
+    background: #616161;
+    font-size: 21px;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 5px; 
+    margin: 10px 5px;
+    padding-bottom: 14px; 
+	height: 52px;
+	width: 100px;
+}
+
+#btnDelete {
+    width: 100px;
+    background: #616161;
+    font-size: 21px;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 5px; 
+    margin: 10px 5px;
+    padding-bottom: 14px; 
+	height: 52px;
+	width: 100px;
+}
+
+#btnUpdate {
+    width: 100px;
+    background: #7ca3f5;
+    font-size: 21px;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 5px; 
+    margin: 10px 5px;
+    padding-bottom: 14px; 
+	height: 52px;
+	width: 100px;
+}
 
 </style>
 
@@ -90,7 +137,16 @@ a {
 
 </table>
 
-<%-- <jsp:include page="../file/file.jsp" /> <!-- 뷰페이지 사진목록 자리에 넣기 --> --%>
+
+<br><br>
+
+<jsp:include page="../file/file.jsp" /> <!-- 뷰페이지 사진목록 자리에 넣기 -->
+
+<br><br><br><br><br>
+
+<jsp:include page="../addOns/addOn.jsp" />
+
+<br><br><br><br><br>
 
 <div class="text-center">
 	<button id="btnList">목록</button>
@@ -101,19 +157,14 @@ a {
 	</c:if>
 </div>
 
-<br><br>
-
-
-
-<br><br>
+<br><br><br><br><br><br>
 
 </div><!-- .container end -->
 
-<%-- <jsp:include page="../addOns/addOn.jsp" /> --%>
-<%-- <jsp:include page="../comment/board.jsp" /> --%>
+<jsp:include page="../comment/board.jsp" />
 
 
-<br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
 
 
-
+<%@include file="../layout/footer.jsp" %>

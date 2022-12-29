@@ -18,14 +18,13 @@
 }
 
 .user-content {
-	border: 1px solid #333;
+	border: 1px solid #cfcfcf;
 	border-radius: 10px;
-	box-shadow: 1px 1px 10px 0px rgb(0 0 0/ 30%);
-	width: 1200px;
+	box-shadow: 1px 1px 8px 0px rgb(0 0 0/ 10%);
+	width: 600px;
 	text-align: center;
-	margin: 52px 338px;
+	margin: 52px 640px;
 	line-height: 30px;
-	box-shadow: 1px 1px 10px 0px rgb(0 0 0/ 30%);
 }
 
 .challenge-title {
@@ -63,8 +62,8 @@
 .challenge {
 	position: relative;
 	flex: 1 1 30%;
-	border: 1px solid #333;
-	box-shadow: 1px 1px 10px 0px rgb(0 0 0/ 30%);
+	border: 1px solid #cfcfcf;
+	box-shadow: 1px 1px 8px 0px rgb(0 0 0/ 10%);
 	border-radius: 10px;
 	width: 400px;
 	height: 300px;

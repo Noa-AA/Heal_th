@@ -64,14 +64,14 @@ public interface LoginService {
 	 * @param session - 생성된 인증번호
 	 * @return
 	 */
-	public String smsCodeChk(String smsCode, HttpSession session);
+	public boolean smsCodeChk(String smsCode, HttpSession session);
 
 	/**
 	 * 아이디 찾기 결과 - 유저 아이디 조회하기 
 	 * @param searchId
 	 * @return
 	 */
-	public String findUserId(Users searchId);
+	public Users findUserId(Users searchId);
 	
 	/**
 	 * 비밀번호 찾기를 위한 회원 조회

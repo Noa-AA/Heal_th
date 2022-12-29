@@ -652,7 +652,7 @@ top:154px;
 		<div id="formArea">
 			<form action="/login/join" method="post" id="joinNaverform">
 				<div id="howJoin">
-						<input id="joinType" name="joinType" value="Naver" style="display: none;">
+						<input id="joinType" name="jointype" value="Naver" style="display: none;">
 					</div>
 				<div id="name" class="inputArea">	
 				 	<label for="userName">

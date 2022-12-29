@@ -64,7 +64,7 @@
 		SELECT
 			review_no, r_inst_date, r_title, gym_name, gym_introduce
 			   , classification, price, address, lat, lng, score, review
-			   , r_upt_date, r_delete_date, r_hit
+			   , r_hit
 			   ,r_thumbs, user_no, category_no
 		FROM reviewboard
 		WHERE review_no = #{reviewNo}
@@ -131,11 +131,11 @@
     
     <select id="getSearchPaging" resultType="ReviewBoard">
          
-         SELECT review_no, r_title, user_no, score,
+         SELECT review_no, r_title, user_no, score, review,
 					r_hit, r_thumbs, r_inst_date  FROM( 
             select rownum rn, d.* from (
                  SELECT 
-	                  review_no, r_title, user_no, score,
+	                  review_no, r_title, user_no, score, review,
 						r_hit, r_thumbs, r_inst_date 
                   
                  FROM reviewboard

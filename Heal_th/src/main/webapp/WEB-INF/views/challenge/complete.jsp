@@ -28,8 +28,13 @@
 		</div>
 	</div>
 
-	<h1>결제 성공</h1>
-
+	<h1 style="text-align:center">챌린지 가입에 성공했습니다</h1><br>
+	<h3 style="text-align:center">✨감사합니다✨</h3>
+	
+	<br><br>
+	<div style="text-align:center">
+	<button><a href="./mypage">마이페이지</a></button>
+	</div>
 
 </body>
 <%@include file="../layout/footer.jsp"%>

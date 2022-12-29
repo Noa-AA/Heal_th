@@ -12,6 +12,10 @@ import hyanghee.dto.ReviewBoard;
 import hyanghee.service.face.ReviewBoardService;
 import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
+import jucheol.dao.face.CommentDao;
+import jucheol.dao.face.FileuploadDao;
+import jucheol.dto.Comment;
+import jucheol.dto.Fileupload;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
@@ -20,7 +24,14 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	//게시글
 	@Autowired ReviewBoardDao reviewBoardDao;
+	
+	//첨부 파일
+	@Autowired FileuploadDao fileuploadDao;
+		
+	//댓글
+	@Autowired CommentDao commentDao;
 
 
 	//유저 정보
@@ -103,6 +114,21 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 
 	@Override
 	public void delete(ReviewBoard reviewNo) {
+		
+		//첨부파일
+		Fileupload fileUpload = new Fileupload();
+		fileUpload.setBoardNo(reviewNo.getReviewNo());
+		fileUpload.setCategoryNo(4);
+				
+				//댓글
+		Comment comment = new Comment();
+				
+		comment.setBoardNo(0);		
+		comment.setCategoryNo(0); 
+		commentDao.deleteComment(comment);	
+				
+		fileuploadDao.deleteFile(fileUpload);
+		
 		reviewBoardDao.delete(reviewNo);
 		
 	}

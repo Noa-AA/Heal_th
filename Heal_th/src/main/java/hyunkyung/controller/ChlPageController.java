@@ -77,7 +77,6 @@ public class ChlPageController {
 		// 인증 사진 처리
 		chlPageService.upload(chlPhoto, data);
 
-		//@@@@@@@@@@@@@@@@@@
 		return "redirect:/challenge/mypage";
 	}
 

@@ -189,6 +189,9 @@
 		UPDATE users SET point =
 			point + 50
 		WHERE user_no = #{userNo}
+		
+		
+		
 	</update>
 
 

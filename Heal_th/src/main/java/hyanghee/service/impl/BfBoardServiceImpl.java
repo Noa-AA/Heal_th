@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 import hyanghee.dao.face.BfBoardDao;
 import hyanghee.dto.Beforeafter;
 import hyanghee.service.face.BfBoardService;
-import hyanghee.util.BoardPageMaker;
 import hyanghee.util.BoardSearch;
+import jucheol.dao.face.CommentDao;
+import jucheol.dao.face.FileuploadDao;
+import jucheol.dto.Comment;
+import jucheol.dto.Fileupload;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
@@ -21,6 +24,10 @@ public class BfBoardServiceImpl implements BfBoardService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired BfBoardDao bfBoardDao;
+	
+	@Autowired FileuploadDao fileuploadDao;
+	
+	@Autowired CommentDao commentDao;
 	
 	//비포 애프터 게시글 생성
 	@Override
@@ -75,6 +82,22 @@ public class BfBoardServiceImpl implements BfBoardService {
 	//게시글 삭제
 	@Override
 	public void delete(Beforeafter bfNo) {
+		
+		//첨부파일
+		Fileupload fileUpload = new Fileupload();
+		fileUpload.setBoardNo(bfNo.getBfNo());
+		fileUpload.setCategoryNo(1);
+		
+		//댓글
+		Comment comment = new Comment();
+		
+		comment.setBoardNo(0);		
+		comment.setCategoryNo(0); 
+		commentDao.deleteComment(comment);	
+		
+		fileuploadDao.deleteFile(fileUpload);
+
+		//게시글
 		bfBoardDao.delete(bfNo);
 		
 	}

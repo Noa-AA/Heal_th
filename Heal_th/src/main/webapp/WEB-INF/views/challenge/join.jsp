@@ -181,8 +181,7 @@ input:not(:disabled) {
 
 		<div class="btn_wrap">
 			<button class="btn" id="list_btn" onclick="location.href='/challenge/list'">취소하기</button>
-			<a class="btn" id="pay_btn">가입하기</a>
-			<!-- <button class="btn" id="pay_btn">가입하기</button> -->
+			<button class="btn" id="pay_btn">가입하기</button>
 		</div>
 
 	</div>

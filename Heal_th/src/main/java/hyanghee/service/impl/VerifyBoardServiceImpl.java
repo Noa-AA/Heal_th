@@ -11,6 +11,10 @@ import hyanghee.dao.face.VerifyBoardDao;
 import hyanghee.dto.VerifyBoard;
 import hyanghee.service.face.VerifyBoardService;
 import hyanghee.util.BoardSearch;
+import jucheol.dao.face.CommentDao;
+import jucheol.dao.face.FileuploadDao;
+import jucheol.dto.Comment;
+import jucheol.dto.Fileupload;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
@@ -19,7 +23,15 @@ public class VerifyBoardServiceImpl implements VerifyBoardService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	//게시글
 	@Autowired VerifyBoardDao verifyBoardDao;
+	
+	//첨부 파일
+	@Autowired FileuploadDao fileuploadDao;
+		
+	//댓글
+	@Autowired CommentDao commentDao;
+	
 
 	@Override
 	public Users getUserInfo(int userno) {
@@ -98,6 +110,21 @@ public class VerifyBoardServiceImpl implements VerifyBoardService {
 
 	@Override
 	public void delete(VerifyBoard verifyNo) {
+		
+		//첨부파일
+		Fileupload fileUpload = new Fileupload();
+		fileUpload.setBoardNo(verifyNo.getVerifyNo());
+		fileUpload.setCategoryNo(2);
+				
+		//댓글
+		Comment comment = new Comment();
+			
+		comment.setBoardNo(0);		
+		comment.setCategoryNo(0); 
+		commentDao.deleteComment(comment);	
+				
+		fileuploadDao.deleteFile(fileUpload);
+		
 		verifyBoardDao.delete(verifyNo);
 		
 	}
