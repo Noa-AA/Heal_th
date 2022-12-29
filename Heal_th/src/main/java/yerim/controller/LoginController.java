@@ -86,36 +86,6 @@ public class LoginController {
 			 response.addCookie(cookie);
 			 logger.info("userNo : {}. userId : {}",session.getAttribute("userNo"),session.getAttribute("userId"));
 			
-			 
-			 //-------주철님 코드 추가 ------------------
-			 
-			 
-				Cookie checkCookie = new Cookie("checkCookie","check");
-				
-				//---쿠키 24시까지만 유지
-				// 현재 시간
-		        LocalTime nowTime = LocalTime.now();
-		        
-		        // 현재시간 초 단위 변환
-		        int nowSecond = nowTime.getHour()*60*60;
-		        nowSecond += nowTime.getMinute()*60;
-		        nowSecond += nowTime.getSecond();
-		        
-		        int daySecond = 24 * 60 * 60;
-		        
-		        int leftCookieTime = daySecond - nowSecond;
-		        
-		        logger.info("cookietest-daySecond : {}",daySecond);
-		        logger.info("cookietest-nowSecond : {}",nowSecond);
-		        logger.info("cookietest-leftCookieTime : {}",leftCookieTime);
-				
-		        checkCookie.setMaxAge(leftCookieTime);
-				logger.info("checkCookie-MaxAge : {}",checkCookie.getMaxAge());
-		        
-				logger.info("cookieTestValue - {}",checkCookie.getValue());
-				
-				response.addCookie(checkCookie);
-			 
 			 //아이디가 있을 때 
 			 return "redirect:/main";
 			 

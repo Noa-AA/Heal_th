@@ -633,7 +633,7 @@ top:154px;
 			<div id="formArea">
 				<form action="/login/join" method="post" id="joinKakaoform">
 					<div id="howJoin">
-							<input id="joinType" name="jointype" value="Kakao" style="display: none;">
+							<input id="jointype" name="jointype" value="Kakao" style="display: none;">
 						</div>
 					<div id="name" class="inputArea">		
 					 	<label for="userName">
