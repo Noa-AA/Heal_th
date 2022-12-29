@@ -5,8 +5,11 @@
 display: none;
 }
 </style>
+<!-- <form action="/file/write" method="post" enctype="multipart/form-data"> -->
 <button type="button" id="fileUpload" onclick="fileup()">사진 올리기</button>
 <input type="file" id="imageUp" name="multiFile" accept="image/*" onchange="setPreview(event)" multiple/><br><br>
+<!-- <button>전송</button> -->
+<!-- </form> -->
 <div id="imgContainer"></div>
 <script type="text/javascript">
 function setPreview(event) {
@@ -24,7 +27,7 @@ function setPreview(event) {
 		
 		var reader = new FileReader();
 	    reader.onload = function(event){
-			var img = $('<img>').attr("src",event.target.result).css('width', '100px')
+			var img = $('<img>').attr("src",event.target.result).css('width', '100px').css("height","100px")
 					
 // 	    	$("#imgContainer").append('<img src="' + event.target.result + '" />');
 

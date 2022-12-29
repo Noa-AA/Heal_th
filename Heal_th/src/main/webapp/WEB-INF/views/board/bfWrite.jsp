@@ -12,9 +12,11 @@
 
 <jsp:include page="../layout/header.jsp" />
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
 <!-- 스타일 -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"> -->
 <script scr="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- <script scr="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></script> -->
 
@@ -32,11 +34,52 @@
     padding: 0;
 }
 
+header{margin-bottom: 140px;}
+
 body{padding: 0;}
+
+/* header <a>Tag style */
 
 a {
     color: #000;
     text-decoration: none;
+    text-decoration-line: none;
+}
+
+a:focus, a:hover {
+    text-decoration: none;
+    outline: none;
+}
+
+
+/* button style */
+#btnCancle{
+     width: 100px; 
+     background: #616161; 
+     font-weight: bold; 
+     color: white; 
+     border: 0 none; 
+     border-radius: 0px; 
+     cursor: pointer; 
+     padding: 10px 5px; 
+     margin: 10px 5px; 
+     margin-left: 208px;
+}
+
+
+
+#btnInsert {
+    width: 100px;
+    background: #7ca3f5;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 0px;
+    cursor: pointer;
+    padding: 10px 5px; 
+    margin: 10px 5px;
+    padding-bottom: 14px; 
+	height: 52px;
 }
 
 
@@ -69,7 +112,7 @@ a {
     box-sizing: border-box;
     width: 750px;
     height: 800px;
-    margin-left: 220px;
+    margin-left: 95px;
     padding-bottom: 20px;
 
     /*stacking fieldsets above each other*/
@@ -138,35 +181,6 @@ a {
      margin: 10px 5px; 
 }
 
-#btnCancle{
-     width: 100px; 
-     background: #616161; 
-     font-weight: bold; 
-     color: white; 
-     border: 0 none; 
-     border-radius: 0px; 
-     cursor: pointer; 
-     padding: 10px 5px; 
-     margin: 10px 5px; 
-     margin-left: 208px;
-}
-
-
-
-#btnInsert {
-    width: 100px;
-    background: #7ca3f5;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 0px;
-    cursor: pointer;
-    padding: 10px 5px; 
-    margin: 10px 5px;
-    padding-bottom: 14px; 
-	height: 52px;
-	width: 100px;
-}
 
 
 /*The background card*/
@@ -193,9 +207,9 @@ a {
     color: lightgrey;
     width: 800px;
     text-align: center;
-    margin-left: 195px;
+    margin-left: 67px;
 }
-}
+
 
 #progressbar .active {
     color: #000000;
@@ -260,9 +274,6 @@ a {
     background: #7ca3f5;
 }
 
-#contents{
-	width: 1200px;
-}
 
 </style>
 
@@ -276,7 +287,7 @@ $(document).ready(function(){
 	
 
 	$(".next").click(function(){
-	    
+		
 	    current_fs = $(this).parent();
 	    next_fs = $(this).parent().next();
 	    
@@ -300,17 +311,18 @@ $(document).ready(function(){
 	        duration: 600
 	    });
 	    
-	    if($("#bfTitle").val() == ''){
-	    	
-	    	alert("제목을 입력해주세요");
-	    		return false;
-	    } 
-	    		
-	    	
+	    if($("#bfTitle").val().length == 0) {
+				$("#bfTitle").focus(function() {
+					alert("제목 입력");					
+				});
+			
+				return false;
+			
+		}
+			
 	    
 	});
 	
-
 
 	$(".previous").click(function(){
 	    
@@ -374,9 +386,10 @@ $(document).ready(function(){
 		
 	})
 		
-		
-
+	
+	
 })
+    
     
 
 </script>
@@ -387,10 +400,10 @@ $(document).ready(function(){
 
 <div id="contents">
 <!-- MultiStep Form -->
-<div class="container-fluid" id="grad1" style="width: 1200px;">
-    <div class="row justify-content-center mt-0" style="width: 1200px;">
-        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2" style="width: 1200px;">
-            <div class="card px-0 pt-4 pb-0 mt-3 mb-3" style="width: 1200px;">
+<div class="container-fluid" id="grad1">
+    <div class="row justify-content-center mt-0">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                 <h1><strong style="font-size: 40px; text-align: center;">Before & After 게시글</strong></h1><br><br>
                 <p style="font-size: 15px; text-align: center;">게시글을 작성해주세요</p><br><br>
                 <div class="row">
@@ -417,23 +430,21 @@ $(document).ready(function(){
 				                        
 							<h3 style="color: black;">운동 전 정보</h3><br><br>
 								<label for=	"height">신장</label>
-									<input type="text" id="height" name="height" placeholder="160cm">
+									<input type="text" id="height" name="height" placeholder="숫자만 입력해 주세요">
 				                <br>
 				                 <label for="gender" style="margin-right: 15px;">성별</label><br>
 									<input type="radio" id="gender" name="gender" value="female" style="width: 14px; margin-top: 16px;"><span style="margin-left: 20px; display: block; margin-top: -39px;">여성</span>
 									<input type="radio" id="gender" name="gender" value="male" style=" display: block; width: 14px; margin-top: -14px; margin-left: 61px"><span style="margin-left: 80px; display: block; margin-top: -39px;">남성</span>
 				                 <br><br>
 				                 <label for="weight">몸무게</label>
-									<input type="text" id="weight" name="weight" placeholder="50kg">
+									<input type="text" id="weight" name="weight" placeholder="숫자만 입력해 주세요">
 				                  <br>
 				                  <label for="bfExercise">운동종류</label>
 				                    <input type="text" id="bfExercise" name="bfExercise" placeholder="현재 하고 있는 운동종류를 입력해주세요">
 				                  <br>
 				                  <label for="file">첨부파일</label><br>
-				                  	<button type="button" style="border: none; background:#ccc; font-weight:bold; color:black; border-radius:5px; width: 75px; height: 31px;">첨부파일</button>
+									<jsp:include page="../file/upload.jsp" /> 
 								</div>
-								
-								<jsp:include page="../file/upload.jsp" /> 
 
 								<br><br>
 			                        <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)" value="다음">
@@ -458,13 +469,15 @@ $(document).ready(function(){
 									<textarea rows="20" cols="50" id="beforeCon" name="beforeCon" placeholder="다짐글을 작성해주세요"></textarea>
 							
 							</div>                            
-			                      <br>
+			                      <br><br>
 									<input type="button" name="previous" class="previous action-button-previous" onClick="javascript:window.scrollTo(0,0)"
 			                                 value="이전"/>
 			                        <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)"
 			                                 value="다음"/>
-						</fieldset>
                             
+                            <br><br><br><br><br><br><br><br>
+						</fieldset>
+
                             
 						<fieldset>
 							<div class="form-card">
@@ -472,9 +485,6 @@ $(document).ready(function(){
 								<h4 style="color: black;">운동 후 현재 정보</h4><br><br>
 								<label for="cWeight">몸무게</label>
 									<input type="text" id="cWeight" name="cWeight" placeholder="운동 후 몸무게를 입력해주세요">
-								<br><br>
-								<label>첨부파일</label>
-								<button id="btnFile" name="file">첨부파일</button>
 								<br><br>
 	            
 	            				<label for="gResult">결과</label>
@@ -491,10 +501,15 @@ $(document).ready(function(){
 									<textarea rows="20" cols="50" id="afterCon" name="afterCon" placeholder="후기글을 작성해주세요"></textarea>
 							</div>
 							
+							<br><br>
+							
 								<input type="button" name="previous" class="previous action-button-previous" onClick="javascript:window.scrollTo(0,0)"
                                  value="이전"/>
                                 <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)"
                                  value="다음"/>
+                                 
+                                 <br><br><br><br><br><br><br><br>
+                                 
 						</fieldset>
                             
 						<fieldset>

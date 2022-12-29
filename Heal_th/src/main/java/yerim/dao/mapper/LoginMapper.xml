@@ -24,8 +24,8 @@
    	
    	</select>
    	
-   	<select id="selectById" resultType="string" parameterType="Users">
-   		SELECT user_id FROM users
+   	<select id="selectByIdForEamil" resultType="Users" parameterType="Users">
+   		SELECT user_id,jointype FROM users
    		WHERE user_name = #{userName} and user_email = #{userEmail}
    	
    	</select>
@@ -36,8 +36,8 @@
    	
    	</select>
    	
-   	<select id="selectByNamePhone" resultType="string" parameterType="Users">
-   	 SELECT user_id FROM users
+   	<select id="selectByNamePhone" resultType="Users" parameterType="Users">
+   	 SELECT user_id,jointype  FROM users
    	 WHERE user_name =#{userName} and user_phone=#{userPhone}
    	</select>
    	

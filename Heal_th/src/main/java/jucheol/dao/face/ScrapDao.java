@@ -16,7 +16,7 @@ public interface ScrapDao {
 	/**
 	 * 스크랩 목록 불러오기
 	 * 
-	 * @param scrap 회원번호, 글번호, 카테고리번호
+	 * @param scrap 회원번호
 	 * @return 
 	 */
 	public List<Scrap> selectList(Scrap scrap);

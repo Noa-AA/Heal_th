@@ -1,6 +1,9 @@
 package hyanghee.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +22,7 @@ import hyanghee.service.face.VerifyBoardService;
 import hyanghee.util.BoardPageMaker;
 import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
+import jucheol.dto.Fileupload;
 import jucheol.service.face.FileuploadService;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
@@ -46,8 +50,28 @@ public class VerifyBoardController {
 		model.addAttribute("notice", notice);
 		
 		//검색
-		model.addAttribute("boardSearch", verifyBoardService.getSearchPaging(boardSearch));
+		List<VerifyBoard> list = verifyBoardService.getSearchPaging(boardSearch);
+		
+		model.addAttribute("boardSearch", list);
 		int total = verifyBoardService.getTotal(boardSearch);
+		
+		//게시글 목록 첨부파일
+		List<Map<String,Object>> fileMapList = new ArrayList<>();
+		for( VerifyBoard b : list ) {
+			logger.info("{}", b);
+					
+			Map<String,Object> fileMap = new HashMap<>();
+
+			fileMap.put("verifyNo", b.getVerifyNo());
+					
+			Fileupload f = new Fileupload();
+			f.setBoardNo(b.getVerifyNo());
+			f.setCategoryNo(2);
+			fileMap.put("fileList", fileuploadService.getFileList(f));
+					
+			fileMapList.add(fileMap);
+		}
+		model.addAttribute("fileMapList", fileMapList);
 		
 		BoardPageMaker pageMake = new BoardPageMaker(boardSearch, total);
 		model.addAttribute("pageMaker", pageMake);

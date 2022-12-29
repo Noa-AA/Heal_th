@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
 <link rel="stylesheet" href="style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,19 +15,26 @@
 
 
 <style type="text/css">
-table {
-	table-layout: fixed;
+
+#twoDepth-list a {
+	padding: 10px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666666;
+    font-size: 18px;
+    font-weight: 400;
+    width: 20%;
 }
 
-table, th {
-	text-align: center;
+#twoDepth-list a:nth-child(5) {
+    color: #b571e9;
+    border-bottom: 2px solid #b571e9;
+    margin-top: 1px;
+    font-weight: 700;
 }
 
-td:nth-child(2) {
-	text-align: left;
-	vertical-align: center;
-	height:80px;
-}
+/* body css */
 
 body{
 	font-family: 'Noto Sans','NotoSansWeb',Verdana,"맑은 고딕",Malgun Gothic,Dotum,돋움,Gulim,굴림,sans-serif;
@@ -34,10 +42,7 @@ body{
 	padding: 0;
 }
 
-#container{
-	width: 1200px;
-	height: 1800px;
-}
+#container{ width: 1200px;}
 
 #btnWrite {
     background: #7ca3f5;
@@ -46,40 +51,12 @@ body{
 	border-radius: 7px;
 	font-size: 22px;
 	font-weight: bold;
-	width: 173px;
+	width: 132px;
 	height: 50px;
+	float: right;
+/* 	margin-top: -104px; */
+	display: block;
 }
-
-.myform{
-    display: inline-block;
-    direction: rtl;
-    border:0;
-}
-.myform legend{
-    text-align: right;
-}
-.myform input[type=radio]{
-    display: none;
-}
-.myform label{
-    font-size: 27px;
-    color: transparent;
-    text-shadow: 0 0 0 #f0f0f0;
-}
-
-/*
-#myform label:hover{
-    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-#myform label:hover ~ label{
-    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-*/
-.myform input[type=radio]:checked ~ label{
-    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
-}
-
-span{display: none;}
 
 #totalList {
     color: #7ca3f5;
@@ -89,19 +66,27 @@ span{display: none;}
 	height: 34px;
 	float: right;
     margin-top: 15px;
-	
 }
 
-#search {
-	text-align: center;
-	margin-bottom: -5px;
-	
-}
+/* 검색 */
+
+#search { text-align: center; margin-bottom: -5px; }
 
 #type{
+/* 	border: 2px solid #7ca3f5; */
+/* 	font-weight: border; */
+/* 	display: none; */
+width: 100px;
+	height: 40px;
 	border: 2px solid #7ca3f5;
-	font-weight: border;
-	display: none;
+	border-radius: 30px;
+	transition: 0.4s;
+	padding: 8px 12px;
+	outline: none;
+	margin-right: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #666;
 }
 
 #searchText{
@@ -129,18 +114,6 @@ span{display: none;}
   align-items: center;
   border-radius: 50%;
   border: none;
-}
-
-#noticeStrong{
-	background: #ff4057;
-    font-weight: bold;
-    color: white;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    padding-right: 10px;
-    padding-left: 10px;
-    border-radius: 16px;
-	
 }
 
 /* 페이징 부분 */
@@ -190,6 +163,80 @@ span{display: none;}
 }
 
 
+/* 공지사항 / 게시글 내용 */
+#noticeStrong{
+	background: #ff4057;
+    font-weight: bold;
+    color: white;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 16px;
+    font-size: 18px;
+}
+
+#article ul{
+	display: block;
+	margin: 0;
+    padding: 0;
+    line-height: 4;
+    border-bottom: 1px solid #ccc;
+}
+
+
+#searchResult:hover{ background-color: #F7F7F7; }
+
+#boardUrl{ font-size: 20px; font-weight: bold; }
+
+.ellipsis {
+	color:#666;
+	font-weight: 600;
+	display:-webkit-box;
+	-webkit-box-orient:vertical;
+	overflow:hidden;
+	-webkit-line-clamp:1;
+}
+
+/* 사진 */ 
+#pIcon{display: block; width: 14px; margin-right:8px; margin-top: 20px;}
+
+#thumbnail{ border-radius: 10px; width: 259px; height: 150px; margin-top: -141px;} 
+
+#imgNone{display: none;}
+
+
+/*별점*/
+.myform{
+    display: inline-block;
+     direction: rtl; 
+    border:0;
+}
+.myform legend{
+    text-align: right;
+}
+.myform input[type=radio]{
+    display: none;
+}
+.myform label{
+    font-size: 20px;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
+}
+
+/*
+#myform label:hover{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#myform label:hover ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+*/
+.myform input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+
+
 </style>
 
 <script type="text/javascript">
@@ -204,7 +251,7 @@ $(document).ready(function() {
 				moveForm.empty();
 
 				moveForm
-						.append("<input type='hidden' name='reviewNo' value='"
+						.append("<input type='hidden' name='bfNo' value='"
 								+ $(this).attr("href") + "'>");
 				moveForm.attr("action", "/board/searchView");
 				moveForm.submit();
@@ -215,7 +262,7 @@ $(document).ready(function() {
 		e.preventDefault();
 
 		moveForm.find("input[name='curPage']").val($(this).attr("href"));
-		moveForm.attr("action", "/board/reviewBoard");
+		moveForm.attr("action", "/board/bfBoard");
 		moveForm.submit();
 
 	});
@@ -251,10 +298,24 @@ $(document).ready(function() {
 	})
 	
 	
+	//게시글 작성 버튼
 	$("#btnWrite").click(function() {
 		$(location).attr("href", "/board/rWrite")
 	})
+	
+	//2Depth 메뉴 버튼
+	 $(".tab_menu li").click(function () {
+	        var $this = $(this),
+	            tabId = $this.data("tab"),
+	            tabIndex = $this.index();
 
+	        $(".tab_menu li").removeClass("on");
+
+			$this.addClass("on");
+	        $("#"+tabId).addClass("on");
+
+	    });
+	
 	$(".myform").each(function() {
 		var score = $(this).find(".myratings").text()
 // 		console.log(score)
@@ -269,9 +330,12 @@ $(document).ready(function() {
 	  	  	$(this).find('.myratings').text(score);
 	 	}
 	});	
+
 })
 
+
 </script>
+
 
 <div id="subvisual">
 	<div id="subvisual-A">
@@ -288,31 +352,36 @@ $(document).ready(function() {
 	</div>
 </div>
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
 
 <div class="container" id="container">
 
-<div class="reviewBord" id="search" name="search">
+<div id="boardList">
+	<h3 style="font-weight: bold; margin-bottom: 37px; color: #06364E; font-size: 50px;">시설 후기 게시판</h3>
+</div>
 
 
-<div class="search_wrap">
-		
-			<div class="search_area">
-				<select name="type" id="type">
-					<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option>
-					<option value="C" <c:out value="${pageMaker.boardSearch.type eq 'C'?'selected':'' }"/>>내용</option>
-					<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option>
-				</select> 
+
+<div class="beforeafter" id="search" name="search">
+
+<form action="/board/reviewBoard" method="get">
+	<div class="search_wrap">
+		<div class="search_area" style="margin-left: 665px;">
+			<select name="type" id="type" style="display: inline-block; margin-right: 15px;
+    display: inline-block;">
+				<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option>
+				<option value="C" <c:out value="${pageMaker.boardSearch.type eq 'C'?'selected':'' }"/>>내용</option>
+				<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option>
+			</select> 
+			
 				
-					<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search...">
-				<button id="searchIcon"><i class="fas fa-search"></i></button>
-				
-				
-			</div>
+				<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search...">
+					<button id="searchIcon"><i class="fas fa-search"></i></button>
 		</div>
 	</div>
-
-<br><br><br><br>
+</form>
 
 <div class="pageInfo_wrap">
 		<div class="pageInfo_area">
@@ -341,75 +410,93 @@ $(document).ready(function() {
 		<input type="hidden" name="keyword" value="${pageMaker.boardSearch.keyword }">
 		<input type="hidden" name="type" value="${pageMaker.boardSearch.type }">
 	</form>
-	
 
-<br><br><br><br>
-
-
-<div id="boardList">
-	<h3 style="font-weight: bold; color: #06364E; font-size: 30px;">시설 리뷰 게시판</h3>
 </div>
+
+
 
 <div>
-	<a href="/board/bfBoard" id="totalList" name="totalList">전체 게시글 보기 ▼</a>
+   	<a href="/board/reviewBoard" id="totalList" name="totalList" style="float: left; margin-top: -25px;">전체 게시글 보기 ▼</a>
 </div>
 
-<table class="table table-hover">
-<thead>
-	<tr style="border-top: 3px solid #84C9E3;">
-		<th style="width: 10%;">글번호</th>
-		<th style="width: 15%;">별점</th>
-		<th style="width: 35%;">제목</th>
-		<th style="width: 10%;">작성자</th>
-		<th style="width: 10%;">조회수</th>
-		<th style="width: 10%;">좋아요</th>
-		<th style="width: 15%;">작성일</th>
-	</tr>
-</thead>
-<tbody>
 
-<!-- 공지사항 -->
+
+<div id="article" style="border-top: 3px solid #84C9E3; margin-top: 22px;">
 <c:forEach items="${notice}" var="notice">
-	<tr id="warn">
-		<td><strong id="noticeStrong">공지</strong> </td>
-		<td></td>
-		<td><a href="/notice/view?noticeNo=${notice.noticeNo}&noticeNo=3&"> <strong>${notice.noticeTtl } </strong></a></td>
-		<td><strong style="color: #0D71A4;">관리자</strong></td>
-		<td>${notice.noticeHit }</td>
-		<td>공지</td>
-		<td><fmt:formatDate value="${notice.noticeDate }" pattern="yyyy-MM-dd" /></td>
-	</tr>
+	<ul id="noticeUl" style="list-style: none; line-height: 3;">
+		<li style="float: left; margin-right: 100px; display: inline;"><strong id="noticeStrong">공지</strong></li>
+		<li style="font-size: 18px; display: inline;"><a href="/notice/view?noticeNo=${notice.noticeNo}&noticeNo=3&"><strong>${notice.noticeTtl }</strong></a></li>
+		<li style="float: right; margin-top: 7px; display: inline;">작성일 <fmt:formatDate value="${notice.noticeDate }" pattern="yy-MM-dd" /></li>
+		<li style="float: right; margin-top: 7px; margin-right: 8px; display: inline;" >|</li>
+		<li style="float: right; margin-top: 7px; margin-right: 8px; display: inline;">조회수 ${notice.noticeHit }</li>
+		<li style="float: right; margin-top: 7px; margin-right: 8px; display: inline;" >|</li>
+		<li style="float: right; margin-top: 7px; margin-right: 8px; display: inline;"><strong style="color: #0D71A4;">관리자</strong></li>
+		<li style="display: none;" ></li><br>
+<!-- 		<li style="float: left; margin-right: 20px;"><strong style="color: #0D71A4;">공지</strong></li> -->
+	</ul>
 		
 </c:forEach>
 
-<c:forEach items="${boardSearch }" var="board">
-	<tr>
-		<td>${board.reviewNo }</td>
-		<td class="myform">
-			<span class="myratings">${board.score }</span>
-			<input type="radio" name="score${board.reviewNo }" value="5.0" id="rate1"><label for="rate1">★</label>
-			<input type="radio" name="score${board.reviewNo }" value="4.0" id="rate2"><label for="rate2">★</label>
-			<input type="radio" name="score${board.reviewNo }" value="3.0" id="rate3"><label for="rate3">★</label>
-			<input type="radio" name="score${board.reviewNo }" value="2.0" id="rate4"><label for="rate4">★</label>
-			<input type="radio" name="score${board.reviewNo }" value="1.0" id="rate5"><label for="rate5">★</label>
-		</td>
-		<td><a href="${path}/board/rView?reviewNo=${board.reviewNo}">${board.rTitle }</a></td>
-		<td>${board.userNo }</td>
-		<td>${board.rHit }</td>
-		<td>${board.rThumbs }</td>
-		<td><fmt:formatDate value="${board.rInstDate }" pattern="yy-MM-dd"/></td>
-	</tr>
+<!-- 일반 게시글 / 검색결과 -->
+<c:forEach items="${boardSearch }" var="boardSearch">
+	<ul id="searchResult" style="list-style: none;">
+		<li style="float: left; display: none;" >${boardSearch.reviewNo }</li>
+		<li style="float: left; line-height:380%;"><a href="${path}/board/rView?reviewNo=${boardSearch.reviewNo}" id="boardUrl">${boardSearch.rTitle }</a></li><br>
+		
+		<li style="float: left; margin-top: -8px;" class="ellipsis" >${boardSearch.review }</li><br>
+		
+		<li class="myform" style="line-height: 1;"> 
+			<span style="float: left; color:#666; margin-top: 3px; margin-right: 10px; font-weight: bold; font-size: 15px;">:평점 </span>
+			<span class="myratings" style="float: left; margin-top: 3px; margin-right: 10px; font-weight: bold; font-size: 15px;">${boardSearch.score }</span>
+			<input type="radio" name="score${boardSearch.reviewNo }" value="5.0" id="rate1"><label for="rate1">★</label>
+			<input type="radio" name="score${boardSearch.reviewNo }" value="4.0" id="rate2"><label for="rate2">★</label>
+			<input type="radio" name="score${boardSearch.reviewNo }" value="3.0" id="rate3"><label for="rate3">★</label>
+			<input type="radio" name="score${boardSearch.reviewNo }" value="2.0" id="rate4"><label for="rate4">★</label>
+			<input type="radio" name="score${boardSearch.reviewNo }" value="1.0" id="rate5"><label for="rate5">★</label>
+		</li><br>
+		
+		<li style="float: right;">
+			<c:set var="fileSto" value="${null }"/>
+			<c:forEach items="${fileMapList }" var="fileMap">
+			<c:if test="${fileMap.reviewNo eq boardSearch.reviewNo}">
+				<c:set var="fileSto" value="${fileMap.fileList[0].fileSto }"/>
+			</c:if>
+			</c:forEach>
+			<c:if test="${fileSto == null}">
+				<img id="imgNone">
+			</c:if>	
+			<c:if test="${fileSto != null}">
+				<img src="${pageContext.request.contextPath}/upload/${fileSto }" id="thumbnail">
+			</c:if>		
+			
+		</li>
+		
+		<li style="float: left;" >
+			<c:if test="${storedName == null }">
+				<img src="/resources/img/mypage/userprofile.png" class="pIcon" id="pIcon">
+			</c:if>
+			<c:if test="${storedName != null}">
+				<img src="${pageContext.request.contextPath}/upload/${storedName.storedName}" class="pIcon" id="pIcon">
+			</c:if>
+		</li>
+		<li style="float: left; margin-right: 8px;" ><strong style="color: #0D71A4;">${boardSearch.userNo }</strong></li>
+		<li style="float: left; margin-right: 8px;" >|</li>
+		<li style="float: left; margin-right: 8px;" >작성일 <fmt:formatDate value="${boardSearch.rInstDate }" pattern="yy-MM-dd"/></li>
+		<li style="float: left; margin-right: 8px;" >|</li>
+		<li style="float: left; margin-right: 8px;" >조회수 ${boardSearch.rHit }</li>
+		<li style="float: left; margin-right: 8px;" >|</li>
+		<li style="float: left;">좋아요 ${boardSearch.rThumbs }</li><br>
+	</ul>
 </c:forEach>
 
-<tr style="border-bottom: 3px solid #84C9E3;"></tr>
+<div style="border-top: 3px solid #84C9E3;"></div>
 
-</tbody>
-</table>
-
-<br>
+</div>
 
 
-	<div class="text-center">
+<br><br><br>
+
+	<div class="text-center" style="margin-top: 10px;">
 		<ul class="pagination pagination-sm">
 	
 		<%-- 첫 페이지로 이동 (이동할게 없을때) --%>
@@ -419,13 +506,13 @@ $(document).ready(function() {
 	
 		<%-- 첫 페이지로 이동 --%>
 		<c:if test="${pageMaker.curPage ne 1 }">
-			<li><a href="/board/reviewBoard"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
+			<li><a href="/board/bfBoard"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></a></li>	
 		</c:if>
 		
 		
 		<%-- 이전 페이지로 가기 --%>
 		<c:if test="${pageMaker.curPage > 1 }">
-			<li><a href="/board/reviewBoard?curPage=${pageMaker.curPage - 1 }"><span class="material-symbols-outlined">navigate_before</span></a></li>
+			<li><a href="/board/bfBoard?curPage=${pageMaker.curPage - 1 }"><span class="material-symbols-outlined">navigate_before</span></a></li>
 		</c:if>
 		
 		<%-- 이전 페이지로 가기 (이전으로 갈 페이지 없을때) --%>
@@ -437,11 +524,11 @@ $(document).ready(function() {
 		<%-- 페이징 리스트 --%>
 		<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="i">
 		<c:if test="${pageMaker.curPage eq i }">
-			<li class="active"><a href="/board/verifyBoard?curPage=${i }">${i }</a></li>
+			<li class="active"><a href="/board/bfBoard?curPage=${i }">${i }</a></li>
 		</c:if>
 		
 		<c:if test="${pageMaker.curPage ne i }">
-			<li><a href="/board/reviewBoard?curPage=${i }">${i }</a></li>
+			<li><a href="/board/bfBoard?curPage=${i }">${i }</a></li>
 		</c:if>
 		</c:forEach>
 	
@@ -449,7 +536,7 @@ $(document).ready(function() {
 		
 		<%-- 다음 페이지로 가기 --%>
 		<c:if test="${pageMaker.curPage < pageMaker.totalPage }">
-			<li><a href="/board/reviewBoard?curPage=${pageMaker.curPage + 1 }"><span class="material-symbols-outlined">navigate_next</span></a></li>
+			<li><a href="/board/bfBoard?curPage=${pageMaker.curPage + 1 }"><span class="material-symbols-outlined">navigate_next</span></a></li>
 		</c:if>
 		
 		<%-- 다음 페이지로 가기 (다음으로 갈 페이지 없을때) --%>
@@ -460,7 +547,7 @@ $(document).ready(function() {
 	
 		<%-- 끝 페이지로 이동 --%>
 		<c:if test="${pageMaker.curPage ne pageMaker.totalPage }">
-			<li><a href="/board/reviewBoard?curPage=${pageMaker.totalPage }" ><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+			<li><a href="/board/bfBoard?curPage=${pageMaker.totalPage }" ><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
 		</c:if>
 		
 		<%-- 끝 페이지로 이동 (끝으로갈게 없을때) --%>
@@ -473,19 +560,21 @@ $(document).ready(function() {
 
 
 
-
 <br><br><br>
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 <div class="page-content page-container" id="page-content">
     <div class="padding">
-        <div class="row container d-flex justify-content-center" style="text-align: center;">
+        <div class="row container d-flex justify-content-center" style="text-align: center; float: right; margin-top: -105px;">
         	<button type="button" id="btnWrite" class="btn btn-warning btn-icon-text animatebutton"><i class="fa fa-check btn-icon-prepend" style="margin-right: 10px;"></i>글쓰기</button> 
         	
        </div>
     </div>
 </div>
 
-</div><!-- .container -->
+</div>
+
+<%@include file="../layout/footer.jsp" %>
 
 
