@@ -16,11 +16,22 @@ $(document).ready(function() { //공지사항으로 이동
 	/* 수정 페이지 이동 */
 	$("#modifyBtn").on("click", function(e){
 		e.preventDefault();
-		let addInput = '<input type="hidden" name="prodNo" value="${goodsInfo.prodNo}">';
+		let addInput = '<input type="hidden" name="prodNo" value="${productInfo.prodNo}">';
 		$("#moveForm").append(addInput);
 		$("#moveForm").attr("action", "/product/modify");
 		$("#moveForm").submit();
-	});			
+	});	
+	
+	/* 삭제 버튼 */
+	$("#deleteBtn").on("click", function(e){
+		e.preventDefault();
+		let moveForm = $("#moveForm");
+		moveForm.find("input").remove();
+		moveForm.append('<input type="hidden" name="prodNo" value="${productInfo.prodNo}">');
+		moveForm.attr("action", "/product/delete");
+		moveForm.attr("method", "post");
+		moveForm.submit();
+	});	
 	
 	/* 이미지호출 */
 	let prodNo = '<c:out value="${productInfo.prodNo}"/>';
@@ -60,8 +71,13 @@ $(document).ready(function() { //공지사항으로 이동
 </script>
 
 <style type="text/css">
-.admin_content_wrap{
-overflow: scroll
+/* 관리자 컨텐츠 메인 영역 */
+.form_section{
+	width: 95%;
+	margin-left: 2%;
+    margin-top: 20px;
+    border: 1px solid #dbdde2;
+    background-color: #efefef;	
 }
 
 /* 버튼 영역 */
@@ -69,90 +85,48 @@ overflow: scroll
 		max-width: 100%;
 	    height: auto;
 	    display: block;
+}
 </style>
+
 <body>
  <div class="admin_content_wrap">
 	<div class="admin_content_subject"><span>상품 상세</span></div>
 
 	<div class="form_section">
-		<div class="form_section_title">
-			<label>카테고리</label>
-		</div>
-		<div class="form_section_content">
-			<input name="pCateName" value="<c:out value="${productInfo.pCateName }"/>" disabled>
-		</div>
-	</div>
+		<label>카테고리</label>
+		<input name="pCateName" value="<c:out value="${productInfo.pCateName }"/>" disabled>
+	</div>	
 	<div class="form_section">
-		<div class="form_section_title">
-			<label>상품명</label>
-		</div>
-		<div class="form_section_content">
-			<input name="pName" value="<c:out value="${productInfo.pName }"/>" disabled>
-		</div>
-	</div>
-	<div class="form_section">
-		<div class="form_section_title">
 			<label>상품아이디</label>
-		</div>
-		<div class="form_section_content">
 			<input name="prodNo" value="<c:out value="${productInfo.prodNo }"/>" disabled>
-		</div>
 	</div>
 	<div class="form_section">
-		<div class="form_section_title">
-			<label>가격</label>
-		</div>
-		<div class="form_section_content">
-			<input name="pPrice" value="<c:out value="${productInfo.pPrice }"/>" disabled>
-		</div>
+			<label>상품명</label>
+			<input name="pName" value="<c:out value="${productInfo.pName }"/>" disabled>
 	</div>
 	<div class="form_section">
-		<div class="form_section_title">
-			<label>메인사진</label>
-		</div>
-		<div class="form_section_content">
-			<input name="pImage1" value="<c:out value="${productInfo.pImage1 }"/>" disabled>
-		</div>
-	</div>
-	<div class="form_section">
-		<div class="form_section_title">
-			<label>추가사진</label>
-		</div>
-		<div class="form_section_content">
-			<input name="pImage2" value="<c:out value="${productInfo.pImage2 }"/>" disabled>
-		</div>
-	</div>
-	<div class="form_section">
-		<div class="form_section_title">
-			<label>상세정보</label>
-		</div>
-		<div class="form_section_content">
-			<input name="pDetail" value="<c:out value="${productInfo.pDetail }"/>" disabled>
-		</div>
-	</div>
-	<div class="form_section">
-		<div class="form_section_title">
 			<label>등록일</label>
-		</div>
-		<div class="form_section_content">
 			<input name="pDate" value='<fmt:formatDate value="${productInfo.pDate }" pattern="yyyy.MM.dd HH:mm:ss"/>' disabled>
-		</div>
 	</div>
 	<div class="form_section">
-		<div class="form_section_title">
+			<label>가격</label>
+			<input name="pPrice" value="<c:out value="${productInfo.pPrice }"/>" disabled>
+	</div>
+	<div class="form_section">
 			<label>재고수량</label>
-		</div>
-		<div class="form_section_content">
 			<input name="pStock" value="<c:out value="${productInfo.pStock }"/>" disabled>
-		</div>
 	</div>
 	<div class="form_section">
-		<div class="form_section_title">
+			<label>상세정보</label>
+			<input name="pDetail" value="<c:out value="${productInfo.pDetail }"/>" disabled>
+	</div>
+	<div class="form_section">
 			<label>판매수량</label>
-		</div>
-		<div class="form_section_content">
 			<input name="pSell" value="<c:out value="${productInfo.pSell }"/>" disabled>
-		</div>
+	</div>
+	<div class="form_section">
+			<label>메인사진</label>
+			<input name="pImage1" value="<c:out value="${productInfo.pImage1 }"/>" disabled>
 	</div>
 	<div class="form_section">
 		<div class="form_section_title">
@@ -166,12 +140,14 @@ overflow: scroll
 	<div class="btn_section">
 		<button id="cancelBtn" class="btn">상품 목록</button>
 		<button id="modifyBtn" class="btn enroll_btn">수정 </button>
+		<button id="deleteBtn" class="btn delete_btn">삭 제</button>
 	</div>  
 
 	<form id="moveForm" action="/product/list" method="get" >
 		<input type="hidden" name="pageNum" value="${cri.pageNum}">
 		<input type="hidden" name="amount" value="${cri.amount}">
 		<input type="hidden" name="keyword" value="${cri.keyword}">
+		<input type="hidden" name='prodNo' value="${productInfo.prodNo}">
 	</form>
 </div>
 </body>

@@ -166,6 +166,12 @@ table {
 
 <br><br><br><br>
 
+
+</div><!-- .container end -->
+
+
+<jsp:include page="../addOns/addOn.jsp" /> <br><br><br><br>
+
 <div class="text-center">
 	<button id="btnList" class="btn btn-primary">목록</button>
 	
@@ -175,17 +181,8 @@ table {
 	</c:if>
 </div>
 
-<br><br>
+<br><br><br><br><br><br>
 
-
-
-<br><br>
-
-</div><!-- .container end -->
-
-
-
-<jsp:include page="../addOns/addOn.jsp" /> <br><br><br><br>
 <jsp:include page="../comment/board.jsp" />
 
 

@@ -366,10 +366,10 @@ $(document).ready(function() {
 									<input type="text" id="exercise" name="exercise" required id="exercise" placeholder="현재 하고 있는 운동 종목을 입력해주세요">
 				                <br>
 				                 <label for="weight">소요 시간</label>
-									<input type="text" id="time" name="time" required id="time">
+									<input type="text" id="time" name="time" required id="time" placeholder="소요 시간을 자유롭게 입력해주세요">
 				                  <br>
 				                  <label for="bfExercise">소비 칼로리</label>
-				                    <input type="text" id="kcal" name="kcal" required id="kcal">
+				                    <input type="text" id="kcal" name="kcal" required id="kcal" placeholder="소비 칼로리를 입력해주세요 *숫자만 입력해주세요">
 				                  <br>
 				                  <label for="file">첨부파일</label><br><br>
 									<jsp:include page="../file/upload.jsp" /> <br>
