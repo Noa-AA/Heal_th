@@ -1,6 +1,9 @@
 package hyanghee.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import hyanghee.dto.Beforeafter;
 import hyanghee.dto.ReviewBoard;
 import hyanghee.service.face.ReviewBoardService;
 import hyanghee.util.BoardPageMaker;
 import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
+import jucheol.dto.Fileupload;
 import jucheol.service.face.FileuploadService;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
@@ -47,8 +52,28 @@ public class ReviewBoardController {
 			model.addAttribute("notice", notice);
 			
 			//검색
-			model.addAttribute("boardSearch", reviewBoardService.getSearchPaging(boardSearch));
+			List<ReviewBoard> list = reviewBoardService.getSearchPaging(boardSearch);
+			
+			model.addAttribute("boardSearch", list);
 			int total = reviewBoardService.getTotal(boardSearch);
+			
+			//게시글 목록 첨부파일
+			List<Map<String,Object>> fileMapList = new ArrayList<>();
+			for( ReviewBoard b : list ) {
+				logger.info("{}", b);
+				
+				Map<String,Object> fileMap = new HashMap<>();
+
+				fileMap.put("reviewNo", b.getReviewNo());
+				
+				Fileupload f = new Fileupload();
+				f.setBoardNo(b.getReviewNo());
+				f.setCategoryNo(4);
+				fileMap.put("fileList", fileuploadService.getFileList(f));
+				
+				fileMapList.add(fileMap);
+			}
+			model.addAttribute("fileMapList", fileMapList);
 			
 			BoardPageMaker pageMake = new BoardPageMaker(boardSearch, total);
 			model.addAttribute("pageMaker", pageMake);

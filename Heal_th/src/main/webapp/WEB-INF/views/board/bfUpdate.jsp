@@ -68,7 +68,7 @@ a:focus, a:hover {
 
 
 
-#btnInsert {
+#btnUpdate {
     width: 100px;
     background: #7ca3f5;
     font-weight: bold;
@@ -380,18 +380,16 @@ $(document).ready(function(){
 	    });
 	  } );
 	
-	$("#btnInsert").click(function() {
+	$("#btnUpdate").click(function() {
 		
 		$(this).parents("form").submit();
 		alert("게시글 수정이 완료됐습니다");
 		
 	})
 		
-	
-	
+
 })
-    
-    
+
 
 </script>
 
@@ -410,7 +408,7 @@ $(document).ready(function(){
                 <div class="row">
                     <div class="col-md-12 mx-0">
                     
-                        <form id="msform" method="post" action="/board/bfWrite" enctype="multipart/form-data">
+                        <form id="msform" method="post" action="/board/bfUpdate" enctype="multipart/form-data">
                         
                         	 <input type="hidden" name="bfNo" value="${param.bfNo }">
                         
@@ -435,8 +433,8 @@ $(document).ready(function(){
 									<input type="text" id="height" name="height" value="${updateBoard.height }" placeholder="숫자만 입력해 주세요">
 				                <br>
 				                 <label for="gender" style="margin-right: 15px;">성별</label><br>
-									<input type="radio" id="gender" name="gender" value="${updateBoard.gender }" style="width: 14px; margin-top: 16px;"><span style="margin-left: 20px; display: block; margin-top: -39px;">여성</span>
-									<input type="radio" id="gender" name="gender" value="${updateBoard.gender }" style=" display: block; width: 14px; margin-top: -14px; margin-left: 61px"><span style="margin-left: 80px; display: block; margin-top: -39px;">남성</span>
+									<input type="radio" id="gender" name="gender" value="female" style="width: 14px; margin-top: 16px;"><span style="margin-left: 20px; display: block; margin-top: -39px;">여성</span>
+									<input type="radio" id="gender" name="gender" value="male" style=" display: block; width: 14px; margin-top: -14px; margin-left: 61px"><span style="margin-left: 80px; display: block; margin-top: -39px;">남성</span>
 				                 <br><br>
 				                 <label for="weight">몸무게</label>
 									<input type="text" id="weight" name="weight" value="${updateBoard.weight }" placeholder="숫자만 입력해 주세요">
@@ -517,14 +515,14 @@ $(document).ready(function(){
 						<fieldset>
 							<div class="form-card">
 							<br><br><br><br>
-								<h2 style="text-align: center;">게시글을 등록하시겠습니까?</h2>
+								<h2 style="text-align: center;">게시글을 수정하시겠습니까?</h2>
 							<br><br><br><br>
                                     
 								<button id="btnCancle">
 									<a class="btn block" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/bfBoard" style="text-decoration: none; color: white; font-size: 14px; font-weight: bold; ">취소</a>
 								</button>
                                     
-								<button type="submit" id="btnInsert" name="btnInsert" style="color: white; font-size: 14px;">등록</button>
+								<button type="submit" id="btnUpdate" name="btnInsert" style="color: white; font-size: 14px;">수정</button>
                                     
 							</div>
 						</fieldset>

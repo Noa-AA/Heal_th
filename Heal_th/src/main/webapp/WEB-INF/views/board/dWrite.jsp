@@ -363,7 +363,7 @@ $(document).ready(function(){
                             <!-- fieldsets -->
 			            <fieldset>
 				            <div class="form-card"><br><br>
-				             	<label for="bfTitle">제목</label>
+				             	<label for="dTitle">제목</label>
 									<input type="text" id="dTitle" name="dTitle" placeholder="제목을 입력해주세요" required id="dTitle">
 				                 <br><br>
 				                        
@@ -400,7 +400,7 @@ $(document).ready(function(){
 							<br><br><br><br>
 								<h2 style="text-align: center;">게시글을 등록하시겠습니까?</h2>
 							<br><br><br>
-                                    <a class="btn block" id="btnCancle" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/verifyBoard" >취소</a>
+                                    <a class="btn block" id="btnCancle" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/dietBoard" >취소</a>
 									<button type="submit" id="btnWrite">등록</button>
 							</div>
 						</fieldset>

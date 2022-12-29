@@ -184,6 +184,8 @@ body{
 #boardUrl{ font-size: 20px; font-weight: bold; }
 
 .ellipsis {
+	color:#666;
+	font-weight: 600;
 	display:-webkit-box;
 	-webkit-box-orient:vertical;
 	overflow:hidden;
@@ -371,7 +373,7 @@ $(document).ready(function() {
 		
 			<c:set var="fileSto" value="${null }"/>
 			<c:forEach items="${fileMapList }" var="fileMap">
-			<c:if test="${fileMap.bfNo eq boardSearch.bfNo}">
+			<c:if test="${fileMap.verifyNo eq boardSearch.verifyNo}">
 				<c:set var="fileSto" value="${fileMap.fileList[0].fileSto }"/>
 			</c:if>
 			</c:forEach>

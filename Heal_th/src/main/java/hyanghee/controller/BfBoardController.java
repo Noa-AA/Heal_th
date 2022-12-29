@@ -54,6 +54,7 @@ public class BfBoardController {
 		model.addAttribute("boardSearch", list);
 		int total = bfBoardService.getTotal(boardSearch);
 		
+		//게시글 목록 첨부파일
 		List<Map<String,Object>> fileMapList = new ArrayList<>();
 		for( Beforeafter b : list ) {
 			logger.info("{}", b);

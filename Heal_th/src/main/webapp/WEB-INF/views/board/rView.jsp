@@ -249,14 +249,8 @@ $(document).ready(function() {
 
 
 
-<br><br><hr><br><br>
+<br><br><br><br>
 
-
-
-<!-- <div id="map" style="width:100%;height:350px;"></div> -->
-
-<!-- <input type="text" id="address" name="address" class="form-control"> -->
-<!-- <button id="search">찾기</button> -->
 
 
 <table class="table table-bordered">
@@ -335,6 +329,16 @@ $(document).ready(function() {
 
 <jsp:include page="../file/file.jsp" /> <!-- 뷰페이지 사진목록 자리에 넣기 -->
 
+
+</div><!-- .container end -->
+
+<br><br><br><br><br>
+
+
+<jsp:include page="../addOns/addOn.jsp" />
+
+<br><br><br><br><br>
+
 <div class="text-center">
 	<button id="btnList" class="btn btn-primary">목록</button>
 	
@@ -344,16 +348,9 @@ $(document).ready(function() {
 	</c:if>
 </div>
 
-<br><br>
+<br><br><br><br><br><br><br><br>
 
 
-
-<br><br>
-
-</div><!-- .container end -->
-
-
-<jsp:include page="../addOns/addOn.jsp" />
 <jsp:include page="../comment/board.jsp" />
 
 
