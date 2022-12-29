@@ -70,11 +70,14 @@ table{
 <table class="table table-bordered">
 <tr>
 	<td style="height: 70px;">제목</td>
-	<td colspan="5">${viewNotice.noticeTtl }</td>
+	<td colspan="7">${viewNotice.noticeTtl }</td>
 </tr>
 <tr>
 	<td>글번호</td>
 	<td>${viewNotice.noticeNo }</td>
+
+	<td>작성자</td>
+	<td>${viewNotice.adminName }</td>
 
 	<td>작성일</td>
 	<td><fmt:formatDate value="${viewNotice.noticeDate }" pattern="yyyy.MM.dd HH:mm:ss" /></td>
@@ -83,7 +86,7 @@ table{
 	<td>${viewNotice.noticeHit }</td>
 </tr>
 <tr>
-	<td class="content" colspan="6">${viewNotice.noticeContent }</td>
+	<td class="content" colspan="8">${viewNotice.noticeContent }</td>
 </tr>
 </table>
 

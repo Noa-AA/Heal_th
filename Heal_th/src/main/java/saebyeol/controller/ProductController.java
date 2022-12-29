@@ -24,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,7 +65,7 @@ public class ProductController {
 		logger.info("{}", list);
 		model.addAttribute("list", list);
 		
-		model.addAttribute("pageMaker", new Page(cri, productService.getTotal(cri)));
+		model.addAttribute("page", new Page(cri, productService.getTotal(cri)));
 		
 	}
 
@@ -96,6 +97,7 @@ public class ProductController {
 		return "redirect:/product/list";
 	}
 	
+	//상품 조회, 수정 페이지
 	@GetMapping({"/detail", "/modify"})
 	public void getInfo(int prodNo, Criteria cri, Model model) throws JsonProcessingException{
 		logger.info("getInfo() : " + prodNo);
@@ -135,6 +137,7 @@ public class ProductController {
 	@PostMapping("/delete")
 	public String delete(int prodNo, RedirectAttributes rttr) {
 		logger.info("delete ---");
+		logger.info("prodNo {}", prodNo);
 		List<AttachImage> fileList = productService.getAttachInfo(prodNo);
 		
 		if(fileList != null) {
@@ -166,6 +169,7 @@ public class ProductController {
 		return "redirect:/product/list";
 	}
 	
+	//이미지 출력
 	@GetMapping("/display")
 	public ResponseEntity<byte[]> getImage(String fileName){
 		logger.info("--- getImage : " + fileName);
@@ -287,7 +291,7 @@ public class ProductController {
 	}
 	
 	
-	
+	//이미지 정보 반환
 	@GetMapping(value="/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<AttachImage>> getAttachList(int prodNo){
 		logger.info("--- getAttachList : " + prodNo);
@@ -295,6 +299,29 @@ public class ProductController {
 		return new ResponseEntity<List<AttachImage>>(attachService.getAttachList(prodNo), HttpStatus.OK);
 		
 	}
+	
+	/* 상품 검색 */
+	@GetMapping("/search")
+	public String searchGoodsGET(Criteria cri, Model model) {
+		
+		logger.info("cri : " + cri);
+		
+		List<Product> list = productService.getProductList(cri);
+		logger.info("pre list : " + list);
+		if(!list.isEmpty()) {
+			model.addAttribute("list", list);
+			logger.info("list : " + list);
+		} else {
+			model.addAttribute("listcheck", "empty");
+			
+			return "search";
+		}
+		
+		model.addAttribute("page", new Page(cri, productService.productGetTotal(cri)));
+		
+		return "search";
+		
+	}	
 	
 }
 

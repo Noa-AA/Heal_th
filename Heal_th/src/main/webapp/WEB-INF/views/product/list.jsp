@@ -6,14 +6,18 @@
 
 <script type="text/javascript">
 $(document).ready(function () {
+	
 	let eResult = '<c:out value="${enroll_result}"/>';
+	
 	checkResult(eResult);
+	
 	function checkResult(result) {
 		if(result ==''){
 			return;
 		}
 		alert("상품 ' "+eResult+" '을 등록하였습니다.");
 	}
+	
 	let modify_result = '${modify_result}';
 	
 	if(modify_result == 1){
@@ -26,21 +30,21 @@ $(document).ready(function () {
 		alert("삭제 완료");
 	}	
 
-})
+	let moveForm = $("#moveForm");
 
-/* 페이지 이동 버튼 */
-$(".pageMaker_btn a").on("click", function(e){
+	/* 페이지 이동 버튼 */
+	$(".pageInfo_btn a").on("click", function(e){
 	
 	e.preventDefault();
 	
 	moveForm.find("input[name='pageNum']").val($(this).attr("href"));
-	
+// 	moveForm.attr("action", "/product/list");
 	moveForm.submit();
 	
-});
+	});
 	
-/* 상품 조회 페이지 */
-$(".move").on("click", function(e){
+	/* 상품 조회 페이지 */
+	$(".move").on("click", function(e){
 	
 	e.preventDefault();
 	
@@ -49,12 +53,35 @@ $(".move").on("click", function(e){
 	moveForm.submit();
 	
 	
+	});
+	
+	$(".image_wrap").each(function(i, obj){
+		
+		const pobj = $(obj);
+		
+		if(pobj.data("prodNo")){
+		const uploadPath = pobj.data("path");
+		const uuid = pobj.data("uuid");
+		const fileName = pobj.data("filename");
+		
+		const fileCallPath = encodeURIComponent(uploadPath + "/s_" + uuid + "_" + fileName);
+		
+		$(this).find("img").attr('src', '/display?fileName=' + fileCallPath);
+		} else {
+			$(this).find("img").attr('src', '/resources/img/product/NoImage.png');
+		}
+		
+	});
+	
 });
 
 $(document).ready(function() { 
 	
 	$("#btnEnroll").click(function() {
 		$(location).attr("href", "./enroll")
+	})
+	$("#btnList").click(function() {
+		$(location).attr("href", "./list")
 	})
 })
 </script>
@@ -111,6 +138,16 @@ $(document).ready(function() {
     text-align: center;
     margin: 200px 0 215px 0px;
     font-size: 25px;
+}
+
+.image_wrap {
+    width: 100%;
+    height: 100%;
+		}	
+.image_wrap img {
+    max-width: 85%;
+    height: auto;
+    display: block;
 }
 
 	/* 검색 영역 */
@@ -204,9 +241,14 @@ $(document).ready(function() {
 		<tr>
 			<td><c:out value="${list.pCateName }"></c:out></td>	
 			<td><c:out value="${list.prodNo }"></c:out></td>	
-			<td><c:out value="${list.pImage1 }"></c:out></td>	
+			<td class="image">
+				<div class="image_wrap" data-prodNo="${list.imageList[0].bookId}" data-path="${list.imageList[0].uploadPath}" data-uuid="${list.imageList[0].uuid}" data-filename="${list.imageList[0].fileName}">
+					<img>
+				</div>
+			</td>	
+<%-- 			<td><c:out value="${list.pImage1 }"></c:out></td>	 --%>
 			<td>
-				<a class="move" href='/product/detail?prodNo=${list.prodNo }' >
+				<a class="move" href= '<c:out value="${list.prodNo }"/>' >
 					<c:out value="${list.pName }"></c:out>
 				</a>
 			</td>
@@ -220,9 +262,9 @@ $(document).ready(function() {
 <div class="search_wrap">
 	<form id="searchForm" action="/product/list" method="get">
 		<div class="search_input">
-   			<input type="text" name="keyword" value='<c:out value="${pageMaker.cri.keyword}"></c:out>'>
-   			<input type="hidden" name="pageNum" value='<c:out value="${pageMaker.cri.pageNum }"></c:out>'>
-   			<input type="hidden" name="amount" value='${pageMaker.cri.amount}'>
+   			<input type="text" name="keyword" value='<c:out value="${page.cri.keyword}"></c:out>'>
+   			<input type="hidden" name="pageNum" value='<c:out value="${page.cri.pageNum }"></c:out>'>
+   			<input type="hidden" name="amount" value='${page.cri.amount}'>
    			<input type="hidden" name="type" value="G">
    			<button class='btn search_btn'>검 색</button>                				
 		</div>
@@ -230,16 +272,19 @@ $(document).ready(function() {
 </div>
 
 <button id="btnEnroll" class="bottomBtn">상품등록</button>
+<button id="btnList" class="bottomBtn">목 록</button>
 
-	<form id="moveForm" action="/product/list" method="get" >
-	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-	<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-	<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
+<%@include file="../product/paging.jsp" %>
+
+	<form id="moveForm" action="/product/list" method="get">	
+		<input type="hidden" name="pageNum" value="${page.cri.pageNum }">
+		<input type="hidden" name="amount" value="${page.cri.amount }">
+		<input type="hidden" name="keyword" value="${page.cri.keyword }">	
 	</form>
+	
 </div>                   
 </div>
 
-<%@include file="../product/paging.jsp" %>
 </body>
 </html>
 
