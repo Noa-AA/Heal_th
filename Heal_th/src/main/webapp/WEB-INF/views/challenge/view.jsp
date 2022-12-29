@@ -4,16 +4,6 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <style type="text/css">
-#twoDepth-list a:nth-child(1) {
-	color: #b571e9;
-	border-bottom: 2px solid #b571e9;
-	margin-top: 1px;
-	font-weight: 700;
-}
-
-#twoDepth-list a {
-	width: 33.3%;
-}
 
 .title {
 	margin-bottom: 40px;
@@ -90,23 +80,9 @@ textarea {
 	<!-- 회원 로그인 상태일때 -->
 	<c:if test="${empty adminNo}">
 		<%@include file="../layout/header.jsp"%>
-		<%-- 		<jsp:include page="./layout/subvisual.jsp" /> --%>
+				<jsp:include page="./layout/chlSubvisual.jsp" />
 	</c:if>
 	
-	<div id="subvisual">
-		<div id="subvisual-A">
-			<p id="subv-title">챌린지 상세보기</p>
-		</div>
-	</div>
-	<div id="twoDepth">
-		<div id="twoDepth-list">
-			<div id="twoDepth-list">
-				<a href="/challenge/list">챌린지 리스트</a>
-				<a href="/challenge/create">챌린지 만들기</a>
-				<a href="/challenge/mypage">챌린지 마이페이지</a>
-			</div>
-		</div>
-	</div>
 
 	<div class="view-container">
 		<div style="text-align: right;">
@@ -159,7 +135,7 @@ textarea {
 			form.submit();
 		});
 
-		//삭제 버튼 (관리자만 보이게해야함)
+		//삭제 버튼 (관리자로그인시에만 보임)
 		function cancelok() {
 			if (confirm("해당 챌린지를 삭제하시겠습니까?")) {
 				alert("정상적으로 처리 되었습니다.");
