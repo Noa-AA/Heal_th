@@ -55,7 +55,7 @@ $(document).ready(function(){
 	padding-top: 100px;
 }
 #boxArea{
-    height: 655px;
+    height: 670px;
     width: 490px;
     position: relative;
     left: 490px;
@@ -68,7 +68,9 @@ button{
 	border:  none;
 }
 
-
+#title{
+padding-top: 20px;
+}
 #loginArea{
 	margin-top: 41px;
     height: 192px;

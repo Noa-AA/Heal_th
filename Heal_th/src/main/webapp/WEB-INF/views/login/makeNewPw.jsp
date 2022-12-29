@@ -113,12 +113,12 @@ function validateCkh(){
 
 <style type="text/css">
 
-#newPw{
-	padding-top: 0;
+#newPwBody{
+	padding-top: 150px;
 }
 #newPw{
 	width: 542px;
-    height: 820px;
+    height: 500px;
     position: relative;
     background-color: white;
     border-radius: 12px;
@@ -130,7 +130,7 @@ function validateCkh(){
 }
 #boxArea{
 	margin: 0px 60px;
-    height: 800px;
+    height: 500px;
 
 }
 #titleForHead{
@@ -194,7 +194,7 @@ function validateCkh(){
 #btnArea{
 	position: absolute;
     height: 50px;
-    left: 60px;
+    left: 166px;
 	margin: 30px 0 0 0;
 }
 </style>
@@ -204,7 +204,7 @@ function validateCkh(){
 <div id="newPw">
 	<div id="boxArea">
 		<div id="title">
-			<span id="titleForHead">비밀번호 재설정</span>>
+			<span id="titleForHead">비밀번호 재설정</span>
 		</div>
 		
 		<div id="makeNewPwForm">
