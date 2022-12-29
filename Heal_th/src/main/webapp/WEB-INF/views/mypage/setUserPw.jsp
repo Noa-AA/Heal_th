@@ -109,36 +109,126 @@ function validateUpdatePw(){
 	
 </script>
 
+<style type="text/css">
+#setNewPw{
+	padding-top: 150px;
+}
+#newPw{
+	width: 542px;
+    height: 500px;
+    position: relative;
+    background-color: white;
+    border-radius: 12px;
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
+    margin: 0 auto;
+}
+.inputInfo:focus{
+	border-bottom-color:#7ca3f5; 
+}
+#boxArea{
+	margin: 0px 60px;
+    height: 500px;
+
+}
+#titleForHead{
+	font-size: 30px;
+    font-weight: 600;
+    color: gray;
+}
+.formTitle{
+	font-size: 17px;
+	color:gray;
+    margin: 10px 0 0;
+}
+#title{
+	padding-top: 60px;
+    text-align: center;
+}
+#updatePwForm{
+	margin-top: 35px;
+}
+
+.inputArea{
+	margin: 0;
+	position:relative;
+	height:114px;
+}
+.formTitle{
+	font-size: 17px;
+	color:gray;
+	 position: absolute;
+    margin: 10px 0 0;
+}
+
+.inputInfo{
+	width: 422px;
+    height: 33px;
+    margin-left: 0;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid lightgray;
+    position:absolute;
+    top:39px;
+     font-size: 17px;
+}
+
+.resMsg{
+	position: absolute;
+    top: 85px;
+    margin: 7px 0 0;
+}
+#btnUpdatePw{
+	width: 190px;
+    height: 47px;
+     border-radius: 8px;
+     	background-color: #7ca3f5;
+	font-size: 17px;
+	color:white;
+}
+
+#btnArea{
+	position: absolute;
+    height: 50px;
+    left: 166px;
+	margin: 30px 0 0 0;
+}
+</style>
 
 
 
-
-<body>
+<body id="setNewPw">
 
 <div id="newPw">
-	<div id="newPwTitle">
-		<h1>비밀번호 설정</h1>
+	<div id="boxArea">
+		<div id="title">
+		<span id="titleForHead">비밀번호 설정</span>
+		
+		</div>
 	
+		<div id="updatePwForm">
+			<form action="/mypage/setNewPw" method="post" id="updatePwForm">
+			<div id="updatePw" class="inputArea">
+				<label for="userPw">
+					<span class="formTitle newPw">비밀번호 </span>
+				</label>
+					<input type="password" name="userPw" id="userPw" class="inputInfo">
+				<div id="resultMsg"  class="resMsg"></div>	
+			</div>
+			
+		
+			<div id="chkUpdatePw" class="inputArea">
+				<label for="chkPw">
+					<span class="formTitle newPwChk"> 비밀번호 확인</span>
+				</label>
+					<input type="password" name="chkSetPw" id="chkSetPw" class="inputInfo">
+				<div id="resultMsgChk" class="resMsg"></div>	
+			</div>
+				<div id="btnArea">
+					<button type="button" id="btnUpdatePw">비밀번호 설정하기</button>
+				</div>
+			</form>
+		</div>
 	</div>
-
-	<form action="/mypage/setNewPw" method="post" id="updatePwForm">
-	<div id="updatePw">
-		<label for="userPw">비밀번호 
-			<input type="password" name="userPw" id="userPw">
-		</label>
-	</div>
-	
-	<div id="resultMsg"></div>	
-
-	<div id="chkUpdatePw">
-		<label for="chkPw"> 비밀번호 확인
-			<input type="password" name="chkSetPw" id="chkSetPw">
-		</label>
-	</div>
-
-	<div id="resultMsgChk"></div>	
-	<button type="button" id="btnUpdatePw">비밀번호 설정하기</button>
-	</form>
 </div>
 
 
