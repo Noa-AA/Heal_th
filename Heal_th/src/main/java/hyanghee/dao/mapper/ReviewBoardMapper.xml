@@ -131,11 +131,11 @@
     
     <select id="getSearchPaging" resultType="ReviewBoard">
          
-         SELECT review_no, r_title, user_no, score,
+         SELECT review_no, r_title, user_no, score, review,
 					r_hit, r_thumbs, r_inst_date  FROM( 
             select rownum rn, d.* from (
                  SELECT 
-	                  review_no, r_title, user_no, score,
+	                  review_no, r_title, user_no, score, review,
 						r_hit, r_thumbs, r_inst_date 
                   
                  FROM reviewboard

@@ -489,7 +489,7 @@ $(document).ready(function() {
 									</div><br><br><br>
 	                            
 								<label>후기글</label><br><br>
-									<textarea rows="20" cols="50" id="afterCon" name="afterCon" placeholder="후기글을 작성해주세요"></textarea>
+									<textarea rows="20" cols="50" id="review" name="review" placeholder="후기글을 작성해주세요"></textarea>
 							</div>
 							
 							<br><br>
@@ -510,7 +510,7 @@ $(document).ready(function() {
 							<br><br><br><br>
                                     
 								<button id="btnCancle">
-									<a class="btn block" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/bfBoard" style="text-decoration: none; color: white; font-size: 14px; font-weight: bold; ">취소</a>
+									<a class="btn block" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/reviewBoard" style="text-decoration: none; color: white; font-size: 14px; font-weight: bold; ">취소</a>
 								</button>
                                     
 								<button type="submit" id="btnInsert" name="btnInsert" style="color: white; font-size: 14px;">등록</button>

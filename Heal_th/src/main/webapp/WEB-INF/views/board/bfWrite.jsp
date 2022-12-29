@@ -80,7 +80,6 @@ a:focus, a:hover {
     margin: 10px 5px;
     padding-bottom: 14px; 
 	height: 52px;
-	width: 100px;
 }
 
 

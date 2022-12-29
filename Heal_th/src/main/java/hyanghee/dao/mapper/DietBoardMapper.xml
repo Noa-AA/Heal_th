@@ -119,11 +119,11 @@
     
     <select id="getSearchPaging" resultType="DietBoard">
     
-        SELECT diet_no, d_title, user_no,
+        SELECT diet_no, d_title, user_no, d_content,
 					d_hit, d_thumbs, d_inst_date  FROM(
         	select rownum rn, d.* from (
                 SELECT
-               		diet_no, d_title, user_no,
+               		diet_no, d_title, user_no, d_content,
 								d_hit, d_thumbs, d_inst_date
                   
                 FROM dietboard

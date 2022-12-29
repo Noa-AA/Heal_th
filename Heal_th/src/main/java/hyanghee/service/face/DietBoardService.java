@@ -3,7 +3,6 @@ package hyanghee.service.face;
 import java.util.List;
 
 import hyanghee.dto.DietBoard;
-import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
