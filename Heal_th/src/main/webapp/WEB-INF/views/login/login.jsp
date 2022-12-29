@@ -55,7 +55,7 @@ $(document).ready(function(){
 	padding-top: 100px;
 }
 #boxArea{
-    height: 626px;
+    height: 655px;
     width: 490px;
     position: relative;
     left: 490px;
@@ -100,7 +100,7 @@ form{
 	 position: absolute;
     left: 0px;
     width: 113px;
-    top: 150px;
+    top: 178px;
     margin-top: 17px;
     height: 25px;
 }
@@ -173,7 +173,7 @@ input::placeholder{
 #searchArea{
     width: 201px;
     position: relative;
-    top: -26px;
+    top: 2px;
     left: 267px;
     height: 28px;
 }
@@ -195,7 +195,7 @@ input::placeholder{
 #btnArea{
 	 position: absolute;
     height: 51px;
-    top: 359px;
+    top: 390px;
     width: 491px;
 }
 
@@ -204,6 +204,13 @@ input::placeholder{
     width: 213px;
     height: 43px;
 
+}
+
+#resultLogin{
+position: absolute;
+    top: 158px;
+     padding-left: 5px;   
+    
 }
 
 .btn{
@@ -232,7 +239,7 @@ input::placeholder{
 }
 #socialLogin{
 	position: relative;
-    top: 32px;
+    top: 65px;
     height: 123px;
 
 }
