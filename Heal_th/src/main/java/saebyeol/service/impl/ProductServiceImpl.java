@@ -109,4 +109,28 @@ public class ProductServiceImpl implements ProductService {
 		info.setImageList(productDao.getAttachInfo(prodNo));
 		return info;
 	}
+
+	@Override
+	public List<Product> getProductList(Criteria cri) {
+		List<Product> list = productDao.getProductList(cri);
+		
+		list.forEach(product -> {
+			
+			int prodNo = product.getProdNo();
+			
+			List<AttachImage> imageList = productDao.getAttachList(prodNo);
+			
+			product.setImageList(imageList);
+			
+		});
+		
+		return list;
+	}
+	
+	@Override
+	public int productGetTotal(Criteria cri) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 }

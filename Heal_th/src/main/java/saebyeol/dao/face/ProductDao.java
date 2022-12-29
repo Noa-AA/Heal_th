@@ -45,6 +45,9 @@ public interface ProductDao {
 	//상품 정보
 	public Product getInfo(int prodNo);
 
+	//이미지 데이터 반환
+	public List<AttachImage> getAttachList(int prodNo);
+
 	
 	
 

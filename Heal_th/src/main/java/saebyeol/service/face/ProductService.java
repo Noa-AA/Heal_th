@@ -36,6 +36,12 @@ public interface ProductService {
    //상품 정보
    public Product getInfo(int prodNo);
 
+   //상품
+   public int productGetTotal(Criteria cri);
+
+   //상품 검색
+   public List<Product> getProductList(Criteria cri);
+
 
 
 
