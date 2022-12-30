@@ -13,7 +13,7 @@ function reportListCall() {
 			console.log("신고목록 불러오기 성공")
 			//응답 데이터 출력
 			$("#reportList").html(reportList)
-			console.log(reportList)
+// 			console.log(reportList)
 		}
 		,error: function(){
 			console.log("신고목록 불러오기 실패")
@@ -47,15 +47,24 @@ $(document).ready(function(){
 .menuBtn{
 	width: 150px; 
 	height: 40px;
-	background-color: white;
 	border: 1px solid #3f94d6;
-	color: #1869a7;
 	padding: 5px;
+	background-color: white;
+	color: #1869a7;
+}
+.menuBtnSel{
+	width: 150px; 
+	height: 40px;
+	border: 1px solid #3f94d6;
+	padding: 5px;
+	background: linear-gradient(to right, #3f94d6 0 , #1869a7);
+	color: white; 
 }
 .menuBtn:hover{
-color: white; 
-background: linear-gradient(to right, #3f94d6 0 , #1869a7);
+	color: white; 
+	background: linear-gradient(to right, #3f94d6 0 , #1869a7);
 }
+
 #btnNotice{
 	border-top-left-radius: 20px;
 	border-bottom-left-radius: 20px;
@@ -80,16 +89,16 @@ background: linear-gradient(to right, #3f94d6 0 , #1869a7);
 /* 	border : 1px solid #ccc; */
 	
 } 
-#reportListTable tr td:nth-child(2){ 
-	width: 1105px;
-} 
+/* #reportListTable th:nth-child(2){ */
+/*     width: 30%; */
+/* } */
 
 </style>
 </head>
 <body>
 <div class="admin_content_subject"><span>게시물 관리</span></div>
 <div class="btnWrap">
-<h3><button type="button" id="btnNotice" class="menuBtn">공지사항</button><button type="button" id="btnReport" class="menuBtn">신고글 관리</button></h3>
+<h3><button type="button" id="btnNotice" class="menuBtn">공지사항</button><button type="button" id="btnReport" class="menuBtn menuBtnSel">신고글 관리</button></h3>
 </div>
 <div id="reportList"></div>
 </body>

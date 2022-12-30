@@ -18,29 +18,8 @@ function scrapAddListCall() {
 			//응답 데이터 출력
 			$("#scrapList").append(scrapAddList)
 			ajaxTrigger = false
-			$(".scrapDelete").click(function(){ //삭제하기
-				console.log(".scrapDelete click")
-				console.log($(this).val())
-				if(confirm("스크랩을 삭제하시겠습니까?")){
-					$.ajax({
-						type: "post"
-						,url: "/scrap/delete"
-						,data: {
-								scrapNo:$(this).val() //댓글번호
-							}
-						,dataType: "html"
-						,success: function(scrapList){
-							console.log("스크랩 불러오기 성공")
-						}
-						,error: function(){
-							console.log("스크랩 불러오기 실패")
-						}
-					})
-					
-				}else{
-					return false
-				}
-			})
+			
+			
 		}
 		,error: function(){
 			console.log("스크랩 불러오기 실패")
@@ -50,8 +29,14 @@ function scrapAddListCall() {
 
 $(window).scroll(function(){
     //스크롤 이동시 작동코드
+	console.log("스크롤위치",window.scrollY)
+	if ($(this).scrollTop() > 300) {
+      $('#goTop').fadeIn(500);
+    } else {
+      $('#goTop').fadeOut('slow');
+    }
+	
     if($('#scrapEmpty').length==0){
-		console.log("스크롤위치",window.scrollY)
 		if(!ajaxTrigger){
 		    if((window.innerHeight + window.scrollY) >= document.body.offsetHeight-100){
 		    	console.log("테이블넘음!!")
@@ -63,14 +48,9 @@ $(window).scroll(function(){
     }
 		
 });
-	
-$(document).ready(function(){
 
-console.log($(".footer-wrap").offset().top)
-console.log($("#scrapList").height())
-// 	scrapListCall()
-
-$(".scrapDelete").click(function(){ //삭제하기
+$(document).on('click', ".scrapDelete", function() { //삭제하기
+		
 	console.log(".scrapDelete click")
 	console.log($(this).val())
 	if(confirm("스크랩을 삭제하시겠습니까?")){
@@ -80,14 +60,37 @@ $(".scrapDelete").click(function(){ //삭제하기
 			,data: {
 					scrapNo:$(this).val() //댓글번호
 				}
+			,context: this
 			,dataType: "html"
 			,success: function(scrapList){
-				console.log("스크랩 불러오기 성공")
-				//응답 데이터 출력
-// 				$("#scrapList").html(scrapList)
+				console.log("스크랩 삭제 성공")
+				console.log($(this).val())
+				$(this).attr({'disabled':true})
+				var scrapCover = $("<div>").css({
+											    position: "absolute",
+												"background-color": "gray",
+											    width: "500px",
+											    height: "500px",
+											    "border-radius": "20px",
+											    opacity: "85%",
+											    "text-align": "center",
+											    "z-index": "2",
+											    cursor:"default"
+												})
+				var coverP = $("<p>").text("삭제되었습니다")
+										.css({
+											"font-size": "40px",
+										    "font-weight": "500",
+										    color: "white",
+										    opacity: "100%",
+										    "margin-top": "40%"
+											})
+				scrapCover.append(coverP)
+				$(this).parent().css("position","relative").prepend(scrapCover)
+				
 			}
 			,error: function(){
-				console.log("스크랩 불러오기 실패")
+				console.log("스크랩 삭제 실패")
 			}
 		})
 		
@@ -95,6 +98,14 @@ $(".scrapDelete").click(function(){ //삭제하기
 		return false
 	}
 })
+$(document).ready(function(){
+	scrapAddListCall()
+	
+	$("#goTop").click(()=>{
+			window.scrollTo({top: 0})
+	})
+		
+	
 })
 </script>
 <style type="text/css">
@@ -110,10 +121,55 @@ $(".scrapDelete").click(function(){ //삭제하기
     width: 500px;
     background-color: ghostwhite;
     margin: 30px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px 5px #b7b7b7;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 #scrapEmpty{
 	width: 1200px;
 	text-align: center;
+}
+#scrapEnd{
+	font-size: 20px;
+    font-weight: 600;
+	margin-top: 35px;
+}
+#scrapOne p{
+    margin: 30px 0 10px 0;
+    font-size: 15px;
+}
+
+#scrapOne a{
+	font-size: 25px;
+}
+
+.scrapDelete{
+	background-color: transparent;
+	left: 215px;
+    top: 25px;
+    position: relative;
+}
+
+.scrapDeleteBtn{
+	
+	width: 20px;
+	height: 20px;
+}
+
+#goTop{
+	display: none;
+	position: fixed;
+	right: 70px;
+	bottom: 60px;
+	z-index: 9999;
+	background-color: transparent;
+}
+
+.boardContent {
+	margin : 50px;
 }
 </style>
 
@@ -123,28 +179,8 @@ $(".scrapDelete").click(function(){ //삭제하기
 		<p id="subv-title">스크랩 목록</p>
 	</div>
 </div>
-<div id="scrapList">
-	<c:forEach items="${scrapList }" var="scrap">
-		<div id="scrapOne">
-			<span>${scrap.categoryName } 게시판</span>
-				<c:choose>
-					<c:when test="${scrap.categoryNo eq 1}"> <!-- bf 게시판 -->
-						<a href="/board/bfView?bfNo=${scrap.boardNo}"> ${scrap.title }</a>
-					</c:when>
-					<c:when test="${scrap.categoryNo eq 2}"> <!-- 운동인증 게시판 -->
-						<a href="/board/verifyView?verifyNo=${scrap.boardNo}"> ${scrap.title }</a>
-					</c:when>
-					<c:when test="${scrap.categoryNo eq 3}"> <!-- 식단공유 게시판 -->
-						<a href="/board/dView?dietNo=${scrap.boardNo}"> ${scrap.title }</a>
-					</c:when>
-					<c:otherwise>	<!-- 후기, 시설리뷰 게시판 -->
-						<a href="/board/rView?reviewNo=${scrap.boardNo}"> ${scrap.title }</a>
-					</c:otherwise>
-				</c:choose>
-				<button class="scrapDelete" value="${scrap.scrapNo}">삭제</button>
-		</div>
-	</c:forEach>
-</div>
+<button id="goTop"><img alt="" src="/resources/img/addOns/goTop.png" class="goTopBtn" width="50px"></button>
+<div id="scrapList"></div>
 </body>
 <jsp:include page="../layout/footer.jsp" />
 </html>

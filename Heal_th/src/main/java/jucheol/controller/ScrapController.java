@@ -36,20 +36,20 @@ public class ScrapController {
 			, Model model
 			) {
 		logger.info("/scrap/scrap[GET]");
-		logger.info("endNo---{}",endNo);
-
-		infinity = scrapService.getList(endNo+1);
-		infinity.setUserNo((int) session.getAttribute("userNo"));
-		
-		List<Scrap> scrapList = scrapService.selectList(infinity);
-		for( Scrap s : scrapList )logger.info("scrapList {}",s);
-		
-		endNo = scrapList.get(scrapList.size() - 1).getCurpage();
-		
-		logger.info("endNo-----{}",endNo);
-
+//		logger.info("endNo---{}",endNo);
+//
+//		infinity = scrapService.getList(endNo+1);
+//		infinity.setUserNo((int) session.getAttribute("userNo"));
+//		
+//		List<Scrap> scrapList = scrapService.selectList(infinity);
+//		for( Scrap s : scrapList )logger.info("scrapList {}",s);
+//		
+//		endNo = scrapList.get(scrapList.size() - 1).getCurpage();
+//		
+//		logger.info("endNo-----{}",endNo);
+//
 		session.setAttribute("scrapEndNo", endNo);
-		model.addAttribute("scrapList", scrapList);
+//		model.addAttribute("scrapList", scrapList);
 	}
 	
 	@GetMapping("/addlist")

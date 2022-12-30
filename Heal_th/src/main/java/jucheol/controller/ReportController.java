@@ -43,7 +43,7 @@ public class ReportController {
 		
 //		session.setAttribute("userNo", 7777);
 		
-		report.setUserNo((int) session.getAttribute("userNo"));
+		report.setRuserNo((int) session.getAttribute("userNo"));
 		report.setBoardNo(boardno);
 		report.setCategoryNo(category);
 		logger.info("reportCheck111 - {}", report);
@@ -79,7 +79,7 @@ public class ReportController {
 		//-----------테스트용 유저삽입
 //		session.setAttribute("userNo", 7777);
 		
-		report.setUserNo((int) session.getAttribute("userNo"));
+		report.setRuserNo((int) session.getAttribute("userNo"));
 		report.setBoardNo(boardno);
 		report.setCategoryNo(category);
 		
