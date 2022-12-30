@@ -65,7 +65,7 @@ $(document).ready(function(){
 })
 </script>
 
-<table id="reportListTable">
+<table id="reportListTable" class="table table-hover">
 <thead>
 <th>게시판 명</th>
 <th colspan="3" style="width:400px">제목</th>

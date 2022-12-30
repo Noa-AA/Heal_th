@@ -238,13 +238,16 @@ button, input {
 			${userId }님 안녕하세요.
 		</div>
 		<c:forEach items="${roomList }" var="room">
-		
-<%-- 		<div class="room" onclick="goChat(${room.roomNo })"> --%>
 
 			<button class="roomBtn" onclick="goChat(${room.roomNo })" >
 				
 				<div class="left">
-					<img src="${pageContext.request.contextPath}/upload/${room.storedName}">
+					<c:if test="${not empty room.storedName }">
+						<img src="${pageContext.request.contextPath}/upload/${room.storedName}" class="profilePhoto">
+					</c:if>
+					<c:if test="${empty room.storedName }">
+						<img src="/resources/img/chat_default.png" class="profilePhoto">
+					</c:if>
 				</div>
 				
 				<div class="right">

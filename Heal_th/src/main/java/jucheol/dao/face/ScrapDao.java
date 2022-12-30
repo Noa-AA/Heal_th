@@ -3,6 +3,7 @@ package jucheol.dao.face;
 import java.util.List;
 
 import jucheol.dto.Scrap;
+import jucheol.util.Infinity;
 
 public interface ScrapDao {
 
@@ -16,10 +17,10 @@ public interface ScrapDao {
 	/**
 	 * 스크랩 목록 불러오기
 	 * 
-	 * @param scrap 회원번호
+	 * @param infinity 회원번호
 	 * @return 
 	 */
-	public List<Scrap> selectList(Scrap scrap);
+	public List<Scrap> selectList(Infinity infinity);
 
 	/**
 	 * 스크랩 삭제하기
