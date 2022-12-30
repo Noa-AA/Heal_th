@@ -201,28 +201,27 @@ function validateUpdatePw(){
 <div id="newPw">
 	<div id="boxArea">
 		<div id="title">
-		<span id="titleForHead">비밀번호 설정</span>
-		
+			<span id="titleForHead">비밀번호 설정</span>
 		</div>
 	
 		<div id="updatePwForm">
 			<form action="/mypage/setNewPw" method="post" id="updatePwForm">
-			<div id="updatePw" class="inputArea">
-				<label for="userPw">
-					<span class="formTitle newPw">비밀번호 </span>
-				</label>
-					<input type="password" name="userPw" id="userPw" class="inputInfo">
-				<div id="resultMsg"  class="resMsg"></div>	
-			</div>
-			
+				<div id="updatePw" class="inputArea">
+					<label for="userPw">
+						<span class="formTitle newPw">비밀번호 </span>
+					</label>
+						<input type="password" name="userPw" id="userPw" class="inputInfo">
+					<div id="resultMsg"  class="resMsg"></div>	
+				</div>
+				
 		
-			<div id="chkUpdatePw" class="inputArea">
-				<label for="chkPw">
-					<span class="formTitle newPwChk"> 비밀번호 확인</span>
-				</label>
-					<input type="password" name="chkSetPw" id="chkSetPw" class="inputInfo">
-				<div id="resultMsgChk" class="resMsg"></div>	
-			</div>
+				<div id="chkUpdatePw" class="inputArea">
+					<label for="chkPw">
+						<span class="formTitle newPwChk"> 비밀번호 확인</span>
+					</label>
+						<input type="password" name="chkSetPw" id="chkSetPw" class="inputInfo">
+					<div id="resultMsgChk" class="resMsg"></div>	
+				</div>
 				<div id="btnArea">
 					<button type="button" id="btnUpdatePw">비밀번호 설정하기</button>
 				</div>
