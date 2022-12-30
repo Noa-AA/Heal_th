@@ -160,6 +160,7 @@ public class ChatController {
 			model.addAttribute("createRoomNo", session.getAttribute("createRoomNo"));
 			
 //			채팅방 번호 전달 - Model객체 이용
+			logger.info("roomList 은 뭘까 : {}", roomList);
 			model.addAttribute("roomList", roomList);
 
 //			마지막 채팅, 방번호 전달 - Model객체 이용
