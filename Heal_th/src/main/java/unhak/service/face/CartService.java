@@ -31,6 +31,12 @@ public interface CartService {
 	
 	public int checkByCt(CartDto cartNo);
 	
+	/**
+	 * 카트 전부 삭제
+	 * @param userNo
+	 */
+	public void deleteCartAll(int userNo);
+	
 	
 	
 	

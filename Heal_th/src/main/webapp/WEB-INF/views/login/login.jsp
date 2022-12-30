@@ -55,12 +55,12 @@ $(document).ready(function(){
 	padding-top: 100px;
 }
 #boxArea{
-    height: 626px;
+    height: 670px;
     width: 490px;
     position: relative;
     left: 490px;
-    background-color: #F5F5F5;
-    box-shadow: 0px 5px 25px 14px lightgrey;
+    background-color: white;
+    box-shadow: 0px 5px 25px 5px lightgrey;
     border-radius: 12px;
 }
 
@@ -68,7 +68,9 @@ button{
 	border:  none;
 }
 
-
+#title{
+padding-top: 20px;
+}
 #loginArea{
 	margin-top: 41px;
     height: 192px;
@@ -100,7 +102,7 @@ form{
 	 position: absolute;
     left: 0px;
     width: 113px;
-    top: 150px;
+    top: 178px;
     margin-top: 17px;
     height: 25px;
 }
@@ -123,7 +125,7 @@ form{
     width: 400px;
     margin-left: 20px;
     font-size:17px;
-    background-color:#F5F5F5;
+    background-color: white;
 }
 
 #userId{
@@ -173,7 +175,7 @@ input::placeholder{
 #searchArea{
     width: 201px;
     position: relative;
-    top: -26px;
+    top: 2px;
     left: 267px;
     height: 28px;
 }
@@ -195,7 +197,7 @@ input::placeholder{
 #btnArea{
 	 position: absolute;
     height: 51px;
-    top: 359px;
+    top: 390px;
     width: 491px;
 }
 
@@ -204,6 +206,13 @@ input::placeholder{
     width: 213px;
     height: 43px;
 
+}
+
+#resultLogin{
+position: absolute;
+    top: 158px;
+     padding-left: 5px;   
+    
 }
 
 .btn{
@@ -232,7 +241,7 @@ input::placeholder{
 }
 #socialLogin{
 	position: relative;
-    top: 32px;
+    top: 65px;
     height: 123px;
 
 }

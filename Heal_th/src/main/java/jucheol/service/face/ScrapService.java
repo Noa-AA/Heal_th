@@ -3,6 +3,7 @@ package jucheol.service.face;
 import java.util.List;
 
 import jucheol.dto.Scrap;
+import jucheol.util.Infinity;
 
 public interface ScrapService {
 
@@ -16,10 +17,10 @@ public interface ScrapService {
 	/**
 	 * 스크랩 목록 불러오기
 	 * 
-	 * @param scrap 회원번호, 글번호, 카테고리번호
+	 * @param infinity 회원번호, 글번호, 카테고리번호
 	 * @return 
 	 */
-	public List<Scrap> selectList(Scrap scrap);
+	public List<Scrap> selectList(Infinity infinity);
 	
 	/**
 	 * 스크랩 삭제하기
@@ -35,5 +36,13 @@ public interface ScrapService {
 	 * @return 
 	 */
 	public Scrap scrapCheck(Scrap scrap);
+
+	/**
+	 * 
+	 * 
+	 * @param lastNo 마지막 글
+	 * @return
+	 */
+	public Infinity getList(int lastNo);
 
 }

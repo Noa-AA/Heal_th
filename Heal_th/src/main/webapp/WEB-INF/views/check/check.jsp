@@ -16,7 +16,7 @@ $(document).ready(()=>{
 	$table.append($("<tr>"))
 	for(var i=1; i<=${lastDay}; i++){
 			if(${attDays}.includes(i)){
-				$table.children().children().last().append($("<td>").html(i).css({"background-image":"url(/resources/img/check/checkicon2.png)"
+				$table.children().children().last().append($("<td>").html(i).css({"background-image":"url(/resources/img/check/checkicon3.png)"
 																				,"background-size":"cover"
 																				,"background-position": "center"
 																				,"background-repeat" : "no-repeat"}))		
@@ -40,7 +40,7 @@ $(document).ready(()=>{
 			console.log("goCheck click")
 			console.log(${today})
 			$(".cal").find("td:eq(${today-1})").css({
-				"background-image":"url(/resources/img/check/checkicon2.png)"
+				"background-image":"url(/resources/img/check/checkicon3.png)"
 				,"background-size":"50px"
 				,"background-position": "center"
 				,"background-repeat" : "no-repeat"
@@ -122,10 +122,12 @@ table,th, td {
     text-align: center;
     font-size: 30px;
     border-collapse: collapse;
+    
   }
 td{
   	height: 50px;
   	width: 50px;
+  	color: white;
 }
 @keyframes kenburns-top {
   0%{
@@ -223,7 +225,7 @@ font-style: normal;
 <h1 id="atts">출석판</h1>
 <br>
 <div id="attContiner">
-	<img id="stamp" class="kenburns-top" alt="도장" src="/resources/img/check/checkicon2.png">
+	<img id="stamp" class="kenburns-top" alt="도장" src="/resources/img/check/checkicon3.png">
 
 	<div id="attCheck">
 	<br>
