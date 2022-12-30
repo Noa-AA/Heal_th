@@ -5,22 +5,34 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script><!-- 이거 -->
 <script type="text/javascript">
 $(document).ready(function(){
-	<%-- 여기부터 --%>
-	function checkPopup() {
-		var sessionData = <%=session.getAttribute("userNo")%>
-		if(null==sessionData || !sessionData){// 로그인 안됐을경우
-		}else{
-			if($.cookie('checkCookie')!="check"){
-				console.log("쿠키 없음")
-				window.open('/check/check', '_blank','width=500, height=500, left=600, top=200');
-			}else{
-				console.log("쿠키 있음")
-			}
-		}
-	}
-	checkPopup()
-	<%-- 여기까지 --%>
-})
+	   <%-- 여기부터 --%>
+	   function checkPopup() {
+	      var sessionData = <%=session.getAttribute("userNo")%>
+	      if(null==sessionData || !sessionData){// 로그인 안됐을경우
+	      }else{
+	         if($.cookie('checkCookie'+sessionData)!="check"+sessionData){
+	            console.log("쿠키 없음")
+	            window.open('/check/check', '_blank','width=500, height=700, left=600, top=200');
+	            $.ajax({
+	               type: "get"
+	               ,url: "/check/cookie"
+	               ,data: {}
+	               ,dataType: "html"
+	               ,success: function(res){
+	                  console.log("cookie 설정 성공")
+	               }
+	               ,error: function(){
+	                  console.log("cookie 설정 실패")
+	               }
+	            })
+	         }else{
+	            console.log("쿠키 있음")
+	         }
+	      }
+	   }
+	   checkPopup()
+	   <%-- 여기까지 --%>
+	})
 </script>
 <style type="text/css">
 body {

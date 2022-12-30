@@ -16,6 +16,8 @@ public class ChatIntroPaging {
 	private int endNo; //화면에 보이는 게시글의 끝 번호
 	
 	private int userNo;
+	private String type;
+	private String keyword;
 
 	
 	//디폴트 생성자 - 페이징 로직이 처리되지 않는다
@@ -85,7 +87,7 @@ public class ChatIntroPaging {
 	
 	@Override
 	public String toString() {
-		return "DgHelperPaging [userNo=" + userNo + "]";
+		return "AdminUSerPaging [userNo=" + userNo + ", type=" + type + ", keyword=" + keyword + "]";
 	}
 
 	public int getCurPage() {
@@ -174,6 +176,25 @@ public class ChatIntroPaging {
 	public ChatIntroPaging(int userNo) {
 		super();
 		this.userNo = userNo;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 	
 	

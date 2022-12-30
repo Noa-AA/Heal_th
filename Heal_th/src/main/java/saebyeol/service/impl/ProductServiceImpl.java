@@ -9,13 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import saebyeol.dao.face.AttachDao;
 import saebyeol.dao.face.ProductDao;
 import saebyeol.dto.AttachImage;
-import saebyeol.dto.Criteria;
+import saebyeol.dto.ProductCriteria;
 import saebyeol.dto.Prodcategory;
 import saebyeol.dto.Product;
 import saebyeol.service.face.ProductService;
-import saebyeol.utill.SaebyeolPaging;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -25,6 +25,8 @@ public class ProductServiceImpl implements ProductService {
 
 	//DAO 객체
 	@Autowired ProductDao productDao;
+	
+	@Autowired AttachDao attachDao;
 	
 	@Transactional
 	@Override
@@ -48,14 +50,9 @@ public class ProductServiceImpl implements ProductService {
 		return productDao.cateList();
 	}
 	
-	@Override
-	public List<Product> list(Criteria cri) {
-		logger.info("Service List");
-		return productDao.getList(cri);
-	}
 	
 	@Override
-	public int getTotal(Criteria cri) {
+	public int getTotal(ProductCriteria cri) {
 		logger.info("getTotal===");
 		
 		return productDao.getTotal(cri);
@@ -111,14 +108,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> getProductList(Criteria cri) {
+	public List<Product> getProductList(ProductCriteria cri) {
 		List<Product> list = productDao.getProductList(cri);
 		
 		list.forEach(product -> {
 			
 			int prodNo = product.getProdNo();
 			
-			List<AttachImage> imageList = productDao.getAttachList(prodNo);
+			List<AttachImage> imageList = attachDao.getAttachList(prodNo);
 			
 			product.setImageList(imageList);
 			
@@ -127,10 +124,6 @@ public class ProductServiceImpl implements ProductService {
 		return list;
 	}
 	
-	@Override
-	public int productGetTotal(Criteria cri) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 	
 }

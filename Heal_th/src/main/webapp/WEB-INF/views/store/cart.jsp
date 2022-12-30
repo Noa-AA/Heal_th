@@ -18,12 +18,38 @@ $(document).ready(function() {
 
 </script>
 
-<h1>장바구니</h1>
+<style>
+
+.cartmsg{
+	margin-left: 35%;
+    border: 1px solid #ccc;
+    width: 350px;
+    margin-bottom: 0%;
+    height: 350px;
+	padding:40px;
+	padding-top:135px;
+}
 
 
+.btnt{
+	width: 105px;
+    height: 38px;
+    background-color: transparent;
+    border: 2px solid #7ca3f5;
+    color:#7ca3f5;
+    font-size:11px;
+    border-radius: 8px;
+}
+
+
+</style>
+
+
+<div class="cartmsg">
 장바구니에 성공적으로 담겼습니다.
-	
-	<button type="button" id="btnList" class="btn btn-default btn-lg" >목록으로 돌아가기</button>	
-	<button type="button" id="btncartList" class="btn btn-default btn-lg" >장바구니 바로가기</button>	
+	<br>
+	<button type="button" id="btnList" class="btn" >목록으로 돌아가기</button>	
+	<button type="button" id="btncartList" class="btn" >장바구니 바로가기</button>	
+</div>
 </body>
 </html>

@@ -41,4 +41,6 @@ public interface CartDao {
 	 */
 	public int selectBychkCtNo(CartDto cartNo);
 
+	public void deleteCartAll(int userNo);
+
 }

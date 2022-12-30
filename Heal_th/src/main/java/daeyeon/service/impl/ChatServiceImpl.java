@@ -20,6 +20,7 @@ import daeyeon.dto.ChatFile;
 import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
 import daeyeon.service.face.ChatService;
+import daeyeon.util.AdminUserPaging;
 import daeyeon.util.ChatIntroPaging;
 import yerim.dto.Users;
 
@@ -71,6 +72,43 @@ public class ChatServiceImpl implements ChatService {
 		
 		return userList;
 	}
+	
+	
+	// /chat/intro
+	//---------- 검색된 총 게시글 조회하기
+	@Override
+	public ChatIntroPaging getSearchPaging(ChatIntroPaging chatIntroPaging, String curPage) {
+		logger.info("getSearchPaging");
+		
+		//총 게시글 수 조회하기
+		int totalCount = chatDao.selectSearchCntAll(chatIntroPaging);
+						
+		logger.info("totalCount : {}", totalCount);
+		//전달파라미터 curPage 추출하기
+		String param = curPage;
+		int curPage2 = 0;
+		if( param != null && !"".equals(param) ) {
+			curPage2 = Integer.parseInt(param);
+		}
+
+		//AdminPaging객체 생성
+		ChatIntroPaging chatPagingResult = new ChatIntroPaging(totalCount, curPage2);
+						
+		return chatPagingResult;
+	}
+	
+	@Override
+	public List<Users> userSearchlist(ChatIntroPaging chatIntroPaging) {
+		logger.info("userSearchlist()");
+		
+		//게시글 목록 조회 - ChatDao 이용
+		List<Users> userList = chatDao.selectSearchUsers(chatIntroPaging); 
+				
+		//나랑 같이 방에 소속된  
+				
+		return userList;
+	}
+	
 	
 	
 	// /chat/pointCompare

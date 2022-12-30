@@ -84,8 +84,8 @@ input:disabled, input {
 			</div>
 			<div class="area-body">
 				<div class="input-group">
-					<label>번호 : </label>
-					<input type="text" name="challengeNo" id="challengeNo" value="${pageInfo.challengeNo}" disabled="disabled" />
+<!-- 					<label>번호 : </label> -->
+					<input type="hidden" name="challengeNo" id="challengeNo" value="${pageInfo.challengeNo}" disabled="disabled" />
 				</div>
 				<div class="input-group">
 					<label>제목 : </label>

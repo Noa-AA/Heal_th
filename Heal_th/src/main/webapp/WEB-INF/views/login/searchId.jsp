@@ -366,7 +366,10 @@ function cancel(){
     font-size:17px;
     border-radius: 8px;
 }
-
+.btnCode:hover{
+	background:#7ca3f5;
+	color:white;
+}
 #btnGetCode,#btnEmailchk,#getsmsCode,#btnSmschk{
 	position: absolute;
     top: 37px;

@@ -34,8 +34,7 @@ function calculateToalPrice(){ //현재 주문할 수량과 상품 한 개당 �
 /* 바로구매 버튼 */
 function order(){
 	
-	
-	
+
 	
 	location.href="/store/payment?amount=" + $("#count").val() *$("#price").val()+"&count="+$("#count").val()+"&price="+$("#price").val();
 };
@@ -55,7 +54,25 @@ function order(){
 
 </script>
 
-<style>
+<style> 
+
+.boxArea {
+/* 	height: 1200px; */
+/*     width: 700; */
+    position: relative;
+    left: 45px;
+    background-color: #F5F5F5;
+    box-shadow: 0px 5px 25px 14px lightgrey;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+
+.big2{
+	text-align: center;
+	height: 5%;
+}
+
 
 .mgb-15{
 	margin-bottom:15px;
@@ -69,16 +86,16 @@ function order(){
 }
 
 
-.repImgDiv{
-	margin-right: 15px;
-	height: auto;
-	width:50%;
-}
+/* .repImgDiv{ */
+/* 	margin-right: 15px; */
+/* 	height: auto; */
+/* 	width:50%; */
+/* } */
 
-.repImg{
-width:100%;
-height: 400px;
-}
+/* .repImg{ */
+/* width:100%; */
+/* height: 400px; */
+/* } */
 
 .wd50{
 	height:auto;
@@ -89,7 +106,69 @@ height: 400px;
 	margin-right: 25%;
 }
 
+
+.btn {
+    width: 213px;
+    height: 41px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+
+.order_btn {
+    height: 41px;
+    border: 2px solid #7ca3f5;
+    background: transparent;
+}
+
+
+.list_btn {
+    background: #7ca3f5;
+    border: none;
+}
+
+.order_text{
+    color: #7ca3f5;
+}
+.list_text{
+    color: white;
+}
+
+
+.repImgDiv{
+    height: 300px;
+    width:50%;
+    margin: 40px;
+    margin-left: 200px;
+    
+}
+
+.price2{
+	margin-right:14%;
+}
+
 </style>
+
 
 
 
@@ -97,19 +176,19 @@ height: 400px;
 
 
 <!-- <div layout:fragment="content" style="margin-left:25%;margin-right:25%"></div> -->
-<div style="margin-left: 25%; margin-right: 25%" class="big">
+	<div style="margin-left: 25%; margin-right: 25%" class="big boxArea">
 	<%-- <input type="hidden" id="itemId" th:value="${item.id}"> --%>
-	<input type="hidden" id="itemId"><span>${viewStore.pName }</span>
 	<div class="d-flex">
-		<div class="repImgDiv">
+		<div class="repImgDiv" style="border:1px solid #ccc;height:300px">
 			<!-- 이미지 넣어야함 -->
 		</div>
+	<input type="hidden" id="itemId"><span>${viewStore.pName }</span>
 
 
 	</div>
 
 
-
+<div class="big2">
 	<div class="text-right">
 		<div class="h4 text-danger text-left">
 			<input type="hidden" value="${viewStore.pPrice}" id="price"name="price"> 
@@ -128,22 +207,29 @@ height: 400px;
 			value="1" min="1" onchange="calculateToalPrice()">
 	</div>
 	
-	
-</div>
-<!-- big 종료 -->
-<hr class="my-4">
-<div class="text-right mgt-50 paymoney">
-	<h5>결제금액</h5>
-	<h3 class="font-weight-bold"></h3>
-</div>
-<div class="text-right paymoney">
+</div><!-- big2 -->	
 
-	<span id="totalPrice"  class="paymoney">${viewStore.pPrice}원</span>
-</div>
+
+
+
+	<div class="text-right mgt-50 paymoney price2" style="font-size:20px;">
+		<h4 style="color:red;">결제금액</h4>
+
+		<span id="totalPrice"  >${viewStore.pPrice}원</span>
+		
+	</div>
+	
+	<br>
+	
+	
 <div class="text-center">
-	<button type="button" class="addCart_btn"><a href="/store/cart?prodNo=${viewStore.prodNo }">장바구니에 담기</a></button>
-	<button type="button" class="btn btn-primary btn-lg"  onclick="order()">주문하기</button>
-	<button type="button" id="btnList" class="btn btn-default btn-lg" >목록</button>
+	<button type="button" class="addCart_btn btn"><a href="/store/cart?prodNo=${viewStore.prodNo }">장바구니에 담기</a></button>
+	<button type="button" class="btn order_btn"  onclick="order()">
+		<span class="order_text">주문하기</span>
+	</button>
+	<button type="button" id="btnList" class="btn list_btn" >
+		<span class="list_text">목록</span>
+	</button>
 
 </div>
 
@@ -157,6 +243,9 @@ height: 400px;
 	</div>
 
 </div>
+
+</div>
+<!-- big 종료 -->
 </form>
 <%@include file="../layout/footer.jsp" %>
 

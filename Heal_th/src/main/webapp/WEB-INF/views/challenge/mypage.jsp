@@ -49,9 +49,18 @@
 
 .join_list img {
 	border: 0;
-	margin-top: 20px;
+	margin-top: 35px;
 	height: 100px;
 	width: 200px;
+}
+
+li {
+	line-height: 25px;
+}
+
+.chlTitle {
+	font-weight: 600;
+	font-size: 15px;
 }
 
 .page-content {
@@ -98,22 +107,33 @@
 				<div>아이디 : ${user.userId }</div>
 			</div>
 
-			<div class="challenge-title">${user.userName } 님이 가입한 챌린지</div>
+			<div class="challenge-title">${user.userName }님이 가입한 챌린지</div>
 			<div class="join_list">
 				<c:forEach items="${joinList }" var="joinList">
 					<div class="challenge">
 						<div class="challenge-thumbnail">
-							<img src="/resources/img/chl_thumbnail/chl_thumb${joinList.challengeNo }.jpg" onerror="this.src='https://shared-comic.pstatic.net/thumb/webtoon/796152/thumbnail/thumbnail_IMAG10_a500c803-99ec-4bf8-92d1-b2a5c60c9789.jpg'">
+							<a class="move" href='<c:out value="${joinList.challengeNo}"/>'>
+								<img src="/resources/img/chl_thumbnail/chl_thumb${joinList.challengeNo }.jpg" onerror="this.src='https://shared-comic.pstatic.net/thumb/webtoon/796152/thumbnail/thumbnail_IMAG10_a500c803-99ec-4bf8-92d1-b2a5c60c9789.jpg'">
+							</a>
 						</div>
 						<div class="challenge-content">
 							<ul>
-								<li>챌린지 번호 : ${joinList.challengeNo }</li>
-								<li>제목 : <a class="move" href='<c:out value="${joinList.challengeNo}"/>'>
+<%-- 								<li>챌린지 번호 : ${joinList.challengeNo }</li> --%>
+								<li class="chlTitle">
+									제목 :
+									<a class="move" href='<c:out value="${joinList.challengeNo}"/>'>
 										<c:out value="${joinList.challengeName }" />
-									</a></li>
+									</a>
+								</li>
 								<li>종류 : ${joinList.challengeKind }</li>
-								<li>생성일 : <fmt:formatDate value="${joinList.challengeCredate }" pattern="yyyy년 MM월 dd일" /></li>
-								<li>종료일 : <fmt:formatDate value="${joinList.challengeEnddate }" pattern="yyyy년 MM월 dd일" /></li>
+								<li>
+									생성일 :
+									<fmt:formatDate value="${joinList.challengeCredate }" pattern="yyyy년 MM월 dd일" />
+								</li>
+								<li>
+									종료일 :
+									<fmt:formatDate value="${joinList.challengeEnddate }" pattern="yyyy년 MM월 dd일" />
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -131,15 +151,19 @@
 
 
 <script>
-//사진인증 페이지
-let moveForm = $("#moveForm");
-$(".move").on("click",function(e) {
-		e.preventDefault();
-		moveForm.empty();
-		moveForm.append("<input type='hidden' name='challengeNo' value='"
-					 	+ $(this).attr("href") + "'>");
-		moveForm.attr("action", "/challenge/photopage");
-		moveForm.submit();
-		});
+	//사진인증 페이지
+	let moveForm = $("#moveForm");
+	$(".move")
+			.on(
+					"click",
+					function(e) {
+						e.preventDefault();
+						moveForm.empty();
+						moveForm
+								.append("<input type='hidden' name='challengeNo' value='"
+										+ $(this).attr("href") + "'>");
+						moveForm.attr("action", "/challenge/photopage");
+						moveForm.submit();
+					});
 </script>
 </html>

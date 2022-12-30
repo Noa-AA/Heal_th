@@ -10,7 +10,7 @@
 		VALUES ( scrap_seq.nextval, #{boardNo }, #{userNo }, #{categoryNo } )
 	</insert>
 	
-	<select id="selectList" resultType="Scrap" parameterType="Scrap">
+	<select id="selectList" resultType="Scrap" parameterType="Infinity">
 		with example as(
 		    SELECT bf_title AS title, bf_no AS board_no, category_no FROM beforeafter
 		    UNION
@@ -20,16 +20,29 @@
 		    UNION
 		    SELECT v_title, verify_no, category_no  FROM verifyboard
 		)
-	
-		SELECT s.*,c.category_name, e.title FROM(
+		select * from (
+		    select rownum curpage, sb.* from(
+		        select s.*,c.category_name, e.title from(
+		        
+		            select scrap_no, board_no,user_no,category_no from scrap
+		            where user_no = ${userNo}
+		        )s, category c, example e
+		        where s.category_no = c.category_no
+		        and e.board_no = s.board_no
+		        and e.category_no = s.category_no
+		        ORDER BY scrap_no desc
+		    )sb
+		)scraplist
+		where curpage between ${startNo} and ${endNo}
+<!-- 		SELECT s.*,c.category_name, e.title FROM( -->
 		
-		    select scrap_no, board_no,user_no,category_no FROM scrap
-		    WHERE user_no = ${userNo}
-		)s, category c, example e
-		WHERE s.category_no = c.category_no
-		AND e.board_no = s.board_no
-		AND e.category_no = s.category_no
-		ORDER BY scrap_no desc
+<!-- 		    select scrap_no, board_no,user_no,category_no FROM scrap -->
+<!-- 		    WHERE user_no = ${userNo} -->
+<!-- 		)s, category c, example e -->
+<!-- 		WHERE s.category_no = c.category_no -->
+<!-- 		AND e.board_no = s.board_no -->
+<!-- 		AND e.category_no = s.category_no -->
+<!-- 		ORDER BY scrap_no desc -->
 	
 	</select>
 	
