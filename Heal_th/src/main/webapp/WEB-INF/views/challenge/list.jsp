@@ -31,9 +31,18 @@
 
 .challenge img {
 	border: 0;
-	margin-top: 20px;
+	margin-top: 32px;
 	height: 100px;
 	width: 200px;
+}
+
+li {
+	line-height: 25px;
+}
+
+.chlTitle {
+	font-weight: 600;
+	font-size: 15px;
 }
 
 .search_area {
@@ -63,7 +72,7 @@
 .pageInfo {
 	list-style: none;
 	display: inline-block;
-	margin: 50px 0 0 100px;
+	margin: 50px 0 0 -12px;
 }
 
 .pageInfo li {
@@ -116,15 +125,13 @@ a:hover {
 
 				<div class="challenge">
 					<div class="challenge-thumbnail">
-						<img src="/resources/img/chl_thumbnail/chl_thumb${challenge.challengeNo }.jpg" onerror="this.src='https://shared-comic.pstatic.net/thumb/webtoon/796152/thumbnail/thumbnail_IMAG10_a500c803-99ec-4bf8-92d1-b2a5c60c9789.jpg'">
+						<a class="move" href='<c:out value="${challenge.challengeNo}"/>'>
+							<img src="/resources/img/chl_thumbnail/chl_thumb${challenge.challengeNo }.jpg" onerror="this.src='https://shared-comic.pstatic.net/thumb/webtoon/796152/thumbnail/thumbnail_IMAG10_a500c803-99ec-4bf8-92d1-b2a5c60c9789.jpg'">
+						</a>
 					</div>
 					<div class="challenge-content">
 						<ul>
-							<li>
-								챌린지 번호 :
-								<c:out value="${challenge.challengeNo}" />
-							</li>
-							<li>
+							<li class="chlTitle">
 								제목 :
 								<a class="move" href='<c:out value="${challenge.challengeNo}"/>'>
 									<c:out value="${challenge.challengeName}" />
