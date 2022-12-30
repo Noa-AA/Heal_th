@@ -53,12 +53,12 @@
 
 <style type="text/css" >
 #updatePw{
-	padding-top: 0;
+	padding-top: 150px;
 }
 
 #beforeUpdatePw {
 	width: 542px;
-    height: 820px;
+    height: 560px;
     position: relative;
     background-color: white;
     border-radius: 12px;
@@ -72,7 +72,7 @@
 
 #boxArea{
 	margin: 0px 60px;
-    height: 800px;
+    height: 560px;
 
 }
 #titleForHead{
