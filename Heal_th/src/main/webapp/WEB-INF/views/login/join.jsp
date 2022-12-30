@@ -485,8 +485,6 @@
     text-align: center;
  }
  
- 
- 
  #logoImg{
  		
     text-align: center;

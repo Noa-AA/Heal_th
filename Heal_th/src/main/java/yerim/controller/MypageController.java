@@ -97,16 +97,19 @@ public class MypageController {
 	
 	@ResponseBody
 	@PostMapping("/getEmailCodeForUpdate")
-	public String updateEmail(Users userEmail,HttpSession session) {
+	public boolean updateEmail(Users userEmail,HttpSession session) {
 		logger.info("이메일 보내기");
 		//이메일 인증 보내기
 		String emailCodeForUpdate = mypageService.sendEmailCode(userEmail);
 	
-		//인증된 메일 세션에 저장하기
-		session.setAttribute("sessionEmailCdoe", emailCodeForUpdate);
-		
-		logger.info(emailCodeForUpdate);
-		return emailCodeForUpdate;
+		if(emailCodeForUpdate != null) {
+			
+			//인증된 메일 세션에 저장하기
+			logger.info(emailCodeForUpdate);
+			session.setAttribute("sessionEmailCdoe", emailCodeForUpdate);
+			return true;
+		}
+		return false;
 	}
 	
 	@ResponseBody
@@ -120,16 +123,18 @@ public class MypageController {
 	
 	@ResponseBody
 	@PostMapping("/smsCodeForUpdate")
-	public String updatePhone(Users userPhone,HttpSession session) {
+	public boolean updatePhone(Users userPhone,HttpSession session) {
 		logger.info("문자 인증 보내기");
 		
 		//문자로 인증번호 보내기
 		String smsCodeForUpdate = mypageService.sendSmsCode(userPhone);
-		
-		//세션에 인증번호 저장
-		session.setAttribute("sessionSmSCode", smsCodeForUpdate);
-		
-		return smsCodeForUpdate;
+		if(smsCodeForUpdate != null) {
+			
+			//세션에 인증번호 저장
+			session.setAttribute("sessionSmSCode", smsCodeForUpdate);
+			return true;
+		}
+		return false;
 		
 	}
 	 @ResponseBody
