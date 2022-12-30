@@ -4,15 +4,44 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		
+		
 	$("#chkPw").click(function(){
 		console.log("click")
-		$("#chkUsingPwForm").submit()
-	})
-		if(${isUsingPw} == false){
-			$("#resultPw").html("비밀번호를 다시 한번 확인해주세요")
-			$("#resultPw").css("color","red")
+			$.ajax({
+				type:"post"
+				,url : "/mypage/chkUsingPw"
+				,data:{
+					userId : $("#userId").val(),
+					userPw: $("#userPw").val()
+					
+				}
+			,dataType: "json"
+			,success : function (res){
 				
-		}
+				if(res){
+					console.log("비밀번호 일치")
+					location.href="/mypage/setUserPw"
+					
+				}else {
+					console.log("비밀번호 불일치")
+						$("#resultPw").html("비밀번호를 다시 한번 확인해주세요")
+						$("#resultPw").css("color","red")
+					}
+				}
+				,error :function(){
+					 console.log("오류입니다.")
+					 alert("시스템 오류  다시 진행해주세요")
+				 
+				}
+				
+			
+				
+				
+			})
+			
+	})
+
 		$("#cancel").click(function(){
 			console.log("취소하기")
 			history.go(-1)
@@ -20,11 +49,6 @@
 	})
 
 		
-	function chkUsingPw(){
-		console.log("click")
-		$("#chkUsingPwForm").submit()
-	}	
-	
 </script>
 
 <style type="text/css" >
@@ -49,7 +73,7 @@
 			</div>
 			
 			<div id="beforeUpdatePwForm">
-				<form action="/mypage/chkUsingPw" method="post" id="chkUsingPwForm">
+				<form id="chkUsingPwForm">
 					<div id="showid"> 
 						<label for="userId">	
 							<span class="formTitle userId">아이디</span>
@@ -66,7 +90,7 @@
 					</div>
 
 					<div id="btn">
-						<button type="button" id="chkPw" onclick="chkUsingPw()">비밀번호 확인</button>
+						<button type="button" id="chkPw" >비밀번호 확인</button>
 						<button type="button" id="cancel">취소하기</button>
 					</div>
 			

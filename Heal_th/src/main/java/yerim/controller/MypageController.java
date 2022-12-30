@@ -165,24 +165,16 @@ public class MypageController {
 		 model.addAttribute("userId", userId);
 	 }
 	 
+	 @ResponseBody
 	 @PostMapping("chkUsingPw")
-	 public String chkUsingPw(HttpSession session,Users updatePwInfo,Model model) {
+	 public boolean chkUsingPw(HttpSession session,Users updatePwInfo) {
 		 logger.info("/mypage/chkUsingPw [POST]");
-		 
+		 logger.info("전달받은 아이디/비밀번호 : {}",updatePwInfo);
 		 		 
 		 //현재 비밀번호와 맞는지 확인하기
 		 boolean isUsingPw = mypageService.getuserPw(updatePwInfo,session);
-		 
-		 if(isUsingPw) {//확인된 비밀번호 일치
-			 logger.info("현재 사용중인 비밀번호 일치 - 비밀번호 초기화하기");
-			 return "/mypage/setUserPw";
-			 
-		 }
-		
-		 //model값으로 false값 넘겨 주기 
-		 model.addAttribute("isUsingPw", isUsingPw);
-		 return "/mypage/updatePw";
-		
+		logger.info("현재 사용중인 비밀번호 조회 결과 : {}",isUsingPw);
+		return isUsingPw;
 		 
 	 }
 	 
