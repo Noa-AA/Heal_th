@@ -62,5 +62,11 @@ public class CartServiceImpl implements CartService {
 		int chkCtNo = cartDao.selectBychkCtNo(cartNo);
 		logger.info("카트번호 중복 체크{}",chkCtNo);
 		return chkCtNo;
+	}
+
+
+	@Override
+	public void deleteCartAll(int userNo) {
+		cartDao.deleteCartAll(userNo);
 	}	
 }
