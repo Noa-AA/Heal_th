@@ -21,7 +21,7 @@
         SELECT notice_no, notice_ttl, notice_date, notice_hit, 
 	       admin_no  FROM(
         
-                SELECT /*+ INDEX_DESC(notice notice_no) */
+                SELECT /*+INDEX_DESC(notice pk_notice) */
                 rownum  as rn, notice_no, notice_ttl, notice_date,
 								notice_hit, admin_no
                   

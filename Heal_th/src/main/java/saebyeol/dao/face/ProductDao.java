@@ -3,7 +3,7 @@ package saebyeol.dao.face;
 import java.util.List;
 
 import saebyeol.dto.AttachImage;
-import saebyeol.dto.Criteria;
+import saebyeol.dto.ProductCriteria;
 import saebyeol.dto.Prodcategory;
 import saebyeol.dto.Product;
 
@@ -15,11 +15,8 @@ public interface ProductDao {
 	//카테고리
 	public List<Prodcategory> cateList();
 	
-	//상품 목록
-	public List<Product> getList(Criteria cri);
-	
 	//총 상품 수
-	public int getTotal(Criteria cri);
+	public int getTotal(ProductCriteria cri);
 
 	//상품보기
 	public Product getDetail(int prodNo);
@@ -39,8 +36,8 @@ public interface ProductDao {
 	//지정 상품 이미지 정보 얻기
 	public List<AttachImage> getAttachInfo(int prodNo);
 	
-	//상품 검색
-	public List<Product> getProductList(Criteria cri);
+	//상품 목록
+	public List<Product> getProductList(ProductCriteria cri);
 
 	//상품 정보
 	public Product getInfo(int prodNo);

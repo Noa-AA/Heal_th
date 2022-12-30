@@ -121,10 +121,6 @@ $(document).ready(function() { //공지사항으로 이동
 			<input name="pDetail" value="<c:out value="${productInfo.pDetail }"/>" disabled>
 	</div>
 	<div class="form_section">
-			<label>판매수량</label>
-			<input name="pSell" value="<c:out value="${productInfo.pSell }"/>" disabled>
-	</div>
-	<div class="form_section">
 			<label>메인사진</label>
 			<input name="pImage1" value="<c:out value="${productInfo.pImage1 }"/>" disabled>
 	</div>
