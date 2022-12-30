@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
-
+<%@include file="../layout/mypageSide.jsp" %>
 <script type="text/javascript">
 	$(document).ready(function(){
 		
@@ -52,8 +52,20 @@
 </script>
 
 <style type="text/css" >
+header{
+	margin-bottom: 80px !important;
+
+}
 #updatePw{
-	padding-top: 150px;
+	padding-top: 0;
+	 height: 100%;
+	 background-color: #f9fbfc;
+	 
+}
+#contains{
+	padding-top:150px;
+	padding-left:220px;
+	
 }
 
 #beforeUpdatePw {
@@ -72,7 +84,7 @@
 
 #boxArea{
 	margin: 0px 60px;
-    height: 560px;
+    height: 100%;
 
 }
 #titleForHead{
@@ -161,50 +173,51 @@
 .gotoSearchPw:hover{
 	color: #7ca3f5;
 }
+
 </style>
 
 <body id="updatePw">
-
-	<div id="beforeUpdatePw">
-		<div id="boxArea">
-			<div id="title">
-				<span id="titleForHead">비밀번호 변경하기</span>
-			</div>
-			
-			<div id="description">
-				<span class="formTitle formDescription">비밀번호 변경 전 현재 사용 중인 비밀번호를 입력해주세요</span>
-			</div>
-			
-			<div id="beforeUpdatePwForm">
-				<div id="chkUsingPwForm">
-					<div id="showId" class="inputArea"> 
-						<label for="userId">	
-							<span class="formTitle userId">아이디</span>
-						</label>
-						<input type="text" id="userId" name="userId" class="inputInfo" value="${userId}" readonly="readonly">
-					</div>
-					
-					<div id="inputUsingPw" class="inputArea">
-						<label for="userPw">
-							<span class="formTitle usingPwChk">현재 비밀번호</span>
-						</label>		
-							<input type="password" id="userPw" name="userPw" class="inputInfo">
-						<div id="resultPw" class="resMsg"></div>
-					</div>
-
-					<div id="btnArea">
-						<button type="button" id="btnchkPw" >비밀번호 확인</button>
-						<button type="button" id="btnCancel">취소하기</button>
-					</div>
+	<div id="contains">
+		<div id="beforeUpdatePw">
+			<div id="boxArea">
+				<div id="title">
+					<span id="titleForHead">비밀번호 변경하기</span>
 				</div>
-				<div id="searchPw">
-					<a href="/login/searchPw"><span class="formTitle gotoSearchPw">비밀번호가 기억나지 않아요</span></a>
+				
+				<div id="description">
+					<span class="formTitle formDescription">비밀번호 변경 전 현재 사용 중인 비밀번호를 입력해주세요</span>
 				</div>
-			
-			
+				
+				<div id="beforeUpdatePwForm">
+					<div id="chkUsingPwForm">
+						<div id="showId" class="inputArea"> 
+							<label for="userId">	
+								<span class="formTitle userId">아이디</span>
+							</label>
+							<input type="text" id="userId" name="userId" class="inputInfo" value="${userId}" readonly="readonly">
+						</div>
+						
+						<div id="inputUsingPw" class="inputArea">
+							<label for="userPw">
+								<span class="formTitle usingPwChk">현재 비밀번호</span>
+							</label>		
+								<input type="password" id="userPw" name="userPw" class="inputInfo">
+							<div id="resultPw" class="resMsg"></div>
+						</div>
+	
+						<div id="btnArea">
+							<button type="button" id="btnchkPw" >비밀번호 확인</button>
+							<button type="button" id="btnCancel">취소하기</button>
+						</div>
+					</div>
+					<div id="searchPw">
+						<a href="/login/searchPw"><span class="formTitle gotoSearchPw">비밀번호가 기억나지 않아요</span></a>
+					</div>
+				
+				
+				</div>
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>
