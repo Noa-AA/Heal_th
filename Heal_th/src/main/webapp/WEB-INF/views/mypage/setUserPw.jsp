@@ -56,6 +56,8 @@
 		//폼 전송하기
 		$("#btnUpdatePw").click(function(){
 			console.log("버튼 클릭")
+			//유효성 검사 됐을 때 submit 
+			
 			if($("#chkSetPw").val() ==""){
 				$("#resultMsgChk").html("비밀번호 확인을 해주세요")
 				$("#resultMsgChk").css("color","red")
@@ -63,12 +65,11 @@
 				return false
 			}
 			
-			//유효성 검사 됐을 때 submit 
 			if( validateUpdatePw()&&validateCkh()){
-				$("#updatePwForm").submit()
 				alert("비밀번호가 변경되었습니다. 다시 로그인 해주세요")
-					
-				}
+				$("#setPwForm").submit()
+				
+			}
 		})
 		
 	
@@ -205,7 +206,7 @@ function validateUpdatePw(){
 		</div>
 	
 		<div id="updatePwForm">
-			<form action="/mypage/setNewPw" method="post" id="updatePwForm">
+			<form action="/mypage/setNewPw" method="post" id="setPwForm">
 				<div id="updatePw" class="inputArea">
 					<label for="userPw">
 						<span class="formTitle newPw">비밀번호 </span>

@@ -64,7 +64,7 @@ $(document).ready(function(){
 		//유효성 검사 됐을 때 submit 
 		if( validateUpdatePw()&&validateCkh()){
 			$("#updatePwForm").submit()
-				
+			
 			}
 	})
 	
@@ -213,7 +213,7 @@ function validateCkh(){
 					<label for="userPw">
 						<span class="formTitle newPw">비밀번호</span>
 					</label >
-						<input type="text" name="userPw" id="userPw" class="inputInfo">
+						<input type="password" name="userPw" id="userPw" class="inputInfo">
 					<div id="resultMsg" class="resMsg"></div>	
 				</div>
 			
@@ -222,7 +222,7 @@ function validateCkh(){
 					<label for="chkPw"> 
 						<span class="formTitle newPwChk">비밀번호 확인</span>
 					</label>
-					<input type="text" name="userchkPw" id="userchkPw" class="inputInfo">
+					<input type="password" name="userchkPw" id="userchkPw" class="inputInfo">
 					<div id="resultMsgChk" class="resMsg"></div>	
 				</div>
 				

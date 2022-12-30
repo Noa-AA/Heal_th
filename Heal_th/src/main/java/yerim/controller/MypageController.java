@@ -204,6 +204,7 @@ public class MypageController {
 		 //비밀번호 재설정
 		 mypageService.updateNewPw(userNewPw,session);
 		 
+		 logger.info("비밀번호 설정 완료 ");
 		 //업데이트 후 로그인 페이지로 이동
 		 return "redirect:/login/login";
 	 }
