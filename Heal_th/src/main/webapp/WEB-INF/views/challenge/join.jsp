@@ -80,8 +80,8 @@ input:not(:disabled) {
 			</div>
 			<div class="area-body">
 				<div class="input-group">
-					<label>챌린지 번호 : </label>
-					<input type="text" name="challengeNo" id="challengeNo" value="${challenges.challengeNo }" disabled="disabled">
+<!-- 					<label>챌린지 번호 : </label> -->
+					<input type="hidden" name="challengeNo" id="challengeNo" value="${challenges.challengeNo }" disabled="disabled">
 				</div>
 				<div class="input-group">
 					<label>챌린지 종류 : </label>

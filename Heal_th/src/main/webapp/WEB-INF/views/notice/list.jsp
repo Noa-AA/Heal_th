@@ -113,6 +113,14 @@ table{font-size:  17px;}
 color: white; 
 background: linear-gradient(to right, #3f94d6 0 , #1869a7);
 }
+.menuBtnSel{
+   width: 150px; 
+   height: 40px;
+   border: 1px solid #3f94d6;
+   padding: 5px;
+   background: linear-gradient(to right, #3f94d6 0 , #1869a7);
+   color: white; 
+}
 
 #btnNotice{
 	border-top-left-radius: 20px;
@@ -155,27 +163,53 @@ background: linear-gradient(to right, #3f94d6 0 , #1869a7);
     margin-left: 15px;
     background-color: #c3daf7;
 }
+	/* 페이지 버튼 인터페이스 */
+.pageInfo_wrap{
+	text-align: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
 .pageInfo{
-  	list-style : none;
-  	display: inline-block;
-    margin: 50px 0 0 100px;  	
-  }
-  .pageInfo li{
-  	float: left;
-    font-size: 20px;
-    margin-left: 18px;
-    padding: 7px;
-    font-weight: 500;
-  }
+    list-style: none;
+    display: inline-block;
+}	
+.pageInfo_btn {
+    float: left;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 20px;
+}
+.active{
+	border : 2px solid black;
+	font-weight:400;
+}
+.next, .prev {
+    border: 1px solid #ccc;
+    padding: 0 10px;
+}
+.pageInfo_btn a:link {color: black;}
+.pageInfo_btn a:visited {color: black;}
+.pageInfo_btn a:active {color: black;}
+.pageInfo_btn a:hover {color: black;}
+.next a, .prev a {
+    color: #ccc;
+}
 .bottomBtn{
 	float: right;  
-	
+	height: 32px;
+    width: 80px;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 20px;
+    margin-left: 15px;
+    background-color: #c3daf7;
 }
 
 </style>
 <div class="admin_content_subject"><span>게시물 관리</span></div>
 <div class="btnWrap">
-<h3><button type="button" id="btnNotice" class="menuBtn">공지사항</button><button type="button" id="btnReport" class="menuBtn">신고글 관리</button></h3>
+<h3><button type="button" id="btnNotice" class="menuBtn menuBtnSel">공지사항</button><button type="button" id="btnReport" class="menuBtn">신고글 관리</button></h3>
 </div>
 <table class="table table-hover">
 <thead>
@@ -220,6 +254,7 @@ background: linear-gradient(to right, #3f94d6 0 , #1869a7);
 <button id="btnWrite" class="bottomBtn">글쓰기</button>
 <button id="btnList" class="bottomBtn">목 록</button>
 
+<!-- 페이지 이동 인터페이스 영역 -->
 <div class="pageInfo_wrap" >
 	<div class="pageInfo_area">
 		<ul id="pageInfo" class="pageInfo">

@@ -436,7 +436,7 @@ button {
 	    					<div id='senderImg'>
 	    						<span id='timeImgS'>
 	    							<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
-									<fmt:formatDate value="${date }" pattern="a hh:ss" />
+									<fmt:formatDate value="${date }" pattern="a hh:mm" />
 	    						</span>
 	    						<img src="${pageContext.request.contextPath}/upload/${chatList.chatContents }" id="imgS">
 	    					</div>
@@ -447,7 +447,7 @@ button {
 		    				<div id='senderMsg'>
 		    					<span id='timeS'>
 		    						<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
-									<fmt:formatDate value="${date }" pattern="a hh:ss" />
+									<fmt:formatDate value="${date }" pattern="a hh:mm" />
 		    					</span>
 		    					<a id='msgS'>
 		    						${chatList.chatContents }
@@ -467,7 +467,7 @@ button {
 	    						<img src="${pageContext.request.contextPath}/upload/${chatList.chatContents }" id="imgR">
 	    						<span id='timeImgR'>
 	    							<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
-									<fmt:formatDate value="${date }" pattern="a hh:ss" />
+									<fmt:formatDate value="${date }" pattern="a hh:mm" />
 	    						</span> 
 	    					</div>
 	    				</c:if>
@@ -481,7 +481,7 @@ button {
 		    					</a>
 		    					<span id='timeR'>
 		    						<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
-									<fmt:formatDate value="${date }" pattern="a hh:ss" />
+									<fmt:formatDate value="${date }" pattern="a hh:mm" />
 		    					</span>
 		    				</div>
 	    				</c:if>

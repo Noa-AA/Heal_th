@@ -68,7 +68,7 @@
 
 	// 서버와 연결을 끊었을 때
 	function onClose(evt) {
-		$("#messages").append("연결 끊김");
+		$("#messages").append("예기치 못한 오류로 연결이 끊겼습니다. 새로고침을 해주세요.");
 
 	}
 	

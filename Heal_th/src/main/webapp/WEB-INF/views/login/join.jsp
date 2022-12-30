@@ -485,8 +485,6 @@
     text-align: center;
  }
  
- 
- 
  #logoImg{
  		
     text-align: center;
@@ -715,7 +713,7 @@ top:154px;
 			<div id="formArea">
 				<form action="/login/join" method="post" id="joinform">
 					<div id="howJoin">
-						<input id="joinType" name="joinType" value="Dg" style="display: none;">
+						<input id="jointype" name="jointype" value="Dg" style="display: none;">
 					</div>
 					
 					<div id="name" class="inputArea">		
@@ -745,7 +743,7 @@ top:154px;
 					</div>
 					
 					<div id="checkId">
-						<button type="button" id="btn_checkId"><span class="btnTitle isId">중복확인</span></button>
+						<button type="button" id="btn_checkId">중복확인</button>
 					</div>
 					
 					
@@ -785,7 +783,7 @@ top:154px;
 							<input type="text" name="userPhone" id="userPhone" class="inputInfo">
 							
 							<div id="userchk">
-								<button type="button" id="btn_userchk"><span class="btnTitle userchk">본인인증</span></button>
+								<button type="button" id="btn_userchk">본인인증</button>
 							</div>
 							<div id="userchkAlert" class="resMsg"></div>
 						</div>
@@ -794,10 +792,10 @@ top:154px;
 					<div id="codeChk" class="inputArea" style="display:none;" >
 						<div id="smschk" >
 							<input type="text" name="code" id="code" class="inputInfo">
-							<div id="btnsmschk">
 						</div>
-								<button type="button" id="btn_code"><span class="btnTitle btnsmsCodeChk">인증번호 확인</span></button>			
-							</div>
+						<div id="btnsmschk">
+							<button type="button" id="btn_code">인증번호 확인</button>			
+						</div>
 							<div id="result_code" class="resMsg"></div>
 					</div>					
 					
