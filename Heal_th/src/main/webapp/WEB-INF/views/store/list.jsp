@@ -31,19 +31,25 @@
 
 
 
+#cart{
+	background-color: transparent;
+	border: 2px solid #7ca3f5; 
+	color:#7ca3f5;
+	border-radius: 8px;
+	text-align: center;
+	flex:3;
+	width: 100px;
+	height: 32px;
+	font-size:12px;
+	margin-top:100px;
+}
+
+
 .title {
 	margin-bottom: 40px;
 }
 
-.store-list {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	/* 	margin: 50px 50px 90px 50px; */
-	margin: auto;
- 	gap: 50px 50px; 
-	width: 1200px;
-}
+
 
 .store {
 	position: relative;
@@ -139,23 +145,30 @@ a:hover {
 	flex-wrap: wrap;
 	width : 372px;
 	height: 300px;
-	background-color: #eee;
+	background-color: #fff;
 	margin-right: 42px;
 	margin-bottom: 10px;
-	
+	align-content: flex-end;
+    justify-content: center;
+	padding-bottom: 35px;
+	border:2px solid #7ca3f5;
+	border-radius: 10px !important;
 }
 .store-ul:nth-child(3n) {
     margin-right: 0px;
 }   
 
 
-#cart{
-	width: 76px;
-	height: 23px;
-	font-size:10px;
-	
-}
 
+
+.imgbox{
+	border: 1px solid #ccc;
+    width: 230px;
+    height: 230px;
+        display: block;
+    box-sizing: border-box;
+    margin: 10px;
+}
 
 -------------------
 
@@ -185,6 +198,12 @@ a:hover {
 	align-items: center;
 }
 
+
+li1{
+	
+	
+}
+
 ---------------
 
 
@@ -209,6 +228,25 @@ a:hover {
 	height: 35px;
 }
 
+
+#twoDepth-list a {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666666;
+    font-size: 18px;
+    font-weight: 400;
+    width: 50%;
+}
+
+#twoDepth-list a:nth-child(1){
+    color: #b571e9;
+    border-bottom: 2px solid #b571e9;
+    margin-top: 1px;
+    font-weight: 700;
+}
+
 </style>
 
 <%@include file="../layout/header.jsp" %>
@@ -222,10 +260,11 @@ a:hover {
 </div>
 <div id="twoDepth">
     <div id="twoDepth-list">
+        <a href="/store/list">상점 바로가기</a>
         <a href="/store/cartlist">장바구니 바로가기</a>
 
     </div>
-</div>
+</div><!-- subvisual 끝 -->
 
 
 
@@ -235,20 +274,21 @@ a:hover {
 
 
 
-	<div class="store-list">
 
-<!-- 			<div class="store"> -->
-<!-- 				<div class="store-thumbnail"> -->
-				</div>
 				<div class="store-content">
 					<c:forEach items="${list }" var="StoreDto">
 					<ul class="store-ul">
-						<li>
+					<div class="imgbox">
+						
+					</div>
+					<div class="main" style="padding-top:23px;">
+						<li class="li1" style="font-size:14px;">
 							<a href="/store/view?prodNo=${StoreDto.prodNo }">${StoreDto.pName }</a>
 						</li>
-						<li>가격 : ${StoreDto.pPrice } 원</li>
+						<li>${StoreDto.pPrice } 원</li>
 						<li>조회수 : ${StoreDto.pHit } </li>
-					<button id="cart"  ><a href="/store/cart?prodNo=${StoreDto.prodNo }">장바구니에 담기</a></button>
+					<button id="cart" ><a href="/store/cart?prodNo=${StoreDto.prodNo }">장바구니에 담기</a></button>
+					</div><!-- main끝 -->
 
 
 					</ul>
@@ -258,14 +298,14 @@ a:hover {
 
 
 
-			<div class="search_wrap text-center">
-			<div class="search_area">
-				<select name="type" id="type">
-					<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':'' }"/>>제목</option>
-				</select> <input type="text" name="keyword" value="${pageMaker.cri.keyword }">
-				<button>검색</button>
-			</div>
-		</div>
+<!-- 			<div class="search_wrap text-center"> -->
+<!-- 			<div class="search_area"> -->
+<!-- 				<select name="type" id="type"> -->
+<%-- 					<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':'' }"/>>제목</option> --%>
+<%-- 				</select> <input type="text" name="keyword" value="${pageMaker.cri.keyword }"> --%>
+<!-- 				<button>검색</button> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 		
 		
 		

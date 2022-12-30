@@ -31,7 +31,7 @@
  
  
  <!-- 카트 조회 --> 
- 	<select id="getCart" parameterType="int" resultType="CartDto"> 
+ 	<select id="getCart" parameterType="CartDto" resultType="CartDto"> 
 		SELECT p.prod_no,p.p_name,p.p_price,p.p_image1,c.user_no FROM product p
 		INNER JOIN cart c
  		   on p.prod_no = c.prod_no
@@ -45,6 +45,11 @@
 	
 		delete from cart where prod_no = #{prodNo}
 	
+	</delete>
+	<!-- 카트 전부 삭제 -->
+	<delete id="deleteCartAll"  parameterType="int" >
+	
+		delete from cart where user_no = #{userNo} 
 	</delete>
 	
 	

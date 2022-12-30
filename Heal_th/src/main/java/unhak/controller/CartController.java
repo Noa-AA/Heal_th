@@ -64,6 +64,8 @@ public class CartController {
 		int chkCtNo = cartService.checkByCt(cartNo);
 		
 		
+		logger.info("체크확인{}",cartNo);
+		
 		return chkCtNo;
 	}
 	
@@ -82,7 +84,7 @@ public class CartController {
 		
 		logger.info("list : {}",list);
 		
-		logger.info("유저넘버 확인2 : {}",userNo);
+		logger.info("카트에 담은 유저 번호: {}",userNo);
 		//---------------------------------------------------------------
 		
 		
@@ -114,6 +116,26 @@ public class CartController {
 		
 		return "redirect:/store/cartlist";
 	}
+	
+	
+	
+	
+	//장바구니 전체 삭제
+	@RequestMapping("/cart/cartDeleteAll")
+	public String deleteAll(CartDto cart,HttpSession session) {
+		
+		logger.info("{}", cart);
+		
+		int userNo = (int)session.getAttribute("userNo"); //유저넘버불러오기
+		
+		cartService.deleteCartAll(userNo);
+		
+		
+		return "redirect:/store/cartlist";
+	}
+	
+	
+	
 	
 //		/*장바구니 수량 수정 */
 ////		@PostMapping("/store/cartlist")
