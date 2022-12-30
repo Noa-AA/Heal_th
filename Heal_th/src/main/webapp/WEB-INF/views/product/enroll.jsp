@@ -17,7 +17,7 @@ $(document).ready(function() {
 	
 	$("#cancelBtn").click(function(){ //취소 버튼
 	
-		location.href="/product/list"
+		history.go(-1)
 	
 	});
 	

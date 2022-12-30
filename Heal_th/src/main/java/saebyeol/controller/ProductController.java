@@ -36,8 +36,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.coobird.thumbnailator.Thumbnails;
 import saebyeol.dto.AttachImage;
-import saebyeol.dto.Criteria;
-import saebyeol.dto.Page;
+import saebyeol.dto.ProductCriteria;
+import saebyeol.dto.ProductPage;
 import saebyeol.dto.Prodcategory;
 import saebyeol.dto.Product;
 import saebyeol.service.face.AttachService;
@@ -56,18 +56,6 @@ public class ProductController {
 	//Attach 서비스객체
 	@Autowired AttachService attachService;
 	
-	
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public void list(Criteria cri, Model model) {
-		logger.info("상품목록페이지 접속");
-		
-		List<Product> list = productService.list(cri);
-		logger.info("{}", list);
-		model.addAttribute("list", list);
-		
-		model.addAttribute("page", new Page(cri, productService.getTotal(cri)));
-		
-	}
 
 	@GetMapping("/enroll")
 	public void productEnroll(Model model) throws JsonProcessingException {
@@ -99,7 +87,7 @@ public class ProductController {
 	
 	//상품 조회, 수정 페이지
 	@GetMapping({"/detail", "/modify"})
-	public void getInfo(int prodNo, Criteria cri, Model model) throws JsonProcessingException{
+	public void getInfo(int prodNo, ProductCriteria cri, Model model) throws JsonProcessingException{
 		logger.info("getInfo() : " + prodNo);
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -115,14 +103,7 @@ public class ProductController {
 		
 	}
 	
-//	@GetMapping("/detail/{prodNo}")
-//	public String detail(@PathVariable("prodNo")int prodNo, Model model) {
-//
-//		model.addAttribute("productInfo", productService.getInfo(prodNo));
-//			
-//		return "/detail";
-//	}
-	
+	//수정
 	@PostMapping("/modify")
 	public String modify(Product product, RedirectAttributes rttr) {
 		logger.info("modifyPOST---" + product);
@@ -134,6 +115,7 @@ public class ProductController {
 		return "redirect:/product/list";
 	}
 	
+	//삭제
 	@PostMapping("/delete")
 	public String delete(int prodNo, RedirectAttributes rttr) {
 		logger.info("delete ---");
@@ -300,26 +282,19 @@ public class ProductController {
 		
 	}
 	
-	/* 상품 검색 */
-	@GetMapping("/search")
-	public String searchGoodsGET(Criteria cri, Model model) {
+	//목록
+	@GetMapping("/list")
+	public void list(ProductCriteria cri, Model model) {
 		
 		logger.info("cri : " + cri);
 		
 		List<Product> list = productService.getProductList(cri);
-		logger.info("pre list : " + list);
-		if(!list.isEmpty()) {
-			model.addAttribute("list", list);
-			logger.info("list : " + list);
-		} else {
-			model.addAttribute("listcheck", "empty");
-			
-			return "search";
-		}
+		logger.info("list : {} " + list);
 		
-		model.addAttribute("page", new Page(cri, productService.productGetTotal(cri)));
+		model.addAttribute("list", list);
 		
-		return "search";
+		model.addAttribute("page", new ProductPage(cri, productService.getTotal(cri)));
+		
 		
 	}	
 	
