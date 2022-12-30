@@ -113,8 +113,9 @@ a:focus, a:hover {
     box-sizing: border-box;
     width: 750px;
     height: 800px;
-    margin-left: 95px;
+/*     margin-left: 95px; */
     padding-bottom: 20px;
+    margin-left: 225px;
 
     /*stacking fieldsets above each other*/
     position: relative;
@@ -208,7 +209,8 @@ a:focus, a:hover {
     color: lightgrey;
     width: 800px;
     text-align: center;
-    margin-left: 67px;
+/*     margin-left: 67px; */
+	margin-left: 205px;
 }
 
 
@@ -275,6 +277,12 @@ a:focus, a:hover {
     background: #7ca3f5;
 }
 
+#contents{
+	right: 50%;
+    left: 50%;
+    margin: -50px 0 0 -50px;
+    text-align: center;
+}
 
 </style>
 
@@ -380,6 +388,11 @@ $(document).ready(function(){
 	    });
 	  } );
 	
+	$("input[name='gender'][value='${updateBoard.gender}']").prop("checked", true)
+	gender();
+	
+	$("input[type='radio']").click(gender);
+	
 	$("#btnUpdate").click(function() {
 		
 		$(this).parents("form").submit();
@@ -390,7 +403,9 @@ $(document).ready(function(){
 
 })
 
-
+function gender() {
+      var sim =  $("input[type='radio']:checked").val();
+}
 </script>
 
 
@@ -401,8 +416,8 @@ $(document).ready(function(){
 <!-- MultiStep Form -->
 <div class="container-fluid" id="grad1">
     <div class="row justify-content-center mt-0">
-        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
-            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2" style="max-width: 1200px;">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3" style="width: 1200px;">
                 <h1><strong style="font-size: 40px; text-align: center;">Before & After 게시글</strong></h1><br><br>
                 <p style="font-size: 15px; text-align: center;">게시글을 작성해주세요</p><br><br>
                 <div class="row">
@@ -433,8 +448,8 @@ $(document).ready(function(){
 									<input type="text" id="height" name="height" value="${updateBoard.height }" placeholder="숫자만 입력해 주세요">
 				                <br>
 				                 <label for="gender" style="margin-right: 15px;">성별</label><br>
-									<input type="radio" id="gender" name="gender" value="female" style="width: 14px; margin-top: 16px;"><span style="margin-left: 20px; display: block; margin-top: -39px;">여성</span>
-									<input type="radio" id="gender" name="gender" value="male" style=" display: block; width: 14px; margin-top: -14px; margin-left: 61px"><span style="margin-left: 80px; display: block; margin-top: -39px;">남성</span>
+									<input type="radio" id="female" name="gender" value="female" style="width: 14px; margin-top: 16px;"><span style="margin-left: 20px; display: block; margin-top: -39px;">여성</span>
+									<input type="radio" id="male" name="gender" value="male" style=" display: block; width: 14px; margin-top: -14px; margin-left: 61px"><span style="margin-left: 80px; display: block; margin-top: -39px;">남성</span>
 				                 <br><br>
 				                 <label for="weight">몸무게</label>
 									<input type="text" id="weight" name="weight" value="${updateBoard.weight }" placeholder="숫자만 입력해 주세요">
@@ -443,7 +458,7 @@ $(document).ready(function(){
 				                    <input type="text" id="bfExercise" name="bfExercise" value="${updateBoard.bfExercise }" placeholder="현재 하고 있는 운동종류를 입력해주세요">
 				                  <br>
 				                  <label for="file">첨부파일</label><br>
-									<jsp:include page="../file/upload.jsp" /> 
+									<jsp:include page="../file/update.jsp" /> 
 								</div>
 
 								<br><br>

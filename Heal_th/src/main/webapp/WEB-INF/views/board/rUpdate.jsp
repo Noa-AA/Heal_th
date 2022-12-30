@@ -26,17 +26,20 @@ a {
     text-decoration: none;
 }
 
+a:focus, a:hover {
+    text-decoration: none;
+    outline: none;
+}
+
+
 * {
     margin: 0;
     padding: 0;
 }
 
-header{margin-bottom: 0px;}
+header{margin-bottom: 140px;}
 
-html {
-/*     height: 100%; */
-	height: 1300px;
-}
+body{padding: 0;}
 
 /* button style */
 #btnCancle{
@@ -131,7 +134,7 @@ margin-top: 3px;
     box-sizing: border-box;
     width: 750px;
     height: 800px;
-    margin-left: 95px;
+    margin-left: 225px;
     padding-bottom: 20px;
 
     /*stacking fieldsets above each other*/
@@ -226,7 +229,7 @@ margin-top: 3px;
     color: lightgrey;
     width: 800px;
     text-align: center;
-    margin-left: 67px;
+    margin-left: 205px;
 }
 
 
@@ -292,6 +295,12 @@ margin-top: 3px;
 #progressbar li.active:before, #progressbar li.active:after {
     background: #7ca3f5;
 }
+/* #contents{ */
+/* 	right: 50%; */
+/*     left: 50%; */
+/*     margin: -50px 0 0 -50px; */
+/*     text-align: center; */
+/* } */
 
 </style>
 
@@ -391,8 +400,8 @@ function updateStar() {
 <!-- MultiStep Form -->
 <div class="container-fluid" id="grad1">
     <div class="row justify-content-center mt-0">
-        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
-            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2" style="max-width: 1200px;">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3" style="width: 1200px;">
                 <h1><strong style="font-size: 40px; text-align: center;">시설 후기 게시글</strong></h1><br><br>
                 <p style="font-size: 15px; text-align: center;">게시글을 작성해주세요</p><br><br>
                 <div class="row">
@@ -431,7 +440,7 @@ function updateStar() {
 				                    <input type="text" id="price" name="price" value="${updateBoard.price }" placeholder="현재 하고 있는 운동종류를 입력해주세요">
 				                  <br>
 				                  <label for="file">첨부파일</label><br>
-									<jsp:include page="../file/upload.jsp" /> 
+									<jsp:include page="../file/update.jsp" />
 								</div>
 
 								<br><br>

@@ -284,15 +284,6 @@ $(document).ready(function(){
 	        duration: 600
 	    });
 	    
-	    if($("#bfTitle").val().length == 0) {
-				$("#bfTitle").focus(function() {
-					alert("제목 입력");					
-				});
-			
-				return false;
-			
-		}
-			
 	    
 	});
 	
