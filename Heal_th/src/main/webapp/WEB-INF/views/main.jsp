@@ -5,26 +5,45 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script><!-- 이거 -->
 <script type="text/javascript">
 $(document).ready(function(){
-	<%-- 여기부터 --%>
-	function checkPopup() {
-		var sessionData = <%=session.getAttribute("userNo")%>
-		if(null==sessionData || !sessionData){// 로그인 안됐을경우
-		}else{
-			if($.cookie('checkCookie')!="check"){
-				console.log("쿠키 없음")
-				window.open('/check/check', '_blank','width=500, height=500, left=600, top=200');
-			}else{
-				console.log("쿠키 있음")
-			}
-		}
-	}
-	checkPopup()
-	<%-- 여기까지 --%>
-})
+	   <%-- 여기부터 --%>
+	   function checkPopup() {
+	      var sessionData = <%=session.getAttribute("userNo")%>
+	      if(null==sessionData || !sessionData){// 로그인 안됐을경우
+	      }else{
+	         if($.cookie('checkCookie'+sessionData)!="check"+sessionData){
+	            console.log("쿠키 없음")
+	            window.open('/check/check', '_blank','width=500, height=700, left=600, top=200');
+	            $.ajax({
+	               type: "get"
+	               ,url: "/check/cookie"
+	               ,data: {}
+	               ,dataType: "html"
+	               ,success: function(res){
+	                  console.log("cookie 설정 성공")
+	               }
+	               ,error: function(){
+	                  console.log("cookie 설정 실패")
+	               }
+	            })
+	         }else{
+	            console.log("쿠키 있음")
+	         }
+	      }
+	   }
+	   checkPopup()
+	   <%-- 여기까지 --%>
+	})
 </script>
 <style type="text/css">
 body {
 	padding: 0;
+}
+
+#banner {
+	position:relative;
+	top:-60px;
+	width:2000px;
+	margin:0 auto;
 }
 
 .main-first-wrap {
@@ -66,8 +85,12 @@ body {
 	width: 90px;
 }
 
-.main-second-wrap p {
+.main-second-wrap a {
     font-size: 32px;
+}
+
+.main-second-wrap a:hover {
+    font-size: 35px;
 }
 
 .main-second-wrap #first {
@@ -113,7 +136,7 @@ body {
 .main-third-wrap {
 	width: 1500px;
 	margin: 0 auto;
-	margin-top: 100px;
+	margin-top: 120px;
 }
 
 .main-fourth-wrap {
@@ -151,7 +174,9 @@ body {
 }
 </style>
 <body>
-<img src="/resources/img/main-banner.png" style="position:relative; top:-60px;"/>
+<div id="banner">
+	<img src="/resources/img/main-banner.png"/>
+</div>
 	<div class="main-first-wrap">
 		<div class="left">
 			<img src="/resources/img/main-model.png"/>
@@ -167,19 +192,19 @@ body {
 	<div class="main-second-wrap">
 		<div id="first">
 			<p><img src="/resources/img/challenge.gif"></p>
-			<p>Challenge</p> 
+			<a href="/challenge/list">Challenge</a> 
 		</div>
 		<div id="second">
 			<p><img src="/resources/img/chatting.gif"></p>
-			<p>Chatting</p>
+			<a href="/chat/intro">Chatting</a>
 		</div>
 		<div id="third">
 			<p><img src="/resources/img/helper.gif"></p>
-			<p>Helper</p>
+			<a href="/dghelper/healthtest">Helper</a>
 		</div>
 		<div id="fourth">
 			<p><img src="/resources/img/shopping.gif"></p>
-			<p>Store</p>
+			<a href="/store/list">Store</a>
 		</div>
 	</div>
 <!-- 	<div class="main-third-wrap">

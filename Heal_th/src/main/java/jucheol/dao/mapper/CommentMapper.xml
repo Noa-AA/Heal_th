@@ -29,6 +29,6 @@
 	
 	<delete id="deleteComment" parameterType="Comment">
 		DELETE board_comment
-		WHERE comment_no = #{commentNo}	
+		WHERE comment_no = #{commentNo}	OR (board_no = #{boardNo} AND category_no = #{categoryNo})
 	</delete>
 </mapper>

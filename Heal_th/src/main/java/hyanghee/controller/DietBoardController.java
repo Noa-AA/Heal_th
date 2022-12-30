@@ -1,6 +1,9 @@
 package hyanghee.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,12 +15,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import hyanghee.dto.DietBoard;
 import hyanghee.service.face.DietBoardService;
 import hyanghee.util.BoardPageMaker;
 import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
+import jucheol.dto.Fileupload;
+import jucheol.service.face.FileuploadService;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
@@ -31,11 +37,11 @@ public class DietBoardController {
 	@Autowired private DietBoardService dietBoardService;
 	
 	//첨부 파일
-//	@Autowired private FileuploadService fileuploadService; 
+	@Autowired private FileuploadService fileuploadService; 
 		
 	//게시글 리스트
 	@RequestMapping("/board/dietBoard")
-	public void list(BoardSearch boardSearch, Model model) {
+	public void list(BoardSearch boardSearch, HttpSession session, Model model) {
 		
 		//공지사항
 		List<Notice> notice = dietBoardService.notice(boardSearch);
@@ -43,8 +49,28 @@ public class DietBoardController {
 		model.addAttribute("notice", notice);
 		
 		//검색
-		model.addAttribute("boardSearch", dietBoardService.getSearchPaging(boardSearch));
+		List<DietBoard> list = dietBoardService.getSearchPaging(boardSearch);
+		
+		model.addAttribute("boardSearch", list);
 		int total = dietBoardService.getTotal(boardSearch);
+		
+		//게시글 목록 첨부파일
+		List<Map<String,Object>> fileMapList = new ArrayList<>();
+		for( DietBoard b : list ) {
+			logger.info("{}", b);
+					
+			Map<String,Object> fileMap = new HashMap<>();
+
+			fileMap.put("dietNo", b.getDietNo());
+					
+			Fileupload f = new Fileupload();
+			f.setBoardNo(b.getDietNo());
+			f.setCategoryNo(3);
+			fileMap.put("fileList", fileuploadService.getFileList(f));
+					
+			fileMapList.add(fileMap);
+		}
+		model.addAttribute("fileMapList", fileMapList);
 		
 		BoardPageMaker pageMake = new BoardPageMaker(boardSearch, total);
 		logger.info("{}", pageMake);
@@ -79,10 +105,9 @@ public class DietBoardController {
 		
 	}
 		
-//	@Autowired private FileuploadService fileuploadService;
 	@PostMapping("/board/dWrite")
 	public String insertBoardProc(DietBoard dietBoard,HttpSession session
-//			, List<MultipartFile> multiFile
+			, List<MultipartFile> multiFile
 			) {
 		
 		//테스트용 로그인 userno
@@ -95,9 +120,9 @@ public class DietBoardController {
 				
 		dietBoardService.insertDietBoard(dietBoard);
 		
-//		 int boardNo = bfBoard.getBfNo(); //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
-//	     int categoryNo = 3;//----------------카테고리번호 넣어주세여~
-//	     fileuploadService.insertFile(multiFile, boardNo, categoryNo);
+		 int boardNo = dietBoard.getDietNo();
+	     int categoryNo = 3;
+	     fileuploadService.insertFile(multiFile, boardNo, categoryNo);
 		
 		int point = (Integer)session.getAttribute("userNo");
 		dietBoardService.updatePoint(point);

@@ -7,9 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import saebyeol.dao.face.ProductDao;
 import saebyeol.dto.AttachImage;
+import saebyeol.dto.Criteria;
 import saebyeol.dto.Prodcategory;
 import saebyeol.dto.Product;
 import saebyeol.service.face.ProductService;
@@ -24,6 +26,7 @@ public class ProductServiceImpl implements ProductService {
 	//DAO 객체
 	@Autowired ProductDao productDao;
 	
+	@Transactional
 	@Override
 	public void productEnroll(Product product) {
 		logger.info("Service 상품 등록");
@@ -46,38 +49,88 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<Product> list(SaebyeolPaging paging) {
+	public List<Product> list(Criteria cri) {
 		logger.info("Service List");
-		return productDao.selectList(paging);
+		return productDao.getList(cri);
 	}
 	
 	@Override
-	public SaebyeolPaging getPaging(int curPage) {
-		//총 게시글 수 조회
-		int totalCount = productDao.selectCntAll();
+	public int getTotal(Criteria cri) {
+		logger.info("getTotal===");
 		
-		//페이징 계산
-		SaebyeolPaging paging = new SaebyeolPaging(totalCount, curPage);
-		
-		return paging;
+		return productDao.getTotal(cri);
 	}
 	
 	@Override
-	public Product view(Product viewProduct) {
-		return productDao.selectProduct(viewProduct);
+	public Product getDetail(int prodNo) {
+		
+		logger.info("productGetDetail--- " + prodNo);
+		return productDao.getDetail(prodNo);
+	}
+	
+
+
+	@Transactional
+	@Override
+	public int modify(Product product) {
+		
+		int result = productDao.modify(product);
+		
+		if(result == 1 && product.getImageList() != null && product.getImageList().size() > 0) {
+			productDao.deleteImageAll(product.getProdNo());
+			
+			product.getImageList().forEach(attach -> {
+				attach.setProdNo(product.getProdNo());
+				productDao.imageEnroll(attach);
+			});
+			
+		}
+		
+		return result;
+		
+		
+	}
+	
+	@Transactional
+	@Override
+	public int delete(int prodNo) {
+		productDao.deleteImageAll(prodNo);
+		return productDao.delete(prodNo);
+	}
+	
+	@Override
+	public List<AttachImage> getAttachInfo(int prodNo) {
+		return productDao.getAttachInfo(prodNo);
+	}
+	
+	@Override
+	public Product getInfo(int prodNo) {
+		Product info = productDao.getInfo(prodNo);
+		info.setImageList(productDao.getAttachInfo(prodNo));
+		return info;
 	}
 
 	@Override
-	public void update(Product product) {
-		if("".equals(product.getpName())) {
-			product.setpName("제목없음");
-		}
+	public List<Product> getProductList(Criteria cri) {
+		List<Product> list = productDao.getProductList(cri);
 		
-		productDao.updateProduct(product);
+		list.forEach(product -> {
+			
+			int prodNo = product.getProdNo();
+			
+			List<AttachImage> imageList = productDao.getAttachList(prodNo);
+			
+			product.setImageList(imageList);
+			
+		});
+		
+		return list;
 	}
 	
 	@Override
-	public void delete(Product product) {
-		productDao.delete(product);
+	public int productGetTotal(Criteria cri) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
+	
 }

@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jucheol.dao.face.CommentDao;
 import jucheol.dao.face.ReportDao;
+import jucheol.dto.Comment;
 import jucheol.dto.Report;
 import jucheol.service.face.ReportService;
 
@@ -38,13 +40,20 @@ public class ReportServiceImpl implements ReportService {
 	public List<Report> selectList(Report report) {
 		return reportDao.selectList(report);
 	}
-
+	
+	//DAO 객체
+	@Autowired CommentDao commentDao;
 	@Override
 	public void deletePost(Report report) {
 		report = reportDao.selectOne(report);
 		logger.info("deletePost - {}",report);
 		reportDao.deletePost(report);
 		reportDao.deleteReport(report);
+		
+		Comment comment = new Comment();
+		comment.setBoardNo(report.getBoardNo());
+		comment.setCategoryNo(report.getCategoryNo());
+		commentDao.deleteComment(comment);
 	}
 
 

@@ -160,7 +160,17 @@ table {
 
 </table>
 
-<%-- <jsp:include page="../file/file.jsp" /> <!-- 뷰페이지 사진목록 자리에 넣기 --> --%>
+<br><br>
+
+<jsp:include page="../file/file.jsp" /> <!-- 뷰페이지 사진목록 자리에 넣기 -->
+
+<br><br><br><br>
+
+
+</div><!-- .container end -->
+
+
+<jsp:include page="../addOns/addOn.jsp" /> <br><br><br><br>
 
 <div class="text-center">
 	<button id="btnList" class="btn btn-primary">목록</button>
@@ -171,16 +181,8 @@ table {
 	</c:if>
 </div>
 
-<br><br>
+<br><br><br><br><br><br>
 
-
-
-<br><br>
-
-</div><!-- .container end -->
-
-
-<jsp:include page="../addOns/addOn.jsp" />
 <jsp:include page="../comment/board.jsp" />
 
 

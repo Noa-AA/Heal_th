@@ -7,14 +7,14 @@
 <mapper namespace="changmin.dao.face.MessageDao">
 
 	<select id="selectMessageList" resultType="MyMessage" parameterType="int">
-		SELECT message_no, message_con, message_date, message_check, user_no
+		SELECT message_no, message_con, message_date, user_no
 		FROM my_message
 		WHERE user_no = #{userno}
 		ORDER BY message_no DESC
 	</select>
 
 	<insert id="insertMessage" parameterType="MyMessage">
-		INSERT INTO my_message (message_no, message_con, message_date, message_check, user_no) 
-		VALUES (my_message_seq.nextval, #{messageCon}, to_char(sysdate, 'yyyy"."mm"."dd'), 1, #{userNo} )
+		INSERT INTO my_message (message_no, message_con, message_date, user_no) 
+		VALUES (my_message_seq.nextval, #{messageCon}, to_char(sysdate, 'yyyy"."mm"."dd'), #{userNo} )
 	</insert>
 </mapper>

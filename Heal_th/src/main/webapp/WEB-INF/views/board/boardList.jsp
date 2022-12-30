@@ -20,6 +20,144 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@900&display=swap');
 
+.footer {
+    width: 100%;
+    min-width: 1048px;
+	height: 200px;
+ 	border-top: 1px solid #eee; 
+/* 	margin-top: 160px; */
+	margin-top: 720px;
+	background-color: #f8f8f8;
+} 
+
+.footer-wrap {
+	display: flex;
+	width: 1600px;
+	margin: 0 auto;
+	height: 200px;
+	padding: 30px 0 60px;;
+}
+
+.footerLeft {
+	width: 16%;
+	padding-top: 20px;
+}
+
+.footerLeft > img {
+	width: 160px;
+}
+
+.footerRight {
+	width: 84%;
+}
+
+.footer_Rtop {
+	display: flex;
+	padding-bottom: 12px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid #dddddd;
+    justify-content: space-between;
+}
+
+.footer_Rul {
+	display: flex;
+	padding-top: 20px;
+}
+
+.footer_Rul > li {
+	position: relative;
+    padding-right: 21px;
+    margin-right: 20px;
+    font-size: 15px;
+    color: #666;
+}
+
+.footer_Rul > li:hover {
+	cursor: pointer;
+}
+
+.footer_Rul > li:nth-child(2) {
+	color: #333;
+	font-weight: 700;
+}
+
+.footer_Rul > li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 1px;
+    height: 10px;
+    background-color: #bbb;
+    transform: translateY(-50%);
+}
+
+
+
+.footer_Rbottom_Text {
+	display: flex;
+	margin-bottom: 10px;
+}
+
+.footer_brand_text:not(:last-child) {
+    position: relative;
+    padding-right: 15px;
+    margin-right: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.footer_brand_text:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 1px;
+    height: 10px;
+    background-color: #bbb;
+    transform: translateY(-50%);
+}
+
+.footer_brand_text:last-child {
+    font-weight: 600;
+}
+
+.footer_Rbottom_bottom {
+	color: #aaa;
+}
+
+.fm_select {
+	width: 180px;
+	height: 40px;
+	padding: 0 14px 0;
+	background-color: #f8f8f8;
+	-webkit-appearance: none; 
+    -moz-appearance: none;
+    color: #888;
+    border: 1px solid #ccc;
+    background: url(/resources/img/footer_more.png) no-repeat 94% 50%;
+}
+
+
+/* subVisual */
+#twoDepth-list a {
+	padding: 10px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666666;
+    font-size: 18px;
+    font-weight: 400;
+    width: 20%;
+}
+
+#twoDepth-list a:nth-child(1) {
+    color: #b571e9;
+    border-bottom: 2px solid #b571e9;
+    margin-top: 1px;
+    font-weight: 700;
+}
+
 body{overflow-x: hidden}
 
 #content{
@@ -28,13 +166,14 @@ display: block;
 }
 
 #card {
-  height: 200vh;
+/*   height: 200vh; */
+	height: 1800px;
 }
 
 .container {
   /* hide fixed overflow contents */
   clip: rect(0, auto, auto, 0);
-  margin-block: 530px;
+  margin-block: 430px;
 
   /* does not work if overflow = visible */
   overflow: hidden;
@@ -83,7 +222,6 @@ display: block;
 
 .container_solid .title_wrapper h1 {
   /* the text background */
-/*   background: url(https://images.unsplash.com/photo-1575058752200-a9d6c0f41945?&q=85); */
   background-image: url(https://i.postimg.cc/YSbJhmR8/pexels-pixabay-34514.jpg);
   background-size: 100vw auto;
   background-position: center;
@@ -99,16 +237,17 @@ display: block;
 }
 
 .container_image {
-  /* Grab a free image from unsplash */
   /* background-image: url(https://images.unsplash.com/photo-1575058752200-a9d6c0f41945?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ); */
-  background-image: url(https://i.postimg.cc/YSbJhmR8/pexels-pixabay-34514.jpg);
-  /* background-size:100vw auto; */
-  background-size:100% auto;
+background-image: url('/resources/img/board/font.jpg');
+  background-size:100vw auto; 
+/*   background-size:100% auto; */
   background-position: center;
   background-attachment: fixed;
   
   /* position the second container below the first container */
-  top: 100vh;
+/*   top: 100vh; */
+	top: 600px;
+
 }
 
 .container_image .title_wrapper h1 {
@@ -116,10 +255,11 @@ display: block;
 }
 
 section {
-  min-height: 100vh;
-/*   padding: 2em; */
+/*   min-height: 100vh; */
+  min-height: 400px;
   margin: auto;
   max-width: 1200px;
+  margin-top: -500px;
 }
 
 section h2 {
@@ -139,25 +279,6 @@ font-family: 'Karla Tamil Inclined', sans-serif;
 	max-width: 1000px;
 }
 
-
-.footer {
-    width: 100%;
-    min-width: 1048px;
-	bottom: 0;
-	height: 100px;
-	border-top: 1px solid #ddd;
-	background: #fff;
-	z-index: 99;
-	margin-top: 160px;
-} 
-
-.footer-wrap {
-	width: 1200px;
-	margin: 0 auto;
-	height: 100px;
-	padding: 10px 0;
-}
-
 #animation {
   min-height: 100vh;
   margin: auto;
@@ -166,7 +287,7 @@ font-family: 'Karla Tamil Inclined', sans-serif;
 #scroll-img {
             width:300px; height:300px; margin:10px;
             border: none;
-            background-image: url('https://i.postimg.cc/8CxhqXbq/pexels-andrea-piacquadio-3760259.jpg'); 
+            background-image: url('/resources/img/board/board1.png');
             background-size: 100% 100%;
             background-attachment: scroll;
         }
@@ -174,8 +295,7 @@ font-family: 'Karla Tamil Inclined', sans-serif;
 #verifyBoard{
 	width:300px; height:300px; margin:10px;
 	border: none;
-/* 	background-image: url('https://i.postimg.cc/4NJD6qZ4/pexels-cottonbro-studio-4761779.jpg');  */
-	background-image: url('https://i.postimg.cc/pLnMr8RK/pexels-david-gomes-2647471.jpg');
+	 background-image: url('/resources/img/board/board.png');
 	background-size: 100% 100%;
 	background-attachment: scroll;
 }
@@ -183,7 +303,7 @@ font-family: 'Karla Tamil Inclined', sans-serif;
 #dietBoard{
 	width:300px; height:300px; margin:10px;
 	border: none;
-	background-image: url('https://i.postimg.cc/C10gW1yk/pexels-jane-doan-1105166.jpg'); 
+	background-image: url('/resources/img/board/board2.png');
 	background-size: 100% 100%;
 	background-attachment: scroll;
 }
@@ -191,10 +311,12 @@ font-family: 'Karla Tamil Inclined', sans-serif;
 #reviewBoard{
 	width:300px; height:300px; margin:10px;
 	border: none;
-	background-image: url('https://i.postimg.cc/t4Sbqm2T/pexels-shotpot-4047159.jpg'); 
+	background-image: url('/resources/img/board/board3.png');
 	background-size: 100% 100%;
 	background-attachment: scroll;
 }
+
+
 
 </style>
 
@@ -208,6 +330,7 @@ AOS.init({
 </script>
 
 </head>
+
 <body>
 
 <div id="subvisual">
@@ -225,14 +348,13 @@ AOS.init({
 	</div>
 </div>
 
-<br><br><br><br><br><br><br>
 
 <div id="content">
 
 <fieldset id="card">
 <!-- First container -->
-  <div class="container container_solid">
-    <div class="title_wrapper">
+  <div class="container container_solid" style="height: 400px;">
+    <div class="title_wrapper" style="padding-top: 370px;">
       <h1>Record the moment</h1>
     </div>
   </div>
@@ -247,8 +369,7 @@ AOS.init({
 
 
 
-<br><br><br><br><br>
-
+<br>
 <section>
 
 <div data-aos="fade-right" 
@@ -371,9 +492,8 @@ AOS.init({
 
 </div>
 
-<%@include file="../layout/footer.jsp" %>	
-
 </body>
 
+<%@include file="../layout/footer.jsp" %>	
 
 </html>

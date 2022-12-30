@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,11 +29,10 @@ public class FileuploadServiceImpl implements FileuploadService{
 	@Autowired FileuploadDao fileuploadDao;
 
 	@Autowired ServletContext context;
-	
+	HttpSession session;
 	public void insertFile(List<MultipartFile> multiFile ,int boardNo, int categoryNo) {
-		
 		//빈 파일일 경우
-		if( multiFile.size() <= 0 ) {
+		if( multiFile.size() <= 0 || multiFile.get(0).getSize() <= 0) {
 			return;
 		}
 		for( MultipartFile m : multiFile )	logger.debug("{}", m);
@@ -76,14 +76,13 @@ public class FileuploadServiceImpl implements FileuploadService{
 		
 		//첨부파일 정보 DB 기록
 		for(int i = 0; i < multiFile.size(); i++) {
-			Fileupload Fileupload = new Fileupload();
-			Fileupload.setBoardNo( boardNo );
-			Fileupload.setCategoryNo(categoryNo);
-			Fileupload.setFileOri(fileList.get(i).get("originName"));
-			Fileupload.setFileSto(fileList.get(i).get("storedName"));
-			Fileupload.setUserNo(7777);
+			Fileupload fileUpload = new Fileupload();
+			fileUpload.setBoardNo( boardNo );
+			fileUpload.setCategoryNo(categoryNo);
+			fileUpload.setFileOri(fileList.get(i).get("originName"));
+			fileUpload.setFileSto(fileList.get(i).get("storedName"));
 			
-			fileuploadDao.insertFile(Fileupload);	
+			fileuploadDao.insertFile(fileUpload);	
 		}
 
 	}
@@ -91,6 +90,23 @@ public class FileuploadServiceImpl implements FileuploadService{
 	@Override
 	public List<Fileupload> getFileList(Fileupload fileupload) {
 		return fileuploadDao.getFileList(fileupload);
+	}
+
+	@Override
+	public void updateFile(List<MultipartFile> multiFile, int boardNo, int categoryNo) {
+		//---------여기부터
+		Fileupload fileUpload = new Fileupload();
+		fileUpload.setBoardNo(boardNo);
+		fileUpload.setCategoryNo(categoryNo);
+		
+		fileuploadDao.deleteFile(fileUpload);
+		//-------여기까지
+		logger.info("multiFileSize : {}",multiFile.size());
+		if(multiFile.get(0).getSize() <= 0 ) {
+			return;
+		}else {
+			insertFile(multiFile , boardNo,  categoryNo);
+		}
 	}
 
 

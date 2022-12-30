@@ -29,6 +29,13 @@ $(document).ready(function(){
 	$("#btnLogin").click(function(){
 		$("#loginForm").submit()
 	})
+	
+	//엔터키 눌러서 제출
+	$("#userPw").on('keypress',function(e){
+		if(e.keyCode == '13'){
+			$("#btnLogin").click();
+		}
+	})
 
 })
 	

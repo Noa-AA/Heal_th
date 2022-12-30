@@ -34,7 +34,7 @@ public interface LoginDao {
 	 * @param searchId
 	 * @return
 	 */
-	public String selectById(Users searchId);
+	public Users selectByIdForEamil(Users searchId);
 
 	/**
 	 * 이름,전화번호로 일치하는 회원 여부 확인하기
@@ -48,7 +48,7 @@ public interface LoginDao {
 	 * @return -조회한 아이디
 	 */
 
-	public String selectByNamePhone(Users searchIdBySms);
+	public Users selectByNamePhone(Users searchIdBySms);
 
 	 /**
 	  * 비밀번호 찾기를 위한 회원 존재여부  조회

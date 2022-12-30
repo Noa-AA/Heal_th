@@ -98,9 +98,7 @@
 	height: 35px;
 }
 
-/* button{ */
-/* 	background-color: #c583d6; */
-/* } */
+
 
 .pageInfo_wrap {
 	text-align: center;
@@ -170,7 +168,7 @@ a:hover {
     margin: 10px;
 }
 
--------------------
+
 
 .text-center {
 	display: flex;
@@ -199,12 +197,9 @@ a:hover {
 }
 
 
-li1{
-	
-	
-}
 
----------------
+
+
 
 
 .search_area {
@@ -228,7 +223,6 @@ li1{
 	height: 35px;
 }
 
-
 #twoDepth-list a {
     padding: 10px;
     display: flex;
@@ -246,6 +240,7 @@ li1{
     margin-top: 1px;
     font-weight: 700;
 }
+
 
 </style>
 

@@ -62,11 +62,24 @@ function goodCheck(){
 		}
 	})
 }
-
 $(document).ready(function(){
-	scrapCheck()
-	reportCheck()
-	goodCheck()
+	$(".noLoginBtn").click(function(){ 
+		console.log("로그인 필요")
+		if(confirm("로그인이 필요합니다 로그인 페이지로 이동하시겠습니까?")){
+			location.href = '/login/login'
+		}else{
+			return false
+		}
+	})
+	var sessionData = <%=session.getAttribute("userNo")%>
+	if(null1=sessionData || sessionData){
+		scrapCheck()
+		reportCheck()
+		goodCheck()
+		
+	}
+	
+	
 	
 })
 </script>
@@ -85,11 +98,33 @@ $(document).ready(function(){
 	 width : 70px;
 	 height : 70px;	
 }
+.noLoginBtn:focus,#goGood:focus,#cancelGood:focus,#goReport:focus,#cancelReport:focus,#goScrap:focus,#cancelScrap:focus{ 	
+    border: none;
+    outline:none;
+}
 </style>
 
 <div id="addOnsContainer">
-	<div id="scrapContainer"></div>
-	<div id="reportContainer"></div>
-	<div id="goodContainer"></div>
+	<div id="scrapContainer">
+		<c:choose>
+			<c:when test="${sessionScope.userNo eq null}">
+				<button type="button" class="noLoginBtn" id="goScrap"><img src="/resources/img/addOns/scrapNo.png" alt="scrapNo"></button>
+			</c:when>
+		</c:choose>
+	</div>
+	<div id="reportContainer">
+		<c:choose>
+			<c:when test="${sessionScope.userNo eq null}">
+				<button type="button" class="noLoginBtn"  id="goReport"><img src="/resources/img/addOns/reportNo.png" alt="reportNo"></button>
+			</c:when>
+		</c:choose>
+	</div>
+	<div id="goodContainer">
+		<c:choose>
+			<c:when test="${sessionScope.userNo eq null}">
+				<button type="button" class="noLoginBtn"  id="goGood"><img src="/resources/img/addOns/goodNo.png" alt="goodNo"></button>
+			</c:when>
+		</c:choose>
+	</div>
 
 </div>

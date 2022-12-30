@@ -118,6 +118,25 @@
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
+	
+	
+	
+	<!-- 향희님, 주철님이 쓰실 포인트 조회해서 ranking_No 바꾸기====================================================== -->	
+	<update id="updateRnoByPoint" parameterType="int">
+		UPDATE users
+			SET ranking_no =
+			CASE
+			<![CDATA[
+				WHEN (point < 2000) THEN 1
+				WHEN (point >= 2000 AND point < 3000) THEN 2
+				WHEN (point >= 3000 AND point < 5000) THEN 3
+				WHEN (point >= 5000 AND point < 10000) THEN 4
+				WHEN (point >= 10000) THEN 5
+			]]>
+ 		   END
+		WHERE user_no = #{userNo }
+	</update>
+	
 </mapper>
 
 

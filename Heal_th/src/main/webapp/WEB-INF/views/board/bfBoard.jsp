@@ -15,17 +15,28 @@
 
 
 <style type="text/css">
-table {
-	table-layout: fixed;
+
+#twoDepth-list a {
+	padding: 10px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666666;
+    font-size: 18px;
+    font-weight: 400;
+    width: 20%;
 }
 
-table, th {
-	text-align: center;
+#twoDepth-list a:nth-child(2) {
+    color: #b571e9;
+    border-bottom: 2px solid #b571e9;
+    margin-top: 1px;
+    font-weight: 700;
 }
 
-td:nth-child(2) {
-	text-align: left;
-}
+
+
+/* body css */
 
 body{
 	font-family: 'Noto Sans','NotoSansWeb',Verdana,"맑은 고딕",Malgun Gothic,Dotum,돋움,Gulim,굴림,sans-serif;
@@ -33,9 +44,8 @@ body{
 	padding: 0;
 }
 
-#container{
-	width: 1200px;
-}
+
+#container{ width: 1200px;}
 
 #btnWrite {
     background: #7ca3f5;
@@ -47,7 +57,7 @@ body{
 	width: 132px;
 	height: 50px;
 	float: right;
-	margin-top: -104px;
+/* 	margin-top: -104px; */
 	display: block;
 }
 
@@ -62,16 +72,23 @@ body{
 	
 }
 
-#search {
-	text-align: center;
-	margin-bottom: -5px;
-	
-}
+#search { text-align: center; margin-bottom: -5px; }
 
 #type{
+/* 	border: 2px solid #7ca3f5; */
+/* 	font-weight: border; */
+/* 	display: none; */
+width: 100px;
+	height: 40px;
 	border: 2px solid #7ca3f5;
-	font-weight: border;
-	display: none;
+	border-radius: 30px;
+	transition: 0.4s;
+	padding: 8px 12px;
+	outline: none;
+	margin-right: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #666;
 }
 
 #searchText{
@@ -147,11 +164,8 @@ body{
 	'opsz' 48
 }
 
-#boardList{
-	font-size: 24px;
-	margin-bottom: -36px;
-}
 
+/* 공지사항 / 게시글 내용 */
 #noticeStrong{
 	background: #ff4057;
     font-weight: bold;
@@ -161,7 +175,7 @@ body{
     padding-right: 10px;
     padding-left: 10px;
     border-radius: 16px;
-	
+    font-size: 18px;
 }
 
 #article ul{
@@ -172,21 +186,25 @@ body{
     border-bottom: 1px solid #ccc;
 }
 
-#searchResult:hover{
-	background-color: #F7F7F7;
-}
 
-#boardUrl{
-	font-size: 20px; 
-	font-weight: bold; 
-}
+#searchResult:hover{ background-color: #F7F7F7; }
+
+#boardUrl{ font-size: 20px; font-weight: bold; }
 
 .ellipsis {
+	color:#666;
+	font-weight: 600;
 	display:-webkit-box;
 	-webkit-box-orient:vertical;
 	overflow:hidden;
 	-webkit-line-clamp:1;
 }
+
+#pIcon{display: block; width: 14px; margin-right:8px; margin-top: 20px;}
+
+#thumbnail{border-radius: 10px; width: 259px; height: 150px; margin-top: -113px; }
+
+#imgNone{display: none;}
 
 </style>
 
@@ -266,8 +284,6 @@ $(document).ready(function() {
 	        $("#"+tabId).addClass("on");
 
 	    });
-	
-
 
 })
 
@@ -290,44 +306,87 @@ $(document).ready(function() {
 	</div>
 </div>
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
 
 <div class="container" id="container">
 
-
-<br><br><br><br>
-
-	
-
-<br><br><br><br>
-
-
-
-
 <div id="boardList">
-	<h3 style="font-weight: bold; color: #06364E; font-size: 30px; float: left;">비포 애프터 게시판</h3>
+	<h3 style="font-weight: bold; margin-bottom: 37px; color: #06364E; font-size: 50px;">비포 애프터 게시판</h3>
 </div>
 
 
-    <div>
-    	<a href="/board/bfBoard" id="totalList" name="totalList">전체 게시글 보기 ▼</a>
-    </div>
+
+<div class="beforeafter" id="search" name="search">
+
+<form action="/board/bfBoard" method="get">
+	<div class="search_wrap">
+		<div class="search_area" style="margin-left: 665px;">
+			<select name="type" id="type" style="display: inline-block; margin-right: 15px;
+    display: inline-block;">
+				<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option>
+				<option value="C" <c:out value="${pageMaker.boardSearch.type eq 'C'?'selected':'' }"/>>내용</option>
+				<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option>
+			</select> 
+			
+				
+				<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search...">
+					<button id="searchIcon"><i class="fas fa-search"></i></button>
+		</div>
+	</div>
+</form>
+
+<div class="pageInfo_wrap">
+		<div class="pageInfo_area">
+			<ul id="pageInfo" class="pageInfo">
+
+				<c:if test="${pageMaker.prev}">
+					<li class="pageInfo_btn previous"><a href="${pageMaker.startPage - 1}">Previous</a></li>
+				</c:if>
+
+				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+					<li class="pageInfo_btn ${pageMaker.boardSearch.curPage == num ? "active":"" }"></li>
+				</c:forEach>
+
+				<c:if test="${pageMaker.next}">
+					<li class="pageInfo_btn next"><a href="${pageMaker.endPage + 1 }">Next</a></li>
+				</c:if>
+
+			</ul>
+		</div>
+	</div>
+
+	<form id="moveForm" method="get">
+		<input type="hidden" id="bfNo" name="bfNo" value='<c:out value="${pageInfo.bfNo}"/>'>
+		<input type="hidden" name="curPage" value="${pageMaker.boardSearch.curPage }">
+		<input type="hidden" name="amount" value="${pageMaker.boardSearch.amount }">
+		<input type="hidden" name="keyword" value="${pageMaker.boardSearch.keyword }">
+		<input type="hidden" name="type" value="${pageMaker.boardSearch.type }">
+	</form>
+
+</div>
 
 
 
-<br><br><br><br>
+<div>
+   	<a href="/board/bfBoard" id="totalList" name="totalList" style="float: left; margin-top: -25px;">전체 게시글 보기 ▼</a>
+</div>
 
-<div id="article" style="border-top: 3px solid #84C9E3;">
+
+
+<div id="article" style="border-top: 3px solid #84C9E3; margin-top: 22px;">
 <c:forEach items="${notice}" var="notice">
-	<ul id="noticeUl" style="list-style: none;">
-		<li style="float: left; margin-right: 100px; display: block;" id="noticeLi"><strong id="noticeStrong">공지</strong></li>
-		<li style="float: left; display: block;"><a href="/notice/view?noticeNo=${notice.noticeNo}&noticeNo=3&"><strong>${notice.noticeTtl }</strong></a></li>
-		<li style="float: right; margin-left: 8px; display: block;"><strong style="color: #0D71A4;">관리자</strong></li>
-		<li style="float: right; margin-left: 8px; display: block;" >|</li>
-		<li style="float: right; margin-left: 8px; display: block;">조회수 ${notice.noticeHit }</li>
-		<li style="float: right; margin-left: 8px; display: block;" >|</li>
+	<ul id="noticeUl" style="list-style: none; line-height: 3;">
+		<li style="float: left; margin-right: 100px; display: inline;"><strong id="noticeStrong">공지</strong></li>
+		<li style="font-size: 18px; display: inline;"><a href="/notice/view?noticeNo=${notice.noticeNo}&noticeNo=3&"><strong>${notice.noticeTtl }</strong></a></li>
+		<li style="float: right; margin-top: 7px; display: inline;">작성일 <fmt:formatDate value="${notice.noticeDate }" pattern="yy-MM-dd" /></li>
+		<li style="float: right; margin-top: 7px; margin-right: 8px; display: inline;" >|</li>
+		<li style="float: right; margin-top: 7px; margin-right: 8px; display: inline;">조회수 ${notice.noticeHit }</li>
+		<li style="float: right; margin-top: 7px; margin-right: 8px; display: inline;" >|</li>
+		<li style="float: right; margin-top: 7px; margin-right: 8px; display: inline;"><strong style="color: #0D71A4;">관리자</strong></li>
+		<li style="display: none;" ></li><br>
 <!-- 		<li style="float: left; margin-right: 20px;"><strong style="color: #0D71A4;">공지</strong></li> -->
-		<li style="float: right; margin-left: 20px; display: block;">작성일 <fmt:formatDate value="${notice.noticeDate }" pattern="yy-MM-dd" /></li><br>
 	</ul>
 		
 </c:forEach>
@@ -337,9 +396,34 @@ $(document).ready(function() {
 	<ul id="searchResult" style="list-style: none;">
 		<li style="float: left; display: none;" >${boardSearch.bfNo }</li>
 		<li style="float: left; line-height:380%;"><a href="${path}/board/bfView?bfNo=${boardSearch.bfNo}" id="boardUrl">${boardSearch.bfTitle }</a></li><br>
-		<li style="float: left;" class="ellipsis" >${boardSearch.beforeCon }</li><br>
 		<li style="float: left;" class="ellipsis" >${boardSearch.afterCon }</li><br>
-		<li style="float: left; margin-right: 8px;" ><strong style="color: #0D71A4;">${boardSearch.userNick }</strong></li>
+		
+		<li style="float: right;">
+		
+			<c:set var="fileSto" value="${null }"/>
+			<c:forEach items="${fileMapList }" var="fileMap">
+			<c:if test="${fileMap.bfNo eq boardSearch.bfNo}">
+				<c:set var="fileSto" value="${fileMap.fileList[0].fileSto }"/>
+			</c:if>
+			</c:forEach>
+			<c:if test="${fileSto == null}">
+				<img id="imgNone">
+			</c:if>	
+			<c:if test="${fileSto != null}">
+				<img src="${pageContext.request.contextPath}/upload/${fileSto }" id="thumbnail">
+			</c:if>		
+			
+		</li>
+		
+		<li style="float: left;" >
+			<c:if test="${storedName == null }">
+				<img src="/resources/img/mypage/userprofile.png" class="pIcon" id="pIcon">
+			</c:if>
+			<c:if test="${storedName != null}">
+				<img src="${pageContext.request.contextPath}/upload/${storedName.storedName}" class="pIcon" id="pIcon">
+			</c:if>
+		</li>
+		<li style="float: left; margin-right: 8px;" ><strong style="color: #0D71A4;">${boardSearch.userNo }</strong></li>
 		<li style="float: left; margin-right: 8px;" >|</li>
 		<li style="float: left; margin-right: 8px;" >작성일 <fmt:formatDate value="${boardSearch.bfInstDate }" pattern="yy-MM-dd"/></li>
 		<li style="float: left; margin-right: 8px;" >|</li>
@@ -354,8 +438,9 @@ $(document).ready(function() {
 </div>
 
 
+<br><br><br>
 
-	<div class="text-center">
+	<div class="text-center" style="margin-top: 10px;">
 		<ul class="pagination pagination-sm">
 	
 		<%-- 첫 페이지로 이동 (이동할게 없을때) --%>
@@ -419,65 +504,17 @@ $(document).ready(function() {
 
 
 
-
 <br><br><br>
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 <div class="page-content page-container" id="page-content">
     <div class="padding">
-        <div class="row container d-flex justify-content-center" style="text-align: center;">
+        <div class="row container d-flex justify-content-center" style="text-align: center; float: right; margin-top: -105px;">
         	<button type="button" id="btnWrite" class="btn btn-warning btn-icon-text animatebutton"><i class="fa fa-check btn-icon-prepend" style="margin-right: 10px;"></i>글쓰기</button> 
         	
        </div>
     </div>
-</div>
-
-<div class="beforeafter" id="search" name="search">
-
-<form action="/board/bfBoard" method="get">
-	<div class="search_wrap">
-		<div class="search_area">
-			<select name="type" id="type">
-				<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option>
-				<option value="C" <c:out value="${pageMaker.boardSearch.type eq 'C'?'selected':'' }"/>>내용</option>
-				<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option>
-			</select> 
-				
-				<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search...">
-					<button id="searchIcon"><i class="fas fa-search"></i></button>
-		</div>
-	</div>
-</form>
-
-<div class="pageInfo_wrap">
-		<div class="pageInfo_area">
-			<ul id="pageInfo" class="pageInfo">
-
-				<c:if test="${pageMaker.prev}">
-					<li class="pageInfo_btn previous"><a href="${pageMaker.startPage - 1}">Previous</a></li>
-				</c:if>
-
-				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-					<li class="pageInfo_btn ${pageMaker.boardSearch.curPage == num ? "active":"" }"></li>
-				</c:forEach>
-
-				<c:if test="${pageMaker.next}">
-					<li class="pageInfo_btn next"><a href="${pageMaker.endPage + 1 }">Next</a></li>
-				</c:if>
-
-			</ul>
-		</div>
-	</div>
-
-	<form id="moveForm" method="get">
-		<input type="hidden" id="bfNo" name="bfNo" value='<c:out value="${pageInfo.bfNo}"/>'>
-		<input type="hidden" name="curPage" value="${pageMaker.boardSearch.curPage }">
-		<input type="hidden" name="amount" value="${pageMaker.boardSearch.amount }">
-		<input type="hidden" name="keyword" value="${pageMaker.boardSearch.keyword }">
-		<input type="hidden" name="type" value="${pageMaker.boardSearch.type }">
-	</form>
-
-
 </div>
 
 </div>

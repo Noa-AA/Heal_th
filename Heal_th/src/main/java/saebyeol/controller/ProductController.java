@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,18 +24,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import net.coobird.thumbnailator.Thumbnails;
 import saebyeol.dto.AttachImage;
+import saebyeol.dto.Criteria;
+import saebyeol.dto.Page;
+import saebyeol.dto.Prodcategory;
 import saebyeol.dto.Product;
 import saebyeol.service.face.AttachService;
 import saebyeol.service.face.ProductService;
-import saebyeol.utill.SaebyeolPaging;
 
 @Controller
 @RequestMapping("/product")
@@ -49,32 +57,37 @@ public class ProductController {
 	@Autowired AttachService attachService;
 	
 	
-	@RequestMapping("/list")
-	public void list(@RequestParam(defaultValue = "0") int curPage, Model model) {
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public void list(Criteria cri, Model model) {
 		logger.info("상품목록페이지 접속");
-		SaebyeolPaging paging = productService.getPaging(curPage);
-		logger.debug("{}", paging);
-		model.addAttribute("paging", paging);
 		
-		List<Product> list = productService.list(paging);
-		for( Product p : list )	logger.debug("{}", p);
+		List<Product> list = productService.list(cri);
+		logger.info("{}", list);
 		model.addAttribute("list", list);
+		
+		model.addAttribute("page", new Page(cri, productService.getTotal(cri)));
 		
 	}
 
 	@GetMapping("/enroll")
-	public void productEnroll() {
+	public void productEnroll(Model model) throws JsonProcessingException {
 		logger.info("상품등록페이지 접속");
+		ObjectMapper objm = new ObjectMapper();
+		List list = productService.cateList();
+		logger.info("{}", list);
+
+		String cateList = objm.writeValueAsString(list);
+		model.addAttribute("cateList", cateList);
+		
+		logger.info("변경 전.........." + list);
+		logger.info("변경 후.........." + cateList);
 	}
 	
 	//상품 등록
 	@PostMapping("/enroll")
-	public String productEnroll(Model model, Product product, RedirectAttributes rttr) {
+	public String productEnroll(Product product, RedirectAttributes rttr) {
 		
 		logger.info("상품등록페이지 접속");
-		List list = productService.cateList();
-	
-		model.addAttribute("list", list);
 		
 		logger.info("productEnroll post : " + product);
 		
@@ -84,42 +97,79 @@ public class ProductController {
 		return "redirect:/product/list";
 	}
 	
-	@RequestMapping("/view")
-	public String view(Product viewProduct, Model model){
-		logger.info("상세보기");
+	//상품 조회, 수정 페이지
+	@GetMapping({"/detail", "/modify"})
+	public void getInfo(int prodNo, Criteria cri, Model model) throws JsonProcessingException{
+		logger.info("getInfo() : " + prodNo);
+		ObjectMapper mapper = new ObjectMapper();
 		
-		viewProduct = productService.view(viewProduct);
+		/* 카테고리 리스트 데이터 */
+		model.addAttribute("cateList", mapper.writeValueAsString(productService.cateList()));		
 		
-		model.addAttribute("viewProduct", viewProduct);
+		/* 목록 페이지 조건 정보 */
+		model.addAttribute("cri", cri);
 		
-		return "product/view";
-	}
-	
-	@GetMapping("/update")
-	public String update(Product product, Model model) {
-		product = productService.view(product);
+		/* 조회 페이지 정보 */
+		model.addAttribute("productInfo", productService.getDetail(prodNo));
 		
-		model.addAttribute("updateProduct", product);
-		
-		return "product/update";
-	}
-	
-	@PostMapping("/update")
-	public String updateProcess(Product product) {
-		logger.info("{}", product);
-		productService.update(product);
-		
-		return "redirect:/product/view?prodNo=" + product.getProdNo();
 		
 	}
 	
-	@RequestMapping("/delete")
-	public String delete(Product product) {
-		productService.delete(product);
+//	@GetMapping("/detail/{prodNo}")
+//	public String detail(@PathVariable("prodNo")int prodNo, Model model) {
+//
+//		model.addAttribute("productInfo", productService.getInfo(prodNo));
+//			
+//		return "/detail";
+//	}
+	
+	@PostMapping("/modify")
+	public String modify(Product product, RedirectAttributes rttr) {
+		logger.info("modifyPOST---" + product);
+		
+		int result = productService.modify(product);
+		
+		rttr.addFlashAttribute("modify_result", result);
 		
 		return "redirect:/product/list";
 	}
 	
+	@PostMapping("/delete")
+	public String delete(int prodNo, RedirectAttributes rttr) {
+		logger.info("delete ---");
+		logger.info("prodNo {}", prodNo);
+		List<AttachImage> fileList = productService.getAttachInfo(prodNo);
+		
+		if(fileList != null) {
+			
+			List<Path> pathList = new ArrayList();
+			
+			fileList.forEach(vo ->{
+				
+				// 원본 이미지
+				Path path = Paths.get("D:\\upload", vo.getUploadPath(), vo.getUuid() + "_" + vo.getFileName());
+				pathList.add(path);
+				
+				// 섬네일 이미지
+				path = Paths.get("D:\\upload", vo.getUploadPath(), "s_" + vo.getUuid()+"_" + vo.getFileName());
+				pathList.add(path);
+				
+			});
+			
+			pathList.forEach(path ->{
+				path.toFile().delete();
+			});
+			
+		}		
+		
+		int result = productService.delete(prodNo);
+		
+		rttr.addFlashAttribute("delete_result", result);
+		
+		return "redirect:/product/list";
+	}
+	
+	//이미지 출력
 	@GetMapping("/display")
 	public ResponseEntity<byte[]> getImage(String fileName){
 		logger.info("--- getImage : " + fileName);
@@ -240,13 +290,38 @@ public class ProductController {
 		return result;
 	}
 	
+	
+	//이미지 정보 반환
 	@GetMapping(value="/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<AttachImage>> getAttachList(int prodNo){
 		logger.info("--- getAttachList : " + prodNo);
 		
-		return new ResponseEntity(attachService.getAttachList(prodNo), HttpStatus.OK);
+		return new ResponseEntity<List<AttachImage>>(attachService.getAttachList(prodNo), HttpStatus.OK);
 		
 	}
+	
+	/* 상품 검색 */
+	@GetMapping("/search")
+	public String searchGoodsGET(Criteria cri, Model model) {
+		
+		logger.info("cri : " + cri);
+		
+		List<Product> list = productService.getProductList(cri);
+		logger.info("pre list : " + list);
+		if(!list.isEmpty()) {
+			model.addAttribute("list", list);
+			logger.info("list : " + list);
+		} else {
+			model.addAttribute("listcheck", "empty");
+			
+			return "search";
+		}
+		
+		model.addAttribute("page", new Page(cri, productService.productGetTotal(cri)));
+		
+		return "search";
+		
+	}	
 	
 }
 

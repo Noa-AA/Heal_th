@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="../layout/header.jsp"%>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <style type="text/css">
@@ -61,6 +60,7 @@ input:disabled, input {
 #photo_area img {
 	height: 200px;
 	width: 300px;
+	margin: 20px 30px;
 }
 
 #newphoto_area img {
@@ -75,19 +75,8 @@ input:disabled, input {
 </head>
 
 <body>
-	<div id="subvisual">
-		<div id="subvisual-A">
-			<p id="subv-title">챌린지 사진 인증</p>
-		</div>
-	</div>
-	<div id="twoDepth">
-		<div id="twoDepth-list">
-			<a href="/challenge/list">챌린지 리스트</a>
-			<a href="/challenge/create">챌린지 만들기</a>
-			<a href="/challenge/mypage">챌린지 마이페이지/인증</a>
-		</div>
-	</div>
-
+	<%@include file="../layout/header.jsp"%>
+	<jsp:include page="./layout/chlSubvisual2.jsp" />
 	<div class="container">
 		<div id="chlInfo_area" class="area">
 			<div class="area-title">
@@ -115,20 +104,18 @@ input:disabled, input {
 
 		<div id="photo_area" class="area">
 			<div class="area-title">
-				<span>나의 인증사진들</span>
+				<span>인증사진들</span>
 			</div>
 			<div class="area-body">
 				<div class="input-group">
-					<c:forEach items="${list }" var="photo">
-						<%-- 						<img src="/resources/img/chl_confirm/chl_con${pageInfo.challengeNo}.jpg" onerror="this.src='https://shared-comic.pstatic.net/thumb/webtoon/796152/thumbnail/thumbnail_IMAG10_a500c803-99ec-4bf8-92d1-b2a5c60c9789.jpg'"> --%>
-						<fmt:formatDate value="${photo.regiDate }" pattern="yyyy년 MM월 dd일" />
-						<%-- 						<img src="/resources/img/chl_confirm/chl_con${pageInfo.challengeNo}_${pageInfo.challengeNo}.jpg" onerror="this.src='https://shared-comic.pstatic.net/thumb/webtoon/796152/thumbnail/thumbnail_IMAG10_a500c803-99ec-4bf8-92d1-b2a5c60c9789.jpg'"> --%>
+					<c:forEach items="${ list }" var="photo">
+						<img src="/resources/uploadImage/${photo.storedfile}" onerror="this.src='https://shared-comic.pstatic.net/thumb/webtoon/796152/thumbnail/thumbnail_IMAG10_a500c803-99ec-4bf8-92d1-b2a5c60c9789.jpg'">
 					</c:forEach>
 				</div>
 			</div>
 		</div>
 
-		<form action="./photopage" method="post" enctype="multipart/form-data">
+		<form action="./photopage" method="post" id="photoForm" enctype="multipart/form-data">
 			<div id="newphoto_area" class="area">
 				<div class="area-title">
 					<span>새로 인증할 사진</span>
@@ -136,17 +123,45 @@ input:disabled, input {
 				<div class="area-body">
 					<div class="input-group">
 						<label for="file">첨부파일</label>
-						<input type="file" name="file" id="file">
-						이미지 유효성 검사
+						<input type="file" multiple="multiple" name="chlPhoto" id="chlPhoto" onchange="validationImage(this.value);">
+					</div>
+					<div id="btn_area" class="area">
+						<button id="btnIntro" disabled="disabled">확인</button>
+						<button type="reset" id="btnCancel">취소</button>
 					</div>
 				</div>
 			</div>
+			<input type="hidden" name="chWriter" value="${userId}">
+			<input type="hidden" name="challengeNo" value="${pageInfo.challengeNo }">
 
-			<div id="btn_area" class="area">
-				<button>확인</button>
-			</div>
 		</form>
 	</div>
-</body>
+
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			//제출
+			$("#btnIntro").click(function() {
+				console.log("확인 버튼 누름")
+				$("#photoForm").submit();
+			});
+
+			$("#btnCancel").click(function() {
+				console.log("취소")
+				history.go(-1)
+			});
+		})
+
+		//선택한 파일이 있으면 버튼 활성화
+		function validationImage(value) {
+			if (value) {
+				$("#btnIntro").attr('disabled', false)
+			} else {
+				$("#btnIntro").attr('disabled', true)
+			}
+		}
+	</script>
 <%@include file="../layout/footer.jsp"%>
+</body>
 </html>

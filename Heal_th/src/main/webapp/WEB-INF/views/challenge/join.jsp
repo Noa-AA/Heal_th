@@ -51,7 +51,12 @@ input:disabled {
 	border: none;
 }
 
-.btn_wrap{
+input:not(:disabled) {
+	border: 1px solid #333;
+	border-radius: 5px;
+}
+
+.btn_wrap {
 	text-align: center;
 }
 </style>
@@ -137,6 +142,7 @@ input:disabled {
 					<label>예치금으로 걸 금액 : </label>
 					<input id="input-q3" type="text" name="mUse" placeholder="최소금액 1000원" onchange="this.value=inputMuse(1000, ${ mmoney.mCharge }, this.value);">
 					<button onclick="q3()">확인</button>
+					<div class="mFeedback"></div>
 				</div>
 			</div>
 		</div>
@@ -168,48 +174,87 @@ input:disabled {
 			<div class="area-title">
 				<span>total</span>
 			</div>
-			<div class="area-body" style="font-size:20px;">
+			<div class="area-body" style="font-size: 20px;">
 				<input type="text" name="total" disabled="disabled">
 			</div>
 		</div>
 
-
 		<div class="btn_wrap">
 			<button class="btn" id="list_btn" onclick="location.href='/challenge/list'">취소하기</button>
-			<a class="btn" id="pay_btn" onclick="requestPay()">가입하기</a>
+			<button class="btn" id="pay_btn">가입하기</button>
 		</div>
 
-		<form id="payForm" action="/challenge/complete" method="post"></form>
 	</div>
+	<%@include file="../layout/footer.jsp"%>
 </body>
 
 <script type="text/javascript">
+	
+	let form = $("#payForm");
 
-// 	let form = $("#payForm");
-
-// 	//결제 버튼
-// 	$("#pay_btn").on("click", function(e) {
-// 		var dataObj = new Object();
-// 		$('.area').each((idx,ele)=> {
-// 			var area = $(ele).attr('id');
-// 			$(ele).find('input').each((i,e)=>{
-// 				var name = $(e).attr('name');
-// 				var value = $(e).val();
-// 				dataObj[area] = {[name]:value}
+	//결제 버튼
+	$("#pay_btn").on("click", function() {
+		var total = $('input[name=total]').val();
+		if(total == '' || total == null){
+			$('input[name=mUse]').focus().css({'border-color':'#c583d6'});
+			$('.mFeedback').text('예치금을 입력해주세요').css({'color':'#c583d6'});
+			return false;
+		}
+		
+		var inputData = getInputData();
+		
+		createForm(inputData);
+		
+	});
+	
+	function getInputData(){
+		
+		var dataObj = new Object();
+		$('.area').each((idx,ele)=> {
+			var area = $(ele).attr('id');
 			
-// 			});
+			var obj = new Object();
+			$(ele).find('input').each((i, e)=>{
+				var name = e.getAttribute('name')
+				var value = e.value;
+				obj[name]=value;
+			});
+			dataObj[area] = obj
 		
-// 		});
+		});
 		
-// 		console.log(dataObj);
-// 	});
+		return dataObj
+	}
+	
+	function createForm(inputData){
+		var form = $('<form>');
+		form.attr('action', '/challenge/join');
+		form.attr('method', 'post');
+		
+		var values={
+			 challengeNo : inputData.chlInfo_area.challengeNo,
+			 userNo : inputData.user_area.userNo,
+			 mUse : inputData.Mmoney_area.mUse,
+		};
+		
+		$.each(values, function(k, v){
+			var field =$('<input>')
+			field.attr('name', k);
+			field.attr('value', v);
+			console.log(field)
+			form.append(field);
+		});
+		
+		$(document.body).append(form)
+		form.submit();
+	}
+	
 
 	//예치금 확인 버튼
 	function q3() {
 
 		let name = $('#input-q3').val().trim()
 		if (name == '' || name == null) {
-
 			alert('예치금을 입력해주세요')
 		} else {
 			console.log(name)
@@ -231,5 +276,5 @@ input:disabled {
 	}
 </script>
 
-<%@include file="../layout/footer.jsp"%>
+
 </html>

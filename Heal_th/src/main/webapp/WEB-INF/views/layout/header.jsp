@@ -286,23 +286,6 @@ header {
     width: 20%;
 }
 
-.footer {
-    width: 100%;
-    min-width: 1048px;
-	bottom: 0;
-	height: 100px;
-	border-top: 1px solid #ddd;
-	background: #fff;
-	z-index: 99;
-	margin-top: 160px;
-} 
-
-.footer-wrap {
-	width: 1200px;
-	margin: 0 auto;
-	height: 100px;
-	padding: 10px 0;
-}
 
 .big-container h3:nth-child(1){
 	padding-bottom: 64px;
@@ -330,6 +313,7 @@ body {
 	box-shadow: 0 7px 20px rgb(0 0 0 / 17%);
 	z-index: 1000;
 	overflow-y: scroll;
+	background-color:white;
 }
 
 .messageBox::-webkit-scrollbar {
@@ -353,6 +337,126 @@ body {
     border-left: 11px solid rgba(0,0,0,0);
     content: "";
     filter: drop-shadow(0px 7px 20px rgba(0, 0, 0, 0.17));
+}
+
+
+/* Footer ------------------------------------------------------------------- */
+
+.footer {
+    width: 100%;
+    min-width: 1048px;
+	height: 200px;
+ 	border-top: 1px solid #eee; 
+	margin-top: 160px;
+	background-color: #f8f8f8;
+} 
+
+.footer-wrap {
+	display: flex;
+	width: 1600px;
+	margin: 0 auto;
+	height: 200px;
+	padding: 30px 0 60px;;
+}
+
+.footerLeft {
+	width: 16%;
+	padding-top: 20px;
+}
+
+.footerLeft > img {
+	width: 160px;
+}
+
+.footerRight {
+	width: 84%;
+}
+
+.footer_Rtop {
+	display: flex;
+	padding-bottom: 12px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid #dddddd;
+    justify-content: space-between;
+}
+
+.footer_Rul {
+	display: flex;
+	padding-top: 20px;
+}
+
+.footer_Rul > li {
+	position: relative;
+    padding-right: 21px;
+    margin-right: 20px;
+    font-size: 15px;
+    color: #666;
+}
+
+.footer_Rul > li:hover {
+	cursor: pointer;
+}
+
+.footer_Rul > li:nth-child(2) {
+	color: #333;
+	font-weight: 700;
+}
+
+.footer_Rul > li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 1px;
+    height: 10px;
+    background-color: #bbb;
+    transform: translateY(-50%);
+}
+
+
+
+.footer_Rbottom_Text {
+	display: flex;
+	margin-bottom: 10px;
+}
+
+.footer_brand_text:not(:last-child) {
+    position: relative;
+    padding-right: 15px;
+    margin-right: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.footer_brand_text:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 1px;
+    height: 10px;
+    background-color: #bbb;
+    transform: translateY(-50%);
+}
+
+.footer_brand_text:last-child {
+    font-weight: 600;
+}
+
+.footer_Rbottom_bottom {
+	color: #aaa;
+}
+
+.fm_select {
+	width: 180px;
+	height: 40px;
+	padding: 0 14px 0;
+	background-color: #f8f8f8;
+	-webkit-appearance: none; 
+    -moz-appearance: none;
+    color: #888;
+    border: 1px solid #ccc;
+    background: url(/resources/img/footer_more.png) no-repeat 94% 50%;
 }
 
 
@@ -467,7 +571,7 @@ $(document).ready(function(){
 			</ul>
 			<div id="alram">
 			<button id="myAlert"><img src="/resources/img/bell.png"></button>
-				<div class="messageBox">
+				<div class="messageBox" style="display:none;">
 					<div id="message-result"></div>
 				</div>
 			</div>

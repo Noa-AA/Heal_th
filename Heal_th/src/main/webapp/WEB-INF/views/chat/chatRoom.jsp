@@ -19,11 +19,11 @@ $(document).ready(function() {
 		goChat( createRoomNo );
 	}
 		
-	
 	/* 리스트를 누르면 해당리스트는 안눌리기 */
 	$(".roomBtn").click(function() {
 		
 		$(this).attr("disabled", true);
+		$(this).css("background-color", "#f4f4f4");
 		
 		$(".roomBtn").not(this).attr("disabled", false);
 		
@@ -122,7 +122,7 @@ button, input {
 }
 
 .roomBtn:hover {
-	background-color: #f0f0f0;
+	background-color: #f4f4f4;
 }
 
 /* 왼쪽 사진부분 */
@@ -135,6 +135,8 @@ button, input {
 }
 
 .left > img {
+	width: 44px;
+	height: 44px;
 	border-radius: 20px;
 }
 
@@ -236,13 +238,16 @@ button, input {
 			${userId }님 안녕하세요.
 		</div>
 		<c:forEach items="${roomList }" var="room">
-		
-<%-- 		<div class="room" onclick="goChat(${room.roomNo })"> --%>
 
 			<button class="roomBtn" onclick="goChat(${room.roomNo })" >
 				
 				<div class="left">
-					<img src="${pageContext.request.contextPath}/upload/${room.storedName}">
+					<c:if test="${not empty room.storedName }">
+						<img src="${pageContext.request.contextPath}/upload/${room.storedName}" class="profilePhoto">
+					</c:if>
+					<c:if test="${empty room.storedName }">
+						<img src="/resources/img/chat_default.png" class="profilePhoto">
+					</c:if>
 				</div>
 				
 				<div class="right">

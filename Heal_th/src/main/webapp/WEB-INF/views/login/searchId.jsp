@@ -12,12 +12,12 @@ $(document).ready(function(){
 					
 				if(ckhValue =='email'){
 					console.log("이메일인증하기 보이기")
-					$("#emailSearch").css("visibility","visible");
-					$("#smsSearch").css("visibility","hidden");
+					$("#emailSearch").css("display","block");
+					$("#smsSearch").css("display","none");
 				}else if(ckhValue =='sms'){
-					console.log("이메일인증하기 보이기")
-					$("#smsSearch").css("visibility","visible");
-					$("#emailSearch").css("visibility","hidden");
+					console.log("문자인증하기 보이기")
+					$("#smsSearch").css("display","block");
+					$("#emailSearch").css("display","none");
 				}
 			})
 			
@@ -27,32 +27,26 @@ $(document).ready(function(){
 
 			
 			//resultMsg 초기화 
-			$("#userName").focus(function(){
-				$("#resultMsg").html("")
-				$("#resultMsg").css("color","black")
-				
+			$("#userNameByEmail").focus(function(){
+				$("#nameAlertForEmail").html("")
 			})
 			$("#userEmail").focus(function(){
-				$("#resultMsg").html("")
-				$("#resultMsg").css("color","black")
+				$("#emailAlert").html("")
 			})
 			$("#emailCode").focus(function(){
-				$("#resultMsg").html("")
-				$("#resultMsg").css("color","black")
+				$("#searchIdbyEmailResult").html("")
 			})
 			$("#userNameBySms").focus(function(){
 				$("#resultMsg").html("")
-				$("#resultMsg").css("color","black")
 			})
 			$("#userPhone").focus(function(){
-				$("#resultMsg").html("")
-				$("#resultMsg").css("color","black")
+				$("#smsAlert").html("")
 			})
 			$("#smsCode").focus(function(){
-				$("#resultMsg").html("")
-				$("#resultMsg").css("color","black")
+				$("#searchIdbySmsResult").html("")
 			})
 			
+			//이메일 인증하기 시작
 	$("#btnsearchId").click(function(){
 			console.log("이메일 인증받기 버튼 클릭")
 		$.ajax({
@@ -60,21 +54,24 @@ $(document).ready(function(){
 			type:"post"
 			,url:"/login/searchId"
 			,data :{
-				userName : $("#userName").val()
+				userName : $("#userNameByEmail").val()
 				,userEmail: $("#userEmail").val()				
 			}
 			,dataType:"json"
 			,success:function(res){
 				console.log(res)
 				console.log("이메일 번호 보내기 ")
-				if(res == true) {
+				if(res) {
 					console.log("회원 있음")
 					$("#emailCode").attr("disabled",false)
+					$("#emailAlert").html("회원님의 이메일을 확인해주세요")
+					$("#emailAlert").css("color","green")
+					
 					$("#emailCode").focus()
 				}else {
 					console.log("회원 없음")
-					$("#resultMsg").html("일치하는 회원정보가 없습니다. 아이디 또는 이메일을 확인해주세요")
-					$("#resultMsg").css("color","red")
+					$("#emailAlert").html("일치하는 회원정보가 없습니다. 아이디 또는 이메일을 확인해주세요")
+					$("#emailAlert").css("color","red")
 					
 				}
 				
@@ -96,20 +93,20 @@ $(document).ready(function(){
 			,data :{
 				emailCode : $("#emailCode").val()
 			}
-			,dataType:"text"
+			,dataType:"json"
 			,success:function(res){
 				console.log(res)
 				console.log("이메일 인증하기 ")
-				if(res != "false") {
+				if(res) {
 					console.log("아이디 찾기 성공")
-					$("#searchId").css("display","none")
-					$("#btnCancel").css("display","none")
-					$("#resultMsg").html("회원님의 아이디는"+res+"입니다.")
-					$("#toLogin").show()
+					$("#searchIdbyEmailResult").html("인증 성공")
+					$("#searchIdbyEmailResult").css("color","green")
+					$("#btnfindId").attr("disabled",false)
 				}else  {
 					console.log("이메일 인증 실패")
-					$("#resultMsg").html("<p>인증 실패. 인증번호를 한번 더 확인해주세요</p>")
-					$("#resultMsg").css("color","red")
+					$("#searchIdbyEmailResult").html("<p>인증 실패. 인증번호를 한번 더 확인해주세요</p>")
+					$("#searchIdbyEmailResult").css("color","red")
+					$("#btnfindId").attr("disabled",true)
 				}
 				
 			}
@@ -137,22 +134,23 @@ $(document).ready(function(){
 			,success:function(res){
 				console.log(res)
 				console.log("문자 번호 보내기 ")
-				if(res == true) {
+				if(res) {
 					console.log("회원 있음")
 					$("#smsCode").attr("disabled",false)
 					$("#smsCode").focus()
+					
 				}else {
 					console.log("회원 없음")
-					$("#resultMsg").html("일치하는 회원정보가 없습니다. 아이디 또는 전화번호를 확인해주세요")
-					$("#resultMsg").css("color","red")
-					
+					$("#smsAlert").html("일치하는 회원정보가 없습니다. 아이디 또는 전화번호를 확인해주세요")
+					$("#smsAlert").css("color","red")
+			
 				}
 				
 			}
 			,error : function(){
 				
 			}
-		}); //이메일 보내기 요청 완료 
+		}); //문자 보내기 요청 완료 
 			
 	})//인증하기 버튼 클릭 
 	
@@ -166,20 +164,20 @@ $(document).ready(function(){
 			,data :{
 				smsCode : $("#smsCode").val()
 			}
-			,dataType:"text"
+			,dataType:"json"
 			,success:function(res){
 				console.log(res)
 				console.log("문자 인증하기 ")
-				if(res != "false") {
+				if(res) {
 					console.log("아이디 찾기 성공")
-					$("#searchId").css("display","none")
-					$("#btnCancel").css("display","none")
-					$("#resultMsg").html("회원님의 아이디는"+res+"입니다.")
-					$("#toLogin").show()
+					$("#searchIdbySmsResult").html("인증 성공")
+					$("#searchIdbySmsResult").css("color","green")
+					$("#btnfindId").attr("disabled",false)
 				}else  {
 					console.log("이메일 인증 실패")
-					$("#resultMsg").html("<p>인증 실패. 인증번호를 한번 더 확인해주세요</p>")
-					$("#resultMsg").css("color","red")
+					$("#searchIdbySmsResult").html("<p>인증 실패 인증번호를 한번 더 확인해주세요</p>")
+					$("#searchIdbySmsResult").css("color","red")
+					$("#btnfindId").attr("disabled",true)
 				}
 				
 			}
@@ -187,11 +185,83 @@ $(document).ready(function(){
 				console.log("실패다 실패야...")
 			}
 		}); //문자인증 완료 
+		
 				
 	})
+		//폼 제출 하기 
+		$("#btnfindId").click(function(){
+			
+			if(validateEmail()){
+				console.log("이메일  인증으로 아이디 찾기")
+				$("#searchIdByEmailForm").submit();
+				
+			}else if(validateSms()){
+				console.log("전화번호 인증으로 아이디 찾기")
+				$("#searchIdBySmsForm").submit()
+			}
+			
+		})
+				
+	
+	
+
+	
 })
 
+	function validateEmail(){
+				
+				//이름이 빈칸일 때 
+				if(document.getElementById("userNameByEmail").value =="") {
+					console.log("이름입력 알림")
+					document.getElementById("nameAlertForEmail").innerHTML="<span style='color:red;'>* 이름을 입력해주세요</span>"
+					return false;
+				} 
+				
+				//이메일 빈칸일 때 
+				var testId = document.getElementById("userEmail").value
+				if(testId =="") {
+					console.log("이메일입력 알림")
+					document.getElementById("emailAlert").innerHTML="<span style='color:red;'>* 이메일을 입력해주세요</span>"
+						return false;
+				}
+				//인증번호 입력칸이 빈칸일 때  
+				if(document.getElementById("emailCode").value =="") {
+					console.log("이메일 인증 번호입력 알림")
+					document.getElementById("searchIdbyEmailResult").innerHTML="<span style='color:red;'>* 인증번호를 입력해주세요</span>"
+						return false;
+				}
 
+			
+		return true;
+				
+	}
+	
+			
+	function validateSms(){
+		
+		//이름이 빈칸일 때 
+		if(document.getElementById("userNameBySms").value =="") {
+			console.log("이름입력 알림")
+			document.getElementById("nameAlertForSms").innerHTML="<span style='color:red;'>* 이름을 입력해주세요</span>"
+			return false;
+		} 
+		
+		//이메일 빈칸일 때 
+		var testId = document.getElementById("userPhone").value
+		if(testId =="") {
+			console.log("전화번호입력 알림")
+			document.getElementById("smsAlert").innerHTML="<span style='color:red;'>* 전화번호를 입력해주세요</span>"
+				return false;
+		}
+		//인증번호 입력칸이 빈칸일 때  
+		if(document.getElementById("smsCode").value =="") {
+			console.log("문자인증 입력 알림")
+			document.getElementById("searchIdbySmsResult").innerHTML="<span style='color:red;'>* 인증번호를 입력해주세요</span>"
+				return false;
+		}
+		
+		return true;
+	}
 function cancel(){
 	console.log("취소하기")
 	history.go(-1)
@@ -203,77 +273,223 @@ function cancel(){
 </script>
 
 <style type="text/css">
-
-#search{
-	width: 500px;
-	margin: 0 auto;
+#body{
+	padding-top:0;
+}
+#searchId{
+	width: 542px;
+    height: 663px;
+    position: relative;
+    background-color: white;
+    border-radius: 12px;
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
+    margin: 0 auto;
 
 }
+#searchIdForm{
+    margin-top: 40px;
+}
+.inputInfo:focus{
+	border-bottom-color:#7ca3f5; 
+}
+#boxArea{
+	margin: 0px 60px;
+    height: 663px;
 
+}
+#title{
+	padding-top: 60px;
+    text-align: center;
+}
+#titleForHead{
+	font-size: 30px;
+    font-weight: 600;
+    color: gray;
+}
+.inputArea{
+	margin: 0;
+	position:relative;
+	height:114px;
+}
+.formTitle{
+	font-size: 17px;
+	color:gray;
+	 position: absolute;
+    margin: 10px 0 0;
+}
+
+.inputInfo{
+	width: 422px;
+    height: 33px;
+    margin-left: 0;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid lightgray;
+    position:absolute;
+    top:39px;
+     font-size: 17px;
+}
+
+#userEmail,#emailCode,#userPhone,#smsCode{
+	width: 315px;
+}
+#btnfindId{
+	width: 190px;
+    height: 47px;
+      border-radius: 8px;
+	background-color: #7ca3f5;
+	font-size: 17px;
+	color:white;
+
+}
+#btnCancel{
+	width: 190px;
+    height: 47px;
+      border-radius: 8px;
+	background-color: transparent;
+	 border:2px solid #7ca3f5;
+	font-size: 17px;
+	color:#7ca3f5;
+	
+}
+
+.selectForm{
+	font-size: 17px;
+	color:gray;
+}
+.btnCode{
+	width: 108px;
+    height: 36px;
+    background-color: transparent;
+    border: 2px solid #7ca3f5;
+    color:#7ca3f5;
+    font-size:17px;
+    border-radius: 8px;
+}
+
+#btnGetCode,#btnEmailchk,#getsmsCode,#btnSmschk{
+	position: absolute;
+    top: 37px;
+    left: 315px;
+
+}
+#btnArea{
+position: absolute;
+    height: 50px;
+    left: 60px;
+	margin: 30px 0 0 0;
+}
+
+.resMsg{
+    position: absolute;
+    top: 87px;
+}
+
+#searchIdByEmail,#searchIdBySms{
+    margin-right: 10px;
+}
 </style>
 
-<body>
-	<div id="search">
-		<div id="searchId">
-		<h1 id="title">아이디찾기</h1>
-	
-				<input type="radio" name="searchIdBy" value="email" id="searchIdByEmail" >이메일로 인증하기
-				<div id="emailSearch" style="visibility:hidden;" >
-						<div class="usernameArea" >
-							<label for="userName">이름
-								<input type="text" name="userName" id="userName" placeholder="이름을 입력하세요">
-							</label>
-						</div>
-						
-						<div id="email">
-							<label for="userEmail">이메일주소
-								<input type="text" name="userEmail" id="userEmail" placeholder="이메일을 입력하세요">
-							</label>
-							<button type="button" id="btnsearchId">인증번호받기</button>
-						</div>
-						
-						<div id="confirmEmail">
-							<label for="emailCode">인증번호
-								<input type="text" name="emailCode" id="emailCode" placeholder="인증번호를 입력하세요" disabled>
-							</label>
-							<button type="button" id="chkemailCode">인증번호 확인</button>
-						</div>
-				</div>
-				
-				<input type="radio" name="searchIdBy" value="sms" id="searchIdBySms" >문자로 인증하기
-				<div id="smsSearch" style="visibility:hidden;" >
-						<div class="usernameArea" >
-							<label for="userName">이름
-								<input type="text" name="userNameBySms" id="userNameBySms" placeholder="이름을 입력하세요">
-							</label>
-						</div>
-						
-						<div id="sms">
-							<label for="userPhone">전화번호
-								<input type="text" name="userPhone" id="userPhone" placeholder="전화번호를 입력하세요">
-							</label>
-							<button type="button" id="btngetSmsCode">인증번호받기</button>
-						</div>
-						
-						<div id="confirmSms">
-							<label for="smsCode">인증번호
-								<input type="text" name="smsCode" id="smsCode" placeholder="인증번호를 입력하세요" disabled>
-							</label>
-							<button type="button" id="chksmsCode">인증번호 확인</button>
-							
-						</div>
-				</div>
+<body id="body">
+	<div id="searchId">
+		<div id="boxArea">
 		
+			<div id="title">
+				<span id="titleForHead">아이디 찾기</span>
+			</div>
+			
+			<div id="searchIdForm">
+			
+				<div id="emailArea">
+					<div id="selectEmail">
+						<input type="radio" name="searchIdBy" value="email" id="searchIdByEmail" ><span class="selectForm">이메일로 인증하기</span>
+					</div>
+						<div id="emailSearch" style="display : none;" >
+								<form action="/login/searchIdResult" method="post" id="searchIdByEmailForm">
+									<div id="userNameForEmail" class="inputArea" >
+										<label for="userName">
+											<span class="formTitle name">이름</span>
+										</label>
+											<input type="text" name="userName" id="userNameByEmail" class="inputInfo" placeholder="이름을 입력하세요">
+										<div id="nameAlertForEmail"  class="resMsg"></div>
+									</div>
+									
+									<div id="email" class="inputArea" >
+										<label for="userEmail">
+											<span class="formTitle name">이메일</span>
+										</label>
+										<input type="text" name="userEmail" id="userEmail" class="inputInfo" placeholder="이메일을 입력하세요">
+										
+										<div id="btnGetCode">
+											<button type="button" id="btnsearchId" class="btnCode"> 인증번호 받기</button>
+										</div>
+										<div id="emailAlert"  class="resMsg"></div>
+									</div>
+									
+									<div id="confirmEmail" class="inputArea">
+										<label for="emailCode">
+											<span class="formTitle name">인증번호</span>
+										</label>
+											<input type="text" name="emailCode" id="emailCode" class="inputInfo" placeholder="인증번호를 입력하세요" disabled>
+										
+										<div id="btnEmailchk">
+											<button type="button" id="chkemailCode" class="btnCode">인증번호 확인</button>
+										</div>	
+										
+										<div id="searchIdbyEmailResult" class="resMsg"></div>					
+									</div>
+								</form>
+						</div>
+				</div>
+				<div id="smsArea">
+					<div id="selectSms">
+						<input type="radio" name="searchIdBy" value="sms" id="searchIdBySms" ><span class="selectForm">문자로 인증하기</span>
+					</div>	
+					
+					<div id="smsSearch" style="display:none;" >
+						<form action="/login/searchIdResult" method="post" id="searchIdBySmsForm">
+							<div id="userNameForEmail" class="inputArea" >
+								<label for="userName">
+									<span class="formTitle name">이름</span>
+								</label>
+								<input type="text" name="userName" id="userNameBySms" class="inputInfo" placeholder="이름을 입력하세요">
+								<div id="nameAlertForSms"  class="resMsg"></div>
+							</div>
+								
+							<div id="sms" class="inputArea">
+								<label for="userPhone">
+									<span class="formTitle name">전화번호</span>
+								</label>
+									<input type="text" name="userPhone" id="userPhone" class="inputInfo" placeholder="전화번호를 입력하세요">
+									
+									<div id="getsmsCode">
+										<button type="button" id="btngetSmsCode" class="btnCode">인증번호받기</button>
+									</div>
+									<div id="smsAlert"  class="resMsg"></div>
+							</div>
+								
+							<div id="confirmSms" class="inputArea" >
+								<label for="smsCode">
+									<span class="formTitle name">인증번호</span>
+								</label>
+									<input type="text" name="smsCode" id="smsCode" class="inputInfo" placeholder="인증번호를 입력하세요" disabled>
+								
+								<div id="btnSmschk">
+									<button type="button" id="chksmsCode" class="btnCode">인증번호 확인</button>
+								</div>
+								<div id="searchIdbySmsResult" class="resMsg"></div>			
+							</div>
+						</form>
+					</div>
+				</div>	
+					
+		</div>
+		
+		<div id="btnArea">
+			<button type="button" id="btnfindId" style="margin-right: 40px;">아이디 찾기</button>
+			<button type="button" id="btnCancel" onclick="cancel()">취소하기</button>
+		</div>
 	</div>
-	
-		<div id="result">
-			<div id="resultMsg"></div>
-			<button type="button" id ="toLogin" onclick="location.href='/login/login'" style="display:none;">로그인하기</button>
-		
-		</div>
-		<div id="btnCancel">
-			<button type="button" onclick="cancel()">뒤로가기</button>
-		</div>
 </div>
 
 </body>

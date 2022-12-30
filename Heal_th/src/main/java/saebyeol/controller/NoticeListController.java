@@ -13,14 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import saebyeol.dto.Criteria;
 import saebyeol.dto.Notice;
+import saebyeol.dto.Page;
 import saebyeol.service.face.NoticeService;
-import saebyeol.utill.PageMaker;
-import saebyeol.utill.SaebyeolPaging;
-import saebyeol.utill.Search;
 
 @Controller
 @RequestMapping("/notice")
@@ -33,18 +31,16 @@ public class NoticeListController {
 	@Autowired NoticeService noticeService;
 	
 	@RequestMapping("/list")
-	public void list(@RequestParam(defaultValue = "0") int curPage, Model model, Search search ) {
-		logger.info("list");
-		SaebyeolPaging paging = noticeService.getPaging(curPage);
-		logger.debug("{}", paging);
-		model.addAttribute("paging", paging);
+	public void list(Model model, Criteria cri ) {
+		logger.info("list 페이지---");
 		
-		List<Notice> list = noticeService.list(paging);
-		for( Notice n : list )	logger.debug("{}", n);
-		model.addAttribute("list", list);
+		model.addAttribute("list", noticeService.getPaging(cri));
 		
-		model.addAttribute("search", noticeService.getSearch(search));
+		int total = noticeService.getTotal(cri);
 		
+		Page page = new Page(cri, total);
+		
+		model.addAttribute("page", page);
 	 
 	}
 	

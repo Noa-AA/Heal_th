@@ -1,10 +1,8 @@
 package hyunkyung.dto;
 
-
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
 
 public class Challenge {
 	private int challengeNo;
@@ -14,27 +12,27 @@ public class Challenge {
 	private Date challengeCredate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date challengeEnddate;
-	private int mNo;
+	private int status; //기본값 1
 	
 	public Challenge() {
 	}
 
 	public Challenge(int challengeNo, String challengeKind, String challengeName, Date challengeCredate,
-			Date challengeEnddate, int mNo) {
+			Date challengeEnddate, int status) {
 		super();
 		this.challengeNo = challengeNo;
 		this.challengeKind = challengeKind;
 		this.challengeName = challengeName;
 		this.challengeCredate = challengeCredate;
 		this.challengeEnddate = challengeEnddate;
-		this.mNo = mNo;
+		this.status = status;
 	}
 
 	@Override
 	public String toString() {
 		return "Challenge [challengeNo=" + challengeNo + ", challengeKind=" + challengeKind + ", challengeName="
 				+ challengeName + ", challengeCredate=" + challengeCredate + ", challengeEnddate=" + challengeEnddate
-				+ ", mNo=" + mNo + "]";
+				+ ", status=" + status + "]";
 	}
 
 	public int getChallengeNo() {
@@ -77,15 +75,13 @@ public class Challenge {
 		this.challengeEnddate = challengeEnddate;
 	}
 
-	public int getmNo() {
-		return mNo;
+	public int getStatus() {
+		return status;
 	}
 
-	public void setmNo(int mNo) {
-		this.mNo = mNo;
+	public void setStatus(int status) {
+		this.status = status;
 	}
-	
-	
 	
 	
 }
