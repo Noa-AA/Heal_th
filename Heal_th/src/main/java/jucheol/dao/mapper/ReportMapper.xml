@@ -6,12 +6,12 @@
 <mapper namespace="jucheol.dao.face.ReportDao">
 	<select id="reportCheck" resultType="Report" parameterType="Report">
 		SELECT * FROM report
-		WHERE user_no = #{userNo} AND board_no = #{boardNo} AND category_no = #{categoryNo}
+		WHERE user_no = #{ruserNo} AND board_no = #{boardNo} AND category_no = #{categoryNo}
 	</select>
 
 	<insert id="addReport" parameterType="Report">
 		INSERT INTO report(report_no, board_no, user_no, category_no)
-		VALUES ( report_seq.nextval, #{boardNo }, #{userNo }, #{categoryNo } )
+		VALUES ( report_seq.nextval, #{boardNo }, #{ruserNo }, #{categoryNo } )
 	</insert>
 	
 	<delete id="deleteReport" parameterType="Report">
@@ -20,19 +20,21 @@
 	</delete>
 	
 	<select id="selectList" resultType="Report" parameterType="Report">
-		SELECT a.*, c.category_name,r.report_no, r.user_no FROM (
-			SELECT bf_title AS title, bf_no AS board_no, category_no from beforeafter
+		SELECT a.*, c.category_name,r.report_no, r.user_no as ruser_no, u.user_nick as ruser_nick, uu.user_nick as wuser_nick FROM (
+			SELECT bf_title AS title, bf_no AS board_no, category_no, user_no as wuser_no from beforeafter
 			UNION
-			SELECT r_title, review_no, category_no  from reviewboard
+			SELECT r_title, review_no, category_no, user_no  from reviewboard
 			UNION
-			SELECT d_title, diet_no, category_no  from dietboard
+			SELECT d_title, diet_no, category_no, user_no  from dietboard
 			UNION
-			SELECT v_title, verify_no, category_no  from verifyboard
-			)a, report r, category c
+			SELECT v_title, verify_no, category_no, user_no  from verifyboard
+			)a, report r, category c, users u, users uu
 		WHERE r.board_no = a.board_no
 		AND a.category_no = c.category_no
         AND a.category_no = r.category_no
-		ORDER BY report_no desc
+        AND u.user_no = r.user_no
+        AND uu.user_no = a.wuser_no
+		ORDER BY report_no
 	</select>
 	
 	<select id="selectOne" resultType="Report" parameterType="Report">

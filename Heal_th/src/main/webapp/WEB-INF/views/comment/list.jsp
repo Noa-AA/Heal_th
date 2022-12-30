@@ -47,7 +47,7 @@
 						<img src="${pageContext.request.contextPath}/upload/${comment.profileStoreName}" class="pIcon">
 					</c:if>
 				</td>
-				<td style="width: 430px">
+				<td style="width: 85%">
 					<span class="userNick">${comment.userNick }</span>
 					(<fmt:formatDate value="${comment.commentDate }" pattern="yy-MM-dd  HH:mm:ss" />)
 				</td>
