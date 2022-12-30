@@ -4,44 +4,25 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <style type="text/css">
-#twoDepth-list a:nth-child(1) {
-	color: #b571e9;
-	border-bottom: 2px solid #b571e9;
-	margin-top: 1px;
-	font-weight: 700;
-}
-
-#twoDepth-list a {
-	width: 33.3%;
-}
-
-.wrap {
-	
-}
-
-.title {
-	margin-bottom: 40px;
-}
-
 .challenge-list {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	margin: auto;
 	gap: 50px 50px;
-	width: 1100px;
-	margin-top: 40px;
+	width: 1200px;
+	margin-top: -16px;
 }
 
 .challenge {
 	position: relative;
 	flex: 1 1 30%;
 	border: 1px solid #cfcfcf;
-	box-shadow: 1px 1px 10px 0px rgb(0 0 0/ 30%);
+	box-shadow: 1px 1px 8px 0px rgb(0 0 0/ 10%);
 	border-radius: 10px;
 	text-align: center;
 	width: 400px;
-	height: 260px;
+	height: 300px;
 }
 
 .challenge-content {
@@ -58,7 +39,7 @@
 .search_area {
 	display: inline-block;
 	text-align: center;
-	margin-top: 30px;
+	margin-top: 0px;
 }
 
 .search_area input {
@@ -116,18 +97,6 @@ a:hover {
 
 </head>
 <body>
-	<div id="subvisual">
-		<div id="subvisual-A">
-			<p id="subv-title">챌린지 리스트</p>
-		</div>
-	</div>
-	<div id="twoDepth">
-		<div id="twoDepth-list">
-			<a href="/challenge/list">챌린지 리스트</a>
-			<a href="/challenge/create">챌린지 만들기</a>
-			<a href="/challenge/mypage">챌린지 마이페이지/인증</a>
-		</div>
-	</div>
 
 	<!-- 관리자 로그인 상태일때 -->
 	<c:if test="${!empty adminNo && empty userId}">
@@ -137,12 +106,11 @@ a:hover {
 	<!-- 회원 로그인 상태일때 -->
 	<c:if test="${empty adminNo}">
 		<%@include file="../layout/header.jsp"%>
-		<%-- 		<jsp:include page="./layout/subvisual.jsp" /> --%>
+		<jsp:include page="./layout/chlSubvisual.jsp" />
 	</c:if>
 
-	<div class="wrap">
 
-
+	<div class="total-list">
 		<div class="challenge-list">
 			<c:forEach items="${list }" var="challenge">
 
@@ -221,7 +189,6 @@ a:hover {
 				</ul>
 			</div>
 		</div>
-
 	</div>
 
 	<form id="moveForm" method="get">

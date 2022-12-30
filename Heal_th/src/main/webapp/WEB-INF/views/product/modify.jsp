@@ -13,45 +13,32 @@ $(document).ready(function() {
 		console.error(error);
 	});
 	
-	$("#cancelBtn").click(function() {
-		$(location).attr("href", "./list")
-	})
+	/* 취소 버튼 */
+	$("#cancelBtn").on("click", function(e){
+		e.preventDefault();
+		$("#moveForm").submit();	
+	});	
 	
-	$("#modifyBtn").click(function() {
-		$(location).attr("href", "/product/modify?prodNo=${goodsInfo.prodNo}")
-	})
-
-	$("#deleteBtn").click(function() {
-		$(location).attr("href", "/product/delete?prodNo=${goodsInfo.prodNo}")
-	})
-
+	/* 수정 버튼 */
+	$("#modifyBtn").on("click", function(e){
+		e.preventDefault();
+		$("#modifyForm").submit();
+	});	
 	
-// 	/* 취소 버튼 */
-// 	$("#cancelBtn").on("click", function(e){
-// 		e.preventDefault();
-// 		$("#moveForm").submit();	
-// 	});	
-	
-// 	/* 수정 버튼 */
-// 	$("#modifyBtn").on("click", function(e){
-// 		e.preventDefault();
-// 		$("#modifyForm").submit();
-// 	});	
-	
-// 	/* 삭제 버튼 */
-// 	$("#btnDelete").on("click", function(e){
-// 		e.preventDefault();
-// 		let moveForm = $("#moveForm");
-// 		moveForm.find("input").remove();
-// 		moveForm.append('<input type="hidden" name="prodNo" value="${productInfo.prodNo}">');
-// 		moveForm.attr("action", "/product/delete");
-// 		moveForm.attr("method", "post");
-// 		moveForm.submit();
-// 	});	
+	/* 삭제 버튼 */
+	$("#deleteBtn").on("click", function(e){
+		e.preventDefault();
+		let moveForm = $("#moveForm");
+		moveForm.find("input").remove();
+		moveForm.append('<input type="hidden" name="prodNo" value="${productInfo.prodNo}">');
+		moveForm.attr("action", "/product/delete");
+		moveForm.attr("method", "post");
+		moveForm.submit();
+	});	
 	
 	
 	/* 이미지호출 */
-	let prodNo = '<c:out value="${goodsInfo.prodNo}"/>';
+	let prodNo = '<c:out value="${productInfo.prodNo}"/>';
 	let uploadResult = $("#uploadResult");
 	
 	$.getJSON("/product/getAttachList", {prodNo : prodNo}, function(arr) {
@@ -102,9 +89,8 @@ $(document).ready(function() {
 <style type="text/css">
 /* 관리자페이지 컨텐츠 영역 */
 .admin_content_wrap{
-    width: 80%;
-    float:left;
-    min-height: 700px;
+   height: 700px;
+	overflow: scroll;
 }
 .admin_content_subject{	/* 관리자 컨텐츠 제목 영역 */
     font-size: 40px;
@@ -202,79 +188,83 @@ $(document).ready(function() {
 
 <body>
 
-<div class="admin_content_main">
-	<form action="/product/update" method="post" id="updateForm">
-		<div class="form_section">
-		<div class="form_section_title">
-			<label>카테고리</label>
-		</div>
-		<div class="form_section_content">
-			<div class="cate_wrap">
-				<select name="pCateNo" value="${goodsInfo.pCateNo }">
-					<option value="none" selected>=== 상품분류 ===</option>
-					<option value="10">운동용품</option>
-					<option value="20">보조제</option>
-					<option value="30">다이어트식품</option>
-				</select>
-			</div>
-		</div>
-		<div class="form_section">
+<div class="admin_content_wrap">
+	<div class="admin_content_subject"><span>상품 등록</span></div>
+	<div class="admin_content_main">
+		<form action="/product/modify" method="post" id="modifyForm">
+			<div class="form_section">
 			<div class="form_section_title">
-				<label>상품명</label>
+				<label>카테고리</label>
 			</div>
 			<div class="form_section_content">
-				<input name="pName" value="${goodsInfo.pName }">
+				<div class="cate_wrap">
+					<select name="pCateNo" value="${productInfo.pCateNo }">
+						<option value="none" selected>=== 상품분류 ===</option>
+						<option value="10">운동용품</option>
+						<option value="20">보조제</option>
+						<option value="30">다이어트식품</option>
+					</select>
+				</div>
+			</div>
+			<div class="form_section">
+				<div class="form_section_title">
+					<label>상품명</label>
+				</div>
+				<div class="form_section_content">
+					<input name="pName" value="${productInfo.pName }">
+				</div>
+			</div>	
+			<div class="form_section">	
+				<div class="form_section_title">
+					<label>상품 가격</label>
+				</div>
+				<div class="form_section_content">
+					<input name="pPrice" value="${productInfo.pPrice }">
+				</div>
+			</div>
+			<div class="form_section">
+				<div class="form_section_title">
+					<label>상세정보</label>
+				</div>
+				<div class="form_section_content">
+					<textarea name="pDetail" id="pDetail_textarea">${productInfo.pDetail }</textarea>
+				</div>
+			</div>
+			<div class="form_section">
+				<div class="form_section_title">
+					<label>재고수량</label>
+				</div>
+				<div class="form_section_content">
+					<input name="pStock" value="${productInfo.pStock }">
+				</div>
+			</div>
+			<div class="form_section">
+				<div class="form_section_title">
+					<label>상품 이미지</label>
+				</div>
+				<div class="form_section_content">
+					<input type="file" multiple="multiple" name="pImage1" style="height: 30px;">
+					<div id="uploadResult">
+					</div>	
+				</div>
 			</div>
 		</div>	
-		<div class="form_section">	
-			<div class="form_section_title">
-				<label>상품 가격</label>
-			</div>
-			<div class="form_section_content">
-				<input name="pPrice" value="${goodsInfo.pPrice }">
-			</div>
-		</div>
-		<div class="form_section">
-			<div class="form_section_title">
-				<label>상세정보</label>
-			</div>
-			<div class="form_section_content">
-				<textarea name="pDetail" id="pDetail_textarea">${goodsInfo.pDetail }</textarea>
-			</div>
-		</div>
-		<div class="form_section">
-			<div class="form_section_title">
-				<label>재고수량</label>
-			</div>
-			<div class="form_section_content">
-				<input name="pStock" value="${goodsInfo.pStock }">
-			</div>
-		</div>
-		<div class="form_section">
-			<div class="form_section_title">
-				<label>상품 이미지</label>
-			</div>
-			<div class="form_section_content">
-				<input type="file" multiple="multiple" name="pImage1" style="height: 30px;">
-				<div id="uploadResult">
-				</div>	
-			</div>
-		</div>
-	</div>	
-</form><br>
-		
-	<div class="btn_section">
-      <button id="cancelBtn" class="btn">상품 목록</button>
-	  <button id="modifyBtn" class="btn enroll_btn">수정 </button>
-	  <button id="deleteBtn" class="btn delete_btn">삭 제</button>
-	</div> 
-	
-	<form id="moveForm" action="/product/list" method="get" >
-	<input type="hidden" name="pageNum" value="${cri.pageNum}">
-	<input type="hidden" name="amount" value="${cri.amount}">
-	<input type="hidden" name="keyword" value="${cri.keyword}">
-	<input type="hidden" name='prodNo' value="${goodsInfo.prodNo}">
+		<input type="hidden" name='prodNo' value="${productInfo.prodNo}">
 	</form>
+			
+		<div class="btn_section">
+	      <button id="cancelBtn" class="btn">취 소</button>
+		  <button id="modifyBtn" class="btn modify_btn">수 정 </button>
+		  <button id="deleteBtn" class="btn delete_btn">삭 제</button>
+		</div> 
+		
+		<form id="moveForm" action="/product/list" method="get" >
+		<input type="hidden" name="pageNum" value="${cri.pageNum}">
+		<input type="hidden" name="amount" value="${cri.amount}">
+		<input type="hidden" name="keyword" value="${cri.keyword}">
+		<input type="hidden" name='prodNo' value="${productInfo.prodNo}">
+		</form>
+	</div>	
 </div>
 
 </body>

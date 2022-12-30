@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import hyanghee.dao.face.DietBoardDao;
 import hyanghee.dto.DietBoard;
 import hyanghee.service.face.DietBoardService;
-import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
 import jucheol.dao.face.CommentDao;
 import jucheol.dao.face.FileuploadDao;

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <style type="text/css">
 #twoDepth-list a:nth-child(3) {
@@ -76,29 +75,8 @@ input:disabled, input {
 </head>
 
 <body>
-
-	<!-- 관리자 로그인 상태일때 -->
-	<c:if test="${!empty adminNo && empty userId}">
-		<jsp:include page="../layout/adminheader.jsp" />
-	</c:if>
-
-	<!-- 회원 로그인 상태일때 -->
-	<c:if test="${empty adminNo}">
-		<%@include file="../layout/header.jsp"%>
-		<%-- 		<jsp:include page="./layout/subvisual.jsp" /> --%>
-	</c:if>
-	<div id="subvisual">
-		<div id="subvisual-A">
-			<p id="subv-title">챌린지 마이페이지</p>
-		</div>
-	</div>
-	<div id="twoDepth">
-		<div id="twoDepth-list">
-			<a href="/challenge/list">챌린지 리스트</a>
-			<a href="/challenge/create">챌린지 만들기</a>
-			<a href="/challenge/mypage">챌린지 마이페이지/인증</a>
-		</div>
-	</div>
+	<%@include file="../layout/header.jsp"%>
+	<jsp:include page="./layout/chlSubvisual2.jsp" />
 	<div class="container">
 		<div id="chlInfo_area" class="area">
 			<div class="area-title">
@@ -146,7 +124,6 @@ input:disabled, input {
 					<div class="input-group">
 						<label for="file">첨부파일</label>
 						<input type="file" multiple="multiple" name="chlPhoto" id="chlPhoto" onchange="validationImage(this.value);">
-						이미지 유효성 검사
 					</div>
 					<div id="btn_area" class="area">
 						<button id="btnIntro" disabled="disabled">확인</button>
@@ -185,6 +162,6 @@ input:disabled, input {
 			}
 		}
 	</script>
-</body>
 <%@include file="../layout/footer.jsp"%>
+</body>
 </html>

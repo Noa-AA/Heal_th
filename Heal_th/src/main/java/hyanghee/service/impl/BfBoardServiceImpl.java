@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import hyanghee.dao.face.BfBoardDao;
 import hyanghee.dto.Beforeafter;
 import hyanghee.service.face.BfBoardService;
-import hyanghee.util.BoardPageMaker;
 import hyanghee.util.BoardSearch;
 import jucheol.dao.face.CommentDao;
 import jucheol.dao.face.FileuploadDao;

@@ -10,26 +10,20 @@
 
 	<ul class="pageMaker">
 	 
-	 	<!-- 이전 버튼 -->
-		<c:if test="${pageMaker.prev}">
-		<li class="pageMaker_btn prev">
-			<a href="${pageMaker.pageStart - 1}">이전</a>
-		</li>
-		</c:if>
-		
-		<!-- 페이지 번호 -->
-		<c:forEach begin="${pageMaker.pageStart}" end="${pageMaker.pageEnd}" var="num">
-		<li class="pageMaker_btn ${pageMaker.cri.pageNum == num ? "active":""}">
-		<a href="${num}">${num}</a>
-		</li>
-		</c:forEach>
-		
-		<!-- 다음 버튼 -->
-		<c:if test="${pageMaker.next}">
-		<li class="pageMaker_btn next">
-			<a href="${pageMaker.pageEnd + 1 }">다음</a>
-		</li>
-		</c:if>
+			<!-- 이전페이지 버튼 -->
+			<c:if test="${page.prev}">
+				<li class="pageInfo_btn previous"><a href="${page.pageStart - 1}">Previous</a></li>
+			</c:if>
+			
+			<!-- 각 번호 페이지 버튼 -->
+			<c:forEach var="num" begin="${page.pageStart}" end="${page.pageEnd}">
+				<li class="pageInfo_btn ${page.cri.pageNum == num ? 'active':'' }"><a href="${num}">${num}</a></li>
+			</c:forEach>
+			
+			<!-- 다음페이지 버튼 -->
+			<c:if test="${page.next}">
+				<li class="pageInfo_btn next"><a href="${page.pageEnd + 1 }">Next</a></li>
+			</c:if>	
 	 	
 	 </ul>
  

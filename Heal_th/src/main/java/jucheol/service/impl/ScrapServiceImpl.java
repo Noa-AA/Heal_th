@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import jucheol.dao.face.ScrapDao;
 import jucheol.dto.Scrap;
 import jucheol.service.face.ScrapService;
+import jucheol.util.Infinity;
 
 @Service
 public class ScrapServiceImpl implements ScrapService {
@@ -25,9 +26,9 @@ public class ScrapServiceImpl implements ScrapService {
 	}
 
 	@Override
-	public List<Scrap> selectList(Scrap scrap) {
+	public List<Scrap> selectList(Infinity infinity) {
 		
-		return scrapDao.selectList(scrap);
+		return scrapDao.selectList(infinity);
 		
 	}
 
@@ -42,6 +43,13 @@ public class ScrapServiceImpl implements ScrapService {
 //		logger.info("scrap-- {}",scrap);
 		return scrapDao.scrapCheck(scrap);
 		
+	}
+
+	@Override
+	public Infinity getList(int endNo) {
+		Infinity infinity = new Infinity(endNo);
+//		logger.info("infinity-{}:",infinity);
+		return infinity;
 	}
 
 }

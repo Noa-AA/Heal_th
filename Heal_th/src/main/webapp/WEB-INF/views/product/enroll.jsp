@@ -17,16 +17,16 @@ $(document).ready(function() {
 	
 	$("#cancelBtn").click(function(){ //취소 버튼
 	
-	location.href="/product/list"
+		location.href="/product/list"
 	
-});
+	});
 	
-	$("#enrollbtn").click(function(){ //등록 버튼
+	$("#enrollbtn").on(function(){ //등록 버튼
 		e.preventDefault();
 	
 		enrollForm.submit();
 		
-	})
+	});
 
 
 	/* 이미지 업로드 */
@@ -149,18 +149,19 @@ $(document).ready(function() {
     height: 170px;
 }
 .admin_content_wrap{
-overflow: scroll
+	height: 700px;
+	overflow: scroll;
 }
 /* 관리자 컨텐츠 메인 영역 */
 .form_section{
-	width: 95%;
-    margin-left: 2%;
+/* 	width: 95%; */
+/*     margin-left: 2%; */
     margin-top: 20px;
     border: 1px solid #dbdde2;
     background-color: #efefef;	
 }
 .form_section_title{
-	padding: 20px 35px;	
+/* 	padding: 20px 35px;	 */
 }
 .form_section_title label{
 	display: block;
@@ -168,7 +169,7 @@ overflow: scroll
     font-weight: 800;
 }
 .form_section_content{
-	padding: 20px 35px;
+/* 	padding: 20px 35px; */
     border-top: 1px solid #dbdde2;	
 }
 .form_section_content input{
@@ -184,7 +185,13 @@ overflow: scroll
     text-align-last: center;
 }
 
+/* 상위 div 수정 */
 
+#formbox {
+	width: 1200px;
+	height: 800px;
+	position: relative;
+}
 /* 버튼 영역 */
 .btn_section{
 	text-align: center;
@@ -231,7 +238,7 @@ overflow: scroll
  <div class="admin_content_subject"><span>상품 등록</span></div>
 	<div class="admin_content_main">
 	<form action="/product/enroll" method="post" id="enrollForm">
-		<div class="form_section">
+		<div class="form_section" id="formbox">
 			<div class="form_section_title">
 				<label>카테고리</label>
 			</div>
@@ -289,7 +296,7 @@ overflow: scroll
 		</div>
 	</div>	
 	<div class="btn_section">
-		<button id="enrollBtn" class="btn enroll_btn">등록</button>
+		<button id="enrollBtn" class="btn">등록</button>
 		<button id="cancelBtn" class="btn">취소</button>
 	</div>
 	</form><br>
