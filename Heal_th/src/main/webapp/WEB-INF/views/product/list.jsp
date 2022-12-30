@@ -31,6 +31,27 @@ $(document).ready(function () {
 	}	
 
 	let moveForm = $("#moveForm");
+	
+	//썸네일 이미지
+	$(".image_wrap").each(function(i, obj){
+		
+		const pobj = $(obj);
+		
+		if(pobj.data("prodNo")) {
+			
+		const uploadPath = pobj.data("path");
+		const uuid = pobj.data("uuid");
+		const fileName = pobj.data("filename");
+		
+		const fileCallPath = encodeURIComponent(uploadPath + "/s_" + uuid + "_" + fileName);
+		
+		$(this).find("img").attr('src', '/display?fileName=' + fileCallPath);
+		
+		} else {
+			$(this).find("img").attr('src', '/resources/img/product/NoImage.png');
+		}
+		
+	});
 
 	/* 페이지 이동 버튼 */
 	$(".pageInfo_btn a").on("click", function(e){
@@ -55,23 +76,7 @@ $(document).ready(function () {
 	
 	});
 	
-	$(".image_wrap").each(function(i, obj){
-		
-		const pobj = $(obj);
-		
-		if(pobj.data("prodNo")){
-		const uploadPath = pobj.data("path");
-		const uuid = pobj.data("uuid");
-		const fileName = pobj.data("filename");
-		
-		const fileCallPath = encodeURIComponent(uploadPath + "/s_" + uuid + "_" + fileName);
-		
-		$(this).find("img").attr('src', '/display?fileName=' + fileCallPath);
-		} else {
-			$(this).find("img").attr('src', '/resources/img/product/NoImage.png');
-		}
-		
-	});
+	
 	
 });
 
@@ -91,8 +96,8 @@ $(document).ready(function() {
     font-weight: bolder;
     padding-left: 15px;
     background: linear-gradient(to right, #3f94d6 0 , #1869a7);
-    height: 80px;
-    line-height: 80px;
+    height: 72px;
+    line-height: 75px;
     color: white;	
 }
 /* 상품 목록 영역 */
@@ -177,16 +182,16 @@ $(document).ready(function() {
 
 
 	/* 페이지 버튼 인터페이스 */
-.pageMaker_wrap{
+.pageInfo_wrap{
 	text-align: center;
     margin-top: 30px;
     margin-bottom: 40px;
 }
-.pageMaker{
+.pageInfo{
     list-style: none;
     display: inline-block;
 }	
-.pageMaker_btn {
+.pageInfo_btn {
     float: left;
     width: 40px;
     height: 40px;
@@ -201,10 +206,10 @@ $(document).ready(function() {
     border: 1px solid #ccc;
     padding: 0 10px;
 }
-.pageMaker_btn a:link {color: black;}
-.pageMaker_btn a:visited {color: black;}
-.pageMaker_btn a:active {color: black;}
-.pageMaker_btn a:hover {color: black;}
+.pageInfo_btn a:link {color: black;}
+.pageInfo_btn a:visited {color: black;}
+.pageInfo_btn a:active {color: black;}
+.pageInfo_btn a:hover {color: black;}
 .next a, .prev a {
     color: #ccc;
 }
@@ -242,7 +247,7 @@ $(document).ready(function() {
 			<td><c:out value="${list.pCateName }"></c:out></td>	
 			<td><c:out value="${list.prodNo }"></c:out></td>	
 			<td class="image">
-				<div class="image_wrap" data-prodNo="${list.imageList[0].bookId}" data-path="${list.imageList[0].uploadPath}" data-uuid="${list.imageList[0].uuid}" data-filename="${list.imageList[0].fileName}">
+				<div class="image_wrap" data-prodNo="${list.imageList[0].prodNo}" data-path="${list.imageList[0].uploadPath}" data-uuid="${list.imageList[0].uuid}" data-filename="${list.imageList[0].fileName}">
 					<img>
 				</div>
 			</td>	
@@ -274,7 +279,29 @@ $(document).ready(function() {
 <button id="btnEnroll" class="bottomBtn">상품등록</button>
 <button id="btnList" class="bottomBtn">목 록</button>
 
-<%@include file="../product/paging.jsp" %>
+<!-- 페이지 이동 인터페이스 영역 -->
+<div class="pageInfo_wrap" >
+	<div class="pageInfo_area">
+		<ul id="pageInfo" class="pageInfo">
+		 
+				<!-- 이전페이지 버튼 -->
+				<c:if test="${page.prev}">
+					<li class="pageInfo_btn previous"><a href="${page.pageStart - 1}">Previous</a></li>
+				</c:if>
+				
+				<!-- 각 번호 페이지 버튼 -->
+				<c:forEach var="num" begin="${page.pageStart}" end="${page.pageEnd}">
+					<li class="pageInfo_btn ${page.cri.pageNum == num ? 'active':'' }"><a href="${num}">${num}</a></li>
+				</c:forEach>
+				
+				<!-- 다음페이지 버튼 -->
+				<c:if test="${page.next}">
+					<li class="pageInfo_btn next"><a href="${page.pageEnd + 1 }">Next</a></li>
+				</c:if>	
+		 	
+		 </ul>
+ 	</div>
+</div>
 
 	<form id="moveForm" action="/product/list" method="get">	
 		<input type="hidden" name="pageNum" value="${page.cri.pageNum }">
