@@ -34,6 +34,28 @@ public interface ChatService {
 	 * @return List<Users> -  회원등급 3이상인 회원목록
 	 */
 	public List<Users> userlist(Users myUserNo, ChatIntroPaging chatIntroPaging);
+	
+	
+	/**
+	 * chat/intro
+	 * 
+	 * 검색된 총 게시글 수 조회
+	 * @param chatIntroPaging
+	 * @param curPage
+	 * @return
+	 */
+	public ChatIntroPaging getSearchPaging(ChatIntroPaging chatIntroPaging, String curPage);
+
+	/**
+	 * chat/intro
+	 * 
+	 * 검색된 게시글 조회
+	 * 
+	 * @param chatIntroPaging
+	 * @return
+	 */
+	public List<Users> userSearchlist(ChatIntroPaging chatIntroPaging);
+	
 
 
 	/**
@@ -150,6 +172,9 @@ public interface ChatService {
 	 * @return - 상대방 프로필 storedName
 	 */
 	public String getReciverProfile(RoomList roomNo);
+
+	
+	
 
 	
 	

@@ -53,6 +53,67 @@
 	</select> 
 	
 	
+	<!-- /chat/intro -->
+	<!-- 검색된 회원 등급 3이상인 회원 조회하기 -->
+	<select id="selectSearchCntAll" resultType="int" parameterType="chatIntroPaging">
+		SELECT count(*) FROM photofile e
+	    FULL JOIN
+	       ( SELECT * FROM USERS 
+				WHERE ranking_no >= 3
+	            AND user_no != #{userNo } AND user_no NOT IN 
+	            (SELECT d.user_no FROM users d      
+	                INNER JOIN (SELECT a.* FROM room_list a             
+	                    INNER JOIN (
+	                        SELECT * FROM room_list WHERE user_no = #{userNo } ) b 
+	                    ON a.room_no = b.room_no
+	                WHERE a.user_no != #{userNo }) c
+				ON d.user_no = c.user_no)
+	        ORDER BY user_no ) f
+	    ON e.user_no = f.user_no 
+	    WHERE f.user_no IS NOT NULL
+	    <choose>
+			<when test="type != null and type.equals('userNick')">
+				AND user_nick LIKE '%' || #{keyword } || '%'
+			</when>
+			<when test="type != null and type.equals('userJob')">
+				AND user_job LIKE '%' || #{keyword } || '%'
+			</when>
+		</choose>
+	</select>
+	
+	
+	<select id="selectSearchUsers" resultType="yerim.dto.Users" parameterType="chatIntroPaging" >
+		SELECT * FROM (
+			SELECT rownum rnum, R.* FROM (	
+				SELECT count(*) FROM photofile e
+			    FULL JOIN
+			       ( SELECT * FROM USERS 
+						WHERE ranking_no >= 3
+			            AND user_no != #{userNo } AND user_no NOT IN 
+			            (SELECT d.user_no FROM users d      
+			                INNER JOIN (SELECT a.* FROM room_list a             
+			                    INNER JOIN (
+			                        SELECT * FROM room_list WHERE user_no = #{userNo } ) b 
+			                    ON a.room_no = b.room_no
+			                WHERE a.user_no != #{userNo }) c
+						ON d.user_no = c.user_no)
+			        ORDER BY user_no ) f
+			    ON e.user_no = f.user_no 
+			    WHERE f.user_no IS NOT NULL
+			    <choose>
+					<when test="type != null and type.equals('userNick')">
+						AND user_nick LIKE '%' || #{keyword } || '%'
+					</when>
+					<when test="type != null and type.equals('userJob')">
+						AND user_job LIKE '%' || #{keyword } || '%'
+					</when>
+				</choose>
+				) R
+			) RECORD
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	
+	
 	<!-- /chat/pointCompare -->
 	<!-- 내 포인트 얻어오기 -->
 	<select id="selectMyPoint" resultType="int" parameterType="Users">

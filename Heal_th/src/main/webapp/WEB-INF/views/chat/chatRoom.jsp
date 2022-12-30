@@ -242,13 +242,12 @@ button, input {
 			<button class="roomBtn" onclick="goChat(${room.roomNo })" >
 				
 				<div class="left">
-					<c:if test="${room.storedName eq null }">
-						<img src="/resources/img/chat_default.png">
+					<c:if test="${not empty room.storedName }">
+						<img src="${pageContext.request.contextPath}/upload/${room.storedName}" class="profilePhoto">
 					</c:if>
-					<c:if test="${room.storedName ne null }">
-						<img src="${pageContext.request.contextPath}/upload/${room.storedName}">
+					<c:if test="${empty room.storedName }">
+						<img src="/resources/img/chat_default.png" class="profilePhoto">
 					</c:if>
-						
 				</div>
 				
 				<div class="right">

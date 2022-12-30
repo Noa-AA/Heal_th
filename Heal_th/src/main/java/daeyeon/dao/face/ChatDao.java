@@ -31,6 +31,27 @@ public interface ChatDao {
 	 */
 	public List<Users> selectUsers(ChatIntroPaging chatIntroPaging);
 
+	
+	/**	 
+	 * chat/intro
+	 * 
+	 * 검색된 회원의 총 수
+	 * 
+	 * @param chatIntroPaging
+	 * @return
+	 */
+	public int selectSearchCntAll(ChatIntroPaging chatIntroPaging);
+	
+	/**
+	 * chat/intro
+	 * 
+	 * 검색된 회원 리스트
+	 * 
+	 * @param chatIntroPaging
+	 * @return
+	 */
+	public List<Users> selectSearchUsers(ChatIntroPaging chatIntroPaging);
+	
 
 	/**
 	 * chat/pointCompare
@@ -173,6 +194,12 @@ public interface ChatDao {
 	 * @param chatFile - insert 파일정보
 	 */
 	public void insertFile(ChatFile chatFile);
+
+
+
+
+
+
 
 
 
