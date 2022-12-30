@@ -4,7 +4,6 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <style type="text/css">
-
 .title {
 	margin-bottom: 40px;
 }
@@ -12,7 +11,10 @@
 .view-container {
 	border: 1px solid #333;
 	width: 750px;
-	height: 530px;
+	height: 440px;
+	border: 1px solid #cfcfcf;
+	border-radius: 10px;
+	box-shadow: 1px 1px 8px 0px rgb(0 0 0/ 10%);
 	margin-top: 40px;
 	margin: 0 auto;
 }
@@ -80,9 +82,9 @@ textarea {
 	<!-- 회원 로그인 상태일때 -->
 	<c:if test="${empty adminNo}">
 		<%@include file="../layout/header.jsp"%>
-				<jsp:include page="./layout/chlSubvisual.jsp" />
+		<jsp:include page="./layout/chlSubvisual.jsp" />
 	</c:if>
-	
+
 
 	<div class="view-container">
 		<div style="text-align: right;">
@@ -93,10 +95,10 @@ textarea {
 				</c:if>
 			</form>
 		</div>
-		<div class="chl_wrap">
-			<label>챌린지 번호</label>
-			<input name="challengeNo" readonly="readonly" value='<c:out value="${pageInfo.challengeNo}"/>'>
-		</div>
+		<!-- 		<div class="chl_wrap"> -->
+		<!-- 			<label>챌린지 번호</label> -->
+		<%-- 			<input name="challengeNo" readonly="readonly" value='<c:out value="${pageInfo.challengeNo}"/>'> --%>
+		<!-- 		</div> -->
 		<div class="chl_wrap">
 			<label>챌린지 종류</label>
 			<input name="challengeKind" readonly="readonly" value='<c:out value="${pageInfo.challengeKind}"/>'>
