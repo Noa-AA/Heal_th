@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="../layout/adminheader.jsp" %>
+<%@include file="./layout/adminheader.jsp" %>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -40,7 +40,7 @@ $(document).ready(function(){
 			<h1 id="title">로그인</h1>
 		</div>
 		<div id="formarea">
-			<form action="/admin/adminLogin" method="post" id="adminLoginForm">
+			<form action="/admin" method="post" id="adminLoginForm">
 			
 				<div id="id">
 					<label for="adminId">아이디

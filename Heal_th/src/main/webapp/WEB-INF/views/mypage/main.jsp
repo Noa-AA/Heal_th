@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../layout/header.jsp" %>
+<%@include file="../layout/mypageSide.jsp" %>
  <!--Load the AJAX API-->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
@@ -106,42 +107,36 @@
 </script>
 
 <style type="text/css">
-body{ 
+#mypageBody{ 
  	padding-top:0;
+ 		background-color: #f9fbfc;
 } 
+
 #mypage{
-	width: 1200px;
-	margin: 0 auto;
+
+    position: absolute;
+    width: 70%;
+    top: 100px;
+    height: 100%;
+}
+#wrap{
+	display: table;
+    table-layout: fixed;
+    width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+
+#title{
+	text-align: center;
+    padding-top: 100px;
 }
 .infoTitle{
 	font-size: 20px;
 	margin: 10px 0;
 }
 
-#profileArea{
-
-	width: 200px;
-    position: fixed;
-    left: 200px;
-}
-
-#pIcon{
-	width:100px;
-}
-
-#manageInfo{
-	margin-top: 29px;	
-}
-
-#intro{
-	margin-top: 55px;	
-
-}
-.pIcon{
-	width: 160px;
-    height: 160px;
-    border-radius: 71px;
-}
 
 #graph{
    position: absolute;
@@ -161,90 +156,50 @@ body{
 
 </style>
 
-<body>
-
-<div id="mypage">
-	<div id="title" style="text-align: center;">
-		<h1> 마이페이지 </h1>
-	</div>
-
-	
-	<div id="profileArea">
-		<div id="profilePhoto">
-			<c:if test="${storedName == null }">
-				<a href="/mypage/setProfile"><img src="/resources/img/mypage/userprofile.png" class="pIcon"></a>
-			</c:if>
-			<c:if test="${storedName != null}">
-				<a href="/mypage/setProfile"><img src="${pageContext.request.contextPath}/upload/${storedName.storedName}" class="pIcon"></a>
-			</c:if>
-		</div>
-	
-		
-		<div id="intro">
-			<c:choose>
-				<c:when test="${userIntro.userIntro == null}">
-					<a href="/mypage/setProfile">한 줄 소개를 작성해주세요</a>
-				</c:when>
-				<c:otherwise>
-					<a href="/mypage/setProfile">${userIntro.userIntro}</a>
-				</c:otherwise>
-			
-			</c:choose>
-		</div>
-	
-		<div id="manageInfo">
-			<div id="usersInfo">
-				<ul id="updateInfo">
-					<li class="infoTitle updateTitle" >회원 정보 관리</li>
-					<li class="info updateUser"><a href="/mypage/updateInfo">회원 정보 변경</a></li>
-					<li class="info updatePw"><a href="/mypage/updatePw">비밀번호 변경</a></li>
-					<li class="info dropOut"><a href="/mypage/dropOut">탈퇴하기</a></li>
-					<li class="info logOut"><a href="/mypage/logout">로그아웃</a></li>
-					
-				
-				</ul>
-					
+<body id="mypageBody">
+	<div id="wrap">
+		<div id="mypage">
+			<div id="title" style="text-align: center;">
+				<h1> 마이페이지 </h1>
 			</div>
 		
-		</div>
 		
-	</div>
-
-	<div id="graph">
-		<div id="graphMsg" style="display: none;"></div>
-
-	  <!--Div that will hold the pie chart-->
- 		<div id="linechart_material" style="width: 900px; height: 500px"></div>	
-
-	</div>
-	
-	<div id="BodyInfo">
-		<div id="inputInfo">
-			<label for="weight">몸무게
-				<input type="text" id="weight" name="weight"><span>kg</span>
-			</label>
 		
-		</div>
+			<div id="graph">
+				<div id="graphMsg" style="display: none;"></div>
 		
-		<div id="heightArea">
-				<div id="intputHeight">
-					<label for="height">키
-						<input type="text" id="height" name="height" value ="${bodyInfo.height} " ><span>cm</span>
+			  <!--Div that will hold the pie chart-->
+		 		<div id="linechart_material" style="width: 900px; height: 500px"></div>	
+		
+			</div>
+			
+			<div id="BodyInfo">
+				<div id="inputInfo">
+					<label for="weight">몸무게
+						<input type="text" id="weight" name="weight"><span>kg</span>
 					</label>
+				
 				</div>
-
-		</div>
-	</div>
-	<div id="btnArea">
-		<div id="btnBody">
-			<button type="button" id="btnBodyInfo" >입력하기</button>
-		</div>
-	
-	</div>
-
-</div>	
+				
+				<div id="heightArea">
+						<div id="intputHeight">
+							<label for="height">키
+								<input type="text" id="height" name="height" value ="${bodyInfo.height} " ><span>cm</span>
+							</label>
+						</div>
 		
-
+				</div>
+			</div>
+			<div id="btnArea">
+				<div id="btnBody">
+					<button type="button" id="btnBodyInfo" >입력하기</button>
+				</div>
+			
+			</div>
+		
+		</div>	
+		
+</div>
 
 
 
