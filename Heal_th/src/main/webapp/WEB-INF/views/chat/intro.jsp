@@ -99,7 +99,7 @@ h2{
     margin-right: 0px;
 }   
 
-#profilePhoto {
+.profilePhoto {
 	width: 160px;
 	height: 160px;
 	background-color: #efefef;
@@ -109,29 +109,29 @@ h2{
 	font-size: 18px;
 }
 
-#profilePhoto > img {
+.profilePhoto > img {
 	width: 160px;
 }
 
-#rightCon {
+.rightCon {
 	width: 236px;
 	padding-left: 20px;
 	padding-top: 10px;
 }
 
-#rightTop {
+.rightTop {
 	height: 32px;
 }
 
 
-#name {
+.name {
 	font-size: 21px;
 	font-weight: 700;
 	color: #222;
 	float: left;
 }
 
-#ranking {
+.ranking {
 	height: 32px;
 	float: right;
 	font-size: 15px;
@@ -139,7 +139,7 @@ h2{
 	color: #222;
 }
 
-#job {
+.job {
 	color: #333;
 	font-size: 13px;
 	font-weight: 600;
@@ -150,30 +150,30 @@ h2{
 	width: fit-content;
 }
 
-#intro {
+.intro {
 	color: #666;
 	font-size: 15px;
 	height: 40px;
 }
 
-#rightBottom {
+.rightBottom {
 	height: 40px;
 	vertical-align: bottom;
 	display: flex;
 	justify-content: space-between;
 }
 
-#point {
+.point {
 	display: flex;
     align-items: center;
 }
 
-#point > img {
+.point > img {
 	width: 30px;
 	height: 30px;
 }
 
-#point > span {
+.point > span {
 	font-size: 16px;
 	font-weight: 600;
 	color: red;
@@ -181,7 +181,7 @@ h2{
 }
 
 
-#goChat {
+.goChat {
 	width:100px;
 	background-color: #7ca3f5;
 	border-radius: 20px;
@@ -343,24 +343,29 @@ select::-ms-expand { display:none; }
 		<ul class="list">
 			<c:forEach items="${userList }" var="userList">
 			<li>
-				<img src="${pageContext.request.contextPath}/upload/${userList.storedName}" id="profilePhoto">
+				<c:if test="${not empty userList.storedName }">
+					<img src="${pageContext.request.contextPath}/upload/${userList.storedName}" class="profilePhoto">
+				</c:if>
+				<c:if test="${empty userList.storedName }">
+					<img src="/resources/img/chat_default.png" class="profilePhoto">
+				</c:if>
 				
 				<!-- 오른쪽 텍스트 부분 -->
-				<div id="rightCon">
+				<div class="rightCon">
 					<!-- 상담 이름, 등급 -->
-					<div id="rightTop">
-						<div id="name">${userList.userNick }</div>
-						<div id="ranking">${userList.rankingNo }등급</div>
+					<div class="rightTop">
+						<div class="name">${userList.userNick }</div>
+						<div class="ranking">${userList.rankingNo }등급</div>
 						
 					</div>
 					
-					<div id="job">${userList.userJob }</div>
-					<div id="intro">${userList.userIntro }</div>
+					<div class="job">${userList.userJob }</div>
+					<div class="intro">${userList.userIntro }</div>
 						
 					<!-- 하단 포인트 채팅 -->
-					<div id="rightBottom">
+					<div class="rightBottom">
 						
-						<div id="point">
+						<div class="point">
 							<img src="/resources/img/dollar.png">
 							
 							<!-- 채팅 요구 포인트 5등급:1000, 4등급:700 3등급:400 -->
@@ -379,7 +384,7 @@ select::-ms-expand { display:none; }
 						</div> <!-- /point -->
 						
 <%-- 						<a href="/chat/createChatRoom?userNo=${userList.userNo }" id="goChat"> --%>
-						<button id="goChat" onclick="pointCompare(${userList.rankingNo }, ${userList.userNo })">
+						<button class="goChat" onclick="pointCompare(${userList.rankingNo }, ${userList.userNo })">
 							채팅하기
 						</button>
 <!-- 						</a> -->
@@ -459,11 +464,11 @@ select::-ms-expand { display:none; }
 
 <!-- 검색 기능 -->
 	<div class="searchBack">
-		<form action="/admin/user" method=post name="search" id="searchForm">
+		<form action="/chat/intro" method=post name="search" id="searchForm">
 
 			<select name="type" id="type">
 				<option value="userNick"  >닉네임</option>
-				<option value="userName"  >이름</option>
+				<option value="userJob"  >직업</option>
 			</select>
 			
 			<input id="searchText" type="text" name="keyword" placeholder="search...">
