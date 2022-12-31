@@ -11,9 +11,9 @@
  	width: 30%;
     display: flex;
     background-color: #f9fbfc;
-    height: 100%;
+    height: 95%;
     justify-content: flex-end;
-    position:fixed;
+        position: absolute;
     box-shadow: 5px 1px 8px 0 rgb(0 0 0 / 6%);
     border-left: 1px solid rgba(0,0,0,.08);
     
@@ -29,7 +29,10 @@
     height: 160px;
     border-radius: 71px;
 }
- 
+ .infoTitle{
+	font-size: 20px;
+	margin: 10px 0;
+}
  
  #profilePhoto{
  	 padding: 10px 20px;
@@ -37,8 +40,8 @@
  
  }
 #manageInfo{
-	 margin-top: 50px;
-    padding: 0 36px;
+	
+    padding: 30px;
 }
 
 #intro{
@@ -96,7 +99,7 @@
 					<div id="pointMoney">
 						<ul id="moneyAdmin">
 							<li class="infoTitle dgMoneyPoint">득근머니/포인트</li>
-							<li class="info dgMoney">득근머니</li>
+							<li class="info dgMoney"><a href="/dgmoney/view ">득근머니</a></li>
 							<li class="info dgPoint">득근포인트</li>
 						</ul>
 					</div>

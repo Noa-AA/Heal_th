@@ -1,7 +1,9 @@
 <%@page import="java.util.Arrays"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <!--헤더  -->
 <%@include file="../layout/header.jsp" %>
+
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -278,8 +280,10 @@ function cancel(){
 
 
 <style type="text/css">
+
 #updateBody{
-	padding-top:0;
+	padding-top: 150px;
+	background-color: #f9fbfc;
 
 }
 #boxArea{

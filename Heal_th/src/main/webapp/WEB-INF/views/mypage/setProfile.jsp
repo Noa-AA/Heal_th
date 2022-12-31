@@ -49,42 +49,48 @@ body{
 </style>
 
 
-<body>
+<body id="profile">
 
 	<div id="profileArea">
-		<div id="title">
-			<span>프로필 </span>
-		</div>
-		
-		<div id="content">
-			<form action="/mypage/setProfile" method="post" id="profileForm" enctype="multipart/form-data">
-				<div id="tableArea">
-				<table id="profileTable">
-					<colgroup>
-						<col id="profileCol"/>
-					</colgroup>
-					<tbody>
-						<tr id="photo">
-							<th>프로필 사진</th>
-							<td><input type="file" name="userPhoto" id="userPhoto"></td>
-						</tr>
-						<tr id="intro">		
-							<th>자기소개</th>
-							<th><textarea id="introText" name="userIntro" id="userIntro"></textarea></th>
-					</tbody>
-				</table>
-		
-				</div>		
-					
-				<div class="btnArea">
-					<button type="button" id="btnIntro">적용</button>
-					<button type="button" id="btnCancel">취소</button>
+		<div id="boxArea">
+			<div id="title">
+				<span class="formTitle userProfile">프로필 </span>
+			</div>
+			
+			<div id="content">
+				<div id="profileForm">
+					<form action="/mypage/setProfile" method="post" id="profileForm" enctype="multipart/form-data">
+						<div id="tableArea">
+						<table id="profileTable">
+							<colgroup>
+								<col id="profileCol"/>
+							</colgroup>
+							<tbody>
+								<tr id="photo">
+									<th class="formTitle">프로필 사진</th>
+									<td><input type="file" name="userPhoto" id="userPhoto"></td>
+								</tr>
+								<tr id="intro">		
+									<th class="formTitle">자기소개</th>
+									<th><textarea id="introText" name="userIntro" id="userIntro"></textarea></th>
+							</tbody>
+						</table>
+				
+						</div>		
+							
+						<div class="btnArea">
+							<button type="button" id="btnIntro">적용</button>
+							<button type="button" id="btnCancel">취소</button>
+						</div>
+					</form>
 				</div>
-			</form>
+			</div>
 		</div>
+		
 	</div>
 	
 
 
 </body>
+<jsp:include page="../layout/footer.jsp"/>
 </html>

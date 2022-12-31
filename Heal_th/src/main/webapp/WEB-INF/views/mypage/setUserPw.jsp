@@ -235,4 +235,5 @@ function validateUpdatePw(){
 </body>
 
 </body>
+<jsp:include page="../layout/footer.jsp"/>
 </html>

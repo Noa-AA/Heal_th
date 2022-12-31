@@ -123,12 +123,13 @@ header{
     top: 100px;
     height: 100%;
     flex-direction: column;
+ 
 }
 #wrap{
  	 width: 70%;
     height: 100%;
     margin-left: 710px;
-    
+  
 }
 
 
@@ -136,10 +137,7 @@ header{
 	padding-top: 100px;
     margin-left: 200px;
 }
-.infoTitle{
-	font-size: 20px;
-	margin: 10px 0;
-}
+
 
 inputArea{
 	margin: 0;
@@ -254,4 +252,5 @@ float: right;
 
 
 </body>
+<jsp:include page="../layout/footer.jsp"/>
 </html>

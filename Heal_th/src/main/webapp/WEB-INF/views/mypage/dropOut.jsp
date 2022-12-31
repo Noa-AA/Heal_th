@@ -32,6 +32,7 @@ $(document).ready(function(){
 <style type="text/css">
 #dropOut{
 	padding-top: 150px;
+	  background-color: #f9fbfc;
 }
 
 #dropOutArea {
@@ -42,6 +43,7 @@ $(document).ready(function(){
     border-radius: 12px;
 	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
     margin: 0 auto;
+    
 }
 inputInfo:focus{
 	border-bottom-color:#7ca3f5; 
