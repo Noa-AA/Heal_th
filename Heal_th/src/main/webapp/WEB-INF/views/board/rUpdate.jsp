@@ -440,7 +440,7 @@ function updateStar() {
 				                    <input type="text" id="price" name="price" value="${updateBoard.price }" placeholder="현재 하고 있는 운동종류를 입력해주세요">
 				                  <br>
 				                  <label for="file">첨부파일</label><br>
-									<jsp:include page="../file/update.jsp" />
+									<jsp:include page="../file/fileUpdate.jsp" /> 
 								</div>
 
 								<br><br>

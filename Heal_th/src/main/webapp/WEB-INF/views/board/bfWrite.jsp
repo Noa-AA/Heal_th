@@ -79,6 +79,7 @@ a:focus, a:hover {
     margin: 10px 5px;
     padding-bottom: 14px; 
 	height: 52px;
+	width: 100px;
 }
 
 
@@ -111,8 +112,9 @@ a:focus, a:hover {
     box-sizing: border-box;
     width: 750px;
     height: 800px;
-    margin-left: 95px;
+/*     margin-left: 95px; */
     padding-bottom: 20px;
+    margin-left: 225px;
 
     /*stacking fieldsets above each other*/
     position: relative;
@@ -206,7 +208,8 @@ a:focus, a:hover {
     color: lightgrey;
     width: 800px;
     text-align: center;
-    margin-left: 67px;
+/*     margin-left: 67px; */
+	margin-left: 205px;
 }
 
 
@@ -273,12 +276,20 @@ a:focus, a:hover {
     background: #7ca3f5;
 }
 
+#contents{
+	right: 50%;
+    left: 50%;
+    margin: -50px 0 0 -50px;
+    text-align: center;
+}
+
 /* content style */
 #title{font-size: 15px; font-weight: bold;}
 
 #article{color: black; font-size: 15px; font-weight: bold;}
 
 #information {display: flex; float: right; margin-top: 12px; font-weight: bold; font-size: 17px; margin-right: 19px;}
+
 
 </style>
 
@@ -600,6 +611,7 @@ $(document).ready(function(){
 	//게시글 포인트
 	$("#btnInsert").click(function() {
 		console.log("게시글 등록");	
+		confirm("게시글을 등록하시겠습니까?");
 		
 		$(this).parents("form").submit();
 		alert("50 포인트가 적립됐습니다");
@@ -619,8 +631,8 @@ $(document).ready(function(){
 <!-- MultiStep Form -->
 <div class="container-fluid" id="grad1">
     <div class="row justify-content-center mt-0">
-        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
-            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2" style="max-width: 1200px;">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3" style="width: 1200px;">
                 <h1><strong style="font-size: 40px; text-align: center;">Before & After 게시글</strong></h1><br><br>
                 <p style="font-size: 15px; text-align: center;">게시글을 작성해주세요</p><br><br>
                 <div class="row">
@@ -644,7 +656,6 @@ $(document).ready(function(){
 				             	<label for="bfTitle" id="title">제목</label>
 									<input type="text" id="bfTitle" name="bfTitle" placeholder="제목을 입력해주세요">
 									<div id="bfTitleError" class="resMsg"></div>
-									<div id="bfTitleCorrect" class="resMsg"></div>
 				                 <br><br>
 				                        
 							<h3 style="color: black;">운동 전 정보</h3><br><br>

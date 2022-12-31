@@ -170,10 +170,6 @@ public class DietBoardController {
 			//모델값 전달
 			model.addAttribute("updateBoard", dietBoard);
 			
-			//첨부파일 모델값 전달
-//			BoardFile boardFile = boardService.getAttachFile(beforeafter);
-//			model.addAttribute("boardFile", boardFile);
-			
 			
 			return "/board/dUpdate";
 
@@ -182,8 +178,14 @@ public class DietBoardController {
 
 		
 		@PostMapping("/board/dUpdate")
-		public String updateProcess(DietBoard dietBoard) {
+		public String updateProcess(DietBoard dietBoard
+				, List<MultipartFile> multiFile) {
 			logger.debug("{}", dietBoard);
+			
+			int boardNo = dietBoard.getDietNo();
+			int categoryNo = 3;
+			fileuploadService.updateFile(multiFile,boardNo,categoryNo);
+			
 			
 			dietBoardService.update(dietBoard);
 			

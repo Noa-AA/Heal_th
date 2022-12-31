@@ -99,6 +99,7 @@ body{padding-top: 0px;}
 </div>
 <br><br><br><br>
 
+<div style="display: flex; ">
 <fieldset>
 	<h2 style="color: #2d4783; font-weight: bold; font-size: 30px;">Before (운동 전)</h2><br><br>
 	<h3 style="color: #7ca3f5; font-weight: 600; font-size: 25px;">운동 전 정보</h3><br>
@@ -129,6 +130,7 @@ body{padding-top: 0px;}
 	<div style="font-size: 20px;">후기글</div><br>
 	<div style="font-size: 20px;">${viewBoard.afterCon}</div>
 </fieldset>
+</div>
 
 
 <br><br>
@@ -140,7 +142,6 @@ body{padding-top: 0px;}
 <br><br><br><br>
 
 
-</div><!-- .container end -->
 
 
 <jsp:include page="../addOns/addOn.jsp" /> <br><br><br><br>
@@ -160,6 +161,7 @@ body{padding-top: 0px;}
 <br><br><br>
 <jsp:include page="../comment/board.jsp" />
 
+</div><!-- .container end -->
 
 <br><br><br><br><br><br><br><br>
 

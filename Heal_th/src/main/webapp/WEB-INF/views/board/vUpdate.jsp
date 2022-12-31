@@ -405,7 +405,7 @@ $(document).ready(function(){
 				                    <input type="text" id="kcal" name="kcal" value="${updateBoard.kcal }" required id="kcal" placeholder="소비 칼로리를 입력해주세요 *숫자만 입력해주세요">
 				                  <br>
 				                  <label for="file">첨부파일</label><br><br>
-									<jsp:include page="../file/update.jsp" />  <br>
+<%-- 									<jsp:include page="../file/fileUpdate.jsp" />   <br> --%>
 								</div>
 
 								<br><br>
@@ -441,7 +441,7 @@ $(document).ready(function(){
 									<a class="btn block" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/verifyBoard" style="text-decoration: none; color: white; font-size: 14px; font-weight: bold; ">취소</a>
 								</button>
                                     
-								<button type="submit" id="btnUpdate" name="btnInsert" style="color: white; font-size: 14px;">수정</button>
+								<button type="submit" id="btnUpdate" name="btnUpdate" style="color: white; font-size: 14px;">수정</button>
                                     
 							</div>
 						</fieldset>

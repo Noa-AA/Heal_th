@@ -18,32 +18,29 @@
 
 header {margin-bottom: 0px; }
 
-#btnCancle {
-    width: 100px;
-    background: #616161;
-    font-size: 21px;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 10px 5px; 
-    margin: 10px 5px;
-    padding-bottom: 14px; 
-	height: 52px;
-	width: 100px;
-	margin-left: 195px;
-	margin-right: 18px;
+/* button style */
+#btnCancle{
+     width: 100px; 
+     background: #616161; 
+     font-weight: bold; 
+     color: white; 
+     border: 0 none; 
+     border-radius: 0px; 
+     cursor: pointer; 
+     padding: 15px 5px; 
+     margin: 10px 5px; 
+     margin-left: 208px;
 }
+
+
 
 #btnWrite {
     width: 100px;
     background: #7ca3f5;
-    font-size: 21px;
     font-weight: bold;
     color: white;
     border: 0 none;
-    border-radius: 5px;
+    border-radius: 0px;
     cursor: pointer;
     padding: 10px 5px; 
     margin: 10px 5px;
@@ -51,6 +48,7 @@ header {margin-bottom: 0px; }
 	height: 52px;
 	width: 100px;
 }
+
 
 /*form styles*/
 #msform {
@@ -405,7 +403,7 @@ $(document).ready(function() {
 	})
 		   
 	$("#verifyContent").focus(function(){
-		$("#verifyContent").html("")
+		$("#weightError").html("")
 	})
 	
 
@@ -452,7 +450,7 @@ $(document).ready(function() {
 				                  	<div id="timeError" class="resMsg"></div>
 				                  <br>
 				                  <label for="kcal">소비 칼로리</label>
-				                    <input type="text" id="kcal" name="kcal" required id="kcal" placeholder="소비 칼로리를 입력해주세요 *숫자만 입력해주세요">
+				                    <input type="number" id="kcal" name="kcal" required id="kcal" placeholder="소비 칼로리를 입력해주세요 *숫자만 입력해주세요">
 				                  	<div id="kcalError" class="resMsg"></div>
 				                  <br>
 				                  <label for="file">첨부파일</label><br><br>
