@@ -261,6 +261,21 @@ $(document).ready(function(){
 
 	$(".next").click(function(){
 		
+		//유효성 검사
+		if($("#dTitle").val() == ""){
+	 		console.log("제목을 입력하세요")
+	 		$("#dTitleError").html("* 제목을 입력해주세요")
+	 		$("#dTitleError").css("color","red")
+			return false
+		}
+		
+		if($("#prodClassification").val() == ""){
+	 		console.log("운동종목을 입력하세요")
+	 		$("#prodClassificationError").html("* 운동종목을 입력해주세요")
+	 		$("#prodClassificationError").css("color","red")
+			return false
+		}
+		
 	    current_fs = $(this).parent();
 	    next_fs = $(this).parent().next();
 	    
@@ -284,15 +299,42 @@ $(document).ready(function(){
 	        duration: 600
 	    });
 	    
-	    if($("#bfTitle").val().length == 0) {
-				$("#bfTitle").focus(function() {
-					alert("제목 입력");					
-				});
-			
-				return false;
-			
+	    
+	});
+	
+$(".next2").click(function(){
+		
+		//유효성 검사
+		if($("#dContent").val() == ""){
+	 		console.log("내용을 입력하세요")
+	 		$("#dContentError").html("* 내용을 입력해주세요")
+	 		$("#dContentError").css("color","red")
+			return false
 		}
-			
+		
+	    current_fs = $(this).parent();
+	    next_fs = $(this).parent().next();
+	    
+	    //Add Class Active
+	    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+	    
+	    //show the next fieldset
+	    next_fs.show(); 
+	    //hide the current fieldset with style
+	    current_fs.animate({opacity: 0}, {
+	        step: function(now) {
+	            // for making fielset appear animation
+	            opacity = 1 - now;
+
+	            current_fs.css({
+	                'display': 'none',
+	                'position': 'relative'
+	            });
+	            next_fs.css({'opacity': opacity});
+	        }, 
+	        duration: 600
+	    });
+	    
 	    
 	});
 	
@@ -325,7 +367,7 @@ $(document).ready(function(){
 	});
 	
 	$("#btnInsert").click(function() {
-		
+		confirm("게시글을 등록하시겠습니까?");
 		$(this).parents("form").submit();
 		alert("50 포인트가 적립됐습니다");
 	})
@@ -365,10 +407,12 @@ $(document).ready(function(){
 				            <div class="form-card"><br><br>
 				             	<label for="dTitle">제목</label>
 									<input type="text" id="dTitle" name="dTitle" placeholder="제목을 입력해주세요" required id="dTitle">
+				                 	<div id="dTitleError" class="resMsg"></div>
 				                 <br><br>
 				                        
 								<label for=	"prodClassification">제품 분류</label>
 									<input type="text" id="prodClassification" name="prodClassification" required id="prodClassification">
+				                	<div id="prodClassificationError" class="resMsg"></div>
 				                <br>
 				                <label for="file">첨부파일</label><br>
 									<jsp:include page="../file/upload.jsp" /> 
@@ -383,12 +427,12 @@ $(document).ready(function(){
 								<br><br>
 								<h4 style="color: black">내용</h4><br><br>
 									<textarea rows="20" cols="50" id="dContent" name="dContent" placeholder="게시글을 작성해주세요"></textarea>
-									
+									<div id="dContentError" class="resMsg"></div>
 							</div>  <br><br><br>                          
 							
 							<input type="button" name="previous" class="previous action-button-previous" onClick="javascript:window.scrollTo(0,0)"
                                  value="이전"/>
-                                <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)"
+                                <input type="button" name="next" class="next2 action-button" onClick="javascript:window.scrollTo(0,0)"
                                  value="다음"/>
 							
 							<br><br><br><br><br><br><br>

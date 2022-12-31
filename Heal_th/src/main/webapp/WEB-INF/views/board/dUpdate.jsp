@@ -14,12 +14,28 @@
 <title>Insert title here</title>
 
 <style type="text/css">
+
+/* header <a>Tag style */
+
+a {
+    color: #000;
+    text-decoration: none;
+    text-decoration-line: none;
+}
+
+a:focus, a:hover {
+    text-decoration: none;
+    outline: none;
+}
+
 * {
     margin: 0;
     padding: 0;
 }
 
-header {margin-bottom: 0px; }
+header{margin-bottom: 140px;}
+
+body{padding: 0;}
 
 #btnCancle{
      width: 100px; 
@@ -237,14 +253,6 @@ header {margin-bottom: 0px; }
     background: #7ca3f5;
 }
 
-#contents{
-	right: 50%;
-    left: 50%;
-    margin: -50px 0 0 -50px;
-    text-align: center;
-}
-
-
 </style>
 
 
@@ -369,7 +377,7 @@ $(document).ready(function(){
 									<input type="text" id="prodClassification" name="prodClassification" value="${updateBoard.prodClassification }" required id="prodClassification">
 				                <br>
 				                <label for="file">첨부파일</label><br>
-									<jsp:include page="../file/upload.jsp" /> 
+									<jsp:include page="../file/update.jsp" /> 
 								</div>
 
 								<br><br>

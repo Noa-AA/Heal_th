@@ -18,32 +18,29 @@
 
 header {margin-bottom: 0px; }
 
-#btnCancle {
-    width: 100px;
-    background: #616161;
-    font-size: 21px;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 10px 5px; 
-    margin: 10px 5px;
-    padding-bottom: 14px; 
-	height: 52px;
-	width: 100px;
-	margin-left: 195px;
-	margin-right: 18px;
+/* button style */
+#btnCancle{
+     width: 100px; 
+     background: #616161; 
+     font-weight: bold; 
+     color: white; 
+     border: 0 none; 
+     border-radius: 0px; 
+     cursor: pointer; 
+     padding: 15px 5px; 
+     margin: 10px 5px; 
+     margin-left: 208px;
 }
+
+
 
 #btnWrite {
     width: 100px;
     background: #7ca3f5;
-    font-size: 21px;
     font-weight: bold;
     color: white;
     border: 0 none;
-    border-radius: 5px;
+    border-radius: 0px;
     cursor: pointer;
     padding: 10px 5px; 
     margin: 10px 5px;
@@ -51,6 +48,7 @@ header {margin-bottom: 0px; }
 	height: 52px;
 	width: 100px;
 }
+
 
 /*form styles*/
 #msform {
@@ -258,6 +256,36 @@ $(document).ready(function() {
 	
 
 	$(".next").click(function(){
+		console.log("다음 버튼 클릭");
+		  
+		//유효성 검사
+		if($("#vTitle").val() == ""){
+	 		console.log("제목을 입력하세요")
+	 		$("#vTitleError").html("* 제목을 입력해주세요")
+	 		$("#vTitleError").css("color","red")
+			return false
+		}
+		
+		if($("#exercise").val() == ""){
+	 		console.log("운동종목을 입력하세요")
+	 		$("#exerciseError").html("* 운동종목을 입력해주세요")
+	 		$("#exerciseError").css("color","red")
+			return false
+		}
+		
+		if($("#time").val() == ""){
+	 		console.log("소요시간을 입력하세요")
+	 		$("#timeError").html("* 소요시간을 입력해주세요")
+	 		$("#timeError").css("color","red")
+			return false
+		}
+		
+		if($("#kcal").val() == ""){
+	 		console.log("소비 칼로리를 입력하세요")
+	 		$("#kcalError").html("* 소비 칼로리를 입력해주세요")
+	 		$("#kcalError").css("color","red")
+			return false
+		}
 		
 	    current_fs = $(this).parent();
 	    next_fs = $(this).parent().next();
@@ -282,15 +310,41 @@ $(document).ready(function() {
 	        duration: 600
 	    });
 	    
-	    if($("#bfTitle").val().length == 0) {
-				$("#bfTitle").focus(function() {
-					alert("제목 입력");					
-				});
-			
-				return false;
-			
+	    
+	});
+	verifyContentError
+	$(".next2").click(function(){
+		
+		if($("#verifyContent").val() == ""){
+	 		console.log("내용을 입력하세요")
+	 		$("#verifyContentError").html("* 내용을 입력해주세요")
+	 		$("#verifyContentError").css("color","red")
+			return false
 		}
-			
+		
+	    current_fs = $(this).parent();
+	    next_fs = $(this).parent().next();
+	    
+	    //Add Class Active
+	    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+	    
+	    //show the next fieldset
+	    next_fs.show(); 
+	    //hide the current fieldset with style
+	    current_fs.animate({opacity: 0}, {
+	        step: function(now) {
+	            // for making fielset appear animation
+	            opacity = 1 - now;
+
+	            current_fs.css({
+	                'display': 'none',
+	                'position': 'relative'
+	            });
+	            next_fs.css({'opacity': opacity});
+	        }, 
+	        duration: 600
+	    });
+	    
 	    
 	});
 	
@@ -330,6 +384,30 @@ $(document).ready(function() {
 		alert("50 포인트가 적립되었습니다");
 	});
 	
+	
+	//유효성 검사 메세지 초기화
+	$("#vTitle").focus(function(){
+	   $("#vTitleError").html("")
+	  })
+		   
+	$("#exercise").focus(function(){
+		$("#exerciseError").html("")
+	})
+		   
+	$("#time").focus(function(){
+		$("#timeError").html("")
+	})
+	
+	$("#kcal").focus(function(){
+		$("#kcalError").html("")
+	})
+		   
+	$("#verifyContent").focus(function(){
+		$("#weightError").html("")
+	})
+	
+
+	
 })
 
 
@@ -358,18 +436,22 @@ $(document).ready(function() {
                             <!-- fieldsets -->
 			            <fieldset>
 				            <div class="form-card"><br><br>
-				             	<label for="bfTitle">제목</label>
+				             	<label for="vTitle">제목</label>
 									<input type="text" id="vTitle" name="vTitle" placeholder="제목을 입력해주세요" required id="vTitle">
+				                 	<div id="vTitleError" class="resMsg"></div>
 				                 <br><br>
 				                        
 								<label for=	"exercise">운동 종목</label>
 									<input type="text" id="exercise" name="exercise" required id="exercise" placeholder="현재 하고 있는 운동 종목을 입력해주세요">
+				                	<div id="exerciseError" class="resMsg"></div>
 				                <br>
-				                 <label for="weight">소요 시간</label>
+				                 <label for="time">소요 시간</label>
 									<input type="text" id="time" name="time" required id="time" placeholder="소요 시간을 자유롭게 입력해주세요">
+				                  	<div id="timeError" class="resMsg"></div>
 				                  <br>
-				                  <label for="bfExercise">소비 칼로리</label>
-				                    <input type="text" id="kcal" name="kcal" required id="kcal" placeholder="소비 칼로리를 입력해주세요 *숫자만 입력해주세요">
+				                  <label for="kcal">소비 칼로리</label>
+				                    <input type="number" id="kcal" name="kcal" required id="kcal" placeholder="소비 칼로리를 입력해주세요 *숫자만 입력해주세요">
+				                  	<div id="kcalError" class="resMsg"></div>
 				                  <br>
 				                  <label for="file">첨부파일</label><br><br>
 									<jsp:include page="../file/upload.jsp" /> <br>
@@ -384,12 +466,12 @@ $(document).ready(function() {
 								<br><br>
 								<h4 style="color: black">내용</h4><br><br>
 									<textarea rows="20" cols="50" id="verifyContent" name="verifyContent" placeholder="게시글을 작성해주세요"></textarea>
-									
+									<div id="verifyContentError" class="resMsg"></div>
 							</div>  <br><br><br>                          
 							
 							<input type="button" name="previous" class="previous action-button-previous" onClick="javascript:window.scrollTo(0,0)"
                                  value="이전"/>
-                                <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)"
+                                <input type="button" name="next" class="next2 action-button" onClick="javascript:window.scrollTo(0,0)"
                                  value="다음"/>
 							
 							<br><br><br><br><br><br><br>

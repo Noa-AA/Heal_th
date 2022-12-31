@@ -18,15 +18,16 @@ $(document).ready(function() {
 	})
 	
 	$("#btnDelete").click(function() {
+		confirm("게시글을 정말삭제하시겠습니까?");
 		location.href = "/board/bfDelete?bfNo=${viewBoard.bfNo }"
+		alert("게시글이 삭제됐습니다");
 	})
 })
 </script>
 
 <style type="text/css">
-table {
-	table-layout: fixed;
-}
+
+body{padding-top: 0px;}
 
 #btnList {
     width: 100px;
@@ -76,98 +77,71 @@ table {
 	width: 100px;
 }
 
+.container{width: 1200px; border: 1px solid black;}
+
+#title{border-top: 3px solid #84C9E3; border-bottom: 3px solid #84C9E3;}
 </style>
 
 <div class="container">
+<h1 style="text-align: center; margin-top: 104px; font-weight: bold; font-size: 40px;">Before & After 게시글</h1><br><br><br><br><br><br>
 
-<h1>게시글 상세보기</h1>
-<hr>
+<div id="title"><br>
+<div style="font-size: 60px; margin-right: 20px;">📝</div>
+<ul>
+<li style="font-size: 40px; display: flex; margin-top: -84px; margin-left: 80px;">${viewBoard.bfTitle }</li><br>
+<li style="margin-top: -23px; margin-left: 80px;">회원번호: ${viewBoard.userNo }</li>
+<li style="margin-top: -20px; margin-left: 175px;">|</li>
+<li style="margin-top: -20px; margin-left: 189px;">조회수: ${viewBoard.bfHit } </li>
+<li style="margin-top: -20px; margin-left: 254px;">|</li>
+<li style="margin-top: -20px; margin-left: 268px;">좋아요: ${viewBoard.bfThumbs }</li>
+</ul><br>
 
-<table class="table table-bordered">
+</div>
+<br><br><br><br>
 
-<tr>
-	<td class="info">글번호</td><td>${viewBoard.bfNo }</td>
-	<td class="info">카테고리 번호</td><td>${viewBoard.categoryNo }</td>
-</tr>
-<tr>
-	<td class="info">회원번호</td><td>${viewBoard.userNo }</td>
-	<td class="info">작성일</td><td><fmt:formatDate value="${viewBoard.bfInstDate }" pattern="yy-MM-dd"/></td>
-</tr>
-<tr>
-	<td class="info">조회수</td><td>${viewBoard.bfHit }</td>
-	<td class="info">좋아요</td><td>${viewBoard.bfThumbs }</td>
-</tr>
-<tr>
-	<td class="info">제목</td><td colspan="3">${viewBoard.bfTitle }</td>
-</tr>
-<tr>
-	<td class="info" colspan="4" style="text-align: center">Before (운동 전)</td>
-</tr>
-<tr>
-	<td  colspan="4" style="border: none;">운동 전 정보</td>
-</tr>
-<tr>
-	<td  colspan="4" style="border: none;">신장: ${viewBoard.height}</td>
-</tr>
-<tr>	
-	<td colspan="4" style="border: none;">성별: ${viewBoard.gender}</td>
-</tr>
-<tr>
-	<td colspan="4" style="border: none;">몸무게: ${viewBoard.weight}</td>
-</tr>
-<tr>
-	<td colspan="4" style="border: none;">운동종류: ${viewBoard.bfExercise}</td>
-</tr>	
+<div style="display: flex; ">
+<fieldset>
+	<h2 style="color: #2d4783; font-weight: bold; font-size: 30px;">Before (운동 전)</h2><br><br>
+	<h3 style="color: #7ca3f5; font-weight: 600; font-size: 25px;">운동 전 정보</h3><br>
+	<div style="font-size: 20px;">신장: ${viewBoard.height}</div><br>
+	<div style="font-size: 20px;">성별: ${viewBoard.gender}</div><br>
+	<div style="font-size: 20px;">몸무게: ${viewBoard.weight}</div><br>
+	<div style="font-size: 20px;">운동종류: ${viewBoard.bfExercise}</div>
+</fieldset>
+<br><br><br><br>
 
-<tr>
-	<td class="info" colspan="4" style="text-align: center">설정 목표</td>
-</tr>
-<tr>
-	<td  colspan="4" style="border: none;">목표 체중: ${viewBoard.gWeight}</td>
-</tr>
-<tr>
-	<td colspan="4" style="border: none;">목표기간: ${viewBoard.sDate} - ${viewBoard.eDate}</td>
-</tr>
-<tr>
-	<td colspan="4" style="border: none;">선택 운동: ${viewBoard.seleExercise}</td>
-</tr>
-<tr>
-	<td colspan="4" style="border: none;">다짐글</td>
-</tr>
-<tr>
-	 <td colspan="4" style="border: none;">${viewBoard.beforeCon}</td>
-</tr>
+<fieldset>
+	<h3 style="color: #7ca3f5; font-weight: 600; font-size: 25px;">설정 목표</h3><br>
+	<div style="font-size: 20px;">목표 체중: ${viewBoard.gWeight}</div><br>
+	<div style="font-size: 20px;">목표기간: ${viewBoard.sDate} ~ ${viewBoard.eDate}</div><br>
+	<div style="font-size: 20px;">선택 운동: ${viewBoard.seleExercise}</div><br><br>
+	<div style="font-size: 20px;">다짐글</div><br>
+	<div style="font-size: 20px;">${viewBoard.beforeCon}</div>
+	
+</fieldset>
 
-<tr>
-	<td class="info" colspan="4" style="text-align: center">After (운동 후)</td>
-</tr>
-<tr>
-	<td  colspan="4" style="border: none;">운동 후 현재정보</td>
-</tr>
-<tr>
-	<td colspan="4" style="border: none;">몸무게: ${viewBoard.cWeight}</td>
-</tr>
-<tr>
-	<td  colspan="4" style="border: none;">결과: ${viewBoard.gResult}</td>
-</tr>
-<tr>	
-	<td colspan="4" style="border: none;">후기글</td>
-</tr>
-<tr>	
-	<td colspan="4" style="border: none;">${viewBoard.afterCon}</td>
-</tr>
+<br><br><br><br>
 
+<fieldset>
+	<h2 style="color: #2d4783; font-weight: bold; font-size: 30px;">After (운동 후)</h2><br><br>
+	<h3 style="color: #7ca3f5; font-weight: 600; font-size: 25px;">운동 후 현재정보</h3><br>
+	<div style="font-size: 20px;">몸무게: ${viewBoard.cWeight}</div><br>
+	<div style="font-size: 20px;">결과: ${viewBoard.gResult}</div><br><br>
+	<div style="font-size: 20px;">후기글</div><br>
+	<div style="font-size: 20px;">${viewBoard.afterCon}</div>
+</fieldset>
+</div>
 
-</table>
 
 <br><br>
+
+<div></div>
 
 <jsp:include page="../file/file.jsp" /> <!-- 뷰페이지 사진목록 자리에 넣기 -->
 
 <br><br><br><br>
 
 
-</div><!-- .container end -->
 
 
 <jsp:include page="../addOns/addOn.jsp" /> <br><br><br><br>
@@ -183,8 +157,11 @@ table {
 
 <br><br><br><br><br><br>
 
+<div style="border-top: 2px; solid black;"></div>
+<br><br><br>
 <jsp:include page="../comment/board.jsp" />
 
+</div><!-- .container end -->
 
 <br><br><br><br><br><br><br><br>
 

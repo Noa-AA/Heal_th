@@ -231,7 +231,9 @@ $(document).ready(function() {
 	})
 	
 	$("#btnDelete").click(function() {
+		confirm("게시글을 정말삭제하시겠습니까?");
 		location.href = "/board/rDelete?reviewNo=${viewBoard.reviewNo }"
+		alert("게시글이 삭제됐습니다");
 	})
 	
 })

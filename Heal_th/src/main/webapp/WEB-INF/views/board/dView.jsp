@@ -18,12 +18,17 @@ $(document).ready(function() {
 	})
 	
 	$("#btnDelete").click(function() {
+		confirm("게시글을 정말삭제하시겠습니까?");
 		location.href = "/board/dietDelete?dietNo=${viewBoard.dietNo }"
+		alert("게시글이 삭제됐습니다");
 	})
 })
 </script>
 
 <style type="text/css">
+
+header{margin-bottom: 0px;}
+
 table {
 	table-layout: fixed;
 }
