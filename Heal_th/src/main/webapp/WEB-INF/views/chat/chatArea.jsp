@@ -143,18 +143,22 @@ button {
 #senderMsg {
 	text-align: right;
 	margin-right: 20px;
-	height: 40px;
 	margin-bottom: 8px;
 }
 
 #senderMsg > #msgS {
-	padding: 8px 16px;
+	padding: 9px 16px;
 	border-radius: 30px 2px 30px 30px;
 	background-color: #7ca3f5;
 	color: #fff;
 	font-weight: 400;
-	line-height: 40px;
 	font-size: 15px;
+	display: inline-block;
+	word-break:break-all;
+ 	max-width: 500px; 
+ 	min-height: 36px;
+ 	line-height: 18px;
+ 	text-align: left;
 }
 
 #senderMsg > #timeS {
@@ -170,18 +174,22 @@ button {
 #receiverMsg {
 	text-align: left;
 	margin-left: 20px;
-	height: 40px;
 	margin-bottom: 8px;
 }
 
 #receiverMsg > #msgR {
-	padding: 8px 16px;
+	padding: 9px 16px;
 	border-radius: 2px 30px 30px 30px;
 	background-color: #eeeeee;
 	color: #222222;
 	font-weight: 400;
-	line-height: 40px;
 	font-size: 15px;
+	display: inline-block;
+	word-break:break-all;
+ 	max-width: 500px; 
+ 	min-height: 36px;
+ 	line-height: 18px;
+ 	text-align: left;
 }
 
 #receiverMsg > #timeR {

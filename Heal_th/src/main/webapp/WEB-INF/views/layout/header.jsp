@@ -520,8 +520,8 @@ $(document).ready(function(){
 				<a href="/challenge/list">챌린지</a>
 			</li>
 			<li>
-				<c:if test="${empty userNo }"><a id="goLogin">멘토와 채팅하기</a></c:if> <!-- 비로그인 상황 -->
-				<c:if test="${not empty userNo }"><a href="/chat/intro">멘토와 채팅하기</a></c:if> <!-- 로그인 상황 -->
+				<c:if test="${empty userNo }"><a id="goLogin">멘토와 채팅</a></c:if> <!-- 비로그인 상황 -->
+				<c:if test="${not empty userNo }"><a href="/chat/intro">멘토와 채팅</a></c:if> <!-- 로그인 상황 -->
 			</li>
 			<li>
 				<a href="/dghelper/healthtest">운동도우미</a>

@@ -26,10 +26,18 @@
 		
 		
 		//12시 넘으면 오후 12시 안넘으면 오전 표시
-		if( date.getHours() >= 12 ) {
+		if( date.getHours() >= 12 &&  date.getHours() >= 22 ) {
 			var dateInfo = "오후 " + (date.getHours()-12) + ":" + date.getMinutes();
-		} else {
+		
+		//시간이 한자리수일때는 0을 붙인다
+		} else if( date.getHours() >= 12 &&  date.getHours() < 22 ){
+			var dateInfo = "오후 " + "0" + (date.getHours()-12) + ":" + date.getMinutes();
+	
+		} else if ( date.getHours() < 12 &&  date.getHours() >= 10 ) {
 			var dateInfo = "오전 " + date.getHours() + ":" + date.getMinutes();
+			//시간이 한자리수일때는 0을 붙인다
+		} else {
+			var dateInfo = "오전 " + "0" + date.getHours() + ":" + date.getMinutes();
 		}
 		
 		var socMsg = data.split(" : ");
@@ -52,7 +60,7 @@
 		
 		//왼쪽 미리보기 메세지
 		if ( socMsg[1] === "listChat" ) {
-			$("."+socMsg[3]).html( socMsg[2] );
+			$("."+socMsg[3]).html( socMsg[2] + "<span class='timeView'> " + dateInfo + "</span>");
 			$('#myId').after( $("."+socMsg[3]).parents("button") );
 		} 
 		 
