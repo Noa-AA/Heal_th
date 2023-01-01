@@ -111,7 +111,10 @@ header{
 	margin-bottom: 80px !important;
 
 }
+footer{
+	position: relative;
 
+}
 #mypageBody{ 
  	padding-top:0;
  		background-color: #f9fbfc;

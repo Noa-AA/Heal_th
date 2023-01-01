@@ -11,7 +11,7 @@
  	width: 30%;
     display: flex;
     background-color: #f9fbfc;
-    height: 95%;
+    height: 100%;
     justify-content: flex-end;
         position: absolute;
     box-shadow: 5px 1px 8px 0 rgb(0 0 0 / 6%);
@@ -166,7 +166,6 @@
 						<ul id="moneyAdmin">
 							<li class="infoTitle dgMoneyPoint">득근머니/포인트</li>
 							<li class="info dgMoney"><a href="/dgmoney/view ">득근머니</a></li>
-							<li class="info dgPoint">득근포인트</li>
 						</ul>
 					</div>
 					

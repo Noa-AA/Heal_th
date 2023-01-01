@@ -280,9 +280,12 @@ function cancel(){
 
 
 <style type="text/css">
+header{
+	margin-bottom: 80px !important;
+}
 
 #updateBody{
-	padding-top: 150px;
+	padding-top:0px;
 	background-color: #f9fbfc;
 
 }
