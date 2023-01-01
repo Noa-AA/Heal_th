@@ -74,6 +74,7 @@ input {
     font-size:17px;
     border-radius: 8px;
     padding-top: 5px;
+    cursor: pointer;
 }
 
 input {
@@ -83,12 +84,13 @@ input {
 
 #wdButton {
 	width: 238px;
+    margin-top: 10px;
 }
 
 #wdInfo {
 	width: 280px;
 	margin: 5px auto;
-	border: 1px solid black;
+	border: 1px solid #7ca3f5;
 }
 
 </style>
@@ -109,7 +111,7 @@ input {
 				<input type="hidden" name="wdAmount" value=${param.wdAmount }>
 				<p>${param.wdAmount }원</p>
 			</div>
-			<p><button id="wdButton">인출신청</button></p>
+			<button id="wdButton">인출신청</button>
 			<p style="color: red; padding-top: 12px;">인출신청시 영업일기준 2~3일내 환불계좌로 입금됩니다.</p>
 		</form>
 	</div>

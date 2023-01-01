@@ -8,7 +8,6 @@
  <style type="text/css">
  
  #profileArea{
- 	width: 30%;
     display: flex;
     background-color: #f9fbfc;
     height: 100%;
@@ -164,8 +163,8 @@
 					</div>	
 					<div id="pointMoney">
 						<ul id="moneyAdmin">
-							<li class="infoTitle dgMoneyPoint">득근머니/포인트</li>
-							<li class="info dgMoney"><a href="/dgmoney/view ">득근머니</a></li>
+							<li class="infoTitle dgMoneyPoint">득근머니</li>
+							<li class="info dgMoney"><a href="/dgmoney/view" onclick="window.open('/dgmoney/view', '_blank','width=550, height=260, left=600, top=200'); return false;">득근머니</a></li>
 						</ul>
 					</div>
 					
