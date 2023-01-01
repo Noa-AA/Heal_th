@@ -259,12 +259,12 @@ public class MypageServiceImpl implements MypageService {
 	}
 	 
 	 @Override
-	public Users getIntro(HttpSession session) {
+	public Users getmypageInfo(HttpSession session) {
 		logger.info("한줄 소개 가져오기");
 		 Users user = new Users();
 		 user.setUserNo((int)session.getAttribute("userNo"));
 		 
-		 Users introSelect = mypageDao.selectUserIntro(user);
+		 Users introSelect = mypageDao.selectInfoFormyPage(user);
 		 
 		 return introSelect;
 	}

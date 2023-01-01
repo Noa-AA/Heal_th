@@ -37,9 +37,9 @@ public class MypageController {
 		PhotoFile profilePhoto = mypageService.getPhoto(session,profile);
 		logger.info("프로필 {}",profilePhoto);
 		
-		//한줄 소개 조회해오기
-		Users userIntro = mypageService.getIntro(session);
-		logger.info("한술 소개 : {}",userIntro);
+		//한줄 소개,득근머니,포인트, 등급 조회해오기
+		Users mypageInfo = mypageService.getmypageInfo(session);
+		logger.info("한술 소개 : {}",mypageInfo);
 		
 		//g회원 키 조회해오기
 		BodyInfo height = mypageService.getHeigiht(session,bodyInfo);
@@ -48,7 +48,7 @@ public class MypageController {
 		//모델값으로 storedName 전달하기
 		model.addAttribute("storedName", profilePhoto);
 		//모델값으로 한줄 소개 전달하기
-		model.addAttribute("userIntro", userIntro);
+		model.addAttribute("mypageInfo", mypageInfo);
 		//모델값으로 키 전달하기
 		model.addAttribute("bodyInfo", height);
 

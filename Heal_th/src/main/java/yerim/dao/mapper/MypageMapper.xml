@@ -91,8 +91,8 @@
 	  	WHERE user_no =#{userNo}
 	  </update>
 	  
-	  <select id="selectUserIntro" parameterType="Users" resultType="Users">
-	  	SELECT user_intro FROM users
+	  <select id="selectInfoFormyPage" parameterType="Users" resultType="Users">
+	  	SELECT user_intro,dg_money,point,ranking_no FROM users
 	  	WHERE user_no =#{userNo}
 	  </select>
 	  

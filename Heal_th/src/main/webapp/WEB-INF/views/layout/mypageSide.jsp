@@ -45,8 +45,9 @@
 }
 
 #intro{
-	margin-top: 145px;
+	margin-top: 8px;
     padding-left: 39px;
+    height: 40px;
 }
 .info{
 	z-index: 99;
@@ -56,6 +57,35 @@
 
 	margin-top: 40px;
 }
+
+.rankingImg,#moneyIcon,#pointIcon{
+	width: 30px;
+	height:30px;
+
+}
+#moneypointRanking{
+	padding: 34px 20px;
+}
+.rankingTitle{
+
+	font-size: 17px;
+    margin-left: 15px;
+}
+#ranking{
+    text-align: center;
+}
+#dgMoney{
+	float: left;
+  margin: 20px 20px 0 33px;
+}
+#point {
+	    margin-top: 20px;
+    text-align: center;
+}
+.moneyPointTitle{
+	font-size: 17px;
+}
+
  </style>
  
 
@@ -73,13 +103,49 @@
 			</div>
 		
 			
+			<div id="moneypointRanking">
+				<div id="ranking">
+					<c:choose>
+						<c:when test="${mypageInfo.rankingNo ==1}">
+							<img src="/resources/img/mypage/chicken.png" class="rankingImg" >
+							<span class="rankingTitle">햇병아리</span>
+						</c:when>
+							<c:when test="${mypageInfo.rankingNo ==2}">
+							<img src="/resources/img/mypage/healthy.png" class="rankingImg" >
+							<span class="rankingTitle">튼튼이</span>
+						</c:when>
+							<c:when test="${mypageInfo.rankingNo ==3}">
+							<img src="/resources/img/mypage/trainer.png" class="rankingImg" >
+							<span class="rankingTitle">트레이너</span>
+						</c:when>
+							<c:when test="${mypageInfo.rankingNo ==4}">
+							<img src="/resources/img/mypage/master.png" class="rankingImg" >
+							<span class="rankingTitle">마스터</span>
+						</c:when>
+							<c:when test="${mypageInfo.rankingNo ==5}">
+							<img src="/resources/img/mypage/god.png" class="rankingImg" >
+							<span class="rankingTitle">헬스신</span>
+						</c:when>
+					
+					</c:choose>
+				
+				</div>
+				<div id="dgMoney">
+					<img src="/resources/img/mypage/dollarcoin.png" id="moneyIcon">
+					<span class="moneyPointTitle"><a href="/dgmoney/view ">${mypageInfo.dgMoney}원</a></span>
+				</div>
+				<div id="point">
+					<img src="/resources/img/mypage/point.png" id="pointIcon">
+					<span class="moneyPointTitle">${mypageInfo.point}</span>
+				</div>
+			</div>
 			<div id="intro">
 				<c:choose>
-					<c:when test="${userIntro.userIntro == null}">
+					<c:when test="${mypageInfo.userIntro == null}">
 						<a href="/mypage/setProfile">한 줄 소개를 작성해주세요</a>
 					</c:when>
 					<c:otherwise>
-						<a href="/mypage/setProfile">${userIntro.userIntro}</a>
+						<a href="/mypage/setProfile">${mypageInfo.userIntro}</a>
 					</c:otherwise>
 				
 				</c:choose>
@@ -107,7 +173,7 @@
 					<div id="shoppingLst">
 						<ul id="shopping">
 							<li class="infoTitle payment">결제/장바구니</li>
-							<li class="info cart">장바구니</li>
+							<li class="info cart"><a href="/store/cartlist">장바구니</a></li>
 							<li class="info payList">구매 내역</li>
 						</ul>
 					

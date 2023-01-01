@@ -147,7 +147,7 @@ input[type=file]::file-selector-button:hover{
 				<span class="titleForHead">프로필 </span>
 			</div>
 			
-				<div id="profileForm">
+				<div id="profileFormArea">
 					<form action="/mypage/setProfile" method="post" id="profileForm" enctype="multipart/form-data">
 						<div id="updatePhoto" class="inputArea">
 							<label for="userPhoto">
@@ -160,10 +160,10 @@ input[type=file]::file-selector-button:hover{
 									<span class="formTitle">자기소개</span>
 								</label>
 								<textarea id="userIntro" name="userIntro" id="userIntro" ></textarea>
-							</div>
+						</div>
 							
 						<div id="btnArea">
-							<button type="button" id="btnIntro">적용</button>
+							<button type="button" id="btnIntro">수정</button>
 							<button type="button" id="btnCancel">취소</button>
 						</div>
 					</form>
