@@ -8,7 +8,6 @@
  <style type="text/css">
  
  #profileArea{
- 	width: 30%;
     display: flex;
     background-color: #f9fbfc;
     height: 100%;

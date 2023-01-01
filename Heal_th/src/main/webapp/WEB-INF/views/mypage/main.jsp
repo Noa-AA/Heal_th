@@ -129,9 +129,9 @@ footer{
  
 }
 #wrap{
- 	 width: 70%;
+ 	width: 70%;
     height: 100%;
-    margin-left: 710px;
+    margin-left: 500px;
   
 }
 
