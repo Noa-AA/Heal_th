@@ -201,7 +201,7 @@ width: 100px;
 /* 사진 */ 
 #pIcon{display: block; width: 14px; margin-right:8px; margin-top: 20px;}
 
-#thumbnail{ border-radius: 10px; width: 259px; height: 150px; margin-top: -141px;} 
+#thumbnail{ border-radius: 10px; width: 240px; height: 141px; margin-top: -141px;} 
 
 #imgNone{display: none;}
 
@@ -441,18 +441,18 @@ $(document).ready(function() {
 <c:forEach items="${boardSearch }" var="boardSearch">
 	<ul id="searchResult" style="list-style: none;">
 		<li style="float: left; display: none;" >${boardSearch.reviewNo }</li>
-		<li style="float: left; line-height:380%;"><a href="${path}/board/rView?reviewNo=${boardSearch.reviewNo}" id="boardUrl">${boardSearch.rTitle }</a></li><br>
+		<li style="display:  -webkit-inline-box; inline-size: -webkit-fill-available; line-height: 3;"><a href="${path}/board/rView?reviewNo=${boardSearch.reviewNo}" id="boardUrl">${boardSearch.rTitle }</a></li><br>
 		
-		<li style="float: left; margin-top: -8px;" class="ellipsis" >${boardSearch.review }</li><br>
+		<li style="display:  -webkit-inline-box; inline-size: -webkit-fill-available; line-height: 3;" class="ellipsis" >${boardSearch.review }</li><br>
 		
 		<li class="myform" style="line-height: 1;"> 
-			<span style="float: left; color:#666; margin-top: 3px; margin-right: 10px; font-weight: bold; font-size: 15px;">:평점 </span>
-			<span class="myratings" style="float: left; margin-top: 3px; margin-right: 10px; font-weight: bold; font-size: 15px;">${boardSearch.score }</span>
-			<input type="radio" name="score${boardSearch.reviewNo }" value="5.0" id="rate1"><label for="rate1">★</label>
-			<input type="radio" name="score${boardSearch.reviewNo }" value="4.0" id="rate2"><label for="rate2">★</label>
-			<input type="radio" name="score${boardSearch.reviewNo }" value="3.0" id="rate3"><label for="rate3">★</label>
-			<input type="radio" name="score${boardSearch.reviewNo }" value="2.0" id="rate4"><label for="rate4">★</label>
-			<input type="radio" name="score${boardSearch.reviewNo }" value="1.0" id="rate5"><label for="rate5">★</label>
+			<span style="float: left; color:#666; margin-top: 11px; margin-right: 10px; font-weight: bold; font-size: 15px;">:평점 </span>
+			<span class="myratings" style="float: left; margin-top: 11px; margin-right: 10px; font-weight: bold; font-size: 15px;">${boardSearch.score }</span>
+			<input type="radio" name="score${boardSearch.reviewNo }" value="5.0" id="rate1"><label for="rate1" style="margin-top: 7px;">★</label>
+			<input type="radio" name="score${boardSearch.reviewNo }" value="4.0" id="rate2"><label for="rate2" style="margin-top: 7px;">★</label>
+			<input type="radio" name="score${boardSearch.reviewNo }" value="3.0" id="rate3"><label for="rate3" style="margin-top: 7px;">★</label>
+			<input type="radio" name="score${boardSearch.reviewNo }" value="2.0" id="rate4"><label for="rate4" style="margin-top: 7px;">★</label>
+			<input type="radio" name="score${boardSearch.reviewNo }" value="1.0" id="rate5"><label for="rate5" style="margin-top: 7px;">★</label>
 		</li><br>
 		
 		<li style="float: right;">

@@ -14,12 +14,8 @@
 
 <jsp:include page="../layout/header.jsp" />
 
-<!-- 스타일 -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js">
-<script scr="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- <script scr="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></script> -->
 
+<!-- 지도 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=161720a43a30c2dc196fb23834b51086&libraries=services"></script>
 <script>
@@ -92,23 +88,20 @@ window.onload = function() {
     padding: 0;
 }
 
-html {
-/*     height: 100%; */
-	height: 1300px;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-}
-
 body{padding: 0;}
+
+/* header <a>Tag style */
 
 a {
     color: #000;
     text-decoration: none;
+    text-decoration-line: none;
 }
 
+a:focus, a:hover {
+    text-decoration: none;
+    outline: none;
+}
 
 #btnList {
     width: 100px;
@@ -158,11 +151,7 @@ a {
 	width: 100px;
 }
 
-
-
-
 /* star rating */
-
 #myform{
     display: inline-block;
     direction: rtl;
@@ -176,6 +165,7 @@ a {
 }
 #myform label{
     font-size: 3em;
+    margin-top: -12px;
     color: transparent;
     text-shadow: 0 0 0 #f0f0f0;
 }
@@ -189,12 +179,26 @@ a {
     text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 }
 
-span{
+.myratings{
 font-size: 25px;
 float: left;
+font-weight: 600;
 margin-right: 15px;
 margin-top: 3px;
 }
+
+.container{
+	width: 1200px;
+    position: relative;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
+    margin: 0 auto;
+}
+
+#line{ border-top: 2px solid #ccc; }
+#title{border-top: 3px solid #84C9E3; border-bottom: 3px solid #84C9E3; margin-left: 7%; width: 996px; }
+
 
 
 </style>
@@ -203,24 +207,10 @@ margin-top: 3px;
 <script type="text/javascript">
 $(document).ready(function() {
 	
-	$( ".star_rating a" ).click(function() {
-	     $(this).parent().children("a").removeClass("on");
-	     $(this).addClass("on").prevAll("a").addClass("on");
-	     return false;
-	});
+	$("input[name='score'][value='${viewBoard.score}']").prop("checked", true)
+	star();
 	
-	$("input[type='radio']").click(function(){
-        var sim =  $("input[type='radio']:checked").val();
-        //alert(sim);
-        if (sim<3) {
-        $('.myratings').css('color','red'); 
-        $(".myratings").text(sim);
-     }else{
-        $('.myratings').css('color','green');
-        $(".myratings").text(sim);
-     }
-     });
-
+	$("input[type='radio']").click(star);
 	
 	$("#btnList").click(function() {
 		location.href = "/board/reviewBoard"
@@ -238,108 +228,110 @@ $(document).ready(function() {
 	
 })
 
+function star() {
+      var sim =  $("input[type='radio']:checked").val();
+        //alert(sim);
+        if (sim<3) {
+        $('.myratings').css('color','red'); 
+        $(".myratings").text(sim);
+     }else{
+        $('.myratings').css('color','green');
+        $(".myratings").text(sim);
+     }
+}
+
 </script>
 
 </head>
 <body>
 
+<br><br><br><br><br><br><br><br>
+
 <div class="container">
+<h1 style="text-align: center; margin-top: 104px; padding-top: 26px; font-weight: bold; font-size: 40px;">시설 후기 게시글</h1><br><br><br><br><br><br>
 
-<h1>게시글 상세보기</h1>
+<div id="title"><br>
+<div style="margin-left: 30x;">
+<div style="font-size: 60px; margin-left: 20px;">📝</div>
+<ul style="margin-left: 25px;">
+<li style="display: none;">${viewBoard.reviewNo }</li><br>
+<li style="display: none;">${viewBoard.categoryNo }</li><br>
+<li style="font-size: 40px; display: flex; margin-top: -125px; margin-left: 80px; padding-bottom: 3px;">${viewBoard.rTitle }</li><br>
+<li style="margin-top: -23px; display: flex; margin-left: 80px;">회원번호: ${viewBoard.userNo }</li>
+<li style="margin-top: -19px; display: flex; margin-left: 175px;">|</li>
+<li style="margin-top: -20px; display: flex; margin-left: 188px;">작성일: 
+<fmt:formatDate value="${viewBoard.rInstDate }" pattern="yy-MM-dd"/>
+</li>
+<li style="margin-top: -20px; display: flex; margin-left: 299px;">|</li>
+<li style="margin-top: -20px; display: flex; margin-left: 311px;">조회수: ${viewBoard.rHit } </li>
+<li style="margin-top: -20px; display: flex; margin-left: 369px;">|</li>
+<li style="margin-top: -20px; display: flex; margin-left: 382px;">좋아요: ${viewBoard.rThumbs }</li>
+</ul><br>
+</div>
+
+</div>
+<br><br><br><br>
+
+<div style="margin-left: 9%; font-size: 30px; font-weight: 700; color: gray;">📃  게시글 내용</div>
+<br><br>
+
+<div style="margin-left: 130px;">
+<fieldset>
+	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">시설 소개</h3><br>	
+	<div style="font-size: 20px;">시설명: ${viewBoard.gymName}</div><br>
+	<div style="font-size: 20px;">분류: ${viewBoard.classification}</div><br>
+	<div style="font-size: 20px;">간단소개: ${viewBoard.gymIntroduce}</div><br>
+	<div style="font-size: 20px;">가격: ${viewBoard.price}</div><br>
+</fieldset>
+<br><br><br><br>
+
+<fieldset>
+	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">시설 위치</h3><br>	
+	<div style="font-size: 20px;">위치: ${viewBoard.address}</div><br>
+	<!-- 지도 -->
+	<input type="hidden" value="${viewBoard.lat }" id="latVal">
+	<input type="hidden" value="${viewBoard.lng }" id="lngVal">
+	<div id="map" style="width:913px;height:440px;"></div>
+	
+</fieldset>
+
+<br><br><br><br><br>
+
+<fieldset>
+	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">후기</h3><br>	
+	<div style="font-size: 20px;">평점</div><br>
+		
+	<div name="myform" id="myform">
+	<span class="myratings" style="color: #ccc;">5.0</span>
+		<input type="radio" name="score" value="5.0" id="rate1"><label for="rate1">★</label>
+		<input type="radio" name="score" value="4.0" id="rate2"><label for="rate2">★</label>
+		<input type="radio" name="score" value="3.0" id="rate3"><label for="rate3">★</label>
+		<input type="radio" name="score" value="2.0" id="rate4"><label for="rate4">★</label>
+		<input type="radio" name="score" value="1.0" id="rate5"><label for="rate5">★</label>
+	<br><br>
+	</div>
+	<div style="font-size: 20px;">후기글 작성: ${viewBoard.review}</div><br><br>
+</fieldset>
+<br><br><br><br>
+
+</div>
+<br><br>
 <hr>
+<br><br>
+<div style="margin-left: 9%; font-size: 30px; font-weight: 700; color: gray;">📷  이미지</div>
 
+<br><br>
 
+<div></div>
 
+<jsp:include page="../file/file.jsp" /> <!-- 뷰페이지 사진목록 자리에 넣기 -->
 
 <br><br><br><br>
 
 
 
-<table class="table table-bordered">
 
-<tr>
-	<td class="info">글번호</td><td>${viewBoard.reviewNo }</td>
-	<td class="info">카테고리 번호</td><td>${viewBoard.categoryNo }</td>
-</tr>
-<tr>
-	<td class="info">회원번호</td><td>${viewBoard.userNo }</td>
-	<td class="info">작성일</td><td><fmt:formatDate value="${viewBoard.rInstDate }" pattern="yy-MM-dd"/></td>
-</tr>
-<tr>
-	<td class="info">조회수</td><td>${viewBoard.rHit }</td>
-	<td class="info">좋아요</td><td>${viewBoard.rThumbs }</td>
-</tr>
-<tr>
-	<td class="info" colspan="4" style="text-align: center">헬스장 리뷰</td>
-</tr>
-<tr>
-	<td class="info">제목</td><td colspan="3">${viewBoard.rTitle }</td>
-</tr>
-<tr>
-	<td class="info" colspan="4" style="text-align: center">시설 소개</td>
-</tr>
-
-<tr>
-	<td  colspan="4" style="border: none;">시설명: ${viewBoard.gymName}</td>
-</tr>
-<tr>	
-	<td colspan="4" style="border: none;">분류: ${viewBoard.classification}</td>
-</tr>
-<tr>
-	<td colspan="4" style="border: none;">간단소개: ${viewBoard.gymIntroduce}</td>
-</tr>
-<tr>
-	<td colspan="4" style="border: none;">가격: ${viewBoard.price}</td>
-</tr>	
-
-<tr>
-	<td class="info" colspan="4" style="text-align: center">위치</td>
-</tr>
-<tr>
-	<td  colspan="4" style="border: none;">시설 위치: ${viewBoard.address}</td>
-</tr>
-
-<tr>
-	<td  colspan="4" style="border: none; display: none;">위치: ${viewBoard.lat}</td>
-</tr>
-<tr>
-	<td  colspan="4" style="border: none; display: none;">위치: ${viewBoard.lng}</td>
-</tr>
-
-<tr>
-	<td class="info" colspan="4" style="text-align: center">후기</td>
-</tr>
-
-<tr>
-	<td colspan="4" style="border: none;">평점: ${viewBoard.score}</td>
-</tr>
-
-
-<tr>
-	<td colspan="4" style="border: none;">후기글 작성: ${viewBoard.review}</td>
-</tr>
-
-
-</table>
-
-
-<!-- 지도 -->
-<input type="hidden" value="${viewBoard.lat }" id="latVal">
-<input type="hidden" value="${viewBoard.lng }" id="lngVal">
-<div id="map" style="width:600px;height:350px;"></div>
-
-
-<jsp:include page="../file/file.jsp" /> <!-- 뷰페이지 사진목록 자리에 넣기 -->
-
-
-</div><!-- .container end -->
-
-<br><br><br><br><br>
-
-
-<jsp:include page="../addOns/addOn.jsp" />
-
-<br><br><br><br><br>
+<jsp:include page="../addOns/addOn.jsp" /> <br><br><br><br>
 
 <div class="text-center">
 	<button id="btnList" class="btn btn-primary">목록</button>
@@ -350,13 +342,28 @@ $(document).ready(function() {
 	</c:if>
 </div>
 
-<br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br>
+<hr id="line">
+<div style="border-top: 2px; solid #ccc;"></div>
+<br><br>
 
+<div style="margin-left: 9%; font-size: 30px; font-weight: 700; color: gray;">🖋️  댓글</div>
+
+<br><br><br><br>
 
 <jsp:include page="../comment/board.jsp" />
-
+<br><br><br><br><br><br><br><br>
+</div><!-- .container end -->
 
 <br><br><br><br><br><br><br><br>
+
+
+
+<%@include file="../layout/footer.jsp" %>
+
+
+
+
 
 
 

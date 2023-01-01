@@ -61,7 +61,7 @@ a:focus, a:hover {
      border: 0 none; 
      border-radius: 0px; 
      cursor: pointer; 
-     padding: 10px 5px; 
+     padding: 11px 5px; 
      margin: 10px 5px; 
      margin-left: 208px;
 }
@@ -287,7 +287,7 @@ a:focus, a:hover {
 /* content style */
 #title{font-size: 15px; font-weight: bold;}
 
-#article{color: black; font-size: 15px; font-weight: bold;}
+#article{color: black; font-size: 18px; font-weight: bold;}
 
 #information {display: flex; float: right; margin-top: 12px; font-weight: bold; font-size: 17px; margin-right: 19px;}
 
@@ -437,7 +437,7 @@ $(document).ready(function(){
 									<div id="bfTitleCorrect" class="resMsg"></div>
 				                 <br><br>
 				                        
-							<h3 style="color: black;">운동 전 정보</h3><br><br>
+							<h3 id="article">운동 전 정보</h3><br><br>
 								<label for=	"height" id="title">신장</label><br>
 									<input type="number" id="height" name="height" value="${updateBoard.height }" placeholder="숫자만 입력해 주세요" style="width: 550px;"><span id="information">kg</span>
 									<div id="heightError" class="resMsg"></div>
@@ -455,7 +455,7 @@ $(document).ready(function(){
 				                    <input type="text" id="bfExercise" name="bfExercise" value="${updateBoard.bfExercise }" placeholder="현재 하고 있는 운동종류를 입력해주세요">
 				                    <div id="bfExerciseError" class="resMsg"></div>
 				                  <br>
-				                  <label for="file" id="title">첨부파일</label><br><br>
+				                  <label for="file" id="title">첨부파일</label>
 									<jsp:include page="../file/fileUpdate.jsp" /> <br><br>
 								</div>
 
@@ -469,7 +469,7 @@ $(document).ready(function(){
 			                            
 						<fieldset>
 							<div class="form-card">
-								<h3 style="color: black">설정 목표</h3>
+								<h3 id="article">설정 목표</h3>
 									<br><br> 
 								<label for="gWeight" id="title">목표 체중</label><br>
 									<input type="number" id="gWeight" name="gWeight" value="${updateBoard.gWeight }" placeholder="목표 체중을 입력해주세요 *숫자만 입력하세요" style="width: 550px;"><span id="information">kg</span>
@@ -486,7 +486,7 @@ $(document).ready(function(){
 									<div id="seleExerciseError" class="resMsg"></div>
 								<br>
 					
-								<h4 style="color: black" id="article">다짐글</h4><br><br>
+								<h3 style="color: black" id="article">다짐글</h3><br><br>
 									<textarea rows="20" cols="50" id="beforeCon" name="beforeCon" placeholder="다짐글을 작성해주세요">${updateBoard.beforeCon }</textarea>
 									<div id="beforeConError" class="resMsg"></div>
 							
@@ -504,7 +504,7 @@ $(document).ready(function(){
 						<fieldset>
 							<div class="form-card">
 								<h2 style="color: black">After</h2> <br><br>
-								<h4 style="color: black;">운동 후 현재 정보</h4><br><br>
+								<h3 id="article">운동 후 현재 정보</h3><br><br>
 								<label for="cWeight" id="title">몸무게</label><br>
 									<input type="number" id="cWeight" name="cWeight" value="${updateBoard.cWeight }" placeholder="운동 후 몸무게를 입력해주세요 *숫자만 입력하세요" style="width: 550px;"><span id="information">kg</span>
 									<div id="cWeightError" class="resMsg"></div>
@@ -547,7 +547,7 @@ $(document).ready(function(){
 									<a class="btn block" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/bfBoard" style="text-decoration: none; color: white; font-size: 14px; font-weight: bold; ">취소</a>
 								</button>
                                     
-								<button type="submit" id="btnUpdate" name="btnUpdate" style="color: white; font-size: 14px;">등록</button>
+								<button type="submit" id="btnUpdate" name="btnUpdate" style="color: white; font-size: 14px;">수정</button>
                                     
 							</div>
 						</fieldset>

@@ -21,32 +21,28 @@
 
 header {margin-bottom: 0px; }
 
-#btnCancle {
-    width: 100px;
-    background: #616161;
-    font-size: 21px;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 10px 5px; 
-    margin: 10px 5px;
-    padding-bottom: 14px; 
-	height: 52px;
-	width: 100px;
-	margin-left: 195px;
-	margin-right: 18px;
+#btnCancle{
+     width: 100px; 
+     background: #616161; 
+     font-weight: bold; 
+     color: white; 
+     border: 0 none; 
+     border-radius: 0px; 
+     cursor: pointer; 
+     padding: 15px 5px; 
+     margin: 10px 5px; 
+     margin-left: 208px;
 }
+
+
 
 #btnWrite {
     width: 100px;
     background: #7ca3f5;
-    font-size: 21px;
     font-weight: bold;
     color: white;
     border: 0 none;
-    border-radius: 5px;
+    border-radius: 0px;
     cursor: pointer;
     padding: 10px 5px; 
     margin: 10px 5px;
@@ -54,6 +50,7 @@ header {margin-bottom: 0px; }
 	height: 52px;
 	width: 100px;
 }
+
 
 /*form styles*/
 #msform {
@@ -248,6 +245,11 @@ header {margin-bottom: 0px; }
     text-align: center;
 }
 
+/* content style */
+#title{font-size: 15px; font-weight: bold;}
+
+#article{color: black; font-size: 18px; font-weight: bold;}
+
 
 </style>
 
@@ -405,16 +407,17 @@ $(".next2").click(function(){
                             <!-- fieldsets -->
 			            <fieldset>
 				            <div class="form-card"><br><br>
-				             	<label for="dTitle">제목</label>
+				           		<h3 id="article">내용</h3><br><br>
+				             	<label for="dTitle" id="title">제목</label>
 									<input type="text" id="dTitle" name="dTitle" placeholder="제목을 입력해주세요" required id="dTitle">
 				                 	<div id="dTitleError" class="resMsg"></div>
 				                 <br><br>
 				                        
-								<label for=	"prodClassification">제품 분류</label>
+								<label for=	"prodClassification" id="title">제품 분류</label>
 									<input type="text" id="prodClassification" name="prodClassification" required id="prodClassification">
 				                	<div id="prodClassificationError" class="resMsg"></div>
 				                <br>
-				                <label for="file">첨부파일</label><br>
+				                <label for="file">첨부파일</label><br><br>
 									<jsp:include page="../file/upload.jsp" /> 
 								</div>
 
@@ -425,7 +428,7 @@ $(".next2").click(function(){
 						<fieldset>
 							<div class="form-card">
 								<br><br>
-								<h4 style="color: black">내용</h4><br><br>
+								<h3 id="article">내용</h3><br><br>
 									<textarea rows="20" cols="50" id="dContent" name="dContent" placeholder="게시글을 작성해주세요"></textarea>
 									<div id="dContentError" class="resMsg"></div>
 							</div>  <br><br><br>                          

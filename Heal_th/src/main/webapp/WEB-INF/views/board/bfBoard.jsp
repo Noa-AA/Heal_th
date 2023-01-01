@@ -202,7 +202,7 @@ width: 100px;
 
 #pIcon{display: block; width: 14px; margin-right:8px; margin-top: 20px;}
 
-#thumbnail{border-radius: 10px; width: 259px; height: 150px; margin-top: -113px; }
+#thumbnail{border-radius: 10px; width: 240px; height: 141px; margin-top: -94px; }
 
 #imgNone{display: none;}
 
@@ -395,10 +395,9 @@ $(document).ready(function() {
 <c:forEach items="${boardSearch }" var="boardSearch">
 	<ul id="searchResult" style="list-style: none;">
 		<li style="float: left; display: none;" >${boardSearch.bfNo }</li>
-		<li style="float: left; line-height:380%;"><a href="${path}/board/bfView?bfNo=${boardSearch.bfNo}" id="boardUrl">${boardSearch.bfTitle }</a></li><br>
-		<li style="float: left;" class="ellipsis" >${boardSearch.afterCon }</li><br>
-		
-		<li style="float: right;">
+		<li style="display:  -webkit-inline-box; inline-size: -webkit-fill-available; line-height: 3;"><a href="${path}/board/bfView?bfNo=${boardSearch.bfNo}" id="boardUrl">${boardSearch.bfTitle }</a></li><br>
+		<li style="display:  -webkit-inline-box; inline-size: -webkit-fill-available; line-height: 3;" class="ellipsis" >${boardSearch.afterCon }</li><br>
+		<li style="float: right; display:  -webkit-inline-box;">
 		
 			<c:set var="fileSto" value="${null }"/>
 			<c:forEach items="${fileMapList }" var="fileMap">
@@ -415,7 +414,7 @@ $(document).ready(function() {
 			
 		</li>
 		
-		<li style="float: left;" >
+		<li style="float: left;  display: block;" >
 			<c:if test="${storedName == null }">
 				<img src="/resources/img/mypage/userprofile.png" class="pIcon" id="pIcon">
 			</c:if>
@@ -423,13 +422,13 @@ $(document).ready(function() {
 				<img src="${pageContext.request.contextPath}/upload/${storedName.storedName}" class="pIcon" id="pIcon">
 			</c:if>
 		</li>
-		<li style="float: left; margin-right: 8px;" ><strong style="color: #0D71A4;">${boardSearch.userNo }</strong></li>
-		<li style="float: left; margin-right: 8px;" >|</li>
-		<li style="float: left; margin-right: 8px;" >작성일 <fmt:formatDate value="${boardSearch.bfInstDate }" pattern="yy-MM-dd"/></li>
-		<li style="float: left; margin-right: 8px;" >|</li>
-		<li style="float: left; margin-right: 8px;" >조회수 ${boardSearch.bfHit }</li>
-		<li style="float: left; margin-right: 8px;" >|</li>
-		<li style="float: left;">좋아요 ${boardSearch.bfThumbs }</li><br>
+		<li style="float: left; margin-right: 8px;  display: block;" ><strong style="color: #0D71A4;">${boardSearch.userNo }</strong></li>
+		<li style="float: left; margin-right: 8px;  display: block;" >|</li>
+		<li style="float: left; margin-right: 8px;  display: block;" >작성일 <fmt:formatDate value="${boardSearch.bfInstDate }" pattern="yy-MM-dd"/></li>
+		<li style="float: left; margin-right: 8px;  display: block;" >|</li>
+		<li style="float: left; margin-right: 8px;  display: block;" >조회수 ${boardSearch.bfHit }</li>
+		<li style="float: left; margin-right: 8px;  display: block;" >|</li>
+		<li style="float: left; display: block;">좋아요 ${boardSearch.bfThumbs }</li><br>
 	</ul>
 </c:forEach>
 

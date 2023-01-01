@@ -155,7 +155,7 @@ a:focus, a:hover {
     outline-width: 0;
 }
 
-/*Blue Buttons*/
+/*Buttons*/
 #msform .action-button {
     width: 100px;
     background: #7ca3f5;
@@ -286,7 +286,7 @@ a:focus, a:hover {
 /* content style */
 #title{font-size: 15px; font-weight: bold;}
 
-#article{color: black; font-size: 15px; font-weight: bold;}
+#article{color: black; font-size: 18px; font-weight: bold;}
 
 #information {display: flex; float: right; margin-top: 12px; font-weight: bold; font-size: 17px; margin-right: 19px;}
 
@@ -658,7 +658,7 @@ $(document).ready(function(){
 									<div id="bfTitleError" class="resMsg"></div>
 				                 <br><br>
 				                        
-							<h3 style="color: black;">운동 전 정보</h3><br><br>
+							<h3 id="article">운동 전 정보</h3><br><br>
 								<label for=	"height" id="title">신장</label><br>
 									<input type="number" id="height" name="height" placeholder="숫자만 입력해 주세요" style="width: 550px;"><span id="information">kg</span>
 									<div id="heightError" class="resMsg"></div>
@@ -690,7 +690,7 @@ $(document).ready(function(){
 			                            
 						<fieldset>
 							<div class="form-card">
-								<h3 style="color: black">설정 목표</h3>
+								<h3 id="article">설정 목표</h3>
 									<br><br> 
 								<label for="gWeight" id="title">목표 체중</label><br>
 									<input type="number" id="gWeight" name="gWeight" placeholder="목표 체중을 입력해주세요 *숫자만 입력하세요" style="width: 550px;"><span id="information">kg</span>
@@ -725,7 +725,7 @@ $(document).ready(function(){
 						<fieldset>
 							<div class="form-card">
 								<h2 style="color: black">After</h2> <br><br>
-								<h4 style="color: black;">운동 후 현재 정보</h4><br><br>
+								<h3 id="article">운동 후 현재 정보</h3><br><br>
 								<label for="cWeight" id="title">몸무게</label><br>
 									<input type="number" id="cWeight" name="cWeight" placeholder="운동 후 몸무게를 입력해주세요 *숫자만 입력하세요" style="width: 550px;"><span id="information">kg</span>
 									<div id="cWeightError" class="resMsg"></div>

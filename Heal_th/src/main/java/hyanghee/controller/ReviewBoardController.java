@@ -15,14 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import hyanghee.dto.Beforeafter;
 import hyanghee.dto.ReviewBoard;
 import hyanghee.service.face.ReviewBoardService;
 import hyanghee.util.BoardPageMaker;
-import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
 import jucheol.dto.Fileupload;
@@ -167,14 +164,14 @@ public class ReviewBoardController {
 			reviewBoard = reviewBoardService.view(reviewBoard);
 			logger.debug("조회된 게시글 {}", reviewBoard);
 			
+			//첨부파일
+			int boardNo = reviewBoard.getReviewNo();
+	        int categoryNo = 4;
+	        model.addAttribute("boardNo", boardNo);
+	        model.addAttribute("categoryNo", categoryNo);
+			
 			//모델값 전달
 			model.addAttribute("updateBoard", reviewBoard);
-			
-			
-			//첨부파일 모델값 전달
-//			BoardFile boardFile = boardService.getAttachFile(beforeafter);
-//			model.addAttribute("boardFile", boardFile);
-			
 			
 			return "/board/rUpdate";
 
