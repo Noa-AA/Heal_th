@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="../layout/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +66,9 @@ $(document).ready(function(){
 			if(${wdCnt}>0){
 				alert("이미 신청한 내역이 있습니다.");
 			} else {
-				window.open("/dgmoney/discharge?wdAmount="+$("#wdAmount").val(),"discharge","width=560,height=425, left=600, top=200");
+// 				window.open("/dgmoney/discharge?wdAmount="+$("#wdAmount").val(),"discharge","width=560,height=435, left=600, top=200");
+				location.href=("/dgmoney/discharge?wdAmount="+$("#wdAmount").val());
+				window.resizeTo(600,520);
 			}
 		} else {
 			alert("보유중인 금액이 충분한지 확인해주세요.");
@@ -79,26 +80,49 @@ $(document).ready(function(){
 
 </script>
 <style type="text/css">
-.container{
-	margin: 0 auto;
-	text-align: center;
+@import url('https://webfontworld.github.io/sunn/SUIT.css');
+
+html, body, pre, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, li, ol, th, td, p, blockquote, form, fieldset, legend, menu, nav, section, hgroup, article, header, aside, footer, input, select, textarea, button {
+    margin: 0;
+    padding: 0;
+    list-style:none;
+    font-family: 'SUIT';
 }
 
-.container button{
+.dgm-container{
+	margin: 0 auto;
+	text-align: center;
+	padding: 20px;
+}
+
+.dgm-container button{
 	width: 108px;
     height: 36px;
     background-color: transparent;
     border: 2px solid #7ca3f5;
     color:#7ca3f5;
-    font-size:17px;
+    font-size:15px;
     border-radius: 8px;
 }
 
-.container input{
+.dgm-container input{
 	height: 36px;
 	border: 1px solid silver;
 	margin-right: 5px;
+	padding-left: 5px;
 }
+
+#mydgmoney span {
+	background: #C2A5FF;
+	font-size: 15px;
+	padding: 8px;
+	font-weight: bold;
+}
+
+button {
+	cursor: pointer;
+}
+
 </style>
 </head>
 <body>
@@ -109,17 +133,19 @@ $(document).ready(function(){
 <input type="hidden" id="userEmail" value="${user.userEmail }">
 <input type="hidden" id="userNo" value="${user.userNo }">
 
-<div class=container>
-	<h1>득근머니</h1>
+<div class="dgm-container">
+	<h1>득근머니</h1><br>
 	
-	<span>득근머니 잔액 </span><span>${mmoney }원</span>
+	<div id="mydgmoney">
+		<span>득근머니 잔액 :</span><span>${mmoney }원</span>
+	</div>
 	<form action="./charge" method="post">
-		<p>득근머니 충전</p>
+	<br>
 		<input type="text" id="amount" placeholder="충전할 금액을 입력해주세요">
 		<button id="charge" type="button">충전하기</button>
 	</form>
 	<form action="./discharge" method="get">
-		<p>득근머니 인출</p>
+	<br>
 		<input type="text" id="wdAmount" placeholder="인출할 금액을 입력해주세요">
 		<button id="discharge" type="button">인출신청</button>
 	</form>
