@@ -459,6 +459,12 @@ body {
     background: url(/resources/img/footer_more.png) no-repeat 94% 50%;
 }
 
+#popup {
+	position: fixed;
+	bottom: 50px;
+	right: 50px;
+	z-index: 1999;
+}
 
 </style>
 
@@ -582,6 +588,9 @@ $(document).ready(function(){
 
 	
 </header>
+
+<div id="popup" style="cursor:pointer;" onclick="window.scrollTo(0,0);">
+<img src="/resources/img/top.png"></div>
 
 
 
