@@ -19,6 +19,8 @@ IMP.init('imp88224386');  // 가맹점 식별코드
 $(document).ready(function(){
 	
 		$("#charge").click(function(){
+			
+			window.resizeTo(1075,875);
 			if($("#amount").val()%100==0){
 		    IMP.request_pay({ // param
 		 
@@ -53,6 +55,7 @@ $(document).ready(function(){
 		        	})
 		    	} else {
 		            alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+		            window.resizeTo(550,330);
 		    	}
 		    });
 		    
