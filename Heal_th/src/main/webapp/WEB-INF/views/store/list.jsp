@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="../layout/header.jsp" %>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 
@@ -151,6 +152,8 @@ a:hover {
 	padding-bottom: 35px;
 	border:2px solid #7ca3f5;
 	border-radius: 10px !important;
+	
+	    box-shadow: 0px 13px 54px -3px lightgrey;
 }
 .store-ul:nth-child(3n) {
     margin-right: 0px;
@@ -198,10 +201,6 @@ a:hover {
 
 
 
-
-
-
-
 .search_area {
 	display: inline-block;
 	text-align: center;
@@ -224,14 +223,14 @@ a:hover {
 }
 
 #twoDepth-list a {
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #666666;
-    font-size: 18px;
-    font-weight: 400;
-    width: 50%;
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #666666;
+	font-size: 18px;
+	font-weight: 400;
+	width: 50%;
 }
 
 #twoDepth-list a:nth-child(1){
@@ -241,10 +240,12 @@ a:hover {
     font-weight: 700;
 }
 
+.big-container {
+	text-align: center;
+}
 
 </style>
 
-<%@include file="../layout/header.jsp" %>
 
 <body>
 <div id="subvisual">
@@ -262,8 +263,9 @@ a:hover {
 </div><!-- subvisual 끝 -->
 
 
-
-<h1>득근 상점</h1>
+<div class="big-container">
+	<h3>득근 상점</h3>
+</div>
 <hr>
 
 

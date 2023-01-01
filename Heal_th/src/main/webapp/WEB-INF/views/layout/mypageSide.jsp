@@ -8,10 +8,9 @@
  <style type="text/css">
  
  #profileArea{
- 	width: 30%;
     display: flex;
     background-color: #f9fbfc;
-    height: 95%;
+    height: 100%;
     justify-content: flex-end;
         position: absolute;
     box-shadow: 5px 1px 8px 0 rgb(0 0 0 / 6%);
@@ -164,9 +163,8 @@
 					</div>	
 					<div id="pointMoney">
 						<ul id="moneyAdmin">
-							<li class="infoTitle dgMoneyPoint">득근머니/포인트</li>
-							<li class="info dgMoney"><a href="/dgmoney/view ">득근머니</a></li>
-							<li class="info dgPoint">득근포인트</li>
+							<li class="infoTitle dgMoneyPoint">득근머니</li>
+							<li class="info dgMoney"><a href="/dgmoney/view" onclick="window.open('/dgmoney/view', '_blank','width=550, height=260, left=600, top=200'); return false;">득근머니</a></li>
 						</ul>
 					</div>
 					
@@ -174,7 +172,7 @@
 						<ul id="shopping">
 							<li class="infoTitle payment">결제/장바구니</li>
 							<li class="info cart"><a href="/store/cartlist">장바구니</a></li>
-							<li class="info payList">구매 내역</li>
+							<li class="info payList"><a href="/store/orderlist">구매 내역</a></li>
 						</ul>
 					
 					</div>

@@ -111,7 +111,10 @@ header{
 	margin-bottom: 80px !important;
 
 }
+footer{
+	position: relative;
 
+}
 #mypageBody{ 
  	padding-top:0;
  		background-color: #f9fbfc;
@@ -126,9 +129,9 @@ header{
  
 }
 #wrap{
- 	 width: 70%;
+ 	width: 70%;
     height: 100%;
-    margin-left: 710px;
+    margin-left: 500px;
   
 }
 

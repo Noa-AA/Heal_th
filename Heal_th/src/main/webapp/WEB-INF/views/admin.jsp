@@ -26,31 +26,125 @@ $(document).ready(function(){
 </script>
 
 <style type="text/css">
-	#adminLogin{
-		width: 500px;
-		margin : 0 auto;
+#admingBody{
+padding-top: 0;
+
+}
+#adminLogin{
+	width: 1400px;
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 100px;
 	}
 
+#boxArea{
+	height: 417px;
+    width: 490px;
+    position: relative;
+    left: 490px;
+    background-color: white;
+    padding: 20px 30px;
+    border: 2px solid #2274B3;
+    border-radius: 13px;
+}
+.formName{
+	font-size: 17px;
+	color: gray;
+}
+button{
+	border:  none;
+}
+#btnAdminLogin{
+  	width: 213px;
+    height: 41px;
+
+}
+#title{
+padding-top: 20px;
+}
+
+.titleForHead{
+	font-size: 30px;
+    font-weight: 600;
+    color: gray;
+}
+
+#adminLoginForm{
+	margin-top:40px;
+}
+
+#adminId,#adminPw{
+	margin-top: 20px;
+}
+
+#btn{
+	margin-top: 30px;
+}
+#id,#pw{
+	position:relative;
+}
+
+#pw{
+	margin-top:30px;
+}
+.formName{
+
+	position: absolute;
+    top: -6px;
+    padding-left: 3px;
+}
+#btnAdminLogin{
+		width: 190px;
+    height: 47px;
+      border-radius: 8px;
+	background-color: transparent;
+	 border:2px solid #2274B3;
+	font-size: 17px;
+	color:#2274B3;
+	
+}
+#btnAdminLogin:hover{
+	color:white;
+	background-color: #2274B3;
+}
+
+#adminId,#adminPw{
+    width: 422px;
+    height: 33px;
+    margin-left: 0;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid lightgray;
+    font-size: 17px;
+
+}
+#resultAdminLogin{
+	margin-top: 10px;
+}
 </style>
 
-<body>
+<body id="adminBody">
 
 <div id="adminLogin">
-		<div id="intro">
-			<h1 id="title">로그인</h1>
+	<div id="boxArea">
+		<div id="title">
+			<span class="titleForHead">로그인</span>
 		</div>
-		<div id="formarea">
+		
+		<div id="formArea">
 			<form action="/admin" method="post" id="adminLoginForm">
 			
 				<div id="id">
-					<label for="adminId">아이디
-						<input id="adminId" name="adminId" placeholder="관리자 아이디를 입력하세요">
+					<label for="adminId">
+						<span class="formName adminId">아이디</span>
 					</label>
+						<input id="adminId" name="adminId" placeholder="관리자 아이디를 입력하세요">
 				</div>
 				<div id="pw">
-					<label for="adminPw">비밀번호
-						<input id="adminPw" name="adminPw" placeholder="관리자 비밀번호를 입력하세요">
+					<label for="adminPw">
+						<span class="formName">비밀번호 </span>						
 					</label>
+					<input id="adminPw" name="adminPw" placeholder="관리자 비밀번호를 입력하세요">
 				</div>
 			
 				<c:if test="${isAdminLogin == false}">
@@ -60,14 +154,15 @@ $(document).ready(function(){
 					</div>
 				</c:if>
 			
-				<button id="btnAdminLogin"> 로그인</button>
-			
+				<div id="btn">
+					<button id="btnAdminLogin"> 로그인</button>
+				</div>
 			</form>
 			
 		
 		
 		</div>
-
+	</div>
 
 
 </div>
