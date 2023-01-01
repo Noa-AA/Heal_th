@@ -26,31 +26,40 @@
 	display: table-row-group;
 }
 
+.big-container {
+	width: 50%;
+	margin: 0 auto;	
+
+}
+body {
+	padding-top: 155px;
+}
 
 </style>
-
-<h1>구매목록</h1>
-
-	<div class="divTable">
-		<div class="divTableBody">
-		<div class="head">
-			<div class="cell pdata">주문일시</div>
-			<div class="cell pname" style="width:300px";>상품명</div>
-			<div class="cell">가격</div>
-		</div><!-- head종료 -->
-		
-		<c:forEach var="orderlist" items="${orderlist }">
-		<div class="data">
-			<div class="cell pdata">${orderlist.addDate }</div> <%--주문일시 --%>
-			<div class="cell pname">${orderlist.pName }</div><!-- 상품명 -->
-			<div class="cell pname">${orderlist.pPrice }원</div><!-- 상품명 -->
+<div class="big-container">
+	<h1>구매목록</h1>
+	
+		<div class="divTable">
+			<div class="divTableBody">
+			<div class="head">
+				<div class="cell pdata">결제번호</div>
+				<div class="cell pname" style="width:300px">결제일자</div>
+				<div class="cell">결제금액</div>
+			</div><!-- head종료 -->
 			
-			</div>
-			
-		</div><!-- data종료 -->
-		</c:forEach>
+			<c:forEach var="orderlist" items="${orderlist }">
+			<div class="data">
+				<div class="cell pname">${orderlist.payNo }</div><!-- 결제번호 -->
+				<div class="cell pdata">${orderlist.paymentDate }</div> <%--주문일시 --%>
+				<div class="cell pname">${orderlist.paymentAmount }원</div><!-- 금액 -->
+				
+				
+			</div><!-- data종료 -->
+			</c:forEach>
+		</div>
+	</div>
 </div>
 
-
 </body>
+<%@include file="../layout/footer.jsp" %>
 </html>

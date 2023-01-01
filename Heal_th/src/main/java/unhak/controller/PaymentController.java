@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import unhak.dto.PaymentDto;
 import unhak.service.face.PaymentService;
@@ -57,10 +58,19 @@ public class PaymentController {
 	
 	
 	//payment POST
+	@ResponseBody
 	@RequestMapping(value="/store/payment",method=RequestMethod.POST)
-	public void orderlist(PaymentDto listPayment,Model model, HttpSession session) {
+	public void orderlist(PaymentDto payment,Model model, HttpSession session) {
 		logger.info("payment[POST]");
 	
+		logger.info("payment : {}", payment);
 		
+		paymentService.savePayment(payment);
+		
+	}
+	
+	@RequestMapping(value="/store/ordersuccess", method=RequestMethod.GET)
+	public void ordersuccess() {
+		logger.info("ordersucces[GET]");
 	}
 }

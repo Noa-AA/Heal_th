@@ -172,7 +172,7 @@
 						<ul id="shopping">
 							<li class="infoTitle payment">결제/장바구니</li>
 							<li class="info cart"><a href="/store/cartlist">장바구니</a></li>
-							<li class="info payList">구매 내역</li>
+							<li class="info payList"><a href="/store/orderlist">구매 내역</a></li>
 						</ul>
 					
 					</div>

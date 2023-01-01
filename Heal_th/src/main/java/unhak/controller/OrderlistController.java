@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import unhak.dto.CartDto;
+import unhak.dto.PaymentDto;
 import unhak.service.face.OrderlistService;
 
 @Controller
@@ -30,7 +30,7 @@ public class OrderlistController {
 		logger.info("유저넘버 확인1 : {}",userNo);
 		
 		//유저의 구매 상품 정보
-		List<CartDto> list = orderlistService.getOrderList(userNo);
+		List<PaymentDto> list = orderlistService.getOrderList(userNo);
 		model.addAttribute("orderlist",list);
 		
 		logger.info("list : {}",list);
