@@ -113,6 +113,7 @@ function validateUpdatePw(){
 <style type="text/css">
 #setNewPw{
 	padding-top: 150px;
+	background-color: #f9fbfc;
 }
 #newPw{
 	width: 542px;
