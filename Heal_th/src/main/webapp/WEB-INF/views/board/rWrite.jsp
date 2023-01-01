@@ -69,6 +69,7 @@ html {
 	width: 100px;
 }
 
+
 #myform{
     display: inline-block;
     direction: rtl;
@@ -305,6 +306,44 @@ $(document).ready(function() {
 
 	$(".next").click(function(){
 		
+		//유효성 검사
+		if($("#rTitle").val() == ""){
+	 		console.log("제목을 입력하세요")
+	 		$("#rTitleError").html("* 제목을 입력해주세요")
+	 		$("#rTitleError").css("color","red")
+		return false
+		
+	 	} 
+		
+		if ($("#gymName").val() == ""){
+	 		console.log("시설명을 입력하세요")
+	 		$("#gymNameError").html("* 시설명을 입력해주세요")
+	 		$("#gymNameError").css("color","red")
+	 		return false
+		} 
+			
+			if ($("#classification").val() == ""){
+		 	console.log("시설 분류를 입력하세요")
+		 	$("#classificationError").html("* 시설 분류를 입력해주세요")
+		 	$("#classificationError").css("color","red")
+		 	return false
+		} 
+			
+			if ($("#gymIntroduce").val() == ""){
+		 	console.log("간단 소개를 입력하세요")
+		 	$("#gymIntroduceError").html("* 간단 소개를 입력해주세요")
+		 	$("#gymIntroduceError").css("color","red")
+		 	return false
+		} 
+		
+		if ($("#price").val() == ""){
+		 	console.log("가격을 입력하세요")
+		 	$("#priceError").html("* 가격을 입력해주세요")
+		 	$("#priceError").css("color","red")
+		 	return false
+		} 	
+		
+		
 	    current_fs = $(this).parent();
 	    next_fs = $(this).parent().next();
 	    
@@ -328,17 +367,121 @@ $(document).ready(function() {
 	        duration: 600
 	    });
 	    
-	    if($("#bfTitle").val().length == 0) {
-				$("#bfTitle").focus(function() {
-					alert("제목 입력");					
-				});
-			
-				return false;
-			
+	});
+	
+$(".next2").click(function(){
+		
+		//유효성 검사
+		if($("#address").val() == ""){
+	 		console.log("주소를 입력하세요")
+	 		$("#addressError").html("* 주소를 입력해주세요")
+	 		$("#addressError").css("color","red")
+			return false
 		}
-			
+		
+		
+	    current_fs = $(this).parent();
+	    next_fs = $(this).parent().next();
+	    
+	    //Add Class Active
+	    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+	    
+	    //show the next fieldset
+	    next_fs.show(); 
+	    //hide the current fieldset with style
+	    current_fs.animate({opacity: 0}, {
+	        step: function(now) {
+	            // for making fielset appear animation
+	            opacity = 1 - now;
+
+	            current_fs.css({
+	                'display': 'none',
+	                'position': 'relative'
+	            });
+	            next_fs.css({'opacity': opacity});
+	        }, 
+	        duration: 600
+	    });
 	    
 	});
+	
+$(".next3").click(function(){
+	
+	//유효성 검사
+	if($("#score").val() == ""){
+ 		console.log("평점을 입력하세요")
+ 		$("#scoreError").html("* 평점을 입력해주세요")
+ 		$("#scoreError").css("color","red")
+		return false
+	}
+	
+	if($("#review").val() == ""){
+ 		console.log("리뷰를 입력하세요")
+ 		$("#reviewError").html("* 리뷰를 입력해주세요")
+ 		$("#reviewError").css("color","red")
+		return false
+	}
+	
+	
+    current_fs = $(this).parent();
+    next_fs = $(this).parent().next();
+    
+    //Add Class Active
+    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+    
+    //show the next fieldset
+    next_fs.show(); 
+    //hide the current fieldset with style
+    current_fs.animate({opacity: 0}, {
+        step: function(now) {
+            // for making fielset appear animation
+            opacity = 1 - now;
+
+            current_fs.css({
+                'display': 'none',
+                'position': 'relative'
+            });
+            next_fs.css({'opacity': opacity});
+        }, 
+        duration: 600
+    });
+    
+});
+	
+	//유효성 검사 메세지 초기화
+	$("#rTitle").focus(function(){
+	   $("#rTitleError").html("")
+	  })
+		   
+	$("#gymName").focus(function(){
+		$("#gymNameError").html("")
+	})
+		   
+	$("#classification").focus(function(){
+		$("#classificationError").html("")
+	})
+	
+	$("#gymIntroduce").focus(function(){
+		$("#gymIntroduceError").html("")
+	})
+	
+	$("#price").focus(function(){
+		$("#priceError").html("")
+	})
+	
+	$("#address").focus(function(){
+		$("#addressError").html("")
+	})
+	
+	$("#score").focus(function(){
+		$("#scoreError").html("")
+	})
+	
+	$("#review").focus(function(){
+		$("#reviewError").html("")
+	})
+		   
+	
 	
 
 	$(".previous").click(function(){
@@ -388,6 +531,7 @@ $(document).ready(function() {
 
 	
 	$("#btnWrite").click(function() {
+		confirm("게시글을 등록하시겠습니까?");
 		$(this).parents("form").submit();
 		alert("50 포인트가 적립됐습니다");
 	});
@@ -426,19 +570,24 @@ $(document).ready(function() {
 				             <br><br><h3 style="color: black">시설 소개</h3><br><br>
 				             	<label for="rTitle">제목</label>
 									<input type="text" id="rTitle" name="rTitle" placeholder="제목을 입력해주세요">
+				                 	<div id="rTitleError" class="resMsg"></div>
 				                 <br><br>
 				                        
 								<label for="gymName">시설명</label>
 									<input type="text" id="gymName" name="gymName" placeholder="시설명을 입력해 주세요">
+				                	<div id="gymNameError" class="resMsg"></div>
 				                <br>
 				                 <label for="classification">시설 분류</label>
 									<input type="text" id="classification" name="classification" placeholder="시설 분류를 입력해 주세요  ex) 수영, 헬스, 필라테스 등">
+				                 	<div id="classificationError" class="resMsg"></div>
 				                 <br><br>
 				                 <label for="gymIntroduce">간단 소개</label>
 									<input type="text" id="gymIntroduce" name="gymIntroduce" placeholder="시설에 대한 한줄평을 입력해 주세요  ex) 1인 PT, 저렴한 가격 등">
+				                  	<div id="gymIntroduceError" class="resMsg"></div>
 				                  <br>
 				                  <label for="price">가격</label>
 				                    <input type="text" id="price" name="price" placeholder="현재 하고 있는 운동종류를 입력해주세요">
+				                  	<div id="priceError" class="resMsg"></div>
 				                  <br>
 				                  <label for="file">첨부파일</label><br>
 									<jsp:include page="../file/upload.jsp" /> 
@@ -455,6 +604,7 @@ $(document).ready(function() {
 								<label for="address">위치 정보</label><br>
 									<input type="text" id="address" name="address" placeholder="주소" style="width: 487px;">
 								<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" style="width: 100px; padding-top: 5px; margin-left: 34px; margin-top: 13px;">
+									<div id="addressError" class="resMsg"></div>
 								<br>
 								<input type="hidden" id="lat" name="lat">
 								<input type="hidden" id="lng" name="lng">
@@ -466,7 +616,7 @@ $(document).ready(function() {
 			                      <br><br>
 									<input type="button" name="previous" class="previous action-button-previous" onClick="javascript:window.scrollTo(0,0)"
 			                                 value="이전"/>
-			                        <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)"
+			                        <input type="button" name="next" class="next2 action-button" onClick="javascript:window.scrollTo(0,0)"
 			                                 value="다음"/>
                             
                             <br><br><br><br><br><br><br><br>
@@ -487,16 +637,19 @@ $(document).ready(function() {
 										<input type="radio" name="score" value="2.0" id="rate4"><label for="rate4">★</label>
 										<input type="radio" name="score" value="1.0" id="rate5"><label for="rate5">★</label>								
 									</div><br><br><br>
+									<div id="scoreError" class="resMsg"></div>
+									
 	                            
 								<label>후기글</label><br><br>
 									<textarea rows="20" cols="50" id="review" name="review" placeholder="후기글을 작성해주세요"></textarea>
+									<div id="reviewError" class="resMsg"></div>
 							</div>
 							
 							<br><br>
 							
 								<input type="button" name="previous" class="previous action-button-previous" onClick="javascript:window.scrollTo(0,0)"
                                  value="이전"/>
-                                <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)"
+                                <input type="button" name="next" class="next3 action-button" onClick="javascript:window.scrollTo(0,0)"
                                  value="다음"/>
                                  
                                  <br><br><br><br><br><br><br><br>

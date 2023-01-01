@@ -179,8 +179,13 @@ public class VerifyBoardController {
 
 	
 	@PostMapping("/board/vUpdate")
-	public String updateProcess(VerifyBoard verifyBoard) {
+	public String updateProcess(VerifyBoard verifyBoard
+			, List<MultipartFile> multiFile) {
 		logger.debug("{}", verifyBoard);
+		
+		int boardNo = verifyBoard.getVerifyNo();
+		int categoryNo = 2;
+		fileuploadService.updateFile(multiFile,boardNo,categoryNo);
 		
 		verifyBoardService.update(verifyBoard);
 		

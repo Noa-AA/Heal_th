@@ -183,8 +183,13 @@ public class ReviewBoardController {
 
 		
 		@PostMapping("/board/rUpdate")
-		public String updateProcess(ReviewBoard reviewBoard) {
+		public String updateProcess(ReviewBoard reviewBoard
+				, List<MultipartFile> multiFile) {
 			logger.debug("{}", reviewBoard);
+			
+			int boardNo = reviewBoard.getReviewNo();
+			int categoryNo = 4;
+			fileuploadService.updateFile(multiFile,boardNo,categoryNo);
 			
 			reviewBoardService.update(reviewBoard);
 			
