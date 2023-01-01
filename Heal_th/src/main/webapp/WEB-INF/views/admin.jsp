@@ -36,16 +36,18 @@ $(document).ready(function(){
 <body>
 
 <div id="adminLogin">
-		<div id="intro">
-			<h1 id="title">로그인</h1>
+	<div id="boxArea">
+		<div id="title">
+			<span class="titleForHead">로그인</span>
 		</div>
-		<div id="formarea">
+		<div id="formArea">
 			<form action="/admin" method="post" id="adminLoginForm">
 			
 				<div id="id">
-					<label for="adminId">아이디
-						<input id="adminId" name="adminId" placeholder="관리자 아이디를 입력하세요">
+					<label for="adminId">
+						<span class="formName">아이디</span>
 					</label>
+						<input id="adminId" name="adminId" placeholder="관리자 아이디를 입력하세요">
 				</div>
 				<div id="pw">
 					<label for="adminPw">비밀번호
@@ -67,7 +69,7 @@ $(document).ready(function(){
 		
 		
 		</div>
-
+	</div>
 
 
 </div>
