@@ -58,7 +58,7 @@ body {
 }
 
 .main-first-wrap .left {
-	width: 550px;
+	width: 750px; 
 	margin: 10px;
 	display: flex;
 	margin-top: 50px;
@@ -171,6 +171,10 @@ body {
 	height: 300px;
 	border: 1px solid silver;
 	margin: 20px;
+}
+
+body {
+	overflow-x: hidden;
 }
 </style>
 <body>
