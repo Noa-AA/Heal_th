@@ -128,8 +128,8 @@ a:focus, a:hover {
     border: 0 none;
     border-radius: 5px;
     cursor: pointer;
-    padding: 10px 5px; 
-    margin: 10px 5px;
+    padding: 7px 5px; 
+    margin: 37px 5px;
     padding-bottom: 14px; 
 	height: 52px;
 	width: 100px;
@@ -196,6 +196,35 @@ margin-top: 3px;
     margin: 0 auto;
 }
 
+#contentTitle{
+margin-left: 9%; 
+font-size: 30px; 
+font-weight: 700; 
+color: gray;
+}
+
+#name{
+	font-size: 20px;
+    width: 187px;
+    display: inline-block;
+    font-weight: 500;
+}
+
+#inputContent{
+	font-size: 20px;
+    width: 730px;
+    display: inline-block;
+    height: 33px;
+    border-bottom: 1px solid #ccc;
+}
+
+#reviewCon{
+	width: 917px; 
+	height:300px; 
+	border-radius:7px; 
+	border: 1px solid #ccc;
+}
+
 #line{ border-top: 2px solid #ccc; }
 #title{border-top: 3px solid #84C9E3; border-bottom: 3px solid #84C9E3; margin-left: 7%; width: 996px; }
 
@@ -220,11 +249,11 @@ $(document).ready(function() {
 		location.href = "/board/rUpdate?reviewNo=${viewBoard.reviewNo }"
 	})
 	
-	$("#btnDelete").click(function() {
-		confirm("게시글을 정말삭제하시겠습니까?");
-		location.href = "/board/rDelete?reviewNo=${viewBoard.reviewNo }"
-		alert("게시글이 삭제됐습니다");
-	})
+// 	$("#btnDelete").click(function() {
+// 		confirm("게시글을 정말삭제하시겠습니까?");
+// 		location.href = "/board/rDelete?reviewNo=${viewBoard.reviewNo }"
+// 		alert("게시글이 삭제됐습니다");
+// 	})
 	
 })
 
@@ -272,22 +301,27 @@ function star() {
 </div>
 <br><br><br><br>
 
-<div style="margin-left: 9%; font-size: 30px; font-weight: 700; color: gray;">📃  게시글 내용</div>
-<br><br>
+<div id="contentTitle">📃  게시글 내용</div>
+<br><br><br>
 
 <div style="margin-left: 130px;">
 <fieldset>
-	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">시설 소개</h3><br>	
-	<div style="font-size: 20px;">시설명: ${viewBoard.gymName}</div><br>
-	<div style="font-size: 20px;">분류: ${viewBoard.classification}</div><br>
-	<div style="font-size: 20px;">간단소개: ${viewBoard.gymIntroduce}</div><br>
-	<div style="font-size: 20px;">가격: ${viewBoard.price}</div><br>
+	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">시설 소개</h3><br><br>	
+	<div id="name">시설명:</div>
+	<div id="inputContent">${viewBoard.gymName}</div><br><br>
+	<div id="name">분류:</div>
+	<div id="inputContent">${viewBoard.classification}</div><br><br>
+	<div id="name">간단소개:</div>
+	<div id="inputContent">${viewBoard.gymIntroduce}</div><br><br>
+	<div id="name">가격:</div>
+	<div id="inputContent">${viewBoard.price}</div>
 </fieldset>
-<br><br><br><br>
+<br><br><br><br><br><br><br>
 
 <fieldset>
-	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">시설 위치</h3><br>	
-	<div style="font-size: 20px;">위치: ${viewBoard.address}</div><br>
+	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">시설 위치</h3><br><br>
+	<div id="name">위치:</div>
+	<div id="inputContent">${viewBoard.address}</div><br><br>
 	<!-- 지도 -->
 	<input type="hidden" value="${viewBoard.lat }" id="latVal">
 	<input type="hidden" value="${viewBoard.lng }" id="lngVal">
@@ -295,13 +329,12 @@ function star() {
 	
 </fieldset>
 
-<br><br><br><br><br>
+<br><br><br><br><br><br><br>
 
 <fieldset>
-	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">후기</h3><br>	
-	<div style="font-size: 20px;">평점</div><br>
-		
-	<div name="myform" id="myform">
+	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">후기</h3><br><br>	
+	<div id="name" style="display: block;">평점:</div>
+	<div name="myform" id="myform" style="margin-left: 60px; margin-top: -35px;">
 	<span class="myratings" style="color: #ccc;">5.0</span>
 		<input type="radio" name="score" value="5.0" id="rate1"><label for="rate1">★</label>
 		<input type="radio" name="score" value="4.0" id="rate2"><label for="rate2">★</label>
@@ -309,8 +342,10 @@ function star() {
 		<input type="radio" name="score" value="2.0" id="rate4"><label for="rate4">★</label>
 		<input type="radio" name="score" value="1.0" id="rate5"><label for="rate5">★</label>
 	<br><br>
-	</div>
-	<div style="font-size: 20px;">후기글 작성: ${viewBoard.review}</div><br><br>
+	</div><br>
+	
+	<div id="name">후기글:</div><br><br><br>
+	<div id="reviewCon">${viewBoard.review}</div><br><br>
 </fieldset>
 <br><br><br><br>
 
@@ -318,7 +353,7 @@ function star() {
 <br><br>
 <hr>
 <br><br>
-<div style="margin-left: 9%; font-size: 30px; font-weight: 700; color: gray;">📷  이미지</div>
+<div id="contentTitle">📷  이미지</div>
 
 <br><br>
 
@@ -338,7 +373,11 @@ function star() {
 	
 	<c:if test="${userNo eq viewBoard.userNo }">
 		<button id="btnUpdate" class="btn btn-primary">수정</button>
-		<button id="btnDelete" class="btn btn-danger">삭제</button>
+		<button id="btnDelete">
+			<a class="btn block" onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) { return false; } else if( alert('게시글이 삭제됐습니다') == true ) {return true;}" 
+				href="/board/rDelete?reviewNo=${viewBoard.reviewNo }" style="text-decoration: none; color: white; font-weight: bold; padding: 2px 0px; font-size: 21px;">삭제</a>
+		</button>
+<!-- 		<button id="btnDelete" class="btn btn-danger">삭제</button> -->
 	</c:if>
 </div>
 
@@ -347,7 +386,7 @@ function star() {
 <div style="border-top: 2px; solid #ccc;"></div>
 <br><br>
 
-<div style="margin-left: 9%; font-size: 30px; font-weight: 700; color: gray;">🖋️  댓글</div>
+<div id="contentTitle">🖋️  댓글</div>
 
 <br><br><br><br>
 

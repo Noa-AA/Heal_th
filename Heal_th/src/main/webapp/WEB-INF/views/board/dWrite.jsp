@@ -411,12 +411,20 @@ $(".next2").click(function(){
 				             	<label for="dTitle" id="title">제목</label>
 									<input type="text" id="dTitle" name="dTitle" placeholder="제목을 입력해주세요" required id="dTitle">
 				                 	<div id="dTitleError" class="resMsg"></div>
-				                 <br><br>
+				                 <br>
 				                        
-								<label for=	"prodClassification" id="title">제품 분류</label>
-									<input type="text" id="prodClassification" name="prodClassification" required id="prodClassification">
+								<label for=	"prodClassification" id="title" style="margin-right: 15px;">제품 분류</label>
+				                	<select id="prodClassification" name="prodClassification" style="font-size: 13px; color: black;">
+										<option value="채소/과일" selected="selected">채소/과일</option>
+										<option value="유제품">유제품</option>
+										<option value="견과/쌀/밀">견과/쌀/밀</option>
+										<option value="정육/계란">정육/계란</option>
+										<option value="수산/해산/건어물">수산/해산/건어물</option>
+									</select>
+				                	<span style="color: red; font-size: 10px;">* 공유하시고 싶은 식단의 메인 제품을 선택해 주세요</span>
 				                	<div id="prodClassificationError" class="resMsg"></div>
-				                <br>
+				                <br><br>
+				                
 				                <label for="file">첨부파일</label><br><br>
 									<jsp:include page="../file/upload.jsp" /> 
 								</div>

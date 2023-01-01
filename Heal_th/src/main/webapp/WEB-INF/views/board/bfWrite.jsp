@@ -297,7 +297,7 @@ a:focus, a:hover {
 <script type="text/javascript">
 
 $(document).ready(function(){
-		
+	
 	var current_fs, next_fs, previous_fs; //fieldsets
 	var opacity;
 	
@@ -324,12 +324,12 @@ $(document).ready(function(){
 	 		return false
 		} 
 		
-// 			if($("#gender").val() == "") {
-// 		 	console.log("성별을 입력하세요")
-// 		 	$("#genderError").html("* 성별을 입력해주세요")
-// 		 	$("#genderError").css("color","red")
-// 		 	return false
-// 		}
+		if($("#gender").val() == "") {
+		 	console.log("성별을 입력하세요")
+		 	$("#genderError").html("* 성별을 입력해주세요")
+		 	$("#genderError").css("color","red")
+		 	return false
+		}
 			
 			if ($("#weight").val() == ""){
 		 	console.log("현재 몸무게를 입력하세요")
@@ -539,14 +539,10 @@ $(document).ready(function(){
 		$("#heightError").html("")
 	})
 		   
-	$("#female").focus(function(){
+	$("#gender").focus(function(){
 		$("#genderError").html("")
 	})
 	
-	$("#male").focus(function(){
-		$("#genderError").html("")
-	})
-		   
 	$("#weight").focus(function(){
 		$("#weightError").html("")
 	})
@@ -651,7 +647,7 @@ $(document).ready(function(){
                             
                             <!-- fieldsets -->
 			            <fieldset>
-				            <div class="form-card">
+				            <div class="form-card"><br><br>
 				             <h2 style="color: black; text-align: left;">Before</h2><br><br>
 				             	<label for="bfTitle" id="title">제목</label>
 									<input type="text" id="bfTitle" name="bfTitle" placeholder="제목을 입력해주세요">
@@ -664,10 +660,11 @@ $(document).ready(function(){
 									<div id="heightError" class="resMsg"></div>
 				                <br>
 				                 <label for="gender" id="title" style="margin-right: 15px;">성별</label><br>
-									<input type="radio" id="gender" name="gender" value="female" style="width: 14px; margin-top: 16px;"><span style="margin-left: 20px; display: block; margin-top: -39px;">여성</span>
-									<input type="radio" id="gender" name="gender" value="male" style=" display: block; width: 14px; margin-top: -14px; margin-left: 61px"><span style="margin-left: 80px; display: block; margin-top: -39px;">남성</span>
+				                 	<input type="text" id="gender" name="gender" placeholder="여성 / 남성">
+<!-- 									<input type="radio" id="gender" name="gender" value="여성" style="width: 14px; margin-top: 16px;"><span style="margin-left: 20px; display: block; margin-top: -39px;">여성</span> -->
+<!-- 									<input type="radio" id="gender" name="gender" value="남성" style=" display: block; width: 14px; margin-top: -14px; margin-left: 61px"><span style="margin-left: 80px; display: block; margin-top: -39px;">남성</span> -->
 				                 	<div id="genderError" class="resMsg"></div>
-				                 <br><br>
+				                 <br>
 				                 <label for="weight" id="title">몸무게</label><br>
 									<input type="number" id="weight" name="weight" placeholder="현재 몸무게를 입력해주세요 *숫자만 입력하세요"  style="width: 550px;"><span id="information">cm</span>
 									<div id="weightError" class="resMsg"></div>
@@ -723,7 +720,7 @@ $(document).ready(function(){
 
                             
 						<fieldset>
-							<div class="form-card">
+							<div class="form-card"><br><br>
 								<h2 style="color: black">After</h2> <br><br>
 								<h3 id="article">운동 후 현재 정보</h3><br><br>
 								<label for="cWeight" id="title">몸무게</label><br>

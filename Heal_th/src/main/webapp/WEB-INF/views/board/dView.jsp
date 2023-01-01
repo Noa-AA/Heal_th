@@ -17,11 +17,11 @@ $(document).ready(function() {
 		location.href = "/board/dUpdate?dietNo=${viewBoard.dietNo }"
 	})
 	
-	$("#btnDelete").click(function() {
-		confirm("게시글을 정말삭제하시겠습니까?");
-		location.href = "/board/dietDelete?dietNo=${viewBoard.dietNo }"
-		alert("게시글이 삭제됐습니다");
-	})
+// 	$("#btnDelete").click(function() {
+// 		confirm("게시글을 정말삭제하시겠습니까?");
+// 		location.href = "/board/dietDelete?dietNo=${viewBoard.dietNo }"
+// 		alert("게시글이 삭제됐습니다");
+// 	})
 })
 </script>
 
@@ -73,8 +73,8 @@ header{margin-bottom: 0px;}
     border: 0 none;
     border-radius: 5px;
     cursor: pointer;
-    padding: 10px 5px; 
-    margin: 10px 5px;
+    padding: 7px 5px; 
+    margin: 37px 5px;
     padding-bottom: 14px; 
 	height: 52px;
 	width: 100px;
@@ -103,6 +103,35 @@ header{margin-bottom: 0px;}
     border-radius: 12px;
     box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
     margin: 0 auto;
+}
+
+#contentTitle{
+margin-left: 9%; 
+font-size: 30px; 
+font-weight: 700; 
+color: gray;
+}
+
+#name{
+	font-size: 20px;
+    width: 187px;
+    display: inline-block;
+    font-weight: 500;
+}
+
+#inputContent{
+	font-size: 20px;
+    width: 730px;
+    display: inline-block;
+    height: 33px;
+    border-bottom: 1px solid #ccc;
+}
+
+#reviewCon{
+	width: 917px; 
+	height:300px; 
+	border-radius:7px; 
+	border: 1px solid #ccc;
 }
 
 #line{ border-top: 2px solid #ccc; }
@@ -138,13 +167,16 @@ header{margin-bottom: 0px;}
 </div>
 <br><br><br><br>
 
-<div style="margin-left: 9%; font-size: 30px; font-weight: 700; color: gray;">📃  게시글 내용</div>
-<br><br>
+<div id="contentTitle">📃  게시글 내용</div>
+<br><br><br>
 
 <div style="margin-left: 130px;">
 <fieldset>
-	<div style="font-size: 20px;">제품 분류: ${viewBoard.prodClassification}</div><br>
-	<div style="font-size: 20px;">내용: ${viewBoard.dContent}</div><br>
+	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">게시글 상세 내용</h3><br><br>
+	<div id="name">제품 분류:</div>
+	<div id="inputContent">${viewBoard.prodClassification}</div><br><br>
+	<div id="name">내용:</div><br><br><br>
+	<div id="reviewCon">${viewBoard.dContent}</div><br><br>
 </fieldset>
 <br><br><br><br>
 
@@ -155,7 +187,7 @@ header{margin-bottom: 0px;}
 <br><br>
 <hr>
 <br><br>
-<div style="margin-left: 9%; font-size: 30px; font-weight: 700; color: gray;">📷  이미지</div>
+<div id="contentTitle">📷  이미지</div>
 
 <br><br>
 
@@ -175,7 +207,11 @@ header{margin-bottom: 0px;}
 	
 	<c:if test="${userNo eq viewBoard.userNo }">
 		<button id="btnUpdate" class="btn btn-primary">수정</button>
-		<button id="btnDelete" class="btn btn-danger">삭제</button>
+		<button id="btnDelete">
+			<a class="btn block" onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) { return false; } else if( alert('게시글이 삭제됐습니다') == true ) {return true;}" 
+				href = "/board/dDelete?dietNo=${viewBoard.dietNo }" style="text-decoration: none; color: white; font-weight: bold; padding: 2px 0px; font-size: 21px;">삭제</a>
+		</button>
+<!-- 		<button id="btnDelete" class="btn btn-danger">삭제</button> -->
 	</c:if>
 </div>
 
@@ -184,7 +220,7 @@ header{margin-bottom: 0px;}
 <div style="border-top: 2px; solid #ccc;"></div>
 <br><br>
 
-<div style="margin-left: 9%; font-size: 30px; font-weight: 700; color: gray;">🖋️  댓글</div>
+<div id="contentTitle">🖋️  댓글</div>
 
 <br><br><br><br>
 

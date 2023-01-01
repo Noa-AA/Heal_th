@@ -17,11 +17,11 @@ $(document).ready(function() {
 		location.href = "/board/vUpdate?verifyNo=${viewBoard.verifyNo }"
 	})
 	
-	$("#btnDelete").click(function() {
-		confirm("게시글을 정말삭제하시겠습니까?");
-		location.href = "/board/vDelete?verifyNo=${viewBoard.verifyNo }"
-		alert("게시글이 삭제됐습니다");
-	})
+// 	$("#btnDelete").click(function() {
+// 		confirm("게시글을 정말삭제하시겠습니까?");
+// 		location.href = "/board/vDelete?verifyNo=${viewBoard.verifyNo }"
+// 		alert("게시글이 삭제됐습니다");
+// 	})
 })
 </script>
 
@@ -74,8 +74,8 @@ a:focus, a:hover {
     border: 0 none;
     border-radius: 5px;
     cursor: pointer;
-    padding: 10px 5px; 
-    margin: 10px 5px;
+    padding: 7px 5px; 
+    margin: 37px 5px;
     padding-bottom: 14px; 
 	height: 52px;
 	width: 100px;
@@ -106,17 +106,44 @@ a:focus, a:hover {
     margin: 0 auto;
 }
 
+#contentTitle{
+margin-left: 9%; 
+font-size: 30px; 
+font-weight: 700; 
+color: gray;
+}
+
+#name{
+	font-size: 20px;
+    width: 187px;
+    display: inline-block;
+    font-weight: 500;
+}
+
+#inputContent{
+	font-size: 20px;
+    width: 730px;
+    display: inline-block;
+    height: 33px;
+    border-bottom: 1px solid #ccc;
+}
+
+#reviewCon{
+	width: 917px; 
+	height:300px; 
+	border-radius:7px; 
+	border: 1px solid #ccc;
+}
+
 #line{ border-top: 2px solid #ccc; }
 #title{border-top: 3px solid #84C9E3; border-bottom: 3px solid #84C9E3; margin-left: 7%; width: 996px; }
-
-
 
 </style>
 
 <br><br><br><br><br><br><br><br>
 
 <div class="container">
-<h1 style="text-align: center; margin-top: 104px; padding-top: 26px; font-weight: bold; font-size: 40px;">식단 공유 게시글</h1><br><br><br><br><br><br>
+<h1 style="text-align: center; margin-top: 104px; padding-top: 26px; font-weight: bold; font-size: 40px;">운동 인증 게시글</h1><br><br><br><br><br><br>
 
 <div id="title"><br>
 <div style="margin-left: 30x;">
@@ -140,15 +167,20 @@ a:focus, a:hover {
 </div>
 <br><br><br><br>
 
-<div style="margin-left: 9%; font-size: 30px; font-weight: 700; color: gray;">📃  게시글 내용</div>
-<br><br>
+<div id="contentTitle">📃  게시글 내용</div>
+<br><br><br>
 
 <div style="margin-left: 130px;">
 <fieldset>
-	<div style="font-size: 20px;">운동 종목: ${viewBoard.exercise }</div><br>
-	<div style="font-size: 20px;">소요 시간: ${viewBoard.time}</div><br>
-	<div style="font-size: 20px;">소비 칼로리: ${viewBoard.kcal}</div><br>
-	<div style="font-size: 20px;">내용: ${viewBoard.verifyContent}</div><br>
+	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">게시글 상세 내용</h3><br><br>
+	<div id="name">운동 종목:</div>
+	<div id="inputContent">${viewBoard.exercise }</div><br><br>
+	<div id="name">소요 시간:</div>
+	<div id="inputContent">${viewBoard.time}</div><br><br>
+	<div id="name">소비 칼로리:</div>
+	<div id="inputContent">${viewBoard.kcal}</div><br><br>
+	<div id="name">내용:</div><br><br><br>
+	<div id="reviewCon">${viewBoard.verifyContent}</div>
 </fieldset>
 <br><br><br><br>
 
@@ -159,7 +191,7 @@ a:focus, a:hover {
 <br><br>
 <hr>
 <br><br><br>
-<div style="margin-left: 9%; font-size: 30px; font-weight: 700; color: gray;">📷  이미지</div>
+<div id="contentTitle">📷  이미지</div>
 
 <br><br><br>
 
@@ -179,7 +211,11 @@ a:focus, a:hover {
 	
 	<c:if test="${userNo eq viewBoard.userNo }">
 		<button id="btnUpdate" class="btn btn-primary">수정</button>
-		<button id="btnDelete" class="btn btn-danger">삭제</button>
+		<button id="btnDelete">
+			<a class="btn block" onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) { return false; } else if( alert('게시글이 삭제됐습니다') == true ) {return true;}" 
+				href="/board/vDelete?verifyNo=${viewBoard.verifyNo }" style="text-decoration: none; color: white; font-weight: bold; padding: 2px 0px; font-size: 21px;">삭제</a>
+		</button>
+<!-- 		<button id="btnDelete" class="btn btn-danger">삭제</button> -->
 	</c:if>
 </div>
 
@@ -188,7 +224,7 @@ a:focus, a:hover {
 <div style="border-top: 2px; solid #ccc;"></div>
 <br><br><br>
 
-<div style="margin-left: 9%; font-size: 30px; font-weight: 700; color: gray;">🖋️  댓글</div>
+<div id="contentTitle">🖋️  댓글</div>
 
 <br><br><br><br>
 

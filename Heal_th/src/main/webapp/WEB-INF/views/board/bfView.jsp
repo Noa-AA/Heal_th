@@ -18,11 +18,11 @@ $(document).ready(function() {
 		location.href = "/board/bfUpdate?bfNo=${viewBoard.bfNo }"
 	})
 	
-	$("#btnDelete").click(function() {
-		confirm("게시글을 정말삭제하시겠습니까?");
-		location.href = "/board/bfDelete?bfNo=${viewBoard.bfNo }"
-		alert("게시글이 삭제됐습니다");
-	})
+// 	$("#btnDelete").click(function() {
+// 		confirm("게시글을 정말 삭제하시겠습니까?");
+// 		location.href = "/board/bfDelete?bfNo=${viewBoard.bfNo }"
+// 		alert("게시글이 삭제됐습니다");
+// 	})
 })
 </script>
 
@@ -74,8 +74,8 @@ a:focus, a:hover {
     border: 0 none;
     border-radius: 5px;
     cursor: pointer;
-    padding: 10px 5px; 
-    margin: 30px 5px;
+    padding: 7px 5px; 
+    margin: 37px 5px;
     padding-bottom: 14px; 
 	height: 52px;
 	width: 100px;
@@ -105,6 +105,37 @@ a:focus, a:hover {
     box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
     margin: 0 auto;
 }
+
+#contentTitle{
+margin-left: 9%; 
+font-size: 30px; 
+font-weight: 700; 
+color: gray;
+}
+
+#name{
+	font-size: 20px;
+    width: 187px;
+    display: inline-block;
+    font-weight: 500;
+}
+
+#inputContent{
+	font-size: 20px;
+    width: 730px;
+    display: inline-block;
+    height: 33px;
+    border-bottom: 1px solid #ccc;
+}
+
+#reviewCon{
+	width: 917px; 
+	height:300px; 
+	border-radius:7px; 
+	border: 1px solid #ccc;
+}
+
+
 #line{ border-top: 2px solid #ccc; }
 #title{border-top: 3px solid #84C9E3; border-bottom: 3px solid #84C9E3; margin-left: 7%; width: 996px; }
 </style>
@@ -136,27 +167,34 @@ a:focus, a:hover {
 </div>
 <br><br><br><br>
 
-<div style="margin-left: 9%; font-size: 30px; font-weight: 700; color: gray;">📃  게시글 내용</div>
+<div id="contentTitle">📃  게시글 내용</div>
 <br><br><br>
 
 <div style="margin-left: 130px;">
 <fieldset>
 	<h2 style="color:  #7ca3f5; font-weight: bold; font-size: 30px;">Before (운동 전)</h2><br><br>
-	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">운동 전 정보</h3><br>
-	<div style="font-size: 20px;">신장: ${viewBoard.height}</div><br>
-	<div style="font-size: 20px;">성별: ${viewBoard.gender}</div><br>
-	<div style="font-size: 20px;">몸무게: ${viewBoard.weight}</div><br>
-	<div style="font-size: 20px;">운동종류: ${viewBoard.bfExercise}</div>
+	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">운동 전 정보</h3><br><br>
+	<div id="name">신장:</div>
+	<div id="inputContent">${viewBoard.height}</div><br><br>
+	<div id="name">성별:</div>
+	<div id="inputContent">${viewBoard.gender}</div><br><br>
+	<div id="name">몸무게:</div>
+	<div id="inputContent">${viewBoard.weight}</div><br><br>
+	<div id="name">다짐글:</div><br><br><br>
+	<div id="reviewCon">${viewBoard.bfExercise}</div><br><br>
+	
 </fieldset>
 <br><br><br><br>
 
 <fieldset>
-	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">설정 목표</h3><br>
-	<div style="font-size: 20px;">목표 체중: ${viewBoard.gWeight}</div><br>
-	<div style="font-size: 20px;">목표기간: ${viewBoard.sDate} ~ ${viewBoard.eDate}</div><br>
-	<div style="font-size: 20px;">선택 운동: ${viewBoard.seleExercise}</div><br><br>
-	<div style="font-size: 20px;">다짐글</div><br>
-	<div style="font-size: 20px;">${viewBoard.beforeCon}</div>
+	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">설정 목표</h3><br><br>
+	<div id="name">목표 체중:</div>
+	<div id="inputContent">${viewBoard.gWeight}</div><br><br>
+	<div id="name">목표기간:</div>
+	<div id="inputContent">${viewBoard.sDate} ~ ${viewBoard.eDate}</div><br><br>
+	<div id="name">운동종류:</div>
+	<div id="inputContent">${viewBoard.beforeCon}</div><br><br>
+	
 	
 </fieldset>
 
@@ -164,17 +202,19 @@ a:focus, a:hover {
 
 <fieldset>
 	<h2 style="color: #7ca3f5; font-weight: bold; font-size: 30px;">After (운동 후)</h2><br><br>
-	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">운동 후 현재정보</h3><br>
-	<div style="font-size: 20px;">몸무게: ${viewBoard.cWeight}</div><br>
-	<div style="font-size: 20px;">결과: ${viewBoard.gResult}</div><br><br>
-	<div style="font-size: 20px;">후기글</div><br>
-	<div style="font-size: 20px;">${viewBoard.afterCon}</div>
+	<h3 style="color: #2d4783; font-weight: 600; font-size: 25px;">운동 후 현재정보</h3><br><br>
+	<div id="name">몸무게:</div>
+	<div id="inputContent">${viewBoard.cWeight}</div><br><br>
+	<div id="name">결과:</div>
+	<div id="inputContent">${viewBoard.gResult}</div><br><br>
+	<div id="name">후기글:</div><br><br><br>
+	<div id="reviewCon">${viewBoard.afterCon}</div><br><br>
 </fieldset>
 </div>
 <br><br>
 <hr>
 <br><br>
-<div style="margin-left: 9%; font-size: 30px; font-weight: 700; color: gray;">📷  이미지</div>
+<div id="contentTitle">📷  이미지</div>
 
 <br><br><br>
 
@@ -194,7 +234,11 @@ a:focus, a:hover {
 	
 	<c:if test="${userNo eq viewBoard.userNo }">
 		<button id="btnUpdate" class="btn btn-primary">수정</button>
-		<button id="btnDelete" class="btn btn-danger">삭제</button>
+		<button id="btnDelete">
+			<a class="btn block" onclick="if ( confirm('정말 삭제하시겠습니까?') == false ) { return false; } else if( alert('게시글이 삭제됐습니다') == true ) {return true;}" 
+				href="/board/bfDelete?bfNo=${viewBoard.bfNo }" style="text-decoration: none; color: white; font-weight: bold; padding: 2px 0px; font-size: 21px;">삭제</a>
+		</button>
+<!-- 		<button id="btnDelete" class="btn btn-danger">삭제</button> -->
 	</c:if>
 </div>
 
@@ -203,7 +247,7 @@ a:focus, a:hover {
 <div style="border-top: 2px; solid #ccc;"></div>
 <br><br>
 
-<div style="margin-left: 9%; font-size: 30px; font-weight: 700; color: gray;">🖋️  댓글</div>
+<div id="contentTitle">🖋️  댓글</div>
 
 <br><br><br><br>
 

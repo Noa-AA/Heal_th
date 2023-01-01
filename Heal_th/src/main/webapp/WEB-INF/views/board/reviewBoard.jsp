@@ -361,14 +361,14 @@ $(document).ready(function() {
 <div id="boardList">
 	<h3 style="font-weight: bold; margin-bottom: 37px; color: #06364E; font-size: 50px;">시설 후기 게시판</h3>
 </div>
-
+<br>
 
 
 <div class="beforeafter" id="search" name="search">
 
 <form action="/board/reviewBoard" method="get">
-	<div class="search_wrap">
-		<div class="search_area" style="margin-left: 665px;">
+	<div class="search_wrap" style="margin-left: 785px;">
+		<div class="search_area" style="display: none;">
 			<select name="type" id="type" style="display: inline-block; margin-right: 15px;
     display: inline-block;">
 				<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option>
@@ -376,10 +376,10 @@ $(document).ready(function() {
 				<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option>
 			</select> 
 			
+		</div>
 				
 				<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search...">
 					<button id="searchIcon"><i class="fas fa-search"></i></button>
-		</div>
 	</div>
 </form>
 
