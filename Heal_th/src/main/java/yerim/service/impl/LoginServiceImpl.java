@@ -203,9 +203,9 @@ public class LoginServiceImpl implements LoginService {
 		
 		//------------네이버 클라우드 플랫폼 호출 
 		logger.info("네이버 문자 보내기");
-//		Sms sendCode = new Sms();
-//		//메소드 호출
-//		sendCode.sendSms((String)searchPw.getUserPhone(), msgCode);
+		Sms sendCode = new Sms();
+		//메소드 호출
+		sendCode.sendSms((String)searchPw.getUserPhone(), msgCode);
 		logger.info("네이버 문자 보내기 끝");
 		
 		return msgCode;
