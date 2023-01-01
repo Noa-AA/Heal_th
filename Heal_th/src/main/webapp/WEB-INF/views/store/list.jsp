@@ -151,6 +151,8 @@ a:hover {
 	padding-bottom: 35px;
 	border:2px solid #7ca3f5;
 	border-radius: 10px !important;
+	
+	    box-shadow: 0px 13px 54px -3px lightgrey;
 }
 .store-ul:nth-child(3n) {
     margin-right: 0px;

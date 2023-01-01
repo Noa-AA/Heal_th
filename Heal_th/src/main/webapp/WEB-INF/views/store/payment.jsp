@@ -12,7 +12,7 @@
 	 
 
 	//결제 준비하기
- IMP.init("imp41280154"); 
+ IMP.init("imp34554272"); 
 	 	var paid_at = new Date();
 	 	
 	
