@@ -165,6 +165,7 @@ function validate(){
 #searchPwBody{
 	
 	padding-top: 0;
+	background-color: #f9fbfc;
 }
 
 #searchPw {
