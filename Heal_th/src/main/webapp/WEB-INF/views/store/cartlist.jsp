@@ -145,7 +145,9 @@ function delall(prodNo){
    }
 
 	
-
+.big-container {
+	text-align: center;
+}
     
    </style>
 
@@ -165,8 +167,9 @@ function delall(prodNo){
     </div>
 </div><!-- subvisual 끝 -->
 
-
-<h1>장바구니 목록</h1>
+<div class="big-container">
+	<h3>장바구니 목록</h3>
+</div>
 
 
 
@@ -256,4 +259,5 @@ function delall(prodNo){
 
 
 </body>
+<%@include file="../layout/footer.jsp" %> 
 </html>

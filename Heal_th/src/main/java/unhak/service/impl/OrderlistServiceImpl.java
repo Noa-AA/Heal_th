@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import unhak.dao.face.OrderlistDao;
 import unhak.dto.CartDto;
+import unhak.dto.PaymentDto;
 import unhak.service.face.OrderlistService;
 @Service
 public class OrderlistServiceImpl implements OrderlistService{
@@ -17,9 +18,9 @@ public class OrderlistServiceImpl implements OrderlistService{
 	public final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Override
-	public List<CartDto> getOrderList(int userNo) {
+	public List<PaymentDto> getOrderList(int userNo) {
 		
-		List<CartDto> cart = orderlistDao.getOrder(userNo);
+		List<PaymentDto> cart = orderlistDao.getOrder(userNo);
 		
 		return cart;
 	}
