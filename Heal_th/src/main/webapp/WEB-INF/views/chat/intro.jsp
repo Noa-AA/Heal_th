@@ -355,8 +355,24 @@ select::-ms-expand { display:none; }
 					<!-- 상담 이름, 등급 -->
 					<div class="rightTop">
 						<div class="name">${userList.userNick }</div>
-						<div class="ranking">${userList.rankingNo }등급</div>
-						
+<!-- 						<div class="ranking">햇병아리 등급</div> -->
+						<c:choose> 
+							<c:when test="${userList.rankingNo eq 1 }">
+							      <div class="ranking">햇병아리 등급</div>
+							</c:when>
+							<c:when test="${userList.rankingNo eq 2 }">
+							      <div class="ranking">튼튼이 등급</div>
+							</c:when>
+							<c:when test="${userList.rankingNo eq 3 }">
+							      <div class="ranking">트레이너 등급</div>
+							</c:when>
+							<c:when test="${userList.rankingNo eq 4 }">
+							      <div class="ranking">마스터 등급</div>
+							</c:when>
+							<c:otherwise>
+							        <div class="ranking">헬스신 등급</div>
+							</c:otherwise>
+						</c:choose> 
 					</div>
 					
 					<div class="job">${userList.userJob }</div>
@@ -467,11 +483,11 @@ select::-ms-expand { display:none; }
 		<form action="/chat/intro" method=post name="search" id="searchForm">
 
 			<select name="type" id="type">
-				<option value="userNick"  >닉네임</option>
-				<option value="userJob"  >직업</option>
+				<option value="userNick" <c:out value="${paging.type eq 'userNick'?'selected':'' }"/> >닉네임</option>
+				<option value="userJob"  <c:out value="${paging.type eq 'userJob'?'selected':'' }"/> >직업</option>
 			</select>
 			
-			<input id="searchText" type="text" name="keyword" placeholder="search...">
+			<input id="searchText" type="text" name="keyword" value="${paging.keyword }" placeholder="search...">
 			<button type="submit" id="searchIcon" ><i class="fas fa-search"></i></button>
 
 		</form>

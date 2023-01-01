@@ -82,10 +82,10 @@
 	</select>
 	
 	
-	<select id="selectSearchUsers" resultType="yerim.dto.Users" parameterType="chatIntroPaging" >
+	<select id="selectSearchUsers" resultType="Users" parameterType="chatIntroPaging" >
 		SELECT * FROM (
 			SELECT rownum rnum, R.* FROM (	
-				SELECT count(*) FROM photofile e
+				SELECT * FROM photofile e
 			    FULL JOIN
 			       ( SELECT * FROM USERS 
 						WHERE ranking_no >= 3
@@ -204,7 +204,7 @@
 	<!-- /chat/chatRoom -->
 	<!-- 마지막 채팅내역과 채팅방 번호 조회 -->
 	<select id="selectLastChat" resultType="Chat">
-		SELECT chat_contents, room_no FROM (
+		SELECT chat_contents, room_no, chat_time FROM (
 			SELECT chat_contents, room_no, chat_time,
     		RANK() OVER (PARTITION BY room_no ORDER BY chat_time DESC) AS RNK
     		FROM chat )
