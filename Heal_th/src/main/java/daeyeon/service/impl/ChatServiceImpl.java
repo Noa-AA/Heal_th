@@ -99,12 +99,13 @@ public class ChatServiceImpl implements ChatService {
 	
 	@Override
 	public List<Users> userSearchlist(ChatIntroPaging chatIntroPaging) {
-		logger.info("userSearchlist()");
+		logger.info("userSearchlist() - 이거 {}", chatIntroPaging);
+		
 		
 		//게시글 목록 조회 - ChatDao 이용
 		List<Users> userList = chatDao.selectSearchUsers(chatIntroPaging); 
-				
-		//나랑 같이 방에 소속된  
+			
+		logger.info("서비스에 검색된 userList : {}", userList);
 				
 		return userList;
 	}

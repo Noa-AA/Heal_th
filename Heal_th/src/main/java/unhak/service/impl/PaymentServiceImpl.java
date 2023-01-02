@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import unhak.dao.face.PaymentDao;
+import unhak.dto.PaymentDto;
 import unhak.service.face.PaymentService;
 import yerim.dto.Users;
 
@@ -19,5 +20,11 @@ public class PaymentServiceImpl implements PaymentService{
 	
 	public Users getUserInfo(int userno) {
 		return paymentDao.selectUserInfo(userno);
+	}
+
+	@Override
+	public void savePayment(PaymentDto payment) {
+		
+		paymentDao.insertPayment(payment);
 	}
 }

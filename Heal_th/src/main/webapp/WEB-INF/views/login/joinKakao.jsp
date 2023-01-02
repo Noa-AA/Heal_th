@@ -266,12 +266,12 @@ $("#joinbtn").click(function(){
  	}
  		
  		
-//  		//본인인증번호가 안되었을 때 ->
-//  	if(document.getElementById("code").value =="") {
-//  		console.log("본인인증입력 알림")
-//  		document.getElementById("result_code").innerHTML="<span style='color:red;'>* 본인인증을 해주세요</span>"
-//        return false; 		    	
-//			 }	
+ 		//본인인증번호가 안되었을 때 
+ 	if(document.getElementById("code").value =="") {
+ 		console.log("본인인증입력 알림")
+ 		document.getElementById("result_code").innerHTML="<span style='color:red;'>* 본인인증을 해주세요</span>"
+       return false; 		    	
+			 }	
 
  		
 		//성별이 빈칸일 때 

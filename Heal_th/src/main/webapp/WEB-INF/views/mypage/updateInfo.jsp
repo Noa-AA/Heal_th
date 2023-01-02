@@ -1,7 +1,9 @@
 <%@page import="java.util.Arrays"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <!--헤더  -->
 <%@include file="../layout/header.jsp" %>
+
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -26,7 +28,6 @@ $(document).ready(function(){
 		$("#userEmail").attr("readonly","readonly")
 		$("#btn_emailchk").hide()
 		console.log("버튼 안됨")
-		$("#userEmail").css("background","#7ca3f5")
 	}else {
 		console.log("득근 아이디")	
 	}
@@ -278,8 +279,13 @@ function cancel(){
 
 
 <style type="text/css">
+header{
+	margin-bottom: 80px !important;
+}
+
 #updateBody{
-	padding-top:0;
+	padding-top:0px;
+	background-color: #f9fbfc;
 
 }
 #boxArea{

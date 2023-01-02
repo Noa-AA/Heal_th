@@ -1,5 +1,6 @@
 package unhak.service.face;
 
+import unhak.dto.PaymentDto;
 import yerim.dto.Users;
 
 public interface PaymentService {
@@ -10,6 +11,9 @@ public interface PaymentService {
 	 * @return
 	 */
 	public Users getUserInfo(int userno);
+
+	public void savePayment(PaymentDto payment);
+
 
 	
 

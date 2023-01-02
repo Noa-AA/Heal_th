@@ -26,6 +26,7 @@ $(document).ready(function() {
 		$(this).css("background-color", "#f4f4f4");
 		
 		$(".roomBtn").not(this).attr("disabled", false);
+		$(".roomBtn").not(this).css("background-color", "#ffffff");
 		
 		console.log(".roomBtnClick")
 	})
@@ -119,6 +120,7 @@ button, input {
 	border-bottom: 1px solid #eee;
 	line-height: 50px;
 	margin-top: -1px;
+	position: relative;
 }
 
 .roomBtn:hover {
@@ -176,6 +178,21 @@ button, input {
 	color: #666;
 }
 
+.timeView {
+	position: absolute;
+	right: 20px;
+	top: 0;
+	font-size: 13px;
+	color: #aaa;
+}
+
+.newChat {
+	border: 1px solid red;
+}
+
+
+
+
 #result {
 	float: right;
 	width: 900px;
@@ -185,8 +202,17 @@ button, input {
 #emptyChatArea {
 	width: 900px;
 	height: 700px;
-	border: 1px solid #eee;
-	background-color: #f8f8f8;
+	border-top: 1px solid #eee;
+	border-right: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	background-color: #fcfcfc;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#emptyChatArea > img {
+	height: 50px;
 }
 
 
@@ -257,8 +283,15 @@ button, input {
 						<c:forEach items="${lastChat }" var="lastChat">
 						<c:if test="${room.roomNo == lastChat.roomNo }">
 							${lastChat.chatContents }
+							
+							<!-- 채팅 온 시간 -->
+							<span class="timeView">
+								<fmt:parseDate value="${lastChat.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
+								<fmt:formatDate value="${date }" pattern="a hh:mm" />
+							</span>
 						</c:if>
-						</c:forEach> <!-- ${lastChat } -->
+						
+						</c:forEach> <!-- lastChat  -->
 					</p>
 				</div>
 				
@@ -270,9 +303,9 @@ button, input {
 	</div>
 	
 	<div id="result">
-			<div id="emptyChatArea">비어있다
-				
-			</div>
+		<div id="emptyChatArea">
+			<img src="/resources/img/chat/chatRoom_logo.png" alt="득근득근">
+		</div>
 	</div>
 </div>
 

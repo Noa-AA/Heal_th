@@ -1,7 +1,5 @@
 package unhak.dto;
 
-import java.util.Date;
-
 public class PaymentDto {
 
 
@@ -16,7 +14,7 @@ public class PaymentDto {
 	/*결제 금액*/
 	private int paymentAmount;
 	/* 결제 날짜 */
-	private Date paymentDate;
+	private String paymentDate;
 	/* 배송지 */
 	private String address;	
 	/*휴대폰번호*/
@@ -30,10 +28,10 @@ public class PaymentDto {
 	
 	private int rnum;
 	
-	public PaymentDto() {	}
+	public PaymentDto() {}
 
 	public PaymentDto(int payNo, String orderNo, String paymentMethod, String userCardcom, int paymentAmount,
-			Date paymentDate, String address, int phoneNo, int userNo, String pName, String pImage1, int rnum) {
+			String paymentDate, String address, int phoneNo, int userNo, String pName, String pImage1, int rnum) {
 		super();
 		this.payNo = payNo;
 		this.orderNo = orderNo;
@@ -97,11 +95,11 @@ public class PaymentDto {
 		this.paymentAmount = paymentAmount;
 	}
 
-	public Date getPaymentDate() {
+	public String getPaymentDate() {
 		return paymentDate;
 	}
 
-	public void setPaymentDate(Date paymentDate) {
+	public void setPaymentDate(String paymentDate) {
 		this.paymentDate = paymentDate;
 	}
 
@@ -153,8 +151,6 @@ public class PaymentDto {
 		this.rnum = rnum;
 	}
 
-
-	
 	
 	
 	
