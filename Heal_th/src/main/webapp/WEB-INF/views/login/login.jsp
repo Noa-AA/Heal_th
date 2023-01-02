@@ -271,6 +271,9 @@ position: absolute;
 .title_join{
 	color: #7ca3f5;
 }
+#popup{
+	display:none;
+}
 </style>
 <body id="loginBody">
 

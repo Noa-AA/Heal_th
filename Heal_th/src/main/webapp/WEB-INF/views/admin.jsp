@@ -144,7 +144,7 @@ padding-top: 20px;
 					<label for="adminPw">
 						<span class="formName">비밀번호 </span>						
 					</label>
-					<input id="adminPw" name="adminPw" placeholder="관리자 비밀번호를 입력하세요">
+					<input type="password" id="adminPw" name="adminPw" placeholder="관리자 비밀번호를 입력하세요">
 				</div>
 			
 				<c:if test="${isAdminLogin == false}">
