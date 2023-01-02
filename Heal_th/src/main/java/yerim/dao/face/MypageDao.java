@@ -99,7 +99,7 @@ public interface MypageDao {
 	 * @return
 	 */
 	
-	public Users selectUserIntro(Users user);
+	public Users selectInfoFormyPage(Users user);
 
 	/**
 	 * 회원 탈퇴하기

@@ -201,7 +201,7 @@ width: 100px;
 /* 사진 */ 
 #pIcon{display: block; width: 14px; margin-right:8px; margin-top: 20px;}
 
-#thumbnail{ border-radius: 10px; width: 259px; height: 150px; margin-top: -141px;} 
+#thumbnail{ border-radius: 10px; width: 240px; height: 141px; margin-top: -141px;} 
 
 #imgNone{display: none;}
 
@@ -361,14 +361,14 @@ $(document).ready(function() {
 <div id="boardList">
 	<h3 style="font-weight: bold; margin-bottom: 37px; color: #06364E; font-size: 50px;">시설 후기 게시판</h3>
 </div>
-
+<br>
 
 
 <div class="beforeafter" id="search" name="search">
 
 <form action="/board/reviewBoard" method="get">
-	<div class="search_wrap">
-		<div class="search_area" style="margin-left: 665px;">
+	<div class="search_wrap" style="margin-left: 785px;">
+		<div class="search_area" style="display: none;">
 			<select name="type" id="type" style="display: inline-block; margin-right: 15px;
     display: inline-block;">
 				<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option>
@@ -376,10 +376,10 @@ $(document).ready(function() {
 				<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option>
 			</select> 
 			
+		</div>
 				
 				<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search...">
 					<button id="searchIcon"><i class="fas fa-search"></i></button>
-		</div>
 	</div>
 </form>
 
@@ -441,18 +441,18 @@ $(document).ready(function() {
 <c:forEach items="${boardSearch }" var="boardSearch">
 	<ul id="searchResult" style="list-style: none;">
 		<li style="float: left; display: none;" >${boardSearch.reviewNo }</li>
-		<li style="float: left; line-height:380%;"><a href="${path}/board/rView?reviewNo=${boardSearch.reviewNo}" id="boardUrl">${boardSearch.rTitle }</a></li><br>
+		<li style="display:  -webkit-inline-box; inline-size: -webkit-fill-available; line-height: 3;"><a href="${path}/board/rView?reviewNo=${boardSearch.reviewNo}" id="boardUrl">${boardSearch.rTitle }</a></li><br>
 		
-		<li style="float: left; margin-top: -8px;" class="ellipsis" >${boardSearch.review }</li><br>
+		<li style="display:  -webkit-inline-box; inline-size: -webkit-fill-available; line-height: 3;" class="ellipsis" >${boardSearch.review }</li><br>
 		
 		<li class="myform" style="line-height: 1;"> 
-			<span style="float: left; color:#666; margin-top: 3px; margin-right: 10px; font-weight: bold; font-size: 15px;">:평점 </span>
-			<span class="myratings" style="float: left; margin-top: 3px; margin-right: 10px; font-weight: bold; font-size: 15px;">${boardSearch.score }</span>
-			<input type="radio" name="score${boardSearch.reviewNo }" value="5.0" id="rate1"><label for="rate1">★</label>
-			<input type="radio" name="score${boardSearch.reviewNo }" value="4.0" id="rate2"><label for="rate2">★</label>
-			<input type="radio" name="score${boardSearch.reviewNo }" value="3.0" id="rate3"><label for="rate3">★</label>
-			<input type="radio" name="score${boardSearch.reviewNo }" value="2.0" id="rate4"><label for="rate4">★</label>
-			<input type="radio" name="score${boardSearch.reviewNo }" value="1.0" id="rate5"><label for="rate5">★</label>
+			<span style="float: left; color:#666; margin-top: 11px; margin-right: 10px; font-weight: bold; font-size: 15px;">:평점 </span>
+			<span class="myratings" style="float: left; margin-top: 11px; margin-right: 10px; font-weight: bold; font-size: 15px;">${boardSearch.score }</span>
+			<input type="radio" name="score${boardSearch.reviewNo }" value="5.0" id="rate1"><label for="rate1" style="margin-top: 7px;">★</label>
+			<input type="radio" name="score${boardSearch.reviewNo }" value="4.0" id="rate2"><label for="rate2" style="margin-top: 7px;">★</label>
+			<input type="radio" name="score${boardSearch.reviewNo }" value="3.0" id="rate3"><label for="rate3" style="margin-top: 7px;">★</label>
+			<input type="radio" name="score${boardSearch.reviewNo }" value="2.0" id="rate4"><label for="rate4" style="margin-top: 7px;">★</label>
+			<input type="radio" name="score${boardSearch.reviewNo }" value="1.0" id="rate5"><label for="rate5" style="margin-top: 7px;">★</label>
 		</li><br>
 		
 		<li style="float: right;">

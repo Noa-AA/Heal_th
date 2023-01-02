@@ -242,6 +242,10 @@ header {margin-bottom: 0px; }
     text-align: center;
 }
 
+/* content style */
+#title{font-size: 15px; font-weight: bold;}
+
+#article{color: black; font-size: 18px; font-weight: bold;}
 
 </style>
 
@@ -436,24 +440,25 @@ $(document).ready(function() {
                             <!-- fieldsets -->
 			            <fieldset>
 				            <div class="form-card"><br><br>
-				             	<label for="vTitle">제목</label>
+				            	<h3 id="article">내용</h3><br><br>
+				             	<label for="vTitle" id="title">제목</label>
 									<input type="text" id="vTitle" name="vTitle" placeholder="제목을 입력해주세요" required id="vTitle">
 				                 	<div id="vTitleError" class="resMsg"></div>
 				                 <br><br>
 				                        
-								<label for=	"exercise">운동 종목</label>
+								<label for=	"exercise" id="title">운동 종목</label>
 									<input type="text" id="exercise" name="exercise" required id="exercise" placeholder="현재 하고 있는 운동 종목을 입력해주세요">
 				                	<div id="exerciseError" class="resMsg"></div>
 				                <br>
-				                 <label for="time">소요 시간</label>
+				                 <label for="time" id="title">소요 시간</label>
 									<input type="text" id="time" name="time" required id="time" placeholder="소요 시간을 자유롭게 입력해주세요">
 				                  	<div id="timeError" class="resMsg"></div>
 				                  <br>
-				                  <label for="kcal">소비 칼로리</label>
+				                  <label for="kcal" id="title">소비 칼로리</label>
 				                    <input type="number" id="kcal" name="kcal" required id="kcal" placeholder="소비 칼로리를 입력해주세요 *숫자만 입력해주세요">
 				                  	<div id="kcalError" class="resMsg"></div>
 				                  <br>
-				                  <label for="file">첨부파일</label><br><br>
+				                  <label for="file" id="title">첨부파일</label><br><br>
 									<jsp:include page="../file/upload.jsp" /> <br>
 								</div>
 
@@ -464,7 +469,7 @@ $(document).ready(function() {
 						<fieldset>
 							<div class="form-card">
 								<br><br>
-								<h4 style="color: black">내용</h4><br><br>
+								<h3 id="article">내용</h3><br><br>
 									<textarea rows="20" cols="50" id="verifyContent" name="verifyContent" placeholder="게시글을 작성해주세요"></textarea>
 									<div id="verifyContentError" class="resMsg"></div>
 							</div>  <br><br><br>                          

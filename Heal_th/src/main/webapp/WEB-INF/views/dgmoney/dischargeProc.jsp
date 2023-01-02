@@ -39,6 +39,21 @@ a {
 	text-align: center;
 	top: 170px;
 }
+
+button {
+	width: 108px;
+    height: 36px;
+    background-color: transparent;
+    border: 2px solid #7ca3f5;
+    color:#7ca3f5;
+    font-size:17px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#close {
+    margin-top: 10px;
+}
 </style>
 </head>
 <body>

@@ -353,7 +353,7 @@ body {
 [  ] kcal
 오늘의 운동 일기
  - 
- - </textarea>
+</textarea>
 			<p><button id="save" type="button">운동일기 추가</button></p>
 		</form>
 	</div>
