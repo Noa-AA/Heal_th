@@ -51,7 +51,7 @@ function withDrawOk(wdNo,wdAmount,userNo){
 					type: "post"
 					, url: "/message/insert"
 					, data: {
-						userNo: ${sessionScope.userNo},
+						userNo: userNo,
 						messageCon: "회원님의 환불계좌로 인출신청하신 금액이 입금되었습니다."
 					}
 					, dataType: "json"
