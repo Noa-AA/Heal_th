@@ -164,13 +164,14 @@ public class VerifyBoardController {
 		verifyBoard= verifyBoardService.view(verifyBoard);
 		logger.debug("조회된 게시글 {}", verifyBoard);
 		
+		//첨부파일
+		int boardNo = verifyBoard.getVerifyNo(); 
+        int categoryNo = 2;
+        model.addAttribute("boardNo", boardNo);
+        model.addAttribute("categoryNo", categoryNo);
+		
 		//모델값 전달
 		model.addAttribute("updateBoard", verifyBoard);
-		
-		//첨부파일 모델값 전달
-//		BoardFile boardFile = boardService.getAttachFile(beforeafter);
-//		model.addAttribute("boardFile", boardFile);
-		
 		
 		return "/board/vUpdate";
 

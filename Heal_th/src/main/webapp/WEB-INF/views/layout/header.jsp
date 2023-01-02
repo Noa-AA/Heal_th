@@ -466,6 +466,10 @@ body {
 	z-index: 1999;
 }
 
+#popup img {
+	width: 32px;
+}
+
 </style>
 
 <script type="text/javascript">

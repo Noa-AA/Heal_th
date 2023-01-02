@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
-<link rel="stylesheet" href="style.css">
 
 <!-- --------------------------스크립트 시작 -->
 <script type="text/javascript">
@@ -350,7 +349,7 @@ select::-ms-expand { display:none; }
 					<img src="/resources/img/chat_default.png" class="profilePhoto">
 				</c:if>
 				
-				<!-- 오른쪽 텍스트 부분 -->
+				<!-- 오른쪽 텍스트 부분 --> 
 				<div class="rightCon">
 					<!-- 상담 이름, 등급 -->
 					<div class="rightTop">

@@ -37,7 +37,7 @@ $(document).ready(function () {
 		
 		const pobj = $(obj);
 		
-		if(pobj.data("prodNo")) {
+		if(pobj.data("prodno")) {
 			
 		const uploadPath = pobj.data("path");
 		const uuid = pobj.data("uuid");
@@ -45,7 +45,7 @@ $(document).ready(function () {
 		
 		const fileCallPath = encodeURIComponent(uploadPath + "/s_" + uuid + "_" + fileName);
 		
-		$(this).find("img").attr('src', '/display?fileName=' + fileCallPath);
+		$(this).find("img").attr('src', '/product/display?fileName=' + fileCallPath);
 		
 		} else {
 			$(this).find("img").attr('src', '/resources/img/product/NoImage.png');
@@ -113,6 +113,7 @@ $(document).ready(function() {
 .goods_table td{
 	padding: 10px 5px;
 	border : 1px solid #e9ebf0;
+	font-size: 16px;
 }
 .goods_table thead{
 	background-color: #f8f9fd;	
@@ -150,9 +151,8 @@ $(document).ready(function() {
     height: 100%;
 		}	
 .image_wrap img {
-    max-width: 85%;
+    max-width: 50%;
     height: auto;
-    display: block;
 }
 
 	/* 검색 영역 */
@@ -165,8 +165,8 @@ $(document).ready(function() {
 }
 .search_input input[name='keyword']{
 	padding: 4px 10px;
-    font-size: 15px;
-    height: 20px;
+    font-size: 25px;
+    height: 32px;
     line-height: 20px;
 }
 .search_btn{
@@ -183,9 +183,9 @@ $(document).ready(function() {
 
 	/* 페이지 버튼 인터페이스 */
 .pageInfo_wrap{
-	text-align: center;
-    margin-top: 30px;
+    margin-top: 21px;
     margin-bottom: 40px;
+    margin-left: 567px;
 }
 .pageInfo{
     list-style: none;
@@ -206,7 +206,7 @@ $(document).ready(function() {
     border: 1px solid #ccc;
     padding: 0 10px;
 }
-.pageInfo_btn a:link {color: black;}
+.pageInfo_btn a:link {color: black; padding: 15px;}
 .pageInfo_btn a:visited {color: black;}
 .pageInfo_btn a:active {color: black;}
 .pageInfo_btn a:hover {color: black;}
@@ -221,7 +221,6 @@ $(document).ready(function() {
     font-size: 18px;
     line-height: 20px;
     margin-left: 15px;
-    background-color: #c3daf7;
 }
 </style>
 

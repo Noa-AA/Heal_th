@@ -240,6 +240,12 @@
     color: #666;
 }
 
+#titleDiv{
+	display: flex;
+	justify-content: space-between;
+    align-items: flex-end;
+}
+
 select::-ms-expand { display:none; } 
 
 
@@ -248,8 +254,10 @@ select::-ms-expand { display:none; }
 </head>
 <body>
 
-<h3>주문 목록</h3>
-
+<div id="titleDiv">
+	<h3>주문 목록</h3>
+	<a href="/admin/payment">전체보기</a>
+</div>
 
 	<table id="table">
 		<tr id="titleTr">

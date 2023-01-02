@@ -88,7 +88,7 @@ button{
 		</div>
 	</div>
 <div class="bottomBtn">	
-	<button type="submit">수정</button><button><a href="./view"/>취소</button>
+	<button type="submit">수정</button><button><a href="./list"/>취소</button>
 </div>
 </form>
 </div>

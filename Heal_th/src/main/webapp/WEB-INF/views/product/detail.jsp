@@ -73,24 +73,28 @@ $(document).ready(function() { //공지사항으로 이동
 <style type="text/css">
 /* 관리자 컨텐츠 메인 영역 */
 .form_section{
-	width: 95%;
-	margin-left: 2%;
-    margin-top: 20px;
-    border: 1px solid #dbdde2;
-    background-color: #efefef;	
+	width: 20%;
+	margin-left: 39%;
+    margin-top: 8px;
+    background-color: #f9f7f7;
+    font-size: 17px;	
 }
-
+h1{text-align: center;}
 /* 버튼 영역 */
 #result_card img{
 		max-width: 100%;
 	    height: auto;
 	    display: block;
 }
+.btn_section{
+	text-align: center;
+	    margin-top: 50px;
+}
 </style>
 
 <body>
  <div class="admin_content_wrap">
-	<div class="admin_content_subject"><span>상품 상세</span></div>
+	<h1>상품 상세</h1>
 
 	<div class="form_section">
 		<label>카테고리</label>
@@ -98,31 +102,31 @@ $(document).ready(function() { //공지사항으로 이동
 	</div>	
 	<div class="form_section">
 			<label>상품아이디</label>
-			<input name="prodNo" value="<c:out value="${productInfo.prodNo }"/>" disabled>
+			<input class="formInput" name="prodNo" value="<c:out value="${productInfo.prodNo }"/>" disabled>
 	</div>
 	<div class="form_section">
 			<label>상품명</label>
-			<input name="pName" value="<c:out value="${productInfo.pName }"/>" disabled>
+			<input class="formInput" name="pName" value="<c:out value="${productInfo.pName }"/>" disabled>
 	</div>
 	<div class="form_section">
 			<label>등록일</label>
-			<input name="pDate" value='<fmt:formatDate value="${productInfo.pDate }" pattern="yyyy.MM.dd HH:mm:ss"/>' disabled>
+			<input class="formInput" name="pDate" value='<fmt:formatDate value="${productInfo.pDate }" pattern="yyyy.MM.dd HH:mm:ss"/>' disabled>
 	</div>
 	<div class="form_section">
 			<label>가격</label>
-			<input name="pPrice" value="<c:out value="${productInfo.pPrice }"/>" disabled>
+			<input class="formInput" name="pPrice" value="<c:out value="${productInfo.pPrice }"/>" disabled>
 	</div>
 	<div class="form_section">
 			<label>재고수량</label>
-			<input name="pStock" value="<c:out value="${productInfo.pStock }"/>" disabled>
+			<input class="formInput" name="pStock" value="<c:out value="${productInfo.pStock }"/>" disabled>
 	</div>
 	<div class="form_section">
 			<label>상세정보</label>
-			<input name="pDetail" value="<c:out value="${productInfo.pDetail }"/>" disabled>
+			<input class="formInput" name="pDetail" value="<c:out value="${productInfo.pDetail }"/>" disabled>
 	</div>
 	<div class="form_section">
 			<label>메인사진</label>
-			<input name="pImage1" value="<c:out value="${productInfo.pImage1 }"/>" disabled>
+			<input class="formInput" name="pImage1" value="<c:out value="${productInfo.pImage1 }"/>" disabled>
 	</div>
 	<div class="form_section">
 		<div class="form_section_title">

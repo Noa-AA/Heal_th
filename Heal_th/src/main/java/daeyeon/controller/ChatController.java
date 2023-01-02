@@ -239,7 +239,7 @@ public class ChatController {
 		}
 		 
 		
-		//7. 이미지 전송
+		//7. 이미지, 파일 전송
 		@RequestMapping(value = "/fileup", produces = "application/text; charset=utf8")
 		@ResponseBody
 		public String fileUp( HttpSession session, ChatFile chatFile, MultipartFile file, Model model ) {
@@ -257,6 +257,7 @@ public class ChatController {
 			return chatFile.getStoredName();
 		}
 		
+	
 		
 	
 }
