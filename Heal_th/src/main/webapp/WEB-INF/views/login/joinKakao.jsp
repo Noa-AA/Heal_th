@@ -261,7 +261,7 @@ $("#joinbtn").click(function(){
  		//연락처가 빈칸일 때 
  	if(document.getElementById("userPhone").value =="") {
  		console.log("연락처입력 알림")
- 		document.getElementById("result_code").innerHTML="<span style='color:red;'>* 연락처를 입력하고 본인인증을 해주세요</span>"
+ 		document.getElementById("userchkAlert").innerHTML="<span style='color:red;'>* 연락처를 입력하고 본인인증을 해주세요</span>"
  			return false;
  	}
  		
