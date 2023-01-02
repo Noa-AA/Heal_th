@@ -284,6 +284,11 @@ a:focus, a:hover {
     text-align: center;
 }
 
+/* content style */
+#title{font-size: 15px; font-weight: bold;}
+
+#article{color: black; font-size: 18px; font-weight: bold;}
+
 </style>
 
 
@@ -392,20 +397,21 @@ $(document).ready(function(){
                             <!-- fieldsets -->
 			            <fieldset>
 				            <div class="form-card"><br><br>
-				             	<label for="bfTitle">제목</label>
+				            	<h3 id="article">내용</h3><br><br>
+				             	<label for="bfTitle" id="title">제목</label>
 									<input type="text" id="vTitle" name="vTitle" value="${updateBoard.vTitle }" placeholder="제목을 입력해주세요" required id="vTitle">
 				                 <br><br>
-							<label for=	"exercise">운동 종목</label>
+							<label for=	"exercise" id="title">운동 종목</label>
 									<input type="text" id="exercise" name="exercise" value="${updateBoard.exercise }" required id="exercise" placeholder="현재 하고 있는 운동 종목을 입력해주세요">
 				                <br>
-				                 <label for="weight">소요 시간</label>
+				                 <label for="weight" id="title">소요 시간</label>
 									<input type="text" id="time" name="time" value="${updateBoard.time }" required id="time" placeholder="소요 시간을 자유롭게 입력해주세요">
 				                  <br>
-				                  <label for="bfExercise">소비 칼로리</label>
+				                  <label for="bfExercise" id="title">소비 칼로리</label>
 				                    <input type="text" id="kcal" name="kcal" value="${updateBoard.kcal }" required id="kcal" placeholder="소비 칼로리를 입력해주세요 *숫자만 입력해주세요">
 				                  <br>
-				                  <label for="file">첨부파일</label><br><br>
-<%-- 									<jsp:include page="../file/fileUpdate.jsp" />   <br> --%>
+				                  <label for="file" id="title">첨부파일</label><br><br>
+									<jsp:include page="../file/fileUpdate.jsp" />   <br>
 								</div>
 
 								<br><br>
@@ -417,7 +423,7 @@ $(document).ready(function(){
 						<fieldset>
 							<div class="form-card">
 							<br><br>
-								<h4 style="color: black">내용</h4><br><br>
+								<h3 id="article">내용</h3><br><br>
 								<textarea rows="20" cols="50" id="verifyContent" name="verifyContent" placeholder="게시글을 작성해주세요">${updateBoard.verifyContent}</textarea>
 							</div>                            
 			                      <br><br>

@@ -47,21 +47,23 @@ body{padding: 0;}
      background: #616161; 
      font-weight: bold; 
      color: white; 
+     font-weight: bold;
+     font-size: 14px;
      border: 0 none; 
      border-radius: 0px; 
      cursor: pointer; 
-     padding: 10px 5px; 
+     padding: 15px 5px; 
      margin: 10px 5px; 
      margin-left: 208px;
 }
-
-
 
 #btnUpdate {
     width: 100px;
     background: #7ca3f5;
     font-weight: bold;
     color: white;
+    font-weight: bold;
+    font-size: 14px;
     border: 0 none;
     border-radius: 0px;
     cursor: pointer;
@@ -295,12 +297,12 @@ margin-top: 3px;
 #progressbar li.active:before, #progressbar li.active:after {
     background: #7ca3f5;
 }
-/* #contents{ */
-/* 	right: 50%; */
-/*     left: 50%; */
-/*     margin: -50px 0 0 -50px; */
-/*     text-align: center; */
-/* } */
+
+
+/* content style */
+#title{font-size: 15px; font-weight: bold;}
+
+#article{color: black; font-size: 18px; font-weight: bold;}
 
 </style>
 
@@ -422,24 +424,24 @@ function updateStar() {
                             <!-- fieldsets -->
 			            <fieldset>
 				            <div class="form-card">
-				             <br><br><h3 style="color: black">시설 소개</h3><br><br>
-				             	<label for="rTitle">제목</label>
+				             <br><br><h3 id="article">시설 소개</h3><br><br>
+				             	<label for="rTitle" id="title">제목</label>
 									<input type="text" id="rTitle" name="rTitle" value="${updateBoard.rTitle }" placeholder="제목을 입력해주세요">
 				                 <br><br>
 				                        
-								<label for="gymName">시설명</label>
+								<label for="gymName" id="title">시설명</label>
 									<input type="text" id="gymName" name="gymName" value="${updateBoard.gymName }"  placeholder="시설명을 입력해 주세요">
 				                <br>
-				                 <label for="classification">시설 분류</label>
+				                 <label for="classification" id="title">시설 분류</label>
 									<input type="text" id="classification" name="classification" value="${updateBoard.classification }" placeholder="시설 분류를 입력해 주세요  ex) 수영, 헬스, 필라테스 등">
 				                 <br><br>
-				                 <label for="gymIntroduce">간단 소개</label>
+				                 <label for="gymIntroduce" id="title">간단 소개</label>
 									<input type="text" id="gymIntroduce" name="gymIntroduce" value="${updateBoard.gymIntroduce }" placeholder="시설에 대한 한줄평을 입력해 주세요  ex) 1인 PT, 저렴한 가격 등">
 				                  <br>
-				                  <label for="price">가격</label>
+				                  <label for="price" id="title">가격</label>
 				                    <input type="text" id="price" name="price" value="${updateBoard.price }" placeholder="현재 하고 있는 운동종류를 입력해주세요">
 				                  <br>
-				                  <label for="file">첨부파일</label><br>
+				                  <label for="file" id="title">첨부파일</label><br>
 									<jsp:include page="../file/fileUpdate.jsp" /> 
 								</div>
 
@@ -449,11 +451,12 @@ function updateStar() {
 			                            
 						<fieldset>
 							<div class="form-card">
-								<h3 style="color: black">시설 위치</h3> 
+								<h3 id="article">시설 위치</h3> 
 									<br><br> 
-								<label for="address">위치 정보</label><br>
+								<label for="address" id="title">위치 정보</label><br>
 									<input type="text" id="address" name="address" placeholder="주소" value="${updateBoard.address }" style="width: 487px;">
-								<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" style="width: 100px; padding-top: 5px; margin-left: 34px; margin-top: 13px;">
+								<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" 
+									style="width: 100px; padding-top: 5px; border: 5px solid; border-image: linear-gradient(to right, #7ca3f5, #c583d6); border-image-slice: 1; margin-left: 34px; margin-top: 13px; border-radius: 5px; font-weight: 700; background-color: white;">
 								<br>
 								<input type="hidden" id="lat" name="lat" value="${updateBoard.lat }" >
 								<input type="hidden" id="lng" name="lng" value="${updateBoard.lng }" >
@@ -474,9 +477,9 @@ function updateStar() {
                             
 						<fieldset>
 							<div class="form-card">
-								<br><br><h2 style="color: black">후기</h2><br><br>
+								<br><br><h3 id="article">후기</h3><br><br>
 								
-								<label>평점</label><br>
+								<label id="title">평점</label><br>
 									
 									<div  name="myform" id="myform">
 										<span class="myratings" style="color: #ccc;">5.0</span>
@@ -487,7 +490,7 @@ function updateStar() {
 										<input type="radio" name="score" value="1.0" id="rate5"><label for="rate5">★</label>								
 									</div><br><br><br>
 	                            
-								<label>후기글</label><br><br>
+								<label id="title">후기글</label><br><br>
 									<textarea rows="20" cols="50" id="review" name="review" placeholder="후기글을 작성해주세요">${updateBoard.review }</textarea>
 							</div>
 							
@@ -508,11 +511,8 @@ function updateStar() {
 								<h2 style="text-align: center;">게시글을 수정하시겠습니까?</h2>
 							<br><br><br><br>
                                     
-								<button id="btnCancle">
-									<a class="btn block" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/reviewBoard" style="text-decoration: none; color: white; font-size: 14px; font-weight: bold; ">취소</a>
-								</button>
-                                    
-								<button type="submit" id="btnUpdate" name="btnUpdate" style="color: white; font-size: 14px;">수정</button>
+								<a class="btn block" id="btnCancle" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/reviewBoard" >취소</a>
+								<button type="submit" id="btnUpdate" name="btnUpdate">수정</button>
                                     
 							</div>
 						</fieldset>
