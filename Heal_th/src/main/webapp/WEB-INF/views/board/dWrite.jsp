@@ -21,32 +21,28 @@
 
 header {margin-bottom: 0px; }
 
-#btnCancle {
-    width: 100px;
-    background: #616161;
-    font-size: 21px;
-    font-weight: bold;
-    color: white;
-    border: 0 none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 10px 5px; 
-    margin: 10px 5px;
-    padding-bottom: 14px; 
-	height: 52px;
-	width: 100px;
-	margin-left: 195px;
-	margin-right: 18px;
+#btnCancle{
+     width: 100px; 
+     background: #616161; 
+     font-weight: bold; 
+     color: white; 
+     border: 0 none; 
+     border-radius: 0px; 
+     cursor: pointer; 
+     padding: 15px 5px; 
+     margin: 10px 5px; 
+     margin-left: 208px;
 }
+
+
 
 #btnWrite {
     width: 100px;
     background: #7ca3f5;
-    font-size: 21px;
     font-weight: bold;
     color: white;
     border: 0 none;
-    border-radius: 5px;
+    border-radius: 0px;
     cursor: pointer;
     padding: 10px 5px; 
     margin: 10px 5px;
@@ -54,6 +50,7 @@ header {margin-bottom: 0px; }
 	height: 52px;
 	width: 100px;
 }
+
 
 /*form styles*/
 #msform {
@@ -248,6 +245,11 @@ header {margin-bottom: 0px; }
     text-align: center;
 }
 
+/* content style */
+#title{font-size: 15px; font-weight: bold;}
+
+#article{color: black; font-size: 18px; font-weight: bold;}
+
 
 </style>
 
@@ -260,6 +262,21 @@ $(document).ready(function(){
 	
 
 	$(".next").click(function(){
+		
+		//유효성 검사
+		if($("#dTitle").val() == ""){
+	 		console.log("제목을 입력하세요")
+	 		$("#dTitleError").html("* 제목을 입력해주세요")
+	 		$("#dTitleError").css("color","red")
+			return false
+		}
+		
+		if($("#prodClassification").val() == ""){
+	 		console.log("운동종목을 입력하세요")
+	 		$("#prodClassificationError").html("* 운동종목을 입력해주세요")
+	 		$("#prodClassificationError").css("color","red")
+			return false
+		}
 		
 	    current_fs = $(this).parent();
 	    next_fs = $(this).parent().next();
@@ -284,15 +301,42 @@ $(document).ready(function(){
 	        duration: 600
 	    });
 	    
-	    if($("#bfTitle").val().length == 0) {
-				$("#bfTitle").focus(function() {
-					alert("제목 입력");					
-				});
-			
-				return false;
-			
+	    
+	});
+	
+$(".next2").click(function(){
+		
+		//유효성 검사
+		if($("#dContent").val() == ""){
+	 		console.log("내용을 입력하세요")
+	 		$("#dContentError").html("* 내용을 입력해주세요")
+	 		$("#dContentError").css("color","red")
+			return false
 		}
-			
+		
+	    current_fs = $(this).parent();
+	    next_fs = $(this).parent().next();
+	    
+	    //Add Class Active
+	    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+	    
+	    //show the next fieldset
+	    next_fs.show(); 
+	    //hide the current fieldset with style
+	    current_fs.animate({opacity: 0}, {
+	        step: function(now) {
+	            // for making fielset appear animation
+	            opacity = 1 - now;
+
+	            current_fs.css({
+	                'display': 'none',
+	                'position': 'relative'
+	            });
+	            next_fs.css({'opacity': opacity});
+	        }, 
+	        duration: 600
+	    });
+	    
 	    
 	});
 	
@@ -325,7 +369,7 @@ $(document).ready(function(){
 	});
 	
 	$("#btnInsert").click(function() {
-		
+		confirm("게시글을 등록하시겠습니까?");
 		$(this).parents("form").submit();
 		alert("50 포인트가 적립됐습니다");
 	})
@@ -363,14 +407,25 @@ $(document).ready(function(){
                             <!-- fieldsets -->
 			            <fieldset>
 				            <div class="form-card"><br><br>
-				             	<label for="dTitle">제목</label>
+				           		<h3 id="article">내용</h3><br><br>
+				             	<label for="dTitle" id="title">제목</label>
 									<input type="text" id="dTitle" name="dTitle" placeholder="제목을 입력해주세요" required id="dTitle">
-				                 <br><br>
+				                 	<div id="dTitleError" class="resMsg"></div>
+				                 <br>
 				                        
-								<label for=	"prodClassification">제품 분류</label>
-									<input type="text" id="prodClassification" name="prodClassification" required id="prodClassification">
-				                <br>
-				                <label for="file">첨부파일</label><br>
+								<label for=	"prodClassification" id="title" style="margin-right: 15px;">제품 분류</label>
+				                	<select id="prodClassification" name="prodClassification" style="font-size: 13px; color: black;">
+										<option value="채소/과일" selected="selected">채소/과일</option>
+										<option value="유제품">유제품</option>
+										<option value="견과/쌀/밀">견과/쌀/밀</option>
+										<option value="정육/계란">정육/계란</option>
+										<option value="수산/해산/건어물">수산/해산/건어물</option>
+									</select>
+				                	<span style="color: red; font-size: 10px;">* 공유하시고 싶은 식단의 메인 제품을 선택해 주세요</span>
+				                	<div id="prodClassificationError" class="resMsg"></div>
+				                <br><br>
+				                
+				                <label for="file">첨부파일</label><br><br>
 									<jsp:include page="../file/upload.jsp" /> 
 								</div>
 
@@ -381,14 +436,14 @@ $(document).ready(function(){
 						<fieldset>
 							<div class="form-card">
 								<br><br>
-								<h4 style="color: black">내용</h4><br><br>
+								<h3 id="article">내용</h3><br><br>
 									<textarea rows="20" cols="50" id="dContent" name="dContent" placeholder="게시글을 작성해주세요"></textarea>
-									
+									<div id="dContentError" class="resMsg"></div>
 							</div>  <br><br><br>                          
 							
 							<input type="button" name="previous" class="previous action-button-previous" onClick="javascript:window.scrollTo(0,0)"
                                  value="이전"/>
-                                <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)"
+                                <input type="button" name="next" class="next2 action-button" onClick="javascript:window.scrollTo(0,0)"
                                  value="다음"/>
 							
 							<br><br><br><br><br><br><br>

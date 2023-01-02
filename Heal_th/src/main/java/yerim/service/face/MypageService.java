@@ -114,7 +114,7 @@ public interface MypageService {
 	 * @param session -한줄 소개
 	 * @return
 	 */
-	public Users getIntro(HttpSession session);
+	public Users getmypageInfo(HttpSession session);
 
 	/**
 	 * 탈퇴 처리하기

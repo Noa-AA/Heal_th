@@ -194,7 +194,7 @@ body{
 
 #pIcon{display: block; width: 14px; margin-right:8px; margin-top: 20px;}
 
-#thumbnail{border-radius: 10px; width: 259px; height: 150px; margin-top: -113px; }
+#thumbnail{border-radius: 10px; width: 240px; height: 141px; margin-top: -105px; }
 
 #imgNone{display: none;}
 
@@ -366,8 +366,8 @@ $(document).ready(function() {
 <c:forEach items="${boardSearch }" var="boardSearch">
 	<ul id="searchResult" style="list-style: none;">
 		<li style="float: left; display: none;" >${boardSearch.verifyNo }</li>
-		<li style="float: left; line-height:380%;"><a href="${path}/board/verifyView?verifyNo=${boardSearch.verifyNo}" id="boardUrl">${boardSearch.vTitle }</a></li><br>
-		<li style="float: left;" class="ellipsis" >${boardSearch.verifyContent }</li><br>
+		<li style="display:  -webkit-inline-box; inline-size: -webkit-fill-available; line-height: 3;"><a href="${path}/board/verifyView?verifyNo=${boardSearch.verifyNo}" id="boardUrl">${boardSearch.vTitle }</a></li><br>
+		<li style="display:  -webkit-inline-box; inline-size: -webkit-fill-available; line-height: 3;" class="ellipsis" >${boardSearch.verifyContent }</li><br>
 		
 		<li style="float: right;">
 		
@@ -383,7 +383,7 @@ $(document).ready(function() {
 			</c:if>	
 			<c:if test="${fileSto != null}">
 				<img src="${pageContext.request.contextPath}/upload/${fileSto }" id="thumbnail">
-			</c:if>		
+			</c:if>																
 			
 		</li>
 		

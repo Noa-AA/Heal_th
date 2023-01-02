@@ -26,10 +26,18 @@
 		
 		
 		//12시 넘으면 오후 12시 안넘으면 오전 표시
-		if( date.getHours() >= 12 ) {
+		if( date.getHours() >= 12 &&  date.getHours() >= 22 ) {
 			var dateInfo = "오후 " + (date.getHours()-12) + ":" + date.getMinutes();
-		} else {
+		
+		//시간이 한자리수일때는 0을 붙인다
+		} else if( date.getHours() >= 12 &&  date.getHours() < 22 ){
+			var dateInfo = "오후 " + "0" + (date.getHours()-12) + ":" + date.getMinutes();
+	
+		} else if ( date.getHours() < 12 &&  date.getHours() >= 10 ) {
 			var dateInfo = "오전 " + date.getHours() + ":" + date.getMinutes();
+			//시간이 한자리수일때는 0을 붙인다
+		} else {
+			var dateInfo = "오전 " + "0" + date.getHours() + ":" + date.getMinutes();
 		}
 		
 		var socMsg = data.split(" : ");
@@ -44,23 +52,30 @@
 // 		socMsg[0] : 보낸사람닉네임  &  socMsg[1] : "+IMG+"(구별자)  &  socMsg[2] : 파일이름  &  socMsg[3] : 룸번호
 		
 		//일반 메세지
-		if ( socMsg[0] == "${senderNick }" && socMsg[1] != "listChat" && socMsg[1] != "+IMG+" ) {
-			$("#messages").append( "<div id='senderMsg'><span id='timeS'>" + dateInfo + "</span><a id='msgS'>" + socMsg[1] + "</a></div>");
-		} else if ( socMsg[0] != "${senderNick }" && socMsg[1] != "listChat" && socMsg[1] != "+IMG+" ) {
-			$("#messages").append( "<div id='receiverMsg'><a id='msgR'>" + socMsg[1] + "</a><span id='timeR'>" + dateInfo + "</span></div>");
+		if ( socMsg[0] == "${senderNick }" && socMsg[1] != "listChat" && socMsg[1] != "+IMG+" && socMsg[1] != "+FILE+" ) {
+			$("#messages").append( "<div class='senderMsg'><span class='timeS'>" + dateInfo + "</span><a class='msgS'>" + socMsg[1] + "</a></div>");
+		} else if ( socMsg[0] != "${senderNick }" && socMsg[1] != "listChat" && socMsg[1] != "+IMG+" && socMsg[1] != "+FILE+" ) {
+			$("#messages").append( "<div class='receiverMsg'><a class='msgR'>" + socMsg[1] + "</a><span class='timeR'>" + dateInfo + "</span></div>");
 		} 
 		
 		//왼쪽 미리보기 메세지
 		if ( socMsg[1] === "listChat" ) {
-			$("."+socMsg[3]).html( socMsg[2] );
+			$("."+socMsg[3]).html( socMsg[2] + "<span class='timeView'> " + dateInfo + "</span>");
 			$('#myId').after( $("."+socMsg[3]).parents("button") );
 		} 
 		 
 		//이미지 메세지
 		if ( socMsg[0] == "${senderNick }" && socMsg[1] == "+IMG+"){
-			$("#messages").append( "<div id='senderImg'><span id='timeImgS'>" + dateInfo + "</span><img src='${pageContext.request.contextPath}/upload/" + socMsg[2] + "' id='imgS' ></div>");
+			$("#messages").append( "<div class='senderImg'><span class='timeImgS'>" + dateInfo + "</span><img src='${pageContext.request.contextPath}/upload/" + socMsg[2] + "' class='imgS' ></div>");
 		} else if ( socMsg[0] != "${senderNick }" && socMsg[1] == "+IMG+") {
-			$("#messages").append( "<div id='receiverImg'><img src='${pageContext.request.contextPath}/upload/" + socMsg[2] + "' id='imgR' ><span id='timeImgR'>" + dateInfo + "</span></div>");
+			$("#messages").append( "<div class='receiverImg'><img src='${pageContext.request.contextPath}/upload/" + socMsg[2] + "' class='imgR' ><span class='timeImgR'>" + dateInfo + "</span></div>");
+		}
+		
+		//파일 메세지
+		if ( socMsg[0] == "${senderNick }" && socMsg[1] == "+FILE+"){
+			$("#messages").append( "<div class='senderMsg'><span class='timeS'>" + dateInfo + "</span><a href='/upload/" + socMsg[2] + "' download='" + socMsg[2] + "' class='msgS'>" + socMsg[2] + "</a></div>");
+		} else if ( socMsg[0] != "${senderNick }" && socMsg[1] == "+FILE+") {
+			$("#messages").append( "<div class='receiverMsg'><a href='/upload/" + socMsg[2] + "' download='" + socMsg[2] + "' class='msgR'>" + socMsg[2] + "</a><span class='timeR'>" + dateInfo + "</span></div>");
 		}
 
 		

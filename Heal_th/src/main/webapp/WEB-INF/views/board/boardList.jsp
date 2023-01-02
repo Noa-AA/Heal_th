@@ -25,8 +25,8 @@
     min-width: 1048px;
 	height: 200px;
  	border-top: 1px solid #eee; 
-/* 	margin-top: 160px; */
-	margin-top: 720px;
+ 	margin-top: 160px; 
+/* 	margin-top: 720px; */
 	background-color: #f8f8f8;
 } 
 
@@ -158,7 +158,7 @@
     font-weight: 700;
 }
 
-body{overflow-x: hidden}
+body{overflow-x: hidden; padding-top: 0px;}
 
 #content{
 max-width: 1200px;
@@ -181,7 +181,7 @@ display: block;
   /* only works with absolute positioning */
   position: absolute;
 
-  /* Make sure containers are full-width and height */
+  /* containers - full-width and height */
   /* height: 100vh; */
   height: 500px;
   left: 0;
@@ -222,7 +222,7 @@ display: block;
 
 .container_solid .title_wrapper h1 {
   /* the text background */
-  background-image: url(https://i.postimg.cc/YSbJhmR8/pexels-pixabay-34514.jpg);
+  background-image: url('/resources/img/board/font.jpg');
   background-size: 100vw auto;
   background-position: center;
   
@@ -254,46 +254,36 @@ background-image: url('/resources/img/board/font.jpg');
   color: white;
 }
 
-section {
-/*   min-height: 100vh; */
-  min-height: 400px;
-  margin: auto;
-  max-width: 1200px;
-  margin-top: -500px;
+@font-face {
+    font-family: 'RixYeoljeongdo_Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-01@1.0/RixYeoljeongdo_Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
-section h2 {
-  font-family: 'Fraunces', serif;
-}
-
-section p {
-@import url(//fonts.googleapis.com/earlyaccess/jejumyeongjo.css);
-font-family: 'Karla Tamil Inclined', sans-serif;
-/*   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; */
-}
-
-#rightAni{
-	display: inline-block;
-	padding: 0;
-	margin: 0;
-	max-width: 1000px;
-}
-
-#animation {
-  min-height: 100vh;
-  margin: auto;
+fieldset h2 {
+ 	font-family: 'RixYeoljeongdo_Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-01@1.0/RixYeoljeongdo_Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  	margin-bottom: 10px;
+  
 }
 
 #scroll-img {
-            width:300px; height:300px; margin:10px;
-            border: none;
-            background-image: url('/resources/img/board/board1.png');
-            background-size: 100% 100%;
-            background-attachment: scroll;
-        }
+	width:307px; height:228px;
+    border: none;
+    background-image: url('/resources/img/board/Graphic 1.png');
+    background-size: 100% 100%;
+    background-attachment: scroll;
+        margin-left: 885px;
+    maring-top: 36px;
+    display: flex;
+    margin-top: -230px;
+}
 
 #verifyBoard{
-	width:300px; height:300px; margin:10px;
+	width:329px; height:292px;
 	border: none;
 	 background-image: url('/resources/img/board/board.png');
 	background-size: 100% 100%;
@@ -301,20 +291,23 @@ font-family: 'Karla Tamil Inclined', sans-serif;
 }
 
 #dietBoard{
-	width:300px; height:300px; margin:10px;
+	width:276px; height:300px;
 	border: none;
 	background-image: url('/resources/img/board/board2.png');
 	background-size: 100% 100%;
-	background-attachment: scroll;
+	background-attachment: scroll;    
+	margin-top: 15px;
 }
 
 #reviewBoard{
-	width:300px; height:300px; margin:10px;
+	width:285px; height:300px;
 	border: none;
 	background-image: url('/resources/img/board/board3.png');
 	background-size: 100% 100%;
 	background-attachment: scroll;
 }
+
+#pFont{font-size: 16px; font-weight: 500; color: #5F5F5F;}
 
 
 
@@ -367,23 +360,24 @@ AOS.init({
   </div>
 </fieldset>
 
-
-
 <br>
-<section>
 
-<div data-aos="fade-right" 
-        	 data-aos-offset="200" 
-             data-aos-easing="ease-out-cubic"
-             data-aos-duration="2000" 
-             id="rightAni" style="display: inline-block; margin-left: 300px;">
+<fieldset style="width: 1200px; margin-left: 400px; margin-top: -250px;">
+	<div data-aos="fade-right" 
+	        	 data-aos-offset="200" 
+	             data-aos-easing="ease-out-cubic"
+	             data-aos-duration="2000" 
+	             style="display: flex; width: 1200px;">
+	             
+		<div style="width:750px; height:200px;">
+			  <h2>Before & After 게시판</h2><br>
+			  <p id="pFont">비포 애프터 게시판은 자신에게 적합한 운동 종목을 선택하여 특정 기간 동안 원하는 목표를 향해 달려나가는 순간을 공유하는 공간입니다.</p>
+			  <p id="pFont">비포 애프터 게시판에서는 운동 시작 전 과 후의 모습을 기록하여 목표 달성 후의 짜릿한 성취감을 느낄 수 있습니다.</p>
+			  <p id="pFont">또한 많은 사람들에게 나만의 성공 노하우를 전수하여 많은 사람들이 자신의 목표를 이뤄낼 수 있도록 도와줄 수 있습니다.</p>
+			  <p id="pFont">비포 애프터 게시판에서 아름다운 성공의 순간을 기록해주세요</p>
+		</div>
 
-	  <h2>Before & After</h2><br>
-	  <p style="font-size: 15px;">비포 애프터 게시판은 자신에게 적합한 운동 종목을 선택하여 특정 기간 동안 원하는 목표를 향해 달려나가는 순간을 공유하는 공간입니다.</p>
-	  <p>비포 애프터 게시판에서는 운동 시작 전 과 후의 모습을 기록하여 목표 달성 후의 짜릿한 성취감을 느낄 수 있습니다.</p>
-	  <p>또한 많은 사람들에게 나만의 성공 노하우를 전수하여 많은 사람들이 자신의 목표를 이뤄낼 수 있도록 도와줄 수 있습니다.</p>
-	  <p>비포 애프터 게시판에서 아름다운 성공의 순간을 기록해주세요</p>
-</div>
+	</div>
 
 
 <div data-aos="fade-up" 
@@ -391,106 +385,122 @@ AOS.init({
              data-aos-easing="ease-out-cubic"
              data-aos-duration="2000" 
              id="animation"
-             style="margin-right: -300px; display: block; margin-top: -200px;">
+             style="display: flex; width: 1200px;">
              
-	  <div id="scroll-img" style=" float: right; maring-top: 600px; display: inline-block;"></div>
+	  <div id="scroll-img"></div>
 </div>
 
-</section>
+</fieldset>
+
+
+<div style="height: 300px;"></div>
 
 
 <!-- 운동 인증 게시판 -->
-<section>
-
+<fieldset style="width: 1200px; margin-left: 400px;">
 
 <div data-aos="fade-up" 
         	 data-aos-offset="200" 
              data-aos-easing="ease-out-cubic"
              data-aos-duration="2000" 
-             id="animation"
-             style="margin-left: 300px; float: left; display: block;">
+             style="display: flex;">
              
 	  <div id="verifyBoard"></div>
 </div>
 
-<div data-aos="fade-left" 
-        	 data-aos-offset="200" 
-             data-aos-easing="ease-out-cubic"
-             data-aos-duration="2000" 
-             id="rightAni" style="display: inline-block; margin-right: -332px; margin-left: -150px; float: right; margin-top: 81px;">
-
-	  <h2>Verify Board</h2><br>
-	  <p style="font-size: 15px;">운동 인증 게시판은 자신의 데일리 운동을 기록하고 공유하는 공간입니다.</p>
-	  <p>운동 인증 게시판에서 특정 목표와 상관 없이 자신의 운동 습관을 살펴볼 수 있습니다.</p>
-	  <p>또한 많은 사용자들에게 자신만의 운동법을 공유하고 운동하기 좋은 습관을 만들 수 있도록 도와줄 수 있습니다.</p>
-	  <p>운동 인증 게시판에서 자신만의 데일리 운동을 기록해주세요</p>
+<div style="width:750px; height:200px; margin-top: -221px; margin-left: 476px;">
+	<div data-aos="fade-left" 
+	        	 data-aos-offset="200" 
+	             data-aos-easing="ease-out-cubic"
+	             data-aos-duration="2000" >
+		  <h2>운동 인증 게시판</h2><br>
+		  <p id="pFont">운동 인증 게시판은 자신의 데일리 운동을 기록하고 공유하는 공간입니다.</p>
+		  <p id="pFont">운동 인증 게시판에서 특정 목표와 상관 없이 자신의 운동 습관을 살펴볼 수 있습니다.</p>
+		  <p id="pFont">또한 많은 사용자들에게 자신만의 운동법을 공유하고 운동하기 좋은 습관을 만들 수 있도록 도와줄 수 있습니다.</p>
+		  <p id="pFont">운동 인증 게시판에서 자신만의 데일리 운동을 기록해주세요</p>
+	</div>
 </div>
 
-</section>
 
+</fieldset>
+
+
+<div style="height: 400px;"></div>
 
 
 <!-- 식단 공유 게시판 -->
-<section>
+<fieldset style="width: 1200px; margin-left: 400px;">
 
 <div data-aos="fade-right" 
         	 data-aos-offset="200" 
              data-aos-easing="ease-out-cubic"
              data-aos-duration="2000" 
-             id="rightAni" style="display: inline-block; margin-left: 300px;">
-
-	  <h2>Diet Board</h2><br>
-	  <p style="font-size: 15px;">식단 공유 게시판은 자신이 세운 목표에 맞춰 건강한 식단을 공유하는 게시판입니다.</p>
-	  <p>식단 공유 게시판에서는 체중 감량, 체중 증량 등에 상관 없이 건강하고 맛있는 자신만의 특별 레시피를 공유할 수 있습니다.</p>
-	  <p>이를 통해 많은 사람들이 건강하고 맛있는 레시피로 원하는 목표를 이루는데 도움을 줄 수 있습니다.</p>
-	  <p>식단 공유 게시판에서 자신만의 식단을 기록해주세요</p>
+             style="display: flex;">
+             
+<div style="height:200px; width: 757px;">
+	  <h2>식단 공유 게시판</h2><br>
+	  <p id="pFont">식단 공유 게시판은 자신이 세운 목표에 맞춰 건강한 식단을 공유하는 게시판입니다.</p>
+	  <p id="pFont">식단 공유 게시판에서는 체중 감량, 체중 증량 등에 상관 없이 건강하고 맛있는 자신만의 특별 레시피를 공유할 수 있습니다.</p>
+	  <p id="pFont">이를 통해 많은 사람들이 건강하고 맛있는 레시피로 원하는 목표를 이루는데 도움을 줄 수 있습니다.</p>
+	  <p id="pFont">식단 공유 게시판에서 자신만의 식단을 기록해주세요</p>
+</div>
 </div>
 
 
 <div data-aos="fade-up" 
-        	 data-aos-offset="200" 
-             data-aos-easing="ease-out-cubic"
-             data-aos-duration="2000" 
-             id="animation"
-             style="margin-right: -300px; display: block; margin-top: -200px;">
+	data-aos-offset="200" 
+    data-aos-easing="ease-out-cubic"
+    data-aos-duration="2000" 
+	style="margin-left: 926px; display: block; margin-top: -266px;">
              
-	  <div id="dietBoard" style=" float: right; maring-top: 600px; display: inline-block;"></div>
+	  <div id="dietBoard" style="display: inline-block;"></div>
 </div>
 
-</section>
+</fieldset>
+
+
+<div style="height: 290px;"></div>
 
 
 <!-- 시설 후기 게시판 -->
-<section style="height: 300px;">
+<fieldset style="width: 1200px; margin-left: 400px;">
 
-
+<div>
 <div data-aos="fade-up" 
         	 data-aos-offset="200" 
              data-aos-easing="ease-out-cubic"
              data-aos-duration="2000" 
              id="animation"
-             style="margin-left: 300px; float: left; display: block;">
+             style="display: flex;">
              
 	  <div id="reviewBoard"></div>
 </div>
+</div>
 
 <div data-aos="fade-left" 
-        	 data-aos-offset="200" 
-             data-aos-easing="ease-out-cubic"
-             data-aos-duration="2000" 
-             id="rightAni" style="display: inline-block; margin-right: -332px; margin-left: -150px; float: right; margin-top: 81px;">
+	data-aos-offset="200" 
+    data-aos-easing="ease-out-cubic"
+    data-aos-duration="2000" 
+    style="display: flex;">
 
-	  <h2>Review Board</h2><br>
-	  <p style="font-size: 15px;">시설 후기 게시판은 자신이 다녔던 운동 시설의 후기를 공간입니다.</p>
-	  <p>시설 후기 게시판에서는 원하는 운동 종목과 지역에 맞춰 다양한 시설들의 생생한 후기를 들을 수 있습니다.</p>
-	  <p>또한 많은 사람들에게 나만의 성공 노하우를 전수하여 많은 사람들이 자신의 목표를 이뤄낼 수 있도록 도와줄 수 있습니다.</p>
-	  <p>비포 애프터 게시판에서 아름다운 성공의 순간을 기록해주세요</p>
+<div style="width:750px; height:200px; margin-top: -221px; margin-left: 448px;">
+	  <h2>시설 후기 게시판</h2><br>
+	  <p id="pFont">시설 후기 게시판은 자신이 다녔던 운동 시설의 후기를 공간입니다.</p>
+	  <p id="pFont">시설 후기 게시판에서는 원하는 운동 종목과 지역에 맞춰 다양한 시설들의 생생한 후기를 들을 수 있습니다.</p>
+	  <p id="pFont">또한 많은 사람들에게 나만의 성공 노하우를 전수하여 많은 사람들이 자신의 목표를 이뤄낼 수 있도록 도와줄 수 있습니다.</p>
+	  <p id="pFont">비포 애프터 게시판에서 아름다운 성공의 순간을 기록해주세요</p>
 </div>
 
-</section>
+
+</div>
+
+</fieldset>
 
 
 </div>
+
+
+<div style="height: 200px;"></div>
 
 </body>
 

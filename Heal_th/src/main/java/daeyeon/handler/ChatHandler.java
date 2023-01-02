@@ -6,6 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.socket.CloseStatus;
@@ -28,7 +29,7 @@ public class ChatHandler extends TextWebSocketHandler {
 	private Map<Integer ,WebSocketSession> userNoSession = new HashMap<Integer ,WebSocketSession>();
 	
 	@Autowired private ChatService chatService;
-	
+
 	
 	// afterConnectionEstablished : 웹소켓이 연결되면 호출되는 함수
 	// 클라이언트와 연결 이후에 실행되는 메서드
@@ -86,6 +87,10 @@ public class ChatHandler extends TextWebSocketHandler {
     			//메세지가 이미지 형식일때
     			if( message.getPayload().contains("+IMG+") ) {
     				userNoSession.get(userNoKey).sendMessage(new TextMessage(userNick + " : " + "+IMG+" + " : " + message.getPayload() + " : " + roomNo));
+    			
+    			} else if( message.getPayload().contains(".txt") ) {
+    				userNoSession.get(userNoKey).sendMessage(new TextMessage(userNick + " : " + "+FILE+" + " : " + message.getPayload() + " : " + roomNo));
+    			
     			} else {
     				//일반 메세지일때
     				userNoSession.get(userNoKey).sendMessage(new TextMessage(userNick + " : " + message.getPayload() + " : " + roomNo));
@@ -103,7 +108,7 @@ public class ChatHandler extends TextWebSocketHandler {
     	chat.setUserNo(userNo);
     	
     	//--- chat 테이블에 채팅 데이터 집어넣기
-    	if(!message.getPayload().contains("+IMG+")) {
+    	if(!message.getPayload().contains("+IMG+") && !message.getPayload().contains(".txt")) {
     		chatService.addChat(chat);
     	}
     } 
@@ -111,7 +116,7 @@ public class ChatHandler extends TextWebSocketHandler {
     // 클라이언트와 연결을 끊었을 때 실행되는 메소드
     // afterConnectionClosed : 웹소켓이 연결이 종료되면 호출되는 함수
     // 웹소켓이 연결이 종료 = 세션 종료
-    @Override
+    @Override 
     public void afterConnectionClosed( WebSocketSession session, CloseStatus status) throws Exception {
     	int userNo = (Integer)session.getAttributes().get("userNo");
     	

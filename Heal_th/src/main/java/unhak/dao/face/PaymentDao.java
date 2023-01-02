@@ -1,5 +1,6 @@
 package unhak.dao.face;
 
+import unhak.dto.PaymentDto;
 import yerim.dto.Users;
 
 public interface PaymentDao {
@@ -13,7 +14,8 @@ public interface PaymentDao {
 	 */
 	public Users selectUserInfo(int userno);
 
-	
+	public void insertPayment(PaymentDto payment);
+
 	
 	
 }

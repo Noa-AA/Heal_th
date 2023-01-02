@@ -171,12 +171,14 @@ public class BfBoardController {
 			beforeafter = bfBoardService.view(beforeafter);
 			logger.debug("조회된 게시글 {}", beforeafter);
 			
+			int boardNo = beforeafter.getBfNo(); //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
+	        int categoryNo = 1;//----------------카테고리번호 넣어주세여~
+	        model.addAttribute("boardNo", boardNo);
+	        model.addAttribute("categoryNo", categoryNo);
+			
 			//모델값 전달
 			model.addAttribute("updateBoard", beforeafter);
 			
-			//첨부파일 모델값 전달
-	//		BoardFile boardFile = boardService.getAttachFile(beforeafter);
-	//		model.addAttribute("boardFile", boardFile);
 		
 			return "/board/bfUpdate";
 
@@ -185,14 +187,23 @@ public class BfBoardController {
 
 	
 	@PostMapping("/board/bfUpdate")
-	public String updateProcess(Beforeafter beforeafter, HttpSession session) {
+	public String updateProcess(Beforeafter beforeafter, HttpSession session, Model model
+			, List<MultipartFile> multiFile) {
 		logger.debug("{}", beforeafter);
+		
+		int boardNo = beforeafter.getBfNo();
+		int categoryNo = 1;
+		fileuploadService.updateFile(multiFile,boardNo,categoryNo);
+		
+		model.addAttribute("boardNo", boardNo);
+	    model.addAttribute("categoryNo", categoryNo);
 		
 		bfBoardService.update(beforeafter);
 		
 		return "redirect:/board/bfView?bfNo=" + beforeafter.getBfNo();
 	}
 	
+ 
 	
 	//게시글 삭제
 	@RequestMapping("/board/bfDelete")

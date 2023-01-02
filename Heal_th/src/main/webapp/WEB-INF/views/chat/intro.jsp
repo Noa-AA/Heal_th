@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
-<link rel="stylesheet" href="style.css">
 
 <!-- --------------------------스크립트 시작 -->
 <script type="text/javascript">
@@ -350,13 +349,29 @@ select::-ms-expand { display:none; }
 					<img src="/resources/img/chat_default.png" class="profilePhoto">
 				</c:if>
 				
-				<!-- 오른쪽 텍스트 부분 -->
+				<!-- 오른쪽 텍스트 부분 --> 
 				<div class="rightCon">
 					<!-- 상담 이름, 등급 -->
 					<div class="rightTop">
 						<div class="name">${userList.userNick }</div>
-						<div class="ranking">${userList.rankingNo }등급</div>
-						
+<!-- 						<div class="ranking">햇병아리 등급</div> -->
+						<c:choose> 
+							<c:when test="${userList.rankingNo eq 1 }">
+							      <div class="ranking">햇병아리 등급</div>
+							</c:when>
+							<c:when test="${userList.rankingNo eq 2 }">
+							      <div class="ranking">튼튼이 등급</div>
+							</c:when>
+							<c:when test="${userList.rankingNo eq 3 }">
+							      <div class="ranking">트레이너 등급</div>
+							</c:when>
+							<c:when test="${userList.rankingNo eq 4 }">
+							      <div class="ranking">마스터 등급</div>
+							</c:when>
+							<c:otherwise>
+							        <div class="ranking">헬스신 등급</div>
+							</c:otherwise>
+						</c:choose> 
 					</div>
 					
 					<div class="job">${userList.userJob }</div>
@@ -467,11 +482,11 @@ select::-ms-expand { display:none; }
 		<form action="/chat/intro" method=post name="search" id="searchForm">
 
 			<select name="type" id="type">
-				<option value="userNick"  >닉네임</option>
-				<option value="userJob"  >직업</option>
+				<option value="userNick" <c:out value="${paging.type eq 'userNick'?'selected':'' }"/> >닉네임</option>
+				<option value="userJob"  <c:out value="${paging.type eq 'userJob'?'selected':'' }"/> >직업</option>
 			</select>
 			
-			<input id="searchText" type="text" name="keyword" placeholder="search...">
+			<input id="searchText" type="text" name="keyword" value="${paging.keyword }" placeholder="search...">
 			<button type="submit" id="searchIcon" ><i class="fas fa-search"></i></button>
 
 		</form>

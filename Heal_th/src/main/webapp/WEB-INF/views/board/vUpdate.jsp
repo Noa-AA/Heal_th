@@ -4,20 +4,55 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<jsp:include page="../layout/header.jsp" />
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>운동 인증 게시글 작성</title>
+<title>Insert title here</title>
 
-<script type="text/javascript" src="/resources/se2/js/service/HuskyEZCreator.js"></script>
+<jsp:include page="../layout/header.jsp" />
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+<!-- 스타일 -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"> -->
+<script scr="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- <script scr="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></script> -->
+
+<!-- 날짜 위젯 -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
 
 <style type="text/css">
 
-header {margin-bottom: 0px; }
+* {
+    margin: 0;
+    padding: 0;
+}
 
+header{margin-bottom: 140px;}
+
+body{padding: 0;}
+
+/* header <a>Tag style */
+
+a {
+    color: #000;
+    text-decoration: none;
+    text-decoration-line: none;
+}
+
+a:focus, a:hover {
+    text-decoration: none;
+    outline: none;
+}
+
+
+/* button style */
 #btnCancle{
      width: 100px; 
      background: #616161; 
@@ -26,7 +61,7 @@ header {margin-bottom: 0px; }
      border: 0 none; 
      border-radius: 0px; 
      cursor: pointer; 
-     padding: 15px 5px; 
+     padding: 10px 5px; 
      margin: 10px 5px; 
      margin-left: 208px;
 }
@@ -45,7 +80,9 @@ header {margin-bottom: 0px; }
     margin: 10px 5px;
     padding-bottom: 14px; 
 	height: 52px;
+	width: 100px;
 }
+
 
 /*form styles*/
 #msform {
@@ -76,8 +113,9 @@ header {margin-bottom: 0px; }
     box-sizing: border-box;
     width: 750px;
     height: 800px;
-    margin-left: 220px;
+/*     margin-left: 95px; */
     padding-bottom: 20px;
+    margin-left: 225px;
 
     /*stacking fieldsets above each other*/
     position: relative;
@@ -146,6 +184,7 @@ header {margin-bottom: 0px; }
 }
 
 
+
 /*The background card*/
 .card {
     z-index: 0;
@@ -170,7 +209,8 @@ header {margin-bottom: 0px; }
     color: lightgrey;
     width: 800px;
     text-align: center;
-    margin-left: 195px;
+/*     margin-left: 67px; */
+	margin-left: 205px;
 }
 
 
@@ -187,13 +227,18 @@ header {margin-bottom: 0px; }
 }
 
 /*Icons in the ProgressBar*/
-#progressbar #before:before { content: "\f023"; }
+#progressbar #before:before {
+/*     font-family: FontAwesome; */
+    content: "\f023";
+}
 
 #progressbar #goal:before {
+/*     font-family: FontAwesome; */
     content: "\f007";
 }
 
 #progressbar #after:before {
+/*     font-family: FontAwesome; */
     content: "\f09d";
 }
 
@@ -239,15 +284,18 @@ header {margin-bottom: 0px; }
     text-align: center;
 }
 
+/* content style */
+#title{font-size: 15px; font-weight: bold;}
+
+#article{color: black; font-size: 18px; font-weight: bold;}
 
 </style>
 
-</head>
-<body>
 
 <script type="text/javascript">
-$(document).ready(function() {
-	
+
+$(document).ready(function(){
+		
 	var current_fs, next_fs, previous_fs; //fieldsets
 	var opacity;
 	
@@ -277,15 +325,6 @@ $(document).ready(function() {
 	        duration: 600
 	    });
 	    
-	    if($("#bfTitle").val().length == 0) {
-				$("#bfTitle").focus(function() {
-					alert("제목 입력");					
-				});
-			
-				return false;
-			
-		}
-			
 	    
 	});
 	
@@ -316,32 +355,37 @@ $(document).ready(function() {
 	        duration: 600
 	    });
 	});
-	
+
+
 	$("#btnUpdate").click(function() {
 		
 		$(this).parents("form").submit();
-		alert("게시글이 수정됐습니다");
-	});
-	
+		alert("게시글 수정이 완료됐습니다");
+		
+	})
+		
+
 })
-
-
 </script>
+
+
+</head>
+<body>
 
 <div id="contents">
 <!-- MultiStep Form -->
-<div class="container-fluid" id="grad1" style="width: 1200px;">
-    <div class="row justify-content-center mt-0" style="width: 1200px;">
-        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2" style="width: 1200px;">
+<div class="container-fluid" id="grad1">
+    <div class="row justify-content-center mt-0">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2" style="max-width: 1200px;">
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3" style="width: 1200px;">
                 <h1><strong style="font-size: 40px; text-align: center;">운동 인증 게시글</strong></h1><br><br>
                 <p style="font-size: 15px; text-align: center;">게시글을 작성해주세요</p><br><br>
                 <div class="row">
                     <div class="col-md-12 mx-0">
                     
-                        <form id="msform" method="post" action="/board/vUpdate" enctype="multipart/form-data">
-                        
-                        	<input type="hidden" name="verifyNo" value="${param.verifyNo }">
+                         <form id="msform" method="post" action="/board/vUpdate" enctype="multipart/form-data">
+                       
+                        	 <input type="hidden" name="verifyNo" value="${param.verifyNo }">
                         
                             <!-- progressbar -->
                             <ul id="progressbar">
@@ -353,66 +397,69 @@ $(document).ready(function() {
                             <!-- fieldsets -->
 			            <fieldset>
 				            <div class="form-card"><br><br>
-				             	<label for="bfTitle">제목</label>
+				            	<h3 id="article">내용</h3><br><br>
+				             	<label for="bfTitle" id="title">제목</label>
 									<input type="text" id="vTitle" name="vTitle" value="${updateBoard.vTitle }" placeholder="제목을 입력해주세요" required id="vTitle">
 				                 <br><br>
-				                        
-								<label for=	"exercise">운동 종목</label>
+							<label for=	"exercise" id="title">운동 종목</label>
 									<input type="text" id="exercise" name="exercise" value="${updateBoard.exercise }" required id="exercise" placeholder="현재 하고 있는 운동 종목을 입력해주세요">
 				                <br>
-				                 <label for="weight">소요 시간</label>
+				                 <label for="weight" id="title">소요 시간</label>
 									<input type="text" id="time" name="time" value="${updateBoard.time }" required id="time" placeholder="소요 시간을 자유롭게 입력해주세요">
 				                  <br>
-				                  <label for="bfExercise">소비 칼로리</label>
+				                  <label for="bfExercise" id="title">소비 칼로리</label>
 				                    <input type="text" id="kcal" name="kcal" value="${updateBoard.kcal }" required id="kcal" placeholder="소비 칼로리를 입력해주세요 *숫자만 입력해주세요">
 				                  <br>
-				                  <label for="file">첨부파일</label><br><br>
-									<jsp:include page="../file/upload.jsp" /> <br>
+				                  <label for="file" id="title">첨부파일</label><br><br>
+									<jsp:include page="../file/fileUpdate.jsp" />   <br>
 								</div>
 
 								<br><br>
 			                        <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)" value="다음">
-						</fieldset>
+			                 
+			                 </fieldset>
+			                 
 			                            
 						<fieldset>
 							<div class="form-card">
-								<br><br>
-								<h4 style="color: black">내용</h4><br><br>
-									<textarea rows="20" cols="50" id="verifyContent" name="verifyContent" placeholder="게시글을 작성해주세요">${updateBoard.verifyContent}</textarea>
-									
-							</div>  <br><br><br>                          
-							
+							<br><br>
+								<h3 id="article">내용</h3><br><br>
+								<textarea rows="20" cols="50" id="verifyContent" name="verifyContent" placeholder="게시글을 작성해주세요">${updateBoard.verifyContent}</textarea>
+							</div>                            
+			                      <br><br>
+			                      
 							<input type="button" name="previous" class="previous action-button-previous" onClick="javascript:window.scrollTo(0,0)"
-                                 value="이전"/>
-                                <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)"
-                                 value="다음"/>
-							
-							<br><br><br><br><br><br><br>
-							
+			                                 value="이전"/>
+			                <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)"
+			                                 value="다음"/>
+                            
+                            <br><br><br><br><br><br><br><br>
 						</fieldset>
+
                             
 						<fieldset>
 							<div class="form-card">
 							<br><br><br><br>
 								<h2 style="text-align: center;">게시글을 수정하시겠습니까?</h2>
-							<br><br><br>
-                                    <a class="btn block" id="btnCancle" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/verifyBoard" >취소</a>
-									<button type="submit" class="btn btn-primary" id="btnUpdate">수정</button>
+							<br><br><br><br>
+                                    
+								<button id="btnCancle">
+									<a class="btn block" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/verifyBoard" style="text-decoration: none; color: white; font-size: 14px; font-weight: bold; ">취소</a>
+								</button>
+                                    
+								<button type="submit" id="btnUpdate" name="btnUpdate" style="color: white; font-size: 14px;">수정</button>
+                                    
 							</div>
 						</fieldset>
                         
                         </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
-
-
-
-
 
 
 </body>

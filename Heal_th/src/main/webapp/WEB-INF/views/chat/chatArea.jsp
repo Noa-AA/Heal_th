@@ -23,7 +23,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-
+	
 	$('#chatArea').scrollTop($('#chatArea')[0].scrollHeight);
 	
 	$("#sendBtn").on("click", function() {
@@ -140,24 +140,28 @@ button {
 
 /* 채팅을 보냈을때 --------------------------- */
 /* 내 채팅 */
-#senderMsg {
+.senderMsg {
 	text-align: right;
 	margin-right: 20px;
-	height: 40px;
 	margin-bottom: 8px;
 }
 
-#senderMsg > #msgS {
-	padding: 8px 16px;
+.senderMsg > .msgS {
+	padding: 9px 16px;
 	border-radius: 30px 2px 30px 30px;
 	background-color: #7ca3f5;
 	color: #fff;
 	font-weight: 400;
-	line-height: 40px;
 	font-size: 15px;
+	display: inline-block;
+	word-break:break-all;
+ 	max-width: 500px; 
+ 	min-height: 36px;
+ 	line-height: 18px;
+ 	text-align: left;
 }
 
-#senderMsg > #timeS {
+.senderMsg > .timeS {
 	width: 50px;
 	vertical-align: bottom;
 	padding-right: 5px;
@@ -167,24 +171,28 @@ button {
 }
 
 /* 상대 채팅 */
-#receiverMsg {
+.receiverMsg {
 	text-align: left;
 	margin-left: 20px;
-	height: 40px;
 	margin-bottom: 8px;
 }
 
-#receiverMsg > #msgR {
-	padding: 8px 16px;
+.receiverMsg > .msgR {
+	padding: 9px 16px;
 	border-radius: 2px 30px 30px 30px;
 	background-color: #eeeeee;
 	color: #222222;
 	font-weight: 400;
-	line-height: 40px;
 	font-size: 15px;
+	display: inline-block;
+	word-break:break-all;
+ 	max-width: 500px; 
+ 	min-height: 36px;
+ 	line-height: 18px;
+ 	text-align: left;
 }
 
-#receiverMsg > #timeR {
+.receiverMsg > .timeR {
 	width: 50px;
 	vertical-align: bottom;
 	padding-left: 5px;
@@ -196,18 +204,18 @@ button {
 
 /* 이미지를 보냈을때 --------------------------- */
 /* 내가 보낸 이미지 */
-#senderImg {
+.senderImg {
 	text-align: right;
 	margin-right: 20px;
 	margin-bottom: 8px;
 }
 
-#senderImg > #imgS {
+.senderImg > .imgS {
 	max-width: 400px;
     max-height: 200px;
 }
 
-#senderImg > #timeImgS {
+.senderImg > .timeImgS {
 	width: 50px;
 	vertical-align: bottom;
 	padding-right: 5px;
@@ -218,18 +226,18 @@ button {
 
 
 /* 상대방이 보낸 이미지 */
-#receiverImg {
+.receiverImg {
 	text-align: left;
 	margin-left: 20px;
 	margin-bottom: 8px;
 }
 
-#receiverImg > #imgR {
+.receiverImg > .imgR {
 	max-width: 400px;
     max-height: 200px;
 }
 
-#receiverImg > #timeImgR {
+.receiverImg > .timeImgR {
 	width: 50px;
 	vertical-align: bottom;
 	padding-left: 5px;
@@ -433,23 +441,34 @@ button {
 	    			
 	    				<%-- 채팅이 이미지파일일때 --%>
 	    				<c:if test="${fn:contains(str, '+IMG+')}">
-	    					<div id='senderImg'>
-	    						<span id='timeImgS'>
+	    					<div class='senderImg'>
+	    						<span class='timeImgS'>
 	    							<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
 									<fmt:formatDate value="${date }" pattern="a hh:mm" />
 	    						</span>
-	    						<img src="${pageContext.request.contextPath}/upload/${chatList.chatContents }" id="imgS">
+	    						<img src="${pageContext.request.contextPath}/upload/${chatList.chatContents }" class="imgS">
+	    					</div>
+	    				</c:if>
+	    				
+	    				<%-- 채팅이 파일일때 --%>
+	    				<c:if test="${fn:contains(str, '.txt')}">
+	    					<div class='senderMsg'>
+	    						<span class='timeS'>
+	    							<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
+									<fmt:formatDate value="${date }" pattern="a hh:mm" />
+	    						</span>
+	    						<a href="/upload/${chatList.chatContents }" download="${chatList.chatContents }" class='msgS'>${chatList.chatContents }</a>
 	    					</div>
 	    				</c:if>
 	    				
 	    				<%-- 채팅이 일반 채팅일때 --%>
-	    				<c:if test="${not fn:contains(str, '+IMG+')}">
-		    				<div id='senderMsg'>
-		    					<span id='timeS'>
+	    				<c:if test="${not fn:contains(str, '+IMG+') and not fn:contains(str, '.txt')}">
+		    				<div class='senderMsg'>
+		    					<span class='timeS'>
 		    						<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
 									<fmt:formatDate value="${date }" pattern="a hh:mm" />
 		    					</span>
-		    					<a id='msgS'>
+		    					<a class='msgS'>
 		    						${chatList.chatContents }
 		    					</a>
 		    				</div> 
@@ -463,23 +482,33 @@ button {
 	    				
 	    				<%-- 채팅이 이미지파일일때 --%>
 	    				<c:if test="${fn:contains(str, '+IMG+')}">
-	    					<div id='receiverImg'>
-	    						<img src="${pageContext.request.contextPath}/upload/${chatList.chatContents }" id="imgR">
-	    						<span id='timeImgR'>
+	    					<div class='receiverImg'>
+	    						<img src="${pageContext.request.contextPath}/upload/${chatList.chatContents }" class="imgR">
+	    						<span class='timeImgR'>
 	    							<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
 									<fmt:formatDate value="${date }" pattern="a hh:mm" />
 	    						</span> 
 	    					</div>
 	    				</c:if>
-	    			
+	    				
+	    				<%-- 채팅이 파일일때 --%>
+	    				<c:if test="${fn:contains(str, '.txt')}">
+	    					<div class='receiverMsg'>
+	    						<a href="/upload/${chatList.chatContents }" download="${chatList.chatContents }" class='msgR'>${chatList.chatContents }</a>
+	    						<span class='timeR'>
+	    							<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
+									<fmt:formatDate value="${date }" pattern="a hh:mm" />
+	    						</span>
+	    					</div>
+	    				</c:if>
 	    			
 	    				<%-- 채팅이 일반 채팅일때 --%>
-	    				<c:if test="${not fn:contains(str, '+IMG+')}">
-		    				<div id='receiverMsg'>
-		    					<a id='msgR'>
+	    				<c:if test="${not fn:contains(str, '+IMG+') and not fn:contains(str, '.txt')}">
+		    				<div class='receiverMsg'>
+		    					<a class='msgR'>
 		    						${chatList.chatContents }
 		    					</a>
-		    					<span id='timeR'>
+		    					<span class='timeR'>
 		    						<fmt:parseDate value="${chatList.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
 									<fmt:formatDate value="${date }" pattern="a hh:mm" />
 		    					</span>

@@ -20,7 +20,6 @@ import daeyeon.dto.Chat;
 import daeyeon.dto.ChatFile;
 import daeyeon.dto.RoomList;
 import daeyeon.service.face.ChatService;
-import daeyeon.util.AdminUserPaging;
 import daeyeon.util.ChatIntroPaging;
 import yerim.dto.Users;
 
@@ -47,17 +46,17 @@ public class ChatController {
 			chatIntroPaging = chatService.getChatIntroPaging(curPage, myUserNo);
 			
 			//회원등급 3이상 회원 조회
-			List<Users> userList = chatService.userlist(myUserNo, chatIntroPaging);
+			List<Users> searchList = chatService.userlist(myUserNo, chatIntroPaging);
 				
 			// 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
 			List<RoomList> roomList = chatService.roomList(myUserNo);
 			model.addAttribute("roomList", roomList);
 			
-			logger.info("userList : {}", userList);
+			logger.info("searchList : {}", searchList);
 			logger.info("roomList : {}", roomList);
 			
 			//모델값 전달 - Model객체 이용
-			model.addAttribute("userList", userList);
+			model.addAttribute("userList", searchList);
 			model.addAttribute("paging", chatIntroPaging);
 		}
 		
@@ -69,7 +68,7 @@ public class ChatController {
 					
 			//자신을 제외하기위한 자신의 회원번호 파라미터
 			myUserNo.setUserNo((Integer)session.getAttribute("userNo"));
-			chatIntroPaging.setUserNo((Integer)session.getAttribute("userNo"));
+			
 			
 			logger.info("chatIntroPaging : {}", chatIntroPaging);
 			
@@ -77,7 +76,7 @@ public class ChatController {
 			
 			chatIntroPaging = chatService.getSearchPaging(chatIntroPaging, curPage);
 			
-			
+			chatIntroPaging.setUserNo((Integer)session.getAttribute("userNo"));
 			chatIntroPaging.setType(searchTK.getType());
 			chatIntroPaging.setKeyword(searchTK.getKeyword());
 					
@@ -240,7 +239,7 @@ public class ChatController {
 		}
 		 
 		
-		//7. 이미지 전송
+		//7. 이미지, 파일 전송
 		@RequestMapping(value = "/fileup", produces = "application/text; charset=utf8")
 		@ResponseBody
 		public String fileUp( HttpSession session, ChatFile chatFile, MultipartFile file, Model model ) {
@@ -258,6 +257,7 @@ public class ChatController {
 			return chatFile.getStoredName();
 		}
 		
+	
 		
 	
 }

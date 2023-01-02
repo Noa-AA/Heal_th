@@ -61,7 +61,7 @@ a:focus, a:hover {
      border: 0 none; 
      border-radius: 0px; 
      cursor: pointer; 
-     padding: 10px 5px; 
+     padding: 11px 5px; 
      margin: 10px 5px; 
      margin-left: 208px;
 }
@@ -113,8 +113,9 @@ a:focus, a:hover {
     box-sizing: border-box;
     width: 750px;
     height: 800px;
-    margin-left: 95px;
+/*     margin-left: 95px; */
     padding-bottom: 20px;
+    margin-left: 225px;
 
     /*stacking fieldsets above each other*/
     position: relative;
@@ -208,7 +209,8 @@ a:focus, a:hover {
     color: lightgrey;
     width: 800px;
     text-align: center;
-    margin-left: 67px;
+/*     margin-left: 67px; */
+	margin-left: 205px;
 }
 
 
@@ -275,6 +277,20 @@ a:focus, a:hover {
     background: #7ca3f5;
 }
 
+#contents{
+	right: 50%;
+    left: 50%;
+    margin: -50px 0 0 -50px;
+    text-align: center;
+}
+
+/* content style */
+#title{font-size: 15px; font-weight: bold;}
+
+#article{color: black; font-size: 18px; font-weight: bold;}
+
+#information {display: flex; float: right; margin-top: 12px; font-weight: bold; font-size: 17px; margin-right: 19px;}
+
 
 </style>
 
@@ -282,7 +298,7 @@ a:focus, a:hover {
 <script type="text/javascript">
 
 $(document).ready(function(){
-		
+	
 	var current_fs, next_fs, previous_fs; //fieldsets
 	var opacity;
 	
@@ -312,15 +328,6 @@ $(document).ready(function(){
 	        duration: 600
 	    });
 	    
-	    if($("#bfTitle").val().length == 0) {
-				$("#bfTitle").focus(function() {
-					alert("제목 입력");					
-				});
-			
-				return false;
-			
-		}
-			
 	    
 	});
 	
@@ -352,15 +359,6 @@ $(document).ready(function(){
 	    });
 	});
 
-// 	$('.radio-group .radio').click(function(){
-// 	    $(this).parent().find('.radio').removeClass('selected');
-// 	    $(this).addClass('selected');
-// 	});
-
-// 	$(".submit").click(function(){
-// 	    return false;
-// 	})
-
 
 	//기간 설정 - 시작일
 	$( function() {
@@ -380,8 +378,9 @@ $(document).ready(function(){
 	    });
 	  } );
 	
+	
 	$("#btnUpdate").click(function() {
-		
+		confirm("게시글을 수정하시겠습니까?");
 		$(this).parents("form").submit();
 		alert("게시글 수정이 완료됐습니다");
 		
@@ -389,7 +388,6 @@ $(document).ready(function(){
 		
 
 })
-
 
 </script>
 
@@ -401,8 +399,8 @@ $(document).ready(function(){
 <!-- MultiStep Form -->
 <div class="container-fluid" id="grad1">
     <div class="row justify-content-center mt-0">
-        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2">
-            <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 text-center p-0 mt-3 mb-2" style="max-width: 1200px;">
+            <div class="card px-0 pt-4 pb-0 mt-3 mb-3" style="width: 1200px;">
                 <h1><strong style="font-size: 40px; text-align: center;">Before & After 게시글</strong></h1><br><br>
                 <p style="font-size: 15px; text-align: center;">게시글을 작성해주세요</p><br><br>
                 <div class="row">
@@ -410,7 +408,7 @@ $(document).ready(function(){
                     
                         <form id="msform" method="post" action="/board/bfUpdate" enctype="multipart/form-data">
                         
-                        	 <input type="hidden" name="bfNo" value="${param.bfNo }">
+                        	<input type="hidden" name="bfNo" value="${param.bfNo }">
                         
                             <!-- progressbar -->
                             <ul id="progressbar">
@@ -422,51 +420,67 @@ $(document).ready(function(){
                             
                             <!-- fieldsets -->
 			            <fieldset>
-				            <div class="form-card">
+				            <div class="form-card"><br><br>
 				             <h2 style="color: black; text-align: left;">Before</h2><br><br>
-				             	<label for="bfTitle">제목</label>
+				             	<label for="bfTitle" id="title">제목</label>
 									<input type="text" id="bfTitle" name="bfTitle" value="${updateBoard.bfTitle }" placeholder="제목을 입력해주세요">
+									<div id="bfTitleError" class="resMsg"></div>
+									<div id="bfTitleCorrect" class="resMsg"></div>
 				                 <br><br>
 				                        
-							<h3 style="color: black;">운동 전 정보</h3><br><br>
-								<label for=	"height">신장</label>
-									<input type="text" id="height" name="height" value="${updateBoard.height }" placeholder="숫자만 입력해 주세요">
+							<h3 id="article">운동 전 정보</h3><br><br>
+								<label for=	"height" id="title">신장</label><br>
+									<input type="number" id="height" name="height" value="${updateBoard.height }" placeholder="숫자만 입력해 주세요" style="width: 550px;"><span id="information">kg</span>
+									<div id="heightError" class="resMsg"></div>
 				                <br>
-				                 <label for="gender" style="margin-right: 15px;">성별</label><br>
-									<input type="radio" id="gender" name="gender" value="female" style="width: 14px; margin-top: 16px;"><span style="margin-left: 20px; display: block; margin-top: -39px;">여성</span>
-									<input type="radio" id="gender" name="gender" value="male" style=" display: block; width: 14px; margin-top: -14px; margin-left: 61px"><span style="margin-left: 80px; display: block; margin-top: -39px;">남성</span>
-				                 <br><br>
-				                 <label for="weight">몸무게</label>
-									<input type="text" id="weight" name="weight" value="${updateBoard.weight }" placeholder="숫자만 입력해 주세요">
+				                 <label for="gender" id="title" style="margin-right: 15px;">성별</label><br>
+				                 	<input type="text" id="gender" name="gender" value="${updateBoard.gender }" value="${updateBoard.height }" placeholder="여성 / 남성 " >
+<%-- 									<input type="radio" id="gender" name="gender" value="${updateBoard.gender }" style="width: 14px; margin-top: 16px;"><span style="margin-left: 20px; display: block; margin-top: -39px;">여성</span> --%>
+<%-- 									<input type="radio" id="gender" name="gender" value="${updateBoard.gender }" style=" display: block; width: 14px; margin-top: -14px; margin-left: 61px"><span style="margin-left: 80px; display: block; margin-top: -39px;">남성</span> --%>
+				                 	<div id="genderError" class="resMsg"></div>
+				                 <br>
+				                 <label for="weight" id="title">몸무게</label><br>
+									<input type="number" id="weight" name="weight" value="${updateBoard.weight }" placeholder="현재 몸무게를 입력해주세요 *숫자만 입력하세요"  style="width: 550px;"><span id="information">cm</span>
+									<div id="weightError" class="resMsg"></div>
 				                  <br>
-				                  <label for="bfExercise">운동종류</label>
+				                  <label for="bfExercise" id="title">운동종류</label>
 				                    <input type="text" id="bfExercise" name="bfExercise" value="${updateBoard.bfExercise }" placeholder="현재 하고 있는 운동종류를 입력해주세요">
+				                    <div id="bfExerciseError" class="resMsg"></div>
 				                  <br>
-				                  <label for="file">첨부파일</label><br>
-									<jsp:include page="../file/upload.jsp" /> 
+				                  <label for="file" id="title">첨부파일</label>
+									<jsp:include page="../file/fileUpdate.jsp" /> <br><br>
 								</div>
 
 								<br><br>
 			                        <input type="button" name="next" class="next action-button" onClick="javascript:window.scrollTo(0,0)" value="다음">
+						
+								 <br><br><br><br><br><br><br><br>
 						</fieldset>
+						
+						
 			                            
 						<fieldset>
 							<div class="form-card">
-								<h3 style="color: black">설정 목표</h3>
+								<h3 id="article">설정 목표</h3>
 									<br><br> 
-								<label for="gWeight">목표 체중</label>
-									<input type="text" id="gWeight" name="gWeight" value="${updateBoard.gWeight }" placeholder="목표 체중을 입력해주세요">
+								<label for="gWeight" id="title">목표 체중</label><br>
+									<input type="number" id="gWeight" name="gWeight" value="${updateBoard.gWeight }" placeholder="목표 체중을 입력해주세요 *숫자만 입력하세요" style="width: 550px;"><span id="information">kg</span>
+									<div id="gWeightError" class="resMsg"></div>
 								<br>
-								<label for="date">목표 기간</label>
+								<label for="date" id="title">목표 기간</label>
 									<input type="text" id="sDate" name="sDate" value="${updateBoard.sDate }" placeholder="시작일: YYYY-MM-DD"> ~ 
+									<div id="sDateError" class="resMsg"></div>
 									<input type="text" id="eDate" name="eDate" value="${updateBoard.eDate }" placeholder="목표일: YYYY-MM-DD">
+									<div id="eDateError" class="resMsg"></div>
 								<br>
-								<label for="seleExercise">선택 운동</label>
+								<label for="seleExercise" id="title">선택 운동</label>
 									<input type="text" id="seleExercise" name="seleExercise" value="${updateBoard.seleExercise }" placeholder="선택한 운동을 입력해주세요">
+									<div id="seleExerciseError" class="resMsg"></div>
 								<br>
 					
-								<h4 style="color: black">다짐글</h4><br><br>
+								<h3 style="color: black" id="article">다짐글</h3><br><br>
 									<textarea rows="20" cols="50" id="beforeCon" name="beforeCon" placeholder="다짐글을 작성해주세요">${updateBoard.beforeCon }</textarea>
+									<div id="beforeConError" class="resMsg"></div>
 							
 							</div>                            
 			                      <br><br>
@@ -480,25 +494,28 @@ $(document).ready(function(){
 
                             
 						<fieldset>
-							<div class="form-card">
+							<div class="form-card"><br><br>
 								<h2 style="color: black">After</h2> <br><br>
-								<h4 style="color: black;">운동 후 현재 정보</h4><br><br>
-								<label for="cWeight">몸무게</label>
-									<input type="text" id="cWeight" name="cWeight" value="${updateBoard.cWeight }" placeholder="운동 후 몸무게를 입력해주세요">
+								<h3 id="article">운동 후 현재 정보</h3><br><br>
+								<label for="cWeight" id="title">몸무게</label><br>
+									<input type="number" id="cWeight" name="cWeight" value="${updateBoard.cWeight }" placeholder="운동 후 몸무게를 입력해주세요 *숫자만 입력하세요" style="width: 550px;"><span id="information">kg</span>
+									<div id="cWeightError" class="resMsg"></div>
 								<br><br>
 	            
-	            				<label for="gResult">결과</label>
-									<select id="gResult" name="gResult" value="${updateBoard.gResult }">
+	            				<label for="gResult" id="title" style="margin-right: 15px;">결과</label>
+									<select id="gResult" name="gResult" value="${updateBoard.gResult }" style="font-size: 13px; color: black;">
 										<option value="매우 성공" selected="selected">매우 성공</option>
 										<option value="약간 성공">약간 성공</option>
 										<option value="변화 없음">변화 없음</option>
 										<option value="약간 실패">약간 실패</option>
 										<option value="매우 실패">매우 실패</option>
 									</select>
+									<div id="gResultError" class="resMsg"></div>
 								<br><br><br>
 	                            
-								<h3>후기글</h3><br><br>
+								<h3 id="article">후기글</h3><br><br>
 									<textarea rows="20" cols="50" id="afterCon" name="afterCon" placeholder="후기글을 작성해주세요">${updateBoard.afterCon }</textarea>
+									<div id="afterConError" class="resMsg"></div>
 							</div>
 							
 							<br><br>
@@ -522,7 +539,7 @@ $(document).ready(function(){
 									<a class="btn block" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/bfBoard" style="text-decoration: none; color: white; font-size: 14px; font-weight: bold; ">취소</a>
 								</button>
                                     
-								<button type="submit" id="btnUpdate" name="btnInsert" style="color: white; font-size: 14px;">수정</button>
+								<button type="submit" id="btnUpdate" name="btnUpdate" style="color: white; font-size: 14px;">수정</button>
                                     
 							</div>
 						</fieldset>
@@ -535,7 +552,6 @@ $(document).ready(function(){
     </div>
 </div>
 </div>
-
 
 </body>
 </html>

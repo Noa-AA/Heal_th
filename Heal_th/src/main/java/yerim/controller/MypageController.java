@@ -37,9 +37,9 @@ public class MypageController {
 		PhotoFile profilePhoto = mypageService.getPhoto(session,profile);
 		logger.info("프로필 {}",profilePhoto);
 		
-		//한줄 소개 조회해오기
-		Users userIntro = mypageService.getIntro(session);
-		logger.info("한술 소개 : {}",userIntro);
+		//한줄 소개,득근머니,포인트, 등급 조회해오기
+		Users mypageInfo = mypageService.getmypageInfo(session);
+		logger.info("한술 소개 : {}",mypageInfo);
 		
 		//g회원 키 조회해오기
 		BodyInfo height = mypageService.getHeigiht(session,bodyInfo);
@@ -48,11 +48,12 @@ public class MypageController {
 		//모델값으로 storedName 전달하기
 		model.addAttribute("storedName", profilePhoto);
 		//모델값으로 한줄 소개 전달하기
-		model.addAttribute("userIntro", userIntro);
+		model.addAttribute("mypageInfo", mypageInfo);
 		//모델값으로 키 전달하기
 		model.addAttribute("bodyInfo", height);
 
 	}
+	
 	
 	@GetMapping("/updateInfo")
 	public void updateUsersInfo(HttpSession session,Model model) {
@@ -165,24 +166,16 @@ public class MypageController {
 		 model.addAttribute("userId", userId);
 	 }
 	 
+	 @ResponseBody
 	 @PostMapping("chkUsingPw")
-	 public String chkUsingPw(HttpSession session,Users updatePwInfo,Model model) {
+	 public boolean chkUsingPw(HttpSession session,Users updatePwInfo) {
 		 logger.info("/mypage/chkUsingPw [POST]");
-		 
+		 logger.info("전달받은 아이디/비밀번호 : {}",updatePwInfo);
 		 		 
 		 //현재 비밀번호와 맞는지 확인하기
 		 boolean isUsingPw = mypageService.getuserPw(updatePwInfo,session);
-		 
-		 if(isUsingPw) {//확인된 비밀번호 일치
-			 logger.info("현재 사용중인 비밀번호 일치 - 비밀번호 초기화하기");
-			 return "/mypage/setUserPw";
-			 
-		 }
-		
-		 //model값으로 false값 넘겨 주기 
-		 model.addAttribute("isUsingPw", isUsingPw);
-		 return "/mypage/updatePw";
-		
+		logger.info("현재 사용중인 비밀번호 조회 결과 : {}",isUsingPw);
+		return isUsingPw;
 		 
 	 }
 	 
@@ -212,6 +205,7 @@ public class MypageController {
 		 //비밀번호 재설정
 		 mypageService.updateNewPw(userNewPw,session);
 		 
+		 logger.info("비밀번호 설정 완료 ");
 		 //업데이트 후 로그인 페이지로 이동
 		 return "redirect:/login/login";
 	 }

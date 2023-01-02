@@ -58,7 +58,7 @@ body {
 }
 
 .main-first-wrap .left {
-	width: 550px;
+	width: 750px; 
 	margin: 10px;
 	display: flex;
 	margin-top: 50px;
@@ -172,6 +172,139 @@ body {
 	border: 1px solid silver;
 	margin: 20px;
 }
+
+body {
+	overflow-x: hidden;
+}
+
+
+/* top3 users 부분------------------ */
+#listPg {
+	width: 100%;
+	margin-top: 60px;
+}
+
+
+#inner {
+	width: 1400px;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.list {
+	display: flex;
+    flex-wrap: wrap;
+}
+
+.list li {
+	display: flex;
+    flex-wrap: wrap;
+	width: 440px;
+    margin-right: 40px;
+    margin-bottom: 40px;
+/*     border: 1px solid #e2e2e2; */
+	box-shadow: 1px 1px 8px 0px rgb(0 0 0 / 10%);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.list li:nth-child(3n) {
+    margin-right: 0px;
+}   
+
+.profilePhoto {
+	width: 160px;
+	height: 160px;
+	background-color: #efefef;
+	border-radius: 20px;
+	text-align: center;
+	line-height: 160px;
+	font-size: 18px;
+}
+
+.profilePhoto > img {
+	width: 160px;
+}
+
+.rightCon {
+	width: 236px;
+	padding-left: 20px;
+	padding-top: 10px;
+}
+
+.rightTop {
+	height: 32px;
+}
+
+
+.name {
+	font-size: 21px;
+	font-weight: 700;
+	color: #222;
+	float: left;
+}
+
+.ranking {
+	height: 32px;
+	float: right;
+	font-size: 15px;
+	font-weight: 600;
+	color: #222;
+}
+
+.job {
+	color: #333;
+	font-size: 13px;
+	font-weight: 600;
+	color: #7ca3f5;
+	margin-bottom: 10px;
+	border: 1px solid #7ca3f5;
+	padding: 2px 5px;
+	width: fit-content;
+}
+
+.intro {
+	color: #666;
+	font-size: 15px;
+	height: 40px;
+	text-align: left;
+}
+
+.rightBottom {
+	height: 40px;
+	vertical-align: bottom;
+	display: flex;
+	justify-content: space-between;
+}
+
+.point {
+	display: flex;
+    align-items: center;
+}
+
+.point > img {
+	width: 30px;
+	height: 30px;
+}
+
+.point > span {
+	font-size: 16px;
+	font-weight: 600;
+	color: red;
+	margin-left: 2px;
+}
+
+.point > p {
+	font-size: 15px;
+	font-weight: 600;
+}
+
+.bestMentor {
+	font-size: 40px;
+	font-weight: 600;  
+}
+
+
 </style>
 <body>
 <div id="banner">
@@ -213,11 +346,63 @@ body {
 	</div> -->
 	
 	<div class="main-fourth-wrap">
-		<h1>Community</h1>
-		<div class="newsroom-wrap">
-			<div id="newsroom-first"></div>
-			<div id="newsroom-second"></div>
-			<div id="newsroom-third"></div>
+		<h1 class="bestMentor">Best Mentor</h1>
+		
+		<div id="listPg">
+			<div id="inner">
+				<ul class="list">
+					<c:forEach items="${topUserList }" var="userList">
+					<li>
+						<c:if test="${not empty userList.storedName }">
+							<img src="${pageContext.request.contextPath}/upload/${userList.storedName}" class="profilePhoto">
+						</c:if>
+						<c:if test="${empty userList.storedName }">
+							<img src="/resources/img/chat_default.png" class="profilePhoto">
+						</c:if>
+						
+						<!-- 오른쪽 텍스트 부분 -->
+						<div class="rightCon">
+							<!-- 상담 이름, 등급 -->
+							<div class="rightTop">
+								<div class="name">${userList.userNick }</div>
+		<!-- 						<div class="ranking">햇병아리 등급</div> -->
+								<c:choose> 
+									<c:when test="${userList.rankingNo eq 1 }">
+									      <div class="ranking">햇병아리 등급</div>
+									</c:when>
+									<c:when test="${userList.rankingNo eq 2 }">
+									      <div class="ranking">튼튼이 등급</div>
+									</c:when>
+									<c:when test="${userList.rankingNo eq 3 }">
+									      <div class="ranking">트레이너 등급</div>
+									</c:when>
+									<c:when test="${userList.rankingNo eq 4 }">
+									      <div class="ranking">마스터 등급</div>
+									</c:when>
+									<c:otherwise>
+									        <div class="ranking">헬스신 등급</div>
+									</c:otherwise>
+								</c:choose> 
+							</div>
+							
+							<div class="job">${userList.userJob }</div>
+							<div class="intro">${userList.userIntro }</div>
+								
+							<!-- 하단 포인트 채팅 -->
+							<div class="rightBottom">
+								
+								<div class="point">
+									<p>[보유 포인트]</p>
+									<span>${userList.point }P</span>
+								</div> <!-- /point -->
+								
+							</div>
+						</div> <!-- rightCon -->
+						
+					</li>
+					</c:forEach>
+				</ul>
+			</div> <!-- inner -->
 		</div>
 	</div>
 </body>

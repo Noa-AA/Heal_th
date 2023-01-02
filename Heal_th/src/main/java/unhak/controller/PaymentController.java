@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import unhak.dto.PaymentDto;
 import unhak.service.face.PaymentService;
@@ -31,7 +32,7 @@ public class PaymentController {
 	public void order(PaymentDto viewPayment, Model model, HttpSession session) {
 		
 		
-		logger.info("Payment");
+		logger.info("Payment[GET]");
 		int userNo = (int) session.getAttribute("userNo"); //유저넘버 불러오기
 		
 		//회원정보 조회하고 데이터가져오기 이름,주소,상품명 등등
@@ -46,7 +47,6 @@ public class PaymentController {
 			model.addAttribute("user", user);
 			
 			
-			
 //		int userId = userNo.getUserNo();
 //		return "redirect:/store/list"; //나중에 주문목록리스트(/store/orderlist)로 변경예정
 		
@@ -54,5 +54,23 @@ public class PaymentController {
 		
 		//유저정보 조회
 		
+	}
+	
+	
+	//payment POST
+	@ResponseBody
+	@RequestMapping(value="/store/payment",method=RequestMethod.POST)
+	public void orderlist(PaymentDto payment,Model model, HttpSession session) {
+		logger.info("payment[POST]");
+	
+		logger.info("payment : {}", payment);
+		
+		paymentService.savePayment(payment);
+		
+	}
+	
+	@RequestMapping(value="/store/ordersuccess", method=RequestMethod.GET)
+	public void ordersuccess() {
+		logger.info("ordersucces[GET]");
 	}
 }

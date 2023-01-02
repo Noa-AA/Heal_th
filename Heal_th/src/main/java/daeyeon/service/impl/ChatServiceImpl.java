@@ -99,12 +99,13 @@ public class ChatServiceImpl implements ChatService {
 	
 	@Override
 	public List<Users> userSearchlist(ChatIntroPaging chatIntroPaging) {
-		logger.info("userSearchlist()");
+		logger.info("userSearchlist() - 이거 {}", chatIntroPaging);
+		
 		
 		//게시글 목록 조회 - ChatDao 이용
 		List<Users> userList = chatDao.selectSearchUsers(chatIntroPaging); 
-				
-		//나랑 같이 방에 소속된  
+			
+		logger.info("서비스에 검색된 userList : {}", userList);
 				
 		return userList;
 	}
@@ -279,10 +280,12 @@ public class ChatServiceImpl implements ChatService {
 			logger.info(">>>>>>>>>>>>>>> png가 포함되어있습니다. ★★★★");
 			storedName += "+IMG+";
 		} 
-
-		logger.info("★★★★ storedName {} ★★★★", storedName);
-		storedName += UUID.randomUUID().toString().split("-")[0];
-		logger.info("★★★★ storedName {} ★★★★", storedName);
+		
+		if(!storedName.contains(".txt")) {
+			logger.info("★★★★ storedName {} ★★★★", storedName);
+			storedName += UUID.randomUUID().toString().split("-")[0];
+			logger.info("★★★★ storedName {} ★★★★", storedName);
+		}
 		
 		//실제 저장될 파일 객체
 		File dest = new File(storedFolder, storedName);
@@ -330,7 +333,18 @@ public class ChatServiceImpl implements ChatService {
 
 
 
-
+	//포인트가 제일 높은 회원 세명 조회
+	// /main
+	@Override
+	public List<Users> topUserList() {
+		
+		//게시글 목록 조회 - ChatDao 이용
+		List<Users> topUserList = chatDao.selectTopUsers(); 
+					
+		logger.info("서비스에 검색된 topUserList : {}", topUserList);
+						
+		return topUserList;
+	}
 
 
 
