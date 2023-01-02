@@ -23,7 +23,7 @@
          pg: "html5_inicis",
          pay_method: "card",
          merchant_uid : 'merchant_' +  new Date().getTime(),
-          name: "STORE",
+          name: "단호박 쉐이크",
           paid_at: paid_at,
           
          buyer_email: "${user.userEmail }",
@@ -143,7 +143,7 @@ body{
 
 .big-container {
 	border: 1px solid black;
-	padding: 10px;
+	padding: 40px;
 }
 
 .button-container {
@@ -170,8 +170,8 @@ body{
 <body>
 <div class="big-container">
 	
-	<div class="buy">
-	구매자 정보 <br>
+	<div class="buy" >
+	<h4>구매자 정보 </h4><br>
 	이름 : <span>${user.userName } </span><br>
 	아이디 : <span>${user.userId }</span><br>
 	닉네임 : <span>${user.userNick }</span><br>
@@ -181,7 +181,7 @@ body{
 	<hr>
 	<br>
 	<div class="get">
-	받는사람 정보<br>
+	<h4>받는사람 정보</h4><br>
 	이름 : <span>${user.userName } </span><br>
 	주소 : <span>${user.userAddress }</span><br>
 	휴대폰 번호 : <span>${user.userPhone }</span><br>

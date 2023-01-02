@@ -244,6 +244,115 @@ a:hover {
 	text-align: center;
 }
 
+.imgbox18{
+	background-image:url(/resources/img/store/18.jpg);
+	width:200px; 
+	margin:5px;
+	padding: 5px;
+} 
+
+.imgbox17{
+	background-image:url(/resources/img/store/17.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox16{
+	background-image:url(/resources/img/store/16.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox15{
+	background-image:url(/resources/img/store/15.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox14{
+	background-image:url(/resources/img/store/14.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox13{
+	background-image:url(/resources/img/store/12.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox12{
+	background-image:url(/resources/img/store/13.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox11{
+	background-image:url(/resources/img/store/11.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox10{
+	background-image:url(/resources/img/store/10.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox9{
+	background-image:url(/resources/img/store/9.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox8{
+	background-image:url(/resources/img/store/8.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox7{
+	background-image:url(/resources/img/store/6.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox6{
+	background-image:url(/resources/img/store/7.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox5{
+	background-image:url(/resources/img/store/5.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox4{
+	background-image:url(/resources/img/store/4.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox3{
+	background-image:url(/resources/img/store/3.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox2{
+	background-image:url(/resources/img/store/2.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox1{
+	background-image:url(/resources/img/store/1.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
 </style>
 
 
@@ -256,9 +365,9 @@ a:hover {
 </div>
 <div id="twoDepth">
     <div id="twoDepth-list">
-        <a href="/store/list">상점 바로가기</a>
-        <a href="/store/cartlist">장바구니 바로가기</a>
-
+        <a href="/store/list">상점목록</a>
+        <a href="/store/cartlist">장바구니목록</a>
+		<a href="/store/orderlist">구매목록</a>
     </div>
 </div><!-- subvisual 끝 -->
 
@@ -266,7 +375,6 @@ a:hover {
 <div class="big-container">
 	<h3>득근 상점</h3>
 </div>
-<hr>
 
 
 
@@ -275,12 +383,11 @@ a:hover {
 				<div class="store-content">
 					<c:forEach items="${list }" var="StoreDto">
 					<ul class="store-ul">
-					<div class="imgbox">
-						
+					<div class="imgbox${StoreDto.prodNo }" >
 					</div>
 					<div class="main" style="padding-top:23px;">
 						<li class="li1" style="font-size:14px;">
-							<a href="/store/view?prodNo=${StoreDto.prodNo }">${StoreDto.pName }</a>
+							<a href="/store/view?prodNo=${StoreDto.prodNo }" id="store${StoreDto.prodNo }">${StoreDto.pName }</a>
 						</li>
 						<li>${StoreDto.pPrice } 원</li>
 						<li>조회수 : ${StoreDto.pHit } </li>

@@ -167,9 +167,9 @@ function order(){
 
 .repImgDiv{
     height: 330px;
-    width:60%;
+    width:200px;
     margin: 40px;
-    margin-left: 200px;
+    margin-left: 362px;
     
 }
 
@@ -200,7 +200,7 @@ function order(){
 	<%-- <input type="hidden" id="itemId" th:value="${item.id}"> --%>
 	<div class="d-flex">
 		<div class="repImgDiv" style="border:1px solid #ccc;height:300px">
-			<img alt="이미지가 안보여요" src="">
+			<img alt="이미지가 안보여요" src="/resources/img/store/14.jpg">
 			
 		</div>
 	<input type="hidden" id="itemId"><span class="itemId">${viewStore.pName }</span>

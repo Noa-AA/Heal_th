@@ -31,9 +31,10 @@ public class OrderlistController {
 		
 		//유저의 구매 상품 정보
 		List<PaymentDto> list = orderlistService.getOrderList(userNo);
-		model.addAttribute("orderlist",list);
 		
 		logger.info("list : {}",list);
+		model.addAttribute("orderlist",list);
+		
 	}
 	
 }
