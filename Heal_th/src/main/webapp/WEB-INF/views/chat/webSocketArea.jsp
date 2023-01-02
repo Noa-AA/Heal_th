@@ -52,10 +52,10 @@
 // 		socMsg[0] : 보낸사람닉네임  &  socMsg[1] : "+IMG+"(구별자)  &  socMsg[2] : 파일이름  &  socMsg[3] : 룸번호
 		
 		//일반 메세지
-		if ( socMsg[0] == "${senderNick }" && socMsg[1] != "listChat" && socMsg[1] != "+IMG+" ) {
-			$("#messages").append( "<div id='senderMsg'><span id='timeS'>" + dateInfo + "</span><a id='msgS'>" + socMsg[1] + "</a></div>");
-		} else if ( socMsg[0] != "${senderNick }" && socMsg[1] != "listChat" && socMsg[1] != "+IMG+" ) {
-			$("#messages").append( "<div id='receiverMsg'><a id='msgR'>" + socMsg[1] + "</a><span id='timeR'>" + dateInfo + "</span></div>");
+		if ( socMsg[0] == "${senderNick }" && socMsg[1] != "listChat" && socMsg[1] != "+IMG+" && socMsg[1] != "+FILE+" ) {
+			$("#messages").append( "<div class='senderMsg'><span class='timeS'>" + dateInfo + "</span><a class='msgS'>" + socMsg[1] + "</a></div>");
+		} else if ( socMsg[0] != "${senderNick }" && socMsg[1] != "listChat" && socMsg[1] != "+IMG+" && socMsg[1] != "+FILE+" ) {
+			$("#messages").append( "<div class='receiverMsg'><a class='msgR'>" + socMsg[1] + "</a><span class='timeR'>" + dateInfo + "</span></div>");
 		} 
 		
 		//왼쪽 미리보기 메세지
@@ -66,9 +66,16 @@
 		 
 		//이미지 메세지
 		if ( socMsg[0] == "${senderNick }" && socMsg[1] == "+IMG+"){
-			$("#messages").append( "<div id='senderImg'><span id='timeImgS'>" + dateInfo + "</span><img src='${pageContext.request.contextPath}/upload/" + socMsg[2] + "' id='imgS' ></div>");
+			$("#messages").append( "<div class='senderImg'><span class='timeImgS'>" + dateInfo + "</span><img src='${pageContext.request.contextPath}/upload/" + socMsg[2] + "' class='imgS' ></div>");
 		} else if ( socMsg[0] != "${senderNick }" && socMsg[1] == "+IMG+") {
-			$("#messages").append( "<div id='receiverImg'><img src='${pageContext.request.contextPath}/upload/" + socMsg[2] + "' id='imgR' ><span id='timeImgR'>" + dateInfo + "</span></div>");
+			$("#messages").append( "<div class='receiverImg'><img src='${pageContext.request.contextPath}/upload/" + socMsg[2] + "' class='imgR' ><span class='timeImgR'>" + dateInfo + "</span></div>");
+		}
+		
+		//파일 메세지
+		if ( socMsg[0] == "${senderNick }" && socMsg[1] == "+FILE+"){
+			$("#messages").append( "<div class='senderMsg'><span class='timeS'>" + dateInfo + "</span><a href='/upload/" + socMsg[2] + "' download='" + socMsg[2] + "' class='msgS'>" + socMsg[2] + "</a></div>");
+		} else if ( socMsg[0] != "${senderNick }" && socMsg[1] == "+FILE+") {
+			$("#messages").append( "<div class='receiverMsg'><a href='/upload/" + socMsg[2] + "' download='" + socMsg[2] + "' class='msgR'>" + socMsg[2] + "</a><span class='timeR'>" + dateInfo + "</span></div>");
 		}
 
 		
