@@ -177,7 +177,7 @@
 	<!-- /chat/chatRoom -->
 	<!-- 자신의 회원번호가 속한 채팅방번호와 상대방 닉네임과 그사람과의 마지막채팅 조회하기 -->
 	<select id="selectRoomList"  resultType="daeyeon.dto.RoomList" parameterType="Users">
-		SELECT h.stored_name, g.user_no, g.chat_time, g.room_no, g.user_nick FROM photofile h
+		SELECT DISTINCT h.stored_name, g.user_no, g.chat_time, g.room_no, g.user_nick FROM photofile h
 			INNER JOIN
 			( SELECT user_no, chat_time, room_no, user_nick FROM (
 				SELECT user_no, room_no, chat_time, user_nick,
@@ -195,9 +195,9 @@
 							ORDER BY c.room_no DESC ) e
 						FULL JOIN chat f
 					ON e.room_no = f.room_no ) )
-				WHERE RNK = 1
-			ORDER BY chat_time DESC NULLS LAST) g
+				WHERE RNK = 1 ) g
 		ON h.user_no = g.user_no 
+		ORDER BY chat_time DESC NULLS FIRST
 	</select>
 	
 	
@@ -272,6 +272,22 @@
 		VALUES ( chat_file_seq.nextval, #{chatNo }, #{userNo }, #{originName }, #{storedName }, to_char(sysdate, 'yyyy.mm.dd hh24:mi:ss') )
 	</insert>
 	
+	
+	
+	<!-- 메인페이지에서 사용할 Top3 유저 -->
+	<select id="selectTopUsers" resultType="Users">
+		SELECT a.user_no, a.user_nick, a.ranking_no, a.user_intro, a.user_job, a.point , b.stored_name FROM photofile b
+	    	FULL JOIN (
+	        	SELECT rownum, a.* from (
+	        		SELECT user_no, user_nick, ranking_no, user_intro, user_job, point FROM users
+				ORDER BY point DESC ) a
+				<![CDATA[
+				WHERE rownum < 4
+				]]>
+	    	) a
+			ON b.user_no = a.user_no
+		WHERE a.user_no IS NOT NULL
+	</select>
 	
 	
 	

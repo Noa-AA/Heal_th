@@ -174,6 +174,15 @@ public interface ChatService {
 	public String getReciverProfile(RoomList roomNo);
 
 	
+	/**
+	 * main
+	 * 포인트가 제일 높은 세명 조회
+	 * 
+	 * @return List<Users> - 조회된 회원목록
+	 */
+	public List<Users> topUserList();
+
+	
 	
 
 	

@@ -17,6 +17,9 @@ $(document).ready(function() {
 	} else {
 		console.log( createRoomNo );
 		goChat( createRoomNo );
+		
+		$("#"+createRoomNo).attr("disabled", true);
+		$("#"+createRoomNo).css("background-color", "#f4f4f4");
 	}
 		
 	/* 리스트를 누르면 해당리스트는 안눌리기 */
@@ -156,9 +159,6 @@ button, input {
 	max-width: 210px;
 	min-width: 0;
 	height: 22px;
-	text-overflow: ellipsis; 
-	white-space: nowrap;
-	overflow: hidden;
 }
 
 /* 닉네임 */
@@ -172,16 +172,19 @@ button, input {
 
 /* 마지막 채팅 */
 .lastChat {
-	display: flex;
 	align-items: center;
 	font-size: 15px;
 	color: #666;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis; 
+	line-height: 1.5;
 }
 
 .timeView {
 	position: absolute;
 	right: 20px;
-	top: 0;
+	top: 15px;
 	font-size: 13px;
 	color: #aaa;
 }
@@ -265,7 +268,7 @@ button, input {
 		</div>
 		<c:forEach items="${roomList }" var="room">
 
-			<button class="roomBtn" onclick="goChat(${room.roomNo })" >
+			<button class="roomBtn" id="${room.roomNo }" onclick="goChat(${room.roomNo })" >
 				
 				<div class="left">
 					<c:if test="${not empty room.storedName }">
