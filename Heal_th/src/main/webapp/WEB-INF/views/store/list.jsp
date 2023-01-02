@@ -426,18 +426,10 @@ a:hover {
 	
 		<%-- 첫 페이지로 이동 --%>
 		<c:if test="${paging.curPage ne 1 }">
-			<li><a href="/store/list"> &larr; 처음 </a></li>	
+			<li><a href="/store/list"> &lt;&lt;  </a></li>	
 		</c:if>
 		
-		<%-- 이전 페이징 리스트로 이동 --%>
-		<c:choose>
-		<c:when test="${paging.startPage ne 1 }">
-			<li><a href="/store/list?curPage=${paging.startPage - paging.pageCount }">&laquo;</a></li>
-		</c:when>
-		<c:when test="${paging.startPage eq 1 }">
-			<li class="disabled"><a>&laquo;</a></li>
-		</c:when>
-		</c:choose>
+
 		
 		<%-- 이전 페이지로 가기 --%>
 		<c:if test="${paging.curPage > 1 }">
@@ -463,19 +455,11 @@ a:hover {
 			<li><a href="/store/list?curPage=${paging.curPage + 1 }">&gt;</a></li>
 		</c:if>
 		
-		<%-- 다음 페이징 리스트로 이동 --%>
-		<c:choose>
-		<c:when test="${paging.endPage ne paging.totalPage }">
-			<li><a href="/store/list?curPage=${paging.startPage + paging.pageCount }">&raquo;</a></li>
-		</c:when>
-		<c:when test="${paging.endPage eq paging.totalPage }">
-			<li class="disabled"><a>&raquo;</a></li>
-		</c:when>
-		</c:choose>
+
 	
 		<%-- 끝 페이지로 이동 --%>
 		<c:if test="${paging.curPage ne paging.totalPage }">
-			<li><a href="/store/list?curPage=${paging.totalPage }">끝 &rarr;</a></li>	
+			<li><a href="/store/list?curPage=${paging.totalPage }"> &gt;&gt;</a></li>	
 		</c:if>
 		
 		</ul>
