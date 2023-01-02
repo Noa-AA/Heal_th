@@ -74,22 +74,22 @@ body{
 
 #search { text-align: center; margin-bottom: -5px; }
 
-#type{
+/* #type{ */
 /* 	border: 2px solid #7ca3f5; */
 /* 	font-weight: border; */
 /* 	display: none; */
-width: 100px;
-	height: 40px;
-	border: 2px solid #7ca3f5;
-	border-radius: 30px;
-	transition: 0.4s;
-	padding: 8px 12px;
-	outline: none;
-	margin-right: 4px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #666;
-}
+/* width: 100px; */
+/* 	height: 40px; */
+/* 	border: 2px solid #7ca3f5; */
+/* 	border-radius: 30px; */
+/* 	transition: 0.4s; */
+/* 	padding: 8px 12px; */
+/* 	outline: none; */
+/* 	margin-right: 4px; */
+/*     font-size: 13px; */
+/*     font-weight: 500; */
+/*     color: #666; */
+/* } */
 
 #searchText{
 	width: 360px;
@@ -202,7 +202,7 @@ width: 100px;
 
 #pIcon{display: block; width: 14px; margin-right:8px; margin-top: 20px;}
 
-#thumbnail{border-radius: 10px; width: 259px; height: 150px; margin-top: -113px; }
+#thumbnail{border-radius: 10px; width: 240px; height: 141px; margin-top: -105px; }
 
 #imgNone{display: none;}
 
@@ -315,14 +315,14 @@ $(document).ready(function() {
 <div id="boardList">
 	<h3 style="font-weight: bold; margin-bottom: 37px; color: #06364E; font-size: 50px;">식단 공유 게시판</h3>
 </div>
-
+<br>
 
 
 <div class="beforeafter" id="search" name="search">
 
 <form action="/board/dietBoard" method="get">
-	<div class="search_wrap">
-		<div class="search_area" style="margin-left: 665px;">
+	<div class="search_wrap" style="margin-left: 785px;">
+		<div class="search_area" style="display: none;">
 			<select name="type" id="type" style="display: inline-block; margin-right: 15px;
     display: inline-block;">
 				<option value="T" <c:out value="${pageMaker.boardSearch.type eq 'T'?'selected':'' }"/>>제목</option>
@@ -330,10 +330,10 @@ $(document).ready(function() {
 				<option value="TC" <c:out value="${pageMaker.boardSearch.type eq 'TC'?'selected':'' }"/>>제목+내용</option>
 			</select> 
 			
+		</div>
 				
 				<input id="searchText" type="text" name="keyword" value="${pageMaker.boardSearch.keyword }" placeholder="search...">
 					<button id="searchIcon"><i class="fas fa-search"></i></button>
-		</div>
 	</div>
 </form>
 
@@ -395,8 +395,8 @@ $(document).ready(function() {
 <c:forEach items="${boardSearch }" var="boardSearch">
 	<ul id="searchResult" style="list-style: none;">
 		<li style="float: left; display: none;" >${boardSearch.dietNo }</li>
-		<li style="float: left; line-height:380%;"><a href="${path}/board/dView?dietNo=${boardSearch.dietNo}" id="boardUrl">${boardSearch.dTitle }</a></li><br>
-		<li style="float: left;" class="ellipsis" >${boardSearch.dContent }</li><br>
+		<li style="display:  -webkit-inline-box; inline-size: -webkit-fill-available; line-height: 3;"><a href="${path}/board/dView?dietNo=${boardSearch.dietNo}" id="boardUrl">${boardSearch.dTitle }</a></li><br>
+		<li style="display:  -webkit-inline-box; inline-size: -webkit-fill-available; line-height: 3;" class="ellipsis" >${boardSearch.dContent }</li><br>
 		
 		<li style="float: right;">
 		

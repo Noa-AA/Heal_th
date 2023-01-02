@@ -171,6 +171,11 @@ public class BfBoardController {
 			beforeafter = bfBoardService.view(beforeafter);
 			logger.debug("조회된 게시글 {}", beforeafter);
 			
+			int boardNo = beforeafter.getBfNo(); //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
+	        int categoryNo = 1;//----------------카테고리번호 넣어주세여~
+	        model.addAttribute("boardNo", boardNo);
+	        model.addAttribute("categoryNo", categoryNo);
+			
 			//모델값 전달
 			model.addAttribute("updateBoard", beforeafter);
 			
