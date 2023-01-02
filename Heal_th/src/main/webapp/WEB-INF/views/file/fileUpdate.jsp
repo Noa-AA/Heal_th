@@ -61,12 +61,12 @@ $(document).ready(function(){
 })
 </script>
 
-<form action="/file/update" method="post" enctype="multipart/form-data">
+<!-- <form action="/file/update" method="post" enctype="multipart/form-data"> -->
 <button type="button" id="fileUpload" onclick="fileup()">사진 추가</button>
 <div id="imgContainer"></div>
 <input type="file" id="imageUp" name="multiFile" accept="image/*" onchange="setPreview(event)" multiple/><br><br>
-<button>수정완료</button>
-</form>
+<!-- <button>수정완료</button> -->
+<!-- </form> -->
 ${pageContext.request.contextPath}
 <script type="text/javascript">
 function setPreview(event) {
