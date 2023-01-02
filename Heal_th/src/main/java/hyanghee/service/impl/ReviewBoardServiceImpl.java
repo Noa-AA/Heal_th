@@ -12,6 +12,10 @@ import hyanghee.dto.ReviewBoard;
 import hyanghee.service.face.ReviewBoardService;
 import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
+import jucheol.dao.face.CommentDao;
+import jucheol.dao.face.FileuploadDao;
+import jucheol.dto.Comment;
+import jucheol.dto.Fileupload;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
@@ -20,27 +24,16 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	//게시글
 	@Autowired ReviewBoardDao reviewBoardDao;
-
-	@Override
-	public BoardPaging getPaging(int curPage) {
-		//총 게시글 수 조회
-		int totalCount = reviewBoardDao.selectCntAll();
-						
-		//페이징 계산
-		BoardPaging boardPaging = new BoardPaging(totalCount, curPage);
-		
-		return boardPaging;
-	}
-
-	//게시글 목록
-	@Override
-	public List<ReviewBoard> list(BoardPaging boardPaging) {
-		
-		return reviewBoardDao.selectList(boardPaging);
-		
-	}
 	
+	//첨부 파일
+	@Autowired FileuploadDao fileuploadDao;
+		
+	//댓글
+	@Autowired CommentDao commentDao;
+
+
 	//유저 정보
 	@Override
 	public Users getUserInfo(int userno) {
@@ -58,6 +51,9 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	//게시글 상세보기
 	@Override
 	public ReviewBoard view(ReviewBoard viewBoard) {
+		
+		reviewBoardDao.updateHit(viewBoard);
+		
 		return reviewBoardDao.selectBoard(viewBoard);
 	}
 
@@ -118,13 +114,28 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 
 	@Override
 	public void delete(ReviewBoard reviewNo) {
+		
+		//첨부파일
+		Fileupload fileUpload = new Fileupload();
+		fileUpload.setBoardNo(reviewNo.getReviewNo());
+		fileUpload.setCategoryNo(4);
+				
+				//댓글
+		Comment comment = new Comment();
+				
+		comment.setBoardNo(0);		
+		comment.setCategoryNo(0); 
+		commentDao.deleteComment(comment);	
+				
+		fileuploadDao.deleteFile(fileUpload);
+		
 		reviewBoardDao.delete(reviewNo);
 		
 	}
 
 	@Override
-	public List<Notice> notice(BoardPaging boardPaging) {
-		return reviewBoardDao.noticeList(boardPaging);
+	public List<Notice> notice(BoardSearch boardSearch) {
+		return reviewBoardDao.notice(boardSearch);
 	}
 
 	@Override
@@ -137,9 +148,19 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 		return reviewBoardDao.getTotal(boardSearch);
 	}
 
+//	포인트
 	@Override
-	public ReviewBoard getPage(int reviewNo) {
-		return reviewBoardDao.getPage(reviewNo);
+	public int getPoint(int userno) {
+		return reviewBoardDao.getPoint(userno);
+	}
+
+	@Override
+	public void updatePoint(int point) {
+		Users users = new Users();
+		
+		users.setUserNo(point);
+		reviewBoardDao.updatePoint(users);
+		
 	}
 
 	

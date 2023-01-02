@@ -1,8 +1,9 @@
 package yerim.controller;
 
-import java.net.http.HttpRequest;
+import java.time.LocalTime;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -16,13 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 
 import yerim.dto.Users;
 import yerim.service.face.KakaoLoginService;
 import yerim.service.face.LoginService;
 import yerim.service.face.NaverLoginService;
-import yerim.util.NaverLogin;
 
 @Controller
 public class LoginController {
@@ -51,17 +50,18 @@ public class LoginController {
 		 //모델값으로 URL전달
 		 model.addAttribute("naverURL", naverURL);
 		 model.addAttribute("kakaoURL", kakaoURL);
-		 
 	 
 	 }
 
  
 	 @PostMapping("/login/login")
-	 public String loginProc(Users login, HttpSession session, Model model) {
+	 public String loginProc(Users login, HttpSession session, Model model,String saveId, HttpServletResponse response) {
 		 logger.info("/login/login [POST]");
-		 
+		 logger.info("체크박스 확인 {}",saveId); //체크시 on , 아니면 null
 		 //아이디 확인하기 
 		 boolean isLogin = loginService.checkLogin(login);
+		 //쿠키 생성
+		 Cookie cookie =  null; //세션에 유저 아이디 저장하기
 		 
 		 if(isLogin) {//로그인 성공시
 			 logger.info("login성공");
@@ -70,14 +70,28 @@ public class LoginController {
 			 //userNo 세션에 저장
 			 session.setAttribute("userNo", userNo);
 			 session.setAttribute("userId", login.getUserId());
+			 
+			 
+			 //아이디 저장 체크 여부에 따라 저장하기
+			 if(saveId != null) {//쿠키에 아이디 저장하기
+				 cookie = new Cookie("userId",login.getUserId());	
+				 cookie.setMaxAge(60*60*24*30); //쿠키의 생존 기간 1개월
+			 }else {
+				 cookie = new Cookie("userId", "");
+				 cookie.setMaxAge(0);
+				 
+			 }
+			
+			 //dmdekqdp 쿠키값 저장
+			 response.addCookie(cookie);
 			 logger.info("userNo : {}. userId : {}",session.getAttribute("userNo"),session.getAttribute("userId"));
+			
 			 //아이디가 있을 때 
 			 return "redirect:/main";
 			 
 		 }else { //로그인 실패 시
 			 logger.info("로그인 실패");
 			 model.addAttribute("isLogin", isLogin);
-			 session.invalidate();
 			 return "/login/login";
 		 }
 		 
@@ -122,19 +136,15 @@ public class LoginController {
 	 
 	 @ResponseBody
 	 @PostMapping("/login/codeIdChk")
-	 public String codeIdChk(String emailCode,HttpSession session,Model model) {
+	 public boolean codeIdChk(String emailCode,HttpSession session) {
 		 
 		 logger.info("/codeIdChk 실행");
 		 
-		 String searchId =loginService.codeChk(emailCode,session);
-		 logger.info(searchId);
+		 boolean searchId =loginService.codeChk(emailCode,session);
+		 logger.info("인증번호 결과 {}",searchId);
 		 return searchId;
 	 }
 	 
-	 @RequestMapping("/login/searchIdResult")
-	 public void ResultsearchId() {
-		 	logger.info("아이디 찾기 완료");
-	 }
 	 
 	 @ResponseBody
 	 @PostMapping("/login/searchIdBySms")
@@ -160,14 +170,26 @@ public class LoginController {
 	 
 	 @ResponseBody
 	 @PostMapping("/login/checkSmsCode")
-	 public String smsCodeChk(String smsCode,HttpSession session) {
+	 public boolean smsCodeChk(String smsCode,HttpSession session) {
 		 logger.info("/login/chedkSmScode");
 		 
-		 String searchBySms = loginService.smsCodeChk(smsCode,session);
+		 boolean searchBySms = loginService.smsCodeChk(smsCode,session);
 		 
 		 logger.info("아이디 찾기 성공 -{}",searchBySms);
 		 return searchBySms;
 	 }
+	 
+	 @PostMapping("/login/searchIdResult")
+	 public void ResultsearchId(Users searchId,Model model) {
+		 
+		 logger.info("아이디 찾기 결과 확인 ");
+		
+		 Users userId = loginService.findUserId(searchId);
+		 logger.info("아이디찾기 결과 : {}",userId);
+		 model.addAttribute("userId", userId);
+		 
+	 }
+
 	 
 	 @RequestMapping("/login/searchPw")
 	 public void searchPw() {

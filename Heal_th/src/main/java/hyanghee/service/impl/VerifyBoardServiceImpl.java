@@ -10,7 +10,12 @@ import org.springframework.stereotype.Service;
 import hyanghee.dao.face.VerifyBoardDao;
 import hyanghee.dto.VerifyBoard;
 import hyanghee.service.face.VerifyBoardService;
-import hyanghee.util.BoardPaging;
+import hyanghee.util.BoardSearch;
+import jucheol.dao.face.CommentDao;
+import jucheol.dao.face.FileuploadDao;
+import jucheol.dto.Comment;
+import jucheol.dto.Fileupload;
+import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
 @Service
@@ -18,25 +23,16 @@ public class VerifyBoardServiceImpl implements VerifyBoardService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	//게시글
 	@Autowired VerifyBoardDao verifyBoardDao;
-
-	@Override
-	public BoardPaging getPaging(int curPage) {
-		//총 게시글 수 조회
-		int totalCount = verifyBoardDao.selectCntAll();
-								
-		//페이징 계산
-		BoardPaging boardPaging = new BoardPaging(totalCount, curPage);
-		
-		return boardPaging;
-	}
-
-	@Override
-	public List<VerifyBoard> list(BoardPaging boardPaging) {
-		return verifyBoardDao.selectList(boardPaging);
-		
-	}
 	
+	//첨부 파일
+	@Autowired FileuploadDao fileuploadDao;
+		
+	//댓글
+	@Autowired CommentDao commentDao;
+	
+
 	@Override
 	public Users getUserInfo(int userno) {
 		return verifyBoardDao.selectUserInfo(userno);
@@ -50,6 +46,9 @@ public class VerifyBoardServiceImpl implements VerifyBoardService {
 
 	@Override
 	public VerifyBoard view(VerifyBoard viewBoard) {
+		
+		verifyBoardDao.updateHit(viewBoard);
+		
 		return verifyBoardDao.selectBoard(viewBoard);
 	}
 
@@ -111,9 +110,54 @@ public class VerifyBoardServiceImpl implements VerifyBoardService {
 
 	@Override
 	public void delete(VerifyBoard verifyNo) {
+		
+		//첨부파일
+		Fileupload fileUpload = new Fileupload();
+		fileUpload.setBoardNo(verifyNo.getVerifyNo());
+		fileUpload.setCategoryNo(2);
+				
+		//댓글
+		Comment comment = new Comment();
+			
+		comment.setBoardNo(0);		
+		comment.setCategoryNo(0); 
+		commentDao.deleteComment(comment);	
+				
+		fileuploadDao.deleteFile(fileUpload);
+		
 		verifyBoardDao.delete(verifyNo);
 		
 	}
+
+	@Override
+	public int getPoint(int userno) {
+		return verifyBoardDao.getPoint(userno);
+	}
+
+	@Override
+	public void updatePoint(int point) {
+		Users users = new Users();
+		
+		users.setUserNo(point);
+		verifyBoardDao.updatePoint(users);
+		
+	}
+
+	@Override
+	public List<Notice> notice(BoardSearch boardSearch) {
+		return verifyBoardDao.notice(boardSearch);
+	}
+
+	@Override
+	public int getTotal(BoardSearch boardSearch) {
+		return verifyBoardDao.getTotal(boardSearch);
+	}
+
+	@Override
+	public List<VerifyBoard> getSearchPaging(BoardSearch boardSearch) {
+		return verifyBoardDao.getSearchPaging(boardSearch);
+	}
+
 
 	
 	

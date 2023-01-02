@@ -10,29 +10,39 @@ import yerim.dto.Users;
 
 public interface DietBoardDao {
 
+	//총 게시글 수
 	public int selectCntAll();
 
-	public List<DietBoard> selectList(BoardPaging boardPaging);
-
+	//게시글 등록
 	public void insertDietBoard(DietBoard dietBoard);
 
+	//유저정보
 	public Users selectUserInfo(int userno);
 
+	//게시글 상세보기
 	public DietBoard selectBoard(DietBoard viewBoard);
 
+	//게시글 수정
 	public void updateBoard(DietBoard dietBoard);
 
+	//게시글 삭제
 	public void delete(DietBoard dietNo);
 	
 	//공지사항
-	public List<Notice> noticeList(BoardPaging boardPaging);
+	public List<Notice> notice(BoardSearch boardSearch);
 
-	public List<DietBoard> getList();
-	
+	//검색 / 목록
 	public List<DietBoard> getSearchPaging(BoardSearch boardSearch);
 
+	//전체 게시글
 	public int getTotal(BoardSearch boardSearch);
 	
-	public DietBoard getPage(int dietNo);
+	//조회수
+	public void updateHit(DietBoard viewBoard);
+
+	//포인트
+	public int getPoint(int userno);
+
+	public void updatePoint(Users users);
 	
 }

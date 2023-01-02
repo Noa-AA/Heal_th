@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="../layout/header.jsp" />
-<body>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
 <style>
-#map{left:280px;}
-.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+#map{left:153px;}
+.map_wrap, .map_wrap * {margin:0;padding:0;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
 .map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:15px;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(220, 220, 220, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+#menu_wrap {position:absolute;top:52px;left:275px;bottom:0;width:250px; height: 595px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(220, 220, 220, 0.7);z-index: 1;font-size:12px;border-radius: 10px;opacity: 0;}
 .bg_white {background:#fff;}
 #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
@@ -41,31 +42,138 @@
 #pagination a {display:inline-block;margin-right:10px;}
 #pagination .on {font-weight: bold; cursor: default;color:#777;}
 
+#twoDepth-list a:nth-child(1){
+	color: #b571e9;
+	border-bottom: 2px solid #b571e9;
+	margin-top: 1px;
+	font-weight: 700;
+}
+
+.big-container h3:nth-child(1){
+	text-align: center;
+}
+
+.big-container {
+	width: 1200px;
+	margin: 0 auto;
+}
+#loc,#fac{
+    height: 40px;
+    width: 280px;
+    border: 2px solid #7ca3f5;
+    transition: 0.4s;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+    caret-color: #7ca3f5;
+    color:#7ca3f5;
+    font-weight: 500;
+    font-size: 17px;
+}
+#loc{
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+#fac{
+    border-bottom-right-radius: 30px;
+    border-top-right-radius: 30px;
+}
+#loc:hover,#fac:hover{
+  box-shadow: 0px 0px .5px 1px #7ca3f5;
+  width: 290px;
+}
+#loc:focus,#fac:focus{
+  box-shadow: 0px 0px .5px 1px #7ca3f5;
+  width: 290px;
+  outline: 2px solid #7ca3f5;
+}
+.option{
+	text-align: center;
+}
+#searchIcon{
+ margin-left: -39px;
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  color: #7ca3f5;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: none;
+}
+input:focus::-webkit-input-placeholder,
+textarea:focus::-webkit-input-placeholder { /* WebKit browsers */
+  color:transparent;
+}
+
+input:focus:-moz-placeholder,
+textarea:focus:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color:transparent;
+}
+
+input:focus::-moz-placeholder,
+textarea:focus::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color:transparent;
+}
+
+input:focus:-ms-input-placeholder,
+textarea:focus:-ms-input-placeholder { /* Internet Explorer 10+ */
+  color:transparent;
+}
 </style>
+<body>
+<div id="subvisual">
+   <div id="subvisual-A">
+      <p id="subv-title">운동 도우미</p>
+   </div>
+</div>
+<div id="twoDepth">
+	<div id="twoDepth-list">
+		<a href="/map/find">운동 시설 추천</a>
+		<a href="/dghelper/healthrecord">운동 일기장</a>
+		<a href="/dghelper/healthtest">운동 성향 테스트</a>
+		<a href="/dghelper/healthguide">칼로리 사전</a>
+		<a href="/dghelper/dgmagotchi">득근이 키우기</a>
+	</div>
+</div>
 <!-- appkey=5398ad247816ce4ac9d9a7374d499494 -->
-<h1>주변 시설찾기</h1>
-<hr>
+<div class="big-container">
+<h3>주변 시설찾기</h3>
 <div class="map_wrap">
         <div class="option">
             <div>
                 <form onsubmit="searchPlaces(); return false;">
-                    지역 : <input type="text" value="" id="loc" size="15"> 
-                    시설 : <input type="text" value="" id="fac" size="15"> 
-                    <button type="submit">검색하기</button> 
+                    <input type="text" value="" id="loc" class="inputBox" size="15" placeholder="지역을 입력해 주세요"> 
+                    <input type="text" value="" id="fac" class="inputBox" size="15" placeholder="찾는 운동시설을 입력해 주세요"> 
+                    <button id="searchIcon"><i class="fas fa-search"></i></button>
+<!--                     <button type="submit">검색하기</button>  -->
                 </form>
             </div>
         </div>
-    <div id="map" style="width:1000px;height:600px;position:relative;overflow:hidden;"></div>
-
-    <div id="menu_wrap" class="bg_white">
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
+        <br>
+	<div id="mapContainer">
+	    <div id="map" style="width:75%;height:600px;position:relative;overflow:hidden;"></div>
+	
+	    <div id="menu_wrap"  class="bg_white">
+	        <ul id="placesList"></ul>
+	        <div id="pagination"></div>
+	    </div>
     </div>
 </div>
-
+<br><br><br>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5398ad247816ce4ac9d9a7374d499494&libraries=services,clusterer,drawing""></script>
 
 <script type="text/javascript">
+function searchAni(){
+	console.log("start ani")
+	$("#menu_wrap").animate( {
+        left:"0px",
+        opacity:"100%",
+    },500 )
+    $("#map").animate( {
+        left:"280px",
+    },500 )
+}
 function currentLocation() {
 	//HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 	if (navigator.geolocation) {
@@ -171,7 +279,8 @@ kakao.maps.event.addListener(map, 'dragend', async function() {
 
 // 키워드 검색을 요청하는 함수입니다
 function searchPlaces() {
-
+	searchAni()
+	$(".inputBox").blur()
 	var loc = document.getElementById('loc').value;
     var fac = document.getElementById('fac').value;
 
@@ -229,12 +338,13 @@ function displayPlaces(places) {
         // 마커를 생성하고 지도에 표시합니다
         var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
             marker = addMarker(placePosition, i), 
-            itemEl = getListItem(i, places[i]); // 검색 결과 항목 Element를 생성합니다
+            itemEl = getListItem(i, places[i]) // 검색 결과 항목 Element를 생성합니다
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
         bounds.extend(placePosition);
-
+        
+        
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
         // mouseout 했을 때는 인포윈도우를 닫습니다
@@ -247,6 +357,12 @@ function displayPlaces(places) {
                 infowindow.close();
             });
 
+	        // 마커에 클릭이벤트를 등록합니다
+	        kakao.maps.event.addListener(marker, 'click', function() {
+	              // 해당 마커로 검색하기
+	              searchMarker(title);  
+	        });
+        	
             itemEl.onmouseover =  function () {
                 displayInfowindow(marker, title);
 //                 console.log(infowindow.n.La, infowindow.n.Ma); // Wcongnamul 좌표 정보
@@ -279,7 +395,7 @@ function getListItem(index, places) {
 
     var el = document.createElement('li'),
     itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
-                '<div class="info">' +
+                '<a href="https://search.daum.net/search?w=tot&DA=YZR&t__nil_searchbox=btn&sug=&sugo=&sq=&o=&q='+places.place_name +'"target="_blank"><div class="info">' +
                 '   <h5>' + places.place_name + '</h5>';
 
     if (places.road_address_name) {
@@ -290,11 +406,11 @@ function getListItem(index, places) {
     }
                  
       itemStr += '  <span class="tel">' + places.phone  + '</span>' +
-                '</div>';           
+                '</div></a>';           
 
     el.innerHTML = itemStr;
     el.className = 'item';
-
+	
     return el;
 }
 
@@ -331,7 +447,8 @@ function removeMarker() {
 function displayPagination(pagination) {
     var paginationEl = document.getElementById('pagination'),
         fragment = document.createDocumentFragment(),
-        i; 
+        i,
+        value; 
 
     // 기존에 추가된 페이지번호를 삭제합니다
     while (paginationEl.hasChildNodes()) {
@@ -349,8 +466,13 @@ function displayPagination(pagination) {
             el.onclick = (function(i) {
                 return function() {
                     pagination.gotoPage(i);
+                    value = window.scrollY
+					console.log("스크롤위치",value)
+					
                 }
             })(i);
+	        window.scrollTo({top:value}) // 페이지 클릭전 스크롤 좌표로 이동
+			console.log("스크롤위치",value)
         }
 
         fragment.appendChild(el);
@@ -361,7 +483,8 @@ function displayPagination(pagination) {
 // 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
 // 인포윈도우에 장소명을 표시합니다
 function displayInfowindow(marker, title) {
-    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>'; 
+
 
     infowindow.setContent(content);
     infowindow.open(map, marker);
@@ -374,7 +497,14 @@ function removeAllChildNods(el) {
         el.removeChild (el.lastChild);
     }
 }
-</script>
+ // 마커 클릭으로 검색하기
+function searchMarker(title) {
+	var link = "https://search.daum.net/search?w=tot&DA=YZR&t__nil_searchbox=btn&sug=&sugo=&sq=&o=&q="+title
+	window.open(link);
+}
 
+</script>
+</div>
 </body>
+<jsp:include page="../layout/footer.jsp" />
 </html>

@@ -9,12 +9,28 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	
+	console.log(${sessionScope.userNo})
 	$("#wdButton").click(function(){
 		if($("#bankName").val()=="" && $("#wdUsername").val()=="" &&$("#wdAccount").val()==""){
 			alert("입력하지 않은 값이 있습니다.");
 			return false;
 		}
+		
+		$.ajax({
+			type: "post"
+			, url: "/message/insert"
+			, data: {
+				userNo: ${sessionScope.userNo},
+				messageCon: "인출신청이 완료되었습니다."
+			}
+			, dataType: "json"
+			, success: function(res){
+				console.log("AJAX 성공")
+				}
+			, error: function(){
+				console.log("AJAX 실패")
+			}
+		})
 	})
 })
 </script>
@@ -44,20 +60,37 @@ a {
 	margin: 5px;	
 }
 
-input, #wdButton {
+input {
 	width: 230px;
+	height: 36px;
+	border: 1px solid silver;
+}
+#wdButton {
+	width: 230px;
+    height: 36px;
+    background-color: transparent;
+    border: 2px solid #7ca3f5;
+    color:#7ca3f5;
+    font-size:17px;
+    border-radius: 8px;
+    padding-top: 5px;
+    cursor: pointer;
+}
+
+input {
+	padding-left: 5px;
 	text-align: center;
-	padding: 2px;
 }
 
 #wdButton {
 	width: 238px;
+    margin-top: 10px;
 }
 
 #wdInfo {
 	width: 280px;
 	margin: 5px auto;
-	border: 1px solid black;
+	border: 1px solid #7ca3f5;
 }
 
 </style>
@@ -78,7 +111,7 @@ input, #wdButton {
 				<input type="hidden" name="wdAmount" value=${param.wdAmount }>
 				<p>${param.wdAmount }원</p>
 			</div>
-			<p><button id="wdButton">인출신청</button></p>
+			<button id="wdButton">인출신청</button>
 			<p style="color: red; padding-top: 12px;">인출신청시 영업일기준 2~3일내 환불계좌로 입금됩니다.</p>
 		</form>
 	</div>

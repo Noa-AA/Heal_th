@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import daeyeon.dto.Chat;
-import daeyeon.dto.ChatRoom;
+import daeyeon.dto.ChatFile;
 import daeyeon.dto.RoomList;
 import daeyeon.util.ChatIntroPaging;
 import yerim.dto.Users;
@@ -32,6 +34,28 @@ public interface ChatService {
 	 * @return List<Users> -  회원등급 3이상인 회원목록
 	 */
 	public List<Users> userlist(Users myUserNo, ChatIntroPaging chatIntroPaging);
+	
+	
+	/**
+	 * chat/intro
+	 * 
+	 * 검색된 총 게시글 수 조회
+	 * @param chatIntroPaging
+	 * @param curPage
+	 * @return
+	 */
+	public ChatIntroPaging getSearchPaging(ChatIntroPaging chatIntroPaging, String curPage);
+
+	/**
+	 * chat/intro
+	 * 
+	 * 검색된 게시글 조회
+	 * 
+	 * @param chatIntroPaging
+	 * @return
+	 */
+	public List<Users> userSearchlist(ChatIntroPaging chatIntroPaging);
+	
 
 
 	/**
@@ -128,6 +152,38 @@ public interface ChatService {
 	 * @return List<Chat> - 조회한 채팅내역
 	 */
 	public List<Chat> gerChatList(RoomList roomNo);
+
+	
+	/**
+	 * chat/fileup
+	 * 
+	 * 첨부된 파일 DB에 저장하기
+	 * 
+	 * @param inputFile - 첨부파일 정보
+	 * @return 
+	 */
+	public ChatFile fileSave(MultipartFile file, int userNo, int roomNo);
+
+	
+	/**
+	 * 
+	 * 
+	 * @param roomNo 상대방 회원번호
+	 * @return - 상대방 프로필 storedName
+	 */
+	public String getReciverProfile(RoomList roomNo);
+
+	
+	/**
+	 * main
+	 * 포인트가 제일 높은 세명 조회
+	 * 
+	 * @return List<Users> - 조회된 회원목록
+	 */
+	public List<Users> topUserList();
+
+	
+	
 
 	
 	

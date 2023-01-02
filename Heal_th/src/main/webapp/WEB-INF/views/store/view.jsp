@@ -10,44 +10,14 @@ $(document).ready(function() {
 		location.href = "/store/list"
 	})
 })
-</script>
-<script type="text/javascript">
-// $(document).ready(function() {
-// $(".addCart_btn").click(function(){
-// 	console.log("addCart_btn click")
-// 	   	var prodNo = ${viewStore.prodNo}
-// 		var uesrNo = ${viewStore.userNo}
-// // 		var pName = ${viewStore.pName}
-// // 	   var cartStock = $("#cart_stock").val();
 
-// 	console.log("prod_no : "+ prodNo)
-// // 	console.log("cartStock : "+ cartStock)
-// 	   $.ajax({
-// 		    type : "post", 
-// 		    url : "/store/cart", 
-// 		    dataType : "json",
-// 		    data : {
-// 		    	prodNo : prodNo,
-// 		    	userNo : userNo
-// // 		    	pName : pName
-// // 			     cartStock : cartStock
-// 			     },
-// 		    success : function(result){
-// 		     alert("카트 담기 성공");
-// // 		     $("#cart_stock").val("1");
-// 		    },
-// 		    error : function(){
-// 		     alert("카트 담기 실패");
-// 		    }
-// 		   });
-// 	});
-// });
+
 
 $(document).ready(function(){
 	
-	calculteTotalPrice();
 	
 	$("#count").change(function() {
+		console.log("수량확인")
 		calculateToalPrice();
 	});
 });
@@ -56,7 +26,7 @@ function calculateToalPrice(){ //현재 주문할 수량과 상품 한 개당 �
 	var count =$("#count").val();
 	var price =$("#price").val();
 	var totalPrice = price*count;
-	
+	console.log("함수확인")
 	$("#totalPrice").html(totalPrice + '원');
 }
 
@@ -64,11 +34,46 @@ function calculateToalPrice(){ //현재 주문할 수량과 상품 한 개당 �
 /* 바로구매 버튼 */
 function order(){
 	
-}
+
+	
+	location.href="/store/payment?amount=" + $("#count").val() *$("#price").val()+"&count="+$("#count").val()+"&price="+$("#price").val();
+};
+
+
+// $(".addCart_btn").click(function(){
+//  var gdsNum = $("#prodNo").val();
+//  var cartStock = $(".numBox").val();
+    
+//  var data = {
+// 		 prodNo : prodNo,
+//    cartStock : cartStock
+//    };
+
+
+
 
 </script>
 
-<style>
+<style> 
+
+.boxArea {
+/* 	height: 1200px; */
+/*     width: 700; */
+    position: relative;
+    left: 45px;
+    background-color: #F5F5F5;
+    box-shadow: 0px 5px 25px 14px lightgrey;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+
+.big2{
+/* 	text-align: center; */
+	height: 5%;
+	margin-left: 20%;
+}
+
 
 .mgb-15{
 	margin-bottom:15px;
@@ -80,47 +85,135 @@ function order(){
 .mgt-50{
 	margin-top:50px;
 }
-.repImgDiv{
-	margin-right: 15px;
-	height: auto;
-	width:50%;
-}
 
-.repImg{
-width:100%;
-height: 400px;
-}
+
+/* .repImgDiv{ */
+/* 	margin-right: 15px; */
+/* 	height: auto; */
+/* 	width:50%; */
+/* } */
+
+/* .repImg{ */
+/* width:100%; */
+/* height: 400px; */
+/* } */
 
 .wd50{
 	height:auto;
 	width:50%;
 }
 
+.paymoney{
+	margin-right: 20%;
+}
+
+
+.btn {
+    width: 213px;
+    height: 41px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+
+.order_btn {
+    height: 41px;
+    border: 2px solid #7ca3f5;
+    background: transparent;
+}
+
+
+.list_btn {
+    background: #7ca3f5;
+    border: none;
+}
+
+.addCart_btn{
+    background: #7ca3f5;
+}
+
+#addCart_btn>a{
+	color: #fff;	
+
+}
+
+.order_text{
+    color: #7ca3f5;
+}
+.list_text{
+    color: white;
+}
+
+
+.repImgDiv{
+    height: 330px;
+    width:200px;
+    margin: 40px;
+    margin-left: 362px;
+    
+}
+
+.price2{
+	margin-right:20%;
+	margin-top: -100px;
+}
+
+
+
+
+
+.itemId{
+	font-size:20px;
+	margin-left:20%;
+
+}
 </style>
 
 
 
 
+<form>
 
 
 <!-- <div layout:fragment="content" style="margin-left:25%;margin-right:25%"></div> -->
-<div style="margin-left: 25%; margin-right: 25%" class="big">
+	<div style="margin-left: 25%; margin-right: 25%; margin-top:-225px;" class="big boxArea">
 	<%-- <input type="hidden" id="itemId" th:value="${item.id}"> --%>
-	<input type="hidden" id="itemId"><span>${viewStore.pName }</span>
 	<div class="d-flex">
-		<div class="repImgDiv">
-			<!-- 이미지 넣어야함 -->
+		<div class="repImgDiv" style="border:1px solid #ccc;height:300px">
+			<img alt="이미지가 안보여요" src="/resources/img/store/14.jpg">
+			
 		</div>
+	<input type="hidden" id="itemId"><span class="itemId">${viewStore.pName }</span>
 
 
 	</div>
 
 
-
+<div class="big2">
 	<div class="text-right">
 		<div class="h4 text-danger text-left">
-			<input type="hidden" value="${viewStore.pPrice}" id="price"
-				name="price"> <span>${viewStore.pPrice}</span>원
+			<input type="hidden" value="${viewStore.pPrice}" id="price"name="price"> 
+			<span>${viewStore.pPrice}</span>원
 		</div>
 	</div>
 
@@ -129,37 +222,43 @@ height: 400px;
 
 	<div class="input-group w-50">
 		<div class="input-group-prepend">
-			<span class="input-group-text">수량</span>
+			<span class="input-group-text button_quantity">수량</span>
 		</div>
 		<input type="number" name="count" id="count" class="form-control"
-			value="1" min="1">
+			value="1" min="1" onchange="calculateToalPrice()">
 	</div>
 	
-	
-</div>
-<!-- big 종료 -->
-<hr class="my-4">
-<div class="text-right mgt-50">
-	<h5>결제금액</h5>
-<!-- 	<h3 name="totalPrice" id="totalPrice" class="font-weight-bold"></h3> -->
-	<h3 id="totalPrice" class="font-weight-bold"></h3>
-</div>
-<div class="text-right">
+</div><!-- big2 -->	
 
-	<span>${viewStore.pPrice}</span>원
-</div>
-<div class="text-center">
-	<button type="button"
-		class="btn btn-light border border-primary btn-lg">장바구니 담기</button>
-	<button type="button" class="btn btn-primary btn-lg"  onclick="order()">주문하기</button>
-	<button id="btnList" class="btn btn-default btn-lg">목록</button>
+
+
+
+	<div class="text-right mgt-50 paymoney price2" style="font-size:20px;">
+		<h4 style="color:red;font-size:20px;">결제금액</h4>
+
+		<span id="totalPrice"  >${viewStore.pPrice}원</span>
+		
+	</div>
+	
+	<br>
+	<br>
+	
+	
+<div class="text-center" style="margin-top:60px;">
+	<button type="button" class=" btn addCart_btn" id="addCart_btn"><a href="/store/cart?prodNo=${viewStore.prodNo }">장바구니에 담기</a></button>
+	<button type="button" class="btn order_btn"  onclick="order()">
+		<span class="order_text">주문하기</span>
+	</button>
+	<button type="button" id="btnList" class="btn list_btn" >
+		<span class="list_text">목록</span>
+	</button>
 
 </div>
 
 
 
 <div class="jumbotron jumbotron-fluid mgt-30">
-	<div class="container">
+	<div class="container ">
 		<h4 class="dispaly-5">상품 상세 설명</h4>
 		<hr class="my-4">
 		<p class="lead">${viewStore.pDetail }</p>
@@ -167,6 +266,10 @@ height: 400px;
 
 </div>
 
+</div>
+<!-- big 종료 -->
+</form>
+<%@include file="../layout/footer.jsp" %>
 
 </body>
 </html>

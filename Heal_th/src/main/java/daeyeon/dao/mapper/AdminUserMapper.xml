@@ -9,13 +9,13 @@
 	
 	<!-- /admin/user  -->
 	<!-- 회원의 전체 리스트 수 조회 -->
-	<select id="selectCntAll" resultType="int">
+	<select id="selectUserCntAll" resultType="int">
 		SELECT count(*) FROM users
 	</select>
 	
 	<!-- /admin/user -->
 	<!-- 회원 전체 리스트 조회 -->
-	<select id="selectUsers" resultType="Users" parameterType="AdminPaging">
+	<select id="selectUsers" resultType="Users" parameterType="AdminUserPaging">
 		SELECT * FROM (
 			SELECT rownum rnum, R.* FROM (
 			      SELECT * FROM users
@@ -26,7 +26,7 @@
 	
 	
 	<!-- admin/userSearch -->
-	<select id="selectSearchCntAll" resultType="int" parameterType="AdminPaging">
+	<select id="selectSearchCntAll" resultType="int" parameterType="AdminUserPaging">
 		SELECT count(*) FROM users 
 		<where>
 			<choose>
@@ -38,11 +38,11 @@
 				</when>
 			</choose>
 		</where>
-		ORDER BY user_no DESC
+		ORDER BY user_no
 	</select>
 	
 	
-	<select id="selectSearchUsers" resultType="Users" parameterType="AdminPaging">
+	<select id="selectSearchUsers" resultType="Users" parameterType="AdminUserPaging">
 		SELECT * FROM (
 			SELECT rownum rnum, R.* FROM (
 				SELECT * FROM users 
@@ -62,6 +62,80 @@
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select>
 	
+	
+	<!-- 회원 결제목록 ============================================================================= -->	
+	
+	<!-- /admin/payment  -->
+	<!-- 전체 결제 목록 수 조회 -->
+	<select id="selectPaymentCntAll" resultType="int">
+		SELECT count(*) FROM payment
+	</select>
+	
+	<!-- /admin/payment -->
+	<!-- 결제목록 리스트 조회 -->
+	<select id="selectPayment" resultType="PaymentDto" parameterType="AdminPaymentPaging">
+		SELECT * FROM (
+			SELECT rownum rnum, R.* FROM (
+			      SELECT * FROM payment
+				) R
+			) RECORD
+		WHERE rnum BETWEEN #{startNo} AND #{endNo}
+	</select>
+	
+	<!-- admin/paymentSearch -->
+	<select id="selectPaymentSearchCntAll" resultType="int" parameterType="AdminPaymentPaging">
+		SELECT count(*) FROM payment
+		<where>
+			<choose>
+				<when test="type != null and type.equals('orderNo')">
+					AND order_no LIKE '%' || #{keyword } || '%'
+				</when>
+				<when test="type != null and type.equals('pName')">
+					AND p_name LIKE '%' || #{keyword } || '%'
+				</when>
+			</choose>
+		</where>
+		ORDER BY order_no
+	</select>
+	
+	<select id="selectSearchPayment" resultType="PaymentDto" parameterType="AdminPaymentPaging">
+		SELECT * FROM (
+			SELECT rownum rnum, R.* FROM (
+				SELECT * FROM payment 
+				<where>
+					<choose>
+							<when test="type != null and type.equals('orderNo')">
+								AND order_no LIKE '%' || #{keyword } || '%'
+							</when>
+							<when test="type != null and type.equals('pName')">
+								AND p_name LIKE '%' || #{keyword } || '%'
+							</when>
+					</choose>
+				</where>
+				ORDER BY order_no 
+				) R
+			) RECORD
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
+	
+	
+	
+	
+	<!-- 향희님, 주철님이 쓰실 포인트 조회해서 ranking_No 바꾸기====================================================== -->	
+	<update id="updateRnoByPoint" parameterType="int">
+		UPDATE users
+			SET ranking_no =
+			CASE
+			<![CDATA[
+				WHEN (point < 2000) THEN 1
+				WHEN (point >= 2000 AND point < 3000) THEN 2
+				WHEN (point >= 3000 AND point < 5000) THEN 3
+				WHEN (point >= 5000 AND point < 10000) THEN 4
+				WHEN (point >= 10000) THEN 5
+			]]>
+ 		   END
+		WHERE user_no = #{userNo }
+	</update>
 	
 </mapper>
 

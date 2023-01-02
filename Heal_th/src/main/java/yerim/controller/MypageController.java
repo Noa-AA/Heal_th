@@ -1,5 +1,7 @@
 package yerim.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+
+import changmin.dto.BodyInfo;
 import yerim.dto.PhotoFile;
 import yerim.dto.Users;
 import yerim.service.face.MypageService;
@@ -26,24 +30,30 @@ public class MypageController {
 	@Autowired MypageService mypageService;
 	
 	@RequestMapping("/main")
-	public void mypage(HttpSession session, Model model,PhotoFile profile) {
+	public void mypage(HttpSession session, Model model,PhotoFile profile,BodyInfo bodyInfo) {
 		logger.info("/mypag/main [GET]");
 		
 		//회원 프로필 사진 조회해오기
 		PhotoFile profilePhoto = mypageService.getPhoto(session,profile);
 		logger.info("프로필 {}",profilePhoto);
 		
-		//한줄 소개 조회해오기
-		Users userIntro = mypageService.getIntro(session);
-		logger.info("한술 소개 : {}",userIntro);
+		//한줄 소개,득근머니,포인트, 등급 조회해오기
+		Users mypageInfo = mypageService.getmypageInfo(session);
+		logger.info("한술 소개 : {}",mypageInfo);
 		
+		//g회원 키 조회해오기
+		BodyInfo height = mypageService.getHeigiht(session,bodyInfo);
+		logger.info("회원 키 {}",height);
+
 		//모델값으로 storedName 전달하기
 		model.addAttribute("storedName", profilePhoto);
 		//모델값으로 한줄 소개 전달하기
-		model.addAttribute("userIntro", userIntro);
-		
-		
+		model.addAttribute("mypageInfo", mypageInfo);
+		//모델값으로 키 전달하기
+		model.addAttribute("bodyInfo", height);
+
 	}
+	
 	
 	@GetMapping("/updateInfo")
 	public void updateUsersInfo(HttpSession session,Model model) {
@@ -71,6 +81,7 @@ public class MypageController {
 		
 		//주소 정보만 model값으로 넘기기
 		model.addAttribute("address", address);
+		
 	}
 	
 	@PostMapping("/updateInfo")
@@ -81,22 +92,25 @@ public class MypageController {
 		mypageService.updateInfo(session,userInfo);
 		
 		
-		return "/mypage/main";
+		return "redirect:/mypage/main";
 	}
 	
 	
 	@ResponseBody
 	@PostMapping("/getEmailCodeForUpdate")
-	public String updateEmail(Users userEmail,HttpSession session) {
+	public boolean updateEmail(Users userEmail,HttpSession session) {
 		logger.info("이메일 보내기");
 		//이메일 인증 보내기
 		String emailCodeForUpdate = mypageService.sendEmailCode(userEmail);
 	
-		//인증된 메일 세션에 저장하기
-		session.setAttribute("sessionEmailCdoe", emailCodeForUpdate);
-		
-		logger.info(emailCodeForUpdate);
-		return emailCodeForUpdate;
+		if(emailCodeForUpdate != null) {
+			
+			//인증된 메일 세션에 저장하기
+			logger.info(emailCodeForUpdate);
+			session.setAttribute("sessionEmailCdoe", emailCodeForUpdate);
+			return true;
+		}
+		return false;
 	}
 	
 	@ResponseBody
@@ -110,16 +124,18 @@ public class MypageController {
 	
 	@ResponseBody
 	@PostMapping("/smsCodeForUpdate")
-	public String updatePhone(Users userPhone,HttpSession session) {
+	public boolean updatePhone(Users userPhone,HttpSession session) {
 		logger.info("문자 인증 보내기");
 		
 		//문자로 인증번호 보내기
 		String smsCodeForUpdate = mypageService.sendSmsCode(userPhone);
-		
-		//세션에 인증번호 저장
-		session.setAttribute("sessionSmSCode", smsCodeForUpdate);
-		
-		return smsCodeForUpdate;
+		if(smsCodeForUpdate != null) {
+			
+			//세션에 인증번호 저장
+			session.setAttribute("sessionSmSCode", smsCodeForUpdate);
+			return true;
+		}
+		return false;
 		
 	}
 	 @ResponseBody
@@ -150,24 +166,16 @@ public class MypageController {
 		 model.addAttribute("userId", userId);
 	 }
 	 
+	 @ResponseBody
 	 @PostMapping("chkUsingPw")
-	 public String chkUsingPw(HttpSession session,Users updatePwInfo,Model model) {
+	 public boolean chkUsingPw(HttpSession session,Users updatePwInfo) {
 		 logger.info("/mypage/chkUsingPw [POST]");
-		 
+		 logger.info("전달받은 아이디/비밀번호 : {}",updatePwInfo);
 		 		 
 		 //현재 비밀번호와 맞는지 확인하기
 		 boolean isUsingPw = mypageService.getuserPw(updatePwInfo,session);
-		 
-		 if(isUsingPw) {//확인된 비밀번호 일치
-			 logger.info("현재 사용중인 비밀번호 일치 - 비밀번호 초기화하기");
-			 return "/mypage/setUserPw";
-			 
-		 }
-		
-		 //model값으로 false값 넘겨 주기 
-		 model.addAttribute("isUsingPw", isUsingPw);
-		 return "/mypage/updatePw";
-		
+		logger.info("현재 사용중인 비밀번호 조회 결과 : {}",isUsingPw);
+		return isUsingPw;
 		 
 	 }
 	 
@@ -197,6 +205,7 @@ public class MypageController {
 		 //비밀번호 재설정
 		 mypageService.updateNewPw(userNewPw,session);
 		 
+		 logger.info("비밀번호 설정 완료 ");
 		 //업데이트 후 로그인 페이지로 이동
 		 return "redirect:/login/login";
 	 }
@@ -250,6 +259,44 @@ public class MypageController {
 			return "/mypage/dropOut";
 		}
 		
-//		
+	}
+	@ResponseBody
+	@PostMapping("/updateBodyInfo")
+	public BodyInfo  updateWeight(HttpSession session,BodyInfo bodyInfo) {
+
+		logger.info("/updateWeight [POST]");
+		logger.info("bodyInfo {}", bodyInfo);
+		
+		//세션에서 userNo ->가져오기
+		bodyInfo.setUserNo((int)session.getAttribute("userNo"));
+		mypageService.setBodyInfo(bodyInfo);	
+		
+		return bodyInfo;
+	
+		
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("/sendData")
+	public List<BodyInfo> infoData (HttpSession session, BodyInfo info) {
+		//그래프 작성을 위한 자료 조회하기
+		List<BodyInfo> weightList = mypageService.getBodyList(info,session);
+		for(BodyInfo list : weightList) logger.info("list {}", list);
+		
+		logger.info("list {}",weightList);
+		
+		return weightList;
+	}
+	
+	@GetMapping("/logout")
+	public String logOut(HttpSession session) {
+		
+		//로그아웃하기
+		session.invalidate();
+		
+		return "redirect:/login/login";
+		
+		
 	}
 }

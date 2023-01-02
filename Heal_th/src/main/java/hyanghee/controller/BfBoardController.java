@@ -1,6 +1,9 @@
 package hyanghee.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,14 +15,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import hyanghee.dto.Beforeafter;
 import hyanghee.service.face.BfBoardService;
 import hyanghee.util.BoardPageMaker;
-import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
+import jucheol.dto.Fileupload;
+import jucheol.service.face.FileuploadService;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
@@ -31,75 +35,109 @@ public class BfBoardController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 			
 	//서비스 객체
-	@Autowired private BfBoardService bfBoardService;	
+	@Autowired private BfBoardService bfBoardService;
 	
-	//게시글 리스트 
+	//첨부 파일
+	@Autowired private FileuploadService fileuploadService; 
+	
 	@RequestMapping("/board/bfBoard")
-	public void list(
-			@RequestParam(defaultValue = "0") int curPage
-			, BoardSearch boardSearch
-			, Model model) {
-		
-		BoardPaging boardPaging = bfBoardService.getPaging(curPage);
-		logger.info("{}", boardPaging);
-		model.addAttribute("BoardPaging", boardPaging);
-		
-//		List<Beforeafter> list = bfBoardService.list(boardPaging);
-//		for( Beforeafter b : list )	logger.info("{}", b);
-//		model.addAttribute("list", list);
+	public void list(BoardSearch boardSearch, HttpSession session, Model model) {
 		
 		//공지사항
-		List<Notice> notice = bfBoardService.notice(boardPaging);
+		List<Notice> notice = bfBoardService.notice(boardSearch);
 		for( Notice n : notice )	logger.info("{}", n);
 		model.addAttribute("notice", notice);
 		
 		//검색
-		model.addAttribute("boardSearch", bfBoardService.getSearchPaging(boardSearch));
+		List<Beforeafter> list = bfBoardService.getSearchPaging(boardSearch);
+		
+		model.addAttribute("boardSearch", list);
 		int total = bfBoardService.getTotal(boardSearch);
 		
+		//게시글 목록 첨부파일
+		List<Map<String,Object>> fileMapList = new ArrayList<>();
+		for( Beforeafter b : list ) {
+			logger.info("{}", b);
+			
+			Map<String,Object> fileMap = new HashMap<>();
+
+			fileMap.put("bfNo", b.getBfNo());
+			
+			Fileupload f = new Fileupload();
+			f.setBoardNo(b.getBfNo());
+			f.setCategoryNo(1);
+			fileMap.put("fileList", fileuploadService.getFileList(f));
+			
+			fileMapList.add(fileMap);
+		}
+		model.addAttribute("fileMapList", fileMapList);
+		
 		BoardPageMaker pageMake = new BoardPageMaker(boardSearch, total);
+		logger.info("{}", pageMake);
 		model.addAttribute("pageMaker", pageMake);
 		
-		
 	}
-	
-	
 	
 	
 	//게시글 작성
 	@GetMapping("/board/bfWrite")
-	public void insertBfBoard() {
-		
+	public String insertBfBoard(HttpSession session, Model model) {
 		logger.info("/board/bfWrite [GET]");
 		
+		if(session.getAttribute("userNo")!=null && session.getAttribute("userNo")!="") {
+			int userno = (int) session.getAttribute("userNo");
+			logger.info("userno : {}", userno);
+			
+			Users users = bfBoardService.getUserInfo(userno);
+			logger.info("userInfo : {}", users);
+			model.addAttribute("users", users);
+			
+			int point = bfBoardService.getPoint(userno);
+			logger.info("point: {}", point);
+			model.addAttribute("point", point);
+			
+			return "/board/bfWrite";
+		} else {
+			return "/login/login";
+		}
 
 	}
 	
 	@PostMapping("/board/bfWrite")
-	public String insertBfBoardProc(Beforeafter bfBoard, int point, HttpSession session, Model model) {
+	public String insertBfBoardProc(Beforeafter bfBoard, HttpSession session
+			, List<MultipartFile> multiFile
+			) {
 		logger.info("/board/bfWrite [POST]");
+		logger.info("file/write[POST]");
 		
 		//테스트용 로그인 userno
-		session.setAttribute("userNo", 7777);
+//		session.setAttribute("userNo", 7777);
 		
 		//작성자 정보 추가
 		bfBoard.setUserNo( (int) session.getAttribute("userNo") );
-		
-		//포인트
-		Users userno = bfBoardService.getPoint(point);
-		List<Users> user = bfBoardService.updatePoint(point);
-		model.addAttribute("point", point);
 		
 		logger.info("{}", bfBoard);
 		
 		bfBoardService.insertBfBoard(bfBoard);
 		
+		 int boardNo = bfBoard.getBfNo(); //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
+	     int categoryNo = 1;//----------------카테고리번호 넣어주세여~
+	     fileuploadService.insertFile(multiFile, boardNo, categoryNo);
+		
+		
+		int point = (Integer)session.getAttribute("userNo");
+		bfBoardService.updatePoint(point);
+		
+		
+		
 		return "redirect:/board/bfBoard";
 	}
 	
+	
+	
 	//게시글 상세 보기
 	@RequestMapping("board/bfView")
-	public String view(Beforeafter viewBoard,Comment comment, Model model) {
+	public String view(Beforeafter viewBoard, HttpSession session, Comment comment, Model model) {
 		logger.info("{}", viewBoard);
 		
 		//잘못된 게시글 번호 처리
@@ -114,51 +152,62 @@ public class BfBoardController {
 		//모델값 전달
 		model.addAttribute("viewBoard", viewBoard);
 		model.addAttribute("comment", comment);
+		model.addAttribute("boardNo", viewBoard.getBfNo());
 		
 		return "/board/bfView";
 	}
 
 	//게시글 수정
 	@GetMapping("/board/bfUpdate")
-	public String update(Beforeafter beforeafter, Model model) {
+	public String update(Beforeafter beforeafter, HttpSession session, Model model) {
 		logger.debug("{}", beforeafter);
+			
+			//잘못된 게시글 번호 처리
+			if( beforeafter.getBfNo() < 0 ) {
+				return "redirect:/board/bfBoard";
+			}
+			
+			//게시글 조회
+			beforeafter = bfBoardService.view(beforeafter);
+			logger.debug("조회된 게시글 {}", beforeafter);
+			
+			int boardNo = beforeafter.getBfNo(); //----------------1 대신 해당게시판 글번호 넣어주세여 ex) bfBoard.getBfNo()
+	        int categoryNo = 1;//----------------카테고리번호 넣어주세여~
+	        model.addAttribute("boardNo", boardNo);
+	        model.addAttribute("categoryNo", categoryNo);
+			
+			//모델값 전달
+			model.addAttribute("updateBoard", beforeafter);
+			
 		
-		//잘못된 게시글 번호 처리
-		if( beforeafter.getBfNo() < 0 ) {
-			return "redirect:/board/bfBoard";
-		}
-		
-		//게시글 조회
-		beforeafter = bfBoardService.view(beforeafter);
-		logger.debug("조회된 게시글 {}", beforeafter);
-		
-		//모델값 전달
-		model.addAttribute("updateBoard", beforeafter);
-		
-		//첨부파일 모델값 전달
-//		BoardFile boardFile = boardService.getAttachFile(beforeafter);
-//		model.addAttribute("boardFile", boardFile);
-		
-		
-		return "/board/bfUpdate";
+			return "/board/bfUpdate";
 
 	}
 	
 
 	
 	@PostMapping("/board/bfUpdate")
-	public String updateProcess(Beforeafter beforeafter) {
+	public String updateProcess(Beforeafter beforeafter, HttpSession session, Model model
+			, List<MultipartFile> multiFile) {
 		logger.debug("{}", beforeafter);
+		
+		int boardNo = beforeafter.getBfNo();
+		int categoryNo = 1;
+		fileuploadService.updateFile(multiFile,boardNo,categoryNo);
+		
+		model.addAttribute("boardNo", boardNo);
+	    model.addAttribute("categoryNo", categoryNo);
 		
 		bfBoardService.update(beforeafter);
 		
 		return "redirect:/board/bfView?bfNo=" + beforeafter.getBfNo();
 	}
 	
+ 
 	
 	//게시글 삭제
 	@RequestMapping("/board/bfDelete")
-	public String delete(Beforeafter bfNo) {
+	public String delete(Beforeafter bfNo, HttpSession session) {
 		
 		logger.info("{}", bfNo);
 		
@@ -167,6 +216,8 @@ public class BfBoardController {
 		
 		return "redirect:/board/bfBoard";
 	}
+	
+	
 	
 	
 	

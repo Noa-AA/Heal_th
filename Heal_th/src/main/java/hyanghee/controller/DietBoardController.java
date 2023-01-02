@@ -1,6 +1,9 @@
 package hyanghee.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,15 +15,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import hyanghee.dto.DietBoard;
 import hyanghee.service.face.DietBoardService;
 import hyanghee.util.BoardPageMaker;
-import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
 import jucheol.dto.Comment;
+import jucheol.dto.Fileupload;
+import jucheol.service.face.FileuploadService;
 import saebyeol.dto.Notice;
+import yerim.dto.Users;
 
 @Controller
 public class DietBoardController {
@@ -29,27 +34,46 @@ public class DietBoardController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 				
 	//서비스 객체
-	@Autowired private DietBoardService dietBoardService;	
+	@Autowired private DietBoardService dietBoardService;
+	
+	//첨부 파일
+	@Autowired private FileuploadService fileuploadService; 
 		
 	//게시글 리스트
 	@RequestMapping("/board/dietBoard")
-	public void list(
-			@RequestParam(defaultValue = "0") int curPage
-			, Model model, BoardSearch boardSearch ) {
+	public void list(BoardSearch boardSearch, HttpSession session, Model model) {
 		
-		BoardPaging boardPaging = dietBoardService.getPaging(curPage);
-		logger.info("{}", boardPaging);
-		model.addAttribute("BoardPaging", boardPaging);
-			
-		List<Notice> notice = dietBoardService.notice(boardPaging);
+		//공지사항
+		List<Notice> notice = dietBoardService.notice(boardSearch);
 		for( Notice n : notice )	logger.info("{}", n);
 		model.addAttribute("notice", notice);
 		
 		//검색
-		model.addAttribute("boardSearch", dietBoardService.getSearchPaging(boardSearch));
+		List<DietBoard> list = dietBoardService.getSearchPaging(boardSearch);
+		
+		model.addAttribute("boardSearch", list);
 		int total = dietBoardService.getTotal(boardSearch);
 		
+		//게시글 목록 첨부파일
+		List<Map<String,Object>> fileMapList = new ArrayList<>();
+		for( DietBoard b : list ) {
+			logger.info("{}", b);
+					
+			Map<String,Object> fileMap = new HashMap<>();
+
+			fileMap.put("dietNo", b.getDietNo());
+					
+			Fileupload f = new Fileupload();
+			f.setBoardNo(b.getDietNo());
+			f.setCategoryNo(3);
+			fileMap.put("fileList", fileuploadService.getFileList(f));
+					
+			fileMapList.add(fileMap);
+		}
+		model.addAttribute("fileMapList", fileMapList);
+		
 		BoardPageMaker pageMake = new BoardPageMaker(boardSearch, total);
+		logger.info("{}", pageMake);
 		model.addAttribute("pageMaker", pageMake);
 
 	}
@@ -58,13 +82,33 @@ public class DietBoardController {
 		
 	//게시글 작성
 	@GetMapping("/board/dWrite")
-	public void insertBfBoard() {
+	public String insertBfBoard(HttpSession session, Model model) {
 		logger.info("/board/dWrite [GET]");
+		
+		if(session.getAttribute("userNo")!=null && session.getAttribute("userNo")!="") {
+			int userno = (int) session.getAttribute("userNo");
+			logger.info("userno : {}", userno);
+			
+			Users users = dietBoardService.getUserInfo(userno);
+			logger.info("userInfo : {}", users);
+			model.addAttribute("users", users);
+			
+			int point = dietBoardService.getPoint(userno);
+			logger.info("point: {}", point);
+			model.addAttribute("point", point);
+			
+			return "/board/dWrite";
+		} else {
+			return "/login/login";
+		}
+
+		
 	}
 		
-	
 	@PostMapping("/board/dWrite")
-	public String insertBoardProc(DietBoard dietBoard,HttpSession session) {
+	public String insertBoardProc(DietBoard dietBoard,HttpSession session
+			, List<MultipartFile> multiFile
+			) {
 		
 		//테스트용 로그인 userno
 		session.setAttribute("userNo", 7777);
@@ -75,6 +119,13 @@ public class DietBoardController {
 		logger.info("{}", dietBoard);
 				
 		dietBoardService.insertDietBoard(dietBoard);
+		
+		 int boardNo = dietBoard.getDietNo();
+	     int categoryNo = 3;
+	     fileuploadService.insertFile(multiFile, boardNo, categoryNo);
+		
+		int point = (Integer)session.getAttribute("userNo");
+		dietBoardService.updatePoint(point);
 			
 		return "redirect:/board/dietBoard";
 		
@@ -82,7 +133,7 @@ public class DietBoardController {
 		
 		//게시글 상세 보기
 		@RequestMapping("board/dView")
-		public String view(DietBoard viewBoard, Model model) {
+		public String view(DietBoard viewBoard, Comment comment, Model model) {
 			logger.info("{}", viewBoard);
 			
 			//잘못된 게시글 번호 처리
@@ -96,13 +147,15 @@ public class DietBoardController {
 			
 			//모델값 전달
 			model.addAttribute("viewBoard", viewBoard);
+			model.addAttribute("comment", comment);
+			model.addAttribute("boardNo", viewBoard.getDietNo());
 			
 			return "board/dView";
 		}
 
 		//게시글 수정
 		@GetMapping("/board/dUpdate")
-		public String update(DietBoard dietBoard, Comment comment, Model model) {
+		public String update(DietBoard dietBoard, Model model) {
 			logger.debug("{}", dietBoard);
 			
 			//잘못된 게시글 번호 처리
@@ -114,13 +167,14 @@ public class DietBoardController {
 			dietBoard = dietBoardService.view(dietBoard);
 			logger.debug("조회된 게시글 {}", dietBoard);
 			
+			//첨부파일
+			int boardNo = dietBoard.getDietNo(); 
+	        int categoryNo = 3;
+	        model.addAttribute("boardNo", boardNo);
+	        model.addAttribute("categoryNo", categoryNo);
+			
 			//모델값 전달
 			model.addAttribute("updateBoard", dietBoard);
-			model.addAttribute("comment", comment);
-			
-			//첨부파일 모델값 전달
-//			BoardFile boardFile = boardService.getAttachFile(beforeafter);
-//			model.addAttribute("boardFile", boardFile);
 			
 			
 			return "/board/dUpdate";
@@ -130,8 +184,14 @@ public class DietBoardController {
 
 		
 		@PostMapping("/board/dUpdate")
-		public String updateProcess(DietBoard dietBoard) {
+		public String updateProcess(DietBoard dietBoard, Model model
+				, List<MultipartFile> multiFile) {
 			logger.debug("{}", dietBoard);
+			
+			int boardNo = dietBoard.getDietNo();
+			int categoryNo = 3;
+			fileuploadService.updateFile(multiFile,boardNo,categoryNo);
+			
 			
 			dietBoardService.update(dietBoard);
 			

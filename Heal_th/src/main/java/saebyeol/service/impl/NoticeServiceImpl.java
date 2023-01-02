@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import saebyeol.dao.face.NoticeDao;
+import saebyeol.dto.Criteria;
 import saebyeol.dto.Notice;
 import saebyeol.service.face.NoticeService;
-import saebyeol.utill.SaebyeolPaging;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
@@ -22,25 +22,23 @@ public class NoticeServiceImpl implements NoticeService {
 	@Autowired NoticeDao noticeDao;
 	
 	@Override
-	public SaebyeolPaging getPaging(int curPage) {
-	
-		//총 게시글 수 조회
-		int totalCount = noticeDao.selectCntAll();
+	public List<Notice> getPaging(Criteria cri) {
 		
-		//페이징 계산
-		SaebyeolPaging paging = new SaebyeolPaging(totalCount, curPage);
-		
-		return paging;
+		return noticeDao.getPaging(cri);
 	}
 	
 	@Override
-	public List<Notice> list(SaebyeolPaging paging) {
+	public List<Notice> list() {
 		
-		logger.debug("Listpaging {}", paging);
-		
-		return noticeDao.selectList(paging);
+		return noticeDao.getList();
 	}
 	
+	@Override
+	public int getTotal(Criteria cri) {
+		return noticeDao.getTotal(cri);
+	}
+
+
 	@Override
 	public Notice view(Notice viewNotice) {
 		
@@ -78,6 +76,8 @@ public class NoticeServiceImpl implements NoticeService {
 		noticeDao.delete(notice);
 		
 	}
+	
+
 
 }
 

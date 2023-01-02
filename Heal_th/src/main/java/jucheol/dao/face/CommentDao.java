@@ -24,8 +24,9 @@ public interface CommentDao {
 	/**
 	 * 댓글 삭제하기
 	 * 
-	 * @param comment 댓글번호
+	 * @param comment 댓글번호 or (글번호 and 카테고리번호)
 	 */
 	public void deleteComment(Comment comment);
+
 
 }

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import daeyeon.dao.face.AdminUserDao;
 import jucheol.dao.face.AttendanceDao;
 import jucheol.dto.Attendance;
 import jucheol.service.face.AttendanceService;
@@ -24,11 +25,12 @@ public class AttendanceServiceImpl implements AttendanceService {
 		
 		return attendanceDao.getLastLogin(attendance);
 	}
-
+	@Autowired AdminUserDao adminUserDao;
 	@Override
 	public void addLoginDate(Attendance attendance) {
 		attendanceDao.addLoginDate(attendance);
-		
+		attendanceDao.updatePoint(attendance.getUserNo());
+		adminUserDao.updateRnoByPoint(attendance.getUserNo());
 	}
 
 	@Override

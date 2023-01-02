@@ -15,7 +15,7 @@ function commentListCall() {
 		type: "get"
 		,url: "/comment/list"
 		,data: {
-				boardno:${viewBoard.bfNo }	
+				boardno:${boardNo}
 				,category:${viewBoard.categoryNo }
 			}
 		,dataType: "html"
@@ -31,7 +31,9 @@ function commentListCall() {
 }
 
 $(document).ready(function(){
-	commentListCall(${viewBoard.bfNo }	,${viewBoard.categoryNo })
+
+
+	commentListCall(${boardNo}	,${viewBoard.categoryNo })
 	
 	 $('#content').focus( ()=>{
 		console.log("입력창 포커스") 
@@ -65,7 +67,7 @@ $(document).ready(function(){
 			,url: "/comment/insert"
 			,data: {
 					content:$("#content").val() //댓글내용
-					,boardno:${viewBoard.bfNo }					// 글번호
+					,boardno:${boardNo}					// 글번호
 					,category:${viewBoard.categoryNo }					// 글 카테고리
 				}
 			,dataType: "html"
@@ -97,30 +99,94 @@ $(document).ready(function(){
 <style>
 #inputContainer{
 	text-align: center;
+	padding-bottom: 20px;
 }
 #content{
-	width: 650px;
+	width: 90%;
 	height: 50px;
 }
 #write{
 	height: 50px;
+	width: 50px;
 }
 
+#commentBoard{
+    margin: 0 auto;
+	width: 700px;
+	background-color: aliceblue;
+}
+
+#commentList{
+    padding: 20px 20px 0 20px;
+    width: 100%;
+}
+
+#commentListTable {
+	border: 10px #ccc;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+#commentSpace {
+	height: 10px;
+}
+
+.commentOne {
+	margin-bottom: 50px;
+}
+
+.pIcon {
+	width: 70px;
+	height: 70px;
+	border-radius: 71px;
+}
+
+/*  #commentListTable tr,td{  */
+/*  	border: solid 1px #ccc;  */
+/*  }  */
+.userNick {
+	font-weight: 900;
+	font-size:18px;
+	float: none;
+    margin-right: 7px;
+}
+
+.commentContent {
+	background-image: url("/resources/img/addOns/sb.png");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+    padding-left: 30px;
+}
+
+.commentDelete{
+	background-color: transparent;
+}
+.commentDeleteBtn {
+	width: 20px;
+	height: 20px;
+}
+.commentP{
+	padding: 20px 0 0 30px;
+	font-weight: 700;
+}
 </style>
-</head>
-<body>
+
 <div id="commentBoard">
 
+<h4 class="commentP">댓글</h2>
 <div id="commentList"></div> <!-- 댓글 List 적용될 div -->
 <br>
 <div id="inputContainer">
 <form action="./insert"> <!-- 댓글 입력 폼 -->
 <input type="text" name="content" id="content" placeholder="내용을 입력하세요">
 <button disabled="disabled" style="display: none;"></button>
-<button type="button" id="write">작성하기</button>
+<button type="button" id="write">작성</button>
 </form>
 </div>
 
 </div>  <!-- End commentBoard --> 
-</body>
+
 <!-- </html> -->

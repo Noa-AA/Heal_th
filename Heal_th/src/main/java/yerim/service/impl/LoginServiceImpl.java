@@ -65,7 +65,7 @@ public class LoginServiceImpl implements LoginService {
 	
 	
 	@Override
-	public String codeChk(String emailCode, HttpSession session) {
+	public boolean codeChk(String emailCode, HttpSession session) {
 		logger.info("codeChk 실행");
 		logger.info("emailCode : {}, session : {}",emailCode, 	session.getAttribute("emailResult"));
 		
@@ -77,20 +77,18 @@ public class LoginServiceImpl implements LoginService {
 			searchId.setUserName((String)session.getAttribute("userName"));
 			searchId.setUserEmail((String)session.getAttribute("userEmail"));	
 		
-		logger.info("userName : {}, userEmai :{}",session.getAttribute("userName"),session.getAttribute("userEmail"));
+		logger.info("userName : {}, userEmail :{}",session.getAttribute("userName"),session.getAttribute("userEmail"));
 		String getUserId = "";
 		if(sessionCode.equals(emailCode)) {
 			logger.info("이메일 인증 성공");
-			//인증 성공 시 아이디 조회해오기
-			getUserId = loginDao.selectById(searchId);
-			logger.info(getUserId);
+
 			session.removeAttribute(sessionCode);
-			return getUserId;
+			return true;
 		}else {
 			logger.info("인증 실패 코드 불일치");
 			getUserId="false";
 			logger.info("실패 {}",getUserId);
-			return "false";
+			return false;
 		}
 	}
 	
@@ -131,7 +129,7 @@ public class LoginServiceImpl implements LoginService {
 		return msgNum;
 	}
 	@Override
-	public String smsCodeChk(String smsCode, HttpSession session) {
+	public boolean smsCodeChk(String smsCode, HttpSession session) {
 		logger.info("smsCodeChk - 아이디 조회해오기");
 		
 		//세션에 담긴 인증번호
@@ -145,19 +143,35 @@ public class LoginServiceImpl implements LoginService {
 		
 		
 		//인증번호 같으면  아이디 조회해오기
-		String getUserIdSms = "";
 		if(sessionSmsCode.equals(smsCode)) {
 			logger.info("문자인증 성공");
-			//아이디 조회해오기
-			getUserIdSms = loginDao.selectByNamePhone(searchIdBySms);
-			
-			//세션 지우기
-			session.removeAttribute("sendMsg");
-			return getUserIdSms;
+			session.removeAttribute("sendMsg");	//세션 지우기
+			return true;
 		}else {
 			logger.info("인증 실패 코드 불일치");
-			return "false";
+			return false;
 		}
+	}
+	
+	@Override
+	public Users findUserId(Users searchId) {
+
+		logger.info("아이디 찾기 결과 - 아이디 조회하기");
+		
+		//이메일 인증으로 아이디 찾기
+		Users getUserId = new Users();
+		if(searchId.getUserEmail() != null) {
+			logger.info("메일 인증으로 아이디 찾기");
+			getUserId = loginDao.selectByIdForEamil(searchId);
+			
+		}else if(searchId.getUserPhone() != null) { //문자 인증으로 아이디 찾기
+			logger.info("문자인증으로 아이디 찾기");
+			getUserId = loginDao.selectByNamePhone(searchId);
+		}
+		
+		
+		logger.info("조회 결과 {}",getUserId);
+		return getUserId;
 	}
 	
 	@Override
@@ -176,7 +190,7 @@ public class LoginServiceImpl implements LoginService {
 	
 	@Override
 	public String sendMsg(Users searchPw) {
-Random ranNum = new Random();
+		Random ranNum = new Random();
 		
 		String msgCode = "";
 		//6자리 난수 생성하기
@@ -189,9 +203,9 @@ Random ranNum = new Random();
 		
 		//------------네이버 클라우드 플랫폼 호출 
 		logger.info("네이버 문자 보내기");
-//		Sms sendCode = new Sms();
-//		//메소드 호출
-//		sendCode.sendSms((String)searchPw.getUserPhone(), msgCode);
+		Sms sendCode = new Sms();
+		//메소드 호출
+		sendCode.sendSms((String)searchPw.getUserPhone(), msgCode);
 		logger.info("네이버 문자 보내기 끝");
 		
 		return msgCode;

@@ -83,78 +83,71 @@
 }
 
 
-/* 번호 */
-.contentTr > td:nth-child(1), #titleTr > th:nth-child(1) {
-	width: 5%;
-	display: flex;
-	justify-content: center;
-}
-
 /* 회원 번호 */
-.contentTr > td:nth-child(2), #titleTr > th:nth-child(2) {
-	width: 5%;
+.contentTr > td:nth-child(1), #titleTr > th:nth-child(1) {
+	width: 7%;
 	display: flex;
 	justify-content: center;
 }
 
 /* 아이디 */
-.contentTr > td:nth-child(3), #titleTr > th:nth-child(3) {
+.contentTr > td:nth-child(2), #titleTr > th:nth-child(2) {
 	width: 10%;
 	display: flex;
 	justify-content: center;
 }
 
 /* 닉네임 */
-.contentTr > td:nth-child(4), #titleTr > th:nth-child(4) {
+.contentTr > td:nth-child(3), #titleTr > th:nth-child(3) {
 	width: 10%;
 	display: flex;
 	justify-content: center;
 }
 
 /* 이름 */
-.contentTr > td:nth-child(5), #titleTr > th:nth-child(5) {
+.contentTr > td:nth-child(4), #titleTr > th:nth-child(4) {
 	width: 8%;
 	display: flex;
 	justify-content: center;
 }
 
 /* 성별 */
-.contentTr > td:nth-child(6), #titleTr > th:nth-child(6) {
+.contentTr > td:nth-child(5), #titleTr > th:nth-child(5) {
 	width: 6%;
 	display: flex;
 	justify-content: center;
 }
 
 /* 가입일 */
-.contentTr > td:nth-child(7), #titleTr > th:nth-child(7) {
+.contentTr > td:nth-child(6), #titleTr > th:nth-child(6) {
 	width: 14%;
 	display: flex;
 	justify-content: center;
 }
 
 /* 이메일 */
-.contentTr > td:nth-child(8), #titleTr > th:nth-child(8) {
+.contentTr > td:nth-child(7), #titleTr > th:nth-child(7) {
 	width: 18%;
 	display: flex;
 	justify-content: center;
 }
 
 /* 회원등급 */
-.contentTr > td:nth-child(9), #titleTr > th:nth-child(9) {
+.contentTr > td:nth-child(8), #titleTr > th:nth-child(8) {
 	width: 6%;
 	display: flex;
 	justify-content: center;
 }
 
 /* 득근머니 */
-.contentTr > td:nth-child(10), #titleTr > th:nth-child(10) {
-	width: 8%;
+.contentTr > td:nth-child(9), #titleTr > th:nth-child(9) {
+	width: 10%;
 	display: flex;
 	justify-content: center;
 }
 
 /* 포인트 */
-.contentTr > td:nth-child(11), #titleTr > th:nth-child(11) {
+.contentTr > td:nth-child(10), #titleTr > th:nth-child(10) {
 	width: 10%;
 	display: flex;
 	justify-content: center;
@@ -215,6 +208,13 @@
     color: #666;
 }
 
+#titleDiv{
+	display: flex;
+	justify-content: space-between;
+    align-items: flex-end;
+}
+
+
 select::-ms-expand { display:none; } 
 
 
@@ -223,12 +223,13 @@ select::-ms-expand { display:none; }
 </head>
 <body>
 
-<h3>회원 목록</h3>
-
+<div id="titleDiv">
+	<h3>회원 목록</h3>
+	<a href="/admin/user">전체보기</a>
+</div>
 
 	<table id="table">
 		<tr id="titleTr">
-			<th>번호</th>
 			<th>회원 번호</th>
 			<th>아이디</th>
 			<th>닉네임</th>
@@ -241,10 +242,8 @@ select::-ms-expand { display:none; }
 			<th>포인트</th>
 		</tr>
 		
-		<c:forEach items="${userList }" var="u">
-		<c:set var="i" value="${i+1 }" />
-		<tr class="contentTr">
-			<td>${i }</td>
+		<c:forEach items="${userList }" var="u" varStatus="status">
+		<tr class="contentTr"> 
 			<td>${u.userNo }</td>
 			<td>${u.userId }</td>
 			<td>${u.userNick }</td>
@@ -317,17 +316,14 @@ select::-ms-expand { display:none; }
 			<li><a href="/admin/user?curPage=${paging.totalPage }" ><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
 		</c:if>
 		
+		<%-- 끝 페이지로 이동 (끝으로갈게 없을때) --%>
+		<c:if test="${paging.curPage eq paging.totalPage }">
+			<li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+		</c:if>
+		
 		</ul>
 	</div>
 	
-	
-<!-- 	<form id="moveForm" method="get"> -->
-<%-- 		<input type="hidden" id="bfNo" name="bfNo" value='<c:out value="${pageInfo.bfNo}"/>'> --%>
-<%-- 		<input type="hidden" name="pageNum" value="${userMaker.userSearch.pageNum }"> --%>
-<%-- 		<input type="hidden" name="amount" value="${userMaker.userSearch.amount }"> --%>
-<%-- 		<input type="hidden" name="keyword" value="${userMaker.userSearch.keyword }"> --%>
-<%-- 		<input type="hidden" name="type" value="${userMaker.userSearch.type }"> --%>
-<!-- 	</form> -->
 	
 	<!-- 검색 기능 -->
 	<div class="searchBack">

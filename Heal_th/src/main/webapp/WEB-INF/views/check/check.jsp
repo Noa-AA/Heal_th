@@ -3,8 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="/resources/img/favicon.ico" type="image/x-icon"/>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>출석판</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <script type="text/javascript">
@@ -16,7 +17,7 @@ $(document).ready(()=>{
 	$table.append($("<tr>"))
 	for(var i=1; i<=${lastDay}; i++){
 			if(${attDays}.includes(i)){
-				$table.children().children().last().append($("<td>").html(i).css({"background-image":"url(/resources/img/check/checkicon.png)"
+				$table.children().children().last().append($("<td>").html(i).css({"background-image":"url(/resources/img/check/checkicon3.png)"
 																				,"background-size":"cover"
 																				,"background-position": "center"
 																				,"background-repeat" : "no-repeat"}))		
@@ -36,10 +37,11 @@ $(document).ready(()=>{
 			alert("오늘의 출석체크는 이미 하셨습니다")
 			return false
 		}else{
+			
 			console.log("goCheck click")
 			console.log(${today})
 			$(".cal").find("td:eq(${today-1})").css({
-				"background-image":"url(/resources/img/check/checkicon.png)"
+				"background-image":"url(/resources/img/check/checkicon3.png)"
 				,"background-size":"50px"
 				,"background-position": "center"
 				,"background-repeat" : "no-repeat"
@@ -93,6 +95,7 @@ $(document).ready(()=>{
 			$("#stamp").css(
 				"animation","kenburns-top 0.2s cubic-bezier(0.165, 0.840, 0.440, 1.000) reverse both"
 			)
+			alert("10 포인트가 적립됐습니다")
 		}
 		
 		$.ajax({
@@ -116,13 +119,16 @@ $(document).ready(()=>{
 <style type="text/css">
 table,th, td {
  	margin: 0 auto; 
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     text-align: center;
     font-size: 30px;
+    border-collapse: collapse;
+    
   }
 td{
   	height: 50px;
   	width: 50px;
+  	color: white;
 }
 @keyframes kenburns-top {
   0%{
@@ -164,21 +170,70 @@ td{
 	display: none;
 	margin: 0 auto;
 }
+body{
+    height: 670px;
+    margin: 0;
+    font-family: UhBeeSkyrain;
+    background-image: url("/resources/img/check/checkback.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+@font-face {
+font-family: 'UhBeeSkyrain';
+src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeSkyrain.woff') format('woff');
+font-weight: normal;
+font-style: normal;
+}
+#attAll{
+	background-image: url("/resources/img/check/checkboard.png");
+	width:100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	margin: 0;
+    height: 100%;
+}
+#atts{
+	color: white;
+	text-align: center;
+}
+#attCheck{
+/* 	color: white; */
+}
+#attAll img{
+	top: 100px;
+	
+}
 
+#goCheck{
+	border: none;
+	background-color: green;
+	width: 100px;
+	height: 50px;
+	border-radius: 12px;
+	font-size: 20px;
+	color: white;
+	cursor: pointer;
+	font-family: UhBeeSkyrain;
+}
 </style>
 </head>
-<body>
-<h1>출석 현황</h1>
-<hr>
+<body onresize="parent.resizeTo(500,750)" onload="parent.resizeTo(500,750)">
+<div id="attAll">
+<br><br><br>
+<h1 id="atts">출석판</h1>
+<br>
 <div id="attContiner">
-	<img id="stamp" class="kenburns-top" alt="도장" src="/resources/img/check/checkicon.png">
+	<img id="stamp" class="kenburns-top" alt="도장" src="/resources/img/check/checkicon3.png">
 
 	<div id="attCheck">
+	<br>
 	<button id="goCheck">출석체크</button>
 	<!-- <button id="test">test</button> -->
 	</div>
 </div>
-
+</div>
 </body>
-<%-- <jsp:include page="../comment/board.jsp" /> --%>
 </html>

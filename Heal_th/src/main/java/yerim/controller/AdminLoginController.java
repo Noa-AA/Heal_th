@@ -20,13 +20,13 @@ public class AdminLoginController {
 	 
 	 @Autowired AdminLoginService adminLoginService;
 	 
-	 @RequestMapping("admin/adminLogin")
+	 @RequestMapping("/admin")
 	 public void adminLogin() {
-		 logger.info("/admin/adminLogin [GET]");
+		 logger.info("/admin [GET]");
 		 
 	 }
 
-	 @PostMapping("/admin/adminLogin")
+	 @PostMapping("/admin")
 	 public String loginProc(Admin admin, HttpSession session , Model model) {
 		logger.info("/admin/adminLogin [POST]");
 		 
@@ -40,12 +40,12 @@ public class AdminLoginController {
 			session.setAttribute("adminNo", adminNo);
 			
 			logger.info("로그인 성공");
-			return "/admin/userList";
+			return "/admin/user";
 		}else {
 			//모델값으로 false 전달하기
 			logger.info("로그인 실패");
 			model.addAttribute("isAdminLogin", isAdminLogin);
-			return "/admin/adminLogin";
+			return "/admin";
 		}
 		
 		 

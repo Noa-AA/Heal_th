@@ -22,11 +22,11 @@
 	</select>
 	
 <!-- 	득근머니 잔액 조회 -->
-<!-- 	<select id="selectMmoney" resultType="int" parameterType="int"> -->
-<!-- 		SELECT m_charge, m_use -->
-<!-- 		FROM mmoney_use -->
-<!-- 		WHERE user_no = #{userno } -->
-<!-- 	</select> -->
+	<select id="selectMmoney" resultType="MmoneyUse" parameterType="int">
+		SELECT m_charge, m_use
+		FROM mmoney_use
+		WHERE user_no = #{useno }
+	</select>
 
 
 <!-- 가입시 정보 저장 -->
@@ -34,11 +34,15 @@
 		INSERT INTO participant_list (participant_no, user_no, challenge_no)
 		VALUES (participant_list_seq.nextval, #{userNo}, #{challengeNo})
 	</insert>
-
-
-	<select id="selectMmoney" resultType="MmoneyUse" parameterType="int">
-		SELECT m_charge, m_use
-		FROM mmoney_use
-		WHERE user_no = #{useno }
+	
+	<select id="selectParticipant" resultType="int">
+		SELECT
+		    COUNT(*)
+		FROM
+		    participant_list
+		WHERE
+		        challenge_no = #{challengeNo}
+		    AND user_no = #{userNo}
 	</select>
+
 </mapper>    

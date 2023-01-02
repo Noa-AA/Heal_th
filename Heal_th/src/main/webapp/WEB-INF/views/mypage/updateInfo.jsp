@@ -1,7 +1,9 @@
 <%@page import="java.util.Arrays"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <!--헤더  -->
 <%@include file="../layout/header.jsp" %>
+
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -11,13 +13,6 @@
 
 $(document).ready(function(){
 	
-	var countEmail =0;
-	var countSms =0;
-	if($("#userGender").val() == 'F'){
-		$("#userGender").attr("value","여성")
-	}else {
-		$("#userGender").attr("value","남성")
-	}	
 
 	$("#userJob").change(function(){
 	var job = $("select[name=userJob]").val()
@@ -26,54 +21,29 @@ $(document).ready(function(){
 		
 	})
 	
+	//네이버,카카오 회원은 아이디 변경 금지 처리
 	var joinType="${userInfo.jointype}"
 	console.log(joinType)
 	if( joinType !="Dg"){
 		$("#userEmail").attr("readonly","readonly")
 		$("#btn_emailchk").hide()
 		console.log("버튼 안됨")
-		$("#userEmail").css("background","#cccccc")
 	}else {
 		console.log("득근 아이디")	
 	}
 	
 	//DB에 있는 성별에 따라 체크 되게 하기
-
 	$("input[name='userGender'][value='${userInfo.userGender}']").prop("checked",true);
 	
+	//DB에 있는 직업 값 default로 체스 되게 하기 
 	
-	
-	//이메일 변경시  이메일 인증해야만 저장됨
-	$("#userEmail").change(function(){
-			console.log("이메일 수정")
-		
-		if(countEmail>0){
-			return true;
-		}else {
-			$("#email_result").html("이메일 변경시 이메일 인증을 해주세요")
-			$("#email_result").css("color","red")
-			return false;
-		}
-		
-	})
-	
-	//휴대폰 번호 변경시 본인 인증 해야만 저장됨
-	$("#userPhone").change(function(){
-		console.log("폰번호 수정")
-		if(countSms>0){
-			return true;
-		}else {
-			$("#result_code").html("전화번호 변경시 본인 인증을 해주세요")
-			$("#result_code").css("color","red")
-			return false;
-		}
-	})
-	
+
 	
 	//이메일 인증 클릭시 이메일 인증 하기 
 	$("#btn_emailchk").click(function(){
+		//이메일 변경 시 인증 전 update 금지
 		console.log("버튼 클릭")
-		$("#confirmEmail").toggle()
+		$("#confirmEmail").css("display","block")
 			$.ajax({
 				type:"post"
 				,url:"/mypage/getEmailCodeForUpdate"
@@ -81,12 +51,21 @@ $(document).ready(function(){
 					userEmail: $("#userEmail").val()
 					,userName:$("#userName").val()
 				}
-				,dataType : "html"
+				,dataType : "json"
 				,success : function(res){
 					console.log(res)
 					console.log("이메일 보내기 성공")
-					countEmail++
+					if(res){
+					$("#emailAlert").html("인증번호 전송!회원님의 이메일함을 확인해주세요")
+					$("#emailAlert").css("color","green")				
+				
 					
+					}else {
+						console.log("이메일 보내기 실패")
+						$("#emailAlert").html("회원님의 이메일을 다시 한번 확인해주세요 ")
+						$("#emailAlert").css("color","red")				
+					
+					}
 				}
 				,error:function(){
 					console.log("이메일 인증요청 실패")
@@ -109,12 +88,10 @@ $(document).ready(function(){
 			}
 			,dataType :"json"
 			,success : function(res){
-				if(res ==true){
+				if(res){
 					console.log("이메일 인증 성공")
 						$("#email_result").html("이메일 인증 성공")
 						$("#email_result").css("color","green")
-						
-						
 					}else {
 						console.log("이메일 인증 실패")
 						$("#email_result").html("이메일 인증 실패")
@@ -136,18 +113,24 @@ $(document).ready(function(){
 	//문자 인증하기
 	$("#btn_userchk").click(function(){
 		console.log("문자 인증 클릭")
-		$("#smschk").toggle()
+		$("#smschk").css("display","block")
 		$.ajax({
 			type :"post"
 			,url: "/mypage/smsCodeForUpdate"
 			,data: {
 				userPhone :$("#userPhone").val()
 			}
-			,dataType : "html"
+			,dataType : "json"
 			,success : function(res){
 				console.log(res)
-				console.log("이메일 보내기 성공")
-				countSms++;
+				if(res){
+				console.log("문자 보내기 성공")
+					$("#userchkAlert").html("회원님의 휴대폰으로 인증번호가 전송되었습니다.")
+					$("#userchkAlert").css("color","green")
+				}else {
+					$("#userchkAlert").html("회원님의 전화번호를 확인해주세요.")
+					$("#userchkAlert").css("color","red")
+				}
 			}
 			,error:function(){
 				console.log("이메일 인증요청 실패")
@@ -192,15 +175,38 @@ $(document).ready(function(){
 	})
 	
 	
-	
+	//수정완료 버튼 클릭 시 제출
+	$("#joinbtn").click(function(){
+		console.log("submit 클릭")
+		if(update()){
+			$("#updateInfoForm").submit()
+			
+		}
+		return false;
+		
+	})
 	
 })	
 
 	
+	
 function update(){
 	console.log("회원정보 수정하기")
-	$("#updateInfoForm").submit()
-}
+	 if($("#confirmEmail").css("display") == 'block' && $("#emailCode").val() == ""){
+		 $("#email_result").html("이메일 변경시 이메일 인증을 해주세요")
+			$("#email_result").css("color","red")
+			return false
+	 }else if( $("#smschk").css("display") == 'block' && $("#code").val() == ""){
+		 $("#userchkAlert").html("전화번호 변경시 본인 인증을 해주세요")
+			$("#userchkAlert").css("color","red")
+			return false
+	 }
+			 
+	
+		 return true
+	 }
+		
+	
 
 function cancel(){
 	console.log("취소하기")
@@ -273,138 +279,381 @@ function cancel(){
 
 
 <style type="text/css">
-#updateInfo{
-	width: 1200px;
-	margin: 0 auto;
+header{
+	margin-bottom: 80px !important;
+}
+
+#updateBody{
+	padding-top:0px;
+	background-color: #f9fbfc;
+
+}
+#boxArea{
+	margin: 0px 60px;
+    height: 1610px;
+
+}
+#titleForHead{
+	font-size: 30px;
+    font-weight: 600;
+    color: gray;
+}
+#updateInfoArea{
+	width: 542px;
+    height: 1610px;
+    position: relative;
+    background-color: white;
+    border-radius: 12px;
+	box-shadow: 1px 1px 10px 0px rgb(0 0 0 / 15%);
+    margin: 0 auto;
 	
 }
-
+inputInfo:focus{
+	border-bottom-color:#7ca3f5; 
+}
 #title{
-	text-align: center;
-	padding: 50px;
-	font-size: 40px;
+	padding: 61px 0px;
+    height: 150px;
+    text-align: center;
 }
 
-#updateArea{
-	width:500px;
-	margin: 0 auto;	
+#formArea{
+    height: 1680px;
+
 }
+#btnArea{
+	    position: absolute;
+    height: 50px;
+    left: 60px;
+	margin: 16px 0 0 0;
+}
+ 
+.resMsg{
+	position: absolute;
+    top: 85px;
+    margin: 7px 0 0;
+}
+
+.inputArea{
+	margin: 0;
+	position:relative;
+	height:114px;
+}
+.formTitle{
+	font-size: 17px;
+	color:gray;
+	 position: absolute;
+    margin: 10px 0 0;
+}
+
+.inputInfo{
+	width: 422px;
+    height: 33px;
+    margin-left: 0;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid lightgray;
+    position:absolute;
+    top:39px;
+     font-size: 17px;
+}
+.inputAddress{
+    height: 33px;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid lightgray;
+	font-size: 17px;
+}
+
+#userEmail,#emailCode,#userPhone,#postcode,#code{
+	width: 312px;
+}
+
+#btnsmschk{
+	    position: absolute;
+    top: 14px;
+    left: 314px;
+}
+#userJob{
+   width: 171px;
+    height: 32px;
+    position: absolute;
+    top: 40px;
+    border: 2px solid lightgray;
+    left: 250px;
+}
+
+#userJob:focus{
+	 border: 3px solid #7ca3f5;
+}
+
+#checkId{
+	width: 111px;
+    height: 38px;
+    position: absolute;
+    left: 374px;
+    top: 414px;
+
+}
+
+#btn_userchk,#btnaddressFind,#btn_code,.btnCode{
+	width: 108px;
+    height: 36px;
+    background-color: transparent;
+    border: 2px solid #7ca3f5;
+    color:#7ca3f5;
+    font-size:17px;
+    border-radius: 8px;
+}
+
+#btn_userchk:hover,#btnaddressFind:hover,#btn_code:hover,.btnCode:hover{
+	color: white;
+    background-color: #7ca3f5;
+    width: 108px;
+    height: 36px;
+    border-radius: 8px;
+}
+#userchk,.btnCode{
+	 width: 111px;
+    height: 38px;
+    position: absolute;
+    left: 314px;
+    top: 35px;
+
+}
+
+#codeChk{
+ 	height: 88px;
+    top: -1px;
+
+}
+#code{
+	top:16px;
+}
+#genderchk{
+
+    position: absolute;
+    top: 38px;
+    width: 200px;
+    height: 45px;
+}
+#femaleArea{
+    position: absolute;
+    width: 100px;
+    left: 100px;
+    top: -1px
+}
+.male,.female{
+	padding-left: 8px;
+    position: absolute;
+    top: -10px;
+}
+
+#address{
+height: 180px;
+
+}
+#postcode{
+    position: absolute;
+
+}
+
+#userAddress{
+    position: absolute;
+    top:76px;
+
+}
+#detailAddress{
+    position: absolute;
+    top: 113px;
+}
+#extraAddress{
+	position: absolute;
+    top: 113px;
+    left: 218px;
+    
+
+}
+
+#result_code{
+	    top: 55px;
+}
+#btnaddressFind{
+	border: none;
+    position: absolute;
+    left: 314px;
+    top: 36px;
+    border: 2px solid #7CA3F4;
+    padding: 0 5px;
+}
+
+#joinbtn,#joinCancel{
+	width: 190px;
+    height: 47px;
+      border-radius: 8px;
+}
+#joinbtn{
+	background-color: #7ca3f5;
+	font-size: 17px;
+	color:white;
+}
+#joinCancel{
+	margin-left: 40px;
+	font-size: 17px;
+    color: #7ca3f5;
+    background-color: transparent;
+    border:2px solid #7ca3f5;
+}
+
+#addressAlert{
+top:154px;
+}
+
+#genderAlert{
+	top:70px;
+}
+#userJobFromDB{
+width: 247px;
+}
+
 </style>
 
-<body>
+<body id="updateBody">
 
-<div id="updateInfo">
-	<div id="title">
-		<p>회원 정보 수정하기</p>
-	</div>
-
-	<div id="updateArea">
-		<form action="/mypage/updateInfo" method="post" id="updateInfoForm">
-			<div id="name">		
-			 	<label for="userName">이름
-		 		<input type="text" name="userName" id="userName" value="${userInfo.userName }">
-		 		</label> 
-			</div>
-		
-				<div id="email">
-					<label for="userEmail">이메일
-					<input type="text" name="userEmail" id="userEmail" value="${userInfo.userEmail}">
-					</label>
-				</div>
-				
-				<div id="userchk">
-					<button type="button" id="btn_emailchk">이메일 인증</button>
+<div id="updateInfoArea">
+	<div id="boxArea">
+		<div id="title">
+			<span id="titleForHead">회원 정보 수정하기</span>
+		</div>
+	
+		<div id="formArea">
+			<form action="/mypage/updateInfo" method="post" id="updateInfoForm">
+				<div id="name" class="inputArea">	
+					<label for="userName">	
+				 		<span class="formTitle name">이름</span>
+			 		</label> 
+			 		<input type="text" name="userName" id="userName" value="${userInfo.userName }" class="inputInfo" readonly="readonly">
 				</div>
 			
-				<div id="confirmEmail" style="display:none;">
-					<label for="emailCode">인증번호
-						<input type="text" name="emailCode" id="emailCode" placeholder="인증번호를 입력하세요">
-					</label>
-					<button type="button" id="chkemailCode">인증번호 확인</button>
-				</div>
-			<div id="email_result"></div>
-			
-			<div id="id">
-				<label for="userId">아이디
-				<input type="text" name="userId" id="userId" value="${userInfo.userId }"  readonly="readonly">
-				</label>
-			</div>
-			<div id="nickname">
-				<label for="userNick">닉네임
-				<input type="text" name="userNick" id="userNick" value="${userInfo.userNick }">
-				</label>
-			</div>
-			
-			<div id="phone">
-				<label for="userPhone">연락처
-				<input type="text" name="userPhone" id="userPhone" value="${userInfo.userPhone }">
-				</label>
-				
-				<div id="userchk">
-					<button type="button" id="btn_userchk">본인인증</button>
-				</div>
-			</div>
-			
-				<div id="smschk" style="display:none;">
-					<input type="text" name="code" id="code">
-					<button type="button" id="btn_code">인증번호 확인</button>			
-				</div>
-				
-				<div id="result_code"></div>
-			
-			<div id="gender">
-				<label for="userGender">성별			
-				<input type="radio" name="userGender" value="M" id="male" >남성
-				<input type="radio" name="userGender" value="F" id="female">여성
-				</label>
-			</div>
-			
-			
-				<div id="birth">
-				<label for="birth">생년월일
-					<input type="text" id="userBirth" name="userBirth" value="${userInfo.userBirth }">
-				</label>
-			</div>
-			
-				<div id="job">
-				<label for="userJob">직업
-					<input type="text" id="userJobFromDB" value="${userInfo.userJob }" readonly="readonly">
-				</label>
-				<select name="userJob" id="userJob">
-					<option value="" selected disabled>선택해주세요</option>
-					<option value="회사원">회사원</option>
-					<option value="교사">교사</option>
-					<option  value="공무원">공무원</option>
-					<option   value="트레이너">트레이너</option>
-					<option value="자영업">자영업</option>
-					<option  value="학생">학생</option>
-					<option value="기타">기타</option>
-				</select>
+					<div id="email" class="inputArea">
+						<label for="userEmail">
+							<span class="formTitle email">이메일</span>
+						</label>
+						<input type="text" name="userEmail" id="userEmail" value="${userInfo.userEmail}" class="inputInfo">
 					
-			</div>
-			
-			
-			
-				<div id="address">
-				<label for="userAddress">주소</label>
-					<input type="text" name="userAddress" id="postcode" placeholder="우편번호" value="${address[0] }">
-					<input type="button" onclick="addressFind()" name="userAddress" value="우편번호 찾기" ><br>
-					<input type="text" name="userAddress" id="useraddress" placeholder="주소"  value="${address[1] }"><br>
-					<input type="text" name="userAddress" id="detailAddress" placeholder="상세주소"  value="${address[2] }">
-					<input type="text" name="userAddress" id="extraAddress" placeholder="참고항목"  value="${address[3] }">
-			</div>
-			
-			
-			<div id="btnArea">
-			<button type="button" id="joinbtn" onclick="update()">수정 완료</button>
-			<button  type="button" id="joinCancel" onclick="cancel()">취소</button>
-			</div>
-		</form>
+						<div id="btnGetCode">
+							<button type="button" id="btn_emailchk" class="btnCode">이메일 인증</button>
+						</div>
+						<div id="emailAlert"  class="resMsg"></div>
+					</div>
+				
+					<div id="confirmEmail" style="display:none;"class="inputArea">
+						<label for="emailCode" >
+							<span class="formTitle name">인증번호</span>
+						</label>
+							<input type="text" name="emailCode" id="emailCode" class="inputInfo" placeholder="인증번호를 입력하세요">
+						<div id="btnEmailchk">
+							<button type="button" id="chkemailCode" class="btnCode">인증번호 확인</button>
+						</div>
+						<div id="email_result" class="resMsg"></div>
+					</div>
+				
+				<div id="id"  class="inputArea">
+					<label for="userId" >
+						<span class="formTitle name">아이디</span>
+					</label>
+					<input type="text" name="userId" id="userId" value="${userInfo.userId }" class="inputInfo" readonly="readonly">
+				</div>
+				<div id="nickname"class="inputArea">
+					<label for="userNick" >
+						<span class="formTitle nickName">닉네임</span>
+					</label>
+					<input type="text" name="userNick" id="userNick" class="inputInfo" value="${userInfo.userNick }">
+				</div>
+				
+				<div id="phone" class="inputArea">
+					<label for="userPhone" >
+						<span class="formTitle mobilePhone">연락처</span>
+					</label>
+					<input type="text" name="userPhone" id="userPhone" class="inputInfo" value="${userInfo.userPhone }">
+					
+					<div id="userchk" class="inputArea">
+						<button type="button" id="btn_userchk">본인인증</button>
+					</div>
+					<div id="userchkAlert" class="resMsg"></div>
+				</div>
+				
+				<div id="smschk" style="display:none;" class="inputArea">
+					<div id="smschk" >
+						<input type="text" name="code" id="code" class="inputInfo">
+					</div>
+					<div id="btnsmschk">
+							<button type="button" id="btn_code">인증번호 확인</button>			
+					</div>
+					<div id="result_code" class="resMsg"></div>		
+				</div>
+					
+				
+				<div id="gender" class="inputArea">
+					<div id="genderTitle">
+							<span class="formTitle gender">성별</span>			
+					</div>		
+					<div id="genderchk">	
+						<div id="maleArea">	<input type="radio" name="userGender" value="M" id="male" onclick="return false;"  ><span class="formTitle male">남성</span></div>
+						<div id="femaleArea"><input type="radio" name="userGender" value="F" id="female" onclick="return false;"><span class="formTitle female">여성</span></div>
+					</div>
+				</div>
+				
+				
+					<div id="birth" class="inputArea">
+					<label for="birth">
+						<span class="formTitle birth">생년월일</span>
+					</label>
+					<input type="text" id="userBirth" name="userBirth" class="inputInfo" value="${userInfo.userBirth }" readonly="readonly">
+				</div>
+				
+				<div id="job" class="inputArea">
+					<label for="userJob">
+						<span class="formTitle job">직업</span>
+					</label>
+						<input type="text" id="userJobFromDB" class="inputInfo" value="${userInfo.userJob}" readonly="readonly">
+					<select name="userJob" id="userJob">
+						<option value="${userInfo.userJob}" selected >${userInfo.userJob}</option>
+						<option value="회사원">회사원</option>
+						<option value="교사">교사</option>
+						<option  value="공무원">공무원</option>
+						<option   value="트레이너">트레이너</option>
+						<option value="자영업">자영업</option>
+						<option  value="학생">학생</option>
+						<option value="기타">기타</option>
+					</select>
+						
+				</div>
+				
+				
+				
+				<div id="address" class="inputArea">
+					<label for="userAddress"><span class="formTitle address">주소</span></label>
+						<input type="text" name="userAddress" id="postcode" placeholder="우편번호" value="${address[0] }" class="inputInfo">
+						<input type="button" onclick="addressFind()" id="btnaddressFind" name="userAddress" value="우편번호 찾기" ><br>
+						<input type="text" name="userAddress" id="userAddress" placeholder="주소"  value="${address[1] }" class="inputInfo"><br>
+						<input type="text" name="userAddress" id="detailAddress" placeholder="상세주소"  value="${address[2] }" class="inputAddress">
+						<input type="text" name="userAddress" id="extraAddress" placeholder="참고항목"  value="${address[3] }" class="inputAddress">
+				</div>
+				
+				
+				<div id="btnArea">
+					<button type="button" id="joinbtn" >수정 완료</button>
+					<button  type="button" id="joinCancel" onclick="cancel()">취소</button>
+				</div>
+			</form>
+		</div>
+
 	</div>
-
-
 </div>
 
 
 </body>
+<jsp:include page="../layout/footer.jsp"/>
+
 </html>

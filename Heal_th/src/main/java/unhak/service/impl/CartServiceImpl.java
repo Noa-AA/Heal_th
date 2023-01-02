@@ -2,71 +2,71 @@ package unhak.service.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import unhak.dao.face.CartDao;
 import unhak.dto.CartDto;
 import unhak.service.face.CartService;
+import yerim.dto.Users;
 
 @Service
 public class CartServiceImpl implements CartService {
 	@Autowired
 	private CartDao cartDao;
+	public final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	
-//	@Autowired
-//	private  AttachMapper attachMapper;	
-
+	public Users getUserInfo(int userno) {
+		return cartDao.selectUserInfo(userno);
+	}
+	
+	
 	@Override
-	public int addCart(CartDto cart) {
+	public void addCart(CartDto cart) {
 
-		// 장바구니 데이터 체크
-		CartDto checkCart = cartDao.checkCart(cart);
-		
-		if(checkCart != null) {
-			return 2;
-		}
-		
-		// 장바구니 등록 & 에러 시 0반환
-		try {
-			return cartDao.addCart(cart);
-		} catch (Exception e) {
-			return 0;
-		}		
+		cartDao.insertcart(cart);
 		
 	}
 
 	@Override
-	public List<CartDto> getCartList(String memberId) {
+	public List<CartDto> getCartList(int userNo) {
 		
-		List<CartDto> cart = cartDao.getCart(memberId);
+		List<CartDto> cart = cartDao.getCart(userNo);
 		
-		for(CartDto dto : cart) {
-			
-//			/* 종합 정보 초기화 */
-//			dto.initSaleTotal();
-//			
-//			/* 이미지 정보 얻기 */
-////			int bookId = dto.getBookId();
-////			
-//////			List<AttachImageVO> imageList = attachMapper.getAttachList(bookId);
-////			
-////			dto.setImageList(imageList);
-		}
+		
 		
 		return cart;
 		
 	}
 	
-	@Override
-	public int modifyCount(CartDto cart) {
-		
-		return cartDao.modifyCount(cart);
-	}	
 	
+	//장바구니 삭제
 	@Override
-	public int deleteCart(int cartId) {
+	public void deleteCart(CartDto cart) {
 
-		return cartDao.deleteCart(cartId);
+		cartDao.deleteCart(cart);
+	}
+
+	//장바구니 수량수정
+	@Override
+	public void modifyCount(int cartStock) {
+	}
+
+
+	@Override
+	public int checkByCt(CartDto cartNo) {
+
+		int chkCtNo = cartDao.selectBychkCtNo(cartNo);
+		logger.info("카트번호 중복 체크{}",chkCtNo);
+		return chkCtNo;
+	}
+
+
+	@Override
+	public void deleteCartAll(int userNo) {
+		cartDao.deleteCartAll(userNo);
 	}	
 }

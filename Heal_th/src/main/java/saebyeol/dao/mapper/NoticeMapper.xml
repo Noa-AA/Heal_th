@@ -7,35 +7,61 @@
   
  <mapper namespace="saebyeol.dao.face.NoticeDao">
  
- 	<!-- 페이징 처리 -->
- 	<select id="selectCntAll" resultType="int">
- 		SELECT count(*) FROM notice
- 	</select>
- 	
  	<!-- 게시글 목록 -->
- 	<select id="selectList" resultType="Notice" parameterType="SaebyeolPaging">
- 		SELECT * FROM (
- 			SELECT rownum rnum, N.* FROM(
- 				SELECT
- 					notice_no, notice_ttl, notice_date, 
- 					notice_hit, notice_content, notice_file
-				FROM notice
-				ORDER BY notice_no DESC
- 			) N
- 		) NOTICE
- 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+ 	<select id="getList" parameterType="Notice">
+ 		SELECT count(*) FROM notice
+ 		ORDER BY DESC notice_no
  	</select>
  	
+ 	<!-- 게시글 페이징 목록 -->
+ 	<select id="getPaging" resultType="Notice">
+		
+		 <![CDATA[
+        
+        SELECT notice_no, notice_ttl, notice_date, notice_hit, 
+	       admin_no  FROM(
+        
+                SELECT /*+INDEX_DESC(notice pk_notice) */
+                rownum  as rn, notice_no, notice_ttl, notice_date,
+								notice_hit, admin_no
+                  
+                FROM notice WHERE rownum <= #{pageNum} * #{amount} 
+    ]]>            
+                <if test="keyword != null">
+                	<include refid="criteria"></include> 
+                </if>
+    
+    <![CDATA[
+                    
+                )
+                    
+        WHERE rn > (#{pageNum} -1) * #{amount}
+    ]]>
+    
+    </select>
+    
+    <!-- 게시글 총 개수 -->
+    <select id="getTotal" resultType="int">
+    	SELECT count(*) FROM notice
+    	
+    	<if test="keyword != null">
+			WHERE notice_no > 0 <include refid="criteria"></include>
+        </if>
+        
+    </select>  
+		
+		
  	<!-- 조회수 증가 -->
  	<select id="updateHit" parameterType="Notice">
  		UPDATE notice SET notice_hit = notice_hit + 1 
  		WHERE notice_no = #{noticeNo}
  	</select>
  	
+ 	
  	<!-- 게시글 선택 -->
  	<select id="selectNotice" resultType="Notice" parameterType="Notice">
  	SELECT
- 		notice_no, notice_ttl, notice_date, notice_hit, notice_content, notice_file
+ 		notice_no, notice_ttl, notice_date, notice_hit, notice_content, admin_no
  	FROM notice
  	WHERE notice_no = #{noticeNo}
  	</select>
@@ -45,8 +71,8 @@
  	<selectKey order="BEFORE" resultType="int" keyProperty="noticeNo">
  		SELECT notice_seq.nextval FROM dual
  	</selectKey>
- 	INSERT INTO notice ( notice_no, notice_ttl, notice_date, notice_hit, notice_content ) 
- 	VALUES ( #{noticeNo}, #{noticeTtl}, sysdate, '0', #{noticeContent}  )
+ 	INSERT INTO notice ( notice_no, notice_ttl, notice_date, notice_hit, notice_content, admin_no ) 
+ 	VALUES ( #{noticeNo}, #{noticeTtl}, sysdate, '0', #{noticeContent}, '1'  )
  	</insert>
  	
  	<!-- 게시글 수정 -->
@@ -61,6 +87,27 @@
  	DELETE notice
  	WHERE notice_no = #{noticeNo}
  	</delete>
- 	
+
+	<sql id="criteria">
+        <trim prefix="AND (" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'T'.toString()">
+                            notice_ttl like '%'||#{keyword}||'%' 
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            notice_content like '%'||#{keyword}||'%'
+                        </when>
+                         <when test="type == 'TC'.toString()">
+                         	notice_ttl like '%'||#{keyword}||'%',
+                            notice_content like '%'||#{keyword}||'%'
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
+
 
 </mapper>

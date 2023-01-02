@@ -1,11 +1,11 @@
 package saebyeol.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class Product {
 	
 	private int prodNo;
-	private int userNo;
 	private String pName;
 	private int pPrice;
 	private String pImage1;
@@ -18,14 +18,20 @@ public class Product {
 	private int pStock;
 	private int pDelivery;
 	private int pSell;
+	private String pCateNo;
+	private String pCateName;
+	private int userNo;
+	private int adminNo;
+	
+	private List<AttachImage> imageList;
 	
 	public Product() {}
 
-	public Product(int prodNo, int userNo, String pName, int pPrice, String pImage1, String pImage2, String pDetail,
-			Date pDate, int pHit, String pSteaming, String pCart, int pStock, int pDelivery, int pSell) {
+	public Product(int prodNo, String pName, int pPrice, String pImage1, String pImage2, String pDetail, Date pDate,
+			int pHit, String pSteaming, String pCart, int pStock, int pDelivery, int pSell, String pCateNo,
+			String pCateName, int userNo, int adminNo, List<AttachImage> imageList) {
 		super();
 		this.prodNo = prodNo;
-		this.userNo = userNo;
 		this.pName = pName;
 		this.pPrice = pPrice;
 		this.pImage1 = pImage1;
@@ -38,14 +44,20 @@ public class Product {
 		this.pStock = pStock;
 		this.pDelivery = pDelivery;
 		this.pSell = pSell;
+		this.pCateNo = pCateNo;
+		this.pCateName = pCateName;
+		this.userNo = userNo;
+		this.adminNo = adminNo;
+		this.imageList = imageList;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [prodNo=" + prodNo + ", userNo=" + userNo + ", pName=" + pName + ", pPrice=" + pPrice
-				+ ", pImage1=" + pImage1 + ", pImage2=" + pImage2 + ", pDetail=" + pDetail + ", pDate=" + pDate
-				+ ", pHit=" + pHit + ", pSteaming=" + pSteaming + ", pCart=" + pCart + ", pStock=" + pStock
-				+ ", pDelivery=" + pDelivery + ", pSell=" + pSell + "]";
+		return "Product [prodNo=" + prodNo + ", pName=" + pName + ", pPrice=" + pPrice + ", pImage1=" + pImage1
+				+ ", pImage2=" + pImage2 + ", pDetail=" + pDetail + ", pDate=" + pDate + ", pHit=" + pHit
+				+ ", pSteaming=" + pSteaming + ", pCart=" + pCart + ", pStock=" + pStock + ", pDelivery=" + pDelivery
+				+ ", pSell=" + pSell + ", pCateNo=" + pCateNo + ", pCateName=" + pCateName + ", userNo=" + userNo
+				+ ", adminNo=" + adminNo + ", imageList=" + imageList + "]";
 	}
 
 	/**
@@ -60,20 +72,6 @@ public class Product {
 	 */
 	public void setProdNo(int prodNo) {
 		this.prodNo = prodNo;
-	}
-
-	/**
-	 * @return the userNo
-	 */
-	public int getUserNo() {
-		return userNo;
-	}
-
-	/**
-	 * @param userNo the userNo to set
-	 */
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
 	}
 
 	/**
@@ -243,6 +241,88 @@ public class Product {
 	public void setpSell(int pSell) {
 		this.pSell = pSell;
 	}
+
+	/**
+	 * @return the pCateNo
+	 */
+	public String getpCateNo() {
+		return pCateNo;
+	}
+
+	/**
+	 * @param pCateNo the pCateNo to set
+	 */
+	public void setpCateNo(String pCateNo) {
+		this.pCateNo = pCateNo;
+		if(pCateNo.equals("10")) {
+			this.pCateName = "운동용품";
+		} else if(pCateNo.equals("20")) {
+			this.pCateName = "보조제";
+		} else {
+			this.pCateName = "다이어트 음식";
+		}
+	}
+
+	/**
+	 * @return the userNo
+	 */
+	public int getUserNo() {
+		return userNo;
+	}
+
+	/**
+	 * @param userNo the userNo to set
+	 */
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
+	/**
+	 * @return the adminNo
+	 */
+	public int getAdminNo() {
+		return adminNo;
+	}
+
+	/**
+	 * @param adminNo the adminNo to set
+	 */
+	public void setAdminNo(int adminNo) {
+		this.adminNo = adminNo;
+	}
+
+
+
+	/**
+	 * @return the imageList
+	 */
+	public List<AttachImage> getImageList() {
+		return imageList;
+	}
+
+
+
+	/**
+	 * @param imageList the imageList to set
+	 */
+	public void setImageList(List<AttachImage> imageList) {
+		this.imageList = imageList;
+	}
+
+	/**
+	 * @return the pCateName
+	 */
+	public String getpCateName() {
+		return pCateName;
+	}
+
+	/**
+	 * @param pCateName the pCateName to set
+	 */
+	public void setpCateName(String pCateName) {
+		this.pCateName = pCateName;
+	}
+	
 	
 	
 

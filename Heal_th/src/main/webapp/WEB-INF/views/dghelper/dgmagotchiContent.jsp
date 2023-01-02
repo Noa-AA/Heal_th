@@ -758,7 +758,7 @@ $(document).ready(function(){
 					console.log("AJAX 실패")
 				}
 			});
-		}, 1000);
+		}, 300);
 	});
 	
 	

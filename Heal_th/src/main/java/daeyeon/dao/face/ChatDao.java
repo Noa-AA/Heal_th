@@ -3,6 +3,7 @@ package daeyeon.dao.face;
 import java.util.List;
 
 import daeyeon.dto.Chat;
+import daeyeon.dto.ChatFile;
 import daeyeon.dto.ChatRoom;
 import daeyeon.dto.RoomList;
 import daeyeon.util.ChatIntroPaging;
@@ -30,6 +31,27 @@ public interface ChatDao {
 	 */
 	public List<Users> selectUsers(ChatIntroPaging chatIntroPaging);
 
+	
+	/**	 
+	 * chat/intro
+	 * 
+	 * 검색된 회원의 총 수
+	 * 
+	 * @param chatIntroPaging
+	 * @return
+	 */
+	public int selectSearchCntAll(ChatIntroPaging chatIntroPaging);
+	
+	/**
+	 * chat/intro
+	 * 
+	 * 검색된 회원 리스트
+	 * 
+	 * @param chatIntroPaging
+	 * @return
+	 */
+	public List<Users> selectSearchUsers(ChatIntroPaging chatIntroPaging);
+	
 
 	/**
 	 * chat/pointCompare
@@ -116,6 +138,15 @@ public interface ChatDao {
 	 * @return - 같은 채팅방의 상대방 이름
 	 */
 	public String selectReciverNick(RoomList roomNo);
+	
+	
+	/**
+	 * chat/chatArea
+	 * 
+	 * @param roomNo - 룸번호
+	 * @return - 상대방 프로필 사진
+	 */
+	public String selectReciverProfile(RoomList roomNo);
 
 
 	/**
@@ -146,6 +177,45 @@ public interface ChatDao {
 	 * @return List<Chat> - 채팅내용
 	 */
 	public List<Chat> selectChat(RoomList roomNo);
+
+
+	/**
+	 * chat테이블의 chat_no 마지막값 구하기
+	 * 
+	 * @return
+	 */
+	public int selectChatNo();	
+	
+	/**
+	 * chat/fileup
+	 *
+	 * 파일 저장하기
+	 * 
+	 * @param chatFile - insert 파일정보
+	 */
+	public void insertFile(ChatFile chatFile);
+
+
+	
+	/**
+	 * main
+	 * 포인트가 제일 높은 세명 조회
+	 * 
+	 * @return List<Users> - 조회된 회원목록
+	 */
+	public List<Users> selectTopUsers();
+
+
+
+
+
+
+
+
+
+
+	
+	
 
 
 	

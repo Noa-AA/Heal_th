@@ -6,20 +6,24 @@
 
 <mapper namespace="daeyeon.dao.face.ChatDao"> 
 	
-	<!-- /chat/intro -->
+	<!-- /chat/intro --> 
 	<!-- 조회할 3이상인 멘토 회원리스트 개수 조회하기 -->
 	<select id="selectCntAll" resultType="int" parameterType="Users">
-		SELECT count(*) FROM USERS
-			WHERE ranking_no >= 3
-		AND user_no != #{userNo } AND user_no NOT IN 
-		(SELECT d.user_no FROM users d      
-    		INNER JOIN (SELECT a.* FROM room_list a             
-        		INNER JOIN (
-        			SELECT * FROM room_list WHERE user_no = #{userNo } ) b 
-        		ON a.room_no = b.room_no
-			WHERE a.user_no != #{userNo }) c
-			ON d.user_no = c.user_no)
-		ORDER BY user_no
+		SELECT count(*) FROM photofile e
+	    FULL JOIN
+	       ( SELECT * FROM USERS 
+				WHERE ranking_no >= 3
+	            AND user_no != #{userNo } AND user_no NOT IN 
+	            (SELECT d.user_no FROM users d      
+	                INNER JOIN (SELECT a.* FROM room_list a             
+	                    INNER JOIN (
+	                        SELECT * FROM room_list WHERE user_no = #{userNo } ) b 
+	                    ON a.room_no = b.room_no
+	                WHERE a.user_no != #{userNo }) c
+				ON d.user_no = c.user_no)
+	        ORDER BY user_no ) f
+	    ON e.user_no = f.user_no 
+	    WHERE f.user_no IS NOT NULL
 	</select>
 	
 	
@@ -28,21 +32,86 @@
 	<select id="selectUsers" resultType="yerim.dto.Users" parameterType="chatIntroPaging">
 		SELECT * FROM (
 		SELECT rownum rnum, R.* FROM (
-			SELECT * FROM USERS
-			WHERE ranking_no >= 3
-				AND user_no != #{userNo } AND user_no NOT IN 
-				(SELECT d.user_no FROM users d      
-		    		INNER JOIN (SELECT a.* FROM room_list a             
-		        		INNER JOIN (
-		        			SELECT * FROM room_list WHERE user_no = #{userNo } ) b 
-		        		ON a.room_no = b.room_no
-					WHERE a.user_no != #{userNo }) c
+			SELECT f.*, e.stored_name FROM photofile e
+		    FULL JOIN
+		       ( SELECT * FROM USERS 
+					WHERE ranking_no >= 3
+		            AND user_no != #{userNo } AND user_no NOT IN 
+		            (SELECT d.user_no FROM users d      
+		                INNER JOIN (SELECT a.* FROM room_list a             
+		                    INNER JOIN (
+		                        SELECT * FROM room_list WHERE user_no = #{userNo } ) b 
+		                    ON a.room_no = b.room_no
+		                WHERE a.user_no != #{userNo }) c
 					ON d.user_no = c.user_no)
-			ORDER BY user_no
+		        ORDER BY user_no ) f
+		    ON e.user_no = f.user_no 
+		    WHERE f.user_no IS NOT NULL
 			) R
 		) RECORD
 		WHERE rnum BETWEEN #{startNo } AND #{endNo }
 	</select> 
+	
+	
+	<!-- /chat/intro -->
+	<!-- 검색된 회원 등급 3이상인 회원 조회하기 -->
+	<select id="selectSearchCntAll" resultType="int" parameterType="chatIntroPaging">
+		SELECT count(*) FROM photofile e
+	    FULL JOIN
+	       ( SELECT * FROM USERS 
+				WHERE ranking_no >= 3
+	            AND user_no != #{userNo } AND user_no NOT IN 
+	            (SELECT d.user_no FROM users d      
+	                INNER JOIN (SELECT a.* FROM room_list a             
+	                    INNER JOIN (
+	                        SELECT * FROM room_list WHERE user_no = #{userNo } ) b 
+	                    ON a.room_no = b.room_no
+	                WHERE a.user_no != #{userNo }) c
+				ON d.user_no = c.user_no)
+	        ORDER BY user_no ) f
+	    ON e.user_no = f.user_no 
+	    WHERE f.user_no IS NOT NULL
+	    <choose>
+			<when test="type != null and type.equals('userNick')">
+				AND user_nick LIKE '%' || #{keyword } || '%'
+			</when>
+			<when test="type != null and type.equals('userJob')">
+				AND user_job LIKE '%' || #{keyword } || '%'
+			</when>
+		</choose>
+	</select>
+	
+	
+	<select id="selectSearchUsers" resultType="Users" parameterType="chatIntroPaging" >
+		SELECT * FROM (
+			SELECT rownum rnum, R.* FROM (	
+				SELECT * FROM photofile e
+			    FULL JOIN
+			       ( SELECT * FROM USERS 
+						WHERE ranking_no >= 3
+			            AND user_no != #{userNo } AND user_no NOT IN 
+			            (SELECT d.user_no FROM users d      
+			                INNER JOIN (SELECT a.* FROM room_list a             
+			                    INNER JOIN (
+			                        SELECT * FROM room_list WHERE user_no = #{userNo } ) b 
+			                    ON a.room_no = b.room_no
+			                WHERE a.user_no != #{userNo }) c
+						ON d.user_no = c.user_no)
+			        ORDER BY user_no ) f
+			    ON e.user_no = f.user_no 
+			    WHERE f.user_no IS NOT NULL
+			    <choose>
+					<when test="type != null and type.equals('userNick')">
+						AND user_nick LIKE '%' || #{keyword } || '%'
+					</when>
+					<when test="type != null and type.equals('userJob')">
+						AND user_job LIKE '%' || #{keyword } || '%'
+					</when>
+				</choose>
+				) R
+			) RECORD
+		WHERE rnum BETWEEN #{startNo } AND #{endNo }
+	</select>
 	
 	
 	<!-- /chat/pointCompare -->
@@ -108,31 +177,34 @@
 	<!-- /chat/chatRoom -->
 	<!-- 자신의 회원번호가 속한 채팅방번호와 상대방 닉네임과 그사람과의 마지막채팅 조회하기 -->
 	<select id="selectRoomList"  resultType="daeyeon.dto.RoomList" parameterType="Users">
-		SELECT user_no, chat_time, room_no, user_nick FROM (
-			SELECT user_no, room_no, chat_time, user_nick,
-				RANK() OVER (PARTITION BY room_no ORDER BY chat_time DESC) AS RNK
-				FROM ( SELECT e.user_no, e.room_no, e.user_nick, f.chat_time
-						FROM
-					       ( SELECT c.room_no, d.user_nick, d.user_no FROM users d      
-					            INNER JOIN
-					                (SELECT a.* FROM room_list a             
-					                   INNER JOIN (
-										SELECT * FROM room_list WHERE user_no = #{userNo } ) b 
-									ON a.room_no = b.room_no
-								WHERE a.user_no != #{userNo } ) c
-							 ON d.user_no = c.user_no
-						ORDER BY c.room_no DESC ) e
-					INNER JOIN chat f
-				ON e.room_no = f.room_no ) )
-			WHERE RNK = 1
-		ORDER BY chat_time DESC
+		SELECT DISTINCT h.stored_name, g.user_no, g.chat_time, g.room_no, g.user_nick FROM photofile h
+			INNER JOIN
+			( SELECT user_no, chat_time, room_no, user_nick FROM (
+				SELECT user_no, room_no, chat_time, user_nick,
+					RANK() OVER (PARTITION BY room_no ORDER BY chat_time DESC) AS RNK
+					FROM ( SELECT e.user_no, e.room_no, e.user_nick, f.chat_time
+							FROM
+						       ( SELECT c.room_no, d.user_nick, d.user_no FROM users d      
+						            INNER JOIN
+						                (SELECT a.* FROM room_list a             
+						                   INNER JOIN (
+											SELECT * FROM room_list WHERE user_no = #{userNo } ) b 
+										ON a.room_no = b.room_no
+									WHERE a.user_no != #{userNo } ) c
+								 ON d.user_no = c.user_no
+							ORDER BY c.room_no DESC ) e
+						FULL JOIN chat f
+					ON e.room_no = f.room_no ) )
+				WHERE RNK = 1 ) g
+		ON h.user_no = g.user_no 
+		ORDER BY chat_time DESC NULLS FIRST
 	</select>
 	
 	
 	<!-- /chat/chatRoom -->
 	<!-- 마지막 채팅내역과 채팅방 번호 조회 -->
 	<select id="selectLastChat" resultType="Chat">
-		SELECT chat_contents, room_no FROM (
+		SELECT chat_contents, room_no, chat_time FROM (
 			SELECT chat_contents, room_no, chat_time,
     		RANK() OVER (PARTITION BY room_no ORDER BY chat_time DESC) AS RNK
     		FROM chat )
@@ -151,16 +223,31 @@
 	</select>
 	
 	<!-- /chat/chatArea -->
+	<!-- 방번호로 상대방 프로필 사진 가져오기 -->
+	<select id="selectReciverProfile" resultType="string" parameterType="RoomList">
+		SELECT d.stored_name FROM photofile d
+    		INNER JOIN 
+      		( SELECT a.user_no FROM users a
+				INNER JOIN (
+				SELECT * FROM room_list WHERE room_no = #{roomNo }) b
+			ON a.user_no = b.user_no
+			WHERE a.user_no != #{userNo } ) c
+		ON d.user_no = c.user_no
+	</select>
+	
+	<!-- /chat/chatArea -->
 	<!-- 내 유저번호로 내 닉네임 조회하기 -->
 	<select id="selectSenderNick" resultType="string" parameterType="int" >
 		SELECT user_nick FROM users
 		WHERE user_no = #{myUserNo }
 	</select>
+	
+	
 
 	
 	<!-- /chat/chatArea -->
 	<!-- 채팅내용 테이블에 저장하기 -->
-	<insert id="insertChat" parameterType="chatRoom">
+	<insert id="insertChat" parameterType="chat">
 		INSERT INTO chat( chat_no, chat_time, chat_contents, room_no, user_no )
 		VALUES ( chat_seq.nextval, to_char(sysdate, 'yyyy.mm.dd hh24:mi:ss'), #{chatContents }, #{roomNo }, #{userNo }  )
 	</insert>
@@ -173,6 +260,34 @@
 		ORDER BY chat_no ASC
 	</select>
 	
+	<!-- chat테이블의 마지막 chat_no구하기 -->
+	<select id="selectChatNo" resultType="int">
+		select max(chat_no) FROM chat
+	</select>
+	
+	<!-- /chat/fileup -->
+	<!-- 첨부파일 테이블에 저장하기 -->
+	<insert id="insertFile" parameterType="chatFile">
+		INSERT INTO chat_file( file_no, chat_no, user_no, origin_name, stored_name, upload_date )
+		VALUES ( chat_file_seq.nextval, #{chatNo }, #{userNo }, #{originName }, #{storedName }, to_char(sysdate, 'yyyy.mm.dd hh24:mi:ss') )
+	</insert>
+	
+	
+	
+	<!-- 메인페이지에서 사용할 Top3 유저 -->
+	<select id="selectTopUsers" resultType="Users">
+		SELECT a.user_no, a.user_nick, a.ranking_no, a.user_intro, a.user_job, a.point , b.stored_name FROM photofile b
+	    	FULL JOIN (
+	        	SELECT rownum, a.* from (
+	        		SELECT user_no, user_nick, ranking_no, user_intro, user_job, point FROM users
+				ORDER BY point DESC ) a
+				<![CDATA[
+				WHERE rownum < 4
+				]]>
+	    	) a
+			ON b.user_no = a.user_no
+		WHERE a.user_no IS NOT NULL
+	</select>
 	
 	
 	

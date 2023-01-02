@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바티스 3 Mapper DTD -->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jucheol.dao.face.ReportDao">
+	<select id="reportCheck" resultType="Report" parameterType="Report">
+		SELECT * FROM report
+		WHERE user_no = #{ruserNo} AND board_no = #{boardNo} AND category_no = #{categoryNo}
+	</select>
+
+	<insert id="addReport" parameterType="Report">
+		INSERT INTO report(report_no, board_no, user_no, category_no)
+		VALUES ( report_seq.nextval, #{boardNo }, #{ruserNo }, #{categoryNo } )
+	</insert>
+	
+	<delete id="deleteReport" parameterType="Report">
+		DELETE report
+		WHERE report_no = #{reportNo}	
+	</delete>
+	
+	<select id="selectList" resultType="Report" parameterType="Report">
+		SELECT a.*, c.category_name,r.report_no, r.user_no as ruser_no, u.user_nick as ruser_nick, uu.user_nick as wuser_nick FROM (
+			SELECT bf_title AS title, bf_no AS board_no, category_no, user_no as wuser_no from beforeafter
+			UNION
+			SELECT r_title, review_no, category_no, user_no  from reviewboard
+			UNION
+			SELECT d_title, diet_no, category_no, user_no  from dietboard
+			UNION
+			SELECT v_title, verify_no, category_no, user_no  from verifyboard
+			)a, report r, category c, users u, users uu
+		WHERE r.board_no = a.board_no
+		AND a.category_no = c.category_no
+        AND a.category_no = r.category_no
+        AND u.user_no = r.user_no
+        AND uu.user_no = a.wuser_no
+		ORDER BY report_no
+	</select>
+	
+	<select id="selectOne" resultType="Report" parameterType="Report">
+		SELECT * FROM report
+		WHERE report_no = #{reportNo}	
+	</select>
+	<delete id="deletePost" parameterType="Report">
+		DELETE 
+<!-- 			카테고리 -->
+<!-- 			1 - 비포애프터게시판, beforeafter, bf_no -->
+<!-- 			2 - 운동인증게시판, verifyboard, verify_no -->
+<!-- 			3 - 식단공유게시판, dietboard, diet_no -->
+<!-- 			4 - 후기,시설리뷰게시판, reviewboard, review_no -->
+			<choose>
+				<when test="categoryNo == 1">
+					beforeafter
+					WHERE bf_no = #{boardNo}
+				</when>
+				<when test="categoryNo == 2">
+					verifyboard
+					WHERE verify_no = #{boardNo}
+				</when>
+				<when test="categoryNo == 3">
+					dietboard
+					WHERE diet_no = #{boardNo}
+				</when>
+				<when test="categoryNo == 4">
+					reviewboard
+					WHERE review_no = #{boardNo}
+				</when>
+			</choose>
+		
+	</delete>
+</mapper>

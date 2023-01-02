@@ -10,21 +10,21 @@
 		SELECT count(*) FROM reviewboard
 	</select>
 	
-	<select id="selectList" resultType="ReviewBoard" parameterType="BoardPaging">
-		SELECT * FROM (
-			SELECT rownum rnum, B.* FROM (
-				SELECT
-					review_no, r_title, user_no,
-					r_hit, r_thumbs, r_inst_date
-					, score
-				FROM reviewboard
-				ORDER BY review_no DESC
-			) B
-		) ReviewBoard
-		WHERE rnum BETWEEN #{startNo } AND #{endNo }
-	</select>
+<!-- 	<select id="selectList" resultType="ReviewBoard" parameterType="BoardPaging"> -->
+<!-- 		SELECT * FROM ( -->
+<!-- 			SELECT rownum rnum, B.* FROM ( -->
+<!-- 				SELECT -->
+<!-- 					review_no, r_title, user_no, -->
+<!-- 					r_hit, r_thumbs, r_inst_date -->
+<!-- 					, score -->
+<!-- 				FROM reviewboard -->
+<!-- 				ORDER BY review_no DESC -->
+<!-- 			) B -->
+<!-- 		) ReviewBoard -->
+<!-- 		WHERE rnum BETWEEN #{startNo } AND #{endNo } -->
+<!-- 	</select> -->
 	
-	<select id="noticeList" resultType="Notice" parameterType="BoardPaging">
+	<select id="notice" resultType="Notice" parameterType="BoardPaging">
 	<![CDATA[
 		SELECT * FROM (
 			SELECT * FROM notice ORDER BY notice_no DESC ) 
@@ -32,6 +32,11 @@
 		ORDER BY notice_no DESC
 	]]>
 	</select>
+	
+	<select id="updateHit" parameterType="ReviewBoard">
+ 		UPDATE reviewboard SET r_hit = r_hit + 1 
+ 		WHERE review_no = #{reviewNo}
+ 	</select>
 	
 	<select id="selectUserInfo" resultType="Users" parameterType="int">
 		SELECT * FROM users
@@ -46,14 +51,11 @@
 	
 		INSERT INTO reviewboard ( 
 			review_no, r_inst_date, r_title, gym_name, gym_introduce
-			   , classification, price, address, score, review
-			   , r_upt_date, r_delete_date, r_hit
-			   , r_thumbs, user_no, category_no )
+			   , classification, price, address, lat, lng, score, review
+			  ,r_hit, r_thumbs, user_no, category_no )
 		
 		VALUES ( #{reviewNo}, sysdate, #{rTitle}, #{gymName}, #{gymIntroduce}
-				   , #{classification}, #{price}, #{address}, #{score}, #{review}
-				   , to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
-				   , to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+				   , #{classification}, #{price}, #{address}, #{lat}, #{lng}, #{score}, #{review}
 				   , 0, 0, #{userNo}, 4 )
 	</insert>
 	
@@ -61,8 +63,8 @@
 	<select id="selectBoard" resultType="ReviewBoard" parameterType="ReviewBoard">
 		SELECT
 			review_no, r_inst_date, r_title, gym_name, gym_introduce
-			   , classification, price, address, score, review
-			   , r_upt_date, r_delete_date, r_hit
+			   , classification, price, address, lat, lng, score, review
+			   , r_hit
 			   ,r_thumbs, user_no, category_no
 		FROM reviewboard
 		WHERE review_no = #{reviewNo}
@@ -76,6 +78,8 @@
 			, classification = #{classification}
 			, price = #{price}
 			, address = #{address}
+			, lat = #{lat}
+			, lng = #{lng}
 			, score = #{score}
 			, review = #{review}
 		WHERE review_no = #{reviewNo}
@@ -87,18 +91,18 @@
 		WHERE review_no = #{reviewNo}	
 	</delete>
 	
-	<select id="getList" resultType="ReviewBoard">
-		SELECT review_no, r_title, user_no, score,
-				r_hit, r_thumbs, r_inst_date
-		FROM reviewboard
+<!-- 	<select id="getList" resultType="ReviewBoard"> -->
+<!-- 		SELECT review_no, r_title, user_no, score, -->
+<!-- 				r_hit, r_thumbs, r_inst_date -->
+<!-- 		FROM reviewboard -->
 		
-		ORDER BY review_no DESC
-	</select>
+<!-- 		ORDER BY review_no DESC -->
+<!-- 	</select> -->
 	
-	<select id="getPage" resultType="ReviewBoard">
-        SELECT * FROM reviewboard
-        WHERE review_no = #{reviewNo}
-    </select>
+<!-- 	<select id="getPage" resultType="ReviewBoard"> -->
+<!--         SELECT * FROM reviewboard -->
+<!--         WHERE review_no = #{reviewNo} -->
+<!--     </select> -->
 	
 	<sql id="boardSearch">
         <trim prefix="AND (" suffix=")" prefixOverrides="OR">
@@ -124,33 +128,28 @@
         </trim>
     
     </sql>
-
-	<select id="getSearchPaging" resultType="ReviewBoard">
     
-    <![CDATA[
-        
-        SELECT review_no, r_title, user_no, score,
-					r_hit, r_thumbs, r_inst_date  FROM(
-        
-                SELECT 
-                rownum  as rn, review_no, r_title, user_no, score,
-								r_hit, r_thumbs, r_inst_date
+    <select id="getSearchPaging" resultType="ReviewBoard">
+         
+         SELECT review_no, r_title, user_no, score, review,
+					r_hit, r_thumbs, r_inst_date  FROM( 
+            select rownum rn, d.* from (
+                 SELECT 
+	                  review_no, r_title, user_no, score, review,
+						r_hit, r_thumbs, r_inst_date 
                   
-                FROM reviewboard WHERE rownum <= #{pageNum} * #{amount} 
-    ]]>            
-                <if test="keyword != null">
-                	<include refid="boardSearch"></include> 
+                 FROM reviewboard
+                                 <if test="keyword != null">
+                	WHERE r_title LIKE  '%${keyword}%'
                 </if>
-    
-    <![CDATA[
-                    
-                )
-                    
-        WHERE rn > (#{pageNum} -1) * #{amount}
-    
-    ]]>
-    
+                 
+                order by review_no desc
+                ) d
+            
+        ) 
+         WHERE rn between  ( #{curPage}-1) *10 and  #{curPage}*10
     </select>
+    
 	
 	 <select id="getTotal" resultType="int">
     	SELECT count(*) FROM reviewboard
@@ -161,5 +160,16 @@
         
     </select>
 	
+	<select id="getPoint" resultType="int" parameterType="Users">
+		SELECT point FROM users
+		WHERE user_no = #{userNo }
+	</select>
+	
+	
+	<update id="updatePoint" parameterType="Users">
+		UPDATE users SET point =
+			point + 50
+		WHERE user_no = #{userNo}
+	</update>
 	
 </mapper>

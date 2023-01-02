@@ -1,12 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="../layout/header.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <style type="text/css">
-.title {
-	margin-bottom: 40px;
-}
-
 .challenge-list {
 	display: flex;
 	flex-wrap: wrap;
@@ -14,14 +11,14 @@
 	margin: auto;
 	gap: 50px 50px;
 	width: 1200px;
-	margin-top: 400px;
+	margin-top: -16px;
 }
 
 .challenge {
 	position: relative;
 	flex: 1 1 30%;
-	border: 1px solid #333;
-	box-shadow: 1px 1px 10px 0px rgb(0 0 0/ 30%);
+	border: 1px solid #cfcfcf;
+	box-shadow: 1px 1px 8px 0px rgb(0 0 0/ 10%);
 	border-radius: 10px;
 	text-align: center;
 	width: 400px;
@@ -34,15 +31,24 @@
 
 .challenge img {
 	border: 0;
-	margin-top: 20px;
+	margin-top: 32px;
 	height: 100px;
 	width: 200px;
+}
+
+li {
+	line-height: 25px;
+}
+
+.chlTitle {
+	font-weight: 600;
+	font-size: 15px;
 }
 
 .search_area {
 	display: inline-block;
 	text-align: center;
-	margin-top: 30px;
+	margin-top: 0px;
 }
 
 .search_area input {
@@ -66,7 +72,7 @@
 .pageInfo {
 	list-style: none;
 	display: inline-block;
-	margin: 50px 0 0 100px;
+	margin: 50px 0 0 -12px;
 }
 
 .pageInfo li {
@@ -100,81 +106,103 @@ a:hover {
 
 </head>
 <body>
-<div id="subvisual">
-	<div id="subvisual-A">
-		<p id="subv-title">챌린지 목록</p>
-		<p id="subv-content">원하는 챌린지를 눌러주세요</p>
-	</div>
-</div>
-	<div class="challenge-list">
-		<c:forEach items="${list }" var="challenge">
 
-			<div class="challenge">
-				<div class="challenge-thumbnail">
-					<img src="/resources/img/chl_thumbnail/chl_thumb${challenge.challengeNo }.jpg" onerror="this.src='https://shared-comic.pstatic.net/thumb/webtoon/796152/thumbnail/thumbnail_IMAG10_a500c803-99ec-4bf8-92d1-b2a5c60c9789.jpg'">
+	<!-- 관리자 로그인 상태일때 -->
+	<c:if test="${!empty adminNo && empty userId}">
+		<jsp:include page="../layout/adminheader.jsp" />
+	</c:if>
+
+	<!-- 회원 로그인 상태일때 -->
+	<c:if test="${empty adminNo}">
+		<%@include file="../layout/header.jsp"%>
+		<jsp:include page="./layout/chlSubvisual.jsp" />
+	</c:if>
+
+
+	<div class="total-list">
+		<div class="challenge-list">
+			<c:forEach items="${list }" var="challenge">
+
+				<div class="challenge">
+					<div class="challenge-thumbnail">
+						<a class="move" href='<c:out value="${challenge.challengeNo}"/>'>
+							<img src="/resources/img/chl_thumbnail/chl_thumb${challenge.challengeNo }.jpg" onerror="this.src='https://shared-comic.pstatic.net/thumb/webtoon/796152/thumbnail/thumbnail_IMAG10_a500c803-99ec-4bf8-92d1-b2a5c60c9789.jpg'">
+						</a>
+					</div>
+					<div class="challenge-content">
+						<ul>
+							<li class="chlTitle">
+								제목 :
+								<a class="move" href='<c:out value="${challenge.challengeNo}"/>'>
+									<c:out value="${challenge.challengeName}" />
+								</a>
+							</li>
+							<li>종류 : ${challenge.challengeKind }</li>
+							<li>
+								생성일 :
+								<fmt:formatDate value="${challenge.challengeCredate }" pattern="yyyy년 MM월 dd일" />
+							</li>
+							<li>
+								종료일 :
+								<fmt:formatDate value="${challenge.challengeEnddate }" pattern="yyyy년 MM월 dd일" />
+							</li>
+						</ul>
+					</div>
 				</div>
-				<div class="challenge-content">
-					<ul>
-						<li>챌린지 번호 : <c:out value="${challenge.challengeNo}" />
-						</li>
-						<li>제목 : <a class="move" href='<c:out value="${challenge.challengeNo}"/>'>
-								<c:out value="${challenge.challengeName}" />
-							</a>
-						</li>
-						<li>종류 : ${challenge.challengeKind }</li>
-						<li>생성일 : <fmt:formatDate value="${challenge.challengeCredate }" pattern="yyyy년 MM월 dd일" />
-						</li>
-						<li>종료일 : <fmt:formatDate value="${challenge.challengeEnddate }" pattern="yyyy년 MM월 dd일" />
-						</li>
-					</ul>
+			</c:forEach>
+
+
+
+
+			<div class="search_wrap">
+				<div class="search_area">
+					<select name="type">
+						<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':'' }"/>>제목</option>
+						<option value="C" <c:out value="${pageMaker.cri.type eq 'C'?'selected':'' }"/>>종류</option>
+						<option value="TC" <c:out value="${pageMaker.cri.type eq 'TC'?'selected':'' }"/>>제목 + 종류</option>
+					</select>
+					<input type="text" name="keyword" value="${pageMaker.cri.keyword }">
+					<button>검색</button>
 				</div>
-			</div>
-		</c:forEach>
-		
-
-
-
-		<div class="search_wrap">
-			<div class="search_area">
-				<select name="type">
-					<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':'' }"/>>제목</option>
-					<option value="C" <c:out value="${pageMaker.cri.type eq 'C'?'selected':'' }"/>>종류</option>
-					<option value="TC" <c:out value="${pageMaker.cri.type eq 'TC'?'selected':'' }"/>>제목 + 종류</option>
-				</select> <input type="text" name="keyword" value="${pageMaker.cri.keyword }">
-				<button>검색</button>
 			</div>
 		</div>
-	</div>
 
 
-	<div class="pageInfo_wrap">
-		<div class="pageInfo_area">
-			<ul id="pageInfo" class="pageInfo">
+		<div class="pageInfo_wrap">
+			<div class="pageInfo_area">
+				<ul id="pageInfo" class="pageInfo">
 
-				<!-- 이전페이지 버튼 -->
-				<c:if test="${pageMaker.prev}">
-					<li class="pageInfo_btn previous"><a href="${pageMaker.startPage-1}">Previous</a></li>
-				</c:if>
+					<!-- 이전페이지 버튼 -->
+					<c:if test="${pageMaker.prev}">
+						<li class="pageInfo_btn previous">
+							<a href="${pageMaker.startPage-1}">Previous</a>
+						</li>
+					</c:if>
 
-				<!-- 각 번호 페이지 버튼 -->
-				<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-					<li class="pageInfo_btn ${pageMaker.cri.pageNum == num ? "active":"" }"><a href="${num}">${num}</a></li>
-				</c:forEach>
+					<!-- 각 번호 페이지 버튼 -->
+					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+						<li class="pageInfo_btn ${pageMaker.cri.pageNum == num ? "active":"" }">
+							<a href="${num}">${num}</a>
+						</li>
+					</c:forEach>
 
-				<!-- 다음페이지 버튼 -->
-				<c:if test="${pageMaker.next}">
-					<li class="pageInfo_btn next"><a href="${pageMaker.endPage + 1 }">Next</a></li>
-				</c:if>
+					<!-- 다음페이지 버튼 -->
+					<c:if test="${pageMaker.next}">
+						<li class="pageInfo_btn next">
+							<a href="${pageMaker.endPage + 1 }">Next</a>
+						</li>
+					</c:if>
 
-			</ul>
+				</ul>
+			</div>
 		</div>
 	</div>
 
 	<form id="moveForm" method="get">
-		<input type="hidden" id="challengeNo" name="challengeNo" value='<c:out value="${pageInfo.challengeNo}"/>'> 
-		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
-		<input type="hidden" name="amount" value="${pageMaker.cri.amount }"> 
-		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }"> 
+		<input type="hidden" id="challengeNo" name="challengeNo" value='<c:out value="${pageInfo.challengeNo}"/>'>
+		<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+		<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+		<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 		<input type="hidden" name="type" value="${pageMaker.cri.type }">
 	</form>
 
@@ -182,28 +210,6 @@ a:hover {
 
 
 	<script>
-	
-// 	//챌린지 등록시 알림창
-// 				$(document).ready(function() {
-
-// 					let result = '<c:out value="${result}"/>';
-
-// 					checkAlert(result);
-
-// 					    function checkAlert(result){
-
-// 					        if(result === ''){
-// 					            return;
-// 					        }
-
-// 					        if(result === "create success"){
-// 					            alert("등록 완료, 챌린지는 등록후 수정이 불가합니다");
-// 					        }
-
-// 					    } 
-
-// 				});
-		
 		//챌린지 상세보기
 		let moveForm = $("#moveForm");
 		$(".move")
@@ -212,7 +218,6 @@ a:hover {
 						function(e) {
 							e.preventDefault();
 							moveForm.empty();
-
 							moveForm
 									.append("<input type='hidden' name='challengeNo' value='"
 											+ $(this).attr("href") + "'>");
@@ -229,8 +234,6 @@ a:hover {
 			moveForm.submit();
 
 		});
-
-	
 
 		//검색 버튼
 		$(".search_area button").on("click", function(e) {
@@ -254,8 +257,7 @@ a:hover {
 			moveForm.find("input[name='pageNum']").val(1);
 			moveForm.submit();
 		});
-
 	</script>
 </body>
-<%@include file="../layout/footer.jsp" %>
+<%@include file="../layout/footer.jsp"%>
 </html>

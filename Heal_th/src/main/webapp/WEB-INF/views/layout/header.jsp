@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -35,6 +36,11 @@ $(document).ready(function(){
 	});
 	
 	
+	$("#goLogin").click(function() {
+		alert("로그인 시 이용 가능합니다.");
+		$(location).attr("href", "/login/login")
+	})
+		
 })
 
 
@@ -57,6 +63,17 @@ html, body, pre, h1, h2, h3, h4, h5, h6, dl, dt, dd, ul, li, ol, th, td, p, bloc
 a {
     color: #000;
     text-decoration: none;
+    text-decoration-line: none;
+}
+
+a:focus, a:hover {
+    text-decoration: none;
+    outline: none;
+}
+
+button {
+	border: 0;
+	outline: 0;
 }
 
 input {
@@ -95,6 +112,10 @@ header {
     align-items: center;
 }
 
+.logo a > img {
+    width: 160px;
+}
+
 
 #menu {
 	margin: 0 auto;
@@ -118,7 +139,7 @@ header {
 
 #menu > ul > li {
 	height: 100%;
-    width: 150px;
+    width: 160px;
 }
 
 #menu > ul > li > a {
@@ -130,12 +151,16 @@ header {
     position: relative;
 }
 
+#menu > ul > li > a:hover {
+	color: #7ca3f5;
+}
+
 
 
 #right {
 	position: relative;
 	height: 100%; 
-	width: 440px; 
+	width: 460px; 
 	background-color: #aaa; 
 	float: right; 
 /*  	background: linear-gradient(120deg, transparent 50px, #3f94d6 0 , #1869a7);  */
@@ -152,10 +177,11 @@ header {
 }
 
 #right > ul > li {
-	margin-left: 30px;
+	margin-left: 26px;
 	display: flex;
     align-items: center;
 }
+
 
 #login > img {
 	margin-right: 6px;
@@ -170,65 +196,39 @@ header {
 }
 
 #right > ul > li > a {
-	display: block;
+	display: flex;
+	align-items: center;
 	font-size: 16px;
 	font-weight: 400;
 	color: #fff;
 }
 
-
-
-/* 드롭다운 메뉴~~ */
-
-.hover {
-	box-shadow: 0 0 0px rgb(0 0 0 / 0%) !important;;
-	border-bottom: 1px solid #eeeeee;
+#right > ul > li > a > span {
+	margin-right: 3px;
 }
 
-
-#dropMenu {
-	display: none;
-	margin: 0 auto;
-	height: 310px;
-	width: 100%;
-	background-color: #fff;
+#alram {
 	position: fixed;
-	box-shadow: 0 0 10px rgb(0 0 0 / 8%);
-	top: 0;
+	top:30px;
+	right:30px;
 }
 
-#dropMenu > ul {
-	display: flex;
-    align-items: center;
-    justify-content: center;
+#alram img {
+	width:20px;
 }
 
-#dropMenu > ul:nth-child(1) {
-	padding-top: 80px;
-	margin-top: 34px;
+#alram button {
+	background-color:transparent;
 }
 
-#dropMenu > ul:last-child {
-	margin-bottom: 34px;
-}
-
-#dropMenu > ul > li {
-    width: 150px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-left: 1px solid #f6f6f6;
-}
-
-#dropMenu > ul > li:last-child {
-	border-right: 1px solid #f6f6f6;
-}
-
-#dropMenu > ul > li > a {
-	height: 20px;
-    color: #666;
-    font-weight: 400;
+/* 로그인 아이콘 */
+.lG, .lO, .mP, .person {
+  font-variation-settings:
+  'FILL' 0 ,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+  
 }
 
 #subvisual {
@@ -286,23 +286,6 @@ header {
     width: 20%;
 }
 
-.footer {
-    width: 100%;
-    min-width: 1048px;
-	bottom: 0;
-	height: 100px;
-	border-top: 1px solid #ddd;
-	background: #fff;
-	z-index: 99;
-	margin-top: 160px;
-} 
-
-.footer-wrap {
-	width: 1200px;
-	margin: 0 auto;
-	height: 100px;
-	padding: 10px 0;
-}
 
 .big-container h3:nth-child(1){
 	padding-bottom: 64px;
@@ -315,86 +298,220 @@ body {
 	padding-top: 355px;
 }
 
+#goLogin{
+	cursor: pointer;
+}
+
+.messageBox {
+	position: absolute;
+	top: 65px;
+	right: 5px;
+	width: 400px;
+	height: 250px;
+	border-radius: 15px;
+	padding: 20px;
+	box-shadow: 0 7px 20px rgb(0 0 0 / 17%);
+	z-index: 1000;
+	overflow-y: scroll;
+	background-color:white;
+}
+
+.messageBox::-webkit-scrollbar {
+	border-radius: 10px;
+	width: 7px;
+}
+
+.messageBox::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+	background: silver;
+	width: 5px;
+}
+.messageBox:after {
+    position: absolute;
+    top: -13px;
+    right: 45px;
+    width: 0;
+    height: 0;
+    border-right: 11px solid rgba(0,0,0,0);
+    border-bottom: 13px solid #fff;
+    border-left: 11px solid rgba(0,0,0,0);
+    content: "";
+    filter: drop-shadow(0px 7px 20px rgba(0, 0, 0, 0.17));
+}
+
+
+/* Footer ------------------------------------------------------------------- */
+
+.footer {
+    width: 100%;
+    min-width: 1048px;
+	height: 200px;
+ 	border-top: 1px solid #eee; 
+	margin-top: 160px;
+	background-color: #f8f8f8;
+} 
+
+.footer-wrap {
+	display: flex;
+	width: 1600px;
+	margin: 0 auto;
+	height: 200px;
+	padding: 30px 0 60px;;
+}
+
+.footerLeft {
+	width: 16%;
+	padding-top: 20px;
+}
+
+.footerLeft > img {
+	width: 160px;
+}
+
+.footerRight {
+	width: 84%;
+}
+
+.footer_Rtop {
+	display: flex;
+	padding-bottom: 12px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid #dddddd;
+    justify-content: space-between;
+}
+
+.footer_Rul {
+	display: flex;
+	padding-top: 20px;
+}
+
+.footer_Rul > li {
+	position: relative;
+    padding-right: 21px;
+    margin-right: 20px;
+    font-size: 15px;
+    color: #666;
+}
+
+.footer_Rul > li:hover {
+	cursor: pointer;
+}
+
+.footer_Rul > li:nth-child(2) {
+	color: #333;
+	font-weight: 700;
+}
+
+.footer_Rul > li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 1px;
+    height: 10px;
+    background-color: #bbb;
+    transform: translateY(-50%);
+}
+
+
+
+.footer_Rbottom_Text {
+	display: flex;
+	margin-bottom: 10px;
+}
+
+.footer_brand_text:not(:last-child) {
+    position: relative;
+    padding-right: 15px;
+    margin-right: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.footer_brand_text:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 1px;
+    height: 10px;
+    background-color: #bbb;
+    transform: translateY(-50%);
+}
+
+.footer_brand_text:last-child {
+    font-weight: 600;
+}
+
+.footer_Rbottom_bottom {
+	color: #aaa;
+}
+
+.fm_select {
+	width: 180px;
+	height: 40px;
+	padding: 0 14px 0;
+	background-color: #f8f8f8;
+	-webkit-appearance: none; 
+    -moz-appearance: none;
+    color: #888;
+    border: 1px solid #ccc;
+    background: url(/resources/img/footer_more.png) no-repeat 94% 50%;
+}
+
+#popup {
+	position: fixed;
+	bottom: 50px;
+	right: 50px;
+	z-index: 1999;
+}
+
+#popup img {
+	width: 32px;
+}
+
 </style>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".messageBox").hide();
+	var count = 0;
+	$("#myAlert").click(function(){
+		
+		if(count%2==0){
+			
+			$.ajax({
+				type: "get",
+				url: "/message/view",
+				data: {
+				},
+				dataType: "html",
+				success: (res)=>{
+					console.log("AJAX 성공")
+					$("#message-result").html(res)
+				},
+				error: ()=>{
+					console.log("AJAX 실패")
+				}
+			})
+
+			$(".messageBox").show();
+		} else if(count%2==1){
+			$(".messageBox").hide();
+		}
+		count++;
+	})
+});
+</script>
+
 
 </head>
 
 <header class="hover">
-<!--
-	<div id="dropMenu" >
-		<ul>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href="/dghelper/healthtest">운동성향 테스트</a>
-			</li>
-			<li>
-				<a href="">2-1depth</a>
-			</li>
-			<li>
-				<a href="">상</a>
-			</li>
-			<li>
-				<a href="board/bfBoard">비포애프터</a>
-			</li>
-			
-		</ul>
-		
-		<ul>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href="/dghelper/healthguide">칼로리 사전</a>
-			</li>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href="board/verifyBoard">운동인증</a>
-			</li>
-			
-		</ul>
-		
-		<ul>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href="/dghelper/healthrecord">운동일기장h</a>
-			</li>
-			<li>
-				<a href=""></a>
-			</li>
-			<li>
-				<a href="">2-3depth</a>
-			</li>
-			<li>
-				<a href="board/dietBoard">식단 공유</a>
-			</li>
-		</ul>
-	
-		
-	</div>
--->
-
 
 	<div id="topMenu" class="">	
 		<h1 class="logo">
-			<a href="">
+			<a href="/main">
 <!-- 				<img src="/resources/img/logo_blue.png" alt="득근득근"> -->
 <!-- 				<img src="/resources/img/logo_green.png" alt="득근득근"> -->
 				<img src="/resources/img/logo_purple.png" alt="득근득근">
@@ -407,13 +524,11 @@ body {
 				<a href="/challenge/list">챌린지</a>
 			</li>
 			<li>
-				<a href="/chat/chatRoom">운동질문</a>
+				<c:if test="${empty userNo }"><a id="goLogin">멘토와 채팅</a></c:if> <!-- 비로그인 상황 -->
+				<c:if test="${not empty userNo }"><a href="/chat/intro">멘토와 채팅</a></c:if> <!-- 로그인 상황 -->
 			</li>
 			<li>
 				<a href="/dghelper/healthtest">운동도우미</a>
-			</li>
-			<li>
-				<a href="">출석체크</a>
 			</li>
 			<li>
 				<a href="/store/list">득근상점</a>
@@ -424,28 +539,62 @@ body {
 		</ul>
 		</div> <!-- menu -->
 	
-		
+	
+		<!-- 비로그인 상황일때 -->	
+		<c:if test="${empty userNo }">
 		<div id="right">
 			<ul>
 				<li id="login">
-					<img src="/resources/img/loginicon.png">
+<!-- 					<img src="/resources/img/loginicon.png"> -->
 					<a href="/login/login">
-						로그인
+						<span class="material-symbols-outlined lG">login</span>로그인
 					</a>
 				</li>
 				
 				<li id="join">
-					<img src="/resources/img/joinicon.png">
+<!-- 					<img src="/resources/img/joinicon.png"> -->
 					<a href="/login/join">
-					회원가입
+					<span class="material-symbols-outlined person">person_add</span>회원가입
 					</a>
 				</li>
 			</ul>
 		</div>
+		</c:if> <!-- 비로그인상황 끝 -->
+		
+		<!-- 로그인 상황일때 -->	
+		<c:if test="${not empty userNo }">
+		<div id="right">
+			<ul>
+				<li id="logout">
+<!-- 					<img src="/resources/img/loginicon.png"> -->
+					<a href="/mypage/logout">
+						<span class="material-symbols-outlined lO">logout</span>로그아웃
+					</a>
+				</li>
+				
+				<li id="mp">
+<!-- 					<img src="/resources/img/joinicon.png"> -->
+					<a href="/mypage/main">
+					<span class="material-symbols-outlined mP">perm_contact_calendar</span>마이페이지
+					</a>
+				</li>
+			</ul>
+			<div id="alram">
+			<button id="myAlert"><img src="/resources/img/bell.png"></button>
+				<div class="messageBox" style="display:none;">
+					<div id="message-result"></div>
+				</div>
+			</div>
+		</div>
+		</c:if> <!-- 비로그인상황 끝 -->
+		
 	</div>	<!-- topMenu -->
 
 	
 </header>
+
+<div id="popup" style="cursor:pointer;" onclick="window.scrollTo(0,0);">
+<img src="/resources/img/top.png"></div>
 
 
 

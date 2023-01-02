@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 import hyanghee.dao.face.DietBoardDao;
 import hyanghee.dto.DietBoard;
 import hyanghee.service.face.DietBoardService;
-import hyanghee.util.BoardPaging;
 import hyanghee.util.BoardSearch;
+import jucheol.dao.face.CommentDao;
+import jucheol.dao.face.FileuploadDao;
+import jucheol.dto.Comment;
+import jucheol.dto.Fileupload;
 import saebyeol.dto.Notice;
 import yerim.dto.Users;
 
@@ -20,40 +23,39 @@ public class DietBoardServiceImpl implements DietBoardService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	//게시글
 	@Autowired DietBoardDao dietBoardDao;
+	
+	//첨부 파일
+	@Autowired FileuploadDao fileuploadDao;
+	
+	//댓글
+	@Autowired CommentDao commentDao;
+	
+	
 
-	@Override
-	public BoardPaging getPaging(int curPage) {
-		//총 게시글 수 조회
-		int totalCount = dietBoardDao.selectCntAll();
-						
-		//페이징 계산
-		BoardPaging boardPaging = new BoardPaging(totalCount, curPage);
-				
-		return boardPaging;
-	}
-
-	@Override
-	public List<DietBoard> list(BoardPaging boardPaging) {
-		return dietBoardDao.selectList(boardPaging);
-	}
-
+	//게시글 등록
 	@Override
 	public void insertDietBoard(DietBoard dietBoard) {
 		dietBoardDao.insertDietBoard(dietBoard);
 	}
 
-	
+	//유저 정보 찾기
 	@Override
 	public Users getUserInfo(int userno) {
 		return dietBoardDao.selectUserInfo(userno);
 	}
 	
+	//게시글 상세보기
 	@Override
 	public DietBoard view(DietBoard viewBoard) {
+		
+		dietBoardDao.updateHit(viewBoard);
+		
 		return dietBoardDao.selectBoard(viewBoard);
 	}
 
+	//게시글 수정
 	@Override
 	public void update(DietBoard dietBoard) {
 		//게시글 처리
@@ -110,24 +112,58 @@ public class DietBoardServiceImpl implements DietBoardService {
 		
 	}
 
+	//게시글 삭제
 	@Override
 	public void delete(DietBoard dietNo) {
+		
+		//첨부파일
+		Fileupload fileUpload = new Fileupload();
+		fileUpload.setBoardNo(dietNo.getDietNo());
+		fileUpload.setCategoryNo(3);
+				
+		//댓글
+		Comment comment = new Comment();
+				
+		comment.setBoardNo(0);		
+		comment.setCategoryNo(0); 
+		commentDao.deleteComment(comment);	
+		
+		fileuploadDao.deleteFile(fileUpload);
+		
 		dietBoardDao.delete(dietNo);
 	}
 
+	//공지사항
 	@Override
-	public List<Notice> notice(BoardPaging boardPaging) {
-		return dietBoardDao.noticeList(boardPaging);
+	public List<Notice> notice(BoardSearch boardSearch) {
+		return dietBoardDao.notice(boardSearch);
 	}
 
+	//게시글 검색 / 목록
 	@Override
 	public List<DietBoard> getSearchPaging(BoardSearch boardSearch) {
 		return dietBoardDao.getSearchPaging(boardSearch);
 	}
 
+	//전체 게시글
 	@Override
 	public int getTotal(BoardSearch boardSearch) {
 		return dietBoardDao.getTotal(boardSearch);
+	}
+
+	//포인트 정보
+	@Override
+	public int getPoint(int userno) {
+		return dietBoardDao.getPoint(userno);
+	}
+	
+	//포인트 주기
+	@Override
+	public void updatePoint(int point) {
+		Users users = new Users();
+		
+		users.setUserNo(point);
+		dietBoardDao.updatePoint(users);
 	}
 	
 }

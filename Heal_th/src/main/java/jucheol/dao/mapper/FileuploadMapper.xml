@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바티스 3 Mapper DTD -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jucheol.dao.face.FileuploadDao">
+	<insert id="insertFile" parameterType="Fileupload">
+		INSERT INTO board_file ( file_no, file_ori, file_sto, user_no, board_no, category_no)
+		VALUES ( board_file_seq.nextval, #{fileOri }, #{fileSto }, #{userNo }, #{boardNo}, #{categoryNo} )
+	</insert>
+
+	<select id="getFileList" parameterType="Fileupload" resultType="Fileupload">
+		SELECT * from board_file
+		WHERE board_no = #{boardNo} AND category_no = #{categoryNo}
+	</select>
+	
+	<delete id="deleteFile" parameterType="Fileupload">
+		DELETE board_file
+		WHERE board_no = #{boardNo} AND category_no = #{categoryNo}
+	</delete>
+</mapper>

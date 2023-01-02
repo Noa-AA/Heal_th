@@ -1,5 +1,6 @@
 package hyunkyung.controller;
 
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,37 +20,43 @@ import hyunkyung.util.ChlPageMakerDTO;
 public class ChallengeController {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+
 	@Autowired
 	private ChallengeService challengeService;
-	
-	//챌린지 목록 페이지 접속(페이징 처리)
+
+	// 챌린지 목록 페이지 접속(페이징 처리)
 	@GetMapping("/list")
-		public void challengeListGET(Model model, ChlCriteria cri) {
+	public void challengeListGET(HttpSession session, Model model, ChlCriteria cri) {
 		logger.info("/challenge/list [GET]");
-		
-		model.addAttribute("list",challengeService.getListPaging(cri));
-		
+
+		model.addAttribute("list", challengeService.getListPaging(cri));
+
 		int total = challengeService.getTotal(cri);
-		
+
 		ChlPageMakerDTO pageMake = new ChlPageMakerDTO(cri, total);
 		model.addAttribute("pageMaker", pageMake);
+
 	}
-	
-	//챌린지 상세보기
+
+	// 챌린지 상세보기
 	@GetMapping("/view")
-	public void challengeGetPageGET(int challengeNo, Model model, ChlCriteria cri) {
+	public String challengeGetPageGET(HttpSession session, int challengeNo, Model model,
+			ChlCriteria cri) {
 		logger.info("/challenge/view [GET]");
+
 		model.addAttribute("pageInfo", challengeService.getPage(challengeNo));
-		
-		model.addAttribute("cri",cri);
+
+		model.addAttribute("cri", cri);
+		return "challenge/view";
+
 	}
-	
-	//관리자 로그인시 챌린지 삭제
+
+	// 관리자 로그인시 챌린지 삭제
 	@RequestMapping("/delete")
 	public String delete(Challenge challenge) {
 		challengeService.delete(challenge);
-		
+
 		return "redirect:/challenge/list";
 	}
+	
 }

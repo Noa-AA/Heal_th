@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 
 import hyunkyung.dao.face.ChallengeDao;
 import hyunkyung.dto.Challenge;
-import hyunkyung.dto.ChallengeFile;
 import hyunkyung.service.face.ChallengeService;
 import hyunkyung.util.ChlCriteria;
-import yerim.dto.Users;
 
 @Service
 public class ChallengeServiceImpl implements ChallengeService {
@@ -54,6 +52,10 @@ public class ChallengeServiceImpl implements ChallengeService {
 		
 		challengeDao.delete(challenge);
 	}
+
+	
+
+
 
 	
 }

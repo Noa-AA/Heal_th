@@ -7,24 +7,24 @@
   
 <mapper namespace="hyanghee.dao.face.DietBoardDao">
 
-<select id="selectCntAll" resultType="int" parameterType="BoardPaging">
+<select id="selectCntAll" resultType="int">
 		SELECT count(*) FROM dietboard
 	</select>
 	
-	<select id="selectList" resultType="DietBoard" parameterType="BoardPaging">
-		SELECT * FROM (
-			SELECT rownum rnum, B.* FROM (
-				SELECT
-					diet_no, d_title, user_no,
-					d_hit, d_thumbs, d_inst_date
-				FROM dietboard
-				ORDER BY diet_no DESC
-			) B
-		) DietBoard
-		WHERE rnum BETWEEN #{startNo } AND #{endNo }
-	</select>
+<!-- 	<select id="selectList" resultType="DietBoard" parameterType="BoardPaging"> -->
+<!-- 		SELECT * FROM ( -->
+<!-- 			SELECT rownum rnum, B.* FROM ( -->
+<!-- 				SELECT -->
+<!-- 					diet_no, d_title, user_no, -->
+<!-- 					d_hit, d_thumbs, d_inst_date -->
+<!-- 				FROM dietboard -->
+<!-- 				ORDER BY diet_no DESC -->
+<!-- 			) B -->
+<!-- 		) DietBoard -->
+<!-- 		WHERE rnum BETWEEN #{startNo } AND #{endNo } -->
+<!-- 	</select> -->
 	
-	<select id="noticeList" resultType="Notice" parameterType="BoardPaging">
+	<select id="notice" resultType="Notice" parameterType="BoardSearch">
 	<![CDATA[
 		SELECT * FROM (
 			SELECT * FROM notice ORDER BY notice_no DESC ) 
@@ -32,6 +32,11 @@
 		ORDER BY notice_no DESC
 	]]>
 	</select>
+	
+	<select id="updateHit" parameterType="DietBoard">
+ 		UPDATE dietboard SET d_hit = d_hit + 1 
+ 		WHERE diet_no = #{dietNo}
+ 	</select>
 	
 	<select id="selectUserInfo" resultType="Users" parameterType="int">
 		SELECT * FROM users
@@ -46,12 +51,9 @@
 	
 		INSERT INTO dietboard ( 
 			diet_no, d_inst_date, d_title, prod_classification, d_content
-			   , d_upt_date, d_delete_date
 			   , d_hit, d_thumbs, user_no, category_no )
 		
 		VALUES ( #{dietNo}, sysdate, #{dTitle}, #{prodClassification}, #{dContent}
-				   , to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
-				   , to_date('1991-11-05 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
 				   , 0, 0, #{userNo}, 3 )
 	</insert>
 	
@@ -59,7 +61,6 @@
 	<select id="selectBoard" resultType="DietBoard" parameterType="DietBoard">
 		SELECT
 			diet_no, d_inst_date, d_title, prod_classification, d_content
-			   , d_upt_date, d_delete_date
 			   , d_hit, d_thumbs, user_no, category_no 
 		FROM dietboard
 		WHERE diet_no = #{dietNo}
@@ -79,18 +80,18 @@
 		WHERE diet_no = #{dietNo}	
 	</delete>
 	
-	<select id="getList" resultType="DietBoard">
-		SELECT diet_no, d_title, user_no,
-				d_hit, d_thumbs, d_inst_date
-		FROM dietboard
+<!-- 	<select id="getList" resultType="DietBoard"> -->
+<!-- 		SELECT diet_no, d_title, user_no, -->
+<!-- 				d_hit, d_thumbs, d_inst_date -->
+<!-- 		FROM dietboard -->
 		
-		ORDER BY diet_no DESC
-	</select>
+<!-- 		ORDER BY diet_no DESC -->
+<!-- 	</select> -->
 	
-	<select id="getPage" resultType="DietBoard">
-        SELECT * FROM dietboard
-        WHERE diet_no = #{dietNo}
-    </select>
+<!-- 	<select id="getPage" resultType="DietBoard"> -->
+<!--         SELECT * FROM dietboard -->
+<!--         WHERE diet_no = #{dietNo} -->
+<!--     </select> -->
 	
 	<sql id="boardSearch">
         <trim prefix="AND (" suffix=")" prefixOverrides="OR">
@@ -118,28 +119,23 @@
     
     <select id="getSearchPaging" resultType="DietBoard">
     
-    <![CDATA[
-        
-        SELECT diet_no, d_title, user_no,
+        SELECT diet_no, d_title, user_no, d_content,
 					d_hit, d_thumbs, d_inst_date  FROM(
-        
-                SELECT 
-                rownum  as rn, diet_no, d_title, user_no,
+        	select rownum rn, d.* from (
+                SELECT
+               		diet_no, d_title, user_no, d_content,
 								d_hit, d_thumbs, d_inst_date
                   
-                FROM dietboard WHERE rownum <= #{pageNum} * #{amount} 
-    ]]>            
-                <if test="keyword != null">
-                	<include refid="boardSearch"></include> 
-                </if>
-    
-    <![CDATA[
-                    
-                )
-                    
-        WHERE rn > (#{pageNum} -1) * #{amount}
-    
-    ]]>
+                FROM dietboard
+                	 <if test="keyword != null">
+                		WHERE d_title LIKE  '%${keyword}%'
+                	</if>
+    		
+    			 order by diet_no desc
+               ) d
+            
+        ) 
+         WHERE rn between  ( #{curPage}-1) *10 and  #{curPage}*10
     
     </select>
 	
@@ -153,5 +149,19 @@
         </if>
         
     </select>
+
+
+<!-- 	포인트 -->
+	<select id="getPoint" resultType="int" parameterType="Users">
+		SELECT point FROM users
+		WHERE user_no = #{userNo }
+	</select>
+	
+	<update id="updatePoint" parameterType="Users">
+		UPDATE users SET point =
+			point + 50
+		WHERE user_no = #{userNo}
+	</update>
+	
 
 </mapper>

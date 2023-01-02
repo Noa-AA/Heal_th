@@ -17,15 +17,19 @@ $(document).ready(function() {
 	} else {
 		console.log( createRoomNo );
 		goChat( createRoomNo );
+		
+		$("#"+createRoomNo).attr("disabled", true);
+		$("#"+createRoomNo).css("background-color", "#f4f4f4");
 	}
 		
-	
 	/* 리스트를 누르면 해당리스트는 안눌리기 */
 	$(".roomBtn").click(function() {
 		
 		$(this).attr("disabled", true);
+		$(this).css("background-color", "#f4f4f4");
 		
 		$(".roomBtn").not(this).attr("disabled", false);
+		$(".roomBtn").not(this).css("background-color", "#ffffff");
 		
 		console.log(".roomBtnClick")
 	})
@@ -81,7 +85,7 @@ button, input {
 	display: flex;
 	justify-content: space-between;
 	width: 1200px;
-	height: 530px;
+	height: 700px;
 	margin: 0 auto;
 }
 
@@ -119,10 +123,11 @@ button, input {
 	border-bottom: 1px solid #eee;
 	line-height: 50px;
 	margin-top: -1px;
+	position: relative;
 }
 
 .roomBtn:hover {
-	background-color: #f0f0f0;
+	background-color: #f4f4f4;
 }
 
 /* 왼쪽 사진부분 */
@@ -135,6 +140,8 @@ button, input {
 }
 
 .left > img {
+	width: 44px;
+	height: 44px;
 	border-radius: 20px;
 }
 
@@ -152,9 +159,6 @@ button, input {
 	max-width: 210px;
 	min-width: 0;
 	height: 22px;
-	text-overflow: ellipsis; 
-	white-space: nowrap;
-	overflow: hidden;
 }
 
 /* 닉네임 */
@@ -168,15 +172,50 @@ button, input {
 
 /* 마지막 채팅 */
 .lastChat {
-	display: flex;
 	align-items: center;
 	font-size: 15px;
 	color: #666;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis; 
+	line-height: 1.5;
 }
+
+.timeView {
+	position: absolute;
+	right: 20px;
+	top: 15px;
+	font-size: 13px;
+	color: #aaa;
+}
+
+.newChat {
+	border: 1px solid red;
+}
+
+
+
 
 #result {
 	float: right;
 	width: 900px;
+}
+
+/* 비어있을때 채팅 부분 */
+#emptyChatArea {
+	width: 900px;
+	height: 700px;
+	border-top: 1px solid #eee;
+	border-right: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	background-color: #fcfcfc;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#emptyChatArea > img {
+	height: 50px;
 }
 
 
@@ -204,7 +243,7 @@ button, input {
 <body>
 <div id="subvisual">
 	<div id="subvisual-A">
-		<p id="subv-title">운동 질문하기</p>
+		<p id="subv-title">멘토와 채팅하기</p>
 		<p id="subv-content">챌린지, 운동을 하며 궁금했던 점을 멘토들에게 궁금한점을 물어보세요.</p>
 	</div>
 </div>
@@ -225,16 +264,19 @@ button, input {
 	
 	<div id="roomMenu">
 		<div id="myId">
-			${userId }
+			${userId }님 안녕하세요.
 		</div>
 		<c:forEach items="${roomList }" var="room">
-		
-<%-- 		<div class="room" onclick="goChat(${room.roomNo })"> --%>
 
-			<button class="roomBtn" onclick="goChat(${room.roomNo })" >
+			<button class="roomBtn" id="${room.roomNo }" onclick="goChat(${room.roomNo })" >
 				
 				<div class="left">
-					<img src="https://webimage.10x10.co.kr/eventIMG/2022/118925/etcitemban20220623180508.JPEG">
+					<c:if test="${not empty room.storedName }">
+						<img src="${pageContext.request.contextPath}/upload/${room.storedName}" class="profilePhoto">
+					</c:if>
+					<c:if test="${empty room.storedName }">
+						<img src="/resources/img/chat_default.png" class="profilePhoto">
+					</c:if>
 				</div>
 				
 				<div class="right">
@@ -244,8 +286,15 @@ button, input {
 						<c:forEach items="${lastChat }" var="lastChat">
 						<c:if test="${room.roomNo == lastChat.roomNo }">
 							${lastChat.chatContents }
+							
+							<!-- 채팅 온 시간 -->
+							<span class="timeView">
+								<fmt:parseDate value="${lastChat.chatTime }" var="date" pattern="yyyy.MM.dd HH:mm:ss"/>
+								<fmt:formatDate value="${date }" pattern="a hh:mm" />
+							</span>
 						</c:if>
-						</c:forEach> <!-- ${lastChat } -->
+						
+						</c:forEach> <!-- lastChat  -->
 					</p>
 				</div>
 				
@@ -257,9 +306,9 @@ button, input {
 	</div>
 	
 	<div id="result">
-		<c:if test="${empty roomList }">
-			<div>비어있다</div>
-		</c:if>
+		<div id="emptyChatArea">
+			<img src="/resources/img/chat/chatRoom_logo.png" alt="득근득근">
+		</div>
 	</div>
 </div>
 

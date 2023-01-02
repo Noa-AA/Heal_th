@@ -5,6 +5,8 @@
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+
 <!-- --------------------------스크립트 시작 -->
 <script type="text/javascript">
 $(document).ready(function() {
@@ -87,7 +89,7 @@ h2{
     margin-right: 40px;
     margin-bottom: 40px;
 /*     border: 1px solid #e2e2e2; */
-	box-shadow: 1px 1px 8px 0px rgb(0 0 0 / 14%);
+	box-shadow: 1px 1px 8px 0px rgb(0 0 0 / 10%);
     border-radius: 20px;
     padding: 20px;
 }
@@ -96,7 +98,7 @@ h2{
     margin-right: 0px;
 }   
 
-#photo {
+.profilePhoto {
 	width: 160px;
 	height: 160px;
 	background-color: #efefef;
@@ -106,25 +108,29 @@ h2{
 	font-size: 18px;
 }
 
-#rightCon {
+.profilePhoto > img {
+	width: 160px;
+}
+
+.rightCon {
 	width: 236px;
 	padding-left: 20px;
 	padding-top: 10px;
 }
 
-#rightTop {
+.rightTop {
 	height: 32px;
 }
 
 
-#name {
+.name {
 	font-size: 21px;
 	font-weight: 700;
 	color: #222;
 	float: left;
 }
 
-#ranking {
+.ranking {
 	height: 32px;
 	float: right;
 	font-size: 15px;
@@ -132,7 +138,7 @@ h2{
 	color: #222;
 }
 
-#job {
+.job {
 	color: #333;
 	font-size: 13px;
 	font-weight: 600;
@@ -143,30 +149,30 @@ h2{
 	width: fit-content;
 }
 
-#intro {
+.intro {
 	color: #666;
 	font-size: 15px;
 	height: 40px;
 }
 
-#rightBottom {
+.rightBottom {
 	height: 40px;
 	vertical-align: bottom;
 	display: flex;
 	justify-content: space-between;
 }
 
-#point {
+.point {
 	display: flex;
     align-items: center;
 }
 
-#point > img {
+.point > img {
 	width: 30px;
 	height: 30px;
 }
 
-#point > span {
+.point > span {
 	font-size: 16px;
 	font-weight: 600;
 	color: red;
@@ -174,7 +180,7 @@ h2{
 }
 
 
-#goChat {
+.goChat {
 	width:100px;
 	background-color: #7ca3f5;
 	border-radius: 20px;
@@ -230,6 +236,12 @@ h2{
 	font-size: 16px;
 	justify-content: center;
 	align-items: center;
+	color: #7ca3f5;
+} 
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+	background-color: #7ca3f5;
+    border-color: #7ca3f5;
 }
 
 .none:hover {
@@ -246,6 +258,61 @@ h2{
 }
 
 
+/* 검색부분 --------------------------------------------------------- */
+
+#searchForm {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+#searchText{
+	width: 360px;
+	height: 40px;
+	border: 2px solid #7ca3f5;
+	border-radius: 30px;
+	transition: 0.4s;
+	padding: 8px 12px;
+	outline: none;
+	font-size: 14px;
+}
+
+#searchText:hover{
+  box-shadow: 0px 0px .5px 1px #7ca3f5;
+  width: 380px;
+}
+
+#searchIcon{
+  margin-left: -40px;
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  color: #7ca3f5;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: none;
+}
+
+#type{
+	width: 100px;
+	height: 40px;
+	border: 2px solid #7ca3f5;
+	border-radius: 30px;
+	transition: 0.4s;
+	padding: 8px 12px;
+	outline: none;
+	margin-right: 4px;
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    background: url(/resources/img/admin/expand_more.png) no-repeat 86% 50%;
+    font-size: 13px;
+    font-weight: 500;
+    color: #666;
+}
+
+select::-ms-expand { display:none; } 
 
 </style>
 
@@ -253,7 +320,7 @@ h2{
 <!-- 1depth visual -->
 <div id="subvisual">
 	<div id="subvisual-A">
-		<p id="subv-title">운동 질문하기</p>
+		<p id="subv-title">멘토와 채팅하기</p>
 		<p id="subv-content">챌린지, 운동을 하며 궁금했던 점을 멘토들에게 궁금한점을 물어보세요.</p>
 	</div>
 </div>
@@ -275,24 +342,45 @@ h2{
 		<ul class="list">
 			<c:forEach items="${userList }" var="userList">
 			<li>
-				<div id="photo">${userList.userPhoto }</div>
+				<c:if test="${not empty userList.storedName }">
+					<img src="${pageContext.request.contextPath}/upload/${userList.storedName}" class="profilePhoto">
+				</c:if>
+				<c:if test="${empty userList.storedName }">
+					<img src="/resources/img/chat_default.png" class="profilePhoto">
+				</c:if>
 				
-				<!-- 오른쪽 텍스트 부분 -->
-				<div id="rightCon">
+				<!-- 오른쪽 텍스트 부분 --> 
+				<div class="rightCon">
 					<!-- 상담 이름, 등급 -->
-					<div id="rightTop">
-						<div id="name">${userList.userNick }</div>
-						<div id="ranking">${userList.rankingNo }등급</div>
-						
+					<div class="rightTop">
+						<div class="name">${userList.userNick }</div>
+<!-- 						<div class="ranking">햇병아리 등급</div> -->
+						<c:choose> 
+							<c:when test="${userList.rankingNo eq 1 }">
+							      <div class="ranking">햇병아리 등급</div>
+							</c:when>
+							<c:when test="${userList.rankingNo eq 2 }">
+							      <div class="ranking">튼튼이 등급</div>
+							</c:when>
+							<c:when test="${userList.rankingNo eq 3 }">
+							      <div class="ranking">트레이너 등급</div>
+							</c:when>
+							<c:when test="${userList.rankingNo eq 4 }">
+							      <div class="ranking">마스터 등급</div>
+							</c:when>
+							<c:otherwise>
+							        <div class="ranking">헬스신 등급</div>
+							</c:otherwise>
+						</c:choose> 
 					</div>
 					
-					<div id="job">${userList.userJob }</div>
-					<div id="intro">${userList.userIntro }</div>
+					<div class="job">${userList.userJob }</div>
+					<div class="intro">${userList.userIntro }</div>
 						
 					<!-- 하단 포인트 채팅 -->
-					<div id="rightBottom">
+					<div class="rightBottom">
 						
-						<div id="point">
+						<div class="point">
 							<img src="/resources/img/dollar.png">
 							
 							<!-- 채팅 요구 포인트 5등급:1000, 4등급:700 3등급:400 -->
@@ -311,7 +399,7 @@ h2{
 						</div> <!-- /point -->
 						
 <%-- 						<a href="/chat/createChatRoom?userNo=${userList.userNo }" id="goChat"> --%>
-						<button id="goChat" onclick="pointCompare(${userList.rankingNo }, ${userList.userNo })">
+						<button class="goChat" onclick="pointCompare(${userList.rankingNo }, ${userList.userNo })">
 							채팅하기
 						</button>
 <!-- 						</a> -->
@@ -377,10 +465,32 @@ h2{
 			<li><a href="/chat/intro?curPage=${paging.totalPage }" ><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
 		</c:if>
 		
+		<%-- 끝 페이지로 이동 (끝으로갈게 없을때) --%>
+		<c:if test="${paging.curPage eq paging.totalPage }">
+			<li><a class="none"><span class="material-symbols-outlined">keyboard_double_arrow_right</span></a></li>	
+		</c:if>
+		
 		</ul>
 	</div>
 	
+	
 </div>
+
+
+<!-- 검색 기능 -->
+	<div class="searchBack">
+		<form action="/chat/intro" method=post name="search" id="searchForm">
+
+			<select name="type" id="type">
+				<option value="userNick" <c:out value="${paging.type eq 'userNick'?'selected':'' }"/> >닉네임</option>
+				<option value="userJob"  <c:out value="${paging.type eq 'userJob'?'selected':'' }"/> >직업</option>
+			</select>
+			
+			<input id="searchText" type="text" name="keyword" value="${paging.keyword }" placeholder="search...">
+			<button type="submit" id="searchIcon" ><i class="fas fa-search"></i></button>
+
+		</form>
+	</div>
 
 
 

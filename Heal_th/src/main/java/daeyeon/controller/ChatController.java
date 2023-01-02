@@ -10,10 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import daeyeon.dto.Chat;
+import daeyeon.dto.ChatFile;
 import daeyeon.dto.RoomList;
 import daeyeon.service.face.ChatService;
 import daeyeon.util.ChatIntroPaging;
@@ -22,7 +26,7 @@ import yerim.dto.Users;
 @Controller
 @RequestMapping("/chat")
 public class ChatController {
-
+ 
 		//로그 객체
 		private final Logger logger = LoggerFactory.getLogger(this.getClass());
 		
@@ -30,7 +34,7 @@ public class ChatController {
 		 
 		
 		//1. 멘토 리스트
-		@RequestMapping("/intro")
+		@GetMapping("/intro")
 		public void mentorList(HttpSession session, Model model, Users myUserNo, String curPage) {
 			logger.info("/chat/intro");
 			
@@ -42,22 +46,59 @@ public class ChatController {
 			chatIntroPaging = chatService.getChatIntroPaging(curPage, myUserNo);
 			
 			//회원등급 3이상 회원 조회
-			List<Users> userList = chatService.userlist(myUserNo, chatIntroPaging);
+			List<Users> searchList = chatService.userlist(myUserNo, chatIntroPaging);
 				
 			// 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
 			List<RoomList> roomList = chatService.roomList(myUserNo);
 			model.addAttribute("roomList", roomList);
 			
-			logger.info("userList : {}", userList);
+			logger.info("searchList : {}", searchList);
 			logger.info("roomList : {}", roomList);
 			
+			//모델값 전달 - Model객체 이용
+			model.addAttribute("userList", searchList);
+			model.addAttribute("paging", chatIntroPaging);
+		}
+		
+		
+		//1. 검색한 멘토 리스트
+		@PostMapping("/intro")
+		public void searchMentorList(HttpSession session, Model model, Users myUserNo, String curPage, ChatIntroPaging chatIntroPaging) {
+			logger.info("/chat/intro");
+					
+			//자신을 제외하기위한 자신의 회원번호 파라미터
+			myUserNo.setUserNo((Integer)session.getAttribute("userNo"));
+			
+			
+			logger.info("chatIntroPaging : {}", chatIntroPaging);
+			
+			ChatIntroPaging searchTK = chatIntroPaging;
+			
+			chatIntroPaging = chatService.getSearchPaging(chatIntroPaging, curPage);
+			
+			chatIntroPaging.setUserNo((Integer)session.getAttribute("userNo"));
+			chatIntroPaging.setType(searchTK.getType());
+			chatIntroPaging.setKeyword(searchTK.getKeyword());
+					
+			//회원등급 3이상 회원 조회
+			List<Users> userList = chatService.userSearchlist(chatIntroPaging);
+						
+			// 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
+			List<RoomList> roomList = chatService.roomList(myUserNo);
+			model.addAttribute("roomList", roomList);
+					
+			logger.info("userList : {}", userList);
+			logger.info("roomList : {}", roomList);
+					
 			//모델값 전달 - Model객체 이용
 			model.addAttribute("userList", userList);
 			model.addAttribute("paging", chatIntroPaging);
 		}
 		
 		
-		//2. 포인트 비교 (채팅할때 필요한 포인트를 가지고 있어야 채팅을 할 수 있음)
+		
+		
+		//3. 포인트 비교 (채팅할때 필요한 포인트를 가지고 있어야 채팅을 할 수 있음)
 		@RequestMapping("/pointCompare")
 		@ResponseBody
 		public String pointCompare(HttpSession session, Users users, int rankingNo) { //여기서 파라미터로 받아오는 rankingNo는 클릭한 사람의 랭킹
@@ -99,10 +140,10 @@ public class ChatController {
 		}
 		
 		
-		//3. 포인트가 충족되면 포인트를 증가 및 차감하고 채팅방 만들기 (채팅방만들고 상대방과 자신이 리스트에 추가되기)
+		//4. 포인트가 충족되면 포인트를 증가 및 차감하고 채팅방 만들기 (채팅방만들고 상대방과 자신이 리스트에 추가되기)
 		@RequestMapping("/createChatRoom")
 		public String main(Model model, HttpSession session, int userNo, Users users) {
-			logger.info("/createChatRoom");
+			logger.info("●●●●● /createChatRoom ●●●●●");
 			
 			int yourUserNo = userNo; //상대방 유저넘버
 			int myUserNo = (Integer)session.getAttribute("userNo"); //자신의 유저넘버
@@ -130,10 +171,10 @@ public class ChatController {
 		}
 		
 		
-		//3. 채팅룸의 자신의 소속된 채팅방 조회하기
+		//5. 채팅룸의 자신의 소속된 채팅방 조회하기
 		@RequestMapping("/chatRoom")
 		public void chatRoom(HttpSession session, Users myUserNo, Model model, RoomList room) {
-			logger.info("/chatRoom");
+			logger.info("●●●●● /chatRoom ●●●●●");
 //			Chat chat = new Chat();
 			
 			myUserNo.setUserNo((Integer)session.getAttribute("userNo"));
@@ -142,7 +183,8 @@ public class ChatController {
 			
 			// 자신이 속한 채팅방번호와 상대방 닉네임 조회하기
 			List<RoomList> roomList = chatService.roomList(myUserNo);
-			
+			logger.info("roomList : {}", roomList);
+		
 			//roomList안에 값이 존재할때
 			List<Chat> lastChat = new ArrayList<>();
 			if (roomList != null) {
@@ -155,10 +197,8 @@ public class ChatController {
 			
 			model.addAttribute("createRoomNo", session.getAttribute("createRoomNo"));
 			
-			logger.info("roomList : {}", roomList);
-			logger.info("lastChat : {}", lastChat);
-			
 //			채팅방 번호 전달 - Model객체 이용
+			logger.info("roomList 은 뭘까 : {}", roomList);
 			model.addAttribute("roomList", roomList);
 
 //			마지막 채팅, 방번호 전달 - Model객체 이용
@@ -167,16 +207,20 @@ public class ChatController {
 		}
 		
 			
-		//4. 채팅 영역
+		//6. 채팅 영역
 		@RequestMapping("/chatArea")
 		public void goChat(Model model, HttpSession session, RoomList roomNo, Users users) {
-			logger.info("/chatArea");
+			logger.info("●●●●● /chatArea ●●●●●");
 			logger.info( "채팅방 번호 : {}", roomNo.getRoomNo() );
 			
 			roomNo.setUserNo((Integer)session.getAttribute("userNo"));
 			
 //			상대방 이름 가져오기
 			roomNo.setUserNick( chatService.getReciverNick(roomNo) );
+			
+			//상대방 사진 가져오기
+			roomNo.setStoredName( chatService.getReciverProfile(roomNo) );
+			logger.info( "구해온 상대방 사진 : {}", roomNo.getStoredName() );
 			
 			session.setAttribute("roomNo", roomNo.getRoomNo());
 			
@@ -192,9 +236,28 @@ public class ChatController {
 			model.addAttribute("senderNick", userNick);
 			model.addAttribute("roomNo", roomNo);
 			
+		}
+		 
+		
+		//7. 이미지, 파일 전송
+		@RequestMapping(value = "/fileup", produces = "application/text; charset=utf8")
+		@ResponseBody
+		public String fileUp( HttpSession session, ChatFile chatFile, MultipartFile file, Model model ) {
+			logger.info("●●●●● /fileup [POST] - file : {} ●●●●●", file);
 			
+			int userNo = (Integer)session.getAttribute("userNo");
+			int roomNo = (Integer)session.getAttribute("roomNo");
+			
+			chatFile = chatService.fileSave(file, userNo, roomNo);
+			
+			logger.info("chatFile - {}", chatFile);
+			
+			model.addAttribute("storedName", chatFile.getStoredName());
+			
+			return chatFile.getStoredName();
 		}
 		
+	
 		
 	
 }

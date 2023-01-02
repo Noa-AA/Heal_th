@@ -1,5 +1,8 @@
 package hyunkyung.service.face;
 
+
+import java.util.Map;
+
 import hyunkyung.dto.Challenge;
 import hyunkyung.dto.MmoneyUse;
 import hyunkyung.dto.ParticipantList;
@@ -27,7 +30,7 @@ public interface ChlJoinService {
 	 * @param userno
 	 * @return
 	 */
-//	public int getMmoney(int userno);
+	public MmoneyUse getMmoney(int userno);
 
 	
 	/**
@@ -37,10 +40,11 @@ public interface ChlJoinService {
 	 */
 	public int insert(ParticipantList pList);
 
+	public int selectParticipant(Map<String, Object> data);
+
 
 	
 	
-	public MmoneyUse getMmoney(int userno);
 
 	
 

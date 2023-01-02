@@ -1,9 +1,12 @@
 package yerim.service.face;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import changmin.dto.BodyInfo;
 import yerim.dto.PhotoFile;
 import yerim.dto.Users;
 
@@ -111,12 +114,40 @@ public interface MypageService {
 	 * @param session -한줄 소개
 	 * @return
 	 */
-	public Users getIntro(HttpSession session);
+	public Users getmypageInfo(HttpSession session);
 
 	/**
 	 * 탈퇴 처리하기
 	 * @param dropOut -회원 정보
 	 */
 	public void dropOtuExe(Users dropOut);
+
+	/**
+	 * 날짜 확인 후 update 또는 insert 하기
+	 * @param bodyInfo
+	 */
+	
+	public void setBodyInfo(BodyInfo bodyInfo);
+
+	/**
+	 * 그래프 작성을 위한 회원 자료 조회해오기
+	 * @param bodyInfo  -회원 번호
+	 * @param session 
+	 * @return -리스트
+	 */
+
+	public List<BodyInfo> getBodyList(BodyInfo bodyInfo, HttpSession session);
+
+	/**
+	 * 회원 키 조회해오기
+	 * @param session -회원번호 담은 session
+	 * @param bodyInfo 
+	 * @return
+	 */
+	public BodyInfo getHeigiht(HttpSession session, BodyInfo bodyInfo);
+
+
+
+
 
 }

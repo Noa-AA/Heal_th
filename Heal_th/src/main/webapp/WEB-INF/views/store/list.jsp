@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@include file="../layout/header.jsp" %>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 
@@ -31,19 +32,25 @@
 
 
 
+#cart{
+	background-color: transparent;
+	border: 2px solid #7ca3f5; 
+	color:#7ca3f5;
+	border-radius: 8px;
+	text-align: center;
+	flex:3;
+	width: 100px;
+	height: 32px;
+	font-size:12px;
+	margin-top:100px;
+}
+
+
 .title {
 	margin-bottom: 40px;
 }
 
-.store-list {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	/* 	margin: 50px 50px 90px 50px; */
-	margin: auto;
- 	gap: 50px 50px; 
-	width: 1200px;
-}
+
 
 .store {
 	position: relative;
@@ -92,9 +99,7 @@
 	height: 35px;
 }
 
-/* button{ */
-/* 	background-color: #c583d6; */
-/* } */
+
 
 .pageInfo_wrap {
 	text-align: center;
@@ -139,25 +144,34 @@ a:hover {
 	flex-wrap: wrap;
 	width : 372px;
 	height: 300px;
-	background-color: #eee;
+	background-color: #fff;
 	margin-right: 42px;
 	margin-bottom: 10px;
+	align-content: flex-end;
+    justify-content: center;
+	padding-bottom: 35px;
+	border:2px solid #7ca3f5;
+	border-radius: 10px !important;
 	
+	    box-shadow: 0px 13px 54px -3px lightgrey;
 }
 .store-ul:nth-child(3n) {
     margin-right: 0px;
 }   
 
 
-#cart{
-	width: 76px;
-	height: 23px;
-	font-size:10px;
-	
+
+
+.imgbox{
+	border: 1px solid #ccc;
+    width: 230px;
+    height: 230px;
+        display: block;
+    box-sizing: border-box;
+    margin: 10px;
 }
 
 
--------------------
 
 .text-center {
 	display: flex;
@@ -185,7 +199,6 @@ a:hover {
 	align-items: center;
 }
 
----------------
 
 
 .search_area {
@@ -209,111 +222,179 @@ a:hover {
 	height: 35px;
 }
 
+#twoDepth-list a {
+	padding: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #666666;
+	font-size: 18px;
+	font-weight: 400;
+	width: 50%;
+}
+
+#twoDepth-list a:nth-child(1){
+    color: #b571e9;
+    border-bottom: 2px solid #b571e9;
+    margin-top: 1px;
+    font-weight: 700;
+}
+
+.big-container {
+	text-align: center;
+}
+
+.imgbox18{
+	background-image:url(/resources/img/store/18.jpg);
+	width:200px; 
+	margin:5px;
+	padding: 5px;
+} 
+
+.imgbox17{
+	background-image:url(/resources/img/store/17.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox16{
+	background-image:url(/resources/img/store/16.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox15{
+	background-image:url(/resources/img/store/15.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox14{
+	background-image:url(/resources/img/store/14.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox13{
+	background-image:url(/resources/img/store/12.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox12{
+	background-image:url(/resources/img/store/13.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox11{
+	background-image:url(/resources/img/store/11.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox10{
+	background-image:url(/resources/img/store/10.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox9{
+	background-image:url(/resources/img/store/9.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox8{
+	background-image:url(/resources/img/store/8.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox7{
+	background-image:url(/resources/img/store/6.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox6{
+	background-image:url(/resources/img/store/7.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox5{
+	background-image:url(/resources/img/store/5.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox4{
+	background-image:url(/resources/img/store/4.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox3{
+	background-image:url(/resources/img/store/3.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox2{
+	background-image:url(/resources/img/store/2.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
+.imgbox1{
+	background-image:url(/resources/img/store/1.jpg);
+	width:200px;
+	margin:5px;
+	padding: 5px;
+} 
 </style>
 
-<%@include file="../layout/header.jsp" %>
 
 <body>
 <div id="subvisual">
     <div id="subvisual-A">
-        <p id="subv-title">득근상점</p>
+        <p id="subv-title">득근 상점</p>
 <!--         <p id="subv-content">나의 오늘 운동기록을 매일매일 기록해 봐요</p> -->
     </div>
 </div>
 <div id="twoDepth">
     <div id="twoDepth-list">
-        <a href="/map/find">운동 시설 추천</a>
-        <a href="/dghelper/healthrecord">운동 일기장</a>
-        <a href="/dghelper/healthtest">운동 성향 테스트</a>
-        <a href="/dghelper/healthguide">칼로리 사전</a>
-        <a href="/dghelper/dgmagotchi">득근이 키우기</a>
+        <a href="/store/list">상점목록</a>
+        <a href="/store/cartlist">장바구니목록</a>
+		<a href="/store/orderlist">구매목록</a>
     </div>
+</div><!-- subvisual 끝 -->
+
+
+<div class="big-container">
+	<h3>득근 상점</h3>
 </div>
-<!-- <div class="rewards-container"> -->
-<!-- 	<a href="/store/view"> -->
-<!-- 		<div class="thumbnail"> -->
-<!-- 			<div onclick=""> -->
-<!-- 			</div> -->
-<!-- 			<div class="like-ani-default like-ani-6359">♥</div> -->
-<!-- 			<div class="like-section like-section-6359" onclick="Landing.clickLike(6359)"> -->
-<!-- 			<span id="likeCount">50</span> -->
-<!-- 			" ♥ " -->
-<!-- 		</div> -->
-<!-- 		</div> -->
-<!-- 	<input type="hidden" name="csrftoken" id="csrftoken" value="957ef7cb-4e22-401c-afd8-31a5d3db2cfc" /> -->
-<!-- 	</a> -->
-
-
-<h1>득근 상점</h1>
-<hr>
-
-<!-- <table class="table table-striped table-hover table-condensed"> -->
-<!-- <thead> -->
-<!-- 	<tr> -->
-<!-- 		<th style="width: 10%;">상품번호</th> -->
-<!-- 		<th style="width: 45%;">상품명</th> -->
-<!-- 		<th style="width: 20%;">가격</th> -->
-<!-- 		<th style="width: 10%;">조회수</th> -->
-<!-- 		<th style="width: 15%;">등록일</th> -->
-<!-- 	</tr> -->
-<!-- </thead> -->
-<!-- <tbody> -->
-<%-- <c:forEach items="${list }" var="StoreDto"> --%>
-<!-- 	<tr> -->
-<%-- 		<td>${StoreDto.prodNo }</td> --%>
-<%-- 		<td><a href="/store/view?prodNo=${StoreDto.prodNo }">${StoreDto.pName }</a></td> --%>
-<%-- 		<td>${StoreDto.pPrice }</td> --%>
-<%-- 		<td>${StoreDto.pHit }</td> --%>
-<%-- 		<td><fmt:formatDate value="${StoreDto.pDate }" pattern="yy-MM-dd HH:mm:ss"/></td> --%>
-<!-- 	</tr> -->
-<%-- </c:forEach> --%>
-<!-- </tbody> -->
-<!-- </table> -->
-
-<!-- <div class="rewards-container"> -->
-<%-- <c:forEach items="${list }" var="StoreDto"> --%>
-<!-- <ul class="rewards-list"> -->
-<!-- 	<li> -->
-<%-- 		<a href="/store/view?prodNo=${StoreDto.prodNo }">${StoreDto.pName }</a> --%>
-
-<!-- <!-- 		<input type="hidden" name="csrftoken" id="csrftoken" value="" /> -->
-<!-- 		<img src=""> -->
-<!-- 		<div class="reward-info"> -->
-<!-- 			<div class="label-tag-box"></div> -->
-
-<!-- 			<div class="meta"> -->
-<!-- 				<span class="snowflake-cost">  -->
-<!-- 				<i class="fa fa-snowflake-o" -->
-<%-- 					aria-hidden="true"></i> 가격 : ${StoreDto.pPrice } 원 --%>
-<!--  				</span> <br> -->
-<%--  				<span class="quantity"> 조회수 : ${StoreDto.pHit } </span> --%>
-<!-- 			</div> -->
-<!-- 		</div> -->
-<!-- 	</li> -->
-<!-- </ul> -->
-<%-- </c:forEach> --%>
-<!--  </div><div class="rewards-container"> 끝 -->
 
 
 
 
 
-
-	<div class="store-list">
-
-<!-- 			<div class="store"> -->
-<!-- 				<div class="store-thumbnail"> -->
-<%-- 					<img src="/resources/img/chl_thumbnail/chl_thumb${storenge.storengeNo }.jpg" onerror="this.src='https://shared-comic.pstatic.net/thumb/webtoon/796152/thumbnail/thumbnail_IMAG10_a500c803-99ec-4bf8-92d1-b2a5c60c9789.jpg'"> --%>
-				</div>
 				<div class="store-content">
 					<c:forEach items="${list }" var="StoreDto">
 					<ul class="store-ul">
-						<li>
-							<a href="/store/view?prodNo=${StoreDto.prodNo }">${StoreDto.pName }</a>
-						</li><br>
-						<li>가격 : ${StoreDto.pPrice } 원</li><br>
-						<li>조회수 : ${StoreDto.pHit } </li><br>
-					<button id="cart">장바구니에 담기</button>
+					<div class="imgbox${StoreDto.prodNo }" >
+					</div>
+					<div class="main" style="padding-top:23px;">
+						<li class="li1" style="font-size:14px;">
+							<a href="/store/view?prodNo=${StoreDto.prodNo }" id="store${StoreDto.prodNo }">${StoreDto.pName }</a>
+						</li>
+						<li>${StoreDto.pPrice } 원</li>
+						<li>조회수 : ${StoreDto.pHit } </li>
+					<button id="cart" ><a href="/store/cart?prodNo=${StoreDto.prodNo }">장바구니에 담기</a></button>
+					</div><!-- main끝 -->
+
+
 					</ul>
 					</c:forEach>
 				</div>
@@ -321,15 +402,14 @@ a:hover {
 
 
 
-
-			<div class="search_wrap text-center">
-			<div class="search_area">
-				<select name="type" id="type">
-					<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':'' }"/>>제목</option>
-				</select> <input type="text" name="keyword" value="${pageMaker.cri.keyword }">
-				<button>검색</button>
-			</div>
-		</div>
+<!-- 			<div class="search_wrap text-center"> -->
+<!-- 			<div class="search_area"> -->
+<!-- 				<select name="type" id="type"> -->
+<%-- 					<option value="T" <c:out value="${pageMaker.cri.type eq 'T'?'selected':'' }"/>>제목</option> --%>
+<%-- 				</select> <input type="text" name="keyword" value="${pageMaker.cri.keyword }"> --%>
+<!-- 				<button>검색</button> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 		
 		
 		
@@ -346,18 +426,10 @@ a:hover {
 	
 		<%-- 첫 페이지로 이동 --%>
 		<c:if test="${paging.curPage ne 1 }">
-			<li><a href="/store/list"> &larr; 처음 </a></li>	
+			<li><a href="/store/list"> &lt;&lt;  </a></li>	
 		</c:if>
 		
-		<%-- 이전 페이징 리스트로 이동 --%>
-		<c:choose>
-		<c:when test="${paging.startPage ne 1 }">
-			<li><a href="/store/list?curPage=${paging.startPage - paging.pageCount }">&laquo;</a></li>
-		</c:when>
-		<c:when test="${paging.startPage eq 1 }">
-			<li class="disabled"><a>&laquo;</a></li>
-		</c:when>
-		</c:choose>
+
 		
 		<%-- 이전 페이지로 가기 --%>
 		<c:if test="${paging.curPage > 1 }">
@@ -383,19 +455,11 @@ a:hover {
 			<li><a href="/store/list?curPage=${paging.curPage + 1 }">&gt;</a></li>
 		</c:if>
 		
-		<%-- 다음 페이징 리스트로 이동 --%>
-		<c:choose>
-		<c:when test="${paging.endPage ne paging.totalPage }">
-			<li><a href="/store/list?curPage=${paging.startPage + paging.pageCount }">&raquo;</a></li>
-		</c:when>
-		<c:when test="${paging.endPage eq paging.totalPage }">
-			<li class="disabled"><a>&raquo;</a></li>
-		</c:when>
-		</c:choose>
+
 	
 		<%-- 끝 페이지로 이동 --%>
 		<c:if test="${paging.curPage ne paging.totalPage }">
-			<li><a href="/store/list?curPage=${paging.totalPage }">끝 &rarr;</a></li>	
+			<li><a href="/store/list?curPage=${paging.totalPage }"> &gt;&gt;</a></li>	
 		</c:if>
 		
 		</ul>
