@@ -58,14 +58,15 @@ a:focus, a:hover {
      background: #616161; 
      font-weight: bold; 
      color: white; 
+     font-size: 14px;
+     font-weight: bold;
      border: 0 none; 
      border-radius: 0px; 
      cursor: pointer; 
-     padding: 11px 5px; 
+     padding: 15px 5px; 
      margin: 10px 5px; 
      margin-left: 208px;
 }
-
 
 
 #btnUpdate {
@@ -73,7 +74,9 @@ a:focus, a:hover {
     background: #7ca3f5;
     font-weight: bold;
     color: white;
+    font-size: 14px;
     border: 0 none;
+    font-weight: bold;
     border-radius: 0px;
     cursor: pointer;
     padding: 10px 5px; 
@@ -380,10 +383,9 @@ $(document).ready(function(){
 	
 	
 	$("#btnUpdate").click(function() {
-		confirm("게시글을 수정하시겠습니까?");
-		$(this).parents("form").submit();
-		alert("게시글 수정이 완료됐습니다");
 		
+		$(this).parents("form").submit();
+// 		alert("게시글이 수정됐습니다");
 	})
 		
 
@@ -534,12 +536,9 @@ $(document).ready(function(){
 							<br><br><br><br>
 								<h2 style="text-align: center;">게시글을 수정하시겠습니까?</h2>
 							<br><br><br><br>
-                                    
-								<button id="btnCancle">
-									<a class="btn block" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/bfBoard" style="text-decoration: none; color: white; font-size: 14px; font-weight: bold; ">취소</a>
-								</button>
-                                    
-								<button type="submit" id="btnUpdate" name="btnUpdate" style="color: white; font-size: 14px;">수정</button>
+							
+							 <a class="btn block" id="btnCancle" onclick="if ( confirm('정말 취소하시겠습니까?') == false ) { return false; }" href="/board/bfBoard" >취소</a>
+									<button type="submit" id="btnUpdate" onclick="if ( alert('게시글이 수정됐습니다') == true ) { return true; }" >수정</button>
                                     
 							</div>
 						</fieldset>
