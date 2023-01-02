@@ -28,7 +28,6 @@ $(document).ready(function(){
 		$("#userEmail").attr("readonly","readonly")
 		$("#btn_emailchk").hide()
 		console.log("버튼 안됨")
-		$("#userEmail").css("background","#7ca3f5")
 	}else {
 		console.log("득근 아이디")	
 	}
