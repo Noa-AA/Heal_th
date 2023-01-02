@@ -85,7 +85,6 @@ public class CartController {
 		logger.info("list : {}",list);
 		
 		logger.info("카트에 담은 유저 번호: {}",userNo);
-		//---------------------------------------------------------------
 		
 		
 	}

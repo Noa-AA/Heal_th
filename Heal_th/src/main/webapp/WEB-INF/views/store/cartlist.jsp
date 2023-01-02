@@ -12,6 +12,10 @@ $(document).ready(function() {
 	$("#btnList").click(function() {
 		location.href = "/store/list"
 	})
+	$("#order").click(function(){
+		alert("구현중입니다")
+	})
+
 })
 
 
@@ -49,7 +53,7 @@ function delall(prodNo){
 	
 
 
-   .btn-list{
+   .split button{
 	   width: 125px;
 	   height: 45px;
 	   background-color: transparent;
@@ -60,31 +64,28 @@ function delall(prodNo){
    }
    
   
-   .btn-delAll{
+
    
-   
-   }
-   
-   .btn {
-    display: inline-block;
-    padding: 6px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.42857143;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    -ms-touch-action: manipulation;
-    touch-action: manipulation;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    background-image: none;
-    border-radius: 4px;
-}
+/*    .split button { */
+/*     display: inline-block; */
+/*     padding: 6px 12px; */
+/*     margin-bottom: 0; */
+/*     font-size: 14px; */
+/*     font-weight: 400; */
+/*     line-height: 1.42857143; */
+/*     text-align: center; */
+/*     white-space: nowrap; */
+/*     vertical-align: middle; */
+/*     -ms-touch-action: manipulation; */
+/*     touch-action: manipulation; */
+/*     cursor: pointer; */
+/*     -webkit-user-select: none; */
+/*     -moz-user-select: none; */
+/*     -ms-user-select: none; */
+/*     user-select: none; */
+/*     background-image: none; */
+/*     border-radius: 4px; */
+/* } */
 
    
    --------------------------
@@ -124,7 +125,6 @@ function delall(prodNo){
 	text-align: center;
 }
 
-----------------------
 
     #twoDepth-list a {
 	   padding: 10px;
@@ -144,8 +144,10 @@ function delall(prodNo){
 	   font-weight: 700;
    }
 
-
-
+	
+.big-container {
+	text-align: center;
+}
     
    </style>
 
@@ -165,8 +167,9 @@ function delall(prodNo){
     </div>
 </div><!-- subvisual 끝 -->
 
-
-<h1>장바구니 목록</h1>
+<div class="big-container">
+	<h3>장바구니 목록</h3>
+</div>
 
 
 
@@ -187,11 +190,12 @@ function delall(prodNo){
 	
 	
 		<div class="head" >
-			<div class="check cell" style="width:10%">카트번호</div>
+<!-- 			<div class="check cell" style="width:10%">카트번호</div> -->
+			<div class="check cell" style="width:10%">선택</div> 
 			<div class="pname cell" style="width:32%">상품명</div>
 			<div class="basketprice cell" style="width:32%">가격</div>
-		    <div class="num cell" style="width:10%">수량</div>
-            <div class="sum cell" style="width:10%">합계</div>
+<!-- 		    <div class="num cell" style="width:10%">수량</div> -->
+<!--             <div class="sum cell" style="width:10%">합계</div> -->
 			<div class="basketcmd cell" style="width:8%">삭제</div>
 		</div>
 		
@@ -200,21 +204,24 @@ function delall(prodNo){
 		
 		<c:forEach var="cartlist" items="${cartlist}">
 		<div class="data">
-			<div class="check cell">${cartlist.cartNo }</div> <!-- 카트번호 -->
+<%-- 			<div class="check cell">${cartlist.cartNo }</div> <!-- 카트번호 --> --%>
 <%-- 			<div class="pname cell"><a href="/store/cart?prodNo=${cartlist.prodNo }">${cartlist.pName }</a></div>  <!-- //상품명 --> --%>
+			<div class="cell">
+			<input type="checkbox">
+			</div>
 			<div class="pname cell">${cartlist.pName }</div>  <!-- //상품명 -->
 			 <div class="basketprice cell" >${cartlist.pPrice }원</div> <!-- //가격 -->
-			<div class="num cell">${cartlist.cartStock }개</div> <!--//수량 -->
+<%-- 			<div class="num cell">${cartlist.cartStock }개</div> <!--//수량 --> --%>
 
-			<div class="sum cell" > <!-- //합계 -->
-                        <script>
-                        	var x = ${cartlist.pPrice };
-                        	var y = ${cartlist.cartStock };
-                        	var z = x*y;
+<!-- 			<div class="sum cell" > //합계 -->
+<!--                         <script> -->
+<%--                          	var x = ${cartlist.pPrice }; --%>
+<%--                         	var y = ${cartlist.cartStock }; --%>
+<!--                          	var z = x*y; -->
                         	
-                        	document.write(z);
-                        </script>  원
-            </div>
+<!--                         	document.write(z); -->
+<!--                         </script>  원 -->
+<!--             </div> -->
 
 				<div class="delbtn cell"> <!--//삭제 -->
                         <button type="button" id="btnDelete" class="btn" onclick="del(${cartlist.prodNo })">삭제</button>
@@ -223,14 +230,15 @@ function delall(prodNo){
 			</c:forEach>
 		</div>
 	</div>
-<div>
+
 
 <br>
 
 
-                    <div class="split"></div>
-                        <button type="button" id="btnDeleteAll" class="btn-delall btn" onclick="delall()">장바구니 비우기</button>
-						<button type="button" id="btnList" class="btn-list btn" >목록으로 돌아가기</button>	
+                    <div class="split">
+                        <button type="button" id="btnDeleteAll" onclick="delall()">장바구니 비우기</button>
+						<button type="button" id="btnList" >목록으로 돌아가기</button>	
+						<button type="button" id="order" >구매하기</button>
         	        </div>
 
 
@@ -251,4 +259,5 @@ function delall(prodNo){
 
 
 </body>
+<%@include file="../layout/footer.jsp" %> 
 </html>

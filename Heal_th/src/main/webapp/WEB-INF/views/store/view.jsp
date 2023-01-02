@@ -69,8 +69,9 @@ function order(){
 
 
 .big2{
-	text-align: center;
+/* 	text-align: center; */
 	height: 5%;
+	margin-left: 20%;
 }
 
 
@@ -103,7 +104,7 @@ function order(){
 }
 
 .paymoney{
-	margin-right: 25%;
+	margin-right: 20%;
 }
 
 
@@ -147,6 +148,15 @@ function order(){
     border: none;
 }
 
+.addCart_btn{
+    background: #7ca3f5;
+}
+
+#addCart_btn>a{
+	color: #fff;	
+
+}
+
 .order_text{
     color: #7ca3f5;
 }
@@ -156,17 +166,27 @@ function order(){
 
 
 .repImgDiv{
-    height: 300px;
-    width:50%;
+    height: 330px;
+    width:60%;
     margin: 40px;
     margin-left: 200px;
     
 }
 
 .price2{
-	margin-right:14%;
+	margin-right:20%;
+	margin-top: -100px;
 }
 
+
+
+
+
+.itemId{
+	font-size:20px;
+	margin-left:20%;
+
+}
 </style>
 
 
@@ -176,13 +196,14 @@ function order(){
 
 
 <!-- <div layout:fragment="content" style="margin-left:25%;margin-right:25%"></div> -->
-	<div style="margin-left: 25%; margin-right: 25%" class="big boxArea">
+	<div style="margin-left: 25%; margin-right: 25%; margin-top:-225px;" class="big boxArea">
 	<%-- <input type="hidden" id="itemId" th:value="${item.id}"> --%>
 	<div class="d-flex">
 		<div class="repImgDiv" style="border:1px solid #ccc;height:300px">
-			<!-- 이미지 넣어야함 -->
+			<img alt="이미지가 안보여요" src="">
+			
 		</div>
-	<input type="hidden" id="itemId"><span>${viewStore.pName }</span>
+	<input type="hidden" id="itemId"><span class="itemId">${viewStore.pName }</span>
 
 
 	</div>
@@ -213,17 +234,18 @@ function order(){
 
 
 	<div class="text-right mgt-50 paymoney price2" style="font-size:20px;">
-		<h4 style="color:red;">결제금액</h4>
+		<h4 style="color:red;font-size:20px;">결제금액</h4>
 
 		<span id="totalPrice"  >${viewStore.pPrice}원</span>
 		
 	</div>
 	
 	<br>
+	<br>
 	
 	
-<div class="text-center">
-	<button type="button" class="addCart_btn btn"><a href="/store/cart?prodNo=${viewStore.prodNo }">장바구니에 담기</a></button>
+<div class="text-center" style="margin-top:60px;">
+	<button type="button" class=" btn addCart_btn" id="addCart_btn"><a href="/store/cart?prodNo=${viewStore.prodNo }">장바구니에 담기</a></button>
 	<button type="button" class="btn order_btn"  onclick="order()">
 		<span class="order_text">주문하기</span>
 	</button>

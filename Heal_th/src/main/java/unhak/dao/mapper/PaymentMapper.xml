@@ -15,4 +15,8 @@
 		WHERE user_no = #{userno }
 	</select>
  
+ 	<insert id="insertPayment" parameterType="PaymentDto">
+ 		INSERT INTO payment (pay_no, user_no, payment_date, payment_amount)
+ 		VALUES (payment_seq.nextval, #{userNo}, to_char(sysdate, 'yyyy"년 "mm"월 "dd"일" HH24:mi:ss'),#{paymentAmount} )
+ 	</insert>
  </mapper>

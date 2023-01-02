@@ -159,9 +159,10 @@ table {
 			</a>		
 		</h1>
 		<hr>
-		<p>사용자 관리</p> 
-		<p><a href="/notice/list">게시글 관리</p>
-		<p><a href="/product/list">상품 관리</p>
+		<p><a href="/admin/user">유저 관리</a></p>
+		<p><a href="/admin/payment">주문 목록</a></p>
+		<p><a href="/notice/list">게시글 관리</a></p>
+		<p><a href="/product/list">상품 관리</a></p>
 		<p>챌린지 관리</p>
 		<p><a href="/admin/withdraw">득근머니 관리</a></p>
 	</div>
