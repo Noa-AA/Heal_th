@@ -12,7 +12,31 @@
   
   ## 💁 Member (8)
 <div style="display:flex; flex-direction:row;">
- 
+   <div style="font-style:border;">
+     - 강창민
+   </div><br>
+  <div style="font-style:border;">
+     - 김새별
+   </div><br>
+  <div style="font-style:border;">
+     - 남예림
+   </div><br>
+  <div style="font-style:border;">
+     - Nam Hyanghee
+   </div><br>
+  <div style="font-style:border;">
+     - 오운학
+   </div><br>
+  <div style="font-style:border;">
+     - 이주철
+   </div><br>
+  <div style="font-style:border;">
+     - 조대연
+   </div><br>
+  <div style="font-style:border;">
+     - 차현경
+   </div>
+  
 </div>
 <br>
     
